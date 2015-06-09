@@ -1,0 +1,1262 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<MetasequoiaDocument>
+    <IncludedBy>amy_normal.mqo</IncludedBy>
+    <Plugin.BD1224DB.0000002C name="ボーン">
+        <XSFormat version="0.2" app="Metasequoia">
+            <XSConfig>
+                <XSFileConfig limitFPS="0" step="0" freeze="0" fastcalc="0" mode="0" />
+                <XSSceneConfig col_scn="8375551" />
+                <XSBoneConfig col_def="6737049" col_sel="16757299" col_hot="16776960" />
+            </XSConfig>
+            <XSAnimationContainer>
+                <XSAnimationSet name="motion_01" interpolate="21">
+                    <XSAnimation frame="0">
+                        <XSAnimationKey name="brest">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.056905 -0.045436 0.008586 0.997308</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_upper_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.707107 0.707106</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_front_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 -0.087156 -0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_foot_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.087157 0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_upper_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 -0.707107 0.707106</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_front_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 -0.087156 0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_foot_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.173648 -0.000000 0.984808</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail2">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.020194 -0.064251 -0.005695 0.997713</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail3">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.018126 -0.024681 0.002860 0.999527</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="neck">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="ear_right1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.453229 -0.103537 0.328023 0.822353</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="ear_left1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.470008 0.073001 -0.233089 0.848194</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="head">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_upper_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.436857 0.436568 -0.556889 0.555373</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_front_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.026273 -0.847184 -0.018119 0.530340</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_foot_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.347590 0.000001 0.937647</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_upper_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.421869 -0.419634 0.566699 0.569900</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_front_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.024689 0.850376 0.023923 0.525051</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_foot_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.019736 -0.382303 -0.019846 0.923613</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="30">
+                        <XSAnimationKey name="brest">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.056905 -0.045436 0.008586 0.997308</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_upper_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.707107 0.707106</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_front_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 -0.087156 -0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_foot_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.087157 0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_upper_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 -0.707107 0.707106</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_front_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 -0.087156 0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_foot_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.173648 -0.000000 0.984808</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.050055 -0.002211 0.000481 0.998744</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail2">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.171875 0.024859 0.007031 0.984780</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail3">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.276703 -0.060418 -0.004166 0.959045</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="neck">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="ear_right1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.453229 -0.103537 0.328023 0.822353</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="ear_left1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.470008 0.073001 -0.233089 0.848194</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="head">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.087156 0.000000 0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_upper_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.436857 0.436568 -0.556889 0.555373</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_front_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.026273 -0.847184 -0.018119 0.530340</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_foot_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.347590 0.000001 0.937647</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_upper_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.421869 -0.419634 0.566699 0.569900</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_front_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.024689 0.850376 0.023923 0.525051</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_foot_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.019736 -0.382303 -0.019846 0.923613</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="58">
+                        <XSAnimationKey name="brest">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.056905 -0.045436 0.008586 0.997308</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_upper_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.707107 0.707106</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_front_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 -0.087156 -0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_foot_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.087155 0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_upper_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 -0.707107 0.707106</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_front_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 -0.087156 0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_foot_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.173648 -0.000000 0.984808</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.003337 -0.000147 0.000032 0.999994</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail2">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.030335 -0.058367 -0.004851 0.997822</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail3">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.035442 -0.027122 0.002397 0.999001</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="neck">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="ear_right1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.453229 -0.103537 0.328023 0.822353</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="ear_left1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.470008 0.073000 -0.233090 0.848194</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="head">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.005812 0.000000 0.000000 0.999983</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_upper_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.436856 0.436568 -0.556889 0.555373</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_front_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.026273 -0.847184 -0.018119 0.530340</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_foot_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.347590 0.000001 0.937647</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_upper_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.421868 -0.419634 0.566700 0.569900</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_front_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.024689 0.850376 0.023923 0.525051</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_foot_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.019736 -0.382303 -0.019845 0.923613</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="60">
+                        <XSAnimationKey name="brest">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.056905 -0.045436 0.008586 0.997308</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_upper_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.707107 0.707106</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_front_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 -0.087156 -0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_foot_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.087155 0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_upper_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 -0.707107 0.707106</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_front_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 -0.087156 0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_foot_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.173649 -0.000000 0.984808</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail2">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.020194 -0.064251 -0.005695 0.997713</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail3">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.018126 -0.024681 0.002860 0.999527</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="neck">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="ear_right1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.453229 -0.103537 0.328023 0.822353</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="ear_left1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.470008 0.073000 -0.233090 0.848194</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="head">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_upper_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.436856 0.436568 -0.556889 0.555373</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_front_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.026273 -0.847184 -0.018119 0.530340</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_foot_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.347590 0.000001 0.937647</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_upper_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.421868 -0.419634 0.566700 0.569900</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_front_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.024689 0.850376 0.023923 0.525051</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_foot_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.019736 -0.382303 -0.019845 0.923613</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="75">
+                        <XSAnimationKey name="brest">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.056905 -0.045436 0.008586 0.997308</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_upper_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.122788 0.122788 0.696364 0.696364</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_front_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.011832 0.118154 0.038079 0.992194</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_foot_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.166964 -0.244994 0.014934 0.954923</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_upper_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.211951 0.217346 -0.681113 0.666275</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_front_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.006810 -0.320825 -0.087751 0.943040</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_foot_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.101516 0.086432 -0.011390 0.991007</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.002391 0.002591 0.000451 0.999994</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail2">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.163315 -0.018812 0.003009 0.986390</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail3">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.058822 0.222896 -0.002115 0.973064</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="neck">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="ear_right1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.455678 -0.089791 0.301828 0.832584</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="ear_left1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.481032 0.135264 -0.224706 0.836552</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="head">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_upper_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.402821 0.411761 -0.584915 0.571018</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_front_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.037990 -0.872281 -0.026986 0.486780</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_foot_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.102376 0.514799 -0.007927 0.851139</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_upper_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.477902 -0.464462 0.520463 0.533856</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_front_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.020975 0.348139 0.123474 0.929039</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_foot_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="90">
+                        <XSAnimationKey name="brest">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.056905 -0.045436 0.008586 0.997308</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_upper_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.707107 0.707106</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_front_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 -0.087156 -0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_foot_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.087155 0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_upper_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 -0.707107 0.707106</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_front_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 -0.087156 0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_foot_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.173649 -0.000000 0.984808</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail2">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.020194 -0.064251 -0.005695 0.997713</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail3">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.018126 -0.024681 0.002860 0.999527</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="neck">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="ear_right1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.453229 -0.103537 0.328023 0.822353</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="ear_left1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.470008 0.073000 -0.233090 0.848194</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="head">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_upper_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.436856 0.436568 -0.556889 0.555373</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_front_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.026273 -0.847184 -0.018119 0.530340</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_foot_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.347590 0.000001 0.937647</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_upper_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.421868 -0.419634 0.566700 0.569900</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_front_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.024689 0.850376 0.023923 0.525051</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_foot_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.019736 -0.382303 -0.019845 0.923613</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="105">
+                        <XSAnimationKey name="brest">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.056905 -0.045436 0.008586 0.997308</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_upper_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.018668 -0.018441 0.696685 0.716897</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_front_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.034102 -0.070049 -0.068527 0.994603</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_foot_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.087155 0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_upper_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.112769 -0.096854 -0.736583 0.659809</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_front_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.008984 -0.011776 0.146733 0.989065</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_foot_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.173649 -0.000000 0.984808</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.174911 0.173716 0.028685 0.968714</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail2">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.066630 -0.069891 -0.002149 0.995325</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail3">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.353878 -0.053347 0.053053 0.932261</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="neck">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="ear_right1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.470183 -0.087538 0.237115 0.845601</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="ear_left1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.486742 0.164663 -0.219357 0.829368</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="head">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_upper_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.408046 0.445916 -0.593012 0.531972</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_front_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.013946 -0.134573 0.104027 0.985329</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_foot_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.347590 0.000001 0.937647</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_upper_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.455392 -0.356303 0.569235 0.584497</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_front_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.038485 0.862265 -0.119535 0.490642</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_foot_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.108646 -0.393533 -0.023748 0.912559</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="120">
+                        <XSAnimationKey name="brest">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.056905 -0.045436 0.008586 0.997308</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_upper_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.707107 0.707106</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_front_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 -0.087156 -0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_foot_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.087155 0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_upper_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 -0.707107 0.707106</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_front_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 -0.087156 0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_foot_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.173649 -0.000000 0.984808</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail2">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.020194 -0.064251 -0.005695 0.997713</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail3">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.018126 -0.024681 0.002860 0.999527</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="neck">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="ear_right1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.453229 -0.103537 0.328023 0.822353</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="ear_left1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.470008 0.073000 -0.233090 0.848194</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="head">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_upper_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.436856 0.436568 -0.556889 0.555373</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_front_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.026273 -0.847184 -0.018119 0.530340</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_foot_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.347590 0.000001 0.937647</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_upper_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.421868 -0.419634 0.566700 0.569900</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_front_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.024689 0.850376 0.023923 0.525051</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_foot_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.019736 -0.382303 -0.019845 0.923613</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="122">
+                        <XSAnimationKey name="brest">
+                            <v>0.000000 8.000000 0.000000</v>
+                            <q>-0.003614 -0.043662 0.010893 0.998980</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_upper_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.707107 0.707106</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_front_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 -0.087156 -0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_foot_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.087155 0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_upper_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 -0.707107 0.707106</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_front_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 -0.087156 0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_foot_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.173649 -0.000000 0.984808</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail2">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail3">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="neck">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="ear_right1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.507332 -0.156259 0.112307 0.839991</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="ear_left1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.506128 0.186036 -0.118060 0.833839</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="head">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_upper_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.436856 0.436568 -0.556889 0.555373</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_front_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.026273 -0.847184 -0.018119 0.530340</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_foot_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.347590 0.000001 0.937647</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_upper_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.421868 -0.419634 0.566700 0.569900</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_front_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.024689 0.850376 0.023923 0.525051</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_foot_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.019736 -0.382303 -0.019845 0.923613</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="137">
+                        <XSAnimationKey name="brest">
+                            <v>0.000000 8.000000 0.000000</v>
+                            <q>-0.003614 -0.043662 0.010893 0.998980</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_upper_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.128193 0.159125 0.688970 0.695389</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_front_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.032769 0.128804 0.046722 0.990027</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_foot_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.056047 -0.352571 0.000479 0.934105</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_upper_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.241845 -0.241845 -0.664463 0.664463</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_front_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 -0.087156 0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_foot_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.019540 0.557760 0.001525 0.829771</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail2">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail3">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="neck">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="ear_right1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.514173 -0.205169 0.075378 0.829367</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="ear_left1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.514021 0.209930 -0.081200 0.827719</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="head">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_upper_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.436856 0.436568 -0.556889 0.555373</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_front_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_foot_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.347590 0.000001 0.937647</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_upper_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.421868 -0.419634 0.566700 0.569900</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_front_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_foot_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.019736 -0.382303 -0.019845 0.923613</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="152">
+                        <XSAnimationKey name="brest">
+                            <v>0.000000 8.000000 0.000000</v>
+                            <q>-0.003614 -0.043662 0.010893 0.998980</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_upper_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.707107 0.707106</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_front_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 -0.087156 -0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_foot_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.087155 0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_upper_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 -0.707107 0.707106</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_front_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 -0.087156 0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_foot_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.173649 -0.000000 0.984808</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail2">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail3">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="neck">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="ear_right1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.507332 -0.156259 0.112307 0.839991</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="ear_left1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.506128 0.186035 -0.118059 0.833839</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="head">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_upper_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.436856 0.436568 -0.556889 0.555373</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_front_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.026273 -0.847184 -0.018119 0.530340</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_foot_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.347590 0.000001 0.937647</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_upper_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.421868 -0.419634 0.566700 0.569900</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_front_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.024689 0.850376 0.023923 0.525051</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_foot_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.019736 -0.382303 -0.019845 0.923613</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="167">
+                        <XSAnimationKey name="brest">
+                            <v>0.000000 8.000000 0.000000</v>
+                            <q>-0.003614 -0.043662 0.010893 0.998980</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_upper_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.110203 -0.109339 0.622523 0.767050</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_front_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.019840 -0.276298 -0.182269 0.943421</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_foot_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.087155 0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_upper_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.227696 0.229620 -0.654064 0.683835</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_front_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.012533 0.195931 0.009016 0.980496</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_foot_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.173649 -0.000000 0.984808</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.004765 0.026250 0.004769 0.999633</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail2">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.111492 0.109131 0.002768 0.987751</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail3">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.205795 -0.109497 0.001436 0.972449</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="neck">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="ear_right1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.513122 -0.185582 0.082332 0.833958</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="ear_left1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.512017 0.210100 -0.090750 0.827926</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="head">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_upper_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.368482 0.384183 -0.609915 0.587051</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_front_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.077314 -0.937806 -0.055740 0.333818</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_foot_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.347590 0.000001 0.937647</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_upper_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.533072 -0.480106 0.454103 0.528321</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_front_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.049077 0.961356 0.067038 0.262474</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_foot_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.019736 -0.382303 -0.019845 0.923613</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="182">
+                        <XSAnimationKey name="brest">
+                            <v>0.000000 8.000000 0.000000</v>
+                            <q>-0.003614 -0.043662 0.010893 0.998980</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_upper_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.707107 0.707106</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_front_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 -0.087156 -0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_foot_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.087155 0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_upper_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 -0.707107 0.707106</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_front_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 -0.087156 0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_foot_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.173649 -0.000000 0.984808</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail2">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail3">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="neck">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="ear_right1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.507332 -0.156259 0.112307 0.839991</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="ear_left1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.506128 0.186036 -0.118060 0.833839</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="head">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_upper_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.436856 0.436568 -0.556889 0.555373</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_front_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.026273 -0.847184 -0.018119 0.530340</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_foot_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.347590 0.000001 0.937647</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_upper_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.421868 -0.419634 0.566700 0.569900</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_front_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.024689 0.850376 0.023923 0.525051</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_foot_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.019736 -0.382303 -0.019845 0.923613</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="184">
+                        <XSAnimationKey name="brest">
+                            <v>0.000000 8.000000 0.000000</v>
+                            <q>-0.003614 -0.043662 0.010893 0.998980</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_upper_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.707107 0.707106</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_front_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 -0.087156 -0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_foot_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.087155 0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_upper_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 -0.707107 0.707106</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_front_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 -0.087156 0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_foot_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.173649 -0.000000 0.984808</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail2">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail3">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="neck">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="ear_right1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.507332 -0.156259 0.112307 0.839991</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="ear_left1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.506128 0.186036 -0.118060 0.833839</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="head">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_upper_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.436856 0.436568 -0.556889 0.555373</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_front_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.026273 -0.847184 -0.018119 0.530340</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_foot_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.347590 0.000001 0.937647</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_upper_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.421868 -0.419634 0.566700 0.569900</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_front_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.024689 0.850376 0.023923 0.525051</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_foot_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.019736 -0.382303 -0.019845 0.923613</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="200">
+                        <XSAnimationKey name="brest">
+                            <v>0.000000 8.000000 0.000000</v>
+                            <q>-0.707063 -0.007837 0.007837 0.707063</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_upper_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.297499 -0.359529 0.554742 0.688836</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_front_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.033270 -0.225346 -0.036935 0.973010</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_foot_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.164643 -0.022171 0.003813 0.986097</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_upper_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.361575 0.446756 -0.511992 0.638386</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_front_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.007231 0.077417 -0.125079 0.989095</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="front_reg_foot_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.068064 0.529117 -0.014051 0.845698</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.221450 0.024596 0.018816 0.974680</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail2">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.105515 -0.031652 0.016039 0.993784</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tail3">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.058929 -0.102062 0.047950 0.991873</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="neck">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="ear_right1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.516845 -0.299514 0.031394 0.801359</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="ear_left1">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.514231 0.079319 -0.083025 0.849931</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="head">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.707107 0.000000 0.000000 0.707107</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_upper_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.436856 0.436568 -0.556889 0.555373</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_front_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.026273 -0.847184 -0.018119 0.530340</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_foot_l">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>-0.000000 0.347590 0.000001 0.937647</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_upper_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.421868 -0.419634 0.566700 0.569900</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_front_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.024689 0.850376 0.023923 0.525051</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="rear_reg_foot_r">
+                            <v>0.000000 0.000000 0.000000</v>
+                            <q>0.019736 -0.382303 -0.019845 0.923613</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                </XSAnimationSet>
+            </XSAnimationContainer>
+        </XSFormat>
+    </Plugin.BD1224DB.0000002C>
+</MetasequoiaDocument>

@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<MetasequoiaDocument>
+    <IncludedBy>wheelchair.mqo</IncludedBy>
+    <Plugin.BD1224DB.0000002C name="ボーン">
+        <XSFormat version="0.2" app="Metasequoia">
+            <XSConfig>
+                <XSFileConfig limitFPS="0" FPS="60.00" step="0" freeze="0" fastcalc="0" adjustwgt="0" debugdraw="0" mode="0" multitrack="0" />
+                <XSSceneConfig col_scn="8375551" />
+                <XSBoneConfig col_def="6737049" col_sel="16757299" col_hot="16776960" col_cst="15040434" col_phy="8362444" />
+            </XSConfig>
+            <XSAnimationContainer>
+                <XSAnimationSet name="wheelchair_stop" interpolate="21">
+                    <XSAnimation frame="0">
+                        <XSAnimationKey name="root" />
+                        <XSAnimationKey name="tire_R_" />
+                        <XSAnimationKey name="tire_L_" />
+                        <XSAnimationKey name="root_front" />
+                        <XSAnimationKey name="caster_R_" />
+                        <XSAnimationKey name="caster_L_" />
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="4">
+                        <XSAnimationKey name="root" />
+                        <XSAnimationKey name="tire_R_" />
+                        <XSAnimationKey name="tire_L_" />
+                        <XSAnimationKey name="root_front" />
+                        <XSAnimationKey name="caster_R_" />
+                        <XSAnimationKey name="caster_L_" />
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                </XSAnimationSet>
+                <XSAnimationSet name="wheelchair_move" interpolate="21">
+                    <XSAnimation frame="0">
+                        <XSAnimationKey name="root" />
+                        <XSAnimationKey name="tire_R_" />
+                        <XSAnimationKey name="tire_L_" />
+                        <XSAnimationKey name="root_front" />
+                        <XSAnimationKey name="caster_R_" />
+                        <XSAnimationKey name="caster_L_" />
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="9">
+                        <XSAnimationKey name="root" />
+                        <XSAnimationKey name="tire_R_">
+                            <q>0.406338 0.000000 0.000000 0.913723</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tire_L_">
+                            <q>0.406338 0.000000 0.000000 0.913723</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="root_front" />
+                        <XSAnimationKey name="caster_R_">
+                            <q>0.993884 0.000000 0.000000 0.110428</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="caster_L_">
+                            <q>0.993884 0.000000 0.000000 0.110428</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="10">
+                        <XSAnimationKey name="root" />
+                        <XSAnimationKey name="tire_R_">
+                            <q>0.447213 0.000000 0.000000 0.894428</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tire_L_">
+                            <q>0.447213 0.000000 0.000000 0.894428</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="root_front" />
+                        <XSAnimationKey name="caster_R_">
+                            <q>1.000000 0.000000 0.000000 -0.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="caster_L_">
+                            <q>1.000000 0.000000 0.000000 -0.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="20">
+                        <XSAnimationKey name="root" />
+                        <XSAnimationKey name="tire_R_">
+                            <q>0.850674 0.000000 0.000000 0.525694</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tire_L_">
+                            <q>0.850674 0.000000 0.000000 0.525694</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="root_front" />
+                        <XSAnimationKey name="caster_R_" />
+                        <XSAnimationKey name="caster_L_" />
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="29">
+                        <XSAnimationKey name="root" />
+                        <XSAnimationKey name="tire_R_">
+                            <q>0.998579 0.000000 0.000000 0.053295</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tire_L_">
+                            <v>0.000000 0.000000 0.966667</v>
+                            <q>0.998579 0.000000 0.000000 0.053294</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="root_front" />
+                        <XSAnimationKey name="caster_R_">
+                            <q>0.993884 0.000000 0.000000 0.110428</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="caster_L_">
+                            <q>0.993884 0.000000 0.000000 0.110428</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="30">
+                        <XSAnimationKey name="root" />
+                        <XSAnimationKey name="tire_R_">
+                            <q>1.000000 0.000000 0.000000 -0.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tire_L_">
+                            <v>0.000000 0.000000 1.000000</v>
+                            <q>-1.000000 0.000000 0.000000 -0.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="root_front" />
+                        <XSAnimationKey name="caster_R_">
+                            <q>1.000000 0.000000 0.000000 -0.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="caster_L_">
+                            <q>1.000000 0.000000 0.000000 -0.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="31">
+                        <XSAnimationKey name="root" />
+                        <XSAnimationKey name="tire_R_">
+                            <q>-0.999406 0.000000 0.000000 0.034463</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tire_L_">
+                            <q>-0.999406 0.000000 0.000000 0.034463</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="root_front" />
+                        <XSAnimationKey name="caster_R_">
+                            <q>-0.993884 0.000000 0.000000 0.110428</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="caster_L_">
+                            <q>-0.993884 0.000000 0.000000 0.110428</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="40">
+                        <XSAnimationKey name="root" />
+                        <XSAnimationKey name="tire_R_">
+                            <q>-0.899862 0.000000 0.000000 0.436174</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tire_L_">
+                            <q>-0.899862 0.000000 0.000000 0.436174</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="root_front" />
+                        <XSAnimationKey name="caster_R_" />
+                        <XSAnimationKey name="caster_L_" />
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="49">
+                        <XSAnimationKey name="root" />
+                        <XSAnimationKey name="tire_R_">
+                            <q>-0.575790 0.000000 0.000000 0.817597</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tire_L_">
+                            <q>-0.575790 0.000000 0.000000 0.817597</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="root_front" />
+                        <XSAnimationKey name="caster_R_">
+                            <q>0.993884 0.000000 0.000000 0.110428</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="caster_L_">
+                            <q>0.993884 0.000000 0.000000 0.110428</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="50">
+                        <XSAnimationKey name="root" />
+                        <XSAnimationKey name="tire_R_">
+                            <q>-0.530955 0.000000 0.000000 0.847400</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tire_L_">
+                            <q>-0.530955 0.000000 0.000000 0.847400</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="root_front" />
+                        <XSAnimationKey name="caster_R_">
+                            <q>1.000000 0.000000 0.000000 -0.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="caster_L_">
+                            <q>1.000000 0.000000 0.000000 -0.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="51">
+                        <XSAnimationKey name="root" />
+                        <XSAnimationKey name="tire_R_">
+                            <q>-0.484581 0.000000 0.000000 0.874747</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="tire_L_">
+                            <q>-0.484581 0.000000 0.000000 0.874747</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="root_front" />
+                        <XSAnimationKey name="caster_R_">
+                            <q>-0.993884 0.000000 0.000000 0.110428</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="caster_L_">
+                            <q>-0.993884 0.000000 0.000000 0.110428</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="60">
+                        <XSAnimationKey name="root" />
+                        <XSAnimationKey name="tire_R_" />
+                        <XSAnimationKey name="tire_L_" />
+                        <XSAnimationKey name="root_front" />
+                        <XSAnimationKey name="caster_R_" />
+                        <XSAnimationKey name="caster_L_" />
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                </XSAnimationSet>
+            </XSAnimationContainer>
+        </XSFormat>
+    </Plugin.BD1224DB.0000002C>
+</MetasequoiaDocument>
