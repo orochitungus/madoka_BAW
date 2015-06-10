@@ -1,0 +1,39 @@
+#madoka_behold_the_another_world/Library/
+#madoka_behold_the_another_world/Library/ScriptAssemblies
+#madoka_behold_the_another_world/Library/ShaderCache
+#madoka_behold_the_another_world/Library/metadata
+#madoka_behold_the_another_world/Library/CurrentLayout.dwit
+#madoka_behold_the_another_world/Library/assetDatabase3
+#madoka_behold_the_another_world/Library/expandedItems
+
+# ---------------[ Unity generated ]------------------ #
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+UnityGenerated/
+ProjectSettings/*.asset
+Library/*
+Temp/*
+
+# ----[ Visual Studio / MonoDevelop generated ]------- #
+  
+ExportedObj/
+*.svd
+*.userprefs
+*.csproj
+*.pidb
+*.suo
+*.sln
+*.user
+*.unityproj
+*.booproj
+  
+# -------------[ OS generated ]------------------------ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
