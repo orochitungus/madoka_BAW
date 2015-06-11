@@ -1,0 +1,626 @@
+fileFormatVersion: 2
+guid: 6e762a93d66d41d4cb163acfc9342222
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: body
+    100002: Mesh
+    100004: XSBone_000
+    100006: const_foot_R_
+    100008: const_reg_R_
+    100010: const_foot_L_
+    100012: const_reg_L_
+    100014: hand_L_
+    100016: arm_L_
+    100018: shoulder_L_
+    100020: momiagel_L_
+    100022: momiager_R_
+    100024: backhairl2_L_
+    100026: backhairl_L_
+    100028: backhairr2_R_
+    100030: backhairr_R_
+    100032: head
+    100034: kubi
+    100036: hand_R_
+    100038: arm_R_
+    100040: shoulder_R_
+    100042: brest
+    100044: foot_L_
+    100046: reg_L_
+    100048: thigh_L_
+    100050: foot_R_
+    100052: reg_R_
+    100054: thigh_R_
+    100056: kosi
+    100058: root
+    100060: handfinger022_L_
+    100062: handfinger023_L_
+    100064: handfinger011_L_
+    100066: handfinger012_L_
+    100068: handfinger051_R_
+    100070: handfinger052_R_
+    100072: handfinger053_R_
+    100074: handfinger041_R_
+    100076: handfinger042_R_
+    100078: handfinger043_R_
+    100080: handfinger051_L_
+    100082: handfinger052_L_
+    100084: handfinger053_L_
+    100086: handfinger041_L_
+    100088: handfinger042_L_
+    100090: handfinger043_L_
+    100092: handfinger031_L_
+    100094: handfinger032_L_
+    100096: handfinger033_L_
+    100098: handfinger021_L_
+    100100: //RootNode
+    100102: handfinger031_R_
+    100104: handfinger032_R_
+    100106: handfinger033_R_
+    100108: handfinger021_R_
+    100110: handfinger022_R_
+    100112: handfinger023_R_
+    100114: handfinger011_R_
+    100116: handfinger012_R_
+    400000: body
+    400002: Mesh
+    400004: XSBone_000
+    400006: const_foot_R_
+    400008: const_reg_R_
+    400010: const_foot_L_
+    400012: const_reg_L_
+    400014: hand_L_
+    400016: arm_L_
+    400018: shoulder_L_
+    400020: momiagel_L_
+    400022: momiager_R_
+    400024: backhairl2_L_
+    400026: backhairl_L_
+    400028: backhairr2_R_
+    400030: backhairr_R_
+    400032: head
+    400034: kubi
+    400036: hand_R_
+    400038: arm_R_
+    400040: shoulder_R_
+    400042: brest
+    400044: foot_L_
+    400046: reg_L_
+    400048: thigh_L_
+    400050: foot_R_
+    400052: reg_R_
+    400054: thigh_R_
+    400056: kosi
+    400058: root
+    400060: handfinger022_L_
+    400062: handfinger023_L_
+    400064: handfinger011_L_
+    400066: handfinger012_L_
+    400068: handfinger051_R_
+    400070: handfinger052_R_
+    400072: handfinger053_R_
+    400074: handfinger041_R_
+    400076: handfinger042_R_
+    400078: handfinger043_R_
+    400080: handfinger051_L_
+    400082: handfinger052_L_
+    400084: handfinger053_L_
+    400086: handfinger041_L_
+    400088: handfinger042_L_
+    400090: handfinger043_L_
+    400092: handfinger031_L_
+    400094: handfinger032_L_
+    400096: handfinger033_L_
+    400098: handfinger021_L_
+    400100: //RootNode
+    400102: handfinger031_R_
+    400104: handfinger032_R_
+    400106: handfinger033_R_
+    400108: handfinger021_R_
+    400110: handfinger022_R_
+    400112: handfinger023_R_
+    400114: handfinger011_R_
+    400116: handfinger012_R_
+    4300000: body
+    7400000: motion_01
+    7400002: idle
+    7400004: idle_move
+    7400006: walk
+    7400008: run
+    7400010: jump
+    7400012: fall
+    7400014: landing
+    7400016: air_dash
+    7400018: see_lu
+    7400020: see_lu_r
+    7400022: see_ru
+    7400024: see_ru_r
+    7400026: setup_bow
+    7400028: reload_arrow
+    7400030: set_bow
+    7400032: idle_homura_ribon_event
+    7400034: idle_move_homura_ribon_event
+    7400036: walk_homura_ribon_event
+    7400038: run_homura_ribon_event
+    7400040: jump_homura_ribon_event
+    7400042: fall_homura_ribon_event
+    7400044: landing_homura_ribon_event
+    7400046: air_dash_homura_ribon_event
+    7400048: see_lu_homura_ribon_event
+    7400050: see_lu_r_homura_ribon_event
+    7400052: see_ru_homura_ribon_event
+    7400054: see_ru_r_homura_ribon_event
+    7400056: setup_bow_homura_ribon_event
+    7400058: reload_arrow_homura_ribon_event
+    7400060: set_bow_homura_ribon_event
+    7400092: jumping_homura_ribon_event
+    11100000: //RootNode
+    13700000: body
+  materials:
+    importMaterials: 1
+    materialName: 2
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: idle_homura_ribon_event
+      takeName: 
+      firstFrame: 1
+      lastFrame: 28
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: idle_move_homura_ribon_event
+      takeName: 
+      firstFrame: 1
+      lastFrame: 28
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: walk_homura_ribon_event
+      takeName: 
+      firstFrame: 30
+      lastFrame: 60
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: run_homura_ribon_event
+      takeName: 
+      firstFrame: 61
+      lastFrame: 90
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: jump_homura_ribon_event
+      takeName: 
+      firstFrame: 92
+      lastFrame: 105
+      wrapMode: 8
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: fall_homura_ribon_event
+      takeName: 
+      firstFrame: 106
+      lastFrame: 107
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: landing_homura_ribon_event
+      takeName: 
+      firstFrame: 108
+      lastFrame: 122
+      wrapMode: 8
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: air_dash_homura_ribon_event
+      takeName: 
+      firstFrame: 123
+      lastFrame: 124
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: see_lu_homura_ribon_event
+      takeName: 
+      firstFrame: 125
+      lastFrame: 130
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: see_lu_r_homura_ribon_event
+      takeName: 
+      firstFrame: 131
+      lastFrame: 135
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: see_ru_homura_ribon_event
+      takeName: 
+      firstFrame: 136
+      lastFrame: 140
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: see_ru_r_homura_ribon_event
+      takeName: 
+      firstFrame: 141
+      lastFrame: 145
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: setup_bow_homura_ribon_event
+      takeName: 
+      firstFrame: 146
+      lastFrame: 155
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: reload_arrow_homura_ribon_event
+      takeName: 
+      firstFrame: 156
+      lastFrame: 170
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: set_bow_homura_ribon_event
+      takeName: 
+      firstFrame: 171
+      lastFrame: 185
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: jumping_homura_ribon_event
+      takeName: 
+      firstFrame: 103
+      lastFrame: 104
+      wrapMode: 1
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  userData: 
