@@ -1,0 +1,17 @@
+<kml>
+  <Document>
+    <Placemark>
+      <Model>
+        <altitudeMode>relativeToGround</altitudeMode>
+        <Location>
+          <latitude>35.4667954549</latitude>
+          <longitude>139.6270513675</longitude>
+          <altitude>0.0000000000</altitude>
+        </Location>
+        <Link>
+          <href>mesh.dae</href>
+        </Link>
+      </Model>
+    </Placemark>
+  </Document>
+</kml>

@@ -1,0 +1,47 @@
+
+// コリジョンにヒットしている間中よばれるメソッド.
+void OnCollisionStay(Collision other)
+{
+	switch(other.gameObject.tag) 
+	{
+		case "Item":
+		case "Enemy":
+		case "EnemyLair":
+		case "Boss":
+			{
+				CollisionResult result = new CollisionResult();
+
+				result.object0 = this.gameObject;
+				result.object1 = other.gameObject;
+				result.is_trigger = false;
+
+				this.control.collision_results.Add(result);
+			}
+			break;
+	}
+}
+
+void Update()
+{
+	foreach(var result in this.collision_results)
+	{
+
+		GameObject other = result.object1;
+
+		switch(other.tag) 
+		{
+			case "Enemy":
+			case "EnemyLair":
+			case "Boss":
+			{
+				// 敵と接触したら近接攻撃.
+			}
+			break;
+		}
+	}
+}
+
+void FixedUpdate()
+{
+	this.collision_results.Clear();
+}

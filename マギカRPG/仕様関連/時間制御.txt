@@ -1,0 +1,11 @@
+時間停止はどうやっている？
+PauseControllerで指定したボタンが有効になったときに働くようになっている
+
+規定入力をしたとき（射撃＋格闘＋ジャンプ）にPauseControllerを起動するしかない
+
+// Pause Controllerをカット
+// Findで拾わないと拾えない
+var pausecontroller = GameObject.Find("Pause Controller");
+// 一時停止されている全てのポーズを解除する
+var pausecontroller2 = pausecontroller.GetComponent<PauseControllerInputDetector>();
+pausecontroller2.pauseController.DeactivatePauseProtocol();

@@ -1,0 +1,30 @@
+可能ならこれに合わせていく
+
+★変数名
+
+ゲーム中複数のシチュエーションからアクセスされる
+static class savingparameterに配置
+
+ゲーム中の固有固定値
+static class MadokaDefineに配置
+
+配置する場合はすべてpublic constとし、すべて大文字（接頭辞はなし）
+
+
+privateメンバー
+m_xxxxx(小文字）
+
+publicメンバー
+
+通常
+m_Xxxxx(先頭のみ大文字）
+
+インスペクターで値を定義（音声・画像・fbxなど）
+m_Insp_Xxxxx(接頭辞Insp追加＋先頭のみ大文字）
+
+
+★関数名
+アクセサ
+Get（変数名(m除く））
+Set（変数名(m除く））
+

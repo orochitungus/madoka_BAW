@@ -1,0 +1,33 @@
+savingparameter
+
+// シナリオ進行度。docファイル×100の値が話数を表し、そのあとの数字で区切る
+story;                       
+
+// 現在のパーティー(護衛対象も一応パーティーに含める)
+nowparty[4];     
+// 各キャラのレベル
+nowlevel[(int)Character_Spec.CHARACTER_NAME.CHARACTER_ALL_NUM]; 
+// 各キャラのHP   
+nowHP[(int)Character_Spec.CHARACTER_NAME.CHARACTER_ALL_NUM];    
+
+// 攻撃力レベル
+StrLevel[(int)Character_Spec.CHARACTER_NAME.CHARACTER_ALL_NUM];
+// 防御力レベル
+DefLevel[(int)Character_Spec.CHARACTER_NAME.CHARACTER_ALL_NUM];
+// 残弾数レベル
+BulLevel[(int)Character_Spec.CHARACTER_NAME.CHARACTER_ALL_NUM];
+// ブースト量レベル
+BoostLevel[(int)Character_Spec.CHARACTER_NAME.CHARACTER_ALL_NUM];
+// 覚醒ゲージレベル
+ArousalLevel[(int)Character_Spec.CHARACTER_NAME.CHARACTER_ALL_NUM];
+
+// ソウルジェム汚染率
+GemContamination[(int)Character_Spec.CHARACTER_NAME.CHARACTER_ALL_NUM];
+
+// スキルポイント
+SkillPoint[(int)Character_Spec.CHARACTER_NAME.CHARACTER_ALL_NUM];
+
+// 現在の場所（Kanonと同じ形式、マップ.xlsxを参照）
+nowField;
+// 前にいた場所（Kanonと同じ形式、マップ.xlsxを参照）
+beforeField;

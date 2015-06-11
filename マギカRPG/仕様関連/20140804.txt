@@ -1,0 +1,12 @@
+レベルアップテーブルをつける→MadokaDefine→OK
+
+保存内容に現在のEXPとアクセサを追加→savingparameter→OK
+
+各キャラクターに取得経験値を追加する（味方は0）→Character_Spec→OK
+
+レベルアップ時のスキルポイント増加量を決める→MadokaDefine→OK
+
+キャラクターが死んだ時に、その時点でHP>0のキャラに経験値とスキルポイントが加算されるようにする
+→DamageHP→OK
+
+
