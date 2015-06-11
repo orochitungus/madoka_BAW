@@ -1,0 +1,78 @@
+A Programmer's Tour to Pause Controller
+
+Intro:
+一時停止コントローラAPIは、開発者個人のゲームオブジェクトを一時停止し、一時停止の解除へのアクセスを提供します。一時停止コントローラAPIでコードを開発しながら注意すべきいくつかの重要なメソッドとクラスがあります。
+
+Legend:
+オレンジ色のテキストは、メソッドと動詞を表しています。
+青色の文字は、クラス、インスタンスまたは変数を示します。
+
+Key Classes in the PauseController Suite:
+PauseController Suiteの主要なクラス：
+
+PauseController
+これが一時停止されるすべてのオブジェクトを管理MonoBehaviourです。
+
+PlayMakerFsmPause
+このMonoBehaviourはPauseControllerがGameObjectにアタッチされている必要があります
+
+IPauseProtocolInterpreter
+このインタフェースは、特定のコンポーネントの一時停止を管理。
+
+PausingListing
+このオブジェクトはIPauseProtocolInterpreterのリストが含まれており、一時休止ブロッキング、または解釈のコンポーネントを再開整理。このオブジェクトは、同様にそれを返さPauseControllerに依存しています。
+そのPauseControllerが削除されそうだとすれば。 PausingListingは動作しません。
+
+DummyPauseInterpreter
+このオブジェクトにはお返しに期待単純な値が存在しない限り、それのメソッドが呼び出されない、何も含まれていません。
+
+Key Methods for Pause Controller Suite:
+これは、現在のフィルタ設定で発生する一時停止を呼び出します。
+
+PauseController.DeactivatePauseProtocol
+これは、現在のフィルタ設定で発生する一時停止の解除を呼び出します。
+
+PauseController.GetFilteredPauseProtocols
+個々の拠点に一時停止できますPausingListingを返します。
+
+PauseController.GetPauseIntepreters
+返される<IPauseProtocolInterpreter>コンポーネントのコレクションに関連付けられている。
+
+PauseController.GetPauseIntepreter
+これは、コンポーネントのIPauseProtocolInterpreterを返します。
+
+PauseController.
+InsertPauseInterpreterSuccessful
+このメソッドはIPauseProtocolInterpreterから派生する新しいカスタムクラスを可能にします
+これに渡される特定のタイプを包むまたは"インタプリタ"に割り当てられる
+方法。有用な例は、あなたが一時停止し、ブロックされていないなるように特別なメンテナンスを必要とするクラスのカスタムポーズ・通訳を挿入することができるということです。 （これはPlayMakerFsmPauseがどのように動作するかです。）
+
+PauseController.
+InsertTypePauseBlockerSuccessful
+このメソッドは、この特定の型のDummyPauseInterpreterを割り当てます。したがって、それが一時停止されることはありません。
+
+PausingListing.Pause
+これは、それに割り当てられたすべてのコンポーネントを一時停止する。
+
+PausingListing.Unpause
+これは、すべての一時停止のコンポーネントを一時停止を解除します。
+
+PauseController.Reset
+このメソッドをオーバーライドする場合は、しかし、確かには、オーバーライド内のベースメソッドの呼び出し。
+
+Pausecontroller.Awake
+このメソッドをオーバーライドする場合は、しかし、確かには、オーバーライド内のベースメソッドの呼び出し。
+
+Pausing an Individual GameObject:
+個々のゲームオブジェクトを一時停止する"GetFilteredPauseProtocols（ゲームオブジェクト）"メソッドを呼び出し、PausingListingを取得し、Pauseメソッドを呼び出すことで簡単に実現することができます。
+
+Pausing Objects under the current filters settings:
+一時停止になるシーンでゲームオブジェクトをフィルタリングする2つの方法で簡単にダウンすることができます。
+
+trueにパブリック変数PauseController.activatePauseを設定すると、アクティブになります
+標準では、一時停止。それがtrueに設定された後、この変数をfalseに設定すると、現在一時停止してゲームオブジェクトを一時停止を解除します。
+
+
+もう一つのアプローチは、メソッドActivatePauseProtocol（）を呼び出すことです。また、これは意志
+標準の一時停止を有効にし、trueに変数activatePauseを設定します。ゲームオブジェクトを一時停止を解除するには、方法DeactivatePauseProtocol（）を呼び出すとこれもfalseにactivatePauseを設定します。
+

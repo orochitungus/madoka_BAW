@@ -1,0 +1,162 @@
+﻿case 0:
+keybreak = true;
+FullClear();
+IncrementXstory();
+break;
+case 1:
+keybreak = false;
+m_facetype = CharacterFace.SAYAKA_NORMAL;
+m_drawname_jp = "美樹さやか";
+m_drawname_en = "MIKI SAYAKA";
+m_serif[0] = "大丈夫、恭介？辛くない";
+m_serif[1] = "";
+m_serif[2] = "";
+m_serif[3] = "";
+break;
+case 2:
+keybreak = false;
+m_facetype = CharacterFace.KYOSUKE_NORMAL;
+m_drawname_jp = "上条恭介";
+m_drawname_en = "KAMIJOU KYOUSUKE";
+m_serif[0] = "ああ、ごめんねさやか、わざわざ来てもらって";
+m_serif[1] = "";
+m_serif[2] = "";
+m_serif[3] = "";
+break;
+case 3:
+keybreak = true;
+FullClear();
+IncrementXstory();
+break;
+case 4:
+keybreak = false;
+m_facetype = CharacterFace.SAYAKA_NORMAL;
+m_drawname_jp = "美樹さやか";
+m_drawname_en = "MIKI SAYAKA";
+m_serif[0] = "いいんだよ。あたしが好きでやっていることなんだし。それによう";
+m_serif[1] = "やく集中治療室から出られたんだから、久しぶりにゆっくり話もし";
+m_serif[2] = "たかったし";
+m_serif[3] = "";
+break;
+case 5:
+keybreak = false;
+m_facetype = CharacterFace.KYOSUKE_NORMAL;
+m_drawname_jp = "上条恭介";
+m_drawname_en = "KAMIJOU KYOUSUKE";
+m_serif[0] = "そうだね、いままでさやかには随分と心配をかけたね、ごめん";
+m_serif[1] = "";
+m_serif[2] = "";
+m_serif[3] = "";
+break;
+case 6:
+keybreak = true;
+FullClear();
+IncrementXstory();
+break;
+case 7:
+keybreak = false;
+m_facetype = CharacterFace.SAYAKA_NORMAL;
+m_drawname_jp = "美樹さやか";
+m_drawname_en = "MIKI SAYAKA";
+m_serif[0] = "気にしない気にしない・・・でも個室病棟なんて凄いじゃない";
+m_serif[1] = "";
+m_serif[2] = "";
+m_serif[3] = "";
+break;
+case 8:
+keybreak = true;
+FullClear();
+IncrementXstory();
+break;
+case 9:
+keybreak = false;
+m_facetype = CharacterFace.SAYAKA_NORMAL;
+m_drawname_jp = "美樹さやか";
+m_drawname_en = "MIKI SAYAKA";
+m_serif[0] = "よっ、このブルジョワめー";
+m_serif[1] = "";
+m_serif[2] = "";
+m_serif[3] = "";
+break;
+case 10:
+keybreak = false;
+m_facetype = CharacterFace.KYOSUKE_NORMAL;
+m_drawname_jp = "上条恭介";
+m_drawname_en = "KAMIJOU KYOUSUKE";
+m_serif[0] = "僕はどうでもよかったんだけど、父さんがゆっくり養生しろってう";
+m_serif[1] = "るさくてさ。さやかにもしっかり礼をしておけって言われたし";
+m_serif[2] = "";
+m_serif[3] = "";
+break;
+case 11:
+keybreak = true;
+FullClear();
+IncrementXstory();
+break;
+case 12:
+keybreak = false;
+m_facetype = CharacterFace.SAYAKA_NORMAL;
+m_drawname_jp = "美樹さやか";
+m_drawname_en = "MIKI SAYAKA";
+m_serif[0] = "え、あ、あははー。別にいいよそんな・・・";
+m_serif[1] = "";
+m_serif[2] = "";
+m_serif[3] = "";
+break;
+case 13:
+keybreak = true;
+FullClear();
+IncrementXstory();
+break;
+case 14:
+keybreak = true;
+FullClear();
+IncrementXstory();
+break;
+case 15:
+keybreak = false;
+m_facetype = CharacterFace.HOMURA_NORMAL;
+m_drawname_jp = "暁美ほむら";
+m_drawname_en = "AKEMI HOMURA";
+m_serif[0] = "今のは・・・美樹さやかと上条恭介！？・・・本当にここはあのと";
+m_serif[1] = "きの見滝原なの・・・？";
+m_serif[2] = "";
+m_serif[3] = "";
+break;
+case 16:
+keybreak = true;
+FullClear();
+IncrementXstory();
+break;
+case 17:
+keybreak = false;
+m_facetype = CharacterFace.HOMURA_NORMAL;
+m_drawname_jp = "暁美ほむら";
+m_drawname_en = "AKEMI HOMURA";
+m_serif[0] = "・・・もしこの世界が本当にあのときの見滝原なら・・・まどかに";
+m_serif[1] = "逢える・・・？";
+m_serif[2] = "";
+m_serif[3] = "";
+break;
+case 18:
+keybreak = true;
+FullClear();
+IncrementXstory();
+break;
+case 19:
+keybreak = false;
+m_facetype = 0;
+m_drawname_jp = "？？";
+m_drawname_en = "";
+m_serif[0] = "・・・・・・・・・・";
+m_serif[1] = "";
+m_serif[2] = "";
+m_serif[3] = "";
+break;
+case 20:
+keybreak = true;
+FullClear();
+IncrementXstory();
+break;
+break;
+break;
