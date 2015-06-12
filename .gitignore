@@ -23,7 +23,7 @@ ExportedObj/
 *.csproj
 *.pidb
 *.suo
-*.sln
+madoka_behold_the_another_world/*.sln
 *.user
 *.unityproj
 *.booproj
