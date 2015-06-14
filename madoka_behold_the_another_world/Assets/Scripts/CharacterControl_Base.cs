@@ -2726,8 +2726,7 @@ public partial class CharacterControl_Base : MonoBehaviour
                 
         // キャラを取得
         int character = (int)m_character_name;
-        // 覚醒入力を取得し、その場合覚醒開始画面へ移行してポーズ        
-        //if (m_hasArousalInput && !m_isArousal && savingparameter.GetGemContimination(character) < 100.0f - MadokaDefine.SOULBURST_CONF)
+        // 覚醒入力を取得し、その場合覚醒開始画面へ移行してポーズ  
         if (m_hasArousalInput && !m_isArousal && savingparameter.GetGemContimination(character) < 100.0f)
         {
             
@@ -2899,12 +2898,13 @@ public partial class CharacterControl_Base : MonoBehaviour
         ArousalInitialize();
         // カットインカメラ有効化
         // ArousalCameraを有効化
-        m_Insp_ArousalCamera.enabled = true;
+        m_Insp_ArousalCamera.enabled = true;        
         // ポーズ実行
         FreezePositionAll();
         // カットインイベントを有効化
         Arousal_Camera_Controller CutinEvent = m_Insp_ArousalCamera.GetComponentInChildren<Arousal_Camera_Controller>();
-        CutinEvent.m_UseArousalCamera = true;
+        // カットインイベント発動
+        CutinEvent.UseAsousalCutinCamera();
         // 時間停止
         this.m_TimeStopMaster = true;
         m_timstopmode = TimeStopMode.AROUSAL;   
@@ -3065,17 +3065,6 @@ public partial class CharacterControl_Base : MonoBehaviour
             // SavingParameterに現在のステートを渡す
             // 最大HP
             savingparameter.SetMaxHP(charactername, GetMaxHitpoint(m_level));
-            // HP
-            //savingparameter.SetNowHP(charactername, m_NowHitpoint);
-            // 最大覚醒ゲージ量
-            //savingparameter.SetMaxArousal(charactername, GetMaxArousal(m_ArousalLevel));
-            // 覚醒ゲージ量
-            //savingparameter.SetNowArousal(charactername, m_Arousal);
-            // SG汚染率
-            // レベル上げ条件をここで追加（ここに書くべきではないかもしれない）
-
-            // レベル
-            //savingparameter.SetNowLevel(charactername, m_level);
         }
     }
 
