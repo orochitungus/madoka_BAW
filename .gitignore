@@ -20,7 +20,7 @@ Temp/*
 ExportedObj/
 *.svd
 *.userprefs
-*.csproj
+madoka_behold_the_another_world/*.csproj
 *.pidb
 *.suo
 madoka_behold_the_another_world/*.sln
