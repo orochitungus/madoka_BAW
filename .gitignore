@@ -8,32 +8,54 @@
 
 # ---------------[ Unity generated ]------------------ #
 #[Ll]ibrary/
+#[Tt]emp/
+#[Oo]bj/
+#UnityGenerated/
+#ProjectSettings/*.asset
+#Library/*
+#Temp/*
+
+[Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
-UnityGenerated/
-ProjectSettings/*.asset
-Library/*
-Temp/*
+[Bb]uild/
 
 # ----[ Visual Studio / MonoDevelop generated ]------- #
   
-ExportedObj/
-*.svd
-*.userprefs
-madoka_behold_the_another_world/*.csproj
-*.pidb
-*.suo
-madoka_behold_the_another_world/*.sln
-*.user
+#ExportedObj/
+#*.svd
+#*.userprefs
+#madoka_behold_the_another_world/*.csproj
+#*.pidb
+#*.suo
+#madoka_behold_the_another_world/*.sln
+#*.user
+#*.unityproj
+#*.booproj
+*.csproj
 *.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
 *.booproj
-  
+
+
 # -------------[ OS generated ]------------------------ #
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-Icon?
-ehthumbs.db
-Thumbs.db
+#.DS_Store
+#.DS_Store?
+#._*
+#.Spotlight-V100
+#.Trashes
+#Icon?
+#ehthumbs.db
+#Thumbs.db
+
+
+# Unity3D generated meta files
+*.pidb.meta
+
+# Unity3D Generated File On Crash Reports
+sysinfo.txt
