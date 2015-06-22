@@ -1,0 +1,613 @@
+fileFormatVersion: 2
+guid: a47b2fdb207deb744a927576f2982394
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: arm_L_
+    100002: arm_R_
+    100004: backhairl2_L_
+    100006: backhairl_L_
+    100008: backhairr2_R_
+    100010: backhairr_R_
+    100012: body
+    100014: bow
+    100016: brest
+    100018: const_foot_L_
+    100020: const_foot_R_
+    100022: const_reg_L_
+    100024: const_reg_R_
+    100026: foot_L_
+    100028: foot_R_
+    100030: hand_L_
+    100032: hand_R_
+    100034: handfinger011_L_
+    100036: handfinger011_R_
+    100038: handfinger012_L_
+    100040: handfinger012_R_
+    100042: handfinger021_L_
+    100044: handfinger021_R_
+    100046: handfinger022_L_
+    100048: handfinger022_R_
+    100050: handfinger023_L_
+    100052: handfinger023_R_
+    100054: handfinger031_L_
+    100056: handfinger031_R_
+    100058: handfinger032_L_
+    100060: handfinger032_R_
+    100062: handfinger033_L_
+    100064: handfinger033_R_
+    100066: handfinger041_L_
+    100068: handfinger041_R_
+    100070: handfinger042_L_
+    100072: handfinger042_R_
+    100074: handfinger043_L_
+    100076: handfinger043_R_
+    100078: handfinger051_L_
+    100080: handfinger051_R_
+    100082: handfinger052_L_
+    100084: handfinger052_R_
+    100086: handfinger053_L_
+    100088: handfinger053_R_
+    100090: head
+    100092: homura_bow
+    100094: homura_bowstring
+    100096: //RootNode
+    100098: kosi
+    100100: kubi
+    100102: Mesh
+    100104: momiagel_L_
+    100106: momiager_R_
+    100108: reg_L_
+    100110: reg_R_
+    100112: root
+    100114: shoulder_L_
+    100116: shoulder_R_
+    100118: skirt5
+    100120: skirt6
+    100122: skirt7
+    100124: skirt8
+    100126: skirt_1
+    100128: skirt_2
+    100130: skirt_3
+    100132: skirt_4
+    100134: string_top
+    100136: string_under
+    100138: thigh_L_
+    100140: thigh_R_
+    100142: XSBone_000
+    100144: XSBone_001
+    100146: XSBone_002
+    400000: arm_L_
+    400002: arm_R_
+    400004: backhairl2_L_
+    400006: backhairl_L_
+    400008: backhairr2_R_
+    400010: backhairr_R_
+    400012: body
+    400014: bow
+    400016: brest
+    400018: const_foot_L_
+    400020: const_foot_R_
+    400022: const_reg_L_
+    400024: const_reg_R_
+    400026: foot_L_
+    400028: foot_R_
+    400030: hand_L_
+    400032: hand_R_
+    400034: handfinger011_L_
+    400036: handfinger011_R_
+    400038: handfinger012_L_
+    400040: handfinger012_R_
+    400042: handfinger021_L_
+    400044: handfinger021_R_
+    400046: handfinger022_L_
+    400048: handfinger022_R_
+    400050: handfinger023_L_
+    400052: handfinger023_R_
+    400054: handfinger031_L_
+    400056: handfinger031_R_
+    400058: handfinger032_L_
+    400060: handfinger032_R_
+    400062: handfinger033_L_
+    400064: handfinger033_R_
+    400066: handfinger041_L_
+    400068: handfinger041_R_
+    400070: handfinger042_L_
+    400072: handfinger042_R_
+    400074: handfinger043_L_
+    400076: handfinger043_R_
+    400078: handfinger051_L_
+    400080: handfinger051_R_
+    400082: handfinger052_L_
+    400084: handfinger052_R_
+    400086: handfinger053_L_
+    400088: handfinger053_R_
+    400090: head
+    400092: homura_bow
+    400094: homura_bowstring
+    400096: //RootNode
+    400098: kosi
+    400100: kubi
+    400102: Mesh
+    400104: momiagel_L_
+    400106: momiager_R_
+    400108: reg_L_
+    400110: reg_R_
+    400112: root
+    400114: shoulder_L_
+    400116: shoulder_R_
+    400118: skirt5
+    400120: skirt6
+    400122: skirt7
+    400124: skirt8
+    400126: skirt_1
+    400128: skirt_2
+    400130: skirt_3
+    400132: skirt_4
+    400134: string_top
+    400136: string_under
+    400138: thigh_L_
+    400140: thigh_R_
+    400142: XSBone_000
+    400144: XSBone_001
+    400146: XSBone_002
+    4300000: body
+    4300002: homura_bow
+    4300004: homura_bowstring
+    7400000: idle
+    7400002: 0
+    7400004: 0 //// XSBone_000
+    7400006: idle //// XSBone_000
+    7400008: 0 //// const_reg_L_
+    7400010: idle //// const_reg_L_
+    7400012: 0 //// const_reg_R_
+    7400014: idle //// const_reg_R_
+    7400016: 0 //// XSBone_001
+    7400018: idle //// XSBone_001
+    7400020: 0 //// kosi
+    7400022: idle //// kosi
+    7400024: 0 //// skirt7
+    7400026: idle //// skirt7
+    7400028: 0 //// skirt6
+    7400030: idle //// skirt6
+    7400032: 0 //// skirt8
+    7400034: idle //// skirt8
+    7400036: 0 //// skirt_3
+    7400038: idle //// skirt_3
+    7400040: 0 //// skirt_4
+    7400042: idle //// skirt_4
+    7400044: 0 //// skirt_2
+    7400046: idle //// skirt_2
+    7400048: 0 //// skirt5
+    7400050: idle //// skirt5
+    7400052: 0 //// skirt_1
+    7400054: idle //// skirt_1
+    7400056: 0 //// thigh_R_
+    7400058: idle //// thigh_R_
+    7400060: 0 //// reg_R_
+    7400062: idle //// reg_R_
+    7400064: 0 //// foot_R_
+    7400066: idle //// foot_R_
+    7400068: 0 //// thigh_L_
+    7400070: idle //// thigh_L_
+    7400072: 0 //// reg_L_
+    7400074: idle //// reg_L_
+    7400076: 0 //// foot_L_
+    7400078: idle //// foot_L_
+    7400080: 0 //// brest
+    7400082: idle //// brest
+    7400084: 0 //// shoulder_R_
+    7400086: idle //// shoulder_R_
+    7400088: 0 //// arm_R_
+    7400090: idle //// arm_R_
+    7400092: 0 //// hand_R_
+    7400094: idle //// hand_R_
+    7400096: 0 //// handfinger012_R_
+    7400098: idle //// handfinger012_R_
+    7400100: 0 //// handfinger011_R_
+    7400102: idle //// handfinger011_R_
+    7400104: 0 //// handfinger023_R_
+    7400106: idle //// handfinger023_R_
+    7400108: 0 //// handfinger022_R_
+    7400110: idle //// handfinger022_R_
+    7400112: 0 //// handfinger021_R_
+    7400114: idle //// handfinger021_R_
+    7400116: 0 //// handfinger033_R_
+    7400118: idle //// handfinger033_R_
+    7400120: 0 //// handfinger032_R_
+    7400122: idle //// handfinger032_R_
+    7400124: 0 //// handfinger031_R_
+    7400126: idle //// handfinger031_R_
+    7400128: 0 //// handfinger043_R_
+    7400130: idle //// handfinger043_R_
+    7400132: 0 //// handfinger042_R_
+    7400134: idle //// handfinger042_R_
+    7400136: 0 //// handfinger041_R_
+    7400138: idle //// handfinger041_R_
+    7400140: 0 //// handfinger053_R_
+    7400142: idle //// handfinger053_R_
+    7400144: 0 //// handfinger052_R_
+    7400146: idle //// handfinger052_R_
+    7400148: 0 //// handfinger051_R_
+    7400150: idle //// handfinger051_R_
+    7400152: 0 //// kubi
+    7400154: idle //// kubi
+    7400156: 0 //// head
+    7400158: idle //// head
+    7400160: 0 //// backhairr_R_
+    7400162: idle //// backhairr_R_
+    7400164: 0 //// backhairr2_R_
+    7400166: idle //// backhairr2_R_
+    7400168: 0 //// backhairl_L_
+    7400170: idle //// backhairl_L_
+    7400172: 0 //// backhairl2_L_
+    7400174: idle //// backhairl2_L_
+    7400176: 0 //// momiager_R_
+    7400178: idle //// momiager_R_
+    7400180: 0 //// momiagel_L_
+    7400182: idle //// momiagel_L_
+    7400184: 0 //// shoulder_L_
+    7400186: idle //// shoulder_L_
+    7400188: 0 //// arm_L_
+    7400190: idle //// arm_L_
+    7400192: 0 //// hand_L_
+    7400194: idle //// hand_L_
+    7400196: 0 //// root
+    7400198: idle //// root
+    7400200: 0 //// bow
+    7400202: idle //// bow
+    7400204: 0 //// string_top
+    7400206: idle //// string_top
+    7400208: 0 //// XSBone_002
+    7400210: idle //// XSBone_002
+    7400212: 0 //// string_under
+    7400214: idle //// string_under
+    7400216: 0 //// handfinger012_L_
+    7400218: idle //// handfinger012_L_
+    7400220: 0 //// handfinger011_L_
+    7400222: idle //// handfinger011_L_
+    7400224: 0 //// handfinger023_L_
+    7400226: idle //// handfinger023_L_
+    7400228: 0 //// handfinger022_L_
+    7400230: idle //// handfinger022_L_
+    7400232: 0 //// handfinger021_L_
+    7400234: idle //// handfinger021_L_
+    7400236: 0 //// handfinger033_L_
+    7400238: idle //// handfinger033_L_
+    7400240: 0 //// handfinger032_L_
+    7400242: idle //// handfinger032_L_
+    7400244: 0 //// handfinger031_L_
+    7400246: idle //// handfinger031_L_
+    7400248: 0 //// handfinger043_L_
+    7400250: idle //// handfinger043_L_
+    7400252: 0 //// handfinger042_L_
+    7400254: idle //// handfinger042_L_
+    7400256: 0 //// handfinger041_L_
+    7400258: idle //// handfinger041_L_
+    7400260: 0 //// handfinger053_L_
+    7400262: idle //// handfinger053_L_
+    7400264: 0 //// handfinger052_L_
+    7400266: idle //// handfinger052_L_
+    7400268: 0 //// handfinger051_L_
+    7400270: idle //// handfinger051_L_
+    7400272: 0 //// const_foot_L_
+    7400274: idle //// const_foot_L_
+    7400276: 0 //// const_foot_R_
+    7400278: idle //// const_foot_R_
+    7400280: leftstep_homura_battle_ribon
+    7400282: leftstep_back_homura_battle_ribon
+    7400284: rightstep_homura_battle_ribon
+    7400286: rightstep_back_homura_battle_ribon
+    7400288: shot_homura_battle_ribon_upper2
+    9500000: //RootNode
+    11100000: //RootNode
+    11100002: arm_L_
+    11100004: arm_R_
+    11100006: backhairl2_L_
+    11100008: backhairl_L_
+    11100010: backhairr2_R_
+    11100012: backhairr_R_
+    11100014: body
+    11100016: bow
+    11100018: brest
+    11100020: const_foot_L_
+    11100022: const_foot_R_
+    11100024: const_reg_L_
+    11100026: const_reg_R_
+    11100028: foot_L_
+    11100030: foot_R_
+    11100032: hand_L_
+    11100034: hand_R_
+    11100036: handfinger011_L_
+    11100038: handfinger011_R_
+    11100040: handfinger012_L_
+    11100042: handfinger012_R_
+    11100044: handfinger021_L_
+    11100046: handfinger021_R_
+    11100048: handfinger022_L_
+    11100050: handfinger022_R_
+    11100052: handfinger023_L_
+    11100054: handfinger023_R_
+    11100056: handfinger031_L_
+    11100058: handfinger031_R_
+    11100060: handfinger032_L_
+    11100062: handfinger032_R_
+    11100064: handfinger033_L_
+    11100066: handfinger033_R_
+    11100068: handfinger041_L_
+    11100070: handfinger041_R_
+    11100072: handfinger042_L_
+    11100074: handfinger042_R_
+    11100076: handfinger043_L_
+    11100078: handfinger043_R_
+    11100080: handfinger051_L_
+    11100082: handfinger051_R_
+    11100084: handfinger052_L_
+    11100086: handfinger052_R_
+    11100088: handfinger053_L_
+    11100090: handfinger053_R_
+    11100092: head
+    11100094: homura_bow
+    11100096: homura_bowstring
+    11100098: kosi
+    11100100: kubi
+    11100102: Mesh
+    11100104: momiagel_L_
+    11100106: momiager_R_
+    11100108: reg_L_
+    11100110: reg_R_
+    11100112: root
+    11100114: shoulder_L_
+    11100116: shoulder_R_
+    11100118: skirt5
+    11100120: skirt6
+    11100122: skirt7
+    11100124: skirt8
+    11100126: skirt_1
+    11100128: skirt_2
+    11100130: skirt_3
+    11100132: skirt_4
+    11100134: string_top
+    11100136: string_under
+    11100138: thigh_L_
+    11100140: thigh_R_
+    11100142: XSBone_000
+    11100144: XSBone_001
+    11100146: XSBone_002
+    13700000: body
+    13700002: homura_bow
+    13700004: homura_bowstring
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: 0
+      takeName: 
+      firstFrame: 0
+      lastFrame: 720
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: idle
+      takeName: 
+      firstFrame: 0
+      lastFrame: 29
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: leftstep_homura_battle_ribon
+      takeName: 
+      firstFrame: 225
+      lastFrame: 235
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: leftstep_back_homura_battle_ribon
+      takeName: 
+      firstFrame: 235
+      lastFrame: 245
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: rightstep_homura_battle_ribon
+      takeName: 
+      firstFrame: 245
+      lastFrame: 255
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: rightstep_back_homura_battle_ribon
+      takeName: 
+      firstFrame: 255
+      lastFrame: 265
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: shot_homura_battle_ribon_upper2
+      takeName: 
+      firstFrame: 320
+      lastFrame: 345
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  userData: 

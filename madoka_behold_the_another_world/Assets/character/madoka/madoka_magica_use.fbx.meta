@@ -1,0 +1,387 @@
+fileFormatVersion: 2
+guid: 86b034a18da7e3944abaa8e03ce9a2f3
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: body
+    100002: Mesh
+    100004: XSBone_000
+    100006: const_foot_R_
+    100008: const_reg_R_
+    100010: const_foot_L_
+    100012: const_reg_L_
+    100014: hand_L_
+    100016: arm_L_
+    100018: shoulder_L_
+    100020: taill_L_
+    100022: tailr_R_
+    100024: head
+    100026: kubi
+    100028: hand_R_
+    100030: arm_R_
+    100032: shoulder_R_
+    100034: brest
+    100036: foot_L_
+    100038: reg_L_
+    100040: thigh_L_
+    100042: foot_R_
+    100044: reg_R_
+    100046: thigh_R_
+    100048: kosi
+    100050: root
+    100052: //RootNode
+    100054: handfinger051_L_
+    100056: handfinger052_L_
+    100058: handfinger053_L_
+    100060: handfinger041_L_
+    100062: handfinger042_L_
+    100064: handfinger043_L_
+    100066: handfinger031_L_
+    100068: handfinger032_L_
+    100070: handfinger033_L_
+    100072: handfinger021_L_
+    100074: handfinger022_L_
+    100076: handfinger023_L_
+    100078: handfinger011_L_
+    100080: handfinger012_L_
+    100082: handfinger051_R_
+    100084: handfinger052_R_
+    100086: handfinger053_R_
+    100088: handfinger041_R_
+    100090: handfinger042_R_
+    100092: handfinger043_R_
+    100094: handfinger031_R_
+    100096: handfinger032_R_
+    100098: handfinger033_R_
+    100100: handfinger021_R_
+    100102: handfinger022_R_
+    100104: handfinger023_R_
+    100106: handfinger011_R_
+    100108: handfinger012_R_
+    400000: body
+    400002: Mesh
+    400004: XSBone_000
+    400006: const_foot_R_
+    400008: const_reg_R_
+    400010: const_foot_L_
+    400012: const_reg_L_
+    400014: hand_L_
+    400016: arm_L_
+    400018: shoulder_L_
+    400020: taill_L_
+    400022: tailr_R_
+    400024: head
+    400026: kubi
+    400028: hand_R_
+    400030: arm_R_
+    400032: shoulder_R_
+    400034: brest
+    400036: foot_L_
+    400038: reg_L_
+    400040: thigh_L_
+    400042: foot_R_
+    400044: reg_R_
+    400046: thigh_R_
+    400048: kosi
+    400050: root
+    400052: //RootNode
+    400054: handfinger051_L_
+    400056: handfinger052_L_
+    400058: handfinger053_L_
+    400060: handfinger041_L_
+    400062: handfinger042_L_
+    400064: handfinger043_L_
+    400066: handfinger031_L_
+    400068: handfinger032_L_
+    400070: handfinger033_L_
+    400072: handfinger021_L_
+    400074: handfinger022_L_
+    400076: handfinger023_L_
+    400078: handfinger011_L_
+    400080: handfinger012_L_
+    400082: handfinger051_R_
+    400084: handfinger052_R_
+    400086: handfinger053_R_
+    400088: handfinger041_R_
+    400090: handfinger042_R_
+    400092: handfinger043_R_
+    400094: handfinger031_R_
+    400096: handfinger032_R_
+    400098: handfinger033_R_
+    400100: handfinger021_R_
+    400102: handfinger022_R_
+    400104: handfinger023_R_
+    400106: handfinger011_R_
+    400108: handfinger012_R_
+    4300000: body
+    7400000: motion_01
+    7400002: idle
+    7400004: walk
+    7400006: run
+    7400008: jump
+    7400010: fall
+    7400012: landing
+    7400014: air_dash
+    7400016: title
+    11100000: //RootNode
+    13700000: body
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: idle
+      takeName: 
+      firstFrame: 1
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: walk
+      takeName: 
+      firstFrame: 31
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: run
+      takeName: 
+      firstFrame: 61
+      lastFrame: 90
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: jump
+      takeName: 
+      firstFrame: 91
+      lastFrame: 105
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: fall
+      takeName: 
+      firstFrame: 106
+      lastFrame: 107
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: landing
+      takeName: 
+      firstFrame: 108
+      lastFrame: 122
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: air_dash
+      takeName: 
+      firstFrame: 123
+      lastFrame: 124
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: title
+      takeName: 
+      firstFrame: 134
+      lastFrame: 135
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  userData: 
