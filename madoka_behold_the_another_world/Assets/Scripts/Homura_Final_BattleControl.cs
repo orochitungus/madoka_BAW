@@ -229,6 +229,10 @@ public class Homura_Final_BattleControl : CharacterControl_Base
             Update_Animation();    
             // リロード実行           
             // メイン射撃
+			Debug.Log("BulletNum:" + m_BulletNum[(int)ShotType.NORMAL_SHOT]);
+			Debug.Log("GrowthCoefficientBul:" +  Character_Spec.cs[(int)m_character_name][(int)ShotType.NORMAL_SHOT].m_GrowthCoefficientBul);
+			Debug.Log("OriginalBulletNum:" + Character_Spec.cs[(int)m_character_name][(int)ShotType.NORMAL_SHOT].m_OriginalBulletNum);
+			Debug.Log("ReloadTime:" + Character_Spec.cs[(int)m_character_name][(int)ShotType.NORMAL_SHOT].m_reloadtime);
             m_reload.OneByOne(ref m_BulletNum[(int)ShotType.NORMAL_SHOT], Time.time, Character_Spec.cs[(int)m_character_name][(int)ShotType.NORMAL_SHOT].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][(int)ShotType.NORMAL_SHOT].m_OriginalBulletNum,
                 Character_Spec.cs[(int)m_character_name][(int)ShotType.NORMAL_SHOT].m_reloadtime, ref m_mainshotendtime);
             // サブ射撃
