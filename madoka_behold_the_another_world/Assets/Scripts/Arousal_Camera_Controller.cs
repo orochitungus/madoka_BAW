@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Arousal_Camera_Controller : MonoBehaviour {
+public class Arousal_Camera_Controller : MonoBehaviour
+{
 
     // 親元のゲームオブジェクト
     public GameObject m_insp_Master;
