@@ -20,7 +20,6 @@ public class Arousal_Camera_Controller : MonoBehaviour
 
     private float cutinXposint;
     public AudioClip m_insp_ArousalSE;
-    private bool m_playSE;
 
     void Awake()
     {
@@ -52,7 +51,6 @@ public class Arousal_Camera_Controller : MonoBehaviour
         SetUpCutin();
         // SE再生
         AudioSource.PlayClipAtPoint(m_insp_ArousalSE, transform.position);
-        m_playSE = true;
         // Canvas有効化
         m_canvasOrigin.SetActive(true);
         m_canvas.StartAnimation();

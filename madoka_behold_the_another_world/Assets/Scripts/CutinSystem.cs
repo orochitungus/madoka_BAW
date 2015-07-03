@@ -23,19 +23,25 @@ public class CutinSystem : MonoBehaviour
 	}
 
 	/// <summary>
-	/// カットインとして表示されるグラフィック
+	/// カットインとして表示されるグラフィック(Canvas)
 	/// </summary>
 	public GameObject[] m_CutinImages = new GameObject[(int)CUTINNAME.CUTINNUMBER];
 
-	// Use this for initialization
-	void Start () 
+	public CutinAnimation[] m_CutinAnimations = new CutinAnimation[(int)CUTINNAME.CUTINNUMBER];
+
+	/// <summary>
+	/// カットインを表示する
+	/// </summary>
+	/// <param name="cutinname"></param>
+	public void ShowCutin(CUTINNAME cutinname)
 	{
-	
+		m_CutinImages[(int)cutinname].SetActive(true);
+		m_CutinAnimations[(int)cutinname].StartAnimation();
 	}
-	
-	// Update is called once per frame
-	void Update () 
+
+	// グラフィックを消去する
+	public void EraseCutin(CUTINNAME cutinname)
 	{
-	
+		m_CutinImages[(int)cutinname].SetActive(false);
 	}
 }

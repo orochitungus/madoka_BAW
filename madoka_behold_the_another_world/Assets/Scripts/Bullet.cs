@@ -529,8 +529,8 @@ public class Bullet : MonoBehaviour
         // 攻撃側が覚醒中の場合
         if (m_InjectionObject != null)
         {
-            var injection = m_InjectionObject.GetComponent<CharacterControl_Base>().m_isArousal;
-            if (injection != null)
+            bool injection = m_InjectionObject.GetComponent<CharacterControl_Base>().m_isArousal;
+            if (injection)
             {
                 m_OffemsivePower = (int)(m_OffemsivePower * MadokaDefine.AROUSAL_OFFENCE_UPPER);
             }
@@ -538,8 +538,8 @@ public class Bullet : MonoBehaviour
         // 防御側が覚醒中の場合
         if (m_HitTarget != null)
         {
-            var target = m_HitTarget.GetComponent<CharacterControl_Base>().m_isArousal;
-            if (target != null)
+            bool target = m_HitTarget.GetComponent<CharacterControl_Base>().m_isArousal;
+            if (target)
             {
                 m_OffemsivePower = (int)(m_OffemsivePower * MadokaDefine.AROUSAL_DEFFENSIVE_UPPER);
             }

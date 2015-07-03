@@ -163,7 +163,7 @@ public partial class titlecamera_control : MonoBehaviour
 
         // （スクリーンサイズ-画像サイズ）/2*拡大率で決定とはできない（右にずれる）
         // スライドで出入りする各パーツの位置を初期化
-        m_logopos.x = LOGOPOS_FIRST;        
+        m_logopos.x = LOGOPOS_FIRST;
         m_logopos.y = LOGOPOS_Y;
         m_titlepos.x = TITLEPOS_FIRST;
         m_titlepos.y = TITLEPOS_Y;
@@ -183,7 +183,7 @@ public partial class titlecamera_control : MonoBehaviour
         {
             // なければ作る
             GameObject am = (GameObject)Instantiate(Resources.Load("AudioManager"));
-            am.name = "AudioManager";   // このままだと名前にAudioManagerがつくので消しておく
+            am.name = "AudioManager";   // このままだと名前にCloneがつくので消しておく
         }
         
         // BGM再生開始（ここに来るとこのBGMに切り替わるので、毎回通す）
