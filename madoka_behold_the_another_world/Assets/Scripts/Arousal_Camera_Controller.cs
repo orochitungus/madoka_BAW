@@ -14,9 +14,10 @@ public class Arousal_Camera_Controller : MonoBehaviour
     // カットインカメラアニメーション
     public Animation m_CutinCameraAnimation;
 
-    // キャンバス
-    public GameObject m_canvasOrigin;
-    public CutinAnimation m_canvas;
+    // カットインシステム
+	public CutinSystem m_CutinSystem;
+	// カットインで表示されるグラフィックの種類
+	public CutinSystem.CUTINNAME m_CutinName;
 
     private float cutinXposint;
     public AudioClip m_insp_ArousalSE;
@@ -25,7 +26,6 @@ public class Arousal_Camera_Controller : MonoBehaviour
     {
         Camera camera = GetComponentInChildren<Camera>();
         camera.enabled = false;
-        m_canvasOrigin.SetActive(false);
     }
 
 	// Use this for initialization
@@ -33,7 +33,9 @@ public class Arousal_Camera_Controller : MonoBehaviour
     {
         SetUpCutin();
         // ポーズコントローラー取得
-        m_pausecontroller = GameObject.Find("Pause Controller");        
+        m_pausecontroller = GameObject.Find("Pause Controller");
+		// カットインシステム取得
+		m_CutinSystem = GameObject.Find("CutinSystem").GetComponent<CutinSystem>();
 	}
 	
 	// Update is called once per frame
@@ -44,16 +46,17 @@ public class Arousal_Camera_Controller : MonoBehaviour
 
     
         
-    // 覚醒カットインカメラ起動
+    /// <summary>
+    /// 覚醒カメラ起動＆カットイン有効化
+    /// </summary>
     public void UseAsousalCutinCamera()
     {
         // カメラを規定位置に配置
         SetUpCutin();
         // SE再生
         AudioSource.PlayClipAtPoint(m_insp_ArousalSE, transform.position);
-        // Canvas有効化
-        m_canvasOrigin.SetActive(true);
-        m_canvas.StartAnimation();
+        // カットイン画像表示
+		m_CutinSystem.ShowCutin(m_CutinName);
         // カットインカメラ再生
         m_CutinCameraAnimation.Play("ArousalCameraAnimation");
     }
@@ -84,10 +87,8 @@ public class Arousal_Camera_Controller : MonoBehaviour
         // カメラを切っておく
         Camera camera = GetComponentInChildren<Camera>();
         camera.enabled = false;
-        // アニメーションを切っておく
-        m_canvas.EndAnimation();
-        // canvasを消しておく
-        m_canvasOrigin.SetActive(false);
+        // カットイン画像消去
+		m_CutinSystem.EraseCutin(m_CutinName);
         // カメラの位置を戻しておく
         transform.localPosition = new Vector3(-0.976237f, 1.120372f, 4.067078f);
     }

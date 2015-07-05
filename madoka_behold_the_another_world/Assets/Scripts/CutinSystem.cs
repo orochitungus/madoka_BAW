@@ -33,18 +33,32 @@ public class CutinSystem : MonoBehaviour
 	public CutinAnimation m_CutinAnimator;
 
 	/// <summary>
+	/// Canvasのルート
+	/// </summary>
+	public Canvas m_Canvas;
+
+	public void Start()
+	{
+		m_Canvas.GetComponent<Canvas>().enabled = false;
+	}
+
+	/// <summary>
 	/// カットインを表示する
 	/// </summary>
 	/// <param name="cutinname"></param>
 	public void ShowCutin(CUTINNAME cutinname)
 	{
-		m_CutinImages[(int)cutinname].SetActive(true);
+		m_Canvas.GetComponent<Canvas>().enabled = true;
 		m_CutinAnimator.StartAnimation();
+		m_CutinImages[(int)cutinname].SetActive(true);
+		
 	}
 
 	// カットインを消去する
 	public void EraseCutin(CUTINNAME cutinname)
 	{
 		m_CutinImages[(int)cutinname].SetActive(false);
+		m_CutinAnimator.EndAnimation();
+		m_Canvas.GetComponent<Canvas>().enabled = false;
 	}
 }

@@ -162,6 +162,7 @@ public class StageSetting : MonoBehaviour
 		{
 			// 無ければ作る
 			GameObject eventSystem = (GameObject)Instantiate(Resources.Load("EventSystem"));
+			eventSystem.name = "EventSystem";
 		}
     }
 
