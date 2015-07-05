@@ -150,6 +150,19 @@ public class StageSetting : MonoBehaviour
                 AudioManager.Instance.PlayBGM(StageCode.stageBGM[savingparameter.nowField]);
             }
         }
+		// CutinSystemがあるか判定(戦闘パートのみ)
+		if (GameObject.Find("CutinSystem") == null && !m_isQuestStage)
+		{
+			// 無ければ作る
+			GameObject cutinSystem = (GameObject)Instantiate(Resources.Load("CutinSystem"));
+			cutinSystem.name = "CutinSystem";
+		}
+		// EventSystemがあるか判定
+		if (GameObject.Find("EventSystem") == null) 
+		{
+			// 無ければ作る
+			GameObject eventSystem = (GameObject)Instantiate(Resources.Load("EventSystem"));
+		}
     }
 
     // ロードするキャラクターのファイル名(ルート・戦闘用）
