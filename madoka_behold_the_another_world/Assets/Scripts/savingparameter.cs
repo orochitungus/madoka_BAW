@@ -594,7 +594,6 @@ public static class savingparameter
             nowparty[i] = 0;
         }
         // レベル初期化(一応全キャラ分やっておく)
-        //for (int i = 0; i < (int)(Character_Spec.CHARACTER_NAME.PLAYER_NUM); i++)
         for (int i = 0; i < (int)(Character_Spec.CHARACTER_NAME.CHARACTER_ALL_NUM); i++)
         {
             nowlevel[i] = 1;
