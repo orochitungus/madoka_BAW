@@ -28,16 +28,10 @@ public class Prologue_06 : EventBase
         {
             this.m_camera[i].gameObject.SetActive(false);
         }
-        // AudioManagerがあるか判定
-        if (GameObject.Find("AudioManager") == null)
-        {
-            // なければ作る
-            GameObject am = (GameObject)Instantiate(Resources.Load("AudioManager"));
-            am.name = "AudioManager";   // このままだと名前にAudioManagerがつくので消しておく
-        }
-        // BGM再生開始
-        AudioManager.Instance.PlayBGM("Kaorimade_rintoshita");
+         
         EventInitialize();
+		// BGM再生開始
+		AudioManager.Instance.PlayBGM("Kaorimade_rintoshita");
         // カメラ1を動かす
         m_camera[0].animation.Play("prologue6_camera1");
 	}
@@ -269,7 +263,7 @@ public class Prologue_06 : EventBase
                 // 見滝原病院56階へ飛ばす
                 savingparameter.nowField = 6;
                 savingparameter.beforeField = 7777;
-                Application.LoadLevel("Mitakihara_Hospital_56F");
+				FadeManager.Instance.LoadLevel("Mitakihara_Hospital_56F", 1.0f);
                 savingparameter.story = 3;
                 break;
         }

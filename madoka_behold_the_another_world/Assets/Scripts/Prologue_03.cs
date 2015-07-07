@@ -35,18 +35,10 @@ public class Prologue_03 : EventBase
         {
             this.m_camera[i].SetActive(false);
         }
-        // m_BGMをコンポーネントに追加
-        //m_BGM = gameObject.AddComponent<AudioSource>(); 
-        // AudioManagerがあるか判定
-        if (GameObject.Find("AudioManager") == null)
-        {
-            // なければ作る
-            GameObject am = (GameObject)Instantiate(Resources.Load("AudioManager"));
-            am.name = "AudioManager";   // このままだと名前にAudioManagerがつくので消しておく            
-        }
-        // BGM再生開始
-        AudioManager.Instance.PlayBGM("Kankyou Kaze01-1");
+               
         EventInitialize();
+		// BGM再生開始
+		AudioManager.Instance.PlayBGM("Kankyou Kaze01-1");
 	}
 	
 	// Update is called once per frame
@@ -121,7 +113,7 @@ public class Prologue_03 : EventBase
                     m_serif[i] = "";
                 }
                 savingparameter.beforeField = 0;
-                Application.LoadLevel("Prologue4");
+				FadeManager.Instance.LoadLevel("Prologue4", 1.0f);
                 break;
         }
         EventUpdate();

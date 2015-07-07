@@ -164,6 +164,12 @@ public class StageSetting : MonoBehaviour
 			GameObject eventSystem = (GameObject)Instantiate(Resources.Load("EventSystem"));
 			eventSystem.name = "EventSystem";
 		}
+		// FadeManagerがあるか判定
+		if (GameObject.Find("FadeManager") == null)
+		{
+			// 無ければ作る
+			GameObject fadeManager = (GameObject)Instantiate(Resources.Load("FadeManager"));
+		}
     }
 
     // ロードするキャラクターのファイル名(ルート・戦闘用）

@@ -90,16 +90,6 @@ public class Prologue_01 : EventBase
         // 魔獣出現時の専用カウンタを初期化する
         m_appearmajyu = 0;
 
-        // AudioManagerがあるか判定
-        if (GameObject.Find("AudioManager") == null)
-        {
-            // なければ作る
-            GameObject am = (GameObject)Instantiate(Resources.Load("AudioManager"));
-            am.name = "AudioManager";   // このままだと名前にAudioManagerがつくので消しておく
-            // BGM再生開始(タイトルと同じなので、タイトルから来た場合はやらない）
-            AudioManager.Instance.PlayBGM("Snow");
-        }
-
        
     }
 
@@ -433,7 +423,7 @@ public class Prologue_01 : EventBase
                 // 必要ステートを初期化
                 savingparameter.savingparameter_Init();
                 savingparameter.beforeField = 0;
-                Application.LoadLevel("Broken_Mitakihara");
+				FadeManager.Instance.LoadLevel("Broken_Mitakihara", 1.0f);
                 break;
         }
         EventUpdate();

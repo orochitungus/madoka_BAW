@@ -50,13 +50,13 @@ public class StageMovement : MonoBehaviour
         {
             savingparameter.beforeField = m_fromcode;
             savingparameter.nowField = m_forcode;
-            Application.LoadLevel(m_forscene);
+			FadeManager.Instance.LoadLevel(m_forscene, 1.0f);
         }
         else
         {
             if (savingparameter.story >= m_minXstory && savingparameter.story <= m_maxXstroy)
             {
-                Application.LoadLevel(m_forscene);
+				FadeManager.Instance.LoadLevel(m_forscene, 1.0f);
             }
             // ストーリーの発動条件を満たしていない場合、OnTriggerを無効化する
             else

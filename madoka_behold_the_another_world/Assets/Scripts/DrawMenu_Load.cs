@@ -208,7 +208,7 @@ public partial class DrawMenu
                     // 前にいた場所
                     savingparameter.beforeField = 9999;
                     // 該当の場所へ遷移する
-                    Application.LoadLevel(SceneName.sceneName[savingparameter.nowField]);
+					FadeManager.Instance.LoadLevel(SceneName.sceneName[savingparameter.nowField], 1.0f);
                 }
                 break;
             case LoadState.SLIDEOUT:

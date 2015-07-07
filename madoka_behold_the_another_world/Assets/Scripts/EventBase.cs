@@ -237,6 +237,19 @@ public class EventBase : MonoBehaviour
         }
         m_wordappeartime = 0;
         m_word_len = 0;
+		// AudioManagerがあるか判定
+		if (GameObject.Find("AudioManager") == null)
+		{
+			// なければ作る
+			GameObject am = (GameObject)Instantiate(Resources.Load("AudioManager"));
+			am.name = "AudioManager";   // このままだと名前にAudioManagerがつくので消しておく            
+		}
+		// FadeManagerがあるか判定
+		if (GameObject.Find("FadeManager") == null)
+		{
+			// 無ければ作る
+			GameObject fadeManager = (GameObject)Instantiate(Resources.Load("FadeManager"));
+		}
     }
 
     // 共通ステートの実行

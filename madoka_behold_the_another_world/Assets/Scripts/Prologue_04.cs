@@ -28,20 +28,11 @@ public class Prologue_04 : EventBase
         {
             this.m_camera[i].SetActive(false);
         }
-        // m_BGMをコンポーネントに追加
-        //m_BGM = gameObject.AddComponent<AudioSource>(); 
-        // AudioManagerがあるか判定
-        if (GameObject.Find("AudioManager") == null)
-        {
-            // なければ作る
-            GameObject am = (GameObject)Instantiate(Resources.Load("AudioManager"));
-            am.name = "AudioManager";   // このままだと名前にAudioManagerがつくので消しておく            
-        }
-        // BGM再生開始
-        AudioManager.Instance.PlayBGM("kusabi");
         // ほむらのポーズを変更
         m_Homura.animation.Play("homura_float_copy");
         EventInitialize();
+		// BGM再生開始
+		AudioManager.Instance.PlayBGM("kusabi");
 	}
 	
 	// Update is called once per frame
@@ -193,7 +184,7 @@ public class Prologue_04 : EventBase
                     m_serif[i] = "";
                 }
                 savingparameter.beforeField = 0;
-                Application.LoadLevel("Prologue5");
+				FadeManager.Instance.LoadLevel("Prologue5", 1.0f);
                 break;
         }
         EventUpdate();

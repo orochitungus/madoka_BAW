@@ -26,8 +26,7 @@ public class Prologue_05 : EventBase
         {
             this.m_camera[i].SetActive(false);
         }
-        // m_BGMをコンポーネントに追加
-       // m_BGM = gameObject.AddComponent<AudioSource>();
+        
         // AudioManagerがあるか判定
         if (GameObject.Find("AudioManager") == null)
         {
@@ -138,7 +137,7 @@ public class Prologue_05 : EventBase
                 savingparameter.beforeField = 8888;
                 // パーティーを銃ほむらにする
                 savingparameter.SetNowParty(0, (int)Character_Spec.CHARACTER_NAME.MEMBER_HOMURA);
-                Application.LoadLevel("Mitakihara_Hospital_HomuraRoom");
+				FadeManager.Instance.LoadLevel("Mitakihara_Hospital_HomuraRoom", 1.0f);
                 savingparameter.story = 2;
                 break;
             //case 10:

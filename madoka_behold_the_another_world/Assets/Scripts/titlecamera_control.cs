@@ -185,7 +185,12 @@ public partial class titlecamera_control : MonoBehaviour
             GameObject am = (GameObject)Instantiate(Resources.Load("AudioManager"));
             am.name = "AudioManager";   // このままだと名前にCloneがつくので消しておく
         }
-        
+		// FadeManagerがあるか判定
+		if (GameObject.Find("FadeManager") == null)
+		{
+			// 無ければ作る
+			GameObject fadeManager = (GameObject)Instantiate(Resources.Load("FadeManager"));
+		}
         // BGM再生開始（ここに来るとこのBGMに切り替わるので、毎回通す）
         AudioManager.Instance.PlayBGM("Snow");
 	}
@@ -249,8 +254,6 @@ public partial class titlecamera_control : MonoBehaviour
             // ここでスペースを押すとモード選択へ移行)
             if (Input.GetButtonDown("Enter"))
             {
-                //Application.LoadLevel("Prologue");
-                //return;
                 // SE再生
                 AudioSource.PlayClipAtPoint(m_Enter, transform.position);
                 // 時間を初期化
@@ -273,7 +276,7 @@ public partial class titlecamera_control : MonoBehaviour
                 switch (m_nowmodeselectcursor)
                 {
                     case 0: // NEW GAME
-                        Application.LoadLevel("Prologue");
+						FadeManager.Instance.LoadLevel("Prologue", 1.0f);
                         break;
                     case 1: // LOAD GAME
                         // ロードファイルを用意（なければ作る）
@@ -444,6 +447,7 @@ public partial class titlecamera_control : MonoBehaviour
                     // 前にいた場所
                     savingparameter.beforeField = 9999;
                     // 該当の場所へ遷移する
+
                     Application.LoadLevel(SceneName.sceneName[savingparameter.nowField]);
                 }
             }

@@ -219,7 +219,7 @@ public class Scono_Battle_Control : CharacterControl_Base
         // 最初のステージで負けたらプロローグ３へ移行
         if (m_NowHitpoint < 1 && savingparameter.story == 1)
         {
-            Application.LoadLevel("Prologue3");
+			FadeManager.Instance.LoadLevel("Prologue3", 1.0f);
         }
 	}
 

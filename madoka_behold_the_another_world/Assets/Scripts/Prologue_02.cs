@@ -46,18 +46,9 @@ public class Prologue_02 : EventBase
         {
             this.m_camera[i].SetActive(false);
         }
-        // m_BGMをコンポーネントに追加
-        //m_BGM = gameObject.AddComponent<AudioSource>();     
-        // AudioManagerがあるか判定
-        if (GameObject.Find("AudioManager") == null)
-        {
-            // なければ作る
-            GameObject am = (GameObject)Instantiate(Resources.Load("AudioManager"));
-            am.name = "AudioManager";   // このままだと名前にAudioManagerがつくので消しておく            
-        }
-        // BGM再生開始
-        AudioManager.Instance.PlayBGM("Kankyou Kaze01-1");
         EventInitialize();
+		// BGM再生開始
+		AudioManager.Instance.PlayBGM("Kankyou Kaze01-1");
 	}
 
  	
@@ -311,7 +302,7 @@ public class Prologue_02 : EventBase
                 }
                 savingparameter.nowField = 4;
                 savingparameter.beforeField = 0;
-                Application.LoadLevel("Imagica_Shock_Ground_Zero_VSScono");
+				FadeManager.Instance.LoadLevel("Imagica_Shock_Ground_Zero_VSScono", 1.0f);
                 break;
         }
         EventUpdate();

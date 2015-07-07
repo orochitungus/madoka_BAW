@@ -2470,11 +2470,11 @@ public partial class CharacterControl_Base : MonoBehaviour
                 // 例外１：最初のスコノ戦で負けたらプロローグ３へ
                 if (savingparameter.story == 1)
                 {
-                    Application.LoadLevel("Prologue3");
+					FadeManager.Instance.LoadLevel("Prologue3", 1.0f);
                 }
                 else
                 {
-                    Application.LoadLevel("title");
+					FadeManager.Instance.LoadLevel("title", 1.0f);
                 }
             }
         }
