@@ -297,6 +297,16 @@ public class Bullet : MonoBehaviour
         var target = collision.gameObject.GetComponent<CharacterControl_Base>();
         m_HitTarget = collision.gameObject;
 
+		// ビーム属性同士の弾丸が干渉したときは自壊させない
+		var hittargetBullet = collision.gameObject.GetComponent<Bullet>();
+		if(hittargetBullet != null)
+		{
+			if (hittargetBullet.m_Bullettype == BulletType.BEAM && m_Bullettype == BulletType.BEAM)
+			{
+				return;
+			}
+		}
+
         // ゼロ距離射撃したときは親を受け取る
         if (m_InjectionObject == null)
         {
