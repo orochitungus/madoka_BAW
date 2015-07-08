@@ -190,6 +190,7 @@ public partial class titlecamera_control : MonoBehaviour
 		{
 			// 無ければ作る
 			GameObject fadeManager = (GameObject)Instantiate(Resources.Load("FadeManager"));
+			fadeManager.name = "FadeManager";
 		}
         // BGM再生開始（ここに来るとこのBGMに切り替わるので、毎回通す）
         AudioManager.Instance.PlayBGM("Snow");

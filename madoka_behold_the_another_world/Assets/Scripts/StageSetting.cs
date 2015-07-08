@@ -169,6 +169,7 @@ public class StageSetting : MonoBehaviour
 		{
 			// 無ければ作る
 			GameObject fadeManager = (GameObject)Instantiate(Resources.Load("FadeManager"));
+			fadeManager.name = "FadeManager";
 		}
     }
 
