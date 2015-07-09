@@ -6,7 +6,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Collections;
 
-
+#pragma warning disable 0618
 public class AnimationPostprocessor : AssetPostprocessor
 {
     void OnPostprocessModel(GameObject go)

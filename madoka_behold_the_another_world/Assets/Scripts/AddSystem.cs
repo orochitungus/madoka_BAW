@@ -5,6 +5,7 @@ using UnityEditor;
 using System.IO;
 using System.Collections.Generic;
 
+#pragma warning disable 0618
 public class AnimationPostprocessor : AssetPostprocessor
 {
     void OnPostprocessModel(GameObject go)
