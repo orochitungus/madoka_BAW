@@ -24,6 +24,12 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
 		DontDestroyOnLoad(this.gameObject);
 
 		//ここで黒テクスチャ作る
+		StartCoroutine(CreateBlackTexture());
+	}
+
+	public IEnumerator CreateBlackTexture()
+	{
+		yield return new WaitForEndOfFrame();
 		this.blackTexture = new Texture2D(32, 32, TextureFormat.RGB24, false);
 		this.blackTexture.ReadPixels(new Rect(0, 0, 32, 32), 0, 0, false);
 		this.blackTexture.SetPixel(0, 0, Color.white);

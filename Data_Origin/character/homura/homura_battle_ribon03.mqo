@@ -4,13 +4,13 @@ Format Text Ver 1.0
 IncludeXml "homura_battle_ribon03.mqx"
 
 Scene {
-	pos 28.4174 -49.6296 2400.0000
+	pos -21.6797 -92.5583 937.5000
 	lookat 0.0000 0.0000 0.0000
-	head 31.4803
-	pich 0.8208
+	head 46.7099
+	pich 0.4808
 	bank 0.0000
 	ortho 0
-	zoom2 12.8000
+	zoom2 32.7680
 	amb 0.250 0.250 0.250
 	dirlights 1 {
 		light {

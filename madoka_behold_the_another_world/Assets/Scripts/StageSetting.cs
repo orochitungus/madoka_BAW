@@ -150,27 +150,7 @@ public class StageSetting : MonoBehaviour
                 AudioManager.Instance.PlayBGM(StageCode.stageBGM[savingparameter.nowField]);
             }
         }
-		// CutinSystemがあるか判定(戦闘パートのみ)
-		if (GameObject.Find("CutinSystem") == null && !m_isQuestStage)
-		{
-			// 無ければ作る
-			GameObject cutinSystem = (GameObject)Instantiate(Resources.Load("CutinSystem"));
-			cutinSystem.name = "CutinSystem";
-		}
-		// EventSystemがあるか判定
-		if (GameObject.Find("EventSystem") == null) 
-		{
-			// 無ければ作る
-			GameObject eventSystem = (GameObject)Instantiate(Resources.Load("EventSystem"));
-			eventSystem.name = "EventSystem";
-		}
-		// FadeManagerがあるか判定
-		if (GameObject.Find("FadeManager") == null)
-		{
-			// 無ければ作る
-			GameObject fadeManager = (GameObject)Instantiate(Resources.Load("FadeManager"));
-			fadeManager.name = "FadeManager";
-		}
+		
     }
 
     // ロードするキャラクターのファイル名(ルート・戦闘用）
@@ -243,7 +223,28 @@ public class StageSetting : MonoBehaviour
 
 	// Use this for initialization
 	void Start () 
-    {       
+    {
+		// CutinSystemがあるか判定(戦闘パートのみ)
+		if (GameObject.Find("CutinSystem") == null && !m_isQuestStage)
+		{
+			// 無ければ作る
+			GameObject cutinSystem = (GameObject)Instantiate(Resources.Load("CutinSystem"));
+			cutinSystem.name = "CutinSystem";
+		}
+		// EventSystemがあるか判定
+		if (GameObject.Find("EventSystem") == null)
+		{
+			// 無ければ作る
+			GameObject eventSystem = (GameObject)Instantiate(Resources.Load("EventSystem"));
+			eventSystem.name = "EventSystem";
+		}
+		// FadeManagerがあるか判定
+		if (GameObject.Find("FadeManager") == null)
+		{
+			// 無ければ作る
+			GameObject fadeManager = (GameObject)Instantiate(Resources.Load("FadeManager"));
+			fadeManager.name = "FadeManager";
+		}
         m_setting = false;
 	}
 	
