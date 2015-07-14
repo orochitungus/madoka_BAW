@@ -30,7 +30,7 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
 	public IEnumerator CreateBlackTexture()
 	{
 		yield return new WaitForEndOfFrame();
-		this.blackTexture = new Texture2D(32, 32, TextureFormat.RGB24, false);
+		this.blackTexture = new Texture2D(8, 8, TextureFormat.RGB24, false);
 		this.blackTexture.ReadPixels(new Rect(0, 0, 32, 32), 0, 0, false);
 		this.blackTexture.SetPixel(0, 0, Color.white);
 		this.blackTexture.Apply();
@@ -54,6 +54,16 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
 	public void LoadLevel(string scene, float interval)
 	{
 		StartCoroutine(TransScene(scene, interval));
+	}
+
+	/// <summary>
+	/// 画面遷移（フェードアウトなし）
+	/// </summary>
+	/// <param name="scene"></param>
+	/// <param name="interval"></param>
+	public void LoadLevelNotFadeOUT(string scene, float interval)
+	{
+		StartCoroutine(TransSceneNotFadeOUT(scene,interval));
 	}
 
 	/// <summary>
@@ -84,6 +94,33 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
 			time += Time.deltaTime;
 			yield return 0;
 		}
+
+		this.isFading = false;
+	}
+
+	/// <summary>
+	/// 上記のフェードアウトを一瞬で終わらせるバージョン
+	/// </summary>
+	/// <param name="scene"></param>
+	/// <returns></returns>
+	private IEnumerator TransSceneNotFadeOUT(string scene, float interval)
+	{
+		//だんだん暗く
+		this.isFading = true;
+		float time = 0;
+		while (time <= interval)
+		{
+			this.fadeAlpha = Mathf.Lerp(0f, 1f, time / interval);
+			time += Time.deltaTime;
+			yield return 0;
+		}
+
+		//シーン切替
+		Application.LoadLevel(scene);
+
+		//一瞬で明るく
+		this.fadeAlpha = 0;
+		yield return 0;
 
 		this.isFading = false;
 	}

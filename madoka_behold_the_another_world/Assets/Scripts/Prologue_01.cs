@@ -412,6 +412,14 @@ public class Prologue_01 : EventBase
                 m_serif[2] = "";
                 m_serif[3] = "";
                 break;
+			case 27:
+				keybreak = true;
+				foreach(GameObject c in m_camera)
+				{
+					c.SetActive(false);
+				}
+				xstory++;
+				break;
             default:
                 m_facetype = 0;
                 m_drawname_jp = "";
@@ -423,8 +431,10 @@ public class Prologue_01 : EventBase
                 // 必要ステートを初期化
                 savingparameter.savingparameter_Init();
                 savingparameter.beforeField = 0;
-				FadeManager.Instance.LoadLevel("Broken_Mitakihara", 1.0f);
-                break;
+				// フェード入れると次のシーンで重くなるので、ここだけ例外
+				//FadeManager.Instance.LoadLevel("Broken_Mitakihara", 1.0f);
+				Application.LoadLevel("Broken_Mitakihara");
+				break;
         }
         EventUpdate();
     }
