@@ -414,6 +414,11 @@ public class Prologue_01 : EventBase
                 break;
 			case 27:
 				keybreak = true;
+				FullClear();
+				StartCoroutine(ExFadeout(1.0f));
+				break;
+			case 28:
+				keybreak = true;
 				foreach(GameObject c in m_camera)
 				{
 					c.SetActive(false);
@@ -421,13 +426,7 @@ public class Prologue_01 : EventBase
 				xstory++;
 				break;
             default:
-                m_facetype = 0;
-                m_drawname_jp = "";
-                m_drawname_en = "";
-                for (int i = 0; i < m_serif.Length; i++)
-                {
-                    m_serif[i] = "";
-                }
+                FullClear();
                 // 必要ステートを初期化
                 savingparameter.savingparameter_Init();
                 savingparameter.beforeField = 0;

@@ -68,6 +68,13 @@ public class EventBase : MonoBehaviour
     // 次の文字が出現するまでの時間
     protected int m_nextwordappeartime = 5;
 
+	/// <summary>暗転用黒テクスチャ</summary>
+	private Texture2D blackTexture;
+	/// <summary>フェード中の透明度</summary>
+	private float fadeAlpha = 0;
+	/// <summary>フェード中かどうか</summary>
+	private bool isFading = false;
+
     // キャラクターの表情
     public enum CharacterFace 
     {
@@ -206,7 +213,18 @@ public class EventBase : MonoBehaviour
     void Awake()
     {
         Application.targetFrameRate = 60;
+
+		
     }
+
+	public IEnumerator CreateBlackTexture()
+	{
+		yield return new WaitForEndOfFrame();
+		this.blackTexture = new Texture2D(8, 8, TextureFormat.RGB24, false);
+		this.blackTexture.ReadPixels(new Rect(0, 0, 32, 32), 0, 0, false);
+		this.blackTexture.SetPixel(0, 0, Color.white);
+		this.blackTexture.Apply();
+	}
 
     // startとUpdateは継承先に持たせる。共通ステートの初期化はここで行う
     protected void EventInitialize()
@@ -242,7 +260,7 @@ public class EventBase : MonoBehaviour
 		{
 			// なければ作る
 			GameObject am = (GameObject)Instantiate(Resources.Load("AudioManager"));
-			am.name = "AudioManager";   // このままだと名前にAudioManagerがつくので消しておく            
+			am.name = "AudioManager";   // このままだと名前にAudioManagerがつくので消しておく
 		}
 		// FadeManagerがあるか判定
 		if (GameObject.Find("FadeManager") == null)
@@ -251,6 +269,9 @@ public class EventBase : MonoBehaviour
 			GameObject fadeManager = (GameObject)Instantiate(Resources.Load("FadeManager"));
 			fadeManager.name = "FadeManager";
 		}
+
+		//ここで黒テクスチャ作る
+		StartCoroutine(CreateBlackTexture());
     }
 
     // 共通ステートの実行
@@ -319,6 +340,10 @@ public class EventBase : MonoBehaviour
         //GUIが解像度に合うように変換行列を設定
         GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, new Vector3(Screen.width / nativeVerticalResolution_w, Screen.height / nativeVerticalResolution_h, 1));
 
+		if(isFading)
+		{
+			DrawExFade(new Vector2(0,0),blackTexture, fadeAlpha);
+		}
 
         // セリフがあれば描画
         if (checkserifexist())
@@ -400,6 +425,59 @@ public class EventBase : MonoBehaviour
         // Rectの第3引数が幅、第4引数が高さ
         //GUI.Label(new Rect(pos.x, pos.y, image.width, 256), "", backgroundStyle);
     }
+
+	/// <summary>
+	/// 特殊フェード用
+	/// </summary>
+	/// <param name="pos"></param>
+	/// <param name="image"></param>
+	/// <param name="alpha"></param>
+	void DrawExFade(Vector2 pos, Texture2D image, float alpha)
+	{
+		GUIStyle backgroundStyle = new GUIStyle();
+		backgroundStyle.normal.background = image;
+		GUI.color = new Color(0.02040816326530612244897959183673f, 0.02040816326530612244897959183673f, 0.02040816326530612244897959183673f, alpha);
+		GUI.Label(new Rect(pos.x, pos.y, Screen.width, Screen.height), image);
+	}
+
+	/// <summary>
+	/// 特殊フェードアウトを行う
+	/// </summary>
+	/// <param name="interval">暗くなるまでの時間</param>
+	/// <returns></returns>
+	protected IEnumerator ExFadeout(float interval)
+	{
+		//だんだん暗く
+		this.isFading = true;
+		float time = 0;
+		while (time <= interval)
+		{
+			this.fadeAlpha = Mathf.Lerp(0f, 1f, time / interval);
+			time += Time.deltaTime;
+			yield return 0;
+		}
+		xstory++;
+	}
+
+	/// <summary>
+	/// 特殊フェードインを行う
+	/// </summary>
+	/// <param name="interval">明るくなるまでの時間</param>
+	/// <returns></returns>
+	protected IEnumerator ExFadein(float interval)
+	{
+		//だんだん明るく
+		float time = 0;
+		while (time <= interval)
+		{
+			this.fadeAlpha = Mathf.Lerp(1f, 0f, time / interval);
+			time += Time.deltaTime;
+			yield return 0;
+		}
+
+		this.isFading = false;
+		xstory++;
+	}
 
     // タイトル文字列
     // 第1引数：配置位置
