@@ -22,7 +22,11 @@ public class Player_Camera_Controller : MonoBehaviour
     public bool m_DrawInterface;           // インターフェース描画の有無
 
     // ロックオンの有無
-    public bool isRockOn;
+    public bool IsRockOn;
+	/// <summary>
+	/// 覚醒技の演出中であるか否か（覚醒技専用カメラワークになったとき、一時的にカーソルを消す）
+	/// </summary>
+	public bool IsArousalAttack;
 
     public Vector3      m_rockoncursorpos;          // ロックオンカーソルの配置位置
 
@@ -72,7 +76,9 @@ public class Player_Camera_Controller : MonoBehaviour
         this.gaze_offset = 5.5f;
         this.rockon_height = 0.0f;
         // ロックオンの有無
-        isRockOn = false;
+        IsRockOn = false;
+		// 覚醒技演出中の有無
+		IsArousalAttack = false;
         this.m_isRockonRange = false;
         this.m_enemy_offset_height = 0.0f;
         this.Distance_mine = 18.0f;
@@ -166,7 +172,7 @@ public class Player_Camera_Controller : MonoBehaviour
                                     Debug.Log("EndingPoint isn't setting");
                                 }
                                 Enemy = target.EndingPoint;
-                                isRockOn = true;
+                                IsRockOn = true;
                                 target.m_IsRockon = true;                                
                                 break;
                             // 起点へ向けて移動中
@@ -177,7 +183,7 @@ public class Player_Camera_Controller : MonoBehaviour
                                     Debug.Log("StartingPoint isn't setting");
                                 }
                                 Enemy = target.StartingPoint;
-                                isRockOn = true;
+                                IsRockOn = true;
                                 target.m_IsRockon = true;                                
                                 break;                            
                             default:
@@ -185,7 +191,7 @@ public class Player_Camera_Controller : MonoBehaviour
                                 if (!RockOnDone(false,false))
                                 {
                                     this.m_cpumode = AIControl.CPUMODE.OUTWARD_JOURNEY;
-                                    isRockOn = false;
+                                    IsRockOn = false;
                                     target.m_IsRockon = false;
                                 }
                                 break;
@@ -233,7 +239,7 @@ public class Player_Camera_Controller : MonoBehaviour
                             if (distance_check > 0)
                             {
                                 // フラグをロックオン状態に切り替える
-                                isRockOn = true;
+                                IsRockOn = true;
                                 // 対象をmost_nearとする
                                 Enemy = RockOnTarget[nexttarget];
                                 // 対象のインデックスを保持する
@@ -250,7 +256,7 @@ public class Player_Camera_Controller : MonoBehaviour
                             // もしnowtargetと同じ値なら残り1体なのでロックオン解除
                             if (m_nowTarget == nexttarget)
                             {
-                                isRockOn = false;
+                                IsRockOn = false;
                                 target.m_IsRockon = false;
                                 // 増援が来たことの判定はここでやる（初めてロックオンした時の処理をここでもう一度）
                                 return;
@@ -266,7 +272,7 @@ public class Player_Camera_Controller : MonoBehaviour
                     if (distance_check > 0)
                     {
                         // フラグをロックオン状態に切り替える
-                        isRockOn = true;
+                        IsRockOn = true;
                         // 対象をmost_nearとする
                         Enemy = RockOnTarget[0];
                         // 対象のインデックスを保持する
@@ -318,7 +324,7 @@ public class Player_Camera_Controller : MonoBehaviour
         if (RockOnTarget == null)
         {
             target.m_IsRockon = false;
-            this.isRockOn = false;
+            this.IsRockOn = false;
             return false;
         }
 
@@ -366,7 +372,7 @@ public class Player_Camera_Controller : MonoBehaviour
         }
 
         // フラグをロックオン状態に切り替える
-        isRockOn = true;
+        IsRockOn = true;
         // 対象をmost_nearとする
         Enemy = RockOnTarget[most_near];
         // 対象のインデックスを保持する
@@ -401,7 +407,7 @@ public class Player_Camera_Controller : MonoBehaviour
     /// </summary>
     private void UnlockDone(CharacterControl_Base target)
     {
-        isRockOn = false;
+        IsRockOn = false;
         target.m_IsRockon = false;
         this.Enemy = null;
         RockOnTarget.Clear();
@@ -412,11 +418,11 @@ public class Player_Camera_Controller : MonoBehaviour
         // 敵が死んだら強制ロック解除
         if (this.Enemy == null)
         {
-            isRockOn = false;
+            IsRockOn = false;
         }
 
         // ロックオンしていない場合
-        if (!isRockOn)
+        if (!IsRockOn)
         {
             // 方向転換をした場合いきなり反対側に飛ぶという現象を解除するためにLateUpdate
             // 一旦カメラの位置が方向転換後の背中の後ろへ飛ぶ（カメラの位置をもとにして方向を計算しているため,方向転換時に一旦カメラがその後ろへ行く）
@@ -460,7 +466,7 @@ public class Player_Camera_Controller : MonoBehaviour
 
         }
         // ロックオンしている場合（ガンダムやバーチャロン同様常時自機の背後にカメラが移動するようになる）
-        else if(isRockOn)
+        else if(IsRockOn)
         {
             // 配置位置（自機）
             Vector3 nowpos = this.Player.transform.position;
@@ -507,7 +513,7 @@ public class Player_Camera_Controller : MonoBehaviour
         }
         // 非ロックオン時のみ障害物を避ける（障害物の手前にカメラを持ってくる）
         // ロックオンしていない場合
-        if (!isRockOn)
+        if (!IsRockOn)
         {
             RaycastHit hitInfo;
             CapsuleCollider pc = Player.GetComponent<CapsuleCollider>(); //CharacterController pc = Player.GetComponent<CharacterController>();
@@ -563,8 +569,8 @@ public class Player_Camera_Controller : MonoBehaviour
             Debug.Log("No GUI skin has been set!");
         }
        
-        // ロックオン状態になったら敵位置にカーソルを描画する
-        if (isRockOn)
+        // ロックオン状態になったら敵位置にカーソルを描画する（覚醒技演出中を除く）
+        if (IsRockOn && !IsArousalAttack)
         {
             // 配置位置（自機）
             Vector3 nowpos = this.Player.transform.position;

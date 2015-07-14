@@ -1230,6 +1230,8 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                 m_arousalAttackTime = 0;
                 // 専用カメラをONにする
                 m_Insp_ArousalAttackCamera1.enabled = true;
+				// 覚醒技演出フラグをONにする
+				ArousalAttackProduction = true;
                 break;
             case ArousalState.FEATHERSET:   // 羽根フックに一定周期でエフェクトと攻撃判定を取り付けかつ前進させる   
                 // 前方向に向けて歩き出す
@@ -1277,6 +1279,8 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                         m_Insp_ArousalAttackCamera2.enabled = false;
                         this.animation.Play(m_AnimationNames[(int)AnimationState.AirDash]);
                         m_nowState = ArousalState.ATTACK;
+						// 演出フラグを折る
+						ArousalAttackProduction = false;
                     }
                 }
                 m_wingAppearCounter += Time.deltaTime;

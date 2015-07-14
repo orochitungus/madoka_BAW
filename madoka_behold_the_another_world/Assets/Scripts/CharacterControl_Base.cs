@@ -27,6 +27,10 @@ public partial class CharacterControl_Base : MonoBehaviour
 
     // 歩き撃ちフラグ
     protected bool m_RunShotDone;
+	/// <summary>
+	/// 覚醒技演出中フラグ
+	/// </summary>
+	public bool	ArousalAttackProduction;
 
     // プレイヤーであるか否か（これがfalseであると描画系の関数全カット）
     // それぞれの意味は以下の通り
@@ -91,11 +95,11 @@ public partial class CharacterControl_Base : MonoBehaviour
 
     // CPU
     // ルーチンを拾う
-    AIControl.CPUMODE m_cpumode;
+    AIControl_Base.CPUMODE m_cpumode;
     // テンキー入力を拾う
-    AIControl.TENKEY_OUTPUT m_tenkey;
+	AIControl_Base.TENKEY_OUTPUT m_tenkey;
     // キー入力を拾う
-    AIControl.KEY_OUTPUT m_key; 
+	AIControl_Base.KEY_OUTPUT m_key; 
 
     // AnimationState を 2 つ用意し交互に切り替えて昔の状態を参照できるようにする。
     public AnimationState[] m_AnimState = new AnimationState[2];
@@ -2266,6 +2270,8 @@ public partial class CharacterControl_Base : MonoBehaviour
         this.m_Arousal = 0;
         // 覚醒状態を初期化する
         m_isArousal = false;
+		// 覚醒演出状態を初期化する
+		ArousalAttackProduction = false;
 
         // PC時・HP・覚醒ゲージ・ソウルジェム汚染率を初期化する
         if (m_isPlayer != CHARACTERCODE.ENEMY)
@@ -2537,32 +2543,32 @@ public partial class CharacterControl_Base : MonoBehaviour
             this.m_tenkey = CPU.m_tenkeyoutput;
             // テンキー入力に応じてフラグを立てる
             // 前
-            if (m_tenkey == AIControl.TENKEY_OUTPUT.TOP)
+			if (m_tenkey == AIControl_Base.TENKEY_OUTPUT.TOP)
             {
                 m_hasFrontInput = true;
             }
             // 後
-            else if (m_tenkey == AIControl.TENKEY_OUTPUT.UNDER)
+			else if (m_tenkey == AIControl_Base.TENKEY_OUTPUT.UNDER)
             {
                 m_hasBackInput = true;
             }
             // 左
-            else if (m_tenkey == AIControl.TENKEY_OUTPUT.LEFT)
+			else if (m_tenkey == AIControl_Base.TENKEY_OUTPUT.LEFT)
             {
                 m_hasLeftInput = true;
             }
             // 右
-            else if (m_tenkey == AIControl.TENKEY_OUTPUT.RIGHT)
+			else if (m_tenkey == AIControl_Base.TENKEY_OUTPUT.RIGHT)
             {
                 m_hasRightInput = true;
             }
             // 左ステップ
-            else if (m_tenkey == AIControl.TENKEY_OUTPUT.LEFTSTEP)
+			else if (m_tenkey == AIControl_Base.TENKEY_OUTPUT.LEFTSTEP)
             {
                 m_hasLeftStepInput = true;
             }
             // 右ステップ
-            else if (m_tenkey == AIControl.TENKEY_OUTPUT.RIGHTSTEP)
+			else if (m_tenkey == AIControl_Base.TENKEY_OUTPUT.RIGHTSTEP)
             {
                 m_hasRightStepInput = true;
             }
@@ -2570,52 +2576,52 @@ public partial class CharacterControl_Base : MonoBehaviour
             // CPUは同時押し判定を出さないので、1個ずつ来ると考えてOK
             switch (this.m_key)
             {
-                case AIControl.KEY_OUTPUT.SHOT:
+                case AIControl_Base.KEY_OUTPUT.SHOT:
                     this.m_hasShotInput = true;
                     break;
-                case AIControl.KEY_OUTPUT.JUMP:
+                case AIControl_Base.KEY_OUTPUT.JUMP:
                     this.m_hasJumpInput = true;
                     break;
-                case AIControl.KEY_OUTPUT.DASHCANCEL:
+                case AIControl_Base.KEY_OUTPUT.DASHCANCEL:
                     this.m_hasDashCancelInput = true;
                     break;
-                case AIControl.KEY_OUTPUT.AIRDASH:
+                case AIControl_Base.KEY_OUTPUT.AIRDASH:
                     this.m_hasAirDashInput = true;
                     break;
-                case AIControl.KEY_OUTPUT.SEARCH:
+                case AIControl_Base.KEY_OUTPUT.SEARCH:
                     this.m_hasSearchInput = true;
                     break;
-                case AIControl.KEY_OUTPUT.SEACHCANCEL:
+                case AIControl_Base.KEY_OUTPUT.SEACHCANCEL:
                     this.m_hasSearchCancelInput = true;
                     break;
-                case AIControl.KEY_OUTPUT.WRESTLE:
+                case AIControl_Base.KEY_OUTPUT.WRESTLE:
                     this.m_hasWrestleInput = true;
                     break;
-                case AIControl.KEY_OUTPUT.SUBSHOT:
+                case AIControl_Base.KEY_OUTPUT.SUBSHOT:
                     this.m_hasSubShotInput = true;
                     break;
-                case AIControl.KEY_OUTPUT.EXSHOT:
+                case AIControl_Base.KEY_OUTPUT.EXSHOT:
                     this.m_hasExShotInput = true;
                     break;
-                case AIControl.KEY_OUTPUT.EXWRESTLE:
+                case AIControl_Base.KEY_OUTPUT.EXWRESTLE:
                     this.m_hasExWrestleInput = true;
                     break;
-                case AIControl.KEY_OUTPUT.ITEM:
+                case AIControl_Base.KEY_OUTPUT.ITEM:
                     this.m_hasItemInput = true;
                     break;
-                case AIControl.KEY_OUTPUT.PAUSE:
+                case AIControl_Base.KEY_OUTPUT.PAUSE:
                     this.m_hasPauseInput = true;
                     break;
-                case AIControl.KEY_OUTPUT.AROUSAL:
+                case AIControl_Base.KEY_OUTPUT.AROUSAL:
                     this.m_hasArousalInput = true;
                     break;
                 case AIControl_Base.KEY_OUTPUT.AROUSALATTACK:
                     this.m_hasArousalAttackInput = true;
                     break;
-                case AIControl.KEY_OUTPUT.CHARGESHOT:
+                case AIControl_Base.KEY_OUTPUT.CHARGESHOT:
                     this.m_hasShotChargeInput = true;
                     break;
-                case AIControl.KEY_OUTPUT.CHARGEWRESTE:
+                case AIControl_Base.KEY_OUTPUT.CHARGEWRESTE:
                     this.m_hasWrestleChargeInput = true;
                     break;  
                 default:                    
@@ -2662,7 +2668,7 @@ public partial class CharacterControl_Base : MonoBehaviour
                     break;
             }
             // 入力を受けたテンキーに応じてフラグを立てる（この時点ではありなしさえ拾えばいい。実際の値を使うのはUpdateRotationなので、入力の有無さえ拾えればいい）
-            if (this.m_tenkey != AIControl.TENKEY_OUTPUT.NEUTRAL)
+            if (this.m_tenkey != AIControl_Base.TENKEY_OUTPUT.NEUTRAL)
             {
                 this.m_hasVHInput = true;
             }

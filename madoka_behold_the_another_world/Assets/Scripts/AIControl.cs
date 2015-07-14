@@ -2,7 +2,7 @@
 using System.Collections;
 
 
-// CPUによるキャラクター操作を行う(魔獣用）
+// CPUによるキャラクター操作を行う(魔獣用強化Ver）
 public class AIControl : AIControl_Base 
 {
     // 初期化
