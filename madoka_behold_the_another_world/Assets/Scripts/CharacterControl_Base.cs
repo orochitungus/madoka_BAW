@@ -660,17 +660,7 @@ public partial class CharacterControl_Base : MonoBehaviour
 
     // 接地判定を行う。要はKanonの時と同じで、レイの高さ分だけ判定をとる。CharacterControllerとどっちを取るかは要実験
     protected bool onGround()
-    {       
-        //// 錐揉みダウン時
-        //if (m_AnimState[0] == AnimationState.SpinDown)
-        //{
-        //    return Physics.Raycast(transform.position + this.m_layOriginOffs, -Vector3.up, this.m_laylength + 2.0f, this.m_layMask);
-        //}
-        //// 通常
-        //else
-        //{
-        //    return Physics.Raycast(transform.position + this.m_layOriginOffs, -Vector3.up, this.m_laylength, this.m_layMask);
-        //}
+    {
         // 錐揉みダウン時
         if (m_AnimState[0] == AnimationState.SpinDown)
         {

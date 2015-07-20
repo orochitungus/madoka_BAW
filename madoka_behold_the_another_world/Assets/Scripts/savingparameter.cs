@@ -611,7 +611,7 @@ public static class savingparameter
             // SG汚染率初期化
             GemContimination[i] = 0.0f;
             // 覚醒ゲージ初期化
-            nowArousal[i] = 170.0f;
+            nowArousal[i] = 0.0f;
         }
 
         nowField = 1;

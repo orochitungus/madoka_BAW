@@ -341,7 +341,7 @@ public class AIControl_Base : MonoBehaviour
 
     // 哨戒に戻る
     // target[in]   :制御対象
-    void ReturnPatrol(CharacterControl_Base target)
+    protected void ReturnPatrol(CharacterControl_Base target)
     {
         // カメラに登録しておいたロックオンオブジェクトを破棄する
         Player_Camera_Controller pcc = ControlTarget_Camera.GetComponent<Player_Camera_Controller>();
@@ -808,7 +808,7 @@ public class AIControl_Base : MonoBehaviour
     }
 
     // 哨戒中の範囲内に敵が入ってきたら、ロックオンして通常へ移行
-    private void rockonCheck()
+    protected virtual void rockonCheck()
     {
         // 敵が入ってきたか判定
         Player_Camera_Controller pcc = ControlTarget_Camera.GetComponent<Player_Camera_Controller>();
@@ -817,7 +817,7 @@ public class AIControl_Base : MonoBehaviour
         // プレイヤーサイドの場合
         if (m_isPlayer == CharacterControl_Base.CHARACTERCODE.PLAYER_ALLY)
         {
-            if (pcc.RockOnDone(true,true))
+            if (pcc.OnPushSerchButton(true,true,true))
             {
                 m_cpumode = CPUMODE.NORMAL;
             }
@@ -825,7 +825,7 @@ public class AIControl_Base : MonoBehaviour
         // エネミーサイドの場合
         else if (m_isPlayer == CharacterControl_Base.CHARACTERCODE.ENEMY)
         {
-            if (pcc.RockOnDone(false,true))
+            if (pcc.OnPushSerchButton(false,true,true))
             {
                 m_cpumode = CPUMODE.NORMAL;
             }

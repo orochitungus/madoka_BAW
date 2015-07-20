@@ -119,7 +119,7 @@ public class Player_Camera_Controller : MonoBehaviour
     {
         // ロックオン（非ロックオン時）
         // このカメラが追跡しているオブジェクトの情報を拾う   
-        var target = Player.GetComponentInChildren<CharacterControl_Base>();
+        CharacterControl_Base target = Player.GetComponentInChildren<CharacterControl_Base>();
         var targetAI = Player.GetComponentInChildren<AIControl_Base>();
 
         // クエストパート時、使わないので抜ける
@@ -154,7 +154,7 @@ public class Player_Camera_Controller : MonoBehaviour
                     case CharacterControl_Base.CHARACTERCODE.PLAYER:
                     // 僚機
                     case CharacterControl_Base.CHARACTERCODE.PLAYER_ALLY:
-                        if (!RockOnDone(true,false))
+                        if (!OnPushSerchButton(true,false))
                         {
                             return;
                         }
@@ -188,7 +188,7 @@ public class Player_Camera_Controller : MonoBehaviour
                                 break;                            
                             default:
                                 // 外れたら哨戒に戻る
-                                if (!RockOnDone(false,false))
+                                if (!OnPushSerchButton(false,false))
                                 {
                                     this.m_cpumode = AIControl.CPUMODE.OUTWARD_JOURNEY;
                                     IsRockOn = false;
@@ -221,64 +221,16 @@ public class Player_Camera_Controller : MonoBehaviour
                 // 別の相手にロックオン対象を切り替える(2体以上候補が居る場合）
                 if (RockOnTarget.Count > 1)
                 {
-                    // 自分＋1の相手を選択する
-                    int nexttarget = m_nowTarget + 1;
-                    // 認識している相手の中で、ロックオンできる相手を探す
-                    while (true)
-                    {
-                        // 最大値を超えていれば0に
-                        if (nexttarget > RockOnTarget.Count - 1)
-                        {
-                            nexttarget = 0;
-                        }
-                        // 相手が存在すればロックオン
-                        if (RockOnTarget[nexttarget] != null)
-                        {
-                            // 自分の場合はロックオンさせない
-                            float distance_check = Vector3.Distance(RockOnTarget[nexttarget].transform.position, target.transform.position);
-                            if (distance_check > 0)
-                            {
-                                // フラグをロックオン状態に切り替える
-                                IsRockOn = true;
-                                // 対象をmost_nearとする
-                                Enemy = RockOnTarget[nexttarget];
-                                // 対象のインデックスを保持する
-                                m_nowTarget = nexttarget;
-                                // PC側のロックオンフラグを立てる
-                                target.m_IsRockon = true;
-                            }
-                            break;
-                        }
-                        // しなければもう１つインデックスを加算して仕切り直し
-                        else
-                        {
-                            nexttarget++;
-                            // もしnowtargetと同じ値なら残り1体なのでロックオン解除
-                            if (m_nowTarget == nexttarget)
-                            {
-                                IsRockOn = false;
-                                target.m_IsRockon = false;
-                                // 増援が来たことの判定はここでやる（初めてロックオンした時の処理をここでもう一度）
-                                return;
-                            }
-                        }
-                    }
+					RockOnSelecter(target);
                 }
-                // スタート時に既に哨戒範囲にいる場合
+                // 候補が1体の場合
                 else if (RockOnTarget.Count == 1)
                 {
                     // 自分の場合はロックオンさせない
                     float distance_check = Vector3.Distance(RockOnTarget[0].transform.position, target.transform.position);
                     if (distance_check > 0)
                     {
-                        // フラグをロックオン状態に切り替える
-                        IsRockOn = true;
-                        // 対象をmost_nearとする
-                        Enemy = RockOnTarget[0];
-                        // 対象のインデックスを保持する
-                        m_nowTarget = 0;
-                        // PC側のロックオンフラグを立てる
-                        target.m_IsRockon = true;
+						RockDone(target, 0);
                     }
                 }
                 else
@@ -297,14 +249,16 @@ public class Player_Camera_Controller : MonoBehaviour
             {
                 UnlockDone(target);
             }
-        }        
+        }
+
 	}
 
-    // ロックオンボタンが押されたときの処理
+    // サーチボタンが押されたときの処理
     // playerside[in]       :プレイヤー側（true)
     // cpu[in]              :CPUであるか否か
     // output               :ロックオンする相手がいた
-    public bool RockOnDone(bool playerside,bool cpu)
+	// exitdown				:ダウンしていたら強制的にfalseを返す
+    public bool OnPushSerchButton(bool playerside,bool cpu,bool exitdown = false)
     {
         CharacterControl_Base target = Player.GetComponentInChildren<CharacterControl_Base>();
         // Playerの座標を取得する
@@ -329,7 +283,7 @@ public class Player_Camera_Controller : MonoBehaviour
         }
 
         // 敵の座標を取得する
-        // ソートして一番近い相手をロックオン                        
+        // ソートして一番近い相手をロックオン
         int most_near = 0;
         float distance_OR = 0;
 
@@ -371,6 +325,16 @@ public class Player_Camera_Controller : MonoBehaviour
             return false;
         }
 
+		// ダウンしていたら強制的にfalse
+		if(exitdown)
+		{
+			CharacterControl_Base rockontarget = RockOnTarget[most_near].GetComponent<CharacterControl_Base>();
+			if(rockontarget.m_nowDownRatio >= rockontarget.m_DownRatio)
+			{
+				return false;
+			}
+		}
+
         // フラグをロックオン状態に切り替える
         IsRockOn = true;
         // 対象をmost_nearとする
@@ -381,6 +345,49 @@ public class Player_Camera_Controller : MonoBehaviour
         target.m_IsRockon = true;
         return true;
     }
+
+	/// <summary>
+	/// ロックオン対象が複数いるときの処理
+	/// </summary>
+	/// <param name="target">このカメラが追跡しているキャラクター</param>
+	public void RockOnSelecter(CharacterControl_Base target)
+	{
+		// 自分＋1の相手を選択する
+		int nexttarget = m_nowTarget + 1;
+		// 認識している相手の中で、ロックオンできる相手を探す
+		while (true)
+		{
+			// 最大値を超えていれば0に
+			if (nexttarget > RockOnTarget.Count - 1)
+			{
+				nexttarget = 0;
+			}
+			// 相手が存在すればロックオン
+			if (RockOnTarget[nexttarget] != null)
+			{
+				// 自分の場合はロックオンさせない
+				float distance_check = Vector3.Distance(RockOnTarget[nexttarget].transform.position, target.transform.position);
+				if (distance_check > 0)
+				{
+					RockDone(target,nexttarget);
+				}
+				break;
+			}
+			// しなければもう１つインデックスを加算して仕切り直し
+			else
+			{
+				nexttarget++;
+				// もしnowtargetと同じ値なら残り1体なのでロックオン解除
+				if (m_nowTarget == nexttarget)
+				{
+					IsRockOn = false;
+					target.m_IsRockon = false;
+					// 増援が来たことの判定はここでやる（初めてロックオンした時の処理をここでもう一度）
+					return;
+				}
+			}
+		}
+	}
 
     // ロックオン範囲内にいる敵を検索し、ロックオンする
     // target   [in]:敵側をロックオンするかプレイヤー側をロックオンするか 
@@ -400,6 +407,23 @@ public class Player_Camera_Controller : MonoBehaviour
             }
         }
     }
+
+	/// <summary>
+	/// ロックオンしたときフラグを立てる
+	/// </summary>
+	/// <param name="target">カメラの追跡対象</param>
+	/// <param name="nexttarget">ロックオン対象のインデックス</param>
+	private void RockDone(CharacterControl_Base target, int nexttarget)
+	{
+		// フラグをロックオン状態に切り替える
+		IsRockOn = true;
+		// 対象をmost_nearとする
+		Enemy = RockOnTarget[nexttarget];
+		// 対象のインデックスを保持する
+		m_nowTarget = nexttarget;
+		// PC側のロックオンフラグを立てる
+		target.m_IsRockon = true;
+	}
 
     /// <summary>
     ///  ロックオンを解除した時フラグを折る

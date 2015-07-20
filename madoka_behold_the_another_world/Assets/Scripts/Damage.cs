@@ -59,14 +59,6 @@ public partial class CharacterControl_Base : MonoBehaviour
                     savingparameter.AddExp((int)Character_Spec.CHARACTER_NAME.MEMBER_MADOKA, addexp);
                 }
             }
-
-            /*for (int i = 0; i < (int)Character_Spec.CHARACTER_NAME.CHARACTER_ALL_NUM; ++i)
-            {
-                if (savingparameter.GetNowHP(i) > 0)
-                {
-                    savingparameter.AddExp(i, addexp);
-                }
-            }*/
         }
 
         // PCにヒットさせた場合、savingparameterの値も変える
@@ -197,8 +189,6 @@ public partial class CharacterControl_Base : MonoBehaviour
         this.rigidbody.useGravity = true;
         // 固定していた場合、固定解除
         this.rigidbody.constraints = RigidbodyConstraints.None;
-
-        Debug.Log("Damaged:" + this.gameObject.name);
 
         // 錐揉みダウン（ダウン値MAX）なら錐揉みダウンアニメを再生し、ステートをSpinDownへ切り替える
         if (this.m_nowDownRatio >= this.m_DownRatio)

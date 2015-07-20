@@ -426,7 +426,6 @@ public class Prologue_01 : EventBase
 				xstory++;
 				break;
             default:
-                FullClear();
                 // 必要ステートを初期化
                 savingparameter.savingparameter_Init();
                 savingparameter.beforeField = 0;
