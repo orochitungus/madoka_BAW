@@ -35,6 +35,10 @@ public class AIControl_Base : MonoBehaviour
         DOGFIGHT_STANDBY,       // 格闘戦準備
         DOGFIGHT,               // 格闘戦（地上準備）
         DOGFIGHT_DONE,          // 格闘戦（地上）
+		DOGFIGHT_FRONT,			// 格闘戦（前格闘）
+		DOGFIGHT_LEFT,			// 格闘戦（横格闘左）
+		DOGFIGHT_RIGHT,			// 格闘戦（横格闘右）
+		DOGFIGHT_EX,			// 格闘戦（特殊格闘）
         DOGFIGHT_UPPER,         // 格闘戦（上昇）
         DOGFIGHT_DOWNER,        // 格闘戦（下降）
         GUARD,                  // 防御
@@ -230,9 +234,21 @@ public class AIControl_Base : MonoBehaviour
             case CPUMODE.DOGFIGHT:               // 格闘戦（地上準備）
                 dogfight();
                 break;
-            case CPUMODE.DOGFIGHT_DONE:
+            case CPUMODE.DOGFIGHT_DONE:			 // 格闘戦（N格闘）
                 dogfight_done(ref tenkeyoutput, ref keyoutput);
                 break;
+			case CPUMODE.DOGFIGHT_FRONT:		 // 格闘戦（前格闘）
+				dogfight_front(ref tenkeyoutput, ref keyoutput);
+				break;
+			case CPUMODE.DOGFIGHT_LEFT:			 // 格闘戦（横格闘左）
+				dogfight_left(ref tenkeyoutput, ref keyoutput);
+				break;
+			case CPUMODE.DOGFIGHT_RIGHT:		 // 格闘戦（横格闘右）
+				dogfight_right(ref tenkeyoutput, ref keyoutput);
+				break;
+			case CPUMODE.DOGFIGHT_EX:			 // 格闘戦（特殊格闘）
+				dogfight_ex(ref tenkeyoutput, ref keyoutput);
+				break;
             case CPUMODE.DOGFIGHT_UPPER:         // 格闘戦（上昇）
                 dogfight_upper(ref tenkeyoutput, ref keyoutput);
                 break;
@@ -591,13 +607,15 @@ public class AIControl_Base : MonoBehaviour
             if (m_randnum >= 0.5)
             {
                 m_tenkeyoutput = TENKEY_OUTPUT.LEFTSTEP;
+				m_cpumode = CPUMODE.DOGFIGHT_LEFT;
             }
             // 右
             else
             {
                 m_tenkeyoutput = TENKEY_OUTPUT.RIGHTSTEP;
+				m_cpumode = CPUMODE.DOGFIGHT_RIGHT;
             }
-            m_cpumode = CPUMODE.DOGFIGHT;
+			keyoutput = KEY_OUTPUT.WRESTLE;
         }
         // そうでなければN格か前格を振る
         else
@@ -608,13 +626,15 @@ public class AIControl_Base : MonoBehaviour
             if (m_randnum >= 0.5)
             {
                 tenkeyoutput = TENKEY_OUTPUT.TOP;
+				m_cpumode = CPUMODE.DOGFIGHT_FRONT;
             }
             else
             {
                 m_tenkeyoutput = TENKEY_OUTPUT.NEUTRAL;
+				m_cpumode = CPUMODE.DOGFIGHT;
             }
             keyoutput = KEY_OUTPUT.WRESTLE;
-            m_cpumode = CPUMODE.DOGFIGHT;
+            
         }
     }
     //DOGFIGHT,               // 格闘戦（地上準備）
@@ -634,11 +654,7 @@ public class AIControl_Base : MonoBehaviour
     {
         // 制御対象
         var target = ControlTarget.GetComponent<CharacterControl_Base>();
-        // m_randumが0.5以上なら前格闘
-        if (m_randnum >= 0.5)
-        {
-            tenkeyoutput = TENKEY_OUTPUT.TOP;
-        }
+		tenkeyoutput = TENKEY_OUTPUT.NEUTRAL;
         keyoutput = KEY_OUTPUT.WRESTLE;
         m_cpumode = CPUMODE.DOGFIGHT_DONE;
         // 格闘を振り終わったらNORMALへ戻る
@@ -647,6 +663,77 @@ public class AIControl_Base : MonoBehaviour
             m_cpumode = CPUMODE.NORMAL;
         }
     }
+
+	/// <summary>
+	/// 格闘戦（前格闘）
+	/// </summary>
+	/// <param name="tenkeyoutput"></param>
+	/// <param name="keyoutput"></param>
+	protected virtual void dogfight_front(ref TENKEY_OUTPUT tenkeyoutput, ref KEY_OUTPUT keyoutput)
+	{
+		// 制御対象
+		var target = ControlTarget.GetComponent<CharacterControl_Base>();
+		tenkeyoutput = TENKEY_OUTPUT.TOP;
+		keyoutput = KEY_OUTPUT.WRESTLE;
+		m_cpumode = CPUMODE.DOGFIGHT_FRONT;
+		// 格闘を振り終わったらNORMALへ戻る
+		if (target.m_AnimState[0] == CharacterControl_Base.AnimationState.Idle || target.m_AnimState[0] == CharacterControl_Base.AnimationState.Fall)
+		{
+			m_cpumode = CPUMODE.NORMAL;
+		}
+	}
+	/// <summary>
+	/// 格闘戦(横格闘左）
+	/// </summary>
+	/// <param name="tenkeyoutput"></param>
+	/// <param name="keyoutput"></param>
+	protected virtual void dogfight_left(ref TENKEY_OUTPUT tenkeyoutput, ref KEY_OUTPUT keyoutput)
+	{
+		// 制御対象
+		var target = ControlTarget.GetComponent<CharacterControl_Base>();
+		tenkeyoutput = TENKEY_OUTPUT.LEFT;
+		keyoutput = KEY_OUTPUT.WRESTLE;
+		m_cpumode = CPUMODE.DOGFIGHT_LEFT;
+		// 格闘を振り終わったらNORMALへ戻る
+		if (target.m_AnimState[0] == CharacterControl_Base.AnimationState.Idle || target.m_AnimState[0] == CharacterControl_Base.AnimationState.Fall)
+		{
+			m_cpumode = CPUMODE.NORMAL;
+		}
+	}
+
+	/// <summary>
+	/// 格闘戦（横格闘右)
+	/// </summary>
+	/// <param name="tenkeyoutput"></param>
+	/// <param name="keyoutput"></param>
+	protected virtual void dogfight_right(ref TENKEY_OUTPUT tenkeyoutput, ref KEY_OUTPUT keyoutput)
+	{
+		// 制御対象
+		var target = ControlTarget.GetComponent<CharacterControl_Base>();
+		tenkeyoutput = TENKEY_OUTPUT.RIGHT;
+		keyoutput = KEY_OUTPUT.WRESTLE;
+		m_cpumode = CPUMODE.DOGFIGHT_RIGHT;
+		// 格闘を振り終わったらNORMALへ戻る
+		if (target.m_AnimState[0] == CharacterControl_Base.AnimationState.Idle || target.m_AnimState[0] == CharacterControl_Base.AnimationState.Fall)
+		{
+			m_cpumode = CPUMODE.NORMAL;
+		}
+	}
+
+	protected virtual void dogfight_ex(ref TENKEY_OUTPUT tenkeyoutput, ref KEY_OUTPUT keyoutput)
+	{
+		// 制御対象
+		var target = ControlTarget.GetComponent<CharacterControl_Base>();
+		tenkeyoutput = TENKEY_OUTPUT.NEUTRAL;
+		keyoutput = KEY_OUTPUT.EXWRESTLE;
+		m_cpumode = CPUMODE.DOGFIGHT_EX;
+		// 格闘を振り終わったらNORMALへ戻る
+		if (target.m_AnimState[0] == CharacterControl_Base.AnimationState.Idle || target.m_AnimState[0] == CharacterControl_Base.AnimationState.Fall)
+		{
+			m_cpumode = CPUMODE.NORMAL;
+		}
+	}
+
     //DOGFIGHT_UPPER,         // 格闘戦（上昇）
     protected virtual void dogfight_upper(ref TENKEY_OUTPUT tenkeyoutput,ref KEY_OUTPUT keyoutput)
     {

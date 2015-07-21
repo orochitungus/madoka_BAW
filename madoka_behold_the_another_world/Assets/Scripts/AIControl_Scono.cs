@@ -5,6 +5,9 @@ using System.Collections;
 // CPUによるキャラクター操作を行う(スコノシュート専用）
 public class AIControl_Scono : AIControl_Base 
 {
+	// 上昇限界高度
+	private float RiseLimit = 75.0f;
+
     // Use this for initialization
 	void Start () 
     {
@@ -49,6 +52,17 @@ public class AIControl_Scono : AIControl_Base
             m_totalrisetime = Time.time;
             return;
         }
+
+		// 上昇限界高度に達していたら下特殊格闘を出して下降開始
+		RaycastHit hit;
+		Vector3 RayStartPosition = new Vector3(target.transform.position.x, target.transform.position.y + 1.5f, target.transform.position.z);
+		if (Physics.Raycast(RayStartPosition, -transform.up, out hit, RiseLimit))
+		{
+			keyoutput = KEY_OUTPUT.NONE;
+			m_cpumode = CPUMODE.DOGFIGHT_DOWNER;
+			return;
+		}
+
         // ロックオン状態で赤ロックになったら戦闘開始
         if (engauge(ref keyoutput))
         {
@@ -125,6 +139,14 @@ public class AIControl_Scono : AIControl_Base
                 }
                 // 残弾数がなければなにもしない（NORMALへ戻る）
                 var targetState = ControlTarget.GetComponent<Scono_Battle_Control>();
+
+				// 上昇限界高度を超えていると下特殊格闘を出す
+                if (Physics.Raycast(RayStartPosition, -transform.up, out hit, RiseLimit))
+				{
+					keyoutput = KEY_OUTPUT.NONE;
+					m_cpumode = CPUMODE.DOGFIGHT_DOWNER;
+					return true;
+				}
                 // 通常射撃・サブ射撃・特殊射撃・覚醒技（覚醒時のみ）のいずれかを行う
                 // 乱数を取得
                 float attacktype = Random.value;         // 攻撃手段(0-0.2:覚醒技(非覚醒時は何もしない)、0.2-0.6(通常射撃）、0.6-0.8(サブ射撃）、0.8-1.0（特殊射撃）
