@@ -306,7 +306,7 @@ public static class Character_Spec
             // 射撃
             new CharacterSkill(CharacterSkill.SkillType.SHOT,"マジックビームキャノン",50,5,6,1,2,1,CharacterSkill.HitType.BEND_BACKWARD,0.3f,70.0f,CharacterSkill.ReloadType.ONE_BY_ONE,3.5f,10),
             new CharacterSkill(CharacterSkill.SkillType.SUB_SHOT,"マジックビームボム",70,5,2,1,2,1,CharacterSkill.HitType.BLOW,1.0f,70.0f,CharacterSkill.ReloadType.IT_ALL_TOGETHER,9.0f,20),
-            new CharacterSkill(CharacterSkill.SkillType.EX_SHOT,"マジックイレイザー",5,5,1,1,0.2f,1,CharacterSkill.HitType.BEND_BACKWARD,1.0f,80.0f,CharacterSkill.ReloadType.ONE_BY_ONE,10.0f,5),
+            new CharacterSkill(CharacterSkill.SkillType.EX_SHOT,"マジックイレイザー",50,5,1,1,0.2f,1,CharacterSkill.HitType.BEND_BACKWARD,1.0f,80.0f,CharacterSkill.ReloadType.ONE_BY_ONE,10.0f,5),
             // 格闘
             // N格闘
             new CharacterSkill(CharacterSkill.SkillType.WRESTLE_1,"ビームサーベル",40,5,2.0f,1,CharacterSkill.HitType.BEND_BACKWARD,1.0f,12.0f,0.6f,10,1.0f),

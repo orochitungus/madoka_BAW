@@ -139,12 +139,12 @@ public class majyu_BattleControl : CharacterControl_Base
         this.m_BoostLess = 0.5f;        // ジャンプの上昇・BD時の1F当たりの消費量
 
         // ステップ移動距離
-        this.m_Step_Move_Length = 300.0f;
+        this.m_Step_Move_Length = 10.0f;
 
         // ステップ初速（X/Z軸）
-        this.m_Step_Initial_velocity = 20.0f;
+        this.m_Step_Initial_velocity = 30.0f;
         // ステップ時の１F当たりの移動量
-        this.m_Step_Move_1F = this.m_Step_Move_Length / this.m_Step_Initial_velocity;
+        this.m_Step_Move_1F = 1.0f;
         // ステップ終了時硬直時間
         this.m_StepBackTime = 0.7f;
 
@@ -516,11 +516,6 @@ public class majyu_BattleControl : CharacterControl_Base
                     obj.transform.parent = m_ArrowRoot.transform;
                     // 矢の親子関係を付けておく
                     obj.transform.rigidbody.isKinematic = true;
-                }
-                // 空中ダッシュ時以外はいったん止める
-                if (this.m_AnimState[0] != AnimationState.Shot_AirDash)
-                {
-                    this.transform.rigidbody.constraints = RigidbodyConstraints.FreezePosition;
                 }
             }
         }        

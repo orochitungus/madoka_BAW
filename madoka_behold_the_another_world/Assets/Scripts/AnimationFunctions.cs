@@ -471,7 +471,7 @@ public partial class CharacterControl_Base
         // ブーストがあれば慣性移動及び再上昇可。なければ不可
         if (this.m_Boost > 0)
         {            
-            if (this.m_hasDashCancelInput || this.m_hasAirDashInput)// ジャンプ再入力で向いている方向へ空中ダッシュ(上昇は押しっぱなし)           
+            if (this.m_hasDashCancelInput)// ジャンプ再入力で向いている方向へ空中ダッシュ(上昇は押しっぱなし)           
             {                
                 CancelDashDone();
             }
@@ -510,7 +510,7 @@ public partial class CharacterControl_Base
         }
 
         // 落下速度調整
-        this.m_MoveDirection.y = MadokaDefine.FALLSPEED / 2;// *(Time.time - m_fallStartTime);
+        this.m_MoveDirection.y = MadokaDefine.FALLSPEED / 2;
 
         // 着地時に着陸へ移行
         if (m_isGrounded)

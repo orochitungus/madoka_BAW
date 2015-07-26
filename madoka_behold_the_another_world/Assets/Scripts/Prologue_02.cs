@@ -291,18 +291,24 @@ public class Prologue_02 : EventBase
                 m_serif[3] = "";
                 savingparameter.story = 1;  // ストーリー進行度変更
                 break;
+			case 21:
+				keybreak = true;
+				FullClear();
+				xstory++;
+				break;
+			case 22:
+				keybreak = true;
+				foreach (GameObject c in m_camera)
+				{
+					c.SetActive(false);
+				}
+				xstory++;
+				break;
             default:
                 // VSスコノシュート戦へ飛ばす
-                m_facetype = 0;
-                m_drawname_jp = "";
-                m_drawname_en = "";
-                for (int i = 0; i < m_serif.Length; i++)
-                {
-                    m_serif[i] = "";
-                }
                 savingparameter.nowField = 4;
                 savingparameter.beforeField = 0;
-				FadeManager.Instance.LoadLevel("Imagica_Shock_Ground_Zero_VSScono", 1.0f);
+				Application.LoadLevel("Imagica_Shock_Ground_Zero_VSScono");
                 break;
         }
         EventUpdate();

@@ -111,6 +111,10 @@ public class Laser2 : MonoBehaviour
             Vector3 scale = this.transform.localScale;
             // リサイズ後のサイズ
             float resizeObject = LaserEnlargementFactor * RH.distance;
+			if(resizeObject <= 0.0f)
+			{
+				resizeObject = 1.0f;
+			}
             // リサイズする
             this.transform.localScale = new Vector3(scale.x, scale.y, resizeObject);
 

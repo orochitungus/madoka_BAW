@@ -1053,8 +1053,9 @@ public partial class CharacterControl_Base : MonoBehaviour
             m_PastInputs_Jump[i] = m_PastInputs_Jump[i + 1];
         }
         // 現在の値を取得して最後に持ってくる
-        if (Input.GetButtonDown("Jump") || Input.GetButton("Jump"))
-        {
+        //if (Input.GetButtonDown("Jump") || Input.GetButton("Jump"))
+		if (Input.GetButton("Jump"))
+		{
             m_PastInputs_Jump[m_PastInputs_Jump.Length - 1] = JumpInputState.PUSH;
         }
         else if (Input.GetButtonUp("Jump"))
@@ -1076,10 +1077,10 @@ public partial class CharacterControl_Base : MonoBehaviour
             // pushを拾った
             if (push)
             {
-                // そこから数えた先にpullがあるか？
+                // そこから数えた先にpullかnoneがあるか？
                 for (int j = i; j < m_PastInputs_Jump.Length; j++)
                 {
-                    if (m_PastInputs_Jump[j] == JumpInputState.PULL)
+                    if (m_PastInputs_Jump[j] == JumpInputState.PULL || m_PastInputs_Jump[j] == JumpInputState.NONE)
                     {
                         // pullがあった場合、その先にpushがあるか？
                         for (int k = j; k < m_PastInputs_Jump.Length; k++)
@@ -2157,7 +2158,11 @@ public partial class CharacterControl_Base : MonoBehaviour
     // 下降共通動作
     protected void FallDone(Vector3 RiseSpeed)
     {
-		//print ("FallDone");
+		// 過去入力をリセット
+		for (int x = 0; x < m_PastInputs_Jump.Length; x++)
+		{
+			m_PastInputs_Jump[x] = JumpInputState.NONE;
+		}
         this.rigidbody.useGravity = true;
         this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
         //this.animation.Play(m_AnimationNames[(int)AnimationState.Fall]);
@@ -2836,8 +2841,6 @@ public partial class CharacterControl_Base : MonoBehaviour
         // ほむらの時間停止を受けているときなど、0に
         else if (m_timstopmode == TimeStopMode.TIME_STOP || m_timstopmode == TimeStopMode.PAUSE || m_timstopmode == TimeStopMode.AROUSAL)
         {
-            // アニメを止めておく
-            //Time.timeScale = 0;
             MoveSpeed = 0;
             return false;
         }
@@ -2845,11 +2848,10 @@ public partial class CharacterControl_Base : MonoBehaviour
         {            
             // 速度ベクトルを作る
             Vector3 velocity = this.m_MoveDirection * MoveSpeed;
-            
             // 走行中/アイドル中/吹き飛び中/ダウン中
             if (this.m_AnimState[0] == AnimationState.Run || this.m_AnimState[0] == AnimationState.Idle || this.m_AnimState[0] == AnimationState.Blow || this.m_AnimState[0] == AnimationState.Down)
             {
-                velocity.y = MadokaDefine.FALLSPEED;      // ある程度下方向へのベクトルをかけておかないと、スロープ中に落ちる          
+                velocity.y = MadokaDefine.FALLSPEED;      // ある程度下方向へのベクトルをかけておかないと、スロープ中に落ちる
             }
             this.m_rigidbody.velocity = velocity; //this.m_charactercontroller.Move(velocity * Time.deltaTime);
             

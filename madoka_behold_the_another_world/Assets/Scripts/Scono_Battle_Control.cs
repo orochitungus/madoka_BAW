@@ -166,12 +166,12 @@ public class Scono_Battle_Control : CharacterControl_Base
         this.m_BoostLess = 0.5f;        // ジャンプの上昇・BD時の1F当たりの消費量
 
         // ステップ移動距離
-        this.m_Step_Move_Length = 100.0f;
+        this.m_Step_Move_Length = 10.0f;
 
         // ステップ初速（X/Z軸）
         this.m_Step_Initial_velocity = 30.0f;
         // ステップ時の１F当たりの移動量
-        this.m_Step_Move_1F = this.m_Step_Move_Length / this.m_Step_Initial_velocity;
+        this.m_Step_Move_1F = 1.0f;
         // ステップ終了時硬直時間
         this.m_StepBackTime = 0.4f;
 
@@ -594,7 +594,7 @@ public class Scono_Battle_Control : CharacterControl_Base
                     this.m_AnimState[0] = AnimationState.Fall;
                     m_fallStartTime = Time.time;
                 }
-                // 固定状態を解除
+                
 
                 // ショットのステートを戻す
                 shotmode = ShotMode.NORMAL;
@@ -664,6 +664,9 @@ public class Scono_Battle_Control : CharacterControl_Base
         m_AnimState[0] = AnimationState.EX_Shot;
         this.animation.CrossFade(m_AnimationNames[(int)AnimationState.EX_Shot]);
         this.shotmode = ShotMode.RELORD;
+		// 位置と角度を固定する
+		this.m_MoveDirection = Vector3.zero;
+		this.rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
      // 射撃(通常射撃装填。この関数は通常射撃のアニメにリンクする。弾消費後の処理は共用できる）
@@ -760,12 +763,6 @@ public class Scono_Battle_Control : CharacterControl_Base
                     // 弾の親子関係を付けておく
                     obj.transform.rigidbody.isKinematic = true;
                 }
-            }
-            // 空中ダッシュ時以外はいったん止める
-            if (this.m_AnimState[0] != AnimationState.Shot_AirDash)
-            {
-                this.transform.rigidbody.constraints = RigidbodyConstraints.FreezePosition;
-                this.transform.rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
             }
         }
     }

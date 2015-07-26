@@ -56,7 +56,7 @@ public class AIControl_Scono : AIControl_Base
 		// 上昇限界高度に達していたら下特殊格闘を出して下降開始
 		RaycastHit hit;
 		Vector3 RayStartPosition = new Vector3(target.transform.position.x, target.transform.position.y + 1.5f, target.transform.position.z);
-		if (Physics.Raycast(RayStartPosition, -transform.up, out hit, RiseLimit))
+		if (!Physics.Raycast(RayStartPosition, -transform.up, out hit, RiseLimit))
 		{
 			keyoutput = KEY_OUTPUT.NONE;
 			m_cpumode = CPUMODE.DOGFIGHT_DOWNER;
@@ -115,73 +115,104 @@ public class AIControl_Scono : AIControl_Base
                     return true;
                 }
             }
-            // そうでなければ空中におり、敵との間に遮蔽物がなければ射撃攻撃（現行、地上にいると射撃のループをしてしまう）
-            else if (!target.GetInGround())
-            {
-                // 前面に向かってレイキャストする
-                RaycastHit hit;
-                Vector3 RayStartPosition = new Vector3(target.transform.position.x, target.transform.position.y + 1.5f, target.transform.position.z);
-                if (Physics.Raycast(RayStartPosition, transform.forward, out hit, 230.0f))
-                {
-                    // 衝突した「何か」が障害物であったら測距する
-                    if (hit.transform.gameObject.layer == LayerMask.NameToLayer("ground"))
-                    {
-                        // 障害物との距離が敵との距離より近ければ、falseを返す
-                        // 敵との距離
-                        float EnemyDistance = Vector3.Distance(target.transform.position, RockonTarget.transform.position);
-                        // 障害物との距離
-                        float hitDistance = Vector3.Distance(target.transform.position, hit.transform.position);
-                        if (hitDistance < EnemyDistance)
-                        {
-                            return false;
-                        }
-                    }
-                }
-                // 残弾数がなければなにもしない（NORMALへ戻る）
-                var targetState = ControlTarget.GetComponent<Scono_Battle_Control>();
+			// そうでなければ空中におり、敵との間に遮蔽物がなければ射撃攻撃（現行、地上にいると射撃のループをしてしまう）
+			else if (!target.GetInGround())
+			{
+				// 前面に向かってレイキャストする
+				RaycastHit hit;
+				Vector3 RayStartPosition = new Vector3(target.transform.position.x, target.transform.position.y + 1.5f, target.transform.position.z);
+				if (Physics.Raycast(RayStartPosition, transform.forward, out hit, 230.0f))
+				{
+					// 衝突した「何か」が障害物であったら測距する
+					if (hit.transform.gameObject.layer == LayerMask.NameToLayer("ground"))
+					{
+						// 障害物との距離が敵との距離より近ければ、falseを返す
+						// 敵との距離
+						float EnemyDistance = Vector3.Distance(target.transform.position, RockonTarget.transform.position);
+						// 障害物との距離
+						float hitDistance = Vector3.Distance(target.transform.position, hit.transform.position);
+						if (hitDistance < EnemyDistance)
+						{
+							return false;
+						}
+					}
+				}
+				// 残弾数がなければなにもしない（NORMALへ戻る）
+				var targetState = ControlTarget.GetComponent<Scono_Battle_Control>();
 
 				// 上昇限界高度を超えていると下特殊格闘を出す
-                if (Physics.Raycast(RayStartPosition, -transform.up, out hit, RiseLimit))
+				if (!Physics.Raycast(RayStartPosition, -transform.up, out hit, RiseLimit))
 				{
 					keyoutput = KEY_OUTPUT.NONE;
 					m_cpumode = CPUMODE.DOGFIGHT_DOWNER;
 					return true;
 				}
-                // 通常射撃・サブ射撃・特殊射撃・覚醒技（覚醒時のみ）のいずれかを行う
-                // 乱数を取得
-                float attacktype = Random.value;         // 攻撃手段(0-0.2:覚醒技(非覚醒時は何もしない)、0.2-0.6(通常射撃）、0.6-0.8(サブ射撃）、0.8-1.0（特殊射撃）
-                if (0.0f <= attacktype && attacktype < 0.2f && target.m_isArousal)
-                {
-                    m_cpumode = CPUMODE.FIREFIGHT;
-                    keyoutput = KEY_OUTPUT.AROUSALATTACK;
-                    return true;
-                }
-                else if (0.2f <= attacktype && attacktype < 0.6f && targetState.m_BulletNum[0] > 0)                
-                {
-                    m_cpumode = CPUMODE.FIREFIGHT;
-                    keyoutput = KEY_OUTPUT.SHOT;
-                    return true;
-                }
-                else if (0.6f <= attacktype && attacktype < 0.75f && targetState.m_BulletNum[1] > 0)
-                {
-                    m_cpumode = CPUMODE.FIREFIGHT;
-                    keyoutput = KEY_OUTPUT.SUBSHOT;
-                    return true;
-                }
-                else if (0.75f <= attacktype && attacktype <= 1.0f && targetState.m_BulletNum[2] > 0)
-                {
-                    m_cpumode = CPUMODE.FIREFIGHT;
-                    keyoutput = KEY_OUTPUT.EXSHOT;
-                    return true;
-                }
-                else
-                {
-                    m_cpumode = CPUMODE.NORMAL;
-                    keyoutput = KEY_OUTPUT.NONE;
-                    return false;
-                }
-            }
+				// 通常射撃・サブ射撃・特殊射撃・BD格闘・覚醒技（覚醒時のみ）のいずれかを行う
+				// 乱数を取得
+				float attacktype = Random.value;         // 攻撃手段(0-0.2:覚醒技(非覚醒時はBD格闘)、0.2-0.6(通常射撃）、0.6-0.8(サブ射撃）、0.8-1.0（特殊射撃）
+				if (0.0f <= attacktype && attacktype < 0.2f && target.m_isArousal)
+				{
+					m_cpumode = CPUMODE.FIREFIGHT;
+					keyoutput = KEY_OUTPUT.AROUSALATTACK;
+					return true;
+				}
+				else if (0.2f <= attacktype && attacktype < 0.6f && targetState.m_BulletNum[0] > 0)                
+				{
+					m_cpumode = CPUMODE.FIREFIGHT;
+					keyoutput = KEY_OUTPUT.SHOT;
+					return true;
+				}
+				else if (0.6f <= attacktype && attacktype < 0.75f && targetState.m_BulletNum[1] > 0)
+				{
+					m_cpumode = CPUMODE.FIREFIGHT;
+					keyoutput = KEY_OUTPUT.SUBSHOT;
+					return true;
+				}
+				else if (0.75f <= attacktype && attacktype <= 1.0f && targetState.m_BulletNum[2] > 0)
+				{
+					m_cpumode = CPUMODE.FIREFIGHT;
+					keyoutput = KEY_OUTPUT.EXSHOT;
+					return true;
+				}
+				else
+				{
+					m_cpumode = CPUMODE.DOGFIGHT_STANDBY;
+					return true;
+				}
+			}
         }
         return false;
     }
+
+	protected override void noraml_rise1(ref KEY_OUTPUT keyoutput)
+	{
+		// 何らかの理由で哨戒起点か終点をロックしたまま攻撃体制に入った場合は元に戻す
+		if (UnRockAndReturnPatrol())
+			return;
+
+		// 制御対象
+		var target = ControlTarget.GetComponent<Scono_Battle_Control>();
+		RaycastHit hit;
+		Vector3 RayStartPosition = new Vector3(ControlTarget.transform.position.x, ControlTarget.transform.position.y + 1.5f, ControlTarget.transform.position.z);
+		// 地上から離れて一定時間たったか上昇限界高度を超えているとジャンプボタンを離す
+		if ((Time.time > m_totalrisetime + m_risetime && !target.GetInGround()) ||(!Physics.Raycast(RayStartPosition, -transform.up, out hit, RiseLimit)))
+		{
+			keyoutput = KEY_OUTPUT.NONE;
+			m_cpumode = CPUMODE.NORMAL_RISE2;
+			m_totalrisetime = Time.time;
+		}
+		// 地上から離れずに一定時間いるとNORMALへ戻って仕切り直す
+		if (Time.time > m_totalrisetime + m_risetime && target.GetInGround())
+		{
+			m_cpumode = CPUMODE.NORMAL;
+		}
+		// 敵との距離が離れすぎるとロックオンを解除して哨戒に戻る
+		// カメラ
+		Player_Camera_Controller pcc = ControlTarget_Camera.GetComponent<Player_Camera_Controller>();
+		float distance = Vector3.Distance(pcc.Player.transform.position, pcc.Enemy.transform.position);
+		if ((int)m_latecpumode > (int)CPUMODE.RETURN_PATH && distance > target.m_Rockon_RangeLimit)
+		{
+			ReturnPatrol(target);
+		}
+	}
 }

@@ -412,7 +412,7 @@ public class AIControl_Base : MonoBehaviour
 
     // 哨戒起点か終点をロックしたまま攻撃態勢に入った場合、ロックオン対象を元に戻す
     // return   :ロックオン対象を元に戻した
-    bool UnRockAndReturnPatrol()
+    protected bool UnRockAndReturnPatrol()
     {
         // カメラ
         Player_Camera_Controller pcc = ControlTarget_Camera.GetComponent<Player_Camera_Controller>();
@@ -620,10 +620,10 @@ public class AIControl_Base : MonoBehaviour
         // そうでなければN格か前格を振る
         else
         {
-            // 乱数（50％の確率で前格闘を振る）
+            // 乱数（20％の確率で前格闘を振る）
             m_randnum = Random.value;
-            // m_randumが0.5以上なら前格闘
-            if (m_randnum >= 0.5)
+            // m_randumが0.8以上なら前格闘
+            if (m_randnum >= 0.8)
             {
                 tenkeyoutput = TENKEY_OUTPUT.TOP;
 				m_cpumode = CPUMODE.DOGFIGHT_FRONT;
