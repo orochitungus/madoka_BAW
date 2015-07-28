@@ -1,0 +1,49 @@
+﻿using UnityEngine;
+using System;
+using UniRx;
+using UniRx.Triggers;
+
+public class ClickTest : MonoBehaviour 
+{
+
+	 void Start() 
+	 {
+		 var speed = Vector3.zero;
+		 var cc = GetComponent<CharacterController>();
+
+		 var clickstream = this.UpdateAsObservable() // クリックイベント
+		.Where(_ => Input.GetMouseButtonDown(0));
+
+		 var mouseoff = this.UpdateAsObservable() // マウスオフ
+		.Select(_ => Input.GetMouseButton(0))
+		 .DistinctUntilChanged(x => x)
+		 .Where(x => !x);
+
+		 var doubleclick = clickstream.
+		 Buffer(clickstream.Throttle(TimeSpan.FromMilliseconds(200))) // ダブルクリックイベント
+		.Where(x => x.Count >= 2);
+
+		 var jump = this.UpdateAsObservable() // ジャンプイベント（接地してる且つ、クリック）
+		.Where(_ => cc.isGrounded & Input.GetMouseButtonDown(0));
+
+		 this.UpdateAsObservable() // ジャンプ処理
+		.SkipUntil(jump) // ジャンプイベントが来るまで無視
+		.TakeUntil(mouseoff) // マウス離すまで
+		.Repeat() // 繰り返し
+		.Subscribe(_ => speed.y = 0.15f); // ジャンプベクトル設定
+
+		this.UpdateAsObservable() // 落下処理
+		.Where(_ => !cc.isGrounded) // 接地してなければ
+		.Subscribe(_ => speed.y -= 0.005f); // Yベクトルを下に加速
+
+		this.UpdateAsObservable() // 横に加速
+		.SkipUntil(doubleclick) // ダブルクリックされるまで待機
+		.First() // 最初のイベントのみ取得
+		.Repeat() // 繰り返し
+		.Where(_ => !cc.isGrounded) // 接地してない時のみ通す
+		.Subscribe(_ => speed.x = 0.05f); // 横に加速
+
+		this.UpdateAsObservable()　// 移動
+		.Subscribe(_ => cc.Move(speed)); // 加工された加速度を反映させる
+	}
+}
