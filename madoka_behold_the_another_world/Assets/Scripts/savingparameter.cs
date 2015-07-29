@@ -85,9 +85,9 @@ public static class savingparameter
                 AddSkillPoint(index, (i + 1 - levelOR) * MadokaDefine.SKILLPOINTINCREASE);
                 LevelUpManagement.m_characterName = index;
                 LevelUpManagement.m_nextlevel = i + 1;
-            }            
-        }        
-    }     
+            }
+        }
+    }
 
 
     // 経験値を取得
@@ -632,6 +632,11 @@ public static class savingparameter
         }
         // 所持金を初期化
         nowmoney = MadokaDefine.FIRSTMONEY;
+
+		// アイテム入手フラグとレベルアップフラグを初期化
+		LevelUpManagement.m_characterName = 0;
+		FieldItemGetManagement.ItemKind = -2;
+		FieldItemGetManagement.ItemNum = 0;
 
         
         //// 実験でリボほむらのみSKILLPOINTを10に

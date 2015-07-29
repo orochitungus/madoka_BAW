@@ -20,7 +20,8 @@ public class DrawInformation : MonoBehaviour
     public GameObject m_Camera; // カメラ
     // レベルアップ時のSE
     public AudioClip m_LevelupSE;
-
+	// アイテム入手時のSE
+	public AudioClip ItemSE;
 
     // private
     // 1本のゲージあたりのHPの値（とりあえず1000）
@@ -88,10 +89,31 @@ public class DrawInformation : MonoBehaviour
                 m_timewaitodone = true;
                 // レベルアップ音を鳴らす
                 AudioSource.PlayClipAtPoint(m_LevelupSE, transform.position);
-                StartCoroutine("TimeWait", 20.0f);
+                StartCoroutine(TimeWait(20.0f));
             }
             drawwords = Character_Spec.Name[LevelUpManagement.m_characterName] + "は、Level" + LevelUpManagement.m_nextlevel.ToString() + "にレベルアップ！";
         }
+		// アイテムを入手した場合、そのアイテムを20秒間表示する
+		else if(FieldItemGetManagement.ItemKind > -2)
+		{
+			if (!m_timewaitodone)
+			{
+				m_timewaitodone = true;
+				// アイテム入手音を鳴らす
+				AudioSource.PlayClipAtPoint(ItemSE, transform.position);
+				StartCoroutine(TimeWait(20.0f));
+			}
+			// 金以外
+			if(FieldItemGetManagement.ItemKind > -1)
+			{
+				drawwords = Item.itemspec[FieldItemGetManagement.ItemKind].Name() + "を" + FieldItemGetManagement.ItemNum + "個入手！";
+			}
+			// 金
+			else
+			{
+				drawwords = FieldItemGetManagement.ItemNum + "円入手！";
+			}
+		}
         // それ以外の時はsavingparameter.storyに応じて内容を変更する
         else
         {
@@ -109,10 +131,10 @@ public class DrawInformation : MonoBehaviour
             }
             else if (savingparameter.story == 3)
             {
-                drawwords = "まどかを探しに行こう！";
+                drawwords = "さやかと恭介を追いかけよう！";
             }
         }
-        if (m_timewaitodone & LevelUpManagement.m_characterName == 0)
+        if ((m_timewaitodone && LevelUpManagement.m_characterName == 0) || (m_timewaitodone && FieldItemGetManagement.ItemKind > -2))
         {
             StopCoroutine("TimeWait");
             m_timewaitodone = false;
@@ -128,6 +150,8 @@ public class DrawInformation : MonoBehaviour
         yield return new WaitForSeconds(time);
         LevelUpManagement.m_characterName = 0;
         LevelUpManagement.m_nextlevel = 0;
+		FieldItemGetManagement.ItemKind = -2;
+		FieldItemGetManagement.ItemNum = 0;
     }
 
 

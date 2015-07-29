@@ -274,6 +274,9 @@ public partial class titlecamera_control : MonoBehaviour
             {
                 // レベルアップ状態で遷移するとロード先でレベルアップが出てしまうのでここでフラグを折っておく
                 LevelUpManagement.m_characterName = 0;
+				// 同じ理由でアイテム入手フラグも折っておく
+				FieldItemGetManagement.ItemKind = -2;
+				FieldItemGetManagement.ItemNum = 0;
                 switch (m_nowmodeselectcursor)
                 {
                     case 0: // NEW GAME
