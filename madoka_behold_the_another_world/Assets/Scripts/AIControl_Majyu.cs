@@ -10,6 +10,8 @@ public class AIControl_Majyu : AIControl_Base
 	private bool Shoted;
 	// 飛び道具発射インターバル時間
 	private float ShotIntervalTime = 5.0f;
+	// 上昇限界高度
+	private float RiseLimit = 10.0f;
 
 	// Use this for initialization
 	void Start () 
@@ -149,5 +151,37 @@ public class AIControl_Majyu : AIControl_Base
 	{
 		yield return new WaitForSeconds(ShotIntervalTime);
 		Shoted = false;
+	}
+
+	protected override void noraml_rise1(ref KEY_OUTPUT keyoutput)
+	{
+		// 何らかの理由で哨戒起点か終点をロックしたまま攻撃体制に入った場合は元に戻す
+		if (UnRockAndReturnPatrol())
+			return;
+
+		// 制御対象
+		var target = ControlTarget.GetComponent<Scono_Battle_Control>();
+		RaycastHit hit;
+		Vector3 RayStartPosition = new Vector3(ControlTarget.transform.position.x, ControlTarget.transform.position.y + 1.5f, ControlTarget.transform.position.z);
+		// 上昇限界高度を超えているとジャンプボタンを離す
+		if ((!Physics.Raycast(RayStartPosition, -transform.up, out hit, RiseLimit)))
+		{
+			keyoutput = KEY_OUTPUT.NONE;
+			m_cpumode = CPUMODE.NORMAL_RISE2;
+			m_totalrisetime = Time.time;
+		}
+		// 地上から離れずに一定時間いるとNORMALへ戻って仕切り直す
+		if (Time.time > m_totalrisetime + m_risetime && target.GetInGround())
+		{
+			m_cpumode = CPUMODE.NORMAL;
+		}
+		// 敵との距離が離れすぎるとロックオンを解除して哨戒に戻る
+		// カメラ
+		Player_Camera_Controller pcc = ControlTarget_Camera.GetComponent<Player_Camera_Controller>();
+		float distance = Vector3.Distance(pcc.Player.transform.position, pcc.Enemy.transform.position);
+		if ((int)m_latecpumode > (int)CPUMODE.RETURN_PATH && distance > target.m_Rockon_RangeLimit)
+		{
+			ReturnPatrol(target);
+		}
 	}
 }
