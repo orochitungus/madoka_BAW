@@ -9,158 +9,1447 @@
                 <XSBoneConfig col_def="6737049" col_sel="16757299" col_hot="16776960" col_cst="15040434" col_phy="8362444" />
             </XSConfig>
             <XSAnimationContainer>
-                <XSAnimationSet name="motion_01" interpolate="21">
+                <XSAnimationSet name="nurse1_neutral" interpolate="21">
                     <XSAnimation frame="0">
                         <XSAnimationKey name="root" />
                         <XSAnimationKey name="kosi" />
-                        <XSAnimationKey name="モモ_R_" />
-                        <XSAnimationKey name="スネ_R_" />
-                        <XSAnimationKey name="足_R_" />
-                        <XSAnimationKey name="root2_R_" />
-                        <XSAnimationKey name="足人差指2_R_" />
-                        <XSAnimationKey name="足人差指1_R_" />
-                        <XSAnimationKey name="足中指2_R_" />
-                        <XSAnimationKey name="足中指1_R_" />
-                        <XSAnimationKey name="足薬指2_R_" />
-                        <XSAnimationKey name="足薬指1_R_" />
-                        <XSAnimationKey name="足小指2_R_" />
-                        <XSAnimationKey name="足小指1_R_" />
-                        <XSAnimationKey name="足親指2_R_" />
-                        <XSAnimationKey name="足親指1_R_" />
-                        <XSAnimationKey name="モモ_L_" />
-                        <XSAnimationKey name="スネ_L_" />
-                        <XSAnimationKey name="足_L_" />
-                        <XSAnimationKey name="root2_L_" />
-                        <XSAnimationKey name="足人差指2_L_" />
-                        <XSAnimationKey name="足人差指1_L_" />
-                        <XSAnimationKey name="足中指2_L_" />
-                        <XSAnimationKey name="足中指1_L_" />
-                        <XSAnimationKey name="足薬指2_L_" />
-                        <XSAnimationKey name="足薬指1_L_" />
-                        <XSAnimationKey name="足小指2_L_" />
-                        <XSAnimationKey name="足小指1_L_" />
-                        <XSAnimationKey name="足親指2_L_" />
-                        <XSAnimationKey name="足親指1_L_" />
-                        <XSAnimationKey name="胸" />
-                        <XSAnimationKey name="肩_R_" />
-                        <XSAnimationKey name="腕_R_" />
-                        <XSAnimationKey name="手_R_" />
-                        <XSAnimationKey name="手親指2_R_" />
-                        <XSAnimationKey name="手親指1_R_" />
-                        <XSAnimationKey name="手人差指3_R_" />
-                        <XSAnimationKey name="手人差指2_R_" />
-                        <XSAnimationKey name="手人差指1_R_" />
-                        <XSAnimationKey name="手中指3_R_" />
-                        <XSAnimationKey name="手中指2_R_" />
-                        <XSAnimationKey name="手中指1_R_" />
-                        <XSAnimationKey name="手薬指3_R_" />
-                        <XSAnimationKey name="手薬指2_R_" />
-                        <XSAnimationKey name="手薬指1_R_" />
-                        <XSAnimationKey name="手小指3_R_" />
-                        <XSAnimationKey name="手小指2_R_" />
-                        <XSAnimationKey name="手小指1_R_" />
+                        <XSAnimationKey name="thigh_R_" />
+                        <XSAnimationKey name="reg_R_" />
+                        <XSAnimationKey name="foot_R_" />
+                        <XSAnimationKey name="thigh_L_" />
+                        <XSAnimationKey name="reg_L_" />
+                        <XSAnimationKey name="foot_L_" />
+                        <XSAnimationKey name="brest" />
+                        <XSAnimationKey name="shoulder_R_">
+                            <q>0.350771 0.617374 0.357429 0.606674</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="arm_R_">
+                            <q>0.002368 0.286527 0.000927 0.958069</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="hand_R_">
+                            <q>0.010407 0.032227 0.158208 0.986825</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger012_R_" />
+                        <XSAnimationKey name="handfinger011_R_" />
+                        <XSAnimationKey name="handfinger023_R_" />
+                        <XSAnimationKey name="handfinger022_R_" />
+                        <XSAnimationKey name="handfinger021_R_" />
+                        <XSAnimationKey name="handfinger033_R_" />
+                        <XSAnimationKey name="handfinger032_R_" />
+                        <XSAnimationKey name="handfinger031_R_" />
+                        <XSAnimationKey name="handfinger043_R_" />
+                        <XSAnimationKey name="handfinger042_R_" />
+                        <XSAnimationKey name="handfinger041_R_" />
+                        <XSAnimationKey name="handfinger053_R_" />
+                        <XSAnimationKey name="handfinger052_R_" />
+                        <XSAnimationKey name="handfinger051_R_" />
                         <XSAnimationKey name="kubi" />
-                        <XSAnimationKey name="頭" />
-                        <XSAnimationKey name="肩_L_" />
-                        <XSAnimationKey name="腕_L_" />
-                        <XSAnimationKey name="手_L_" />
-                        <XSAnimationKey name="手親指2_L_" />
-                        <XSAnimationKey name="手親指1_L_" />
-                        <XSAnimationKey name="手人差指3_L_" />
-                        <XSAnimationKey name="手人差指2_L_" />
-                        <XSAnimationKey name="手人差指1_L_" />
-                        <XSAnimationKey name="手中指3_L_" />
-                        <XSAnimationKey name="手中指2_L_" />
-                        <XSAnimationKey name="手中指1_L_" />
-                        <XSAnimationKey name="手薬指3_L_" />
-                        <XSAnimationKey name="手薬指2_L_" />
-                        <XSAnimationKey name="手薬指1_L_" />
-                        <XSAnimationKey name="手小指3_L_" />
-                        <XSAnimationKey name="手小指2_L_" />
-                        <XSAnimationKey name="手小指1_L_" />
-                        <XSAnimationKey name="const_スネ_L_" />
-                        <XSAnimationKey name="const_足_L_" />
-                        <XSAnimationKey name="const_スネ_R_" />
-                        <XSAnimationKey name="const_足_R_" />
+                        <XSAnimationKey name="head" />
+                        <XSAnimationKey name="shoulder_L_">
+                            <q>0.350510 -0.619436 -0.361541 0.602270</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="arm_L_">
+                            <q>0.010356 -0.186875 -0.038466 0.981576</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="hand_L_">
+                            <q>0.024591 -0.040416 -0.169661 0.984366</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger012_L_" />
+                        <XSAnimationKey name="handfinger011_L_" />
+                        <XSAnimationKey name="handfinger023_L_" />
+                        <XSAnimationKey name="handfinger022_L_" />
+                        <XSAnimationKey name="handfinger021_L_" />
+                        <XSAnimationKey name="handfinger033_L_" />
+                        <XSAnimationKey name="handfinger032_L_" />
+                        <XSAnimationKey name="handfinger031_L_" />
+                        <XSAnimationKey name="handfinger043_L_" />
+                        <XSAnimationKey name="handfinger042_L_" />
+                        <XSAnimationKey name="handfinger041_L_" />
+                        <XSAnimationKey name="handfinger053_L_" />
+                        <XSAnimationKey name="handfinger052_L_" />
+                        <XSAnimationKey name="handfinger051_L_" />
+                        <XSAnimationKey name="const_reg_L_" />
+                        <XSAnimationKey name="const_foot_L_" />
+                        <XSAnimationKey name="const_reg_R_" />
+                        <XSAnimationKey name="const_foot_R_" />
                         <XSAnimationKey name="XSBone_000" />
                         <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                        <XSAnimationState name="hair" visible="1" fvalue="0.000000" />
+                        <XSAnimationState name="cort" visible="1" fvalue="0.000000" />
                     </XSAnimation>
-                    <XSAnimation frame="60">
+                    <XSAnimation frame="2">
                         <XSAnimationKey name="root" />
                         <XSAnimationKey name="kosi" />
-                        <XSAnimationKey name="モモ_R_" />
-                        <XSAnimationKey name="スネ_R_" />
-                        <XSAnimationKey name="足_R_" />
-                        <XSAnimationKey name="root2_R_" />
-                        <XSAnimationKey name="足人差指2_R_" />
-                        <XSAnimationKey name="足人差指1_R_" />
-                        <XSAnimationKey name="足中指2_R_" />
-                        <XSAnimationKey name="足中指1_R_" />
-                        <XSAnimationKey name="足薬指2_R_" />
-                        <XSAnimationKey name="足薬指1_R_" />
-                        <XSAnimationKey name="足小指2_R_" />
-                        <XSAnimationKey name="足小指1_R_" />
-                        <XSAnimationKey name="足親指2_R_" />
-                        <XSAnimationKey name="足親指1_R_" />
-                        <XSAnimationKey name="モモ_L_" />
-                        <XSAnimationKey name="スネ_L_" />
-                        <XSAnimationKey name="足_L_" />
-                        <XSAnimationKey name="root2_L_" />
-                        <XSAnimationKey name="足人差指2_L_" />
-                        <XSAnimationKey name="足人差指1_L_" />
-                        <XSAnimationKey name="足中指2_L_" />
-                        <XSAnimationKey name="足中指1_L_" />
-                        <XSAnimationKey name="足薬指2_L_" />
-                        <XSAnimationKey name="足薬指1_L_" />
-                        <XSAnimationKey name="足小指2_L_" />
-                        <XSAnimationKey name="足小指1_L_" />
-                        <XSAnimationKey name="足親指2_L_" />
-                        <XSAnimationKey name="足親指1_L_" />
-                        <XSAnimationKey name="胸" />
-                        <XSAnimationKey name="肩_R_">
-                            <q>0.033716 -0.224974 -0.564127 0.793732</q>
+                        <XSAnimationKey name="thigh_R_" />
+                        <XSAnimationKey name="reg_R_" />
+                        <XSAnimationKey name="foot_R_" />
+                        <XSAnimationKey name="thigh_L_" />
+                        <XSAnimationKey name="reg_L_" />
+                        <XSAnimationKey name="foot_L_" />
+                        <XSAnimationKey name="brest" />
+                        <XSAnimationKey name="shoulder_R_">
+                            <q>0.350771 0.617374 0.357429 0.606674</q>
                         </XSAnimationKey>
-                        <XSAnimationKey name="腕_R_" />
-                        <XSAnimationKey name="手_R_" />
-                        <XSAnimationKey name="手親指2_R_" />
-                        <XSAnimationKey name="手親指1_R_" />
-                        <XSAnimationKey name="手人差指3_R_" />
-                        <XSAnimationKey name="手人差指2_R_" />
-                        <XSAnimationKey name="手人差指1_R_" />
-                        <XSAnimationKey name="手中指3_R_" />
-                        <XSAnimationKey name="手中指2_R_" />
-                        <XSAnimationKey name="手中指1_R_" />
-                        <XSAnimationKey name="手薬指3_R_" />
-                        <XSAnimationKey name="手薬指2_R_" />
-                        <XSAnimationKey name="手薬指1_R_" />
-                        <XSAnimationKey name="手小指3_R_" />
-                        <XSAnimationKey name="手小指2_R_" />
-                        <XSAnimationKey name="手小指1_R_" />
+                        <XSAnimationKey name="arm_R_">
+                            <q>0.002368 0.286527 0.000927 0.958069</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="hand_R_">
+                            <q>0.010407 0.032227 0.158208 0.986825</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger012_R_" />
+                        <XSAnimationKey name="handfinger011_R_" />
+                        <XSAnimationKey name="handfinger023_R_" />
+                        <XSAnimationKey name="handfinger022_R_" />
+                        <XSAnimationKey name="handfinger021_R_" />
+                        <XSAnimationKey name="handfinger033_R_" />
+                        <XSAnimationKey name="handfinger032_R_" />
+                        <XSAnimationKey name="handfinger031_R_" />
+                        <XSAnimationKey name="handfinger043_R_" />
+                        <XSAnimationKey name="handfinger042_R_" />
+                        <XSAnimationKey name="handfinger041_R_" />
+                        <XSAnimationKey name="handfinger053_R_" />
+                        <XSAnimationKey name="handfinger052_R_" />
+                        <XSAnimationKey name="handfinger051_R_" />
                         <XSAnimationKey name="kubi" />
-                        <XSAnimationKey name="頭" />
-                        <XSAnimationKey name="肩_L_" />
-                        <XSAnimationKey name="腕_L_" />
-                        <XSAnimationKey name="手_L_" />
-                        <XSAnimationKey name="手親指2_L_" />
-                        <XSAnimationKey name="手親指1_L_" />
-                        <XSAnimationKey name="手人差指3_L_" />
-                        <XSAnimationKey name="手人差指2_L_" />
-                        <XSAnimationKey name="手人差指1_L_" />
-                        <XSAnimationKey name="手中指3_L_" />
-                        <XSAnimationKey name="手中指2_L_" />
-                        <XSAnimationKey name="手中指1_L_" />
-                        <XSAnimationKey name="手薬指3_L_" />
-                        <XSAnimationKey name="手薬指2_L_" />
-                        <XSAnimationKey name="手薬指1_L_" />
-                        <XSAnimationKey name="手小指3_L_" />
-                        <XSAnimationKey name="手小指2_L_" />
-                        <XSAnimationKey name="手小指1_L_" />
-                        <XSAnimationKey name="const_スネ_L_" />
-                        <XSAnimationKey name="const_足_L_" />
-                        <XSAnimationKey name="const_スネ_R_" />
-                        <XSAnimationKey name="const_足_R_" />
+                        <XSAnimationKey name="head" />
+                        <XSAnimationKey name="shoulder_L_">
+                            <q>0.350510 -0.619436 -0.361541 0.602270</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="arm_L_">
+                            <q>0.010356 -0.186875 -0.038466 0.981576</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="hand_L_">
+                            <q>0.024591 -0.040416 -0.169661 0.984366</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger012_L_" />
+                        <XSAnimationKey name="handfinger011_L_" />
+                        <XSAnimationKey name="handfinger023_L_" />
+                        <XSAnimationKey name="handfinger022_L_" />
+                        <XSAnimationKey name="handfinger021_L_" />
+                        <XSAnimationKey name="handfinger033_L_" />
+                        <XSAnimationKey name="handfinger032_L_" />
+                        <XSAnimationKey name="handfinger031_L_" />
+                        <XSAnimationKey name="handfinger043_L_" />
+                        <XSAnimationKey name="handfinger042_L_" />
+                        <XSAnimationKey name="handfinger041_L_" />
+                        <XSAnimationKey name="handfinger053_L_" />
+                        <XSAnimationKey name="handfinger052_L_" />
+                        <XSAnimationKey name="handfinger051_L_" />
+                        <XSAnimationKey name="const_reg_L_" />
+                        <XSAnimationKey name="const_foot_L_" />
+                        <XSAnimationKey name="const_reg_R_" />
+                        <XSAnimationKey name="const_foot_R_" />
                         <XSAnimationKey name="XSBone_000" />
                         <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                        <XSAnimationState name="hair" visible="1" fvalue="0.000000" />
+                        <XSAnimationState name="cort" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                </XSAnimationSet>
+                <XSAnimationSet name="nurse1_walk" interpolate="21">
+                    <XSAnimation frame="0">
+                        <XSAnimationKey name="root" />
+                        <XSAnimationKey name="kosi" />
+                        <XSAnimationKey name="thigh_R_" />
+                        <XSAnimationKey name="reg_R_" />
+                        <XSAnimationKey name="foot_R_" />
+                        <XSAnimationKey name="thigh_L_" />
+                        <XSAnimationKey name="reg_L_" />
+                        <XSAnimationKey name="foot_L_" />
+                        <XSAnimationKey name="brest" />
+                        <XSAnimationKey name="shoulder_R_">
+                            <q>0.000000 0.000000 0.642788 0.766044</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="arm_R_" />
+                        <XSAnimationKey name="hand_R_" />
+                        <XSAnimationKey name="handfinger012_R_" />
+                        <XSAnimationKey name="handfinger011_R_" />
+                        <XSAnimationKey name="handfinger023_R_" />
+                        <XSAnimationKey name="handfinger022_R_" />
+                        <XSAnimationKey name="handfinger021_R_" />
+                        <XSAnimationKey name="handfinger033_R_" />
+                        <XSAnimationKey name="handfinger032_R_" />
+                        <XSAnimationKey name="handfinger031_R_" />
+                        <XSAnimationKey name="handfinger043_R_" />
+                        <XSAnimationKey name="handfinger042_R_" />
+                        <XSAnimationKey name="handfinger041_R_" />
+                        <XSAnimationKey name="handfinger053_R_" />
+                        <XSAnimationKey name="handfinger052_R_" />
+                        <XSAnimationKey name="handfinger051_R_" />
+                        <XSAnimationKey name="kubi" />
+                        <XSAnimationKey name="head" />
+                        <XSAnimationKey name="shoulder_L_">
+                            <q>0.000000 0.000000 -0.642788 0.766044</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="arm_L_" />
+                        <XSAnimationKey name="hand_L_" />
+                        <XSAnimationKey name="handfinger012_L_" />
+                        <XSAnimationKey name="handfinger011_L_" />
+                        <XSAnimationKey name="handfinger023_L_" />
+                        <XSAnimationKey name="handfinger022_L_" />
+                        <XSAnimationKey name="handfinger021_L_" />
+                        <XSAnimationKey name="handfinger033_L_" />
+                        <XSAnimationKey name="handfinger032_L_" />
+                        <XSAnimationKey name="handfinger031_L_" />
+                        <XSAnimationKey name="handfinger043_L_" />
+                        <XSAnimationKey name="handfinger042_L_" />
+                        <XSAnimationKey name="handfinger041_L_" />
+                        <XSAnimationKey name="handfinger053_L_" />
+                        <XSAnimationKey name="handfinger052_L_" />
+                        <XSAnimationKey name="handfinger051_L_" />
+                        <XSAnimationKey name="const_reg_L_" />
+                        <XSAnimationKey name="const_foot_L_" />
+                        <XSAnimationKey name="const_reg_R_" />
+                        <XSAnimationKey name="const_foot_R_" />
+                        <XSAnimationKey name="XSBone_000" />
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                        <XSAnimationState name="hair" visible="1" fvalue="0.000000" />
+                        <XSAnimationState name="cort" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="15">
+                        <XSAnimationKey name="root">
+                            <v>0.000000 -5.000000 0.000000</v>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="kosi">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="thigh_R_">
+                            <q>0.087156 0.000000 0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="reg_R_">
+                            <q>0.178059 -0.000200 0.000421 0.984020</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="foot_R_">
+                            <q>-0.052156 0.001985 -0.002867 0.998633</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="thigh_L_">
+                            <q>-0.258819 0.000000 0.000000 0.965926</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="reg_L_">
+                            <q>0.258819 0.000000 0.000000 0.965926</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="foot_L_">
+                            <q>-0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="brest">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="shoulder_R_">
+                            <q>-0.056023 0.066765 0.640342 0.763129</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="arm_R_">
+                            <q>0.000000 0.258819 -0.000000 0.965926</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="hand_R_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger012_R_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger011_R_">
+                            <q>-0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger023_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger022_R_">
+                            <q>-0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger021_R_">
+                            <q>-0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger033_R_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger032_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger031_R_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger043_R_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger042_R_">
+                            <q>-0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger041_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger053_R_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger052_R_">
+                            <q>-0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger051_R_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="kubi">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="head">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="shoulder_L_">
+                            <q>0.166366 0.198267 -0.620885 0.739942</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="arm_L_">
+                            <q>0.000000 -0.258819 0.000000 0.965926</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="hand_L_">
+                            <q>0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger012_L_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger011_L_">
+                            <q>-0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger023_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger022_L_">
+                            <q>-0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger021_L_">
+                            <q>-0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger033_L_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger032_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger031_L_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger043_L_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger042_L_">
+                            <q>-0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger041_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger053_L_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger052_L_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger051_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="const_reg_L_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="const_foot_L_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="const_reg_R_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="const_foot_R_">
+                            <q>0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="XSBone_000">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                        <XSAnimationState name="hair" visible="1" fvalue="0.000000" />
+                        <XSAnimationState name="cort" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="30">
+                        <XSAnimationKey name="root">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="kosi">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="thigh_R_">
+                            <q>-0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="reg_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="foot_R_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="thigh_L_">
+                            <q>-0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="reg_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="foot_L_">
+                            <q>-0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="brest">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="shoulder_R_">
+                            <q>-0.000000 -0.000001 0.642788 0.766044</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="arm_R_">
+                            <q>0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="hand_R_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger012_R_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger011_R_">
+                            <q>-0.000001 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger023_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger022_R_">
+                            <q>-0.000000 -0.000001 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger021_R_">
+                            <q>-0.000000 -0.000001 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger033_R_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger032_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger031_R_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger043_R_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger042_R_">
+                            <q>-0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger041_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger053_R_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger052_R_">
+                            <q>-0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger051_R_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="kubi">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="head">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="shoulder_L_">
+                            <q>-0.000000 0.000001 -0.642788 0.766044</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="arm_L_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="hand_L_">
+                            <q>0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger012_L_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger011_L_">
+                            <q>-0.000001 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger023_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger022_L_">
+                            <q>-0.000000 0.000001 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger021_L_">
+                            <q>-0.000000 0.000001 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger033_L_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger032_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger031_L_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger043_L_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger042_L_">
+                            <q>-0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger041_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger053_L_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger052_L_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger051_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="const_reg_L_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="const_foot_L_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="const_reg_R_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="const_foot_R_">
+                            <q>0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="XSBone_000">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                        <XSAnimationState name="hair" visible="1" fvalue="0.000000" />
+                        <XSAnimationState name="cort" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="45">
+                        <XSAnimationKey name="root">
+                            <v>0.000000 -5.000000 0.000000</v>
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="kosi">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="thigh_R_">
+                            <q>-0.258819 -0.000000 0.000000 0.965926</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="reg_R_">
+                            <q>0.258819 0.000000 -0.000000 0.965926</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="foot_R_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="thigh_L_">
+                            <q>0.087156 -0.000000 -0.000000 0.996195</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="reg_L_">
+                            <q>0.173648 -0.000000 -0.000000 0.984808</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="foot_L_">
+                            <q>-0.173648 -0.000000 0.000000 0.984808</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="brest">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="shoulder_R_">
+                            <q>0.111619 -0.133022 0.633022 0.754407</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="arm_R_">
+                            <q>-0.000000 0.258819 0.000000 0.965926</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="hand_R_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger012_R_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger011_R_">
+                            <q>-0.000001 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger023_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger022_R_">
+                            <q>-0.000000 -0.000001 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger021_R_">
+                            <q>-0.000000 -0.000001 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger033_R_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger032_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger031_R_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger043_R_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger042_R_">
+                            <q>-0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger041_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger053_R_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger052_R_">
+                            <q>-0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger051_R_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="kubi">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="head">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="shoulder_L_">
+                            <q>-0.056023 -0.066765 -0.640341 0.763130</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="arm_L_">
+                            <q>0.000000 -0.173648 0.000000 0.984808</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="hand_L_">
+                            <q>0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger012_L_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger011_L_">
+                            <q>-0.000001 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger023_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger022_L_">
+                            <q>-0.000000 0.000001 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger021_L_">
+                            <q>-0.000000 0.000001 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger033_L_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger032_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger031_L_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger043_L_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger042_L_">
+                            <q>-0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger041_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger053_L_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger052_L_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger051_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="const_reg_L_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="const_foot_L_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="const_reg_R_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="const_foot_R_">
+                            <q>0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="XSBone_000">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                        <XSAnimationState name="hair" visible="1" fvalue="0.000000" />
+                        <XSAnimationState name="cort" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="58">
+                        <XSAnimationKey name="root">
+                            <v>0.000000 -0.666667 0.000000</v>
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="kosi">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="thigh_R_">
+                            <q>-0.034646 -0.000000 0.000000 0.999400</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="reg_R_">
+                            <q>0.034646 -0.000000 -0.000000 0.999400</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="foot_R_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="thigh_L_">
+                            <q>0.011626 0.000000 -0.000000 0.999932</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="reg_L_">
+                            <q>0.023194 0.000000 0.000000 0.999731</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="foot_L_">
+                            <q>-0.023194 0.000000 -0.000000 0.999731</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="brest">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="shoulder_R_">
+                            <q>0.014909 -0.017768 0.642615 0.765838</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="arm_R_">
+                            <q>0.000000 0.034646 -0.000000 0.999400</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="hand_R_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger012_R_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger011_R_">
+                            <q>-0.000001 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger023_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger022_R_">
+                            <q>-0.000000 -0.000001 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger021_R_">
+                            <q>-0.000000 -0.000001 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger033_R_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger032_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger031_R_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger043_R_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger042_R_">
+                            <q>-0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger041_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger053_R_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger052_R_">
+                            <q>-0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger051_R_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="kubi">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="head">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="shoulder_L_">
+                            <q>-0.007473 -0.008905 -0.642744 0.765993</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="arm_L_">
+                            <q>0.000000 -0.023194 0.000000 0.999731</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="hand_L_">
+                            <q>0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger012_L_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger011_L_">
+                            <q>-0.000001 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger023_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger022_L_">
+                            <q>-0.000000 0.000001 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger021_L_">
+                            <q>-0.000000 0.000001 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger033_L_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger032_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger031_L_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger043_L_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger042_L_">
+                            <q>-0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger041_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger053_L_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger052_L_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger051_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="const_reg_L_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="const_foot_L_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="const_reg_R_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="const_foot_R_">
+                            <q>0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="XSBone_000">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                        <XSAnimationState name="hair" visible="1" fvalue="0.000000" />
+                        <XSAnimationState name="cort" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                </XSAnimationSet>
+                <XSAnimationSet name="nurse1_talk" interpolate="21">
+                    <XSAnimation frame="0">
+                        <XSAnimationKey name="root">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="kosi">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="thigh_R_">
+                            <q>-0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="reg_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="foot_R_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="thigh_L_">
+                            <q>-0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="reg_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="foot_L_">
+                            <q>-0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="brest">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="shoulder_R_">
+                            <q>0.000000 0.000000 0.643990 0.765034</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="arm_R_">
+                            <q>0.000000 0.500000 0.000000 0.866025</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="hand_R_">
+                            <q>-0.707107 0.000000 0.000000 0.707107</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger012_R_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger011_R_">
+                            <q>-0.000001 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger023_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger022_R_">
+                            <q>-0.000000 -0.000001 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger021_R_">
+                            <q>-0.000000 -0.000001 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger033_R_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger032_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger031_R_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger043_R_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger042_R_">
+                            <q>-0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger041_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger053_R_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger052_R_">
+                            <q>-0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger051_R_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="kubi">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="head">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="shoulder_L_">
+                            <q>0.350510 -0.619437 -0.361541 0.602270</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="arm_L_">
+                            <q>0.010357 -0.186875 -0.038466 0.981576</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="hand_L_">
+                            <q>0.024591 -0.040417 -0.169661 0.984366</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger012_L_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger011_L_">
+                            <q>-0.000001 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger023_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger022_L_">
+                            <q>-0.000000 0.000001 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger021_L_">
+                            <q>-0.000000 0.000001 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger033_L_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger032_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger031_L_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger043_L_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger042_L_">
+                            <q>-0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger041_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger053_L_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger052_L_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger051_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="const_reg_L_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="const_foot_L_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="const_reg_R_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="const_foot_R_">
+                            <q>0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="XSBone_000">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                        <XSAnimationState name="hair" visible="1" fvalue="0.000000" />
+                        <XSAnimationState name="cort" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="10">
+                        <XSAnimationKey name="root">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="kosi">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="thigh_R_">
+                            <q>-0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="reg_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="foot_R_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="thigh_L_">
+                            <q>-0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="reg_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="foot_L_">
+                            <q>-0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="brest">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="shoulder_R_">
+                            <q>0.000000 0.000000 0.643990 0.765034</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="arm_R_">
+                            <q>0.000000 0.573576 0.000000 0.819152</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="hand_R_">
+                            <q>-0.696364 0.122788 0.122788 0.696364</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger012_R_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger011_R_">
+                            <q>-0.000001 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger023_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger022_R_">
+                            <q>-0.000000 -0.000001 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger021_R_">
+                            <q>-0.000000 -0.000001 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger033_R_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger032_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger031_R_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger043_R_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger042_R_">
+                            <q>-0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger041_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger053_R_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger052_R_">
+                            <q>-0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger051_R_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="kubi">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="head">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="shoulder_L_">
+                            <q>0.350510 -0.619437 -0.361541 0.602270</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="arm_L_">
+                            <q>0.010357 -0.186875 -0.038466 0.981576</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="hand_L_">
+                            <q>0.024591 -0.040417 -0.169661 0.984366</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger012_L_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger011_L_">
+                            <q>-0.000001 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger023_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger022_L_">
+                            <q>-0.000000 0.000001 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger021_L_">
+                            <q>-0.000000 0.000001 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger033_L_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger032_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger031_L_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger043_L_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger042_L_">
+                            <q>-0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger041_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger053_L_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger052_L_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger051_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="const_reg_L_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="const_foot_L_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="const_reg_R_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="const_foot_R_">
+                            <q>0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="XSBone_000">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                        <XSAnimationState name="hair" visible="1" fvalue="0.000000" />
+                        <XSAnimationState name="cort" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="18">
+                        <XSAnimationKey name="root">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="kosi">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="thigh_R_">
+                            <q>-0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="reg_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="foot_R_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="thigh_L_">
+                            <q>-0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="reg_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="foot_L_">
+                            <q>-0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="brest">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="shoulder_R_">
+                            <q>0.000000 -0.000000 0.643990 0.765034</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="arm_R_">
+                            <q>0.000000 0.515029 0.000000 0.857173</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="hand_R_">
+                            <q>-0.706678 0.024618 0.024618 0.706678</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger012_R_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger011_R_">
+                            <q>-0.000001 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger023_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger022_R_">
+                            <q>-0.000000 -0.000001 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger021_R_">
+                            <q>-0.000000 -0.000001 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger033_R_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger032_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger031_R_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger043_R_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger042_R_">
+                            <q>-0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger041_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger053_R_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger052_R_">
+                            <q>-0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger051_R_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="kubi">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="head">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="shoulder_L_">
+                            <q>0.350510 -0.619437 -0.361541 0.602270</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="arm_L_">
+                            <q>0.010357 -0.186875 -0.038466 0.981576</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="hand_L_">
+                            <q>0.024591 -0.040417 -0.169661 0.984366</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger012_L_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger011_L_">
+                            <q>-0.000001 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger023_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger022_L_">
+                            <q>-0.000000 0.000001 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger021_L_">
+                            <q>-0.000000 0.000001 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger033_L_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger032_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger031_L_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger043_L_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger042_L_">
+                            <q>-0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger041_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger053_L_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger052_L_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger051_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="const_reg_L_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="const_foot_L_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="const_reg_R_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="const_foot_R_">
+                            <q>0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="XSBone_000">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                        <XSAnimationState name="hair" visible="1" fvalue="0.000000" />
+                        <XSAnimationState name="cort" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                </XSAnimationSet>
+                <XSAnimationSet name="nurse1_sitdown" interpolate="21">
+                    <XSAnimation frame="0">
+                        <XSAnimationKey name="root">
+                            <v>0.000000 -32.000000 0.000000</v>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="kosi">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="thigh_R_">
+                            <q>-0.707107 0.000000 0.000000 0.707107</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="reg_R_">
+                            <q>0.707107 0.000000 0.000000 0.707107</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="foot_R_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="thigh_L_">
+                            <q>-0.707107 0.000000 0.000000 0.707107</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="reg_L_">
+                            <q>0.707107 0.000000 0.000000 0.707107</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="foot_L_">
+                            <q>-0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="brest">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="shoulder_R_">
+                            <q>0.348900 0.619716 0.358139 0.604945</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="arm_R_">
+                            <q>-0.001951 0.395778 -0.014341 0.918232</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="hand_R_">
+                            <q>-0.116268 0.072642 0.427319 0.893646</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger012_R_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger011_R_">
+                            <q>-0.000001 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger023_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger022_R_">
+                            <q>-0.000000 -0.000001 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger021_R_">
+                            <q>-0.000000 -0.000001 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger033_R_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger032_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger031_R_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger043_R_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger042_R_">
+                            <q>-0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger041_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger053_R_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger052_R_">
+                            <q>-0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger051_R_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="kubi">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="head">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="shoulder_L_">
+                            <q>0.370443 -0.586537 -0.339631 0.635136</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="arm_L_">
+                            <q>0.010144 -0.337107 -0.050565 0.940053</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="hand_L_">
+                            <q>-0.040099 -0.243790 0.226755 0.942094</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger012_L_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger011_L_">
+                            <q>-0.000001 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger023_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger022_L_">
+                            <q>-0.000000 0.000001 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger021_L_">
+                            <q>-0.000000 0.000001 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger033_L_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger032_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger031_L_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger043_L_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger042_L_">
+                            <q>-0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger041_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger053_L_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger052_L_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="handfinger051_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="const_reg_L_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="const_foot_L_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="const_reg_R_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="const_foot_R_">
+                            <q>0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="XSBone_000">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                        <XSAnimationState name="hair" visible="1" fvalue="0.000000" />
+                        <XSAnimationState name="cort" visible="1" fvalue="0.000000" />
                     </XSAnimation>
                 </XSAnimationSet>
             </XSAnimationContainer>
