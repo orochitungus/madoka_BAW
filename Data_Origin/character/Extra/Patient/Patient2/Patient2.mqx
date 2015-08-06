@@ -11,144 +11,68 @@
             <XSAnimationContainer>
                 <XSAnimationSet name="patient2_neutral" interpolate="21">
                     <XSAnimation frame="0">
-                        <XSAnimationKey name="root">
-                            <q>-0.000000 0.000000 0.000000 1.000000</q>
-                        </XSAnimationKey>
-                        <XSAnimationKey name="kosi">
-                            <q>-0.000000 0.000000 0.000000 1.000000</q>
-                        </XSAnimationKey>
-                        <XSAnimationKey name="モモ_R_">
-                            <q>0.000000 -0.000000 0.000000 1.000000</q>
-                        </XSAnimationKey>
-                        <XSAnimationKey name="スネ_R_">
-                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
-                        </XSAnimationKey>
+                        <XSAnimationKey name="root" />
+                        <XSAnimationKey name="kosi" />
+                        <XSAnimationKey name="モモ_R_" />
+                        <XSAnimationKey name="スネ_R_" />
                         <XSAnimationKey name="足_R_">
                             <q>-0.000001 0.000000 -0.000001 1.000000</q>
                         </XSAnimationKey>
-                        <XSAnimationKey name="モモ_L_">
-                            <q>0.000000 0.000000 -0.000000 1.000000</q>
-                        </XSAnimationKey>
-                        <XSAnimationKey name="スネ_L_">
-                            <q>0.000000 0.000000 0.000000 1.000000</q>
-                        </XSAnimationKey>
+                        <XSAnimationKey name="モモ_L_" />
+                        <XSAnimationKey name="スネ_L_" />
                         <XSAnimationKey name="足_L_">
                             <q>-0.000001 -0.000000 0.000001 1.000000</q>
                         </XSAnimationKey>
-                        <XSAnimationKey name="胸">
-                            <q>-0.000000 0.000000 0.000000 1.000000</q>
-                        </XSAnimationKey>
+                        <XSAnimationKey name="胸" />
                         <XSAnimationKey name="肩_R_">
                             <q>0.341277 0.472052 0.442243 0.681996</q>
                         </XSAnimationKey>
                         <XSAnimationKey name="腕_R_">
                             <q>0.000000 0.422618 0.000000 0.906308</q>
                         </XSAnimationKey>
-                        <XSAnimationKey name="手_R_">
-                            <q>0.000000 0.000000 -0.000000 1.000000</q>
-                        </XSAnimationKey>
+                        <XSAnimationKey name="手_R_" />
                         <XSAnimationKey name="手親指2_R_">
                             <q>-0.000000 -0.000001 0.000000 1.000000</q>
                         </XSAnimationKey>
-                        <XSAnimationKey name="手親指1_R_">
-                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
-                        </XSAnimationKey>
-                        <XSAnimationKey name="手人差指3_R_">
-                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
-                        </XSAnimationKey>
-                        <XSAnimationKey name="手人差指2_R_">
-                            <q>0.000000 0.000000 -0.000000 1.000000</q>
-                        </XSAnimationKey>
-                        <XSAnimationKey name="手人差指1_R_">
-                            <q>0.000000 -0.000000 0.000000 1.000000</q>
-                        </XSAnimationKey>
-                        <XSAnimationKey name="手中指3_R_">
-                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
-                        </XSAnimationKey>
-                        <XSAnimationKey name="手中指2_R_">
-                            <q>0.000000 0.000000 0.000000 1.000000</q>
-                        </XSAnimationKey>
-                        <XSAnimationKey name="手中指1_R_">
-                            <q>-0.000000 0.000000 -0.000000 1.000000</q>
-                        </XSAnimationKey>
-                        <XSAnimationKey name="手薬指3_R_">
-                            <q>0.000000 -0.000000 0.000000 1.000000</q>
-                        </XSAnimationKey>
-                        <XSAnimationKey name="手薬指2_R_">
-                            <q>0.000000 -0.000000 0.000000 1.000000</q>
-                        </XSAnimationKey>
-                        <XSAnimationKey name="手薬指1_R_">
-                            <q>0.000000 0.000000 -0.000000 1.000000</q>
-                        </XSAnimationKey>
-                        <XSAnimationKey name="手小指3_R_">
-                            <q>0.000000 0.000000 0.000000 1.000000</q>
-                        </XSAnimationKey>
-                        <XSAnimationKey name="手小指2_R_">
-                            <q>-0.000000 -0.000000 0.000000 1.000000</q>
-                        </XSAnimationKey>
-                        <XSAnimationKey name="手小指1_R_">
-                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
-                        </XSAnimationKey>
-                        <XSAnimationKey name="kubi">
-                            <q>-0.000000 0.000000 0.000000 1.000000</q>
-                        </XSAnimationKey>
-                        <XSAnimationKey name="頭">
-                            <q>0.000000 0.000000 0.000000 1.000000</q>
-                        </XSAnimationKey>
+                        <XSAnimationKey name="手親指1_R_" />
+                        <XSAnimationKey name="手人差指3_R_" />
+                        <XSAnimationKey name="手人差指2_R_" />
+                        <XSAnimationKey name="手人差指1_R_" />
+                        <XSAnimationKey name="手中指3_R_" />
+                        <XSAnimationKey name="手中指2_R_" />
+                        <XSAnimationKey name="手中指1_R_" />
+                        <XSAnimationKey name="手薬指3_R_" />
+                        <XSAnimationKey name="手薬指2_R_" />
+                        <XSAnimationKey name="手薬指1_R_" />
+                        <XSAnimationKey name="手小指3_R_" />
+                        <XSAnimationKey name="手小指2_R_" />
+                        <XSAnimationKey name="手小指1_R_" />
+                        <XSAnimationKey name="kubi" />
+                        <XSAnimationKey name="頭" />
                         <XSAnimationKey name="肩_L_">
                             <q>0.341277 -0.472052 -0.442243 0.681996</q>
                         </XSAnimationKey>
                         <XSAnimationKey name="腕_L_">
                             <q>0.000000 -0.342020 -0.000000 0.939693</q>
                         </XSAnimationKey>
-                        <XSAnimationKey name="手_L_">
-                            <q>0.000000 -0.000000 0.000000 1.000000</q>
-                        </XSAnimationKey>
+                        <XSAnimationKey name="手_L_" />
                         <XSAnimationKey name="手親指2_L_">
                             <q>-0.000000 0.000001 -0.000000 1.000000</q>
                         </XSAnimationKey>
-                        <XSAnimationKey name="手親指1_L_">
-                            <q>0.000000 0.000000 0.000000 1.000000</q>
-                        </XSAnimationKey>
-                        <XSAnimationKey name="手人差指3_L_">
-                            <q>-0.000000 0.000000 0.000000 1.000000</q>
-                        </XSAnimationKey>
-                        <XSAnimationKey name="手人差指2_L_">
-                            <q>0.000000 -0.000000 0.000000 1.000000</q>
-                        </XSAnimationKey>
-                        <XSAnimationKey name="手人差指1_L_">
-                            <q>0.000000 0.000000 -0.000000 1.000000</q>
-                        </XSAnimationKey>
-                        <XSAnimationKey name="手中指3_L_">
-                            <q>-0.000000 0.000000 0.000000 1.000000</q>
-                        </XSAnimationKey>
-                        <XSAnimationKey name="手中指2_L_">
-                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
-                        </XSAnimationKey>
-                        <XSAnimationKey name="手中指1_L_">
-                            <q>-0.000000 -0.000000 0.000000 1.000000</q>
-                        </XSAnimationKey>
-                        <XSAnimationKey name="手薬指3_L_">
-                            <q>0.000000 0.000000 0.000000 1.000000</q>
-                        </XSAnimationKey>
-                        <XSAnimationKey name="手薬指2_L_">
-                            <q>0.000000 0.000000 -0.000000 1.000000</q>
-                        </XSAnimationKey>
-                        <XSAnimationKey name="手薬指1_L_">
-                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
-                        </XSAnimationKey>
-                        <XSAnimationKey name="手小指3_L_">
-                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
-                        </XSAnimationKey>
-                        <XSAnimationKey name="手小指2_L_">
-                            <q>-0.000000 0.000000 -0.000000 1.000000</q>
-                        </XSAnimationKey>
-                        <XSAnimationKey name="手小指1_L_">
-                            <q>0.000000 0.000000 0.000000 1.000000</q>
-                        </XSAnimationKey>
-                        <XSAnimationKey name="XSBone_000">
-                            <q>0.000000 0.000000 0.000000 1.000000</q>
-                        </XSAnimationKey>
+                        <XSAnimationKey name="手親指1_L_" />
+                        <XSAnimationKey name="手人差指3_L_" />
+                        <XSAnimationKey name="手人差指2_L_" />
+                        <XSAnimationKey name="手人差指1_L_" />
+                        <XSAnimationKey name="手中指3_L_" />
+                        <XSAnimationKey name="手中指2_L_" />
+                        <XSAnimationKey name="手中指1_L_" />
+                        <XSAnimationKey name="手薬指3_L_" />
+                        <XSAnimationKey name="手薬指2_L_" />
+                        <XSAnimationKey name="手薬指1_L_" />
+                        <XSAnimationKey name="手小指3_L_" />
+                        <XSAnimationKey name="手小指2_L_" />
+                        <XSAnimationKey name="手小指1_L_" />
+                        <XSAnimationKey name="XSBone_000" />
                         <XSAnimationState name="body" visible="1" fvalue="0.000000" />
                     </XSAnimation>
                     <XSAnimation frame="2">
@@ -541,20 +465,34 @@
                         <XSAnimationKey name="XSBone_000" />
                         <XSAnimationState name="body" visible="1" fvalue="0.000000" />
                     </XSAnimation>
-                    <XSAnimation frame="60">
+                    <XSAnimation frame="45">
                         <XSAnimationKey name="root" />
                         <XSAnimationKey name="kosi" />
-                        <XSAnimationKey name="モモ_R_" />
-                        <XSAnimationKey name="スネ_R_" />
-                        <XSAnimationKey name="足_R_" />
-                        <XSAnimationKey name="モモ_L_" />
-                        <XSAnimationKey name="スネ_L_" />
-                        <XSAnimationKey name="足_L_" />
-                        <XSAnimationKey name="胸" />
-                        <XSAnimationKey name="肩_R_">
-                            <q>0.000000 0.000000 0.642788 0.766044</q>
+                        <XSAnimationKey name="モモ_R_">
+                            <q>0.087156 0.000000 0.000000 0.996195</q>
                         </XSAnimationKey>
-                        <XSAnimationKey name="腕_R_" />
+                        <XSAnimationKey name="スネ_R_">
+                            <q>0.258819 0.000000 0.000000 0.965926</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="足_R_">
+                            <q>-0.173648 0.000000 0.000000 0.984808</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="モモ_L_">
+                            <q>-0.258819 0.000000 0.000000 0.965926</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="スネ_L_">
+                            <q>0.258819 0.000000 0.000000 0.965926</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="足_L_" />
+                        <XSAnimationKey name="胸">
+                            <q>0.000000 0.173648 0.000000 0.984808</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="肩_R_">
+                            <q>-0.166366 0.198267 0.620885 0.739942</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="腕_R_">
+                            <q>0.000000 0.173648 0.000000 0.984808</q>
+                        </XSAnimationKey>
                         <XSAnimationKey name="手_R_" />
                         <XSAnimationKey name="手親指2_R_" />
                         <XSAnimationKey name="手親指1_R_" />
@@ -595,11 +533,15 @@
                             <q>-0.058738 -0.001415 0.133433 0.989315</q>
                         </XSAnimationKey>
                         <XSAnimationKey name="kubi" />
-                        <XSAnimationKey name="頭" />
-                        <XSAnimationKey name="肩_L_">
-                            <q>0.000000 0.000000 -0.642788 0.766044</q>
+                        <XSAnimationKey name="頭">
+                            <q>0.000000 -0.173648 0.000000 0.984808</q>
                         </XSAnimationKey>
-                        <XSAnimationKey name="腕_L_" />
+                        <XSAnimationKey name="肩_L_">
+                            <q>0.166366 0.198267 -0.620885 0.739942</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="腕_L_">
+                            <q>0.000000 -0.258819 0.000000 0.965926</q>
+                        </XSAnimationKey>
                         <XSAnimationKey name="手_L_" />
                         <XSAnimationKey name="手親指2_L_" />
                         <XSAnimationKey name="手親指1_L_" />
@@ -640,6 +582,550 @@
                             <q>-0.036414 -0.009294 -0.088521 0.995365</q>
                         </XSAnimationKey>
                         <XSAnimationKey name="XSBone_000" />
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="58">
+                        <XSAnimationKey name="root" />
+                        <XSAnimationKey name="kosi" />
+                        <XSAnimationKey name="モモ_R_">
+                            <q>0.011626 0.000000 0.000000 0.999932</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="スネ_R_">
+                            <q>0.034646 0.000000 0.000000 0.999400</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="足_R_">
+                            <q>-0.023194 0.000000 0.000000 0.999731</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="モモ_L_">
+                            <q>-0.034646 0.000000 0.000000 0.999400</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="スネ_L_">
+                            <q>0.034646 0.000000 0.000000 0.999400</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="足_L_" />
+                        <XSAnimationKey name="胸">
+                            <q>0.000000 0.023194 0.000000 0.999731</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="肩_R_">
+                            <q>-0.022270 0.026540 0.642402 0.765584</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="腕_R_">
+                            <q>0.000000 0.023194 0.000000 0.999731</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手_R_" />
+                        <XSAnimationKey name="手親指2_R_" />
+                        <XSAnimationKey name="手親指1_R_" />
+                        <XSAnimationKey name="手人差指3_R_">
+                            <q>0.001999 -0.002714 0.018504 0.999823</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手人差指2_R_">
+                            <q>0.005610 -0.002949 0.084133 0.996434</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手人差指1_R_">
+                            <q>0.024934 -0.012540 0.314919 0.948708</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手中指3_R_">
+                            <q>-0.000060 -0.003454 0.023813 0.999711</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手中指2_R_">
+                            <q>-0.001473 -0.003432 0.054068 0.998530</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手中指1_R_">
+                            <q>-0.015981 -0.004641 0.308600 0.951046</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手薬指3_R_">
+                            <q>-0.007425 -0.006780 0.056968 0.998325</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手薬指2_R_">
+                            <q>-0.020018 -0.003563 0.123142 0.992181</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手薬指1_R_">
+                            <q>-0.018613 -0.008779 0.127847 0.991580</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手小指3_R_">
+                            <q>-0.011511 -0.006364 0.030045 0.999462</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手小指2_R_">
+                            <q>-0.022786 -0.001798 0.053137 0.998326</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手小指1_R_">
+                            <q>-0.058738 -0.001415 0.133433 0.989315</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="kubi" />
+                        <XSAnimationKey name="頭">
+                            <q>0.000000 -0.023194 0.000000 0.999731</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="肩_L_">
+                            <q>0.022270 0.026540 -0.642402 0.765584</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="腕_L_">
+                            <q>0.000000 -0.034646 0.000000 0.999400</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手_L_" />
+                        <XSAnimationKey name="手親指2_L_" />
+                        <XSAnimationKey name="手親指1_L_" />
+                        <XSAnimationKey name="手人差指3_L_">
+                            <q>0.001523 0.002258 -0.014267 0.999894</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手人差指2_L_">
+                            <q>0.005829 -0.003913 -0.077708 0.996951</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手人差指1_L_">
+                            <q>0.015197 -0.017168 -0.219889 0.975255</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手中指3_L_">
+                            <q>0.000039 0.002203 -0.042475 0.999095</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手中指2_L_">
+                            <q>-0.002796 -0.003120 -0.085567 0.996324</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手中指1_L_">
+                            <q>-0.012452 -0.017083 -0.226618 0.973754</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手薬指3_L_">
+                            <q>-0.004875 0.002775 -0.037929 0.999265</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手薬指2_L_">
+                            <q>-0.014204 -0.005394 -0.087818 0.996021</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手薬指1_L_">
+                            <q>-0.024286 -0.003326 -0.163907 0.986171</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手小指3_L_">
+                            <q>-0.015938 0.003719 -0.041375 0.999010</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手小指2_L_">
+                            <q>-0.025419 -0.008280 -0.057913 0.997964</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手小指1_L_">
+                            <q>-0.036414 -0.009294 -0.088521 0.995365</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="XSBone_000" />
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                </XSAnimationSet>
+                <XSAnimationSet name="Patient2_talk" interpolate="21">
+                    <XSAnimation frame="0">
+                        <XSAnimationKey name="root">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="kosi">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="モモ_R_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="スネ_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="足_R_">
+                            <q>-0.000001 0.000000 -0.000001 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="モモ_L_">
+                            <q>0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="スネ_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="足_L_">
+                            <q>-0.000001 -0.000000 0.000001 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="胸">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="肩_R_">
+                            <q>-0.099601 0.142244 0.564862 0.806707</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="腕_R_">
+                            <q>0.000000 0.342020 0.000000 0.939693</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手_R_">
+                            <q>-0.707107 0.000000 0.000000 0.707107</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手親指2_R_">
+                            <q>-0.000000 -0.000001 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手親指1_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手人差指3_R_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手人差指2_R_">
+                            <q>0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手人差指1_R_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手中指3_R_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手中指2_R_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手中指1_R_">
+                            <q>-0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手薬指3_R_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手薬指2_R_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手薬指1_R_">
+                            <q>0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手小指3_R_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手小指2_R_">
+                            <q>-0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手小指1_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="kubi">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="頭">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="肩_L_">
+                            <q>-0.099601 -0.142244 -0.564862 0.806707</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="腕_L_">
+                            <q>0.000000 -0.342020 -0.000000 0.939693</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手_L_">
+                            <q>-0.707107 0.000000 0.000000 0.707107</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手親指2_L_">
+                            <q>-0.000000 0.000001 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手親指1_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手人差指3_L_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手人差指2_L_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手人差指1_L_">
+                            <q>0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手中指3_L_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手中指2_L_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手中指1_L_">
+                            <q>-0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手薬指3_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手薬指2_L_">
+                            <q>0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手薬指1_L_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手小指3_L_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手小指2_L_">
+                            <q>-0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手小指1_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="XSBone_000">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="10">
+                        <XSAnimationKey name="root">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="kosi">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="モモ_R_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="スネ_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="足_R_">
+                            <q>-0.000001 0.000000 -0.000001 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="モモ_L_">
+                            <q>0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="スネ_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="足_L_">
+                            <q>-0.000001 -0.000000 0.000001 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="胸">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="肩_R_">
+                            <q>-0.099601 0.142244 0.564862 0.806707</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="腕_R_">
+                            <q>0.000000 0.500000 0.000000 0.866025</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手_R_">
+                            <q>-0.707107 0.000000 0.000000 0.707107</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手親指2_R_">
+                            <q>-0.000000 -0.000001 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手親指1_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手人差指3_R_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手人差指2_R_">
+                            <q>0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手人差指1_R_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手中指3_R_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手中指2_R_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手中指1_R_">
+                            <q>-0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手薬指3_R_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手薬指2_R_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手薬指1_R_">
+                            <q>0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手小指3_R_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手小指2_R_">
+                            <q>-0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手小指1_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="kubi">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="頭">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="肩_L_">
+                            <q>-0.099601 -0.142244 -0.564862 0.806707</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="腕_L_">
+                            <q>0.000000 -0.500000 0.000000 0.866025</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手_L_">
+                            <q>-0.707107 0.000000 0.000000 0.707107</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手親指2_L_">
+                            <q>-0.000000 0.000001 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手親指1_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手人差指3_L_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手人差指2_L_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手人差指1_L_">
+                            <q>0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手中指3_L_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手中指2_L_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手中指1_L_">
+                            <q>-0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手薬指3_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手薬指2_L_">
+                            <q>0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手薬指1_L_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手小指3_L_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手小指2_L_">
+                            <q>-0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手小指1_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="XSBone_000">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="body" visible="1" fvalue="0.000000" />
+                    </XSAnimation>
+                    <XSAnimation frame="18">
+                        <XSAnimationKey name="root">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="kosi">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="モモ_R_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="スネ_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="足_R_">
+                            <q>-0.000001 0.000000 -0.000001 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="モモ_L_">
+                            <q>0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="スネ_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="足_L_">
+                            <q>-0.000001 -0.000000 0.000001 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="胸">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="肩_R_">
+                            <q>-0.099600 0.142245 0.564863 0.806707</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="腕_R_">
+                            <q>0.000000 0.374527 0.000000 0.927216</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手_R_">
+                            <q>-0.707107 0.000000 -0.000000 0.707107</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手親指2_R_">
+                            <q>-0.000000 -0.000001 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手親指1_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手人差指3_R_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手人差指2_R_">
+                            <q>0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手人差指1_R_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手中指3_R_">
+                            <q>-0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手中指2_R_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手中指1_R_">
+                            <q>-0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手薬指3_R_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手薬指2_R_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手薬指1_R_">
+                            <q>0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手小指3_R_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手小指2_R_">
+                            <q>-0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手小指1_R_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="kubi">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="頭">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="肩_L_">
+                            <q>-0.099600 -0.142245 -0.564863 0.806707</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="腕_L_">
+                            <q>0.000000 -0.374527 -0.000000 0.927216</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手_L_">
+                            <q>-0.707107 -0.000000 0.000000 0.707107</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手親指2_L_">
+                            <q>-0.000000 0.000001 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手親指1_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手人差指3_L_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手人差指2_L_">
+                            <q>0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手人差指1_L_">
+                            <q>0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手中指3_L_">
+                            <q>-0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手中指2_L_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手中指1_L_">
+                            <q>-0.000000 -0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手薬指3_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手薬指2_L_">
+                            <q>0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手薬指1_L_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手小指3_L_">
+                            <q>0.000000 -0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手小指2_L_">
+                            <q>-0.000000 0.000000 -0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="手小指1_L_">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="XSBone_000">
+                            <q>0.000000 0.000000 0.000000 1.000000</q>
+                        </XSAnimationKey>
                         <XSAnimationState name="body" visible="1" fvalue="0.000000" />
                     </XSAnimation>
                 </XSAnimationSet>

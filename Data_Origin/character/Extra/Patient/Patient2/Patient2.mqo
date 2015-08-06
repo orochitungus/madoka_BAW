@@ -4,10 +4,10 @@ Format Text Ver 1.0
 IncludeXml "Patient2.mqx"
 
 Scene {
-	pos 15.2947 23.2988 3890.5591
+	pos 8.5271 26.7740 3890.5591
 	lookat 13.0403 121.2287 -2.2404
-	head -1.3800
-	pich 0.7600
+	head -0.0400
+	pich 0.4900
 	bank 0.0000
 	ortho 0
 	zoom2 16.6178
