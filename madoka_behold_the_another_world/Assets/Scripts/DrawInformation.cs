@@ -20,8 +20,7 @@ public class DrawInformation : MonoBehaviour
     public GameObject m_Camera; // カメラ
     // レベルアップ時のSE
     public AudioClip m_LevelupSE;
-	// アイテム入手時のSE
-	public AudioClip ItemSE;
+	
 
     // private
     // 1本のゲージあたりのHPの値（とりあえず1000）
@@ -99,8 +98,6 @@ public class DrawInformation : MonoBehaviour
 			if (!m_timewaitodone)
 			{
 				m_timewaitodone = true;
-				// アイテム入手音を鳴らす
-				AudioSource.PlayClipAtPoint(ItemSE, transform.position);
 				StartCoroutine(TimeWait(20.0f));
 			}
 			// 金以外

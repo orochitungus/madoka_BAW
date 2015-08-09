@@ -113,12 +113,12 @@ public class AIControl_Majyu : AIControl_Base
 					StartCoroutine(ShotInterval());
 					return true;
 				}
-				else
-				{
-					m_cpumode = CPUMODE.NORMAL;
-					keyoutput = KEY_OUTPUT.NONE;
-					return false;
-				}
+				//else
+				//{
+				//	m_cpumode = CPUMODE.NORMAL;
+				//	keyoutput = KEY_OUTPUT.NONE;
+				//	return false;
+				//}
 			}
 		}
 		return false;
@@ -160,21 +160,21 @@ public class AIControl_Majyu : AIControl_Base
 			return;
 
 		// 制御対象
-		var target = ControlTarget.GetComponent<Scono_Battle_Control>();
+		var target = ControlTarget.GetComponent<majyu_BattleControl>();
 		RaycastHit hit;
 		Vector3 RayStartPosition = new Vector3(ControlTarget.transform.position.x, ControlTarget.transform.position.y + 1.5f, ControlTarget.transform.position.z);
-		// 上昇限界高度を超えているとジャンプボタンを離す
+		// 地上から離れて一定時間たったか上昇限界高度を超えていると空中ダッシュ
 		if ((!Physics.Raycast(RayStartPosition, -transform.up, out hit, RiseLimit)))
 		{
 			keyoutput = KEY_OUTPUT.NONE;
 			m_cpumode = CPUMODE.NORMAL_RISE2;
 			m_totalrisetime = Time.time;
 		}
-		// 地上から離れずに一定時間いるとNORMALへ戻って仕切り直す
-		if (Time.time > m_totalrisetime + m_risetime && target.GetInGround())
-		{
-			m_cpumode = CPUMODE.NORMAL;
-		}
+		//// 地上から離れずに一定時間いるとNORMALへ戻って仕切り直す
+		//if (Time.time > m_totalrisetime + m_risetime && target.GetInGround())
+		//{
+		//	m_cpumode = CPUMODE.NORMAL;
+		//}
 		// 敵との距離が離れすぎるとロックオンを解除して哨戒に戻る
 		// カメラ
 		Player_Camera_Controller pcc = ControlTarget_Camera.GetComponent<Player_Camera_Controller>();

@@ -201,11 +201,11 @@ public class AIControl_Scono : AIControl_Base
 			m_cpumode = CPUMODE.NORMAL_RISE2;
 			m_totalrisetime = Time.time;
 		}
-		// 地上から離れずに一定時間いるとNORMALへ戻って仕切り直す
-		if (Time.time > m_totalrisetime + m_risetime && target.GetInGround())
-		{
-			m_cpumode = CPUMODE.NORMAL;
-		}
+		//// 地上から離れずに一定時間いるとNORMALへ戻って仕切り直す
+		//if (Time.time > m_totalrisetime + m_risetime && target.GetInGround())
+		//{
+		//	m_cpumode = CPUMODE.NORMAL;
+		//}
 		// 敵との距離が離れすぎるとロックオンを解除して哨戒に戻る
 		// カメラ
 		Player_Camera_Controller pcc = ControlTarget_Camera.GetComponent<Player_Camera_Controller>();

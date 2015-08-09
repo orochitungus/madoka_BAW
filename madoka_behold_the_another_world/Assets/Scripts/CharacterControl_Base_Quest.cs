@@ -60,6 +60,11 @@ public class CharacterControl_Base_Quest : MonoBehaviour
     // 移動方向固定状態か否か
     protected bool m_Rotatehold;
 
+	/// <summary>
+	/// 移動可能か否か
+	/// </summary>
+	public bool Moveable;
+
     // アニメーションファイルの名前(下記のAnimationStateに対応)    
     public string[] m_AnimationNames = new string[(int)AnimationState.Number_Of_Animation];
 
@@ -149,6 +154,7 @@ public class CharacterControl_Base_Quest : MonoBehaviour
         m_RunSpeed = 15.0f;
         m_IsRockon = false;
         m_Rotatehold = false;
+		Moveable = true;
     }
 	
 	
@@ -190,7 +196,12 @@ public class CharacterControl_Base_Quest : MonoBehaviour
     // テンキー入力判定を取る
     // 移動キーが押されているかどうかをチェックする HasVHInput を追加する。
     protected bool HasVHInput()
-    {       
+    {
+		// 動けないときは入力禁止
+		if(!Moveable)
+		{
+			return false;
+		}
         if (0.0f != Input.GetAxisRaw("Horizontal"))
         {
             return true;
@@ -202,6 +213,11 @@ public class CharacterControl_Base_Quest : MonoBehaviour
     // ジャンプ入力があったか否かをチェックする
     protected bool HasJumpInput()
     {
+		// 動けないときは入力禁止
+		if (!Moveable)
+		{
+			return false;
+		}
         // 長押し上昇があるのでこっちは長押しを認める
         if (Input.GetButton("Jump"))
         {
@@ -213,6 +229,11 @@ public class CharacterControl_Base_Quest : MonoBehaviour
     // ポーズ入力があったか否かをチェックする
     protected bool HasPauseInput()
     {
+		// 動けないときは入力禁止
+		if (!Moveable)
+		{
+			return false;
+		}
         if (Input.GetButtonDown("Pause"))
         {
             return true;
@@ -222,6 +243,11 @@ public class CharacterControl_Base_Quest : MonoBehaviour
     // 決定入力があったか否かをチェックする
     protected bool HasEnterInput()
     {
+		// 動けないときは入力禁止
+		if (!Moveable)
+		{
+			return false;
+		}
         if (Input.GetButtonDown("Enter"))
         {
             return true;

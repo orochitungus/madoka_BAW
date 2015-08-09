@@ -431,7 +431,7 @@ public class AIControl_Base : MonoBehaviour
     {
         // 空中ダッシュ入力を行う
         tenkeyoutput = TENKEY_OUTPUT.TOP;
-        keyoutput = KEY_OUTPUT.AIRDASH;
+        keyoutput = KEY_OUTPUT.DASHCANCEL;
         m_cpumode = CPUMODE.NORMAL_FLYING;
     }
     //NORMAL_RISE3,           // 壁の側まで歩いて行く

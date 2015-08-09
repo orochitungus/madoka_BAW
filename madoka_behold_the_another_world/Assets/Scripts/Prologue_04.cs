@@ -4,12 +4,6 @@ using System.Collections;
 // 
 public class Prologue_04 : EventBase 
 {
-   
-    // BGM
-    public AudioClip m_kusabi;
-
-    private AudioSource m_BGM;
-
     // SE
     public AudioClip m_Appear;  // まどかがテレポートしてくる時のフレアと同じSE（スコノの白衣着用と共通）
 
