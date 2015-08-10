@@ -24,7 +24,7 @@ public class NPCControlBase : MonoBehaviour
 	/// <summary>
 	/// 選択肢であるか否か
 	/// </summary>
-	public bool IsSelectMode;
+	protected bool IsSelectMode;
 
 	/// <summary>
 	/// 表示中の文字数
@@ -43,12 +43,32 @@ public class NPCControlBase : MonoBehaviour
 	/// </summary>
 	public string [] Choices;
 
+	/// <summary>
+	/// カーソル移動音
+	/// </summary>
+ 	public AudioClip MoveCursor;
 	
+	/// <summary>
+	/// 選択確定音
+	/// </summary>
+	public AudioClip Enter;
+
+	/// <summary>
+	/// 接触したプレイヤーキャラ
+	/// </summary>
+	protected CharacterControl_Base_Quest characterControl_Base_Quest;
+
+	/// <summary>
+	/// 使用状態であるか否か
+	/// </summary>
+	protected bool UseMode;
+
 	void Awake()
 	{
+		UseMode = false;
 		// 台詞送りストリーム(決定ボタンを押すと台詞が出切っていなかった場合全部出し、出切っていたらxstoryが進む）
 		this.UpdateAsObservable()
-		.Where(_=> Input.GetButtonDown("Shot") || Input.GetButtonDown("Enter"))
+		.Where(_=> UseMode && (Input.GetButtonDown("Shot") || Input.GetButtonDown("Enter")))
 		.Subscribe(_ =>
 		{ 
 			if(!IsSelectMode && Serif[xstory].Length > AppearWords)
@@ -63,22 +83,30 @@ public class NPCControlBase : MonoBehaviour
 		});
 
 		// 選択肢ストリーム(上）
-		this.UpdateAsObservable().Where(_ => Input.GetAxis("Vertical") > 0.5f && NowSelect > 0).
+		this.UpdateAsObservable().Where(_ => UseMode && Input.GetAxis("Vertical") > 0.5f && NowSelect > 0).
 		ThrottleFirst(TimeSpan.FromSeconds(0.5f)).
-		Subscribe(_=> NowSelect--);
+		Subscribe(_=>
+		{
+			AudioSource.PlayClipAtPoint(MoveCursor, transform.position);
+			NowSelect--;
+		});
 
 		// 選択肢ストリーム(下）
-		this.UpdateAsObservable().Where(_=> Input.GetAxis("Vertical") < -0.5f && NowSelect < MaxSelect).
+		this.UpdateAsObservable().Where(_=> UseMode && Input.GetAxis("Vertical") < -0.5f && NowSelect < MaxSelect).
 		ThrottleFirst(TimeSpan.FromSeconds(0.5f)).		// 連続押しされたら困るので、0.5秒間は入力カット
-		Subscribe(_=> NowSelect ++);
+		Subscribe(_=>
+		{
+			AudioSource.PlayClipAtPoint(MoveCursor, transform.position);
+			NowSelect++;
+		});
 		
 		// 台詞流しストリーム（台詞が出きっていないときに限り0.3秒ごとにAppearWordsをインクリメント)
 		this.UpdateAsObservable().
-		Where(_ => !IsSelectMode && Serif[xstory].Length > AppearWords).
+		Where(_ => UseMode && !IsSelectMode && Serif[xstory].Length > AppearWords).
 		ThrottleFirst(TimeSpan.FromSeconds(0.3f)).Subscribe(_=> AppearWords++);
 
 		// 表示物制御
-		this.UpdateAsObservable().Subscribe(_=>
+		this.UpdateAsObservable().Where(_=> UseMode).Subscribe(_=>
 		{
 			// 念押しでTalkSystemが無かったら戻しておく
 			if(Talksystem == null)
@@ -139,11 +167,19 @@ public class NPCControlBase : MonoBehaviour
 		GameObject talksystem = GameObject.Find("TalkSystem");
 		Talksystem = talksystem.GetComponent<TalkSystem>();
 
+		// 接触対象の移動機能を切る(処理が終わったら切る）
+		characterControl_Base_Quest = collision.gameObject.GetComponent<CharacterControl_Base_Quest>();
+		characterControl_Base_Quest.Moveable = false;
+		// 背景を出しておく
+		Talksystem.Fukidashi.gameObject.SetActive(true);
+
 		// xstoryをリセットする
 		xstory = 0;
 		// ApperWordsをリセットする
 		AppearWords = 0;
 		// 選択肢をリセットする
 		NowSelect = 0;
+		// 使用可能にする
+		UseMode = true;
 	}
 }

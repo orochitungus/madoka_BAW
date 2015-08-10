@@ -19,9 +19,15 @@ public static class StageCode
         new int[]{302},
         // 5:ほむら病室
         new int[]{601,8888},
-        // 6:見滝原病院56階
+        // 6:見滝原病院56階(ほむら病室・プロローグ6・階段・エレベーター）
         new int[]{501,7777},
-        // 7:
+        // 7:見滝原病院106階
+
+		// 8:見滝原病院150階(屋上)
+
+		// 9:見滝原病院1階
+
+		// 10:見滝原病院入口
     };
     // 各ステージのBGM
     public static string[] stageBGM = new string[]
@@ -40,7 +46,13 @@ public static class StageCode
         "arifuretahitokoma",
         // 6:見滝原病院56階
         "arifuretahitokoma",
-        // 7:        
+        // 7:見滝原病院106階
+
+		// 8:見滝原病院150階(屋上)
+
+		// 9:見滝原病院1階
+
+		// 10:見滝原病院入口
     };
     // BGM変更の有無
     public static bool[][] changebgm = new bool[][]
@@ -59,6 +71,12 @@ public static class StageCode
         new bool[]{false,true},
         // 6:見滝原病院56階
         new bool[]{false,true},
-        // 7:
+        // 7:見滝原病院106階
+
+		// 8:見滝原病院150階(屋上)
+
+		// 9:見滝原病院1階
+
+		// 10:見滝原病院入口
     };
 }

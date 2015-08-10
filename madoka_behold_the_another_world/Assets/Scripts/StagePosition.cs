@@ -94,6 +94,13 @@ public static class StagePosition
             new Vector3[]{new Vector3(0,270.0f,0), new Vector3(0,270.0f,0), new Vector3(0,270.0f,0)}, // 階段から来た場合
             new Vector3[]{new Vector3(0,270.0f,0), new Vector3(0,270.0f,0), new Vector3(0,270.0f,0)}, // エレベーターから来た場合
         }
+		// 7:見滝原病院・106階廊下
+
+		// 8:見滝原病院・150階(屋上)
+
+		// 9:見滝原病院・1階
+
+		// 10:見滝原病院入口
     };
     // 各ステージのステージ名
     public static string[] m_StageName = new string[]
@@ -105,5 +112,9 @@ public static class StagePosition
         "ISGZ VS Sconosciuto",
         "見滝原病院・ほむらの病室",
         "見滝原病院・56階廊下",
+		"見滝原病院・106階廊下",
+		"見滝原病院・150階",
+		"見滝原病院・1階",
+		"見滝原病院入口",
     };
 }
