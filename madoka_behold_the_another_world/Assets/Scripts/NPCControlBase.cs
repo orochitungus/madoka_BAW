@@ -14,9 +14,7 @@ public class NPCControlBase : MonoBehaviour
 	/// </summary>
 	public int SelectNum;
 	/// <summary>
-	/// 最大選択数
-	/// </summary>
-	protected int MaxSelect;
+	
 	/// <summary>
 	/// 選択肢に使うときの現在の選択
 	/// </summary>
@@ -38,10 +36,7 @@ public class NPCControlBase : MonoBehaviour
 	public string [] CharacterName_JP;
 	public string [] CharacterName_EN;
 
-	/// <summary>
-	/// 選択肢
-	/// </summary>
-	public string [] Choices;
+	
 
 	/// <summary>
 	/// カーソル移動音
@@ -105,47 +100,7 @@ public class NPCControlBase : MonoBehaviour
 		Where(_ => UseMode && !IsSelectMode && Serif[xstory].Length > AppearWords).
 		ThrottleFirst(TimeSpan.FromSeconds(0.3f)).Subscribe(_=> AppearWords++);
 
-		// 表示物制御
-		this.UpdateAsObservable().Where(_=> UseMode).Subscribe(_=>
-		{
-			// 念押しでTalkSystemが無かったら戻しておく
-			if(Talksystem == null)
-			{
-				Debug.Log("TalkSystem Null");
-				return;
-			}
-			// 選択時
-			if(IsSelectMode)
-			{
-				Talksystem.CharacterFace[0].gameObject.SetActive(true);
-				Talksystem.NofaceText.text = "Select";
-				for(int i=0; i<MaxSelect; i++)
-				{
-					// 選択肢表示
-					if(Choices[i] != "")
-					{
-						Talksystem.Choices[i].gameObject.SetActive(true);
-					}
-					// カーソル表示
-					if(NowSelect == i)
-					{
-						Talksystem.Cursor[i].gameObject.SetActive(true);
-					}
-					else
-					{
-						Talksystem.Cursor[i].gameObject.SetActive(false);
-					}
-				}
-			}
-			// 台詞表示時
-			else
-			{
-				if(Serif[xstory] != "")
-				{
-					Talksystem.FukidashiText.text = Serif[xstory].Substring(0,AppearWords);
-				}
-			}
-		});
+		
 	}
 
 	// Use this for initialization

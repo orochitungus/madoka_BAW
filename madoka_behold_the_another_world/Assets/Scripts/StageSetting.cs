@@ -172,7 +172,7 @@ public class StageSetting : MonoBehaviour
 			fadeManager.name = "FadeManager";
 		}
 		// TalkSystemがあるか判定（非戦闘シーン限定）
-		if(GameObject.Find("TalkSystem") != null && m_isQuestStage)
+		if(GameObject.Find("TalkSystem") == null && m_isQuestStage)
 		{
 			GameObject talkSystem = (GameObject)Instantiate(Resources.Load("TalkSystem"));
 			talkSystem.name = "TalkSystem";

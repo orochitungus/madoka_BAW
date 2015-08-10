@@ -145,10 +145,9 @@ public class CharacterControl_Base_Quest : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
-        Initialize();
 	}
 
-    void Initialize()
+    protected void Initialize()
     {      
         // 歩行速度設定
         m_RunSpeed = 15.0f;
@@ -469,7 +468,7 @@ public class CharacterControl_Base_Quest : MonoBehaviour
                 m_foottype = StageSetting.FootType.FootType_Carpet;
             }
         }
-
+		Initialize();
     }
 
     // 継承先のUpdate開幕で実行すること
