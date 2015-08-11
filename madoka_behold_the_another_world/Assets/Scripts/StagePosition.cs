@@ -48,6 +48,15 @@ public static class StagePosition
             new Vector3[]{ new Vector3(30,0,11), new Vector3(30,0,6), new Vector3(30,0,16) },               // 階段から来た場合
             new Vector3[]{ new Vector3(26,0,36), new Vector3(26,0,31), new Vector3(30,0,41) },              // エレベーターから来た場合
         },
+		// 7:見滝原病院・106階廊下
+
+		// 8:見滝原病院・150階(屋上)
+
+		// 9:見滝原病院・1階
+
+		// 10:見滝原病院入口
+
+		// 11:見滝原病院・恭介の病室
     };
 
     // 各ステージのキャラクターの初期配置角度
@@ -101,6 +110,8 @@ public static class StagePosition
 		// 9:見滝原病院・1階
 
 		// 10:見滝原病院入口
+
+		// 11:見滝原病院・恭介の病室
     };
     // 各ステージのステージ名
     public static string[] m_StageName = new string[]
@@ -116,5 +127,6 @@ public static class StagePosition
 		"見滝原病院・150階",
 		"見滝原病院・1階",
 		"見滝原病院入口",
+		"見滝原病院・恭介の病室",
     };
 }

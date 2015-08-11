@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using UniRx;
 using UniRx.Triggers;
@@ -40,6 +41,8 @@ public class MoveChoices : NPCControlBase
 	/// 選択肢
 	/// </summary>
 	public string [] Choices2;
+
+	// 選択肢の総数
 	public int MaxSelect2;
 	// Use this for initialization
 	void Start () 
@@ -95,6 +98,7 @@ public class MoveChoices : NPCControlBase
 				if (Choices1[i] != "")
 				{
 					Talksystem.Choices[i].gameObject.SetActive(true);
+					Talksystem.Choices[i].text = Choices1[i];
 				}
 				// カーソル表示
 				if (NowSelect == i)
@@ -124,6 +128,7 @@ public class MoveChoices : NPCControlBase
 				if (Choices2[i] != "")
 				{
 					Talksystem.Choices[i].gameObject.SetActive(true);
+					Talksystem.Choices[i].text = Choices2[i];
 				}
 				// カーソル表示
 				if (NowSelect == i)
@@ -135,6 +140,33 @@ public class MoveChoices : NPCControlBase
 					Talksystem.Cursor[i].gameObject.SetActive(false);
 				}
 			}
+		});
+
+		// 選択肢ストリーム(上）
+		this.UpdateAsObservable().Where(_ => UseMode && Input.GetAxis("Vertical") > 0.5f && NowSelect > 0).
+		ThrottleFirst(TimeSpan.FromSeconds(0.5f)).
+		Subscribe(_ =>
+		{
+			AudioSource.PlayClipAtPoint(MoveCursor, transform.position);
+			NowSelect--;
+		});
+
+		// 選択肢ストリーム(下）
+		int MaxSelect = 0;
+		if (savingparameter.story >= MinStory1 && savingparameter.story <= MaxStory1)
+		{
+			MaxSelect = MaxSelect1;
+		}
+		else if (savingparameter.story >= MinStory2 && savingparameter.story <= MaxStory2)
+		{
+			MaxSelect = MaxSelect2;
+		}
+		this.UpdateAsObservable().Where(_ => UseMode && Input.GetAxis("Vertical") < -0.5f && NowSelect < MaxSelect).
+		ThrottleFirst(TimeSpan.FromSeconds(0.5f)).		// 連続押しされたら困るので、0.5秒間は入力カット
+		Subscribe(_ =>
+		{
+			AudioSource.PlayClipAtPoint(MoveCursor, transform.position);
+			NowSelect++;
 		});
 	}
 	
@@ -150,6 +182,15 @@ public class MoveChoices : NPCControlBase
 		characterControl_Base_Quest.Moveable = true;
 		// 表示物を切る
 		UseMode = false;
+		int MaxSelect = 0;
+		if (savingparameter.story >= MinStory1 && savingparameter.story <= MaxStory1)
+		{
+			MaxSelect = MaxSelect1;
+		}
+		else if (savingparameter.story >= MinStory2 && savingparameter.story <= MaxStory2)
+		{
+			MaxSelect = MaxSelect2;
+		}
 		for (int i=0; i<MaxSelect; i++)
 		{
 			// カーソル

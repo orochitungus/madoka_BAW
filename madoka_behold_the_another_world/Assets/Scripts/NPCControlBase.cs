@@ -9,12 +9,7 @@ public class NPCControlBase : MonoBehaviour
 	protected int xstory;
 	protected TalkSystem Talksystem;
 
-	/// <summary>
-	/// 選択肢に使うときの選択肢の数（最大4）
-	/// </summary>
-	public int SelectNum;
-	/// <summary>
-	
+		
 	/// <summary>
 	/// 選択肢に使うときの現在の選択
 	/// </summary>
@@ -77,23 +72,7 @@ public class NPCControlBase : MonoBehaviour
 			}
 		});
 
-		// 選択肢ストリーム(上）
-		this.UpdateAsObservable().Where(_ => UseMode && Input.GetAxis("Vertical") > 0.5f && NowSelect > 0).
-		ThrottleFirst(TimeSpan.FromSeconds(0.5f)).
-		Subscribe(_=>
-		{
-			AudioSource.PlayClipAtPoint(MoveCursor, transform.position);
-			NowSelect--;
-		});
-
-		// 選択肢ストリーム(下）
-		this.UpdateAsObservable().Where(_=> UseMode && Input.GetAxis("Vertical") < -0.5f && NowSelect < MaxSelect).
-		ThrottleFirst(TimeSpan.FromSeconds(0.5f)).		// 連続押しされたら困るので、0.5秒間は入力カット
-		Subscribe(_=>
-		{
-			AudioSource.PlayClipAtPoint(MoveCursor, transform.position);
-			NowSelect++;
-		});
+		
 		
 		// 台詞流しストリーム（台詞が出きっていないときに限り0.3秒ごとにAppearWordsをインクリメント)
 		this.UpdateAsObservable().
