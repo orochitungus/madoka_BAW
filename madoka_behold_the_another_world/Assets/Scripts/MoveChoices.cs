@@ -15,7 +15,7 @@ public class MoveChoices : NPCControlBase
 	// 条件1最大story
 	public int MaxStory1;
 	// 移動元コード
-	public int Fromcode1;
+	public int[] Fromcode1;
 	// 移動先コード
 	public int[] Forcode1;
 	// 移動先シーン名（cancelを入れるとキャンセル扱いの選択肢になる）
@@ -32,7 +32,7 @@ public class MoveChoices : NPCControlBase
 	// 条件2最大story
 	public int MaxStory2;
 	// 移動元コード
-	public int Fromcode2;
+	public int[] Fromcode2;
 	// 移動先コード
 	public int[] Forcode2;
 	// 移動先シーン名（cancelを入れるとキャンセル扱いの選択肢になる）
@@ -62,7 +62,7 @@ public class MoveChoices : NPCControlBase
 			}
 			else
 			{
-				SelectedNextStage(Fromcode1, Forcode1[NowSelect], ForScene1[NowSelect]);
+				SelectedNextStage(Fromcode1[NowSelect], Forcode1[NowSelect], ForScene1[NowSelect]);
 			}
 		});
 		// 条件2のとき
@@ -77,7 +77,7 @@ public class MoveChoices : NPCControlBase
 			}
 			else
 			{
-				SelectedNextStage(Fromcode2, Forcode1[NowSelect], ForScene2[NowSelect]);
+				SelectedNextStage(Fromcode2[NowSelect], Forcode1[NowSelect], ForScene2[NowSelect]);
 			}
 		});
 
@@ -161,7 +161,7 @@ public class MoveChoices : NPCControlBase
 		{
 			MaxSelect = MaxSelect2;
 		}
-		this.UpdateAsObservable().Where(_ => UseMode && Input.GetAxis("Vertical") < -0.5f && NowSelect < MaxSelect).
+		this.UpdateAsObservable().Where(_ => UseMode && Input.GetAxis("Vertical") < -0.5f && NowSelect < MaxSelect - 1).
 		ThrottleFirst(TimeSpan.FromSeconds(0.5f)).		// 連続押しされたら困るので、0.5秒間は入力カット
 		Subscribe(_ =>
 		{
@@ -200,12 +200,15 @@ public class MoveChoices : NPCControlBase
 		}
 		// 背景
 		Talksystem.Fukidashi.gameObject.SetActive(false);
+		// 顔
+		Talksystem.CharacterFace[0].gameObject.SetActive(false);
 	}
 
 	void SelectedNextStage(int fromcode, int forcode, string forscene)
 	{
 		savingparameter.beforeField = fromcode;
 		savingparameter.nowField = forcode;
-		FadeManager.Instance.LoadLevel(forscene, 1.0f);
+		//FadeManager.Instance.LoadLevel(forscene, 1.0f);
+		Application.LoadLevel(forscene);
 	}
 }

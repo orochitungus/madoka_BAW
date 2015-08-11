@@ -13,5 +13,6 @@ public static class SceneName
         "Imagica_Shock_Ground_Zero_VSScono",        // 4:イマジカショック・グラウンドゼロ（VSスコノシュート）
         "Mitakihara_Hospital_HomuraRoom",           // 5:見滝原病院・ほむらの部屋
         "Mitakihara_Hospital_56F",                  // 6:見滝原病院・56階
+		"Mitakihara_Hospital_106F",					// 7:見滝原病院・106階
     };
 }

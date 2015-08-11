@@ -49,7 +49,12 @@ public static class StagePosition
             new Vector3[]{ new Vector3(26,0,36), new Vector3(26,0,31), new Vector3(30,0,41) },              // エレベーターから来た場合
         },
 		// 7:見滝原病院・106階廊下
-
+		new Vector3[][]
+		{
+			new Vector3[]{ new Vector3(0,0,3.5f),new Vector3(5.0f,0,3.5f),new Vector3(-5.0f,0,3.5f)},		// 恭介病室から来た場合
+			new Vector3[]{ new Vector3(30,0,11), new Vector3(30,0,6), new Vector3(30,0,16) },               // 階段から来た場合
+			new Vector3[]{ new Vector3(26,0,36), new Vector3(26,0,31), new Vector3(30,0,41) },              // エレベーターから来た場合
+		},
 		// 8:見滝原病院・150階(屋上)
 
 		// 9:見滝原病院・1階
@@ -102,9 +107,14 @@ public static class StagePosition
             new Vector3[]{Vector3.zero,Vector3.zero,Vector3.zero},                                    // プロローグ6から来た場合
             new Vector3[]{new Vector3(0,270.0f,0), new Vector3(0,270.0f,0), new Vector3(0,270.0f,0)}, // 階段から来た場合
             new Vector3[]{new Vector3(0,270.0f,0), new Vector3(0,270.0f,0), new Vector3(0,270.0f,0)}, // エレベーターから来た場合
-        }
+        },
 		// 7:見滝原病院・106階廊下
-
+		new Vector3[][]
+		{
+			new Vector3[]{new Vector3(0,0.0f,0), new Vector3(0,0.0f,0), new Vector3(0,0.0f,0)},			// 恭介の病室から来た場合
+			new Vector3[]{new Vector3(0,270.0f,0), new Vector3(0,270.0f,0), new Vector3(0,270.0f,0)},	// 階段から来た場合
+			new Vector3[]{new Vector3(0,270.0f,0), new Vector3(0,270.0f,0), new Vector3(0,270.0f,0)},	// エレベーターから来た場合
+		},
 		// 8:見滝原病院・150階(屋上)
 
 		// 9:見滝原病院・1階
