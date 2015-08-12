@@ -23,8 +23,8 @@ public static class StageCode
         new int[]{501,7777,701,702},
         // 7:見滝原病院106階(恭介病室・階段・エレベーター）
 		new int[]{1101,602,603},
-		// 8:見滝原病院150階(屋上)
-
+		// 8:見滝原病院150階(エレベーター)
+		new int[]{603},
 		// 9:見滝原病院1階
 
 		// 10:見滝原病院入口
@@ -51,7 +51,7 @@ public static class StageCode
         // 7:見滝原病院106階
 		"arifuretahitokoma",
 		// 8:見滝原病院150階(屋上)
-
+		"arifuretahitokoma",
 		// 9:見滝原病院1階
 
 		// 10:見滝原病院入口
@@ -78,7 +78,7 @@ public static class StageCode
         // 7:見滝原病院106階
 		new bool[]{false,false,false},
 		// 8:見滝原病院150階(屋上)
-
+		new bool[]{false},
 		// 9:見滝原病院1階
 
 		// 10:見滝原病院入口

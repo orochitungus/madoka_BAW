@@ -56,7 +56,10 @@ public static class StagePosition
 			new Vector3[]{ new Vector3(26,0,36), new Vector3(26,0,31), new Vector3(30,0,41) },              // エレベーターから来た場合
 		},
 		// 8:見滝原病院・150階(屋上)
-
+		new Vector3[][]
+		{
+			new Vector3[]{ new Vector3(102.8091f,0,-36.07839f), new Vector3(107.8091f,0,-36.07839f), new Vector3(97.8091f,0,-36.07839f)},	// エレベーターから来た場合
+		},
 		// 9:見滝原病院・1階
 
 		// 10:見滝原病院入口
@@ -116,7 +119,10 @@ public static class StagePosition
 			new Vector3[]{new Vector3(0,270.0f,0), new Vector3(0,270.0f,0), new Vector3(0,270.0f,0)},	// エレベーターから来た場合
 		},
 		// 8:見滝原病院・150階(屋上)
-
+		new Vector3[][]
+		{
+			new Vector3[]{new Vector3(0,270.0f,0), new Vector3(0,270.0f,0), new Vector3(0,270.0f,0)},	// エレベーターから来た場合
+		},
 		// 9:見滝原病院・1階
 
 		// 10:見滝原病院入口
