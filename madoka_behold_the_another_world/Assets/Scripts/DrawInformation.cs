@@ -130,6 +130,10 @@ public class DrawInformation : MonoBehaviour
             {
                 drawwords = "さやかと恭介を追いかけよう！";
             }
+			else if(savingparameter.story == 4)
+			{
+				drawwords = "まどかを探すため、病院の外へ出よう！";
+			}
         }
         if ((m_timewaitodone && LevelUpManagement.m_characterName == 0) || (m_timewaitodone && FieldItemGetManagement.ItemKind > -2))
         {

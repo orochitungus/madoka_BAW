@@ -4,13 +4,13 @@ Format Text Ver 1.0
 IncludeXml "kyosuke_nightwear_use.mqx"
 
 Scene {
-	pos -14.2941 -298.1581 1551.1749
+	pos -24.7261 -236.5150 605.9277
 	lookat 25.5904 -173.6054 59.7729
-	head -6.2608
-	pich 0.2200
+	head -6.7708
+	pich 0.0500
 	bank 0.0000
 	ortho 0
-	zoom2 12.5196
+	zoom2 32.0502
 	amb 0.250 0.250 0.250
 	dirlights 1 {
 		light {
@@ -62,7 +62,7 @@ Object "sdef:body" {
 	scale 1.000000 1.000000 1.000000
 	rotation 0.000000 0.000000 0.000000
 	translation 0.000000 0.000000 0.000000
-	visible 15
+	visible 0
 	locking 0
 	shading 1
 	facet 180.0

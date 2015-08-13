@@ -13,7 +13,7 @@ public class StageMovement : MonoBehaviour
     // 移動先のシーン名
     public string m_forscene;
 
-    // イベント移動であるか否か
+    // イベント移動であるか否か（これをＯＮにすると、ストーリーの進行度で動作させなくすることもできる）
     public bool m_IsEvent;
     // イベント時、最小発動条件
     public int m_minXstory;
@@ -57,6 +57,8 @@ public class StageMovement : MonoBehaviour
         {
             if (savingparameter.story >= m_minXstory && savingparameter.story <= m_maxXstroy)
             {
+				savingparameter.beforeField = m_fromcode;
+				savingparameter.nowField = m_forcode;
 				//FadeManager.Instance.LoadLevel(m_forscene, 1.0f);
 				Application.LoadLevel(m_forscene);
             }

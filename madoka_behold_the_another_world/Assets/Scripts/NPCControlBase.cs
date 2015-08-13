@@ -22,7 +22,7 @@ public class NPCControlBase : MonoBehaviour
 	/// <summary>
 	/// 表示中の文字数
 	/// </summary>
-	public int AppearWords;
+	protected int AppearWords;
 
 	/// <summary>
 	/// 表示台詞
@@ -56,30 +56,6 @@ public class NPCControlBase : MonoBehaviour
 	void Awake()
 	{
 		UseMode = false;
-		// 台詞送りストリーム(決定ボタンを押すと台詞が出切っていなかった場合全部出し、出切っていたらxstoryが進む）
-		this.UpdateAsObservable()
-		.Where(_=> UseMode && (Input.GetButtonDown("Shot") || Input.GetButtonDown("Enter")))
-		.Subscribe(_ =>
-		{ 
-			if(!IsSelectMode && Serif[xstory].Length > AppearWords)
-			{
-				AppearWords = Serif[xstory].Length;
-			}
-			else
-			{ 
-				AppearWords = 0;
-				xstory++;
-			}
-		});
-
-		
-		
-		// 台詞流しストリーム（台詞が出きっていないときに限り0.3秒ごとにAppearWordsをインクリメント)
-		this.UpdateAsObservable().
-		Where(_ => UseMode && !IsSelectMode && Serif[xstory].Length > AppearWords).
-		ThrottleFirst(TimeSpan.FromSeconds(0.3f)).Subscribe(_=> AppearWords++);
-
-		
 	}
 
 	// Use this for initialization
@@ -95,7 +71,7 @@ public class NPCControlBase : MonoBehaviour
 	}
 
 	// 接触時の処理
-	protected void OnCollisionEnter(Collision collision)
+	protected virtual void OnCollisionEnter(Collision collision)
 	{
 		// TalkSystemを取得する
 		GameObject talksystem = GameObject.Find("TalkSystem");

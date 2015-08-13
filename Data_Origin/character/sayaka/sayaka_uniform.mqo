@@ -4,13 +4,13 @@ Format Text Ver 1.0
 IncludeXml "sayaka_uniform.mqx"
 
 Scene {
-	pos -22.3684 -72.2497 585.9377
+	pos -30.3883 -120.1753 366.2111
 	lookat 0.0000 0.0000 0.0000
-	head 13.1766
-	pich 0.2636
+	head 12.5365
+	pich 0.4136
 	bank 0.0000
 	ortho 0
-	zoom2 12.8000
+	zoom2 20.4800
 	amb 0.250 0.250 0.250
 	dirlights 1 {
 		light {
@@ -75,7 +75,7 @@ Object "sdef:body" {
 	scale 1.000000 1.000000 1.000000
 	rotation 0.000000 -0.000000 0.000000
 	translation 0.000000 0.000000 0.000000
-	visible 15
+	visible 0
 	locking 0
 	shading 1
 	facet 180.0

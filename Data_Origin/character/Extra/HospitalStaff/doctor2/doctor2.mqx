@@ -9,7 +9,7 @@
                 <XSBoneConfig col_def="6737049" col_sel="16757299" col_hot="16776960" col_cst="15040434" col_phy="8362444" />
             </XSConfig>
             <XSAnimationContainer>
-                <XSAnimationSet name="doctor1_neutral" interpolate="21">
+                <XSAnimationSet name="doctor2_neutral" interpolate="21">
                     <XSAnimation frame="0">
                         <XSAnimationKey name="root" />
                         <XSAnimationKey name="kosi" />
@@ -67,7 +67,6 @@
                         <XSAnimationKey name="XSBone_000" />
                         <XSAnimationState name="body" visible="1" fvalue="0.000000" />
                         <XSAnimationState name="hair" visible="1" fvalue="0.000000" />
-                        <XSAnimationState name="writecort" visible="1" fvalue="0.000000" />
                     </XSAnimation>
                     <XSAnimation frame="2">
                         <XSAnimationKey name="root" />
@@ -126,10 +125,9 @@
                         <XSAnimationKey name="XSBone_000" />
                         <XSAnimationState name="body" visible="1" fvalue="0.000000" />
                         <XSAnimationState name="hair" visible="1" fvalue="0.000000" />
-                        <XSAnimationState name="writecort" visible="1" fvalue="0.000000" />
                     </XSAnimation>
                 </XSAnimationSet>
-                <XSAnimationSet name="doctor1_walk" interpolate="21">
+                <XSAnimationSet name="doctor2_walk" interpolate="21">
                     <XSAnimation frame="0">
                         <XSAnimationKey name="root" />
                         <XSAnimationKey name="kosi" />
@@ -199,7 +197,6 @@
                         <XSAnimationKey name="XSBone_000" />
                         <XSAnimationState name="body" visible="1" fvalue="0.000000" />
                         <XSAnimationState name="hair" visible="1" fvalue="0.000000" />
-                        <XSAnimationState name="writecort" visible="1" fvalue="0.000000" />
                     </XSAnimation>
                     <XSAnimation frame="15">
                         <XSAnimationKey name="root" />
@@ -282,7 +279,6 @@
                         <XSAnimationKey name="XSBone_000" />
                         <XSAnimationState name="body" visible="1" fvalue="0.000000" />
                         <XSAnimationState name="hair" visible="1" fvalue="0.000000" />
-                        <XSAnimationState name="writecort" visible="1" fvalue="0.000000" />
                     </XSAnimation>
                     <XSAnimation frame="30">
                         <XSAnimationKey name="root" />
@@ -353,7 +349,6 @@
                         <XSAnimationKey name="XSBone_000" />
                         <XSAnimationState name="body" visible="1" fvalue="0.000000" />
                         <XSAnimationState name="hair" visible="1" fvalue="0.000000" />
-                        <XSAnimationState name="writecort" visible="1" fvalue="0.000000" />
                     </XSAnimation>
                     <XSAnimation frame="45">
                         <XSAnimationKey name="root" />
@@ -440,7 +435,6 @@
                         <XSAnimationKey name="XSBone_000" />
                         <XSAnimationState name="body" visible="1" fvalue="0.000000" />
                         <XSAnimationState name="hair" visible="1" fvalue="0.000000" />
-                        <XSAnimationState name="writecort" visible="1" fvalue="0.000000" />
                     </XSAnimation>
                     <XSAnimation frame="58">
                         <XSAnimationKey name="root" />
@@ -527,10 +521,9 @@
                         <XSAnimationKey name="XSBone_000" />
                         <XSAnimationState name="body" visible="1" fvalue="0.000000" />
                         <XSAnimationState name="hair" visible="1" fvalue="0.000000" />
-                        <XSAnimationState name="writecort" visible="1" fvalue="0.000000" />
                     </XSAnimation>
                 </XSAnimationSet>
-                <XSAnimationSet name="doctor1_talk" interpolate="21">
+                <XSAnimationSet name="doctor2_talk" interpolate="21">
                     <XSAnimation frame="0">
                         <XSAnimationKey name="root" />
                         <XSAnimationKey name="kosi" />
@@ -604,7 +597,6 @@
                         <XSAnimationKey name="XSBone_000" />
                         <XSAnimationState name="body" visible="1" fvalue="0.000000" />
                         <XSAnimationState name="hair" visible="1" fvalue="0.000000" />
-                        <XSAnimationState name="writecort" visible="1" fvalue="0.000000" />
                     </XSAnimation>
                     <XSAnimation frame="10">
                         <XSAnimationKey name="root" />
@@ -679,7 +671,6 @@
                         <XSAnimationKey name="XSBone_000" />
                         <XSAnimationState name="body" visible="1" fvalue="0.000000" />
                         <XSAnimationState name="hair" visible="1" fvalue="0.000000" />
-                        <XSAnimationState name="writecort" visible="1" fvalue="0.000000" />
                     </XSAnimation>
                     <XSAnimation frame="20">
                         <XSAnimationKey name="root" />
@@ -754,7 +745,6 @@
                         <XSAnimationKey name="XSBone_000" />
                         <XSAnimationState name="body" visible="1" fvalue="0.000000" />
                         <XSAnimationState name="hair" visible="1" fvalue="0.000000" />
-                        <XSAnimationState name="writecort" visible="1" fvalue="0.000000" />
                     </XSAnimation>
                 </XSAnimationSet>
             </XSAnimationContainer>

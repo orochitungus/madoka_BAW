@@ -52,7 +52,7 @@ public class MoveChoices : NPCControlBase
 		// xstoryが0のときは選択モードとし、決定ボタンを押してxstoryを1にしたときに選択処理を行う
 		// 条件1の時
 		this.UpdateAsObservable()
-		.Where(_=> xstory == 1 && savingparameter.story >= MinStory1 && savingparameter.story <= MaxStory1)
+		.Where(_ => IsSelectMode && xstory == 1 && savingparameter.story >= MinStory1 && savingparameter.story <= MaxStory1)
 		.Subscribe(_ =>
 		{
 			// 選択肢がcancelだった場合
@@ -67,7 +67,7 @@ public class MoveChoices : NPCControlBase
 		});
 		// 条件2のとき
 		this.UpdateAsObservable()
-		.Where(_ => xstory == 1 && savingparameter.story >= MinStory2 && savingparameter.story <= MaxStory2)
+		.Where(_ => IsSelectMode && xstory == 1 && savingparameter.story >= MinStory2 && savingparameter.story <= MaxStory2)
 		.Subscribe(_ =>
 		{
 			// 選択肢がcancelだった場合
@@ -77,7 +77,7 @@ public class MoveChoices : NPCControlBase
 			}
 			else
 			{
-				SelectedNextStage(Fromcode2[NowSelect], Forcode1[NowSelect], ForScene2[NowSelect]);
+				SelectedNextStage(Fromcode2[NowSelect], Forcode2[NowSelect], ForScene2[NowSelect]);
 			}
 		});
 
@@ -168,6 +168,22 @@ public class MoveChoices : NPCControlBase
 			AudioSource.PlayClipAtPoint(MoveCursor, transform.position);
 			NowSelect++;
 		});
+
+		// 選択確定時の処理
+		this.UpdateAsObservable()
+		.Where(_ => UseMode && (Input.GetButtonDown("Shot") || Input.GetButtonDown("Enter")))
+		.Subscribe(_ =>
+		{
+			if (!IsSelectMode && Serif[xstory].Length > AppearWords)
+			{
+				AppearWords = Serif[xstory].Length;
+			}
+			else
+			{
+				AppearWords = 0;
+				xstory++;
+			}
+		});
 	}
 	
 	// Update is called once per frame
@@ -202,6 +218,7 @@ public class MoveChoices : NPCControlBase
 		Talksystem.Fukidashi.gameObject.SetActive(false);
 		// 顔
 		Talksystem.CharacterFace[0].gameObject.SetActive(false);
+		IsSelectMode = false;
 	}
 
 	void SelectedNextStage(int fromcode, int forcode, string forscene)

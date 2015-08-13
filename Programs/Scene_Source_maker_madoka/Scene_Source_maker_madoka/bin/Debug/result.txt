@@ -1,19 +1,24 @@
 ﻿case 0:
+keybreak = true;
+FullClear();
+IncrementXstory();
+break;
+case 1:
 keybreak = false;
 m_facetype = 0;
-m_drawname_jp = "";
+m_drawname_jp = "？？";
 m_drawname_en = "";
 m_serif[0] = "EXエピソード1";
 m_serif[1] = "";
 m_serif[2] = "";
 m_serif[3] = "";
 break;
-case 1:
+case 2:
 keybreak = true;
 FullClear();
 IncrementXstory();
 break;
-case 2:
+case 3:
 keybreak = false;
 m_facetype = CharacterFace.SAYAKA_NORMAL;
 m_drawname_jp = "美樹さやか";
@@ -23,12 +28,12 @@ m_serif[1] = "てなかったよ";
 m_serif[2] = "";
 m_serif[3] = "";
 break;
-case 3:
+case 4:
 keybreak = true;
 FullClear();
 IncrementXstory();
 break;
-case 4:
+case 5:
 keybreak = false;
 m_facetype = CharacterFace.KYOSUKE_NORMAL;
 m_drawname_jp = "上条恭介";
@@ -38,12 +43,12 @@ m_serif[1] = "ところにある部屋じゃなかったし";
 m_serif[2] = "";
 m_serif[3] = "";
 break;
-case 5:
+case 6:
 keybreak = true;
 FullClear();
 IncrementXstory();
 break;
-case 6:
+case 7:
 keybreak = false;
 m_facetype = CharacterFace.SAYAKA_NORMAL;
 m_drawname_jp = "美樹さやか";
@@ -53,12 +58,12 @@ m_serif[1] = "";
 m_serif[2] = "";
 m_serif[3] = "";
 break;
-case 7:
+case 8:
 keybreak = true;
 FullClear();
 IncrementXstory();
 break;
-case 8:
+case 9:
 keybreak = false;
 m_facetype = CharacterFace.KYOSUKE_NORMAL;
 m_drawname_jp = "上条恭介";
@@ -68,12 +73,12 @@ m_serif[1] = "よ";
 m_serif[2] = "";
 m_serif[3] = "";
 break;
-case 9:
+case 10:
 keybreak = true;
 FullClear();
 IncrementXstory();
 break;
-case 10:
+case 11:
 keybreak = false;
 m_facetype = CharacterFace.SAYAKA_NORMAL;
 m_drawname_jp = "美樹さやか";
@@ -83,12 +88,12 @@ m_serif[1] = "";
 m_serif[2] = "";
 m_serif[3] = "";
 break;
-case 11:
+case 12:
 keybreak = true;
 FullClear();
 IncrementXstory();
 break;
-case 12:
+case 13:
 keybreak = false;
 m_facetype = CharacterFace.KYOSUKE_NORMAL;
 m_drawname_jp = "上条恭介";
@@ -98,12 +103,12 @@ m_serif[1] = "";
 m_serif[2] = "";
 m_serif[3] = "";
 break;
-case 13:
+case 14:
 keybreak = true;
 FullClear();
 IncrementXstory();
 break;
-case 14:
+case 15:
 keybreak = false;
 m_facetype = CharacterFace.SAYAKA_NORMAL;
 m_drawname_jp = "美樹さやか";
@@ -113,12 +118,12 @@ m_serif[1] = "";
 m_serif[2] = "";
 m_serif[3] = "";
 break;
-case 15:
+case 16:
 keybreak = true;
 FullClear();
 IncrementXstory();
 break;
-case 16:
+case 17:
 keybreak = false;
 m_facetype = CharacterFace.KYOSUKE_NORMAL;
 m_drawname_jp = "上条恭介";
@@ -128,12 +133,12 @@ m_serif[1] = "";
 m_serif[2] = "";
 m_serif[3] = "";
 break;
-case 17:
+case 18:
 keybreak = true;
 FullClear();
 IncrementXstory();
 break;
-case 18:
+case 19:
 keybreak = false;
 m_facetype = CharacterFace.SAYAKA_NORMAL;
 m_drawname_jp = "美樹さやか";
@@ -143,12 +148,12 @@ m_serif[1] = "";
 m_serif[2] = "";
 m_serif[3] = "";
 break;
-case 19:
+case 20:
 keybreak = true;
 FullClear();
 IncrementXstory();
 break;
-case 20:
+case 21:
 keybreak = false;
 m_facetype = CharacterFace.KYOSUKE_NORMAL;
 m_drawname_jp = "上条恭介";
@@ -158,12 +163,12 @@ m_serif[1] = "くれたものね。少し寝ていきなよ。後で起こすか
 m_serif[2] = "";
 m_serif[3] = "";
 break;
-case 21:
+case 22:
 keybreak = true;
 FullClear();
 IncrementXstory();
 break;
-case 22:
+case 23:
 keybreak = false;
 m_facetype = CharacterFace.SAYAKA_NORMAL;
 m_drawname_jp = "美樹さやか";
@@ -173,7 +178,7 @@ m_serif[1] = "";
 m_serif[2] = "";
 m_serif[3] = "";
 break;
-case 23:
+case 24:
 keybreak = false;
 m_facetype = CharacterFace.KYOSUKE_NORMAL;
 m_drawname_jp = "上条恭介";
@@ -183,12 +188,12 @@ m_serif[1] = "";
 m_serif[2] = "";
 m_serif[3] = "";
 break;
-case 24:
+case 25:
 keybreak = true;
 FullClear();
 IncrementXstory();
 break;
-case 25:
+case 26:
 keybreak = false;
 m_facetype = CharacterFace.KYOSUKE_NORMAL;
 m_drawname_jp = "上条恭介";
@@ -198,12 +203,12 @@ m_serif[1] = "";
 m_serif[2] = "";
 m_serif[3] = "";
 break;
-case 26:
+case 27:
 keybreak = true;
 FullClear();
 IncrementXstory();
 break;
-case 27:
+case 28:
 keybreak = false;
 m_facetype = CharacterFace.SAYAKA_NORMAL;
 m_drawname_jp = "美樹さやか";
@@ -213,12 +218,12 @@ m_serif[1] = "";
 m_serif[2] = "";
 m_serif[3] = "";
 break;
-case 28:
+case 29:
 keybreak = true;
 FullClear();
 IncrementXstory();
 break;
-case 29:
+case 30:
 keybreak = false;
 m_facetype = CharacterFace.KYOSUKE_NORMAL;
 m_drawname_jp = "上条恭介";
@@ -228,12 +233,12 @@ m_serif[1] = "";
 m_serif[2] = "";
 m_serif[3] = "";
 break;
-case 30:
+case 31:
 keybreak = true;
 FullClear();
 IncrementXstory();
 break;
-case 31:
+case 32:
 keybreak = false;
 m_facetype = CharacterFace.KYOSUKE_NORMAL;
 m_drawname_jp = "上条恭介";
@@ -243,7 +248,7 @@ m_serif[1] = "";
 m_serif[2] = "";
 m_serif[3] = "";
 break;
-case 32:
+case 33:
 keybreak = false;
 m_facetype = 0;
 m_drawname_jp = "Information";
@@ -253,7 +258,7 @@ m_serif[1] = "行動目標は上部のInformationに表示されますが、寄�
 m_serif[2] = "道をするといいことが起こるかもしれません。積極的に探してみま";
 m_serif[3] = "しょう！";
 break;
-case 33:
+case 34:
 keybreak = false;
 m_facetype = 0;
 m_drawname_jp = "Information";
