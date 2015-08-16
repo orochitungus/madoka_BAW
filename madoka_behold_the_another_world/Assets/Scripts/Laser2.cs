@@ -131,6 +131,11 @@ public class Laser2 : MonoBehaviour
         string player;
         string enemy;
 
+		if(m_Obj_OR == null)
+		{
+			return;
+		}
+
         // 親オブジェクトを拾う
         // 自機がPLAYERかPLAYER_ALLYの場合
         if (m_Obj_OR.GetComponent<CharacterControl_Base>().m_isPlayer != CharacterControl_Base.CHARACTERCODE.ENEMY)

@@ -60,19 +60,19 @@ public class StageSetting : MonoBehaviour
     
     void Awake()
     {
-		// テストステージだった場合はnowFieldを0にする
-		if (m_isTestStage)
-		{
-			savingparameter.nowField = 0;
-		}
+		
 
         // 最初のステージのみSavingParameterの初期化を行う（フラグはPublicでInspectorで外部から制御）
         if (m_InitializeSavingParameter)
         {
             savingparameter.savingparameter_Init();
         }
-        
-        
+
+		// テストステージだった場合はnowFieldを0にする
+		if (m_isTestStage)
+		{
+			savingparameter.nowField = 0;
+		}
         // 配置候補が複数ある場合があるので、何処に配置するか決める
         m_settingPosition = 0;
         for (int i = 0; i < StageCode.stagefromindex[savingparameter.nowField].Length; ++i)

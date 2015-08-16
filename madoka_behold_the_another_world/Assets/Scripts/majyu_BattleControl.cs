@@ -363,7 +363,7 @@ public class majyu_BattleControl : CharacterControl_Base
             {
                 rigidbody.position = new Vector3(this.rigidbody.position.x, this.rigidbody.position.y + 3, this.rigidbody.position.z);
             }
-            CancelDashDone();
+            //CancelDashDone();
         }
         base.Shot();
     }
