@@ -112,6 +112,8 @@ public class Player_Camera_Controller : MonoBehaviour
             Application.targetFrameRate = 60;
             m_DrawInterface = false;
         }
+		// 視点を初期化
+		this.RotX = Mathf.Asin(this.height / this.Distance) * Mathf.Rad2Deg;
 	}
 	
 	// Update is called once per frame
@@ -435,6 +437,8 @@ public class Player_Camera_Controller : MonoBehaviour
         target.m_IsRockon = false;
         this.Enemy = null;
         RockOnTarget.Clear();
+		// カメラを戻す
+		this.RotX = Mathf.Asin(this.height / this.Distance) * Mathf.Rad2Deg;
     }
 
     public void LateUpdate()
@@ -463,6 +467,7 @@ public class Player_Camera_Controller : MonoBehaviour
                 this.RotY += 50.0f * Time.deltaTime;
             }
             // 右スティックでカメラを回転させる
+			// 横回転
             if (Input.GetAxisRaw("Horizontal3") < 0)
             {
                 //左に傾いている
@@ -473,10 +478,21 @@ public class Player_Camera_Controller : MonoBehaviour
                 //右に傾いている
                 this.RotY += 50.0f * Time.deltaTime;
             }
+			// 縦回転
+			//Debug.Log(Input.GetAxisRaw("Vertical3"));
+			//if (Input.GetAxisRaw("Vertical3") > 0)
+			//{
+			//	// 下に傾いている
+			//	this.RotX -= 50.0f * Time.deltaTime;
+			//}
+			//else if(Input.GetAxisRaw("Vertical3") < 0)
+			//{
+			//	// 上に傾いている
+			//	this.RotX += 50.0f * Time.deltaTime;
+			//}
 
             // 視点は本体より上にするので角度だけを定義する. θ=Sin-1(高さ/斜辺）で出せる(Mathf.Asinはradian出力な点に注意)
-
-            this.RotX = Mathf.Asin(this.height / this.Distance) * Mathf.Rad2Deg;
+			//this.RotX = Mathf.Asin(this.height / this.Distance) * Mathf.Rad2Deg;
             // クォータニオンを計算(X,Y,Z軸の回転角度を指定してクォータニオン(3軸をまとめた回転軸みたいなもの)を作成する）
             var q = Quaternion.Euler(this.RotX, this.RotY, 0.0f);   // Z軸方向を考慮していない(=敵ロックをする場合は互いに飛び回るのでZの計算が必須になるので後で追加が要る）
             // 注視点を少し上にずらす
