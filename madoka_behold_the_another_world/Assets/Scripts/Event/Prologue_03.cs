@@ -53,7 +53,7 @@ public class Prologue_03 : EventBase
                 //m_BGM.Play();               // 再生開始
                 //m_BGM.loop = true;
                 AudioSource.PlayClipAtPoint(m_Down, m_Homura.transform.position);
-                m_Homura.animation.Play("homura_kneel_copy");
+                m_Homura.GetComponent<Animation>().Play("homura_kneel_copy");
                 xstory++;
                 break;
             case 1:
@@ -70,7 +70,7 @@ public class Prologue_03 : EventBase
                 keybreak = true;
                 this.m_camera[0].SetActive(false);
                 this.m_camera[1].SetActive(true);
-                m_Scono.animation.Play("Scono_put_hand_ahead_copy");
+                m_Scono.GetComponent<Animation>().Play("Scono_put_hand_ahead_copy");
                 xstory++;
                 break;
             case 3:                

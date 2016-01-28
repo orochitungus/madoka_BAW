@@ -12,9 +12,9 @@ public class RandomVelocity : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
-		if( gameObject.rigidbody )
+		if( gameObject.GetComponent<Rigidbody>() )
 		{
-			rigidbody.velocity = Random.onUnitSphere * speed ; 
+			GetComponent<Rigidbody>().velocity = Random.onUnitSphere * speed ; 
 		}
 	}
 	

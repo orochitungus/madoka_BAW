@@ -598,11 +598,11 @@ public partial class CharacterControl_Base : MonoBehaviour
         var target = m_MainCamera.GetComponentInChildren<Player_Camera_Controller>();
         if (m_isPlayer != CHARACTERCODE.PLAYER)
         {
-            target.camera.enabled = false;
+            target.GetComponent<Camera>().enabled = false;
         }
         else
         {
-            target.camera.enabled = true;
+            target.GetComponent<Camera>().enabled = true;
         }
 
     }
@@ -747,7 +747,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     // テスト用に射出終了で止めておく
     protected void stopAnimation()
     {
-        this.animation[m_AnimationNames[(int)AnimationState.Shot]].speed = 0.0f;
+        this.GetComponent<Animation>()[m_AnimationNames[(int)AnimationState.Shot]].speed = 0.0f;
     }     
 
     // レバー入力を取得する(現在の値が一番下に来る)
@@ -1365,7 +1365,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     {
         m_AnimState[0] = AnimationState.Jump;
         this.m_Boost = this.m_Boost - this.m_JumpUseBoost;
-        this.animation.Play(m_AnimationNames[(int)AnimationState.Jump]);
+        this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.Jump]);
     }
       
 
@@ -1403,8 +1403,8 @@ public partial class CharacterControl_Base : MonoBehaviour
         else
         {            
             // 慣性をいったん消す
-            rigidbody.velocity = Vector3.zero;
-            rigidbody.angularVelocity = Vector3.zero;
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+            GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             Effect = Resources.Load("StepEffectCancel");
         }
         // 現在の自分の位置にエフェクトを置くと少し下すぎるので、上にあげる
@@ -1438,13 +1438,13 @@ public partial class CharacterControl_Base : MonoBehaviour
                     Mine_VerturalPos.y = 0;
                     this.transform.rotation = Quaternion.LookRotation(Target_VertualPos - Mine_VerturalPos);
                
-                    this.animation.Play(m_AnimationNames[(int)m_anims[(int)i]]);
+                    this.GetComponent<Animation>().Play(m_AnimationNames[(int)m_anims[(int)i]]);
                     break;
                 }
                 // 非ロックオン時
                 else
                 {
-                    this.animation.Play(m_AnimationNames[(int)AnimationState.FrontStep]);
+                    this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.FrontStep]);
                     break;
                 }
             }
@@ -1465,12 +1465,12 @@ public partial class CharacterControl_Base : MonoBehaviour
                 Vector3 Mine_VerturalPos = this.transform.position;
                 Mine_VerturalPos.y = 0;
                 this.transform.rotation = Quaternion.LookRotation(Target_VertualPos - Mine_VerturalPos);
-                this.animation.Play(m_AnimationNames[(int)AnimationState.LeftStep]);
+                this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.LeftStep]);
             }
             // 非ロックオン時
             else
             {
-                this.animation.Play(m_AnimationNames[(int)AnimationState.FrontStep]);
+                this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.FrontStep]);
             }
         }
         this.m_Boost = this.m_Boost - this.m_StepUseBoost;
@@ -1479,7 +1479,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         this.m_SteppingLength = 0.0f;
 
         // 空中ステップのために重力無効
-        this.rigidbody.useGravity = false;
+        this.GetComponent<Rigidbody>().useGravity = false;
 
         // 移動方向取得
         UpdateRotation_step();
@@ -1588,7 +1588,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         if (Time.time > m_StepStartTime + 1.35f/*this.m_LandingTime*/)
         {            
             // 無効になっていたら重力を復活させる
-            this.rigidbody.useGravity = true;
+            this.GetComponent<Rigidbody>().useGravity = true;
             // 地上にいたら着地
             if (m_isGrounded)
             {
@@ -1602,7 +1602,7 @@ public partial class CharacterControl_Base : MonoBehaviour
                 FallDone(new Vector3(0, 0, 0));
             }
             // アニメーションを戻す
-            this.animation.Play(m_AnimationNames[(int)AnimationState.Idle]);
+            this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.Idle]);
             // 入力をリセットする
             ResetPastInputs();
         }
@@ -1634,7 +1634,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         // ブースト切れ時にFallDone、DestroyWrestleを実行する
         if (m_Boost <= 0)
         {
-            this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
+            this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
             DestroyWrestle();
             m_AnimState[0] = AnimationState.Fall;
             m_fallStartTime = Time.time;
@@ -1796,14 +1796,14 @@ public partial class CharacterControl_Base : MonoBehaviour
         //2．ブーストゲージが0になると、強制的にIdleに戻す
         if (m_Boost <= 0)
         {
-            this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Idle]);
+            this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Idle]);
             DestroyWrestle();
             m_AnimState[0] = AnimationState.Idle;
         }
         //3．格闘ボタンか下入力を離すと、強制的にIdleに戻す
         if (Input.GetButtonUp("Wrestle") || Input.GetAxisRaw("Vertical") > 0.0f)
         {
-            this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Idle]);
+            this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Idle]);
             DestroyWrestle();
             m_AnimState[0] = AnimationState.Idle;
         }
@@ -1818,7 +1818,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         // ブースト切れ時にFallDone、DestroyWrestleを実行する
         if (m_Boost <= 0)
         {
-            this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
+            this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
             DestroyWrestle();
             m_AnimState[0] = AnimationState.Fall;
             m_fallStartTime = Time.time;
@@ -1847,13 +1847,13 @@ public partial class CharacterControl_Base : MonoBehaviour
         // 毎フレームブーストを消費する
         m_Boost -= Time.deltaTime * 100.0f;
         // 重力無効
-        this.rigidbody.useGravity = false;
+        this.GetComponent<Rigidbody>().useGravity = false;
         // ブーストが0になったらFallにする
         if (m_Boost <= 0)
         {
             // 判定オブジェクトを破棄する.一応くっついているものはすべて削除
             DestroyWrestle();
-            this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
+            this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
             DestroyWrestle();
             m_AnimState[0] = AnimationState.Fall;
             m_fallStartTime = Time.time;
@@ -1911,7 +1911,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         {
             // 判定オブジェクトを破棄する.一応くっついているものはすべて削除
             DestroyWrestle();
-            this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
+            this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
             DestroyWrestle();
             m_AnimState[0] = AnimationState.Fall;
             m_fallStartTime = Time.time;
@@ -2100,7 +2100,7 @@ public partial class CharacterControl_Base : MonoBehaviour
             m_AnimState[0] = AnimationState.AirDash;
             this.m_Rotatehold = false;
             this.m_Boost = this.m_Boost - this.m_DashCancelUseBoost;
-            this.animation.Play(m_AnimationNames[(int)AnimationState.AirDash]);
+            this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.AirDash]);
             // 移動方向取得
             //UpdateRotation();
             //this.m_MoveDirection = transform.rotation * Vector3.forward;
@@ -2149,9 +2149,9 @@ public partial class CharacterControl_Base : MonoBehaviour
             // 上方向への慣性を切る
             this.m_MoveDirection.y = 0;
             // 発動中重力無効
-            this.rigidbody.useGravity = false;
+            this.GetComponent<Rigidbody>().useGravity = false;
             // その方向へ移動
-            rigidbody.AddForce(this.m_MoveDirection.x, 10, this.m_MoveDirection.z);
+            GetComponent<Rigidbody>().AddForce(this.m_MoveDirection.x, 10, this.m_MoveDirection.z);
         }
     }
 
@@ -2163,8 +2163,8 @@ public partial class CharacterControl_Base : MonoBehaviour
 		{
 			m_PastInputs_Jump[x] = JumpInputState.NONE;
 		}
-        this.rigidbody.useGravity = true;
-        this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
+        this.GetComponent<Rigidbody>().useGravity = true;
+        this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
         //this.animation.Play(m_AnimationNames[(int)AnimationState.Fall]);
         RiseSpeed = new Vector3(0, -this.m_RateofRise, 0);
         //this.m_MoveDirection = new Vector3(0, 0, 0);
@@ -2179,8 +2179,8 @@ public partial class CharacterControl_Base : MonoBehaviour
         // ずれた本体角度を戻す(Yはそのまま）
         this.transform.rotation = Quaternion.Euler(new Vector3(0,this.transform.rotation.eulerAngles.y,0)); 
         // 無効になっていたら重力を復活させる
-        this.rigidbody.useGravity = true;
-        this.animation.Play(m_AnimationNames[(int)AnimationState.Landing]);
+        this.GetComponent<Rigidbody>().useGravity = true;
+        this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.Landing]);
         m_AnimState[0] = AnimationState.Landing;
         // 着地したので硬直を設定する
         this.m_LandingTime = Time.time;
@@ -2197,7 +2197,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         if (Time.time > this.m_LandingTime + this.m_LandingWaitTime)
         {
             m_AnimState[0] = AnimationState.Idle;
-            this.animation.Play(file);
+            this.GetComponent<Animation>().Play(file);
             // ブースト量を初期化する
             this.m_Boost = GetMaxBoost(this.m_BoostLevel);
         }
@@ -2216,7 +2216,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         if (this.m_isPlayer != CHARACTERCODE.PLAYER)
         {
             // 自分にひっついているカメラオブジェクトを探し、カメラを切っておく
-            transform.Find("Main Camera").camera.enabled = false;
+            transform.Find("Main Camera").GetComponent<Camera>().enabled = false;
         }
 	    // 変数の初期設定はキャラごとに行う(アニメーションファイルの名前はここで入力。オーバーライドした場合継承元の内容も同時実行できたはず？）        
 
@@ -2249,7 +2249,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         this.m_BlowDirection = Vector3.zero;
 
         // 初期アニメIdleを再生する
-        this.animation.Play(this.m_AnimationNames[(int)AnimationState.Idle]);
+        this.GetComponent<Animation>().Play(this.m_AnimationNames[(int)AnimationState.Idle]);
 
         // ブースト量を初期化する
         this.m_Boost = GetMaxBoost(this.m_BoostLevel);
@@ -2800,8 +2800,8 @@ public partial class CharacterControl_Base : MonoBehaviour
         if (m_AnimState[0] == AnimationState.AirDash || m_AnimState[0] == AnimationState.Shot_AirDash)
         {
             // rigidbodyにくっついている慣性が邪魔なので消す（勝手に落下開始する）
-            rigidbody.velocity = Vector3.zero;
-            rigidbody.angularVelocity = Vector3.zero;
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+            GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             MoveSpeed = this.m_AirDashSpeed;
         }
         // 空中慣性移動時
@@ -2812,7 +2812,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         // ステップ時(重力補正カット)
         else if (m_AnimState[0] == AnimationState.BackStep || m_AnimState[0] == AnimationState.FrontStep || m_AnimState[0] == AnimationState.LeftStep || m_AnimState[0] == AnimationState.RightStep)
         {
-            this.rigidbody.useGravity = false;  // 重力無効
+            this.GetComponent<Rigidbody>().useGravity = false;  // 重力無効
             MoveSpeed = this.m_Step_Initial_velocity;
             this.m_MoveDirection.y = 0;         // Y移動無効            
         }
@@ -2828,7 +2828,7 @@ public partial class CharacterControl_Base : MonoBehaviour
                  m_AnimState[0] == AnimationState.Back_Wrestle || m_AnimState[0] == AnimationState.BACK_EX_Wrestle
                 )
         {
-            this.rigidbody.useGravity = false;  // 重力無効            
+            this.GetComponent<Rigidbody>().useGravity = false;  // 重力無効            
             MoveSpeed = this.m_wrestlSpeed;
         }
              
@@ -2967,7 +2967,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         {
             speed = 0;         
         }
-        this.animation[m_AnimationNames[(int)animationstate]].speed = speed;        
+        this.GetComponent<Animation>()[m_AnimationNames[(int)animationstate]].speed = speed;        
     }
 
     // 最大ブースト量算出関数
@@ -3097,7 +3097,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         // エフェクト出現（エフェクトはCharacerControl_Baseのpublicに入れておく）
         m_arousalEffect = Instantiate(m_Insp_ArousalEffect) as GameObject;
         // エフェクトと本体の動きを同期させる
-        m_arousalEffect.rigidbody.isKinematic = true;
+        m_arousalEffect.GetComponent<Rigidbody>().isKinematic = true;
         m_arousalEffect.transform.position = this.transform.position;
         m_arousalEffect.transform.parent = transform;
        
@@ -3115,7 +3115,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         CharacterControl_Base[] Character = FindObjectsOfType(typeof(CharacterControl_Base)) as CharacterControl_Base[];
         foreach (CharacterControl_Base i in Character)
         {
-            i.rigidbody.constraints = RigidbodyConstraints.FreezePosition;
+            i.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
         }
     }
     
@@ -3125,7 +3125,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         CharacterControl_Base[] Character = FindObjectsOfType(typeof(CharacterControl_Base)) as CharacterControl_Base[];
         foreach (CharacterControl_Base i in Character)
         {
-            i.rigidbody.constraints = RigidbodyConstraints.None;
+            i.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         }
     }
 
@@ -3134,11 +3134,11 @@ public partial class CharacterControl_Base : MonoBehaviour
     protected void DeleteBlend()
     {
         // 再生していたアニメを止める
-        this.animation.Stop(m_AnimationNames[(int)AnimationState.Run_underonly]);
-        this.animation.Stop(m_AnimationNames[(int)AnimationState.Shot_toponly]);
+        this.GetComponent<Animation>().Stop(m_AnimationNames[(int)AnimationState.Run_underonly]);
+        this.GetComponent<Animation>().Stop(m_AnimationNames[(int)AnimationState.Shot_toponly]);
         // 合成モードを戻す
-        this.animation[m_AnimationNames[(int)AnimationState.Run_underonly]].blendMode = AnimationBlendMode.Blend;
-        this.animation[m_AnimationNames[(int)AnimationState.Shot_toponly]].blendMode = AnimationBlendMode.Blend;
+        this.GetComponent<Animation>()[m_AnimationNames[(int)AnimationState.Run_underonly]].blendMode = AnimationBlendMode.Blend;
+        this.GetComponent<Animation>()[m_AnimationNames[(int)AnimationState.Shot_toponly]].blendMode = AnimationBlendMode.Blend;
     }
 
     // 歩き撃ちのアニメーションを戻す
@@ -3182,29 +3182,29 @@ public partial class CharacterControl_Base : MonoBehaviour
         {
             // 下半身
             // レイヤー1に設定
-            this.animation[m_AnimationNames[(int)AnimationState.Run_underonly]].layer = 1;
+            this.GetComponent<Animation>()[m_AnimationNames[(int)AnimationState.Run_underonly]].layer = 1;
             // 合成モード設定
-            this.animation[m_AnimationNames[(int)AnimationState.Run_underonly]].blendMode = AnimationBlendMode.Additive;
+            this.GetComponent<Animation>()[m_AnimationNames[(int)AnimationState.Run_underonly]].blendMode = AnimationBlendMode.Additive;
             // 再生
-            this.animation.Play(m_AnimationNames[(int)AnimationState.Run_underonly]);
+            this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.Run_underonly]);
             // weightを設定
-            this.animation[m_AnimationNames[(int)AnimationState.Run_underonly]].weight = 0.5f;
+            this.GetComponent<Animation>()[m_AnimationNames[(int)AnimationState.Run_underonly]].weight = 0.5f;
 
             // 上半身
-            this.animation[m_AnimationNames[(int)AnimationState.Shot_toponly]].wrapMode = WrapMode.Once;
-            this.animation[m_AnimationNames[(int)AnimationState.Shot_toponly]].layer = 2;
-            this.animation[m_AnimationNames[(int)AnimationState.Shot_toponly]].blendMode = AnimationBlendMode.Additive;
-            this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Shot_toponly], 0.1f);
+            this.GetComponent<Animation>()[m_AnimationNames[(int)AnimationState.Shot_toponly]].wrapMode = WrapMode.Once;
+            this.GetComponent<Animation>()[m_AnimationNames[(int)AnimationState.Shot_toponly]].layer = 2;
+            this.GetComponent<Animation>()[m_AnimationNames[(int)AnimationState.Shot_toponly]].blendMode = AnimationBlendMode.Additive;
+            this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Shot_toponly], 0.1f);
             m_AnimState[0] = AnimationState.Shot_run;   // 歩き撃ちへ移行
         }
         else if (this.m_AnimState[0] == AnimationState.AirDash)
         {
-            this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Shot]);
+            this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Shot]);
             m_AnimState[0] = AnimationState.Shot_AirDash;   // 空中ダッシュ射撃へ移行
         }
         else
         {
-            this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Shot]);
+            this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Shot]);
             m_AnimState[0] = AnimationState.Shot;       // 通常撃ちへ移行
         }
 
@@ -3263,7 +3263,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         {
             if (run)
             {
-                this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Idle]);
+                this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Idle]);
             }
             this.m_MoveDirection = Vector3.zero;
         }

@@ -454,7 +454,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
             // 地上でキャンセルすると浮かないので浮かす
             if (this.m_isGrounded)
             {
-                rigidbody.position = new Vector3(this.rigidbody.position.x, this.rigidbody.position.y + 3, this.rigidbody.position.z);
+                GetComponent<Rigidbody>().position = new Vector3(this.GetComponent<Rigidbody>().position.x, this.GetComponent<Rigidbody>().position.y + 3, this.GetComponent<Rigidbody>().position.z);
             }
             CancelDashDone();
         }
@@ -472,7 +472,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
             // 地上でキャンセルすると浮かないので浮かす
             if (this.m_isGrounded)
             {
-                rigidbody.position = new Vector3(this.rigidbody.position.x, this.rigidbody.position.y + 3, this.rigidbody.position.z);
+                GetComponent<Rigidbody>().position = new Vector3(this.GetComponent<Rigidbody>().position.x, this.GetComponent<Rigidbody>().position.y + 3, this.GetComponent<Rigidbody>().position.z);
             }
             CancelDashDone();
         }
@@ -489,7 +489,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
             // 地上でキャンセルすると浮かないので浮かす
             if (this.m_isGrounded)
             {
-                rigidbody.position = new Vector3(this.rigidbody.position.x, this.rigidbody.position.y + 3, this.rigidbody.position.z);
+                GetComponent<Rigidbody>().position = new Vector3(this.GetComponent<Rigidbody>().position.x, this.GetComponent<Rigidbody>().position.y + 3, this.GetComponent<Rigidbody>().position.z);
             }
             CancelDashDone();
         }
@@ -506,7 +506,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
             // 地上でキャンセルすると浮かないので浮かす
             if (this.m_isGrounded)
             {
-                rigidbody.position = new Vector3(this.rigidbody.position.x, this.rigidbody.position.y + 3, this.rigidbody.position.z);
+                GetComponent<Rigidbody>().position = new Vector3(this.GetComponent<Rigidbody>().position.x, this.GetComponent<Rigidbody>().position.y + 3, this.GetComponent<Rigidbody>().position.z);
             }
             CancelDashDone();
         }
@@ -531,10 +531,10 @@ public class Homura_Final_BattleControl : CharacterControl_Base
         shotmode = ShotMode.NORMAL;
         DeleteBlend();
         // 固定状態を解除
-        this.transform.rigidbody.constraints = RigidbodyConstraints.None;
+        this.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         // ずれた本体角度を戻す(Yはそのまま）
         this.transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0)); 
-        this.transform.rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+        this.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         
         // 通常のダッシュキャンセルの処理
         base.CancelDashDone();
@@ -546,7 +546,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
     // 第2引数：アニメの種類
     protected bool ShotEndCheck(string AnimationName,ShotType type)
     {
-        while (this.animation.IsPlaying(AnimationName))
+        while (this.GetComponent<Animation>().IsPlaying(AnimationName))
         {
             return false;
         }
@@ -561,8 +561,8 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                 // 地上
                 if (m_isGrounded)
                 {
-                    this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Idle]);
-                    this.animation[m_AnimationNames[(int)AnimationState.Idle]].blendMode = AnimationBlendMode.Blend; // 合成モードを戻しておく
+                    this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Idle]);
+                    this.GetComponent<Animation>()[m_AnimationNames[(int)AnimationState.Idle]].blendMode = AnimationBlendMode.Blend; // 合成モードを戻しておく
                     this.m_AnimState[0] = AnimationState.Idle;
                     // ショットのステートを戻す
                     shotmode = ShotMode.NORMAL;
@@ -570,8 +570,8 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                 // 空中
                 else
                 {
-                    this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
-                    this.animation[m_AnimationNames[(int)AnimationState.Fall]].blendMode = AnimationBlendMode.Blend; // 合成モードを戻しておく
+                    this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
+                    this.GetComponent<Animation>()[m_AnimationNames[(int)AnimationState.Fall]].blendMode = AnimationBlendMode.Blend; // 合成モードを戻しておく
                     this.m_AnimState[0] = AnimationState.Fall;
                     m_fallStartTime = Time.time;
                 }
@@ -594,31 +594,31 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                 if (m_isGrounded && !this.m_hasVHInput)
                 {
                     // アイドルモードのアニメを起動する
-                    this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Idle]);
-                    this.animation[m_AnimationNames[(int)AnimationState.Idle]].blendMode = AnimationBlendMode.Blend; // 合成モードを戻しておく
+                    this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Idle]);
+                    this.GetComponent<Animation>()[m_AnimationNames[(int)AnimationState.Idle]].blendMode = AnimationBlendMode.Blend; // 合成モードを戻しておく
                     this.m_AnimState[0] = AnimationState.Idle;
                 }
                 // 地上にいて歩行中
                 else if (m_isGrounded)
                 {
                     // 走行モードのアニメを起動する
-                    this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Run]);
-                    this.animation[m_AnimationNames[(int)AnimationState.Run]].blendMode = AnimationBlendMode.Blend; // 合成モードを戻しておく
+                    this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Run]);
+                    this.GetComponent<Animation>()[m_AnimationNames[(int)AnimationState.Run]].blendMode = AnimationBlendMode.Blend; // 合成モードを戻しておく
                     this.m_AnimState[0] = AnimationState.Run;
                 }
                 // 空中にいてダッシュ入力中でありかつブーストゲージがある
                 else if (!m_isGrounded && m_hasVHInput && m_hasJumpInput && this.m_Boost > 0)                
                 {
                     // 空中ダッシュのアニメを起動する
-                    this.animation.CrossFade(m_AnimationNames[(int)AnimationState.AirDash]);
-                    this.animation[m_AnimationNames[(int)AnimationState.AirDash]].blendMode = AnimationBlendMode.Blend; // 合成モードを戻しておく
+                    this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.AirDash]);
+                    this.GetComponent<Animation>()[m_AnimationNames[(int)AnimationState.AirDash]].blendMode = AnimationBlendMode.Blend; // 合成モードを戻しておく
                     this.m_AnimState[0] = AnimationState.AirDash;
                 }
                 // 空中にいて落下中(歩き撃ちをしていた場合を除く）
                 else //if (!m_isGrounded && !this.m_ShotRun)
                 {
-                    this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
-                    this.animation[m_AnimationNames[(int)AnimationState.Fall]].blendMode = AnimationBlendMode.Blend; // 合成モードを戻しておく
+                    this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
+                    this.GetComponent<Animation>()[m_AnimationNames[(int)AnimationState.Fall]].blendMode = AnimationBlendMode.Blend; // 合成モードを戻しておく
                     this.m_AnimState[0] = AnimationState.Fall;
                     m_fallStartTime = Time.time;
                     // ショットのステートを戻す
@@ -636,7 +636,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
     protected void ChargeShotDone()
     {
         m_AnimState[0] = AnimationState.Charge_Shot;
-        this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Charge_Shot]);
+        this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Charge_Shot]);
         this.shotmode = ShotMode.RELORD;
         // 弾数を戻しておく
         ///this.m_BulletNum[(int)ShotType.CHARGE_SHOT] = 1;
@@ -646,7 +646,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
     protected void SubShotDone()
     {
         m_AnimState[0] = AnimationState.Sub_Shot;
-        this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Sub_Shot]);
+        this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Sub_Shot]);
         this.shotmode = ShotMode.RELORD;
     }
 
@@ -654,7 +654,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
     protected void ExShotDone()
     {
         m_AnimState[0] = AnimationState.EX_Shot;
-        this.animation.CrossFade(m_AnimationNames[(int)AnimationState.EX_Shot]);
+        this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.EX_Shot]);
         this.shotmode = ShotMode.RELORD;
     }
 
@@ -707,7 +707,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                 {
                     obj.transform.parent = m_ArrowRoot.transform;
                     // 矢の親子関係を付けておく
-                    obj.transform.rigidbody.isKinematic = true;
+                    obj.transform.GetComponent<Rigidbody>().isKinematic = true;
                 }
             }
             // 特殊射撃
@@ -720,7 +720,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                 {
                     obj.transform.parent = m_ArrowRoot.transform;
                     // 矢の親子関係を付けておく
-                    obj.transform.rigidbody.isKinematic = true;
+                    obj.transform.GetComponent<Rigidbody>().isKinematic = true;
                 }
                 // 左の矢を作る
                 // 座標と角度を生成
@@ -732,7 +732,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                 if (obj_left.transform.parent == null)
                 {
                     obj_left.transform.parent = m_Insp_ArrowRoot_Left.transform;
-                    obj_left.transform.rigidbody.isKinematic = true;
+                    obj_left.transform.GetComponent<Rigidbody>().isKinematic = true;
                 }
                 // 右の矢を作る
                 Vector3 pos_right = m_Insp_ArrowRoot_Right.transform.position;
@@ -743,7 +743,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                 if (obj_right.transform.parent == null)
                 {
                     obj_right.transform.parent = m_Insp_ArrowRoot_Right.transform;
-                    obj_right.transform.rigidbody.isKinematic = true;
+                    obj_right.transform.GetComponent<Rigidbody>().isKinematic = true;
                 }
             }
             // 通常射撃(varは暗黙的な初期化ができない)
@@ -755,7 +755,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                 {
                     obj.transform.parent = m_ArrowRoot.transform;
                     // 矢の親子関係を付けておく
-                    obj.transform.rigidbody.isKinematic = true;
+                    obj.transform.GetComponent<Rigidbody>().isKinematic = true;
                 }
             }
             // チャージ射撃
@@ -767,7 +767,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                 {
                     obj.transform.parent = m_ArrowRoot.transform;
                     // 矢の親子関係を付けておく
-                    obj.transform.rigidbody.isKinematic = true;
+                    obj.transform.GetComponent<Rigidbody>().isKinematic = true;
                 }
             }
         }
@@ -934,7 +934,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
             // 固定状態を解除
             // ずれた本体角度を戻す(Yはそのまま）
             this.transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0)); 
-            this.transform.rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+            this.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
             
             // 硬直時間を設定
             this.m_AttackTime = Time.time;
@@ -1208,9 +1208,9 @@ public class Homura_Final_BattleControl : CharacterControl_Base
         {
             case ArousalState.INITIALIZE:   // モーションを歩行に変更&重力を無効化する&本体に羽根フックを取り付ける
                 // モーションを歩行に
-                this.animation.Play(m_AnimationNames[(int)AnimationState.Walk]);
+                this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.Walk]);
                 // 重力無効
-                this.rigidbody.useGravity = false;
+                this.GetComponent<Rigidbody>().useGravity = false;
                 // 羽フック取り付け
                 // フック取り付け位置
                 Vector3 hockpos = new Vector3(this.transform.position.x, this.transform.position.y + 1.0f, this.transform.position.z - 0.3f);
@@ -1242,7 +1242,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                     transform.rotation = Quaternion.LookRotation(targetpos - myPos);
                 }
                 this.m_MoveDirection = transform.rotation * Vector3.forward;
-                rigidbody.position = rigidbody.position + this.m_MoveDirection * m_WalkSpeed * Time.deltaTime;
+                GetComponent<Rigidbody>().position = GetComponent<Rigidbody>().position + this.m_MoveDirection * m_WalkSpeed * Time.deltaTime;
                 // エフェクト/判定取り付け開始(どのフックに取り付けるか）
                 // 一応左→右の順で取り付けていく
                 // フックの名前(左）
@@ -1271,7 +1271,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                     if (m_wingboneCounter > m_maxboneNum)
                     {
                         m_Insp_ArousalAttackCamera2.enabled = false;
-                        this.animation.Play(m_AnimationNames[(int)AnimationState.AirDash]);
+                        this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.AirDash]);
                         m_nowState = ArousalState.ATTACK;
 						// 演出フラグを折る
 						ArousalAttackProduction = false;
@@ -1281,7 +1281,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                 break;
             case ArousalState.ATTACK:       // （ロックオンしている相手に向けて）飛行開始
                 // 前方向に向けて飛行開始
-                rigidbody.position = rigidbody.position + this.m_MoveDirection * m_AirDashSpeed * Time.deltaTime;
+                GetComponent<Rigidbody>().position = GetComponent<Rigidbody>().position + this.m_MoveDirection * m_AirDashSpeed * Time.deltaTime;
                 m_arousalAttackTime += Time.deltaTime;
                 // 飛行時間を終えたらENDへ移行
                 if (m_arousalAttackTime > m_arousalAttackTotal)
@@ -1292,7 +1292,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                 }
                 break;            
             case ArousalState.END:          // 覚醒ゲージが空になったので、Armorを戻してfallへ移行
-                this.animation.Play(m_AnimationNames[(int)AnimationState.Fall]);
+                this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.Fall]);
                 m_IsArmor = false;
                 m_AnimState[0] = AnimationState.Fall;
                 m_fallStartTime = Time.time;

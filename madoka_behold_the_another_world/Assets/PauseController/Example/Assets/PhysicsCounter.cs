@@ -10,9 +10,9 @@ public class PhysicsCounter : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if( guiText )
+		if( GetComponent<GUIText>() )
 		{
-			guiText.text = GameObject.FindObjectsOfType( typeof( Rigidbody ) ).Length + " physics objects in the scene" ; 
+			GetComponent<GUIText>().text = GameObject.FindObjectsOfType( typeof( Rigidbody ) ).Length + " physics objects in the scene" ; 
 		}
 	}
 }

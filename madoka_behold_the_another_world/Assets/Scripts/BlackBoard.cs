@@ -20,7 +20,7 @@ public class BlackBoard : MonoBehaviour
         // CPUの場合、BlackBoardの描画を切る
         if (cpu != CharacterControl_Base.CHARACTERCODE.PLAYER)
         {
-            m_Blackboard.transform.renderer.enabled = false;
+            m_Blackboard.transform.GetComponent<Renderer>().enabled = false;
         }
 	}
 	

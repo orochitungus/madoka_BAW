@@ -50,7 +50,7 @@ public class ExEpisode1 : EventBase
 				keybreak = true;
 				m_camera[0].SetActive(false);
 				m_camera[1].SetActive(true);
-				Sayaka.animation.Play("sayaka_view_copy");
+				Sayaka.GetComponent<Animation>().Play("sayaka_view_copy");
 				FullClear();
 				IncrementXstory();
 				break;
@@ -68,7 +68,7 @@ public class ExEpisode1 : EventBase
 				keybreak = true;
 				m_camera[1].SetActive(false);
 				m_camera[2].SetActive(true);
-				Kyosuke.animation.Play("kyosuke_los_look_l_copy");
+				Kyosuke.GetComponent<Animation>().Play("kyosuke_los_look_l_copy");
 				FullClear();
 				IncrementXstory();
 				break;
@@ -86,7 +86,7 @@ public class ExEpisode1 : EventBase
 				keybreak = true;
 				FullClear();
 				Sayaka.transform.rotation =  Quaternion.Euler(new Vector3(0.0f,310.3413f,0.0f));
-				Sayaka.animation.Play("sayaka_atease_copy");
+				Sayaka.GetComponent<Animation>().Play("sayaka_atease_copy");
 				SayakaFaceSelecter.ChangeFaceTexture(1);
 				m_camera[2].SetActive(false);
 				m_camera[3].SetActive(true);
@@ -157,7 +157,7 @@ public class ExEpisode1 : EventBase
 			case 14:
 				keybreak = true;
 				SayakaFaceSelecter.ChangeFaceTexture(0);
-				Sayaka.animation.Play("sayaka_yawn_copy");
+				Sayaka.GetComponent<Animation>().Play("sayaka_yawn_copy");
 				m_camera[2].SetActive(false);
 				m_camera[3].SetActive(true);
 				FullClear();
@@ -211,7 +211,7 @@ public class ExEpisode1 : EventBase
 				FullClear();
 				m_camera[4].SetActive(false);
 				m_camera[2].SetActive(true);
-				Kyosuke.animation.Play("kyosuke_puthand_copy");
+				Kyosuke.GetComponent<Animation>().Play("kyosuke_puthand_copy");
 				IncrementXstory();
 				break;
 			case 21:
@@ -257,7 +257,7 @@ public class ExEpisode1 : EventBase
 				FullClear();
 				m_camera[3].SetActive(false);
 				m_camera[2].SetActive(true);
-				Kyosuke.animation.Play("kyosuke_looklefthand_copy");
+				Kyosuke.GetComponent<Animation>().Play("kyosuke_looklefthand_copy");
 				IncrementXstory();
 				break;
 			case 26:
@@ -276,7 +276,7 @@ public class ExEpisode1 : EventBase
 				m_camera[2].SetActive(false);
 				m_camera[4].SetActive(true);
 				SayakaFaceSelecter.ChangeFaceTexture(0);
-				Sayaka.animation.Play("sayaka_uniform_neutral_copy");
+				Sayaka.GetComponent<Animation>().Play("sayaka_uniform_neutral_copy");
 				IncrementXstory();
 				break;
 			case 28:

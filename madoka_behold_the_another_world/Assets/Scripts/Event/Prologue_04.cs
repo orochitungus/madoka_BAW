@@ -23,7 +23,7 @@ public class Prologue_04 : EventBase
             this.m_camera[i].SetActive(false);
         }
         // ほむらのポーズを変更
-        m_Homura.animation.Play("homura_float_copy");
+        m_Homura.GetComponent<Animation>().Play("homura_float_copy");
         EventInitialize();
 		// BGM再生開始
 		AudioManager.Instance.PlayBGM("kusabi");
@@ -109,7 +109,7 @@ public class Prologue_04 : EventBase
             case 8:
                 keybreak = true;
                 FullClear();
-                m_Homura.animation.Play("homura_float_put_hand_ahead_copy");
+                m_Homura.GetComponent<Animation>().Play("homura_float_put_hand_ahead_copy");
                 IncrementXstory();
                 break;
             case 9:

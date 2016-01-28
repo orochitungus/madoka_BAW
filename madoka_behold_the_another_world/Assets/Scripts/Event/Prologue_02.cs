@@ -63,8 +63,8 @@ public class Prologue_02 : EventBase
                 //m_BGM.volume = 0.5f;
                 //m_BGM.Play();               // 再生開始
                 //m_BGM.loop = true;
-                m_camera[0].animation.Play("prolouge2_camera1");
-                m_camera[0].animation["prolouge2_camera1"].speed = m_Camera1Speed;                
+                m_camera[0].GetComponent<Animation>().Play("prolouge2_camera1");
+                m_camera[0].GetComponent<Animation>()["prolouge2_camera1"].speed = m_Camera1Speed;                
                 xstory++;
                 break;
             case 1:
@@ -102,7 +102,7 @@ public class Prologue_02 : EventBase
             case 4:
                 keybreak = true;
                 AudioSource.PlayClipAtPoint(m_Down, m_Homura.transform.position);
-                m_Homura.animation.Play("homura_kneel_copy");
+                m_Homura.GetComponent<Animation>().Play("homura_kneel_copy");
                 this.m_camera[1].SetActive(false);
                 this.m_camera[2].SetActive(true);
                 FullClear();
@@ -128,7 +128,7 @@ public class Prologue_02 : EventBase
                 this.m_camera[2].SetActive(false);
                 this.m_camera[3].SetActive(true);
                 // スコノを歩行モーションにする
-                m_Scono_nocort.animation.Play("Scono_walk_copy");
+                m_Scono_nocort.GetComponent<Animation>().Play("Scono_walk_copy");
                 // BGMを切り替える
                 //m_BGM.clip = m_Fuly;
                 //m_BGM.volume = 0.5f;
@@ -142,7 +142,7 @@ public class Prologue_02 : EventBase
                 // スコノが規定位置に来ると次のシーンへ
                 if (m_Scono_nocort.transform.position.z < 4751)
                 {
-                    m_Scono_nocort.animation.Play("Scono_neutral_copy");
+                    m_Scono_nocort.GetComponent<Animation>().Play("Scono_neutral_copy");
                     IncrementXstory();
                 }
                 else
@@ -194,7 +194,7 @@ public class Prologue_02 : EventBase
                 FullClear();
                 this.m_camera[1].SetActive(true);
                 this.m_camera[3].SetActive(false);
-                m_Homura.animation.Play("homura_standup_copy");
+                m_Homura.GetComponent<Animation>().Play("homura_standup_copy");
                 AudioSource.PlayClipAtPoint(m_Walk, m_Homura.transform.position);
                 IncrementXstory();
                 break;
@@ -212,7 +212,7 @@ public class Prologue_02 : EventBase
                 keybreak = true;
                 m_facetype = CharacterFace.HOMURA_RIBON_MAGICA_NORMAL;
                 FullClear();
-                m_Homura.animation.Play("homura_showgreefseed_copy");
+                m_Homura.GetComponent<Animation>().Play("homura_showgreefseed_copy");
                 IncrementXstory();
                 break;
             case 14:
@@ -224,7 +224,7 @@ public class Prologue_02 : EventBase
                 FullClear();
                 this.m_camera[1].SetActive(false);
                 this.m_camera[3].SetActive(true);
-                m_Scono_nocort.animation.Play("Scono_pay_an_arm_copy");
+                m_Scono_nocort.GetComponent<Animation>().Play("Scono_pay_an_arm_copy");
                 m_Accumulated_time = 0;
                 IncrementXstory();
                 break;
@@ -274,7 +274,7 @@ public class Prologue_02 : EventBase
                 // 抜刀時のSEを鳴らす
                 AudioSource.PlayClipAtPoint(m_Drawn_Bow, transform.position);
                 // ほむらに抜刀ポーズをとらせる
-                m_Homura.animation.Play("reload_arrow_homura_ribon_event2_copy");
+                m_Homura.GetComponent<Animation>().Play("reload_arrow_homura_ribon_event2_copy");
                 // 表情を変える
                 var Face = m_Homura.GetComponentInChildren<FaceSelecter>(); // 対象オブジェクトに取り付けたスクリプト名を指定する              
                 Face.ChangeFaceTexture("homura_seriousface");

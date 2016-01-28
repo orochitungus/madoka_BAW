@@ -109,9 +109,9 @@ public partial class CharacterControl_Base
         // ステートを変更
         m_AnimState[0] = WrestleType;        
         // アニメーションを再生する
-        this.animation.Play(m_AnimationNames[(int)WrestleType]);
+        this.GetComponent<Animation>().Play(m_AnimationNames[(int)WrestleType]);
         // アニメーションの速度を調整する
-        this.animation[m_AnimationNames[(int)WrestleType]].speed = speed;
+        this.GetComponent<Animation>()[m_AnimationNames[(int)WrestleType]].speed = speed;
         // 移動速度を調整する
         this.m_wrestlSpeed = movespeed;       
     }
@@ -174,9 +174,9 @@ public partial class CharacterControl_Base
         // ステートを変更
         m_AnimState[0] = WrestleType;
         // アニメーションを再生する
-        this.animation.CrossFade(m_AnimationNames[(int)WrestleType]);
+        this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)WrestleType]);
         // アニメーションの速度を調整する
-        this.animation[m_AnimationNames[(int)WrestleType]].speed = speed;
+        this.GetComponent<Animation>()[m_AnimationNames[(int)WrestleType]].speed = speed;
         // 移動速度を調整する
         this.m_wrestlSpeed = movespeed; 
     }
@@ -239,9 +239,9 @@ public partial class CharacterControl_Base
         // ステートを変更
         m_AnimState[0] = WrestleType;
         // アニメーションを再生する
-        this.animation.CrossFade(m_AnimationNames[(int)WrestleType]);
+        this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)WrestleType]);
         // アニメーションの速度を調整する
-        this.animation[m_AnimationNames[(int)WrestleType]].speed = speed;
+        this.GetComponent<Animation>()[m_AnimationNames[(int)WrestleType]].speed = speed;
         // 移動速度を調整する
         this.m_wrestlSpeed = movespeed; 
     }
@@ -292,9 +292,9 @@ public partial class CharacterControl_Base
         //4．AnimStateを変更する
         this.m_AnimState[0] = AnimationState.Back_Wrestle;
         //5．アニメーションを再生する
-        this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Back_Wrestle]);
+        this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Back_Wrestle]);
         //6．アニメーションの速度を調整する
-        this.animation[m_AnimationNames[(int)AnimationState.Back_Wrestle]].speed = speed;
+        this.GetComponent<Animation>()[m_AnimationNames[(int)AnimationState.Back_Wrestle]].speed = speed;
         //7．移動速度を0にする
         this.m_wrestlSpeed = 0;
     }
@@ -342,9 +342,9 @@ public partial class CharacterControl_Base
         // AnimStateを変更する
         this.m_AnimState[0] = AnimationState.EX_Front_Wrestle_1;
         // アニメーションを再生する
-        this.animation.CrossFade(m_AnimationNames[(int)AnimationState.EX_Front_Wrestle_1]);
+        this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.EX_Front_Wrestle_1]);
         // アニメーションの速度を調整する
-        this.animation[m_AnimationNames[(int)AnimationState.EX_Front_Wrestle_1]].speed = speed;
+        this.GetComponent<Animation>()[m_AnimationNames[(int)AnimationState.EX_Front_Wrestle_1]].speed = speed;
         // 移動速度を上にする
         this.m_wrestlSpeed = movespeed;
     }
@@ -393,9 +393,9 @@ public partial class CharacterControl_Base
         // AnimStateを変更する
         this.m_AnimState[0] = AnimationState.BACK_EX_Wrestle;
         // アニメーションを再生する
-        this.animation.CrossFade(m_AnimationNames[(int)AnimationState.BACK_EX_Wrestle]);
+        this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.BACK_EX_Wrestle]);
         // アニメーションの速度を調整する
-        this.animation[m_AnimationNames[(int)AnimationState.BACK_EX_Wrestle]].speed = speed;
+        this.GetComponent<Animation>()[m_AnimationNames[(int)AnimationState.BACK_EX_Wrestle]].speed = speed;
         // 移動速度を設定する
         this.m_wrestlSpeed = movespeed;
     }
@@ -482,13 +482,13 @@ public partial class CharacterControl_Base
             if (this.m_isGrounded)
             {
                 m_AnimState[0] = AnimationState.Idle;
-                this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Idle]);
+                this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Idle]);
             }
             else
             {
                 m_AnimState[0] = AnimationState.Fall;
                 m_fallStartTime = Time.time;
-                this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
+                this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
             }
         }
     }
@@ -507,7 +507,7 @@ public partial class CharacterControl_Base
         {
             obj.transform.parent = m_WrestleRoot[(int)wrestletype].transform;
             // 親子関係を付けておく
-            obj.transform.rigidbody.isKinematic = true;
+            obj.transform.GetComponent<Rigidbody>().isKinematic = true;
         }      
 
         // ステートを設定する
@@ -630,7 +630,7 @@ public partial class CharacterControl_Base
         {
             obj.transform.parent = m_WrestleRoot[(int)WrestleType.BACK_WRESTLE].transform;
             // 親子関係を付けておく
-            obj.transform.rigidbody.isKinematic = true;
+            obj.transform.GetComponent<Rigidbody>().isKinematic = true;
         }
         
     }

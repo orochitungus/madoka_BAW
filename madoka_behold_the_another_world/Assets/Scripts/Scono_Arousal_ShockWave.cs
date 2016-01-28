@@ -128,8 +128,8 @@ public class Scono_Arousal_ShockWave : MonoBehaviour
             target.m_MoveDirection.y += 10;
             target.m_BlowDirection = MoveDirection;
             // 吹き飛びの場合、攻撃を当てた相手を浮かす（m_launchOffset)            
-            target.rigidbody.position = target.rigidbody.position + new Vector3(0, MadokaDefine.LAUNCHOFFSET, 0);
-            target.rigidbody.AddForce(MoveDirection.x * MadokaDefine.LAUNCHOFFSET, MoveDirection.y * MadokaDefine.LAUNCHOFFSET, MoveDirection.z * MadokaDefine.LAUNCHOFFSET);
+            target.GetComponent<Rigidbody>().position = target.GetComponent<Rigidbody>().position + new Vector3(0, MadokaDefine.LAUNCHOFFSET, 0);
+            target.GetComponent<Rigidbody>().AddForce(MoveDirection.x * MadokaDefine.LAUNCHOFFSET, MoveDirection.y * MadokaDefine.LAUNCHOFFSET, MoveDirection.z * MadokaDefine.LAUNCHOFFSET);
             target.m_AnimState[0] = CharacterControl_Base.AnimationState.BlowInit;
         }
         // それ以外はのけぞりへ

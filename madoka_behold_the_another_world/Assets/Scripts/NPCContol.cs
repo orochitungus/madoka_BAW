@@ -49,7 +49,7 @@ public class NPCContol : NPCControlBase
 					Talksystem.CharacterNameEn.gameObject.SetActive(false);
 					
 					// アニメーションを戻す
-					this.animation.Play(NormalAnimationName);
+					this.GetComponent<Animation>().Play(NormalAnimationName);
 				}
 				else
 				{ 
@@ -124,7 +124,7 @@ public class NPCContol : NPCControlBase
 		// 方向を変える
 		this.transform.rotation = looklot;
 		// アニメーションをさせる
-		this.animation.Play(TalkAnimationName);
+		this.GetComponent<Animation>().Play(TalkAnimationName);
 
 		// 顔を出す
 		Talksystem.CharacterFace[0].gameObject.SetActive(true);

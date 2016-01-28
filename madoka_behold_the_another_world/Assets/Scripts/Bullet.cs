@@ -127,7 +127,7 @@ public class Bullet : MonoBehaviour
             if (m_Obj_OR != null && m_Obj_OR.GetComponent<CharacterControl_Base>().GetShotmode() == CharacterControl_Base.ShotMode.SHOT)
             {
                 // その時の座標を保持する
-                this.rigidbody.position = m_Obj_OR.GetComponent<CharacterControl_Base>().m_ArrowRoot.rigidbody.position;
+                this.GetComponent<Rigidbody>().position = m_Obj_OR.GetComponent<CharacterControl_Base>().m_ArrowRoot.GetComponent<Rigidbody>().position;
                 // 進行方向ベクトルを保持する
                 this.m_MoveDirection = m_Obj_OR.GetComponent<CharacterControl_Base>().m_BulletMoveDirection;
                 // 攻撃力を保持する
@@ -145,7 +145,7 @@ public class Bullet : MonoBehaviour
                 // 独立フラグを立てる
                 this.m_IsIndependence = true;
                 // IsKinematicを折る
-                this.transform.rigidbody.isKinematic = false;
+                this.transform.GetComponent<Rigidbody>().isKinematic = false;
 
                                 
                 {                    
@@ -223,7 +223,7 @@ public class Bullet : MonoBehaviour
                         Vector3 Targetpos = this.m_TargetObject.transform.position;
                         Targetpos.y += offset;
                         // 変換したベクトルを正規化
-                        this.m_MoveDirection = Vector3.Normalize(Targetpos - this.rigidbody.transform.position);
+                        this.m_MoveDirection = Vector3.Normalize(Targetpos - this.GetComponent<Rigidbody>().transform.position);
                         // オブジェクトを相手の方向へ向ける
                         Quaternion looklot = Quaternion.LookRotation(m_TargetObject.transform.position - this.transform.position);
                         Vector3 looklotE = looklot.eulerAngles;
@@ -239,7 +239,7 @@ public class Bullet : MonoBehaviour
                         this.transform.rotation = looklot;
                     }
                 }
-                rigidbody.position = rigidbody.position + this.m_MoveDirection * m_Speed * Time.deltaTime;
+                GetComponent<Rigidbody>().position = GetComponent<Rigidbody>().position + this.m_MoveDirection * m_Speed * Time.deltaTime;
             }
         }
         // 親が死んだ場合は自壊
@@ -257,7 +257,7 @@ public class Bullet : MonoBehaviour
         // 誘導しない場合は撃った後は方向は固定
         if (this.m_InductionCounter >= this.m_InductionBias)
         {
-            this.rigidbody.freezeRotation = true;
+            this.GetComponent<Rigidbody>().freezeRotation = true;
         }
     }
 
@@ -372,8 +372,8 @@ public class Bullet : MonoBehaviour
                 target.m_MoveDirection.y += 10;
                 target.m_BlowDirection = this.m_MoveDirection;
                 // 吹き飛びの場合、攻撃を当てた相手を浮かす（MadokaDefine.LAUNCHOFFSET)            
-                target.rigidbody.position = target.rigidbody.position + new Vector3(0, MadokaDefine.LAUNCHOFFSET, 0);
-                target.rigidbody.AddForce(this.m_MoveDirection.x * MadokaDefine.LAUNCHOFFSET, this.m_MoveDirection.y * MadokaDefine.LAUNCHOFFSET, this.m_MoveDirection.z * MadokaDefine.LAUNCHOFFSET);
+                target.GetComponent<Rigidbody>().position = target.GetComponent<Rigidbody>().position + new Vector3(0, MadokaDefine.LAUNCHOFFSET, 0);
+                target.GetComponent<Rigidbody>().AddForce(this.m_MoveDirection.x * MadokaDefine.LAUNCHOFFSET, this.m_MoveDirection.y * MadokaDefine.LAUNCHOFFSET, this.m_MoveDirection.z * MadokaDefine.LAUNCHOFFSET);
                 target.m_AnimState[0] = CharacterControl_Base.AnimationState.BlowInit;
             }
             // それ以外はのけぞりへ
@@ -445,7 +445,7 @@ public class Bullet : MonoBehaviour
             // アニメが起動していなかった場合、アニメを起動する
             if (!m_startedAnimation)
             {
-                this.animation.Play(m_BombAnimation_Name);
+                this.GetComponent<Animation>().Play(m_BombAnimation_Name);
                 m_startedAnimation = true;
             }
             // 敵にあたったわけでないなら強制抜け
@@ -471,8 +471,8 @@ public class Bullet : MonoBehaviour
                 target.m_MoveDirection.y += 10;
                 target.m_BlowDirection = this.m_MoveDirection;
                 // 吹き飛びの場合、攻撃を当てた相手を浮かす（MadokaDefine.LAUNCHOFFSET)            
-                target.rigidbody.position = target.rigidbody.position + new Vector3(0, MadokaDefine.LAUNCHOFFSET, 0);
-                target.rigidbody.AddForce(this.m_MoveDirection.x * MadokaDefine.LAUNCHOFFSET, this.m_MoveDirection.y * MadokaDefine.LAUNCHOFFSET, this.m_MoveDirection.z * MadokaDefine.LAUNCHOFFSET);
+                target.GetComponent<Rigidbody>().position = target.GetComponent<Rigidbody>().position + new Vector3(0, MadokaDefine.LAUNCHOFFSET, 0);
+                target.GetComponent<Rigidbody>().AddForce(this.m_MoveDirection.x * MadokaDefine.LAUNCHOFFSET, this.m_MoveDirection.y * MadokaDefine.LAUNCHOFFSET, this.m_MoveDirection.z * MadokaDefine.LAUNCHOFFSET);
                 //rigidbody.position = rigidbody.position + ;
                 target.m_AnimState[0] = CharacterControl_Base.AnimationState.BlowInit;
             }

@@ -16,8 +16,8 @@ public class Test : MonoBehaviour {
 
     void OnParticleCollision(GameObject other)
     {
-        ParticleSystem.CollisionEvent[] ces = new ParticleSystem.CollisionEvent[particleSystem.safeCollisionEventSize];
-        foreach (ParticleSystem.CollisionEvent item in ces)
+        ParticleCollisionEvent[] ces = new ParticleCollisionEvent[GetComponent<ParticleSystem>().GetSafeCollisionEventSize()];
+        foreach (ParticleCollisionEvent item in ces)
         {
             // action
             Debug.Log(item.collider);

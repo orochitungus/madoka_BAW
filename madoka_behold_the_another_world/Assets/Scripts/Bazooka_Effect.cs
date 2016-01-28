@@ -90,9 +90,9 @@ public class Bazooka_Effect : MonoBehaviour
     // 移動処理
     void Update()
     { 
-        rigidbody.position = rigidbody.position + m_MoveDirection * m_Insp_MoveSpeed * Time.deltaTime;        
+        GetComponent<Rigidbody>().position = GetComponent<Rigidbody>().position + m_MoveDirection * m_Insp_MoveSpeed * Time.deltaTime;        
         // 限界距離移動後に自己消滅
-        if (Vector3.Distance(rigidbody.position, m_StartPoint) > m_Insp_MaxMove)
+        if (Vector3.Distance(GetComponent<Rigidbody>().position, m_StartPoint) > m_Insp_MaxMove)
         {
             Destroy(gameObject);
         }
@@ -155,8 +155,8 @@ public class Bazooka_Effect : MonoBehaviour
                 target.m_MoveDirection.y += 10;
                 target.m_BlowDirection = this.m_MoveDirection;
                 // 吹き飛びの場合、攻撃を当てた相手を浮かす（m_launchOffset)            
-                target.rigidbody.position = target.rigidbody.position + new Vector3(0, MadokaDefine.LAUNCHOFFSET, 0);
-                target.rigidbody.AddForce(this.m_MoveDirection.x * MadokaDefine.LAUNCHOFFSET, this.m_MoveDirection.y * MadokaDefine.LAUNCHOFFSET, this.m_MoveDirection.z * MadokaDefine.LAUNCHOFFSET);
+                target.GetComponent<Rigidbody>().position = target.GetComponent<Rigidbody>().position + new Vector3(0, MadokaDefine.LAUNCHOFFSET, 0);
+                target.GetComponent<Rigidbody>().AddForce(this.m_MoveDirection.x * MadokaDefine.LAUNCHOFFSET, this.m_MoveDirection.y * MadokaDefine.LAUNCHOFFSET, this.m_MoveDirection.z * MadokaDefine.LAUNCHOFFSET);
                 //rigidbody.position = rigidbody.position + ;
                 target.m_AnimState[0] = CharacterControl_Base.AnimationState.BlowInit;
             }

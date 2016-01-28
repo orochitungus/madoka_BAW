@@ -12,14 +12,14 @@ public class AnimationPostprocessor : AssetPostprocessor
     void OnPostprocessModel(GameObject go)
     {
         // don't do anything when animation doesn't exist.
-        if (go.animation.GetClipCount() == 0)
+        if (go.GetComponent<Animation>().GetClipCount() == 0)
             return;
 
         // backup all duplicated clips for SetAnimationClips() at the end.
         List<AnimationClip> clips = new List<AnimationClip>();
 
         // duplicate all animation clips
-        foreach (AnimationState a in go.animation)
+        foreach (AnimationState a in go.GetComponent<Animation>())
         {
             // copy clip data from original
             AnimationClip copyedClip = new AnimationClip();
@@ -43,10 +43,10 @@ public class AnimationPostprocessor : AssetPostprocessor
         AssetDatabase.Refresh();
 
         // swap animation list to duplicated clips.
-        AnimationUtility.SetAnimationClips(go.animation, clips.ToArray());
+        AnimationUtility.SetAnimationClips(go.GetComponent<Animation>(), clips.ToArray());
 
         // set default clip
-        go.animation.clip = clips[0];
+        go.GetComponent<Animation>().clip = clips[0];
     }
 }
 

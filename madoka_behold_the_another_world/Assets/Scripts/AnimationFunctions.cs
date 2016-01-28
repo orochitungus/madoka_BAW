@@ -41,7 +41,7 @@ public partial class CharacterControl_Base
                 break;
             case AnimationState.Fall:                   // 落下
                 ContlroleAnimationSpeed(AnimationState.Fall, 1.0f, m_timstopmode);
-                this.animation[m_AnimationNames[(int)AnimationState.Fall]].speed = 1.0f;
+                this.GetComponent<Animation>()[m_AnimationNames[(int)AnimationState.Fall]].speed = 1.0f;
                 Animation_Fall();
                 break;
             case AnimationState.Landing:                // 着地
@@ -49,7 +49,7 @@ public partial class CharacterControl_Base
                 break;
             case AnimationState.Run:                    // 走行
                 ContlroleAnimationSpeed(AnimationState.Run, 1.0f, m_timstopmode);
-                this.animation[m_AnimationNames[(int)AnimationState.Run]].speed = 1.0f;
+                this.GetComponent<Animation>()[m_AnimationNames[(int)AnimationState.Run]].speed = 1.0f;
                 Animation_Run();
                 break;
             case AnimationState.Run_underonly:          // 走行（下半身のみ）
@@ -257,12 +257,12 @@ public partial class CharacterControl_Base
         // 死んでいたらダウン
         if (m_NowHitpoint <= 1)
         {
-            this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Down]);
+            this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Down]);
             m_AnimState[0] = AnimationState.Down;
         }
         // くっついているエフェクトの親元を消す
         BrokenEffect();        
-        this.transform.rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+        this.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         // ずれた本体角度を戻す(Yはそのまま）
         this.transform.rotation = Quaternion.Euler(new Vector3(0,this.transform.rotation.eulerAngles.y,0)); 
         m_AnimState[1] = AnimationState.Idle;
@@ -270,10 +270,10 @@ public partial class CharacterControl_Base
         this.m_BlowDirection = Vector3.zero;       
         this.m_Rotatehold = false;                // 固定フラグは折る
         // 慣性を殺す
-        this.rigidbody.velocity = Vector3.zero;
-        this.rigidbody.angularVelocity = Vector3.zero;
+        this.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        this.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         this.m_addInput = false;
-        rigidbody.useGravity = true;
+        GetComponent<Rigidbody>().useGravity = true;
         // ブーストを回復させる
         this.m_Boost = GetMaxBoost(this.m_BoostLevel);
         // 地上にいるか？
@@ -283,7 +283,7 @@ public partial class CharacterControl_Base
             if (m_hasVHInput)
             {
                 m_AnimState[0] = AnimationState.Run;
-                this.animation.Play(m_AnimationNames[(int)AnimationState.Run]);
+                this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.Run]);
             }
             // ジャンプでジャンプへ移行(GetButtonDownで押しっぱなしにはならない。GetButtonで押しっぱなしに対応）
             if (this.m_hasJumpInput && m_Boost > 0)
@@ -315,14 +315,14 @@ public partial class CharacterControl_Base
         {
             m_AnimState[0] = AnimationState.Fall;
             m_fallStartTime = Time.time;
-            this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
+            this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
         }
         
     }
     // Walk時共通動作
     protected virtual void Animation_Walk()
     {
-        this.transform.rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+        this.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         // ずれた本体角度を戻す(Yはそのまま）
         this.transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0)); 
         m_AnimState[1] = AnimationState.Walk;
@@ -336,7 +336,7 @@ public partial class CharacterControl_Base
     // Jump時共通動作
     protected virtual void Animation_Jump()
     {
-        this.transform.rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+        this.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         // ずれた本体角度を戻す(Yはそのまま）
         this.transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0)); 
         m_AnimState[1] = AnimationState.Jump;
@@ -420,7 +420,7 @@ public partial class CharacterControl_Base
         // ボタンを離したら下降へ移行
         if (!this.m_hasJumpInput)
         {
-            this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
+            this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
             m_AnimState[0] = AnimationState.Fall;
             m_fallStartTime = Time.time;
             RiseSpeed = new Vector3(0, -this.m_RateofRise, 0);
@@ -450,7 +450,7 @@ public partial class CharacterControl_Base
     {
         // くっついているエフェクトを消す
         BrokenEffect();     
-        this.transform.rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+        this.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         // ずれた本体角度を戻す(Yはそのまま）
         this.transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0)); 
         // ステップ時はm_MoveDirectionが消えたら困るので、一旦保持
@@ -458,15 +458,15 @@ public partial class CharacterControl_Base
         
         m_AnimState[1] = AnimationState.Fall;
         // 一応重力復活
-        this.rigidbody.useGravity = true;
+        this.GetComponent<Rigidbody>().useGravity = true;
         // 飛び越えフラグをカット
         m_Rotatehold = false;
         // 追加入力の有無をカット
         this.m_addInput = false;
         // 落下モーションでなければ落下モーションへ切り替え
-        if (!this.animation.IsPlaying(m_AnimationNames[(int)AnimationState.Fall]))
+        if (!this.GetComponent<Animation>().IsPlaying(m_AnimationNames[(int)AnimationState.Fall]))
         {
-            this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Fall]);            
+            this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Fall]);            
         }
         // ブーストがあれば慣性移動及び再上昇可。なければ不可
         if (this.m_Boost > 0)
@@ -523,7 +523,7 @@ public partial class CharacterControl_Base
     // Landing時共通動作
     protected virtual void Animation_Landing()
     {
-        this.transform.rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+        this.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         // ずれた本体角度を戻す(Yはそのまま）
         this.transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0)); 
         m_AnimState[1] = AnimationState.Landing;
@@ -535,7 +535,7 @@ public partial class CharacterControl_Base
         if (Time.time > this.m_LandingTime + this.m_LandingWaitTime)
         {
             m_AnimState[0] = AnimationState.Idle;
-            this.animation.Play(m_AnimationNames[(int)AnimationState.Idle]);
+            this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.Idle]);
             // ブースト量を初期化する
             this.m_Boost = GetMaxBoost(this.m_BoostLevel);
         }
@@ -581,7 +581,7 @@ public partial class CharacterControl_Base
     // Run時共通動作
     protected virtual void Animation_Run()
     {
-        this.transform.rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+        this.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         // ずれた本体角度を戻す(Yはそのまま）
         this.transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0)); 
         m_AnimState[1] = AnimationState.Run;
@@ -604,7 +604,7 @@ public partial class CharacterControl_Base
             else
             {
                 m_AnimState[0] = AnimationState.Idle;
-                this.animation.Play(m_AnimationNames[(int)AnimationState.Idle]);
+                this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.Idle]);
             }
 
             // ジャンプでジャンプへ移行(GetButtonDownで押しっぱなしにはならない。GetButtonで押しっぱなしに対応）
@@ -618,7 +618,7 @@ public partial class CharacterControl_Base
         {
             m_AnimState[0] = AnimationState.Fall;
             m_fallStartTime = Time.time;
-            this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
+            this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
         }
         
     }
@@ -632,12 +632,12 @@ public partial class CharacterControl_Base
     // AirDash時共通動作
     protected virtual void Animation_AirDash()
     {
-        this.transform.rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+        this.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         // ずれた本体角度を戻す(Yはそのまま）
         //this.transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0)); 
         Vector3 RiseSpeed = new Vector3(0, 0, 0);
         // 重力補正をカット
-        this.rigidbody.useGravity = false;
+        this.GetComponent<Rigidbody>().useGravity = false;
         m_AnimState[1] = AnimationState.AirDash;
         // 
         if (this.m_Boost > 0)
@@ -722,33 +722,33 @@ public partial class CharacterControl_Base
                 switch (x)
                 {
                     case AnimationState.LeftStepBack_Standby:
-                        this.animation.Play(m_AnimationNames[(int)AnimationState.LeftStepBack]);
+                        this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.LeftStepBack]);
                         break;
                     case AnimationState.RightStepBack_Standby:
-                        this.animation.Play(m_AnimationNames[(int)AnimationState.RightStepBack]);
+                        this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.RightStepBack]);
                         break;
                     case AnimationState.BackStepBack_Standby:
-                        this.animation.Play(m_AnimationNames[(int)AnimationState.BackStepBack]);
+                        this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.BackStepBack]);
                         break;
                     default:
-                        this.animation.Play(m_AnimationNames[(int)AnimationState.FrontStepBack]);
+                        this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.FrontStepBack]);
                         break;
                 }                
             }
             else
             {
-                this.animation.Play(m_AnimationNames[(int)AnimationState.FrontStepBack]);
+                this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.FrontStepBack]);
             }
         }
         else
         {
-            this.animation.CrossFade(m_AnimationNames[(int)AnimationState.FrontStepBack]);
+            this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.FrontStepBack]);
         }
         m_AnimState[0] = AnimationState.FrontStepBack;
         // 着地したので硬直を設定する
         this.m_LandingTime = Time.time;
         // 無効になっていたら重力を復活させる
-        this.rigidbody.useGravity = true;
+        this.GetComponent<Rigidbody>().useGravity = true;
         // 動作を停止する
         this.m_MoveDirection = new Vector3(0, 0, 0);        
     }

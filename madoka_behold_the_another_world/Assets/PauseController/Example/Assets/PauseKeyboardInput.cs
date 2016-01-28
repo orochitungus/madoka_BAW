@@ -32,7 +32,7 @@ public class PauseKeyboardInput : MonoBehaviour {
 				}
 				
 				GameObject gobj_text = GameObject.FindWithTag("PauseText") ; 
-				GUIText gui_text = gobj_text.guiText ; 
+				GUIText gui_text = gobj_text.GetComponent<GUIText>() ; 
 				
 				activated = !activated ; 
 	

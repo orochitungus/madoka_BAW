@@ -361,7 +361,7 @@ public class majyu_BattleControl : CharacterControl_Base
             // 地上でキャンセルすると浮かないので浮かす
             if (this.m_isGrounded)
             {
-                rigidbody.position = new Vector3(this.rigidbody.position.x, this.rigidbody.position.y + 3, this.rigidbody.position.z);
+                GetComponent<Rigidbody>().position = new Vector3(this.GetComponent<Rigidbody>().position.x, this.GetComponent<Rigidbody>().position.y + 3, this.GetComponent<Rigidbody>().position.z);
             }
             //CancelDashDone();
         }
@@ -377,7 +377,7 @@ public class majyu_BattleControl : CharacterControl_Base
             // 地上でキャンセルすると浮かないので浮かす
             if (this.m_isGrounded)
             {
-                rigidbody.position = new Vector3(this.rigidbody.position.x, this.rigidbody.position.y + 3, this.rigidbody.position.z);
+                GetComponent<Rigidbody>().position = new Vector3(this.GetComponent<Rigidbody>().position.x, this.GetComponent<Rigidbody>().position.y + 3, this.GetComponent<Rigidbody>().position.z);
             }
             CancelDashDone();
         }
@@ -394,7 +394,7 @@ public class majyu_BattleControl : CharacterControl_Base
             // 地上でキャンセルすると浮かないので浮かす
             if (this.m_isGrounded)
             {
-                rigidbody.position = new Vector3(this.rigidbody.position.x, this.rigidbody.position.y + 3, this.rigidbody.position.z);
+                GetComponent<Rigidbody>().position = new Vector3(this.GetComponent<Rigidbody>().position.x, this.GetComponent<Rigidbody>().position.y + 3, this.GetComponent<Rigidbody>().position.z);
             }
             CancelDashDone();
         }
@@ -417,10 +417,10 @@ public class majyu_BattleControl : CharacterControl_Base
         shotmode = ShotMode.NORMAL;
         DeleteBlend();
         // 固定状態を解除
-        this.transform.rigidbody.constraints = RigidbodyConstraints.None;
+        this.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         // ずれた本体角度を戻す(Yはそのまま）
         this.transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0)); 
-        this.transform.rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+        this.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         // 通常のダッシュキャンセルの処理
         base.CancelDashDone();
     }
@@ -430,7 +430,7 @@ public class majyu_BattleControl : CharacterControl_Base
     // 第2引数：アニメの種類
     protected bool ShotEndCheck(string AnimationName, ShotType type)
     {
-        while (this.animation.IsPlaying(AnimationName))
+        while (this.GetComponent<Animation>().IsPlaying(AnimationName))
         {
             return false;
         }
@@ -446,31 +446,31 @@ public class majyu_BattleControl : CharacterControl_Base
                 if (m_isGrounded && !this.m_hasVHInput)
                 {
                     // アイドルモードのアニメを起動する
-                    this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Idle]);
-                    this.animation[m_AnimationNames[(int)AnimationState.Idle]].blendMode = AnimationBlendMode.Blend; // 合成モードを戻しておく
+                    this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Idle]);
+                    this.GetComponent<Animation>()[m_AnimationNames[(int)AnimationState.Idle]].blendMode = AnimationBlendMode.Blend; // 合成モードを戻しておく
                     this.m_AnimState[0] = AnimationState.Idle;
                 }
                 // 地上にいて歩行中
                 else if (m_isGrounded)
                 {
                     // 走行モードのアニメを起動する
-                    this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Run]);
-                    this.animation[m_AnimationNames[(int)AnimationState.Run]].blendMode = AnimationBlendMode.Blend; // 合成モードを戻しておく
+                    this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Run]);
+                    this.GetComponent<Animation>()[m_AnimationNames[(int)AnimationState.Run]].blendMode = AnimationBlendMode.Blend; // 合成モードを戻しておく
                     this.m_AnimState[0] = AnimationState.Run;
                 }
                 // 空中にいてダッシュ入力中でありかつブーストゲージがある
                 else if (!m_isGrounded && m_hasVHInput && m_hasJumpInput && this.m_Boost > 0)
                 {
                     // 空中ダッシュのアニメを起動する
-                    this.animation.CrossFade(m_AnimationNames[(int)AnimationState.AirDash]);
-                    this.animation[m_AnimationNames[(int)AnimationState.AirDash]].blendMode = AnimationBlendMode.Blend; // 合成モードを戻しておく
+                    this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.AirDash]);
+                    this.GetComponent<Animation>()[m_AnimationNames[(int)AnimationState.AirDash]].blendMode = AnimationBlendMode.Blend; // 合成モードを戻しておく
                     this.m_AnimState[0] = AnimationState.AirDash;
                 }
                 // 空中にいて落下中(歩き撃ちをしていた場合を除く）
                 else //if (!m_isGrounded && !this.m_ShotRun)
                 {
-                    this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
-                    this.animation[m_AnimationNames[(int)AnimationState.Fall]].blendMode = AnimationBlendMode.Blend; // 合成モードを戻しておく
+                    this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
+                    this.GetComponent<Animation>()[m_AnimationNames[(int)AnimationState.Fall]].blendMode = AnimationBlendMode.Blend; // 合成モードを戻しておく
                     this.m_AnimState[0] = AnimationState.Fall;
                     m_fallStartTime = Time.time;
                     // ショットのステートを戻す
@@ -515,7 +515,7 @@ public class majyu_BattleControl : CharacterControl_Base
                 {
                     obj.transform.parent = m_ArrowRoot.transform;
                     // 矢の親子関係を付けておく
-                    obj.transform.rigidbody.isKinematic = true;
+                    obj.transform.GetComponent<Rigidbody>().isKinematic = true;
                 }
             }
         }        
@@ -600,10 +600,10 @@ public class majyu_BattleControl : CharacterControl_Base
             }
             shotmode = ShotMode.SHOT;
             // 固定状態を解除
-            this.transform.rigidbody.constraints = RigidbodyConstraints.None;
+            this.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             // ずれた本体角度を戻す(Yはそのまま）
             this.transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0)); 
-            this.transform.rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+            this.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
 
             // 硬直時間を設定
             this.m_AttackTime = Time.time;

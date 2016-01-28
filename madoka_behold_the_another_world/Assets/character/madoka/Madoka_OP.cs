@@ -16,22 +16,22 @@ public class Madoka_OP : MonoBehaviour
     void Start()
     {
         // 変更対象のテクスチャのインデックスを取得する
-        for (int i = 0; i < renderer.materials.GetLength(0); i++)
+        for (int i = 0; i < GetComponent<Renderer>().materials.GetLength(0); i++)
         {
-            Texture tex = renderer.materials[i].GetTexture("_MainTex");
+            Texture tex = GetComponent<Renderer>().materials[i].GetTexture("_MainTex");
             if (tex)
             {
                 // ということで、差し替えたいテクスチャーの名前と等しいテクスチャーを、normalfaceとする(この場合はmadoka_normalface)
                 if (tex.name == changetargettexture)
                 {
-                    normalface = renderer.materials[i].mainTexture; // i番目のテクスチャーを差し替え対象と定義
+                    normalface = GetComponent<Renderer>().materials[i].mainTexture; // i番目のテクスチャーを差し替え対象と定義
                     changetarget_index = i;     // そのときのインデックスを保持しておく（差し替えの時何番目のテクスチャーを差し替えるかの判定に使う）
                 }
             }
         }
         // 取得した情報を基にテクスチャを笑顔のものに差し替える
         //renderer.materials[changetarget_index].mainTexture = (Texture)Instantiate(Resources.Load("madoka_smile"));
-        renderer.materials[changetarget_index].mainTexture = (Texture)Instantiate(Resources.Load(changenexttexture));
+        GetComponent<Renderer>().materials[changetarget_index].mainTexture = (Texture)Instantiate(Resources.Load(changenexttexture));
     }
 	void Update () 
     {

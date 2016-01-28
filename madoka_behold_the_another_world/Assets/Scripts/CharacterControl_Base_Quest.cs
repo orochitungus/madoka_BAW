@@ -385,7 +385,7 @@ public class CharacterControl_Base_Quest : MonoBehaviour
         CharacterControl_Base_Quest[] Character = FindObjectsOfType(typeof(CharacterControl_Base_Quest)) as CharacterControl_Base_Quest[];
         foreach (CharacterControl_Base_Quest i in Character)
         {
-            i.rigidbody.constraints = RigidbodyConstraints.FreezePosition;
+            i.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
         }
     }
 
@@ -395,7 +395,7 @@ public class CharacterControl_Base_Quest : MonoBehaviour
         CharacterControl_Base_Quest[] Character = FindObjectsOfType(typeof(CharacterControl_Base_Quest)) as CharacterControl_Base_Quest[];
         foreach (CharacterControl_Base_Quest i in Character)
         {
-            i.rigidbody.constraints = RigidbodyConstraints.None;
+            i.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         }
     }
 
@@ -413,7 +413,7 @@ public class CharacterControl_Base_Quest : MonoBehaviour
         if (m_isPlayer != CHARACTERCODE.PLAYER)
         {
             // 自分にひっついているカメラオブジェクトを探し、カメラを切っておく
-            transform.Find("Main Camera").camera.enabled = false;
+            transform.Find("Main Camera").GetComponent<Camera>().enabled = false;
         }
 
         this.m_layOriginOffs = new Vector3(0.0f, m_Collider_Height, 0.0f);
@@ -558,7 +558,7 @@ public class CharacterControl_Base_Quest : MonoBehaviour
     // Idle時共通操作
     protected virtual void Animation_Idle()
     {
-        this.transform.rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+        this.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         // ずれた本体角度を戻す(Yはそのまま）
         this.transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0));
         m_AnimState[1] = AnimationState.Idle;
@@ -566,9 +566,9 @@ public class CharacterControl_Base_Quest : MonoBehaviour
         this.m_BlowDirection = Vector3.zero;
         this.m_Rotatehold = false;                // 固定フラグは折る
         // 慣性を殺す
-        this.rigidbody.velocity = Vector3.zero;
-        this.rigidbody.angularVelocity = Vector3.zero;
-        rigidbody.useGravity = true;
+        this.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        this.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        GetComponent<Rigidbody>().useGravity = true;
         // 地上にいるか？(階段でハマることがあるので一旦なしにしておく）
         //if (m_isGrounded)
         {
@@ -576,7 +576,7 @@ public class CharacterControl_Base_Quest : MonoBehaviour
             if (m_hasVHInput)
             {
                 m_AnimState[0] = AnimationState.Run;
-                this.animation.Play(m_AnimationNames[(int)AnimationState.Run]);
+                this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.Run]);
             }
         }
     }
@@ -584,7 +584,7 @@ public class CharacterControl_Base_Quest : MonoBehaviour
     // Run時共通動作
     protected virtual void Animation_Run()
     {
-        this.transform.rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+        this.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         // ずれた本体角度を戻す(Yはそのまま）
         this.transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0));
         m_AnimState[1] = AnimationState.Run;
@@ -602,7 +602,7 @@ public class CharacterControl_Base_Quest : MonoBehaviour
             else
             {
                 m_AnimState[0] = AnimationState.Idle;
-                this.animation.Play(m_AnimationNames[(int)AnimationState.Idle]);
+                this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.Idle]);
             }
         }
     }

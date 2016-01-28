@@ -110,7 +110,7 @@ public partial class CharacterControl_Base : MonoBehaviour
 	    // （UpdateCoreで入力をポーズ以外すべて禁止）
 	    // ダメージアニメーションを再生
         //Debug.Log(m_AnimationNames[(int)AnimationState.Damage]);
-        this.animation.Play(m_AnimationNames[(int)AnimationState.Damage]);
+        this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.Damage]);
         
         
 	    // 動作及び慣性をカット
@@ -119,10 +119,10 @@ public partial class CharacterControl_Base : MonoBehaviour
         this.m_Rotatehold = false;
 
         // 固定状態をカット
-        this.transform.rigidbody.constraints = RigidbodyConstraints.None;
+        this.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         // ずれた本体角度を戻す(Yはそのまま）
         this.transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0)); 
-        this.transform.rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+        this.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         
 
 	    
@@ -167,7 +167,7 @@ public partial class CharacterControl_Base : MonoBehaviour
 	    // ステートをDamageに切り替える
 
         // 重力をカット
-        this.rigidbody.useGravity = false;
+        this.GetComponent<Rigidbody>().useGravity = false;
         // ダメージ硬直の計算開始
         this.m_DamagedTime = Time.time;
         // ステートをDamageに切り替える
@@ -186,28 +186,28 @@ public partial class CharacterControl_Base : MonoBehaviour
         
         
         // 重力を復活
-        this.rigidbody.useGravity = true;
+        this.GetComponent<Rigidbody>().useGravity = true;
         // 固定していた場合、固定解除
-        this.rigidbody.constraints = RigidbodyConstraints.None;
+        this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 
         // 錐揉みダウン（ダウン値MAX）なら錐揉みダウンアニメを再生し、ステートをSpinDownへ切り替える
         if (this.m_nowDownRatio >= this.m_DownRatio)
         {
             // 錐揉みダウンアニメを再生する
-            this.animation.CrossFade(m_AnimationNames[(int)AnimationState.SpinDown]);
+            this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.SpinDown]);
             this.m_AnimState[0] = AnimationState.SpinDown;
         }
         // そうでないならステートをBlowに切り替える
         else
         {
             // Rotateの固定を解除        
-            this.rigidbody.freezeRotation = false;
+            this.GetComponent<Rigidbody>().freezeRotation = false;
             // ダウンアニメを再生する
-            this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Down]);
+            this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Down]);
             this.m_AnimState[0] = AnimationState.Blow;
         }    
         // 攻撃と同じベクトルを与える。ここの値はm_BlowDirectionに保存したものを使う
-        this.rigidbody.AddForce(this.m_BlowDirection.x*10, 10, this.m_BlowDirection.z*10);       
+        this.GetComponent<Rigidbody>().AddForce(this.m_BlowDirection.x*10, 10, this.m_BlowDirection.z*10);       
     }
 
     // ダメージ(のけぞり）
@@ -220,19 +220,19 @@ public partial class CharacterControl_Base : MonoBehaviour
             if (!this.m_isGrounded)
             {
                 // Rotateの固定を解除        
-                this.rigidbody.freezeRotation = false;
+                this.GetComponent<Rigidbody>().freezeRotation = false;
                 // ダウンアニメを再生する
-                this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Down]);
+                this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Down]);
                 // 重力を復活
-                this.rigidbody.useGravity = true;                
+                this.GetComponent<Rigidbody>().useGravity = true;                
                 // Blowへ移行
                 this.m_AnimState[0] = AnimationState.Blow;
             }
             // 地上にいた→Idleへ移行し、Rotateをすべて0にして固定する
             else
             {
-                this.rigidbody.useGravity = true;
-                this.animation.CrossFade(m_AnimationNames[(int)AnimationState.Idle]);
+                this.GetComponent<Rigidbody>().useGravity = true;
+                this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Idle]);
                 this.m_AnimState[0] = AnimationState.Idle;
             }
         }
@@ -251,7 +251,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         // 接地までなにもせず、接地したらDownへ移行し、m_DownTimeを計算する
         if (this.m_isGrounded)
         {
-            this.animation.Play(m_AnimationNames[(int)AnimationState.Down]);
+            this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.Down]);
             // downへ移行
             this.m_AnimState[0] = AnimationState.Down;
             this.m_DownTime = Time.time;
@@ -259,7 +259,7 @@ public partial class CharacterControl_Base : MonoBehaviour
             this.m_MoveDirection = Vector3.zero;
             // 回転を戻す
             // rotationの固定を復活させ、0,0,0にする
-            this.rigidbody.rotation = Quaternion.Euler(Vector3.zero);
+            this.GetComponent<Rigidbody>().rotation = Quaternion.Euler(Vector3.zero);
         }
         // ブースト入力があった場合、ダウン値がMAX未満でブーストゲージが一定量あれば、Reversalへ変更	
         // rotationを0にして復帰アニメを再生する
@@ -282,7 +282,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         if (this.m_isGrounded)
         {
             // ダウンアニメを再生
-            this.animation.Play(m_AnimationNames[(int)AnimationState.Down]);
+            this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.Down]);
             // downへ移行
             this.m_AnimState[0] = AnimationState.Down;
             this.m_DownTime = Time.time;
@@ -290,7 +290,7 @@ public partial class CharacterControl_Base : MonoBehaviour
             this.m_MoveDirection = Vector3.zero;
             // 回転を戻す
             // rotationの固定を復活させ、0,0,0にする
-            this.rigidbody.rotation = Quaternion.Euler(Vector3.zero);
+            this.GetComponent<Rigidbody>().rotation = Quaternion.Euler(Vector3.zero);
         }
     }
 
@@ -300,8 +300,8 @@ public partial class CharacterControl_Base : MonoBehaviour
     protected virtual void Down()
     {
         // rotationの固定を復活させ、0,0,0にする
-        this.rigidbody.rotation = Quaternion.Euler(Vector3.zero);        
-        this.rigidbody.freezeRotation = true;
+        this.GetComponent<Rigidbody>().rotation = Quaternion.Euler(Vector3.zero);        
+        this.GetComponent<Rigidbody>().freezeRotation = true;
 
 	    // m_DownTimeが規定値を超えると、復帰アニメを再生する
         if (Time.time > this.m_DownTime + this.m_DownWaitTime)
@@ -336,7 +336,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         // ステートをIdleに戻す
         this.m_AnimState[0] = AnimationState.Idle;
         // Idleのアニメを再生する
-        this.animation.Play(this.m_AnimationNames[(int)AnimationState.Idle]);
+        this.GetComponent<Animation>().Play(this.m_AnimationNames[(int)AnimationState.Idle]);
         // m_DownTimeを0にする
         this.m_DownTime = 0;
     }
@@ -345,12 +345,12 @@ public partial class CharacterControl_Base : MonoBehaviour
     protected void ReversalInit()
     {
         // rotationの固定を復活させ、0,0,0にする
-        this.rigidbody.rotation = Quaternion.Euler(Vector3.zero);
+        this.GetComponent<Rigidbody>().rotation = Quaternion.Euler(Vector3.zero);
         // 再固定する
-        this.rigidbody.freezeRotation = true;
+        this.GetComponent<Rigidbody>().freezeRotation = true;
         // ステートを復帰にする
         this.m_AnimState[0] = AnimationState.Reversal;
         // 復帰アニメを再生する
-        this.animation.Play(this.m_AnimationNames[(int)AnimationState.Reversal]);
+        this.GetComponent<Animation>().Play(this.m_AnimationNames[(int)AnimationState.Reversal]);
     }
 }

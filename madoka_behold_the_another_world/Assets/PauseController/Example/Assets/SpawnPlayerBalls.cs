@@ -17,17 +17,17 @@ public class SpawnPlayerBalls : MonoBehaviour {
 		
 		if( Input.GetMouseButtonDown( 0 ) )
 		{
-			Ray ray = Camera.mainCamera.ScreenPointToRay( Input.mousePosition ) ;
+			Ray ray = Camera.main.ScreenPointToRay( Input.mousePosition ) ;
 			
 			RaycastHit hit ; 
 			if( Physics.Raycast( ray, out hit ) )
 			{
 				// ball.transform.position = hit.point ; 
-				GameObject gobj = ( GameObject)GameObject.Instantiate( spawnGameObject, Camera.mainCamera.transform.position + ( ray.direction * 17.5f ), Quaternion.identity ) ; 
+				GameObject gobj = ( GameObject)GameObject.Instantiate( spawnGameObject, Camera.main.transform.position + ( ray.direction * 17.5f ), Quaternion.identity ) ; 
 
-				if( gobj.rigidbody )
+				if( gobj.GetComponent<Rigidbody>() )
 				{
-					gobj.rigidbody.velocity = ray.direction * 275.0f ; 
+					gobj.GetComponent<Rigidbody>().velocity = ray.direction * 275.0f ; 
 				}
 			}
 			

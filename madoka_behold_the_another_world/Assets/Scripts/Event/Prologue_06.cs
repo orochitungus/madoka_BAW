@@ -33,7 +33,7 @@ public class Prologue_06 : EventBase
 		// BGM再生開始
 		AudioManager.Instance.PlayBGM("Kaorimade_rintoshita");
         // カメラ1を動かす
-        m_camera[0].animation.Play("prologue6_camera1");
+        m_camera[0].GetComponent<Animation>().Play("prologue6_camera1");
 	}
 	
 	// Update is called once per frame
@@ -64,7 +64,7 @@ public class Prologue_06 : EventBase
                 keybreak = true;
                 m_camera[0].SetActive(false);
                 m_camera[1].SetActive(true);
-                m_Kyosuke.animation.Play("kyosuke_sitdown_lookback_copy");
+                m_Kyosuke.GetComponent<Animation>().Play("kyosuke_sitdown_lookback_copy");
                 FullClear();
                 IncrementXstory();
                 break;
@@ -99,7 +99,7 @@ public class Prologue_06 : EventBase
                 keybreak = true;
                 FullClear();
                 // 恭介の顔を戻す
-                m_Kyosuke.animation.Play("kyosuke_sitdown_lookback_return_copy");
+                m_Kyosuke.GetComponent<Animation>().Play("kyosuke_sitdown_lookback_return_copy");
                 // 恭介の表情を変更する
                 m_KyosukeFaceSelecter.ChangeFaceTexture(1);
                 IncrementXstory();
@@ -185,13 +185,13 @@ public class Prologue_06 : EventBase
                 m_camera[1].SetActive(false);
                 m_SayakaFaceSelecter.ChangeFaceTexture(0);
                 // エレベーターのドアを開ける
-                m_DoorEvL.animation.Play("mitakiharahospital_evdoor_l_open_copy");
-                m_DoorEvR.animation.Play("mitakiharahospital_evdoor_r_open_copy");
+                m_DoorEvL.GetComponent<Animation>().Play("mitakiharahospital_evdoor_l_open_copy");
+                m_DoorEvR.GetComponent<Animation>().Play("mitakiharahospital_evdoor_r_open_copy");
                 // さやかたちを歩かせる
-                m_Sayaka.animation.Play("sayaka_push_wc_walk_copy");
-                m_WheelChair.animation.Play("wheelchair_move_copy");
-                m_Sayaka.rigidbody.velocity = new Vector3(2.0f, 0, 0);
-                m_WheelChair.rigidbody.velocity = new Vector3(2.0f, 0, 0);
+                m_Sayaka.GetComponent<Animation>().Play("sayaka_push_wc_walk_copy");
+                m_WheelChair.GetComponent<Animation>().Play("wheelchair_move_copy");
+                m_Sayaka.GetComponent<Rigidbody>().velocity = new Vector3(2.0f, 0, 0);
+                m_WheelChair.GetComponent<Rigidbody>().velocity = new Vector3(2.0f, 0, 0);
                 IncrementXstory();
                 break;
             case 17:
@@ -233,7 +233,7 @@ public class Prologue_06 : EventBase
                 FullClear();
                 m_camera[2].SetActive(false);
                 m_camera[3].SetActive(true);
-                m_camera[3].animation.Play("prolouge6_camera4");
+                m_camera[3].GetComponent<Animation>().Play("prolouge6_camera4");
                 IncrementXstory();
                 break;
             case 21:

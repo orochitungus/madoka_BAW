@@ -34,7 +34,7 @@ public class Homura_Lead_Shot_Arrow : Bullet
         // 親オブジェクトを取得(rootでツリーの一番上から検索をかける）
         m_Obj_OR = transform.root.GetComponentInChildren<Homura_Final_BattleControl>().gameObject;
         // 接触対象に自分は除く（散弾や爆風は発生時に別のオブジェクトを呼ぶ）
-        Physics.IgnoreCollision(this.transform.collider, m_Obj_OR.transform.collider);
+        Physics.IgnoreCollision(this.transform.GetComponent<Collider>(), m_Obj_OR.transform.GetComponent<Collider>());
         // 撃ったキャラが誰であるか保持
         m_CharacterIndex = (int)Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B;
         // 累積時間を初期化

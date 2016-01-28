@@ -75,7 +75,7 @@ public class Prologue_05 : EventBase
             case 3:
                 keybreak = true;
                 FullClear();
-                m_Homura.animation.Play("homura_hold_the_head_copy");
+                m_Homura.GetComponent<Animation>().Play("homura_hold_the_head_copy");
                 IncrementXstory();
                 break;
             case 4:

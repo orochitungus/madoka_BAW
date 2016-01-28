@@ -126,7 +126,7 @@ public class Prologue_01 : EventBase
                 // カメラ4を実行する
                 this.m_camera[3].SetActive(true);
                 // キュゥべえにアニメーションを行わせる
-                Kyubey.animation.Play("see_ru_copy");
+                Kyubey.GetComponent<Animation>().Play("see_ru_copy");
                 IncrementXstory();
                 break;
             case 3:
@@ -145,7 +145,7 @@ public class Prologue_01 : EventBase
                 this.m_camera[3].SetActive(false);
                 // カメラ3を実行する
                 this.m_camera[2].SetActive(true);
-                Homura.animation.Play("homura_see_lu_copy");
+                Homura.GetComponent<Animation>().Play("homura_see_lu_copy");
                 IncrementXstory();
                 break;
             case 5:
@@ -162,7 +162,7 @@ public class Prologue_01 : EventBase
                 keybreak = true;
                 this.m_camera[2].SetActive(false);
                 this.m_camera[3].SetActive(true);
-                Kyubey.animation.Play("see_ru_r_copy");
+                Kyubey.GetComponent<Animation>().Play("see_ru_r_copy");
                 IncrementXstory();
                 break;
             case 7:
@@ -247,7 +247,7 @@ public class Prologue_01 : EventBase
                 keybreak = true;
                 this.m_camera[3].SetActive(false);
                 this.m_camera[2].SetActive(true);
-                Homura.animation.Play("homura_see_lu_back_copy");
+                Homura.GetComponent<Animation>().Play("homura_see_lu_back_copy");
                 IncrementXstory();
                 break;
             case 15:
@@ -288,7 +288,7 @@ public class Prologue_01 : EventBase
                 if (m_majyuappear[0] == m_majyuflag.ERASE && m_appearmajyu > 60)
                 {
                     // 魔獣出現時のアニメーションを再生
-                    Majyu[0].animation.Play("majyu_appear");
+                    Majyu[0].GetComponent<Animation>().Play("majyu_appear");
                     // 魔獣出現時のSEを再生
                     AudioSource.PlayClipAtPoint(m_appearmajyu_se, transform.position);
                     // 出現フラグを折っておく
@@ -303,7 +303,7 @@ public class Prologue_01 : EventBase
                 if (m_majyuappear[4] == m_majyuflag.APPEAR && m_appearmajyu > 150 + 90 * 4)
                 {
                     // 魔獣出現時のアニメーションを再生
-                    Majyu[4].animation.Play("idle_majyu");
+                    Majyu[4].GetComponent<Animation>().Play("idle_majyu");
                     // パーティクルを召喚
                     Majyu_particle[4].transform.position = m_majyu_effect[4];
                     Majyu_particle[4].transform.rotation = particlerotate;
@@ -337,7 +337,7 @@ public class Prologue_01 : EventBase
                 // 抜刀時のSEを鳴らす
                 AudioSource.PlayClipAtPoint(m_drawn_bow, transform.position);
                 // ほむらに抜刀ポーズをとらせる
-                Homura.animation.Play("reload_arrow_homura_ribon_event2_copy");
+                Homura.GetComponent<Animation>().Play("reload_arrow_homura_ribon_event2_copy");
                 // 表情を変える
                 var Face = Homura.GetComponentInChildren<FaceSelecter>(); // 対象オブジェクトに取り付けたスクリプト名を指定する              
                 Face.ChangeFaceTexture("homura_seriousface");
@@ -356,7 +356,7 @@ public class Prologue_01 : EventBase
             case 22:
                 keybreak = true;
                 // ほむらに弓を引くポーズをとらせる
-                Homura.animation.Play("set_bow_homura_ribon_event2_copy");
+                Homura.GetComponent<Animation>().Play("set_bow_homura_ribon_event2_copy");
                 // 弓の弦を出す
                 var C_Bow_String = BowString.GetComponent<HockControl>();
                 C_Bow_String.EquipWeapon();     // この状態で元のフックはMissingになる（実質解放されたと同じで、アクセスしようとするとヌルポインタバグになる）
@@ -365,7 +365,7 @@ public class Prologue_01 : EventBase
                 //var C_Bow_String_True = C_Bow_String.GetComponent<AssetAnimation_Done>();   // 切り替えた新しいオブジェクトもヌルになる
                 // 親元のHomuraから拾ってみると・・・？
                 var C_Bow_String_True2 = Homura.GetComponentInChildren<AssetAnimation_Done>();  // こっちはいける。ルートオブジェクトからGetComponentInChildrenで対象のクラスを呼べばヌルにならん
-                C_Bow_String_True2.animation.Play("homura_bow_string_set");      // 再生
+                C_Bow_String_True2.GetComponent<Animation>().Play("homura_bow_string_set");      // 再生
                 // 矢を出す
                 var C_Arrow = Homura_Arrow.GetComponent<HockControl>();
                 C_Arrow.EquipWeapon();
@@ -446,7 +446,7 @@ public class Prologue_01 : EventBase
         if (m_majyuappear[i] == m_majyuflag.APPEAR && m_appearmajyu > 150 + 90 * i)
         {
             // 魔獣出現時のアニメーションを再生
-            Majyu[i].animation.Play("idle_majyu");
+            Majyu[i].GetComponent<Animation>().Play("idle_majyu");
             // パーティクルを召喚
             Majyu_particle[i].transform.position = m_majyu_effect[i];
             Majyu_particle[i].transform.rotation = particlerotate;
@@ -455,7 +455,7 @@ public class Prologue_01 : EventBase
             if (i < max - 1)
             {
                 // 次の魔獣を表示
-                Majyu[i + 1].animation.Play("majyu_appear");
+                Majyu[i + 1].GetComponent<Animation>().Play("majyu_appear");
                 // 魔獣出現時のSEを再生
                 AudioSource.PlayClipAtPoint(m_appearmajyu_se, transform.position);
                 // 出現フラグを折っておく

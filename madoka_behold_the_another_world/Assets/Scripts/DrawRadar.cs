@@ -37,12 +37,12 @@ public class DrawRadar : MonoBehaviour
         // 僚機
         if (target.m_isPlayer == CharacterControl_Base.CHARACTERCODE.PLAYER_ALLY)
         {
-            m_MarkerObject.renderer.material.mainTexture = (Texture)Instantiate(m_MarkerAlly);
+            m_MarkerObject.GetComponent<Renderer>().material.mainTexture = (Texture)Instantiate(m_MarkerAlly);
         }
         // 敵機
         else if (target.m_isPlayer == CharacterControl_Base.CHARACTERCODE.ENEMY)
         {
-            m_MarkerObject.renderer.material.mainTexture = (Texture)Instantiate(m_MarkerEnemy);
+            m_MarkerObject.GetComponent<Renderer>().material.mainTexture = (Texture)Instantiate(m_MarkerEnemy);
         }
         // カメラの元角度を取得
         m_rotate_OR = m_PerspectiveCamera.transform.rotation.eulerAngles;

@@ -64,7 +64,7 @@ public class Wrestle_Core : MonoBehaviour
         // 親のオブジェクトを拾う
         m_Obj_OR = transform.root.GetComponentInChildren<CharacterControl_Base>().gameObject;
         // 自機をダメージ対象から除外する
-        Physics.IgnoreCollision(this.transform.collider, m_Obj_OR.transform.collider); 
+        Physics.IgnoreCollision(this.transform.GetComponent<Collider>(), m_Obj_OR.transform.GetComponent<Collider>()); 
         // 各ステートを設定
         m_offemsivePower = offensive;
         m_downRatio = downR;
@@ -193,8 +193,8 @@ public class Wrestle_Core : MonoBehaviour
 
             target.m_BlowDirection = m_Obj_OR.GetComponent<CharacterControl_Base>().m_MoveDirection;
             // 吹き飛びの場合、攻撃を当てた相手を浮かす（m_launchOffset)            
-            target.rigidbody.position = target.rigidbody.position + new Vector3(m_launchforce, this.m_launchOffset, m_launchforce);
-            target.rigidbody.AddForce(master.m_MoveDirection.x * m_launchOffset, master.m_MoveDirection.y * m_launchOffset, master.m_MoveDirection.z * m_launchOffset);
+            target.GetComponent<Rigidbody>().position = target.GetComponent<Rigidbody>().position + new Vector3(m_launchforce, this.m_launchOffset, m_launchforce);
+            target.GetComponent<Rigidbody>().AddForce(master.m_MoveDirection.x * m_launchOffset, master.m_MoveDirection.y * m_launchOffset, master.m_MoveDirection.z * m_launchOffset);
             target.m_AnimState[0] = CharacterControl_Base.AnimationState.BlowInit;
         }
         // それ以外は多段ヒットしない程度に飛ばす

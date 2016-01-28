@@ -15,9 +15,9 @@ public class AssetAnimation_Done : MonoBehaviour
 	{
 	
 	}
-    // ƒAƒjƒ‚ğÄ¶‚·‚é
+    // ã‚¢ãƒ‹ãƒ¡ã‚’å†ç”Ÿã™ã‚‹
     public void PlayAnimation(string animationname)
     {
-        this.animation.Play(animationname);
+        this.GetComponent<Animation>().Play(animationname);
     }
 }

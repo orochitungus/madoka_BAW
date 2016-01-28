@@ -23,7 +23,7 @@ public class Scono_NormalShot : Bullet
         // 親オブジェクトを取得(rootでツリーの一番上から検索をかける）        
         m_Obj_OR = transform.root.GetComponentInChildren<Scono_Battle_Control>().gameObject;
         // 接触対象に自分は除く（散弾や爆風は発生時に別のオブジェクトを呼ぶ）
-        Physics.IgnoreCollision(this.transform.collider, m_Obj_OR.transform.collider);
+        Physics.IgnoreCollision(this.transform.GetComponent<Collider>(), m_Obj_OR.transform.GetComponent<Collider>());
         // 撃ったキャラが誰であるか保持
         m_CharacterIndex = (int)Character_Spec.CHARACTER_NAME.MEMBER_SCHONO;
         // 被弾時の挙動を設定

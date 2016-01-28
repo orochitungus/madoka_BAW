@@ -22,7 +22,7 @@ public class Homura_EX_ShotArrow_L : Bullet
         // 親オブジェクトを取得(rootでツリーの一番上から検索をかける）  
         m_Obj_OR = transform.root.GetComponentInChildren<Homura_Final_BattleControl>().gameObject;
         // 接触対象に自分は除く（散弾や爆風は発生時に別のオブジェクトを呼ぶ）
-        Physics.IgnoreCollision(this.transform.collider, m_Obj_OR.transform.collider);
+        Physics.IgnoreCollision(this.transform.GetComponent<Collider>(), m_Obj_OR.transform.GetComponent<Collider>());
         // 撃ったキャラが誰であるか保持
         m_CharacterIndex = (int)Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B;
         // 被弾時の挙動を設定
@@ -64,7 +64,7 @@ public class Homura_EX_ShotArrow_L : Bullet
             if (m_Obj_OR != null && m_Obj_OR.GetComponent<CharacterControl_Base>().GetShotmode() == CharacterControl_Base.ShotMode.SHOTDONE)
             {
                 // その時の座標を保持する
-                this.rigidbody.position = m_Obj_OR.GetComponent<CharacterControl_Base>().m_ArrowRoot.rigidbody.position;
+                this.GetComponent<Rigidbody>().position = m_Obj_OR.GetComponent<CharacterControl_Base>().m_ArrowRoot.GetComponent<Rigidbody>().position;
                 // 進行方向ベクトルを保持する
                 this.m_MoveDirection = m_Obj_OR.GetComponent<CharacterControl_Base>().m_BulletMoveDirection;
                 // 攻撃力を保持する
@@ -78,7 +78,7 @@ public class Homura_EX_ShotArrow_L : Bullet
                 // 独立フラグを立てる
                 this.m_IsIndependence = true;
                 // IsKinematicを折る
-                this.transform.rigidbody.isKinematic = false;
+                this.transform.GetComponent<Rigidbody>().isKinematic = false;
 
                 Vector3 Correction_Rot = new Vector3(this.transform.rotation.eulerAngles.x, this.transform.rotation.eulerAngles.y + 12.0f, this.transform.rotation.eulerAngles.z);
                 this.transform.rotation = Quaternion.Euler(Correction_Rot);
