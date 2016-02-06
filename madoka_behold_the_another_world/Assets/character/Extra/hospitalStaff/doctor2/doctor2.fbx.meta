@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 1212e3b0f52e18c48a74ffb336ccab29
 ModelImporter:
-  serializedVersion: 16
+  serializedVersion: 19
   fileIDToRecycleName:
     100000: __
     100002: __
@@ -56,6 +56,18 @@ ModelImporter:
     100100: Mesh
     100102: root
     100104: XSBone_000
+    100106: "_\u83EC_w1_L_"
+    100108: "_\u83EC_w1_R_"
+    100110: "_\u83EC_w2_L_"
+    100112: "_\u83EC_w2_R_"
+    100114: "_\u83EC_w3_L_"
+    100116: "_\u83EC_w3_R_"
+    100118: "_\u8486_w1_L_"
+    100120: "_\u8486_w1_R_"
+    100122: "_\u8486_w2_L_"
+    100124: "_\u8486_w2_R_"
+    100126: "_\u8486_w3_L_"
+    100128: "_\u8486_w3_R_"
     400000: __
     400002: __
     400004: _____L_
@@ -109,6 +121,18 @@ ModelImporter:
     400100: Mesh
     400102: root
     400104: XSBone_000
+    400106: "_\u83EC_w1_L_"
+    400108: "_\u83EC_w1_R_"
+    400110: "_\u83EC_w2_L_"
+    400112: "_\u83EC_w2_R_"
+    400114: "_\u83EC_w3_L_"
+    400116: "_\u83EC_w3_R_"
+    400118: "_\u8486_w1_L_"
+    400120: "_\u8486_w1_R_"
+    400122: "_\u8486_w2_L_"
+    400124: "_\u8486_w2_R_"
+    400126: "_\u8486_w3_L_"
+    400128: "_\u8486_w3_R_"
     4300000: body
     7400000: doctor2_neutral
     7400002: doctor2_walk
@@ -122,19 +146,24 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
+    resampleRotations: 1
     optimizeGameObjects: 0
     motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
     animationCompression: 1
-    animationRotationError: .5
-    animationPositionError: .5
-    animationScaleError: .5
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
     clipAnimations: []
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: .00999999978
+    globalScale: 0.01
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
@@ -142,30 +171,35 @@ ModelImporter:
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
+    keepQuads: 0
     weldVertices: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
+    useFileScale: 0
   tangentSpace:
     normalSmoothAngle: 60
-    splitTangentsAcrossUV: 1
     normalImportMode: 0
-    tangentImportMode: 1
+    tangentImportMode: 4
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
     human: []
     skeleton: []
-    armTwist: .5
-    foreArmTwist: .5
-    upperLegTwist: .5
-    legTwist: .5
-    armStretch: .0500000007
-    legStretch: .0500000007
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
+    hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
+  humanoidOversampling: 1
   additionalBone: 0
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 
