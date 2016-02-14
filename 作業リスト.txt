@@ -1,7 +1,5 @@
 見滝原市全景を作る→1/31
 
-交差点を作る→1/31
-
 LoadSceneを作る→2/7
 
 今までの分の支払い金額をまとめる
@@ -31,7 +29,7 @@ Mecanim準拠のCharacterControlBaseを作る
 
 TalkSystemの吹きだしの大きさをイベントシーンのそれと一致させる→/
 
-
+RoundCallを作る
 
 制服まどかを作る→/
 
