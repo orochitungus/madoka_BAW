@@ -1,27 +1,25 @@
 fileFormatVersion: 2
-guid: d1e7b9d4525fc74468eb854d5a661548
-timeCreated: 1455153893
+guid: 7583fb9e85bd2c34aac00f15908c9ac0
+timeCreated: 1456565657
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: water_layer1
-    100002: water_layer2
-    100004: water_layer3
-    100006: //RootNode
-    400000: water_layer1
-    400002: water_layer2
-    400004: water_layer3
-    400006: //RootNode
-    2300000: water_layer1
-    2300002: water_layer2
-    2300004: water_layer3
-    3300000: water_layer1
-    3300002: water_layer2
-    3300004: water_layer3
-    4300000: water_layer1
-    4300002: water_layer2
-    4300004: water_layer3
+    100000: //RootNode
+    100002: asphalt
+    100004: streetlight
+    400000: //RootNode
+    400002: asphalt
+    400004: streetlight
+    2300000: //RootNode
+    2300002: asphalt
+    2300004: streetlight
+    3300000: //RootNode
+    3300002: asphalt
+    3300004: streetlight
+    4300000: akemihome_out
+    4300002: streetlight
+    4300004: asphalt
   materials:
     importMaterials: 1
     materialName: 0

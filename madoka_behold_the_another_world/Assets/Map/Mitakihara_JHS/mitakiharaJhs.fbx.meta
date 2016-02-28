@@ -1,0 +1,163 @@
+fileFormatVersion: 2
+guid: 209354b551905ef40892f3f77cfcd085
+timeCreated: 1456577310
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: admistration_building
+    100002: baseballground
+    100004: byciclestand
+    100006: clubroom
+    100008: gate
+    100010: ground
+    100012: gymnasium
+    100014: incinerator
+    100016: Maintenance_room
+    100018: //RootNode
+    100020: newschoolbuilding
+    100022: oldschollTop
+    100024: oldschoolbuilding
+    100026: pool
+    100028: pool1
+    100030: stand
+    100032: tennis_basketcort
+    100034: toolroom
+    100036: toolroom1
+    400000: admistration_building
+    400002: baseballground
+    400004: byciclestand
+    400006: clubroom
+    400008: gate
+    400010: ground
+    400012: gymnasium
+    400014: incinerator
+    400016: Maintenance_room
+    400018: //RootNode
+    400020: newschoolbuilding
+    400022: oldschollTop
+    400024: oldschoolbuilding
+    400026: pool
+    400028: pool1
+    400030: stand
+    400032: tennis_basketcort
+    400034: toolroom
+    400036: toolroom1
+    2300000: admistration_building
+    2300002: baseballground
+    2300004: byciclestand
+    2300006: clubroom
+    2300008: gate
+    2300010: ground
+    2300012: gymnasium
+    2300014: incinerator
+    2300016: Maintenance_room
+    2300018: newschoolbuilding
+    2300020: oldschollTop
+    2300022: oldschoolbuilding
+    2300024: pool
+    2300026: pool1
+    2300028: stand
+    2300030: tennis_basketcort
+    2300032: toolroom
+    2300034: toolroom1
+    3300000: admistration_building
+    3300002: baseballground
+    3300004: byciclestand
+    3300006: clubroom
+    3300008: gate
+    3300010: ground
+    3300012: gymnasium
+    3300014: incinerator
+    3300016: Maintenance_room
+    3300018: newschoolbuilding
+    3300020: oldschollTop
+    3300022: oldschoolbuilding
+    3300024: pool
+    3300026: pool1
+    3300028: stand
+    3300030: tennis_basketcort
+    3300032: toolroom
+    3300034: toolroom1
+    4300000: ground
+    4300002: gate
+    4300004: baseballground
+    4300006: clubroom
+    4300008: toolroom
+    4300010: toolroom1
+    4300012: tennis_basketcort
+    4300014: pool
+    4300016: stand
+    4300018: gymnasium
+    4300020: incinerator
+    4300022: Maintenance_room
+    4300024: byciclestand
+    4300026: admistration_building
+    4300028: newschoolbuilding
+    4300030: pool1
+    4300032: oldschoolbuilding
+    4300034: oldschollTop
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
