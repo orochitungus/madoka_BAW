@@ -2,7 +2,7 @@
 using System.Collections;
 
 // 全画面共通の固定値
-public static class MadokaDefine 
+public class MadokaDefine : SingletonMonoBehaviour<MadokaDefine>
 {
 	// 画面サイズ
     public static float SCREENWIDTH = 1024.0f;
