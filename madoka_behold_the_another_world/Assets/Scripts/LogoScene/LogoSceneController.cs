@@ -28,9 +28,9 @@ public class LogoSceneController : MonoBehaviour
 	/// <returns></returns>
 	private IEnumerator AppearCompanyLogo()
 	{
-        LogoAppear.SetBool("PresentedAppear", true);
+		// 一定時間後ロゴ出現        
 		yield return new WaitForSeconds(1.0f);
-        LogoAppear.SetBool("CompanyLogoAppear", true);
+		LogoAppear.SetTrigger("Start");
 		yield return new WaitForSeconds(2.0f);
 		// TODO:コントローラー設定をやっていたらタイトルへ、していなかったらコントローラー設定へ
 
