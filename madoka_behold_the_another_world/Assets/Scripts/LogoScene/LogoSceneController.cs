@@ -4,12 +4,11 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class LogoSceneController : MonoBehaviour 
-{
-
-	/// <summary>
-	/// Tungus-Villageの文字列
-	/// </summary>
-	public Text CompanyLogo;
+{    
+    /// <summary>
+    /// Logo制御を行うアニメーション
+    /// </summary>
+    public Animator LogoAppear;
 
 	// Use this for initialization
 	void Start () 
@@ -29,8 +28,9 @@ public class LogoSceneController : MonoBehaviour
 	/// <returns></returns>
 	private IEnumerator AppearCompanyLogo()
 	{
-		yield return new WaitForSeconds(2.0f);
-		
+        LogoAppear.SetBool("PresentedAppear", true);
+		yield return new WaitForSeconds(1.0f);
+        LogoAppear.SetBool("CompanyLogoAppear", true);
 		yield return new WaitForSeconds(2.0f);
 		// TODO:コントローラー設定をやっていたらタイトルへ、していなかったらコントローラー設定へ
 
