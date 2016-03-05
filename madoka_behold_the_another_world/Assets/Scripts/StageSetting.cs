@@ -179,6 +179,13 @@ public class StageSetting : MonoBehaviour
 			GameObject talkSystem = (GameObject)Instantiate(Resources.Load("TalkSystem"));
 			talkSystem.name = "TalkSystem";
 		}
+        // LoadManagerがあるか判定
+        if (GameObject.Find("LoadManager") == null)
+        {
+            // 無ければ作る
+            GameObject loadManager = (GameObject)Instantiate(Resources.Load("LoadManager"));
+            loadManager.name = "LoadManager";
+        }
     }
 
     // ロードするキャラクターのファイル名(ルート・戦闘用）

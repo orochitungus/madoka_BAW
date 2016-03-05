@@ -308,7 +308,7 @@ public class Prologue_02 : EventBase
                 // VSスコノシュート戦へ飛ばす
                 savingparameter.nowField = 4;
                 savingparameter.beforeField = 0;
-				Application.LoadLevel("Imagica_Shock_Ground_Zero_VSScono");
+                FadeManager.Instance.LoadLevel("Imagica_Shock_Ground_Zero_VSScono",1.0f);
                 break;
         }
         EventUpdate();

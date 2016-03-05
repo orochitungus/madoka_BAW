@@ -269,9 +269,15 @@ public class EventBase : MonoBehaviour
 			GameObject fadeManager = (GameObject)Instantiate(Resources.Load("FadeManager"));
 			fadeManager.name = "FadeManager";
 		}
-
-		//ここで黒テクスチャ作る
-		StartCoroutine(CreateBlackTexture());
+        // LoadManagerがあるか判定
+        if (GameObject.Find("LoadManager") == null)
+        {
+            // 無ければ作る
+            GameObject loadManager = (GameObject)Instantiate(Resources.Load("LoadManager"));
+            loadManager.name = "LoadManager";
+        }
+        //ここで黒テクスチャ作る
+        StartCoroutine(CreateBlackTexture());
     }
 
     // 共通ステートの実行

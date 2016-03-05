@@ -10,6 +10,31 @@ public class LogoSceneController : MonoBehaviour
     /// </summary>
     public Animator LogoAppear;
 
+    void Awake()
+    {
+        // AudioManagerがあるか判定
+        if (GameObject.Find("AudioManager") == null)
+        {
+            // なければ作る
+            GameObject am = (GameObject)Instantiate(Resources.Load("AudioManager"));
+            am.name = "AudioManager";   // このままだと名前にAudioManagerがつくので消しておく
+        }
+        // FadeManagerがあるか判定
+        if (GameObject.Find("FadeManager") == null)
+        {
+            // 無ければ作る
+            GameObject fadeManager = (GameObject)Instantiate(Resources.Load("FadeManager"));
+            fadeManager.name = "FadeManager";
+        }
+        // LoadManagerがあるか判定
+        if(GameObject.Find("LoadManager") == null)
+        {
+            // 無ければ作る
+            GameObject loadManager = (GameObject)Instantiate(Resources.Load("LoadManager"));
+            loadManager.name = "LoadManager";
+        }
+    }
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -31,8 +56,10 @@ public class LogoSceneController : MonoBehaviour
 		// 一定時間後ロゴ出現        
 		yield return new WaitForSeconds(1.0f);
 		LogoAppear.SetTrigger("Start");
-		yield return new WaitForSeconds(2.0f);
-		// TODO:コントローラー設定をやっていたらタイトルへ、していなかったらコントローラー設定へ
-
+		yield return new WaitForSeconds(3.0f);
+        // TODO:コントローラー設定をやっていたらタイトルへ、していなかったらコントローラー設定へ
+        // タイトルへ遷移
+        FadeManager.Instance.LoadLevel("title", 1.0f);
+        // コントローラーセッティングへ遷移
 	}
 }

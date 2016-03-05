@@ -36,7 +36,14 @@ public class Prologue_05 : EventBase
             // BGM再生開始(この前と共通のためifの中）
             AudioManager.Instance.PlayBGM("kusabi");
         }
-       
+        // LoadManagerがあるか判定
+        if (GameObject.Find("LoadManager") == null)
+        {
+            // 無ければ作る
+            GameObject loadManager = (GameObject)Instantiate(Resources.Load("LoadManager"));
+            loadManager.name = "LoadManager";
+        }
+
         EventInitialize();
 	}
 	

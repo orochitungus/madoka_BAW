@@ -33,7 +33,7 @@ public class ProvisonalEnding : EventBase
 					m_serif[i] = "";
 				}
 				savingparameter.beforeField = 0;
-				Application.LoadLevel("title");
+                FadeManager.Instance.LoadLevel("title", 1.0f);
 				break;
 		}
 		EventUpdate();

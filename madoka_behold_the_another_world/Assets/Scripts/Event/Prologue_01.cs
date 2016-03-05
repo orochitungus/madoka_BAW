@@ -429,9 +429,7 @@ public class Prologue_01 : EventBase
                 // 必要ステートを初期化
                 savingparameter.savingparameter_Init();
                 savingparameter.beforeField = 0;
-				// フェード入れると次のシーンで重くなるので、ここだけ例外
-				//FadeManager.Instance.LoadLevel("Broken_Mitakihara", 1.0f);
-				Application.LoadLevel("Broken_Mitakihara");
+				FadeManager.Instance.LoadLevel("Broken_Mitakihara", 1.0f);
 				break;
         }
         EventUpdate();

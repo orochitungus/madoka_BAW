@@ -225,7 +225,6 @@ public class MoveChoices : NPCControlBase
 	{
 		savingparameter.beforeField = fromcode;
 		savingparameter.nowField = forcode;
-		//FadeManager.Instance.LoadLevel(forscene, 1.0f);
-		Application.LoadLevel(forscene);
+		FadeManager.Instance.LoadLevel(forscene, 1.0f);
 	}
 }

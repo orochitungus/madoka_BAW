@@ -349,7 +349,7 @@ public class ExEpisode1 : EventBase
 				// 見滝原病院106階へ飛ばす
 				savingparameter.nowField = 7;
 				savingparameter.beforeField = 1102;
-				Application.LoadLevel("Mitakihara_Hospital_106F");
+                FadeManager.Instance.LoadLevel("Mitakihara_Hospital_106F", 1.0f);
                 savingparameter.story = 4;
 				break;
 		}

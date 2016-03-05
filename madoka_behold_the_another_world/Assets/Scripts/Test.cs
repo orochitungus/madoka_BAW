@@ -20,7 +20,7 @@ public class Test : MonoBehaviour {
         foreach (ParticleCollisionEvent item in ces)
         {
             // action
-            Debug.Log(item.collider);
+            Debug.Log(item.colliderComponent);
         }
 
     }

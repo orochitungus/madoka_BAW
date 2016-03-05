@@ -4,6 +4,16 @@ using System.Collections;
 // 全画面共通の固定値
 public class MadokaDefine : SingletonMonoBehaviour<MadokaDefine>
 {
+    // Destroyさせない
+    public void Awake()
+    {
+        if (this != Instance)
+        {
+            Destroy(this);
+            return;
+        }
+    }
+    
 	// 画面サイズ
     public static float SCREENWIDTH = 1024.0f;
     public static float SCREENHIGET = 576.0f;

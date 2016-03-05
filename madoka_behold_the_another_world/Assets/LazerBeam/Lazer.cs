@@ -59,11 +59,11 @@ public class Lazer : MonoBehaviour {
 
         if (isHit)
         {
-            hitParticle.GetComponent<ParticleSystem>().enableEmission = true;
+            //hitParticle.GetComponent<ParticleSystem>().enableEmission = true;
         }
         else
         {
-            hitParticle.GetComponent<ParticleSystem>().enableEmission = false;
+            //hitParticle.GetComponent<ParticleSystem>().enableEmission = false;
         }
 	}
 }

@@ -263,8 +263,7 @@ public class Prologue_06 : EventBase
                 // 見滝原病院56階へ飛ばす
                 savingparameter.nowField = 6;
                 savingparameter.beforeField = 7777;
-				//FadeManager.Instance.LoadLevel("Mitakihara_Hospital_56F", 1.0f);
-				Application.LoadLevel("Mitakihara_Hospital_56F");
+				FadeManager.Instance.LoadLevel("Mitakihara_Hospital_56F", 1.0f);
                 savingparameter.story = 3;
                 break;
         }
