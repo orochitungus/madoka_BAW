@@ -1,6 +1,5 @@
 コントローラー設定機能を付ける（シーン追加して初回強制）→3/12
  inputmanagerを作り、コントローラー操作は全てそこから受け取る
-	KeyConfigSceneの作成								→3/7
 	PlayerPrefsへのアクセス機能の作成					→3/8
 	ControllerManagerの作成								→3/11
 	InputManagerの設定（想定しうる全キーを取れるようにする）
