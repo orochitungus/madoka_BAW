@@ -111,8 +111,9 @@ public class KeyConfigController : MonoBehaviour
         // 選択対象を初期化
         Nowselect = NOWSELECT.SHOT;
         
-        // 各オブジェクトを選択中、カーソルカラーを赤に変化
-        		
+		// 選択対象がSHOTならその時のカーソル色を赤にする
+
+		// それ以外ならその時のカーソルの色を白にする
 	}
 	
 	// Update is called once per frame
@@ -130,4 +131,14 @@ public class KeyConfigController : MonoBehaviour
             }
         }
     }
+
+	/// <summary>
+	/// 射撃ボタンが押された時の処理
+	/// </summary>
+	public void OnClickShotButton()
+	{
+		// 選択対象をSHOTにする
+		Nowselect = NOWSELECT.SHOT;
+		
+	}
 }

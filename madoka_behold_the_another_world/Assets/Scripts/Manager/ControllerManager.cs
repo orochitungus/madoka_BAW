@@ -6,41 +6,131 @@ using System.Collections;
 public class ControllerManager : SingletonMonoBehaviour<ControllerManager> 
 {
 	// 各種キーの入力の有無
-	// 射撃・決定
+	/// <summary>
+	/// 射撃・決定
+	/// </summary>
 	public bool Shot;
-	// 格闘
+
+	/// <summary>
+	/// 格闘
+	/// </summary>
 	public bool Wrestle;
-	// ジャンプ・キャンセル
+
+	/// <summary>
+	/// ジャンプ・キャンセル
+	/// </summary>
 	public bool Jump;
-	// サーチ
+
+	/// <summary>
+	/// サーチ
+	/// </summary>
 	public bool Search;
-	// コマンド
+
+	/// <summary>
+	/// コマンド
+	/// </summary>
 	public bool Command;
-	// メニュー
+
+	/// <summary>
+	/// メニュー
+	/// </summary>
 	public bool Menu;
-	// サブ射撃
+
+	/// <summary>
+	/// サブ射撃
+	/// </summary>
 	public bool SubShot;
-	// 特殊射撃
+
+	/// <summary>
+	/// 特殊射撃
+	/// </summary>
 	public bool EXShot;
-	// 特殊格闘
+
+	/// <summary>
+	/// 特殊格闘
+	/// </summary>
 	public bool EXWrestle;
-	// 視点回転上(仰角）
+
+	/// <summary>
+	/// 視点回転上(仰角）
+	/// </summary>
 	public bool ElevationAngleUpper;
-	// 視点回転下(仰角)
+
+	/// <summary>
+	/// 視点回転下(仰角)
+	/// </summary>
 	public bool ElevationAngleDown;
-	// 視点回転左(方位角)
+
+	/// <summary>
+	/// 視点回転左(方位角)
+	/// </summary>
 	public bool AzimuthLeft;
-	// 視点回転右(方位角)
+
+	/// <summary>
+	/// 視点回転右(方位角)
+	/// </summary>
 	public bool AzimuthRight;
 
 	// 各種キーの入力名（キーボード）
-	// 射撃・決定
+	/// <summary>
+	/// 射撃・決定
+	/// </summary>
 	public string ShotKeyName;
-	// 格闘
+
+	/// <summary>
+	/// 格闘
+	/// </summary>
 	public string WrestleKeyName;
-	// ジャンプ・キャンセル
+	
+	/// <summary>
+	/// ジャンプ・キャンセル
+	/// </summary>
 	public string JumpKeyName;
 
+	/// <summary>
+	/// サーチ
+	/// </summary>
+	public string SeachKeyName;
+
+	/// <summary>
+	/// メニュー
+	/// </summary>
+	public string MenuKeyName;
+
+	/// <summary>
+	/// サブ射撃
+	/// </summary>
+	public string SubShotKeyName;
+
+	/// <summary>
+	/// 特殊射撃
+	/// </summary>
+	public string EXShotKeyName;
+
+	/// <summary>
+	/// 特殊格闘
+	/// </summary>
+	public string EXWrestleKeyName;
+
+	/// <summary>
+	/// 視点回転上
+	/// </summary>
+	public string ElevationAngleUpKeyName;
+
+	/// <summary>
+	/// 視点回転下
+	/// </summary>
+	public string ElevationAngleDownKeyName;
+
+	/// <summary>
+	/// 視点回転左
+	/// </summary>
+	public string AzimuthLeftKeyName;
+
+	/// <summary>
+	/// 視点回転右
+	/// </summary>
+	public string AzimuthRightKeyName;
 
 	// 各種キーの入力名（ジョイスティック）
 
