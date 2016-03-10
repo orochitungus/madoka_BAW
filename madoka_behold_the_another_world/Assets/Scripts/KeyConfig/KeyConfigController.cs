@@ -128,8 +128,10 @@ public class KeyConfigController : MonoBehaviour
     public Image ElevationDownController;
 
     public Image AzimuthLeftKeyboard;
-    public Image AzimhthRightKeyboad;
+	public Image AzimuthLeftController;
 
+	public Image AzimhthRightKeyboad;
+	public Image AzimhthRightController;
     
     public NOWSELECT Nowselect;
 
@@ -199,7 +201,10 @@ public class KeyConfigController : MonoBehaviour
         ElevationDownController.color = new Color(1, 1, 1);
 
         AzimuthLeftKeyboard.color = new Color(1, 1, 1);
-        AzimhthRightKeyboad.color = new Color(1, 1, 1);
+		AzimuthLeftController.color = new Color(1, 1, 1);
+
+		AzimhthRightKeyboad.color = new Color(1, 1, 1);
+		AzimhthRightController.color = new Color(1, 1, 1);
     }
 
     /// <summary>
@@ -243,9 +248,12 @@ public class KeyConfigController : MonoBehaviour
         ElevetionDownKeyboard.color = new Color(1, 1, 1);
         ElevationDownController.color = new Color(1, 1, 1);
 
-        AzimuthLeftKeyboard.color = new Color(1, 1, 1);
-        AzimhthRightKeyboad.color = new Color(1, 1, 1);
-    }    
+		AzimuthLeftKeyboard.color = new Color(1, 1, 1);
+		AzimuthLeftController.color = new Color(1, 1, 1);
+
+		AzimhthRightKeyboad.color = new Color(1, 1, 1);
+		AzimhthRightController.color = new Color(1, 1, 1);
+	}    
 
     /// <summary>
     /// ジャンプボタンが押されたときの処理
@@ -287,8 +295,480 @@ public class KeyConfigController : MonoBehaviour
         ElevetionDownKeyboard.color = new Color(1, 1, 1);
         ElevationDownController.color = new Color(1, 1, 1);
 
-        AzimuthLeftKeyboard.color = new Color(1, 1, 1);
-        AzimhthRightKeyboad.color = new Color(1, 1, 1);
-    }
-        
+		AzimuthLeftKeyboard.color = new Color(1, 1, 1);
+		AzimuthLeftController.color = new Color(1, 1, 1);
+
+		AzimhthRightKeyboad.color = new Color(1, 1, 1);
+		AzimhthRightController.color = new Color(1, 1, 1);
+	}
+
+	/// <summary>
+	/// サーチボタンが押された時の処理
+	/// </summary>
+	public void OnClickSearch()
+	{
+		Nowselect = NOWSELECT.SEARCH;
+		// 選択対象のカーソルを赤にし、それ以外を白にする
+		ShotKeyboard.color = new Color(1, 1, 1);
+		ShotController.color = new Color(1, 1, 1);
+
+		WrestleKeyboard.color = new Color(1, 1, 1);
+		WrestleController.color = new Color(1, 1, 1);
+
+		JumpKeyboad.color = new Color(1, 1, 1);
+		JumpController.color = new Color(1, 1, 1);
+
+		SearchKeyboard.color = new Color(1, 0, 0);
+		SearchController.color = new Color(1, 0, 0);
+
+		CommandKeyboard.color = new Color(1, 1, 1);
+		CommandController.color = new Color(1, 1, 1);
+
+		MenuKeyboard.color = new Color(1, 1, 1);
+		MenuController.color = new Color(1, 1, 1);
+
+		SubShotKeyboard.color = new Color(1, 1, 1);
+		SubShotController.color = new Color(1, 1, 1);
+
+		ExShotKeyboard.color = new Color(1, 1, 1);
+		ExShotController.color = new Color(1, 1, 1);
+
+		ExWrestleKeyboard.color = new Color(1, 1, 1);
+		ExWrestleController.color = new Color(1, 1, 1);
+
+		ElevationUpperKeyboard.color = new Color(1, 1, 1);
+		ElevationUpperController.color = new Color(1, 1, 1);
+
+		ElevetionDownKeyboard.color = new Color(1, 1, 1);
+		ElevationDownController.color = new Color(1, 1, 1);
+
+		AzimuthLeftKeyboard.color = new Color(1, 1, 1);
+		AzimuthLeftController.color = new Color(1, 1, 1);
+
+		AzimhthRightKeyboad.color = new Color(1, 1, 1);
+		AzimhthRightController.color = new Color(1, 1, 1);
+	}
+
+	/// <summary>
+	/// コマンドボタンが押された時の処理
+	/// </summary>
+	public void OnClickCommand()
+	{
+		Nowselect = NOWSELECT.COMMAND;
+		// 選択対象のカーソルを赤にし、それ以外を白にする
+		ShotKeyboard.color = new Color(1, 1, 1);
+		ShotController.color = new Color(1, 1, 1);
+
+		WrestleKeyboard.color = new Color(1, 1, 1);
+		WrestleController.color = new Color(1, 1, 1);
+
+		JumpKeyboad.color = new Color(1, 1, 1);
+		JumpController.color = new Color(1, 1, 1);
+
+		SearchKeyboard.color = new Color(1, 1, 1);
+		SearchController.color = new Color(1, 1, 1);
+
+		CommandKeyboard.color = new Color(1, 0, 0);
+		CommandController.color = new Color(1, 0, 0);
+
+		MenuKeyboard.color = new Color(1, 1, 1);
+		MenuController.color = new Color(1, 1, 1);
+
+		SubShotKeyboard.color = new Color(1, 1, 1);
+		SubShotController.color = new Color(1, 1, 1);
+
+		ExShotKeyboard.color = new Color(1, 1, 1);
+		ExShotController.color = new Color(1, 1, 1);
+
+		ExWrestleKeyboard.color = new Color(1, 1, 1);
+		ExWrestleController.color = new Color(1, 1, 1);
+
+		ElevationUpperKeyboard.color = new Color(1, 1, 1);
+		ElevationUpperController.color = new Color(1, 1, 1);
+
+		ElevetionDownKeyboard.color = new Color(1, 1, 1);
+		ElevationDownController.color = new Color(1, 1, 1);
+
+		AzimuthLeftKeyboard.color = new Color(1, 1, 1);
+		AzimuthLeftController.color = new Color(1, 1, 1);
+
+		AzimhthRightKeyboad.color = new Color(1, 1, 1);
+		AzimhthRightController.color = new Color(1, 1, 1);
+	}
+
+	/// <summary>
+	/// メニューボタンが押された時の処理
+	/// </summary>
+	public void OnClickMenu()
+	{
+		Nowselect = NOWSELECT.MENU;
+		// 選択対象のカーソルを赤にし、それ以外を白にする
+		ShotKeyboard.color = new Color(1, 1, 1);
+		ShotController.color = new Color(1, 1, 1);
+
+		WrestleKeyboard.color = new Color(1, 1, 1);
+		WrestleController.color = new Color(1, 1, 1);
+
+		JumpKeyboad.color = new Color(1, 1, 1);
+		JumpController.color = new Color(1, 1, 1);
+
+		SearchKeyboard.color = new Color(1, 1, 1);
+		SearchController.color = new Color(1, 1, 1);
+
+		CommandKeyboard.color = new Color(1, 1, 1);
+		CommandController.color = new Color(1, 1, 1);
+
+		MenuKeyboard.color = new Color(1, 0, 0);
+		MenuController.color = new Color(1, 0, 0);
+
+		SubShotKeyboard.color = new Color(1, 1, 1);
+		SubShotController.color = new Color(1, 1, 1);
+
+		ExShotKeyboard.color = new Color(1, 1, 1);
+		ExShotController.color = new Color(1, 1, 1);
+
+		ExWrestleKeyboard.color = new Color(1, 1, 1);
+		ExWrestleController.color = new Color(1, 1, 1);
+
+		ElevationUpperKeyboard.color = new Color(1, 1, 1);
+		ElevationUpperController.color = new Color(1, 1, 1);
+
+		ElevetionDownKeyboard.color = new Color(1, 1, 1);
+		ElevationDownController.color = new Color(1, 1, 1);
+
+		AzimuthLeftKeyboard.color = new Color(1, 1, 1);
+		AzimuthLeftController.color = new Color(1, 1, 1);
+
+		AzimhthRightKeyboad.color = new Color(1, 1, 1);
+		AzimhthRightController.color = new Color(1, 1, 1);
+	}
+
+	/// <summary>
+	/// サブ射撃が押された時の処理
+	/// </summary>
+	public void OnClickSubShot()
+	{
+		Nowselect = NOWSELECT.SUBSHOT;
+		// 選択対象のカーソルを赤にし、それ以外を白にする
+		ShotKeyboard.color = new Color(1, 1, 1);
+		ShotController.color = new Color(1, 1, 1);
+
+		WrestleKeyboard.color = new Color(1, 1, 1);
+		WrestleController.color = new Color(1, 1, 1);
+
+		JumpKeyboad.color = new Color(1, 1, 1);
+		JumpController.color = new Color(1, 1, 1);
+
+		SearchKeyboard.color = new Color(1, 1, 1);
+		SearchController.color = new Color(1, 1, 1);
+
+		CommandKeyboard.color = new Color(1, 1, 1);
+		CommandController.color = new Color(1, 1, 1);
+
+		MenuKeyboard.color = new Color(1, 1, 1);
+		MenuController.color = new Color(1, 1, 1);
+
+		SubShotKeyboard.color = new Color(1, 0, 0);
+		SubShotController.color = new Color(1, 0, 0);
+
+		ExShotKeyboard.color = new Color(1, 1, 1);
+		ExShotController.color = new Color(1, 1, 1);
+
+		ExWrestleKeyboard.color = new Color(1, 1, 1);
+		ExWrestleController.color = new Color(1, 1, 1);
+
+		ElevationUpperKeyboard.color = new Color(1, 1, 1);
+		ElevationUpperController.color = new Color(1, 1, 1);
+
+		ElevetionDownKeyboard.color = new Color(1, 1, 1);
+		ElevationDownController.color = new Color(1, 1, 1);
+
+		AzimuthLeftKeyboard.color = new Color(1, 1, 1);
+		AzimuthLeftController.color = new Color(1, 1, 1);
+
+		AzimhthRightKeyboad.color = new Color(1, 1, 1);
+		AzimhthRightController.color = new Color(1, 1, 1);
+	}
+
+	/// <summary>
+	/// 特殊射撃が押された時の処理
+	/// </summary>
+	public void OnClickExShot()
+	{
+		Nowselect = NOWSELECT.EXSHOT;
+		// 選択対象のカーソルを赤にし、それ以外を白にする
+		ShotKeyboard.color = new Color(1, 1, 1);
+		ShotController.color = new Color(1, 1, 1);
+
+		WrestleKeyboard.color = new Color(1, 1, 1);
+		WrestleController.color = new Color(1, 1, 1);
+
+		JumpKeyboad.color = new Color(1, 1, 1);
+		JumpController.color = new Color(1, 1, 1);
+
+		SearchKeyboard.color = new Color(1, 1, 1);
+		SearchController.color = new Color(1, 1, 1);
+
+		CommandKeyboard.color = new Color(1, 1, 1);
+		CommandController.color = new Color(1, 1, 1);
+
+		MenuKeyboard.color = new Color(1, 1, 1);
+		MenuController.color = new Color(1, 1, 1);
+
+		SubShotKeyboard.color = new Color(1, 1, 1);
+		SubShotController.color = new Color(1, 1, 1);
+
+		ExShotKeyboard.color = new Color(1, 0, 0);
+		ExShotController.color = new Color(1, 0, 0);
+
+		ExWrestleKeyboard.color = new Color(1, 1, 1);
+		ExWrestleController.color = new Color(1, 1, 1);
+
+		ElevationUpperKeyboard.color = new Color(1, 1, 1);
+		ElevationUpperController.color = new Color(1, 1, 1);
+
+		ElevetionDownKeyboard.color = new Color(1, 1, 1);
+		ElevationDownController.color = new Color(1, 1, 1);
+
+		AzimuthLeftKeyboard.color = new Color(1, 1, 1);
+		AzimuthLeftController.color = new Color(1, 1, 1);
+
+		AzimhthRightKeyboad.color = new Color(1, 1, 1);
+		AzimhthRightController.color = new Color(1, 1, 1);
+	}
+
+	/// <summary>
+	/// 特殊格闘を押された時の処理
+	/// </summary>
+	public void OnClickExWrestle()
+	{
+		Nowselect = NOWSELECT.EXWRESTLE;
+		// 選択対象のカーソルを赤にし、それ以外を白にする
+		ShotKeyboard.color = new Color(1, 1, 1);
+		ShotController.color = new Color(1, 1, 1);
+
+		WrestleKeyboard.color = new Color(1, 1, 1);
+		WrestleController.color = new Color(1, 1, 1);
+
+		JumpKeyboad.color = new Color(1, 1, 1);
+		JumpController.color = new Color(1, 1, 1);
+
+		SearchKeyboard.color = new Color(1, 1, 1);
+		SearchController.color = new Color(1, 1, 1);
+
+		CommandKeyboard.color = new Color(1, 1, 1);
+		CommandController.color = new Color(1, 1, 1);
+
+		MenuKeyboard.color = new Color(1, 1, 1);
+		MenuController.color = new Color(1, 1, 1);
+
+		SubShotKeyboard.color = new Color(1, 1, 1);
+		SubShotController.color = new Color(1, 1, 1);
+
+		ExShotKeyboard.color = new Color(1, 1, 1);
+		ExShotController.color = new Color(1, 1, 1);
+
+		ExWrestleKeyboard.color = new Color(1, 0, 0);
+		ExWrestleController.color = new Color(1, 0, 0);
+
+		ElevationUpperKeyboard.color = new Color(1, 1, 1);
+		ElevationUpperController.color = new Color(1, 1, 1);
+
+		ElevetionDownKeyboard.color = new Color(1, 1, 1);
+		ElevationDownController.color = new Color(1, 1, 1);
+
+		AzimuthLeftKeyboard.color = new Color(1, 1, 1);
+		AzimuthLeftController.color = new Color(1, 1, 1);
+
+		AzimhthRightKeyboad.color = new Color(1, 1, 1);
+		AzimhthRightController.color = new Color(1, 1, 1);
+	}
+
+	/// <summary>
+	/// 視点回転上を押された時の処理
+	/// </summary>
+	public void OnClickElevationUpper()
+	{
+		Nowselect = NOWSELECT.ELEVATIONUPPER;
+		// 選択対象のカーソルを赤にし、それ以外を白にする
+		ShotKeyboard.color = new Color(1, 1, 1);
+		ShotController.color = new Color(1, 1, 1);
+
+		WrestleKeyboard.color = new Color(1, 1, 1);
+		WrestleController.color = new Color(1, 1, 1);
+
+		JumpKeyboad.color = new Color(1, 1, 1);
+		JumpController.color = new Color(1, 1, 1);
+
+		SearchKeyboard.color = new Color(1, 1, 1);
+		SearchController.color = new Color(1, 1, 1);
+
+		CommandKeyboard.color = new Color(1, 1, 1);
+		CommandController.color = new Color(1, 1, 1);
+
+		MenuKeyboard.color = new Color(1, 1, 1);
+		MenuController.color = new Color(1, 1, 1);
+
+		SubShotKeyboard.color = new Color(1, 1, 1);
+		SubShotController.color = new Color(1, 1, 1);
+
+		ExShotKeyboard.color = new Color(1, 1, 1);
+		ExShotController.color = new Color(1, 1, 1);
+
+		ExWrestleKeyboard.color = new Color(1, 1, 1);
+		ExWrestleController.color = new Color(1, 1, 1);
+
+		ElevationUpperKeyboard.color = new Color(1, 0, 0);
+		ElevationUpperController.color = new Color(1, 0, 0);
+
+		ElevetionDownKeyboard.color = new Color(1, 1, 1);
+		ElevationDownController.color = new Color(1, 1, 1);
+
+		AzimuthLeftKeyboard.color = new Color(1, 1, 1);
+		AzimuthLeftController.color = new Color(1, 1, 1);
+
+		AzimhthRightKeyboad.color = new Color(1, 1, 1);
+		AzimhthRightController.color = new Color(1, 1, 1);
+	}
+
+	/// <summary>
+	/// 視点回転下を押された時の処理
+	/// </summary>
+	public void OnClickElevetionDown()
+	{
+		Nowselect = NOWSELECT.ELEVETIONDOWN;
+		// 選択対象のカーソルを赤にし、それ以外を白にする
+		ShotKeyboard.color = new Color(1, 1, 1);
+		ShotController.color = new Color(1, 1, 1);
+
+		WrestleKeyboard.color = new Color(1, 1, 1);
+		WrestleController.color = new Color(1, 1, 1);
+
+		JumpKeyboad.color = new Color(1, 1, 1);
+		JumpController.color = new Color(1, 1, 1);
+
+		SearchKeyboard.color = new Color(1, 1, 1);
+		SearchController.color = new Color(1, 1, 1);
+
+		CommandKeyboard.color = new Color(1, 1, 1);
+		CommandController.color = new Color(1, 1, 1);
+
+		MenuKeyboard.color = new Color(1, 1, 1);
+		MenuController.color = new Color(1, 1, 1);
+
+		SubShotKeyboard.color = new Color(1, 1, 1);
+		SubShotController.color = new Color(1, 1, 1);
+
+		ExShotKeyboard.color = new Color(1, 1, 1);
+		ExShotController.color = new Color(1, 1, 1);
+
+		ExWrestleKeyboard.color = new Color(1, 1, 1);
+		ExWrestleController.color = new Color(1, 1, 1);
+
+		ElevationUpperKeyboard.color = new Color(1, 1, 1);
+		ElevationUpperController.color = new Color(1, 1, 1);
+
+		ElevetionDownKeyboard.color = new Color(1, 0, 0);
+		ElevationDownController.color = new Color(1, 0, 0);
+
+		AzimuthLeftKeyboard.color = new Color(1, 1, 1);
+		AzimuthLeftController.color = new Color(1, 1, 1);
+
+		AzimhthRightKeyboad.color = new Color(1, 1, 1);
+		AzimhthRightController.color = new Color(1, 1, 1);
+	}
+
+	/// <summary>
+	/// 視点回転左を押された時の処理
+	/// </summary>
+	public void OnClickAzimuthLeft()
+	{
+		Nowselect = NOWSELECT.AZIMUTHLEFT;
+		// 選択対象のカーソルを赤にし、それ以外を白にする
+		ShotKeyboard.color = new Color(1, 1, 1);
+		ShotController.color = new Color(1, 1, 1);
+
+		WrestleKeyboard.color = new Color(1, 1, 1);
+		WrestleController.color = new Color(1, 1, 1);
+
+		JumpKeyboad.color = new Color(1, 1, 1);
+		JumpController.color = new Color(1, 1, 1);
+
+		SearchKeyboard.color = new Color(1, 1, 1);
+		SearchController.color = new Color(1, 1, 1);
+
+		CommandKeyboard.color = new Color(1, 1, 1);
+		CommandController.color = new Color(1, 1, 1);
+
+		MenuKeyboard.color = new Color(1, 1, 1);
+		MenuController.color = new Color(1, 1, 1);
+
+		SubShotKeyboard.color = new Color(1, 1, 1);
+		SubShotController.color = new Color(1, 1, 1);
+
+		ExShotKeyboard.color = new Color(1, 1, 1);
+		ExShotController.color = new Color(1, 1, 1);
+
+		ExWrestleKeyboard.color = new Color(1, 1, 1);
+		ExWrestleController.color = new Color(1, 1, 1);
+
+		ElevationUpperKeyboard.color = new Color(1, 1, 1);
+		ElevationUpperController.color = new Color(1, 1, 1);
+
+		ElevetionDownKeyboard.color = new Color(1, 1, 1);
+		ElevationDownController.color = new Color(1, 1, 1);
+
+		AzimuthLeftKeyboard.color = new Color(1, 0, 0);
+		AzimuthLeftController.color = new Color(1, 0, 0);
+
+		AzimhthRightKeyboad.color = new Color(1, 1, 1);
+		AzimhthRightController.color = new Color(1, 1, 1);
+	}
+
+	/// <summary>
+	/// 視点回転右を押された時の処理
+	/// </summary>
+	public void OnClickAzimthRight()
+	{
+		Nowselect = NOWSELECT.AZIMUTHRIGHT;
+		// 選択対象のカーソルを赤にし、それ以外を白にする
+		ShotKeyboard.color = new Color(1, 1, 1);
+		ShotController.color = new Color(1, 1, 1);
+
+		WrestleKeyboard.color = new Color(1, 1, 1);
+		WrestleController.color = new Color(1, 1, 1);
+
+		JumpKeyboad.color = new Color(1, 1, 1);
+		JumpController.color = new Color(1, 1, 1);
+
+		SearchKeyboard.color = new Color(1, 1, 1);
+		SearchController.color = new Color(1, 1, 1);
+
+		CommandKeyboard.color = new Color(1, 1, 1);
+		CommandController.color = new Color(1, 1, 1);
+
+		MenuKeyboard.color = new Color(1, 1, 1);
+		MenuController.color = new Color(1, 1, 1);
+
+		SubShotKeyboard.color = new Color(1, 1, 1);
+		SubShotController.color = new Color(1, 1, 1);
+
+		ExShotKeyboard.color = new Color(1, 1, 1);
+		ExShotController.color = new Color(1, 1, 1);
+
+		ExWrestleKeyboard.color = new Color(1, 1, 1);
+		ExWrestleController.color = new Color(1, 1, 1);
+
+		ElevationUpperKeyboard.color = new Color(1, 1, 1);
+		ElevationUpperController.color = new Color(1, 1, 1);
+
+		ElevetionDownKeyboard.color = new Color(1, 1, 1);
+		ElevationDownController.color = new Color(1, 1, 1);
+
+		AzimuthLeftKeyboard.color = new Color(1, 1, 1);
+		AzimuthLeftController.color = new Color(1, 1, 1);
+
+		AzimhthRightKeyboad.color = new Color(1, 0, 0);
+		AzimhthRightController.color = new Color(1, 0, 0);
+	}
 }
