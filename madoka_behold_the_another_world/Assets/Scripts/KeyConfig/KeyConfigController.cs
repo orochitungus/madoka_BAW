@@ -133,29 +133,208 @@ public class KeyConfigController : MonoBehaviour
 	public Image AzimhthRightKeyboad;
 	public Image AzimhthRightController;
     
+	/// <summary>
+	/// 現在選択中の項目
+	/// </summary>
     public NOWSELECT Nowselect;
 
-    // Use this for initialization
-    void Start () 
+
+	/// <summary>
+	/// 各テキスト
+	/// </summary>
+	public Text ShotKeyboardText;
+	public Text ShotControllerText;
+
+	public Text WrestleKeyboardText;
+	public Text WrestleControllerText;
+
+	public Text JumpKeyboadText;
+	public Text JumpControllerText;
+
+	public Text SearchKeyboardText;
+	public Text SearchControllerText;
+
+	public Text CommandKeyboardText;
+	public Text CommandControllerText;
+
+	public Text MenuKeyboardText;
+	public Text MenuControllerText;
+
+	public Text SubShotKeyboardText;
+	public Text SubShotControllerText;
+
+	public Text ExShotKeyboardText;
+	public Text ExShotControllerText;
+
+	public Text ExWrestleKeyboardText;
+	public Text ExWrestleControllerText;
+
+	public Text ElevationUpperKeyboardText;
+	public Text ElevationUpperControllerText;
+
+	public Text ElevetionDownKeyboardText;
+	public Text ElevationDownControllerText;
+
+	public Text AzimuthLeftKeyboardText;
+	public Text AzimuthLeftControllerText;
+
+	public Text AzimhthRightKeyboadText;
+	public Text AzimhthRightControllerText;
+
+	// Use this for initialization
+	void Start () 
 	{
-        // 選択対象を初期化
-        Nowselect = NOWSELECT.SHOT;
-        		
+		// 選択対象を初期化
+		OnClickShotButton();
+		
+		// キー入力を取得
+		this.UpdateAsObservable().Subscribe(_ =>
+		{
+			GetKeyInput(Nowselect);			
+		});
+	}
+
+
+	public void GetKeyInput(NOWSELECT nowselect)
+	{
+		// キー入力
+		if (Input.anyKeyDown)
+		{
+			Array k = Enum.GetValues(typeof(KeyCode));
+			for (int i = 0; i < k.Length; i++)
+			{
+				if (Input.GetKeyDown((KeyCode)k.GetValue(i)))
+				{
+					Debug.Log(k.GetValue(i).ToString());
+					// キーボード
+					// 入力がテンキーとマウスクリックだったら無視
+					if (k.GetValue(i).ToString().IndexOf("Arrow") < 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0)
+					{
+						switch (nowselect)
+						{
+							case NOWSELECT.SHOT:
+								ShotKeyboardText.text = k.GetValue(i).ToString();
+								break;
+							case NOWSELECT.WRESTLE:
+								WrestleKeyboardText.text = k.GetValue(i).ToString();
+								break;
+							case NOWSELECT.SEARCH:
+								SearchKeyboardText.text = k.GetValue(i).ToString();
+								break;
+							case NOWSELECT.JUMP:
+								JumpKeyboadText.text = k.GetValue(i).ToString();
+								break;
+							case NOWSELECT.COMMAND:
+								CommandKeyboardText.text = k.GetValue(i).ToString();
+								break;
+							case NOWSELECT.MENU:
+								MenuKeyboardText.text = k.GetValue(i).ToString();
+								break;
+							case NOWSELECT.SUBSHOT:
+								SubShotKeyboardText.text = k.GetValue(i).ToString();
+								break;
+							case NOWSELECT.EXSHOT:
+								ExShotKeyboardText.text = k.GetValue(i).ToString();
+								break;
+							case NOWSELECT.EXWRESTLE:
+								ExWrestleKeyboardText.text = k.GetValue(i).ToString();
+								break;
+							case NOWSELECT.ELEVATIONUPPER:
+								ElevationUpperKeyboardText.text = k.GetValue(i).ToString();
+								break;
+							case NOWSELECT.ELEVETIONDOWN:
+								ElevetionDownKeyboardText.text = k.GetValue(i).ToString();
+								break;
+							case NOWSELECT.AZIMUTHLEFT:
+								AzimuthLeftKeyboardText.text = k.GetValue(i).ToString();
+								break;
+							case NOWSELECT.AZIMUTHRIGHT:
+								AzimhthRightKeyboadText.text = k.GetValue(i).ToString();
+								break;
+						}
+					}
+					// ジョイスティック
+					// ジョイスティック1以外は無視
+				}
+			}
+		}
+		// コントローラー軸入力
+		// コントローラー１以外の入力を弾く
+
 	}
 	
+	/// <summary>
+	/// 重複していた場合入れ替える(キーボード）
+	/// </summary>
+	/// <param name="insert">入力された文字列</param>
+	/// <param name="select">現在選択中の項目</param>
+	public void OverlapCheckKeyboard(string insert,NOWSELECT select)
+	{		
+		// 射撃に割り振っているのと同じボタンが入力された
+		if(ShotKeyboardText.text == insert)
+		{
+			OvelapDone(SubShotKeyboardText.text, select);
+		}
+	}
+
+	/// <summary>
+	/// 入れ替えがあるとき、元あったものを入れ替え先へ移動する
+	/// </summary>
+	/// <param name="origin">元あったもの</param>
+	public void OvelapDone(string origin, NOWSELECT select)
+	{
+		// selectの文字列に入っていたものを射撃に割り振る
+		switch (select)
+		{
+			case NOWSELECT.SHOT:
+				ShotKeyboardText.text = origin;
+				break;
+			case NOWSELECT.WRESTLE:
+				WrestleKeyboardText.text = origin;
+				break;
+			case NOWSELECT.SEARCH:
+				SearchKeyboardText.text = origin;
+				break;
+			case NOWSELECT.JUMP:
+				JumpKeyboadText.text = origin;
+				break;
+			case NOWSELECT.COMMAND:
+				CommandKeyboardText.text = origin;
+				break;
+			case NOWSELECT.MENU:
+				MenuKeyboardText.text = origin;
+				break;
+			case NOWSELECT.SUBSHOT:
+				SubShotKeyboardText.text = origin;
+				break;
+			case NOWSELECT.EXSHOT:
+				ExShotKeyboardText.text = origin;
+				break;
+			case NOWSELECT.EXWRESTLE:
+				ExWrestleKeyboardText.text = origin;
+				break;
+			case NOWSELECT.ELEVATIONUPPER:
+				ElevationUpperKeyboardText.text = origin;
+				break;
+			case NOWSELECT.ELEVETIONDOWN:
+				ElevetionDownKeyboardText.text = origin;
+				break;
+			case NOWSELECT.AZIMUTHLEFT:
+				AzimuthLeftKeyboardText.text = origin;
+				break;
+			case NOWSELECT.AZIMUTHRIGHT:
+				AzimhthRightKeyboadText.text = origin;
+				break;
+		}
+	}
+
 	// Update is called once per frame
 	void Update () 
 	{
+		
         if (Input.anyKeyDown)
         {
-            Array k = Enum.GetValues(typeof(KeyCode));
-            for (int i = 0; i < k.Length; i++)
-            {
-                if (Input.GetKeyDown((KeyCode)k.GetValue(i)))
-                {
-                    Debug.Log(k.GetValue(i).ToString());
-                }
-            }
+            
         }
     }
 

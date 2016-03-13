@@ -34,7 +34,13 @@ public class LogoSceneController : MonoBehaviour
             loadManager.name = "LoadManager";
         }
 		// ControllerManagerがあるか判定
-    }
+		if (GameObject.Find("ControllerManager") == null)
+		{
+			// 無ければ作る
+			GameObject loadManager = (GameObject)Instantiate(Resources.Load("ControllerManager"));
+			loadManager.name = "ControllerManager";
+		}
+	}
 
 	// Use this for initialization
 	void Start () 
