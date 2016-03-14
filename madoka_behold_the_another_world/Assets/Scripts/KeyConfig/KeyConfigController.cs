@@ -210,7 +210,9 @@ public class KeyConfigController : MonoBehaviour
 					// 入力がテンキーとマウスクリックだったら無視
 					if (k.GetValue(i).ToString().IndexOf("Arrow") < 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0)
 					{
-						switch (nowselect)
+                        // ダブり対策
+                        OverlapCheckKeyboard(k.GetValue(i).ToString(), nowselect);
+                        switch (nowselect)
 						{
 							case NOWSELECT.SHOT:
 								ShotKeyboardText.text = k.GetValue(i).ToString();
@@ -255,6 +257,7 @@ public class KeyConfigController : MonoBehaviour
 					}
 					// ジョイスティック
 					// ジョイスティック1以外は無視
+                    
 				}
 			}
 		}
@@ -269,19 +272,119 @@ public class KeyConfigController : MonoBehaviour
 	/// <param name="insert">入力された文字列</param>
 	/// <param name="select">現在選択中の項目</param>
 	public void OverlapCheckKeyboard(string insert,NOWSELECT select)
-	{		
-		// 射撃に割り振っているのと同じボタンが入力された
-		if(ShotKeyboardText.text == insert)
-		{
-			OvelapDone(SubShotKeyboardText.text, select);
-		}
-	}
+	{
+        // もともと入っていたボタンを取得
+        string originalbuton = "";
+        switch(select)
+        {
+            case NOWSELECT.SHOT:
+                originalbuton = ShotKeyboardText.text;
+                break;
+            case NOWSELECT.WRESTLE:
+                originalbuton = WrestleKeyboardText.text;
+                break;
+            case NOWSELECT.AZIMUTHLEFT:
+                originalbuton = AzimuthLeftKeyboardText.text;
+                break;
+            case NOWSELECT.AZIMUTHRIGHT:
+                originalbuton = AzimhthRightKeyboadText.text;
+                break;
+            case NOWSELECT.COMMAND:
+                originalbuton = CommandKeyboardText.text;
+                break;
+            case NOWSELECT.ELEVATIONUPPER:
+                originalbuton = ElevationUpperControllerText.text;
+                break;
+            case NOWSELECT.ELEVETIONDOWN:
+                originalbuton = ElevetionDownKeyboardText.text;
+                break;
+            case NOWSELECT.EXSHOT:
+                originalbuton = ExShotKeyboardText.text;
+                break;
+            case NOWSELECT.EXWRESTLE:
+                originalbuton = ExWrestleKeyboardText.text;
+                break;
+            case NOWSELECT.JUMP:
+                originalbuton = JumpKeyboadText.text;
+                break;
+            case NOWSELECT.MENU:
+                originalbuton = MenuKeyboardText.text;
+                break;
+            case NOWSELECT.SEARCH:
+                originalbuton = SearchKeyboardText.text;
+                break;
+            case NOWSELECT.SUBSHOT:
+                originalbuton = SubShotKeyboardText.text;
+                break;            
+        }
+        // 射撃に割り振っているのと同じボタンが入力された
+        if (ShotKeyboardText.text == insert)
+        {
+            // もともと使われていたボタンを射撃ボタンに割り振る
+            OverlapDone(originalbuton, NOWSELECT.SHOT);
+        }
+        // 格闘に割り振っているものと同じボタンが押された
+        else if (WrestleKeyboardText.text == insert)
+        {
+            OverlapDone(originalbuton, NOWSELECT.WRESTLE);
+        }
+        // ジャンプに割り振っているものと同じボタンが押された
+        else if (JumpKeyboadText.text == insert)
+        {
+            OverlapDone(originalbuton, NOWSELECT.JUMP);
+        }
+        // サーチに割り振っているものと同じボタンが押された
+        else if (SearchKeyboardText.text == insert)
+        {
+            OverlapDone(originalbuton, NOWSELECT.SEARCH);
+        }
+        // コマンドに割り振っているものと同じボタンが押された
+        else if (CommandKeyboardText.text == insert)
+        {
+            OverlapDone(originalbuton, NOWSELECT.COMMAND);
+        }
+        // サブ射撃に割り振っているものと同じボタンが押された
+        else if (SubShotKeyboardText.text == insert)
+        {
+            OverlapDone(originalbuton, NOWSELECT.SUBSHOT);
+        }
+        // 特殊射撃に割り振っているものと同じボタンが押された
+        else if (ExShotKeyboardText.text == insert)
+        {
+            OverlapDone(originalbuton, NOWSELECT.EXSHOT);
+        }
+        // 特殊格闘に割り振っているものと同じボタンが押された
+        else if (ExWrestleKeyboardText.text == insert)
+        {
+            OverlapDone(originalbuton, NOWSELECT.EXWRESTLE);
+        }
+        // 視点回転上に入っているものと同じボタンが押された
+        else if (ElevationUpperKeyboardText.text == insert)
+        {
+            OverlapDone(originalbuton, NOWSELECT.ELEVATIONUPPER);
+        }
+        // 視点回転下に入っているものと同じボタンが押された
+        else if(ElevetionDownKeyboardText.text == insert)
+        {
+            OverlapDone(originalbuton, NOWSELECT.ELEVETIONDOWN);
+        }
+        // 視点回転左に入っているものと同じボタンが押された
+        else if(AzimuthLeftControllerText.text == insert)
+        {
+            OverlapDone(originalbuton, NOWSELECT.AZIMUTHLEFT);
+        }
+        // 視点回転右に入っているものと同じボタンが押された
+        else if(AzimhthRightKeyboadText.text == insert)
+        {
+            OverlapDone(originalbuton, NOWSELECT.AZIMUTHRIGHT);
+        }
+    }
 
 	/// <summary>
 	/// 入れ替えがあるとき、元あったものを入れ替え先へ移動する
 	/// </summary>
 	/// <param name="origin">元あったもの</param>
-	public void OvelapDone(string origin, NOWSELECT select)
+	public void OverlapDone(string origin, NOWSELECT select)
 	{
 		// selectの文字列に入っていたものを射撃に割り振る
 		switch (select)
