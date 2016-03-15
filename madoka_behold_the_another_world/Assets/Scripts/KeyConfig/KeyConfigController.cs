@@ -208,11 +208,11 @@ public class KeyConfigController : MonoBehaviour
 					Debug.Log(k.GetValue(i).ToString());
 					// キーボード
 					// 入力がテンキーとマウスクリックだったら無視
-					if (k.GetValue(i).ToString().IndexOf("Arrow") < 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0)
+					if (k.GetValue(i).ToString().IndexOf("Arrow") < 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0 && k.GetValue(i).ToString().IndexOf("Joystick") < 0)
 					{
-                        // ダブり対策
-                        OverlapCheckKeyboard(k.GetValue(i).ToString(), nowselect);
-                        switch (nowselect)
+						// ダブり対策
+						OverlapCheckKeyboard(k.GetValue(i).ToString(), nowselect);
+						switch (nowselect)
 						{
 							case NOWSELECT.SHOT:
 								ShotKeyboardText.text = k.GetValue(i).ToString();
@@ -256,14 +256,27 @@ public class KeyConfigController : MonoBehaviour
 						}
 					}
 					// ジョイスティック
-					// ジョイスティック1以外は無視
-                    
+					// ジョイスティック1以外のボタン入力は無視
+					if (k.GetValue(i).ToString().IndexOf("Joystick1") > 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0)
+					{
+						// ダブり対策
+
+					}
+					// 軸入力取得(3rd縦）
+					Debug.Log("3rd " + Input.GetAxisRaw("3rd Axis"));
+					Debug.Log("4th " + Input.GetAxisRaw("4th Axis"));
+					Debug.Log("5th " + Input.GetAxisRaw("5th Axis"));
+					Debug.Log("6th " + Input.GetAxisRaw("6th Axis"));
+					Debug.Log("7th " + Input.GetAxisRaw("7th Axis"));
+					Debug.Log("8th " + Input.GetAxisRaw("8th Axis"));
+					Debug.Log("9th " + Input.GetAxisRaw("9th Axis"));
+					//else if(Input.GetAxis("3rd Axis"))
+					{
+
+					}
 				}
 			}
 		}
-		// コントローラー軸入力
-		// コントローラー１以外の入力を弾く
-
 	}
 	
 	/// <summary>
@@ -381,7 +394,7 @@ public class KeyConfigController : MonoBehaviour
     }
 
 	/// <summary>
-	/// 入れ替えがあるとき、元あったものを入れ替え先へ移動する
+	/// 入れ替えがあるとき、元あったものを入れ替え先へ移動する(キーボード）
 	/// </summary>
 	/// <param name="origin">元あったもの</param>
 	public void OverlapDone(string origin, NOWSELECT select)
@@ -429,6 +442,174 @@ public class KeyConfigController : MonoBehaviour
 				AzimhthRightKeyboadText.text = origin;
 				break;
 		}
+	}
+
+	/// <summary>
+	/// 重複していた場合入れ替える（コントローラー）
+	/// </summary>
+	/// <param name="insert"></param>
+	/// <param name="select"></param>
+	public void OverlapCheckController(string insert, NOWSELECT select)
+	{
+		// もともと入っていたボタンを取得
+		string originalbuton = "";
+		switch (select)
+		{
+			case NOWSELECT.SHOT:
+				originalbuton = ShotControllerText.text;
+				break;
+			case NOWSELECT.WRESTLE:
+				originalbuton = WrestleControllerText.text;
+				break;
+			case NOWSELECT.AZIMUTHLEFT:
+				originalbuton = AzimuthLeftControllerText.text;
+				break;
+			case NOWSELECT.AZIMUTHRIGHT:
+				originalbuton = AzimhthRightControllerText.text;
+				break;
+			case NOWSELECT.COMMAND:
+				originalbuton = CommandControllerText.text;
+				break;
+			case NOWSELECT.ELEVATIONUPPER:
+				originalbuton = ElevationUpperControllerText.text;
+				break;
+			case NOWSELECT.ELEVETIONDOWN:
+				originalbuton = ElevationDownControllerText.text;
+				break;
+			case NOWSELECT.EXSHOT:
+				originalbuton = ExShotControllerText.text;
+				break;
+			case NOWSELECT.EXWRESTLE:
+				originalbuton = ExWrestleControllerText.text;
+				break;
+			case NOWSELECT.JUMP:
+				originalbuton = JumpControllerText.text;
+				break;
+			case NOWSELECT.MENU:
+				originalbuton = MenuControllerText.text;
+				break;
+			case NOWSELECT.SEARCH:
+				originalbuton = SearchControllerText.text;
+				break;
+			case NOWSELECT.SUBSHOT:
+				originalbuton = SubShotControllerText.text;
+				break;
+		}
+		// 射撃に割り振っているのと同じボタンが入力された
+		if (ShotControllerText.text == insert)
+		{
+			// もともと使われていたボタンを射撃ボタンに割り振る
+			OverlapDoneController(originalbuton, NOWSELECT.SHOT);
+		}
+		// 格闘に割り振っているものと同じボタンが押された
+		else if (WrestleControllerText.text == insert)
+		{
+			OverlapDoneController(originalbuton, NOWSELECT.WRESTLE);
+		}
+		// ジャンプに割り振っているものと同じボタンが押された
+		else if (JumpKeyboadText.text == insert)
+		{
+			OverlapDoneController(originalbuton, NOWSELECT.JUMP);
+		}
+		// サーチに割り振っているものと同じボタンが押された
+		else if (SearchControllerText.text == insert)
+		{
+			OverlapDoneController(originalbuton, NOWSELECT.SEARCH);
+		}
+		// コマンドに割り振っているものと同じボタンが押された
+		else if (CommandControllerText.text == insert)
+		{
+			OverlapDoneController(originalbuton, NOWSELECT.COMMAND);
+		}
+		// サブ射撃に割り振っているものと同じボタンが押された
+		else if (SubShotControllerText.text == insert)
+		{
+			OverlapDoneController(originalbuton, NOWSELECT.SUBSHOT);
+		}
+		// 特殊射撃に割り振っているものと同じボタンが押された
+		else if (ExShotControllerText.text == insert)
+		{
+			OverlapDoneController(originalbuton, NOWSELECT.EXSHOT);
+		}
+		// 特殊格闘に割り振っているものと同じボタンが押された
+		else if (ExWrestleControllerText.text == insert)
+		{
+			OverlapDoneController(originalbuton, NOWSELECT.EXWRESTLE);
+		}
+		// 視点回転上に入っているものと同じボタンが押された
+		else if (ElevationUpperControllerText.text == insert)
+		{
+			OverlapDoneController(originalbuton, NOWSELECT.ELEVATIONUPPER);
+		}
+		// 視点回転下に入っているものと同じボタンが押された
+		else if (ElevationDownControllerText.text == insert)
+		{
+			OverlapDoneController(originalbuton, NOWSELECT.ELEVETIONDOWN);
+		}
+		// 視点回転左に入っているものと同じボタンが押された
+		else if (AzimuthLeftControllerText.text == insert)
+		{
+			OverlapDoneController(originalbuton, NOWSELECT.AZIMUTHLEFT);
+		}
+		// 視点回転右に入っているものと同じボタンが押された
+		else if (AzimhthRightKeyboadText.text == insert)
+		{
+			OverlapDoneController(originalbuton, NOWSELECT.AZIMUTHRIGHT);
+		}
+	}
+
+
+	/// <summary>
+	/// 入れ替えがあるとき、元あったものを入れ替え先へ移動する（コントローラー）
+	/// </summary>
+	/// <param name="origin"></param>
+	/// <param name="select"></param>
+	public void OverlapDoneController(string origin, NOWSELECT select)
+	{
+		// selectの文字列に入っていたものを射撃に割り振る
+		switch (select)
+		{
+			case NOWSELECT.SHOT:
+				ShotControllerText.text = origin;
+				break;
+			case NOWSELECT.WRESTLE:
+				WrestleControllerText.text = origin;
+				break;
+			case NOWSELECT.SEARCH:
+				SearchControllerText.text = origin;
+				break;
+			case NOWSELECT.JUMP:
+				JumpControllerText.text = origin;
+				break;
+			case NOWSELECT.COMMAND:
+				CommandControllerText.text = origin;
+				break;
+			case NOWSELECT.MENU:
+				MenuControllerText.text = origin;
+				break;
+			case NOWSELECT.SUBSHOT:
+				SubShotControllerText.text = origin;
+				break;
+			case NOWSELECT.EXSHOT:
+				ExShotControllerText.text = origin;
+				break;
+			case NOWSELECT.EXWRESTLE:
+				ExWrestleControllerText.text = origin;
+				break;
+			case NOWSELECT.ELEVATIONUPPER:
+				ElevationUpperControllerText.text = origin;
+				break;
+			case NOWSELECT.ELEVETIONDOWN:
+				ElevationDownControllerText.text = origin;
+				break;
+			case NOWSELECT.AZIMUTHLEFT:
+				AzimuthLeftControllerText.text = origin;
+				break;
+			case NOWSELECT.AZIMUTHRIGHT:
+				AzimhthRightControllerText.text = origin;
+				break;
+		}
+
 	}
 
 	// Update is called once per frame
