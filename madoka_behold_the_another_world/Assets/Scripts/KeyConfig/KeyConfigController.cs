@@ -197,15 +197,116 @@ public class KeyConfigController : MonoBehaviour
 
 	public void GetKeyInput(NOWSELECT nowselect)
 	{
+		// ジョイスティック軸取得
+		// 軸取得
+		
+		//右スティック（追加）
+		// 3rd取得
+		if (Input.GetAxisRaw("Vertical2") < 0)
+		{
+			Debug.Log("3rdAxis PLUS");
+		}
+		else if (0 < Input.GetAxisRaw("Vertical2"))
+		{
+			//下に傾いている
+			Debug.Log("3rdAxis MINUS");
+		}
+		else
+		{
+			//上下方向には傾いていない
+		}
+		// 5th取得
+		if (Input.GetAxisRaw("Horizontal2") < 0)
+		{
+			//左に傾いている
+			Debug.Log("5thAxis MINUS");
+		}
+		else if (0 < Input.GetAxisRaw("Horizontal2"))
+		{
+			//右に傾いている
+			Debug.Log("5thAxis PLUS");
+		}
+		else
+		{
+			//左右方向には傾いていない
+
+		}
+
+		// 4th取得
+		if (Input.GetAxisRaw("Vertical3") < 0)
+		{
+			//上に傾いている
+			Debug.Log("4thAxis PLUS");
+		}
+		else if (0 < Input.GetAxisRaw("Vertical3"))
+		{
+			//下に傾いている
+			Debug.Log("4thAxis MINUS");
+		}
+		else
+		{
+			//上下方向には傾いていない
+		}
+		// 6th取得
+		if (Input.GetAxisRaw("Horizontal3") < 0)
+		{
+			//左に傾いている
+			Debug.Log("6th MINUS");
+		}
+		else if (0 < Input.GetAxisRaw("Horizontal3"))
+		{
+			//右に傾いている
+			Debug.Log("6th PLUS");
+		}
+		else
+		{
+			//左右方向には傾いていない
+
+		}
+
+		// 7th取得
+		if (Input.GetAxisRaw("Vertical4") < 0)
+		{
+			//上に傾いている
+			Debug.Log("7thAxis PLUS");
+		}
+		else if (0 < Input.GetAxisRaw("Vertical4"))
+		{
+			//下に傾いている
+			Debug.Log("7thAxis MINUS");
+		}
+		else
+		{
+			//上下方向には傾いていない
+		}
+		// 8th取得
+		if (Input.GetAxisRaw("Horizontal4") < 0)
+		{
+			//左に傾いている
+			Debug.Log("8th MINUS");
+		}
+		else if (0 < Input.GetAxisRaw("Horizontal4"))
+		{
+			//右に傾いている
+			Debug.Log("8th PLUS");
+		}
+		else
+		{
+			//左右方向には傾いていない
+
+		}
+
 		// キー入力
 		if (Input.anyKeyDown)
 		{
 			Array k = Enum.GetValues(typeof(KeyCode));
 			for (int i = 0; i < k.Length; i++)
-			{
+			{	
+
+				// キー取得
 				if (Input.GetKeyDown((KeyCode)k.GetValue(i)))
 				{
-					Debug.Log(k.GetValue(i).ToString());
+					//Debug.Log(k.GetValue(i).ToString());
 					// キーボード
 					// 入力がテンキーとマウスクリックだったら無視
 					if (k.GetValue(i).ToString().IndexOf("Arrow") < 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0 && k.GetValue(i).ToString().IndexOf("Joystick") < 0)
@@ -256,24 +357,55 @@ public class KeyConfigController : MonoBehaviour
 						}
 					}
 					// ジョイスティック
-					// ジョイスティック1以外のボタン入力は無視
-					if (k.GetValue(i).ToString().IndexOf("Joystick1") > 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0)
+					// ジョイスティック1以外のボタンおよび軸入力は無視
+					if (k.GetValue(i).ToString().IndexOf("Joystick1") >= 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0)
 					{
 						// ダブり対策
 
-					}
-					// 軸入力取得(3rd縦）
-					Debug.Log("3rd " + Input.GetAxisRaw("3rd Axis"));
-					Debug.Log("4th " + Input.GetAxisRaw("4th Axis"));
-					Debug.Log("5th " + Input.GetAxisRaw("5th Axis"));
-					Debug.Log("6th " + Input.GetAxisRaw("6th Axis"));
-					Debug.Log("7th " + Input.GetAxisRaw("7th Axis"));
-					Debug.Log("8th " + Input.GetAxisRaw("8th Axis"));
-					Debug.Log("9th " + Input.GetAxisRaw("9th Axis"));
-					//else if(Input.GetAxis("3rd Axis"))
-					{
-
-					}
+						// ボタン取得
+						switch (nowselect)
+						{
+							case NOWSELECT.SHOT:
+								ShotControllerText.text = k.GetValue(i).ToString();
+								break;
+							case NOWSELECT.WRESTLE:
+								WrestleControllerText.text = k.GetValue(i).ToString();
+								break;
+							case NOWSELECT.SEARCH:
+								SearchControllerText.text = k.GetValue(i).ToString();
+								break;
+							case NOWSELECT.JUMP:
+								JumpControllerText.text = k.GetValue(i).ToString();
+								break;
+							case NOWSELECT.COMMAND:
+								CommandControllerText.text = k.GetValue(i).ToString();
+								break;
+							case NOWSELECT.MENU:
+								CommandControllerText.text = k.GetValue(i).ToString();
+								break;
+							case NOWSELECT.SUBSHOT:
+								SubShotControllerText.text = k.GetValue(i).ToString();
+								break;
+							case NOWSELECT.EXSHOT:
+								ExShotControllerText.text = k.GetValue(i).ToString();
+								break;
+							case NOWSELECT.EXWRESTLE:
+								ExWrestleControllerText.text = k.GetValue(i).ToString();
+								break;
+							case NOWSELECT.ELEVATIONUPPER:
+								ElevationUpperControllerText.text = k.GetValue(i).ToString();
+								break;
+							case NOWSELECT.ELEVETIONDOWN:
+								ElevationUpperControllerText.text = k.GetValue(i).ToString();
+								break;
+							case NOWSELECT.AZIMUTHLEFT:
+								AzimuthLeftControllerText.text = k.GetValue(i).ToString();
+								break;
+							case NOWSELECT.AZIMUTHRIGHT:
+								AzimhthRightKeyboadText.text = k.GetValue(i).ToString();
+								break;
+						}
+					}					
 				}
 			}
 		}
