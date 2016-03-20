@@ -33,7 +33,14 @@ public class LogoSceneController : MonoBehaviour
             GameObject loadManager = (GameObject)Instantiate(Resources.Load("LoadManager"));
             loadManager.name = "LoadManager";
         }
-    }
+		// ControllerManagerがあるか判定
+		if (GameObject.Find("ControllerManager") == null)
+		{
+			// 無ければ作る
+			GameObject loadManager = (GameObject)Instantiate(Resources.Load("ControllerManager"));
+			loadManager.name = "ControllerManager";
+		}
+	}
 
 	// Use this for initialization
 	void Start () 
@@ -57,9 +64,17 @@ public class LogoSceneController : MonoBehaviour
 		yield return new WaitForSeconds(1.0f);
 		LogoAppear.SetTrigger("Start");
 		yield return new WaitForSeconds(3.0f);
-        // TODO:コントローラー設定をやっていたらタイトルへ、していなかったらコントローラー設定へ
-        // タイトルへ遷移
-        FadeManager.Instance.LoadLevel("title", 1.0f);
-        // コントローラーセッティングへ遷移
+		// コントローラー設定をやっていたらタイトルへ、していなかったらコントローラー設定へ
+		// タイトルへ遷移
+		if (PlayerPrefs.GetInt("ControllerSetting") == 2)
+		{
+			FadeManager.Instance.LoadLevel("title", 1.0f);
+		}
+		// キーコンフィグへ遷移
+		else
+		{
+			FadeManager.Instance.LoadLevel("KeyConfig", 1.0f);
+		}
+        
 	}
 }
