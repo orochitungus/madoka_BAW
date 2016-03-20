@@ -93,6 +93,24 @@ public class KeyConfigController : MonoBehaviour
         AZIMUTHRIGHT
     }
 
+    public enum NowMode
+    {
+        SETTINGSTANDBY,                 // 設定開始
+        RIGHTSTICKCHECKAPPER,           // 右スティックパネル表示開始
+        RIGHTSTICKPOPUP1,               // ポップアップ１表示中
+        RIGHTSTICKPOPUP1CLOSE,          // ポップアップ１消失中
+        RIGHTSTICKPOPUP1CLOSECOMPLETE,  // ポップアップ１消失完了
+        RIGHTSTICK2POPUPOPEN,           // ポップアップ２表示開始
+        RIGHTSTICK2UPPERCHECK,          // 上入力の取得中
+        RIGHTSTICK2DOWNCHECK,           // 下入力の取得中
+        RIGHTSTICK2LEFTCHECK,           // 左入力の取得中
+        RIGHTSTICK2RIGHTCHECK,          // 右入力の取得中
+        RICHTSTICKFINALCHECK,           // ファイナルチェック
+        POPUPCLOSE,                     // ポップアップ終了
+    }
+
+    public NowMode Nowmode;
+
     // 各カーソル
     public Image ShotKeyboard;
     public Image ShotController;
@@ -137,6 +155,11 @@ public class KeyConfigController : MonoBehaviour
 	/// 現在選択中の項目
 	/// </summary>
     public NOWSELECT Nowselect;
+
+    /// <summary>
+    /// 画面全体を制御するAnimator
+    /// </summary>
+    public Animator Controllersetting;
 
 
 	/// <summary>
@@ -184,11 +207,30 @@ public class KeyConfigController : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+        // モード初期化
+        Nowmode = NowMode.SETTINGSTANDBY;
+
+        // 初期状態で右コントローラーのセッティングが成されていなければ、セッティングに入る
+        this.UpdateAsObservable().Where(_ => Nowmode == NowMode.SETTINGSTANDBY).Subscribe(_AppDomain =>
+        {
+            if (PlayerPrefs.GetInt("ControllerSetting") < 1)
+            {
+                Controllersetting.SetBool("SetRightStick", true);
+            }
+            // セッティングが成されていたらステートを切り替える（ポップアップを出さない）
+            else
+            {
+                Nowmode = NowMode.POPUPCLOSE;
+            }
+        });
+
 		// 選択対象を初期化
 		OnClickShotButton();
 		
+
+
 		// キー入力を取得
-		this.UpdateAsObservable().Subscribe(_ =>
+		this.UpdateAsObservable().Where(_ => Nowmode == NowMode.POPUPCLOSE).Subscribe(_ =>
 		{
 			GetKeyInput(Nowselect);			
 		});
