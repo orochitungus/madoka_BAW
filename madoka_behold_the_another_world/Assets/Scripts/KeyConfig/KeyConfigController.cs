@@ -96,11 +96,6 @@ public class KeyConfigController : MonoBehaviour
     public enum NowMode
     {
         SETTINGSTANDBY,                 // 設定開始
-        RIGHTSTICKCHECKAPPER,           // 右スティックパネル表示開始
-        RIGHTSTICKPOPUP1,               // ポップアップ１表示中
-        RIGHTSTICKPOPUP1CLOSE,          // ポップアップ１消失中
-        RIGHTSTICKPOPUP1CLOSECOMPLETE,  // ポップアップ１消失完了
-        RIGHTSTICK2POPUPOPEN,           // ポップアップ２表示開始
         RIGHTSTICK2UPPERCHECK,          // 上入力の取得中
         RIGHTSTICK2DOWNCHECK,           // 下入力の取得中
         RIGHTSTICK2LEFTCHECK,           // 左入力の取得中
@@ -215,7 +210,7 @@ public class KeyConfigController : MonoBehaviour
         {
             if (PlayerPrefs.GetInt("ControllerSetting") < 1)
             {
-                Controllersetting.SetBool("SetRightStick", true);
+				Controllersetting.SetBool("SetRightStick", true);
             }
             // セッティングが成されていたらステートを切り替える（ポップアップを出さない）
             else
@@ -239,105 +234,7 @@ public class KeyConfigController : MonoBehaviour
 
 	public void GetKeyInput(NOWSELECT nowselect)
 	{
-		// ジョイスティック軸取得
-		// 軸取得
 		
-		//右スティック（追加）
-		// 3rd取得
-		if (Input.GetAxisRaw("Vertical2") < 0)
-		{
-			Debug.Log("3rdAxis PLUS");
-		}
-		else if (0 < Input.GetAxisRaw("Vertical2"))
-		{
-			//下に傾いている
-			Debug.Log("3rdAxis MINUS");
-		}
-		else
-		{
-			//上下方向には傾いていない
-		}
-		// 5th取得
-		if (Input.GetAxisRaw("Horizontal2") < 0)
-		{
-			//左に傾いている
-			Debug.Log("5thAxis MINUS");
-		}
-		else if (0 < Input.GetAxisRaw("Horizontal2"))
-		{
-			//右に傾いている
-			Debug.Log("5thAxis PLUS");
-		}
-		else
-		{
-			//左右方向には傾いていない
-
-		}
-
-		// 4th取得
-		if (Input.GetAxisRaw("Vertical3") < 0)
-		{
-			//上に傾いている
-			Debug.Log("4thAxis PLUS");
-		}
-		else if (0 < Input.GetAxisRaw("Vertical3"))
-		{
-			//下に傾いている
-			Debug.Log("4thAxis MINUS");
-		}
-		else
-		{
-			//上下方向には傾いていない
-		}
-		// 6th取得
-		if (Input.GetAxisRaw("Horizontal3") < 0)
-		{
-			//左に傾いている
-			Debug.Log("6th MINUS");
-		}
-		else if (0 < Input.GetAxisRaw("Horizontal3"))
-		{
-			//右に傾いている
-			Debug.Log("6th PLUS");
-		}
-		else
-		{
-			//左右方向には傾いていない
-
-		}
-
-		// 7th取得
-		if (Input.GetAxisRaw("Vertical4") < 0)
-		{
-			//上に傾いている
-			Debug.Log("7thAxis PLUS");
-		}
-		else if (0 < Input.GetAxisRaw("Vertical4"))
-		{
-			//下に傾いている
-			Debug.Log("7thAxis MINUS");
-		}
-		else
-		{
-			//上下方向には傾いていない
-		}
-		// 8th取得
-		if (Input.GetAxisRaw("Horizontal4") < 0)
-		{
-			//左に傾いている
-			Debug.Log("8th MINUS");
-		}
-		else if (0 < Input.GetAxisRaw("Horizontal4"))
-		{
-			//右に傾いている
-			Debug.Log("8th PLUS");
-		}
-		else
-		{
-			//左右方向には傾いていない
-
-		}
-
 		// キー入力
 		if (Input.anyKeyDown)
 		{
@@ -403,7 +300,7 @@ public class KeyConfigController : MonoBehaviour
 					if (k.GetValue(i).ToString().IndexOf("Joystick1") >= 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0)
 					{
 						// ダブり対策
-
+						OverlapCheckController(k.GetValue(i).ToString(), nowselect);
 						// ボタン取得
 						switch (nowselect)
 						{
@@ -1407,5 +1304,13 @@ public class KeyConfigController : MonoBehaviour
 
 		AzimhthRightKeyboad.color = new Color(1, 0, 0);
 		AzimhthRightController.color = new Color(1, 0, 0);
+	}
+
+	/// <summary>
+	/// 右スティック設定ボタンが押された時の処理
+	/// </summary>
+	public void OnClickSetRightStick()
+	{
+		Controllersetting.Play("SetRightStick");
 	}
 }
