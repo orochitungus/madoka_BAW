@@ -50,10 +50,10 @@ public class ControllerSettingPopup : MonoBehaviour
     public void OnClickOKButton()
     {
 		// ついでに再出現しないように元のフラグも折っておく
-		Controllersettingpopup.SetBool("ControllerSettingClose", false);
 		Controllersettingpopup.SetBool("Conctroller2Appear", true);
 		Keyconfigcontroller.Nowmode = KeyConfigController.NowMode.RIGHTSTICK2UPPERCHECK;
-    }
+		Popup2AnswerText.text = "";
+	}
 
     /// <summary>
     /// キャンセルボタンを押した場合、キーコンフィグに移行する
@@ -72,7 +72,27 @@ public class ControllerSettingPopup : MonoBehaviour
 	/// </summary>
 	public void OnClickOKButton2()
 	{
-		
+		if(Keyconfigcontroller.Nowmode == KeyConfigController.NowMode.RIGHTSTICK2UPPERCHECK && Popup2AnswerText.text != "")
+		{
+			Keyconfigcontroller.Nowmode = KeyConfigController.NowMode.RIGHTSTICK2DOWNCHECK;
+			Popup2AnswerText.text = "";
+		}
+		else if(Keyconfigcontroller.Nowmode == KeyConfigController.NowMode.RIGHTSTICK2DOWNCHECK && Popup2AnswerText.text != "")
+		{
+			Keyconfigcontroller.Nowmode = KeyConfigController.NowMode.RIGHTSTICK2LEFTCHECK;
+			Popup2AnswerText.text = "";
+		}
+		else if (Keyconfigcontroller.Nowmode == KeyConfigController.NowMode.RIGHTSTICK2LEFTCHECK && Popup2AnswerText.text != "")
+		{
+			Keyconfigcontroller.Nowmode = KeyConfigController.NowMode.RIGHTSTICK2RIGHTCHECK;
+			Popup2AnswerText.text = "";
+		}
+		else if (Keyconfigcontroller.Nowmode == KeyConfigController.NowMode.RIGHTSTICK2RIGHTCHECK && Popup2AnswerText.text != "")
+		{
+			Keyconfigcontroller.Nowmode = KeyConfigController.NowMode.RICHTSTICKFINALCHECK;
+			Popup2Title.text = "";			
+			Popup2AnswerText.text = "↑：" + _UpperInput + "\n↓：" + _DownInput + "\n←：" + _LeftInput + "\n→：" + _RightInput;
+		}
 	}
 
 	/// <summary>
@@ -80,7 +100,23 @@ public class ControllerSettingPopup : MonoBehaviour
 	/// </summary>
 	public void OnClcikCancelButton2()
 	{
-
+		switch (Keyconfigcontroller.Nowmode)
+		{
+			// キャンセルによってクローズ
+			case KeyConfigController.NowMode.RIGHTSTICK2UPPERCHECK:
+			case KeyConfigController.NowMode.RIGHTSTICK2DOWNCHECK:
+			case KeyConfigController.NowMode.RIGHTSTICK2LEFTCHECK:
+			case KeyConfigController.NowMode.RIGHTSTICK2RIGHTCHECK:
+				Controllersettingpopup.SetBool("Conctroller2Appear", false);
+				Controllersettingpopup.SetBool("CloseController2", true);
+				Keyconfigcontroller.Nowmode = KeyConfigController.NowMode.POPUPCLOSE;
+				break;
+			// 最初からやり直し
+			case KeyConfigController.NowMode.RICHTSTICKFINALCHECK:
+				Keyconfigcontroller.Nowmode = KeyConfigController.NowMode.RIGHTSTICK2UPPERCHECK;
+				Popup2AnswerText.text = "";
+				break;
+		}
 	}
 
 
@@ -130,16 +166,19 @@ public class ControllerSettingPopup : MonoBehaviour
 				{
 					case KeyConfigController.NowMode.RIGHTSTICK2UPPERCHECK:
 						_UpperInput = GetStickInput();
-						Popup2AnswerText.text = "上動作が認識されました\nＯＫボタンを押してください";
+						Popup2AnswerText.text = "上動作：" + _UpperInput + "\n上動作が認識されました\nＯＫボタンを押してください";					
 						break;
 					case KeyConfigController.NowMode.RIGHTSTICK2DOWNCHECK:
-						Popup2AnswerText.text = "下動作が認識されました\nＯＫボタンを押してください";
+						_DownInput = GetStickInput();
+						Popup2AnswerText.text = "下動作：" + _DownInput + "\n下動作が認識されました\nＯＫボタンを押してください";
 						break;
-					case KeyConfigController.NowMode.RIGHTSTICK2LEFTCHECK:
-						Popup2AnswerText.text = "左動作が認識されました\nＯＫボタンを押してください";
+					case KeyConfigController.NowMode.RIGHTSTICK2LEFTCHECK:						
+						_LeftInput = GetStickInput();
+						Popup2AnswerText.text = "左動作：" + _LeftInput + "\n左動作が認識されました\nＯＫボタンを押してください";
 						break;
 					case KeyConfigController.NowMode.RIGHTSTICK2RIGHTCHECK:
-						Popup2AnswerText.text = "右動作が認識されました\nＯＫボタンを押してください";
+						_RightInput = GetStickInput();
+						Popup2AnswerText.text = "右動作：" + _RightInput + "\n右動作が認識されました\nＯＫボタンを押してください";
 						break;
 				}
 			}

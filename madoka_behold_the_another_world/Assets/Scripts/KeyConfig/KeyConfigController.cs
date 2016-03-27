@@ -1311,6 +1311,8 @@ public class KeyConfigController : MonoBehaviour
 	/// </summary>
 	public void OnClickSetRightStick()
 	{
-		Controllersetting.Play("SetRightStick");
+		Controllersetting.SetBool("ControllerSettingClose", false);
+		Controllersetting.SetBool("CloseController2", false);
+		Controllersetting.Play("OpenControllerSetting");
 	}
 }
