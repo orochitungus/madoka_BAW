@@ -72,6 +72,11 @@ public class KeyConfigController : MonoBehaviour
     /// </summary>
     public Button AzimuthRight;
 
+	/// <summary>
+	/// キャンセルボタン
+	/// </summary>
+	public Button CancelButton;
+
 
     /// <summary>
     /// どれが選択されているか
@@ -205,12 +210,13 @@ public class KeyConfigController : MonoBehaviour
         // モード初期化
         Nowmode = NowMode.SETTINGSTANDBY;
 
-        // 初期状態で右コントローラーのセッティングが成されていなければ、セッティングに入る
+        // 初期状態で右コントローラーのセッティングが成されていなければ、セッティングに入る。キャンセルも切る
         this.UpdateAsObservable().Where(_ => Nowmode == NowMode.SETTINGSTANDBY).Subscribe(_AppDomain =>
         {
             if (PlayerPrefs.GetInt("ControllerSetting") < 1)
             {
 				Controllersetting.SetBool("SetRightStick", true);
+				CancelButton.interactable = false;
             }
             // セッティングが成されていたらステートを切り替える（ポップアップを出さない）
             else
@@ -300,48 +306,48 @@ public class KeyConfigController : MonoBehaviour
 					if (k.GetValue(i).ToString().IndexOf("Joystick1") >= 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0)
 					{
 						// ダブり対策
-						OverlapCheckController(k.GetValue(i).ToString(), nowselect);
+						OverlapCheckController(k.GetValue(i).ToString().Substring(9), nowselect);
 						// ボタン取得
 						switch (nowselect)
 						{
 							case NOWSELECT.SHOT:
-								ShotControllerText.text = k.GetValue(i).ToString();
+								ShotControllerText.text = k.GetValue(i).ToString().Substring(9);
 								break;
 							case NOWSELECT.WRESTLE:
-								WrestleControllerText.text = k.GetValue(i).ToString();
+								WrestleControllerText.text = k.GetValue(i).ToString().Substring(9);
 								break;
 							case NOWSELECT.SEARCH:
-								SearchControllerText.text = k.GetValue(i).ToString();
+								SearchControllerText.text = k.GetValue(i).ToString().Substring(9);
 								break;
 							case NOWSELECT.JUMP:
-								JumpControllerText.text = k.GetValue(i).ToString();
+								JumpControllerText.text = k.GetValue(i).ToString().Substring(9);
 								break;
 							case NOWSELECT.COMMAND:
-								CommandControllerText.text = k.GetValue(i).ToString();
+								CommandControllerText.text = k.GetValue(i).ToString().Substring(9);
 								break;
 							case NOWSELECT.MENU:
-								CommandControllerText.text = k.GetValue(i).ToString();
+								CommandControllerText.text = k.GetValue(i).ToString().Substring(9);
 								break;
 							case NOWSELECT.SUBSHOT:
-								SubShotControllerText.text = k.GetValue(i).ToString();
+								SubShotControllerText.text = k.GetValue(i).ToString().Substring(9);
 								break;
 							case NOWSELECT.EXSHOT:
-								ExShotControllerText.text = k.GetValue(i).ToString();
+								ExShotControllerText.text = k.GetValue(i).ToString().Substring(9);
 								break;
 							case NOWSELECT.EXWRESTLE:
-								ExWrestleControllerText.text = k.GetValue(i).ToString();
+								ExWrestleControllerText.text = k.GetValue(i).ToString().Substring(9);
 								break;
 							case NOWSELECT.ELEVATIONUPPER:
-								ElevationUpperControllerText.text = k.GetValue(i).ToString();
+								ElevationUpperControllerText.text = k.GetValue(i).ToString().Substring(9);
 								break;
 							case NOWSELECT.ELEVETIONDOWN:
-								ElevationUpperControllerText.text = k.GetValue(i).ToString();
+								ElevationUpperControllerText.text = k.GetValue(i).ToString().Substring(9);
 								break;
 							case NOWSELECT.AZIMUTHLEFT:
-								AzimuthLeftControllerText.text = k.GetValue(i).ToString();
+								AzimuthLeftControllerText.text = k.GetValue(i).ToString().Substring(9);
 								break;
 							case NOWSELECT.AZIMUTHRIGHT:
-								AzimhthRightKeyboadText.text = k.GetValue(i).ToString();
+								AzimhthRightKeyboadText.text = k.GetValue(i).ToString().Substring(9);
 								break;
 						}
 					}					
@@ -686,11 +692,7 @@ public class KeyConfigController : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		
-        if (Input.anyKeyDown)
-        {
-            
-        }
+		        
     }
 
 	/// <summary>
@@ -1314,5 +1316,65 @@ public class KeyConfigController : MonoBehaviour
 		Controllersetting.SetBool("ControllerSettingClose", false);
 		Controllersetting.SetBool("CloseController2", false);
 		Controllersetting.Play("OpenControllerSetting");
+	}
+
+	/// <summary>
+	/// OKボタンが押された時の処理
+	/// </summary>
+	public void OnClickOKButton()
+	{
+		// 保持内容をセーブする
+		// 射撃・決定
+		// キーボード
+		PlayerPrefs.SetString("Shot_Keyboard", ShotKeyboardText.text);
+		// コントローラー
+		PlayerPrefs.SetString("Shot_Controller", "Joystick1" + ShotControllerText.text);
+
+		// 格闘
+		// キーボード
+		PlayerPrefs.SetString("Wrestle_Keyboard", WrestleKeyboardText.text);
+		// コントローラー
+		PlayerPrefs.SetString("Wrestle_Controller", "Joystick1" + WrestleControllerText.text);
+
+		// ジャンプ
+		// キーボード
+		PlayerPrefs.SetString("Jump_Keyboard", JumpKeyboadText.text);
+		// コントローラー
+		PlayerPrefs.SetString("Jump_Controller", "Joystick1" + JumpControllerText.text);
+
+		// サーチ
+		// キーボード
+		PlayerPrefs.SetString("Search_Keyboard", SearchKeyboardText.text);
+		// コントローラー
+		PlayerPrefs.SetString("Search_Controller", "Joystick1" + SearchControllerText.text);
+
+		// コマンド
+		// キーボード
+		PlayerPrefs.SetString("Command_Keyboard", CommandKeyboardText.text);
+		// コントローラー
+		PlayerPrefs.SetString("Commnd_Controller", "Joystick1" + CommandControllerText.text);
+
+		// メニュー
+		// キーボード
+		PlayerPrefs.SetString("Menu_Keyboard", MenuKeyboardText.text);
+		// コントローラー
+		PlayerPrefs.SetString("Menu_Controller", "Joystick1" + MenuControllerText.text);
+
+		// サブ射撃
+
+
+		// 特殊射撃
+
+		// 特殊格闘
+
+		// Cancelボタンが非アクティブ（初回）→セーブしてタイトルへ遷移
+
+		// Cancelボタンがアクティブ（オプションから来た）→セーブしてオプションへ遷移
+
+	}
+
+	public void OnClickCancelButton()
+	{
+		// オプションへ遷移する
 	}
 }

@@ -93,6 +93,22 @@ public class ControllerSettingPopup : MonoBehaviour
 			Popup2Title.text = "";			
 			Popup2AnswerText.text = "↑：" + _UpperInput + "\n↓：" + _DownInput + "\n←：" + _LeftInput + "\n→：" + _RightInput;
 		}
+		else if(Keyconfigcontroller.Nowmode == KeyConfigController.NowMode.RICHTSTICKFINALCHECK)
+		{
+			// 下の枠に登録
+			// ↑
+			Keyconfigcontroller.ElevationUpperControllerText.text = _UpperInput;
+			// ↓
+			Keyconfigcontroller.ElevationDownControllerText.text = _DownInput;
+			// ←
+			Keyconfigcontroller.AzimuthLeftControllerText.text = _LeftInput;
+			// →
+			Keyconfigcontroller.AzimhthRightControllerText.text = _RightInput;
+			// ポップアップを消す
+			Controllersettingpopup.SetBool("Conctroller2Appear", false);
+			Controllersettingpopup.SetBool("CloseController2", true);
+			Keyconfigcontroller.Nowmode = KeyConfigController.NowMode.POPUPCLOSE;
+		}
 	}
 
 	/// <summary>
@@ -197,32 +213,32 @@ public class ControllerSettingPopup : MonoBehaviour
 		// 3rd取得
 		if (Input.GetAxisRaw("Vertical2") < 0)
 		{
-			return "3rdAxis PLUS";
+			return "3rd PLUS";
 		}
 		else if (0 < Input.GetAxisRaw("Vertical2"))
 		{			
-			return "3rdAxis MINUS";
+			return "3rd MINUS";
 		}
 		// 5th取得
 		if (Input.GetAxisRaw("Horizontal2") < 0)
 		{
 			//左に傾いている
-			return "5thAxis MINUS";
+			return "5th MINUS";
 		}
 		else if (0 < Input.GetAxisRaw("Horizontal2"))
 		{
 			//右に傾いている
-			return "5thAxis PLUS";
+			return "5th PLUS";
 		}
 
 		// 4th取得
 		if (Input.GetAxisRaw("Vertical3") < 0)
 		{
-			return "4thAxis PLUS";
+			return "4th PLUS";
 		}
 		else if (0 < Input.GetAxisRaw("Vertical3"))
 		{
-			return "4thAxis MINUS";
+			return "4th MINUS";
 		}
 		else
 		{
@@ -241,11 +257,11 @@ public class ControllerSettingPopup : MonoBehaviour
 		// 7th取得
 		if (Input.GetAxisRaw("Vertical4") < 0)
 		{
-			return "7thAxis PLUS";
+			return "7th PLUS";
 		}
 		else if (0 < Input.GetAxisRaw("Vertical4"))
 		{
-			return "7thAxis MINUS";
+			return "7th MINUS";
 		}
 
 		// 8th取得
