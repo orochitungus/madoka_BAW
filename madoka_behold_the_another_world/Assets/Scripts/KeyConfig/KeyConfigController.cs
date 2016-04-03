@@ -204,6 +204,38 @@ public class KeyConfigController : MonoBehaviour
 	public Text AzimhthRightKeyboadText;
 	public Text AzimhthRightControllerText;
 
+	void Awake()
+	{
+		// AudioManagerがあるか判定
+		if (GameObject.Find("AudioManager") == null)
+		{
+			// なければ作る
+			GameObject am = (GameObject)Instantiate(Resources.Load("AudioManager"));
+			am.name = "AudioManager";   // このままだと名前にAudioManagerがつくので消しておく
+		}
+		// FadeManagerがあるか判定
+		if (GameObject.Find("FadeManager") == null)
+		{
+			// 無ければ作る
+			GameObject fadeManager = (GameObject)Instantiate(Resources.Load("FadeManager"));
+			fadeManager.name = "FadeManager";
+		}
+		// LoadManagerがあるか判定
+		if (GameObject.Find("LoadManager") == null)
+		{
+			// 無ければ作る
+			GameObject loadManager = (GameObject)Instantiate(Resources.Load("LoadManager"));
+			loadManager.name = "LoadManager";
+		}
+		// ControllerManagerがあるか判定
+		if (GameObject.Find("ControllerManager") == null)
+		{
+			// 無ければ作る
+			GameObject loadManager = (GameObject)Instantiate(Resources.Load("ControllerManager"));
+			loadManager.name = "ControllerManager";
+		}
+	}
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -1361,16 +1393,95 @@ public class KeyConfigController : MonoBehaviour
 		PlayerPrefs.SetString("Menu_Controller", "Joystick1" + MenuControllerText.text);
 
 		// サブ射撃
-
+		// キーボード
+		PlayerPrefs.SetString("SubShot_Keyboard", SubShotKeyboardText.text);
+		// コントローラー
+		PlayerPrefs.SetString("SubShot_Controller", "Joystick1" + SubShotControllerText.text);
 
 		// 特殊射撃
+		// キーボード
+		PlayerPrefs.SetString("EXShot_Keyboard", ExShotKeyboardText.text);
+		// コントローラー
+		PlayerPrefs.SetString("EXShot_Controller", "Joystick1" + ExShotControllerText.text);
 
 		// 特殊格闘
+		// キーボード
+		PlayerPrefs.SetString("EXWrestle_Keyboad", ExWrestleKeyboardText.text);
+		// コントローラー
+		PlayerPrefs.SetString("EXWrestle_Controller", "Joystick1" + ExWrestleControllerText.text);
+
+		// 視点回転上
+		// キーボード
+		PlayerPrefs.SetString("ElevationUpper_Keyboard", ElevationUpperKeyboardText.text);
+		// コントローラー
+		// 軸指定
+		if (ElevationUpperControllerText.text.IndexOf("Axis") >= 0)
+		{
+			PlayerPrefs.SetString("ElevationUpper_Controller", ElevationUpperControllerText.text);
+		}
+		// キー設定
+		else
+		{
+			PlayerPrefs.SetString("ElevationUpper_Controller", "Joystick1" + ElevationUpperControllerText.text);
+		}
+		// 視点回転下
+		// キーボード
+		PlayerPrefs.SetString("ElevationDown_Keyboard", ElevetionDownKeyboardText.text);
+		// コントローラー
+		// 軸設定
+		if(ElevationDownControllerText.text.IndexOf("Axis") >=0)
+		{
+			PlayerPrefs.SetString("ElevationDown_Controller", ElevationDownControllerText.text);
+		}
+		// キー設定
+		else
+		{
+			PlayerPrefs.SetString("ElevationDown_Controller", "Joystick1" + ElevationDownControllerText.text);
+		}
+
+		// 視点回転左
+		// キーボード
+		PlayerPrefs.SetString("AzimuthLeft_Keyboard", AzimuthLeftKeyboardText.text);
+		// コントローラー
+		// 軸設定
+		if(AzimuthLeftControllerText.text.IndexOf("Axis") >= 0)
+		{
+			PlayerPrefs.SetString("AzimuthLeft_Controller", AzimuthLeftControllerText.text);
+		}
+		// キー設定
+		else
+		{
+			PlayerPrefs.SetString("AzimuthLeft_Controller", "Joystick1" + ElevationDownControllerText.text);
+		}
+
+		// 視点回転右
+		// キーボード
+		PlayerPrefs.SetString("AzimuthRight_Keyboard", AzimhthRightKeyboadText.text);
+		// コントローラー
+		// 軸設定
+		if(AzimhthRightControllerText.text.IndexOf("Axis") >= 0)
+		{
+			PlayerPrefs.SetString("AzimuthRight_Controller", AzimhthRightControllerText.text);
+		}
+		// キー設定
+		else
+		{
+			PlayerPrefs.SetString("AzimuthRight_Controller", "Joystick1" +  AzimhthRightControllerText.text);
+		}
 
 		// Cancelボタンが非アクティブ（初回）→セーブしてタイトルへ遷移
-
+		if(!CancelButton.interactable)
+		{
+			// 保持情報をセーブ
+			PlayerPrefs.SetInt("ControllerSetting", 2);
+			// タイトルへ遷移
+			FadeManager.Instance.LoadLevel("title", 1.0f);
+		}
 		// Cancelボタンがアクティブ（オプションから来た）→セーブしてオプションへ遷移
-
+		else
+		{
+			// オプションへ遷移
+		}
 	}
 
 	public void OnClickCancelButton()
