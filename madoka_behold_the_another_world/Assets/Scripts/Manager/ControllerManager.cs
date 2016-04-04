@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
+using System;
 using System.Collections;
 
 public class ControllerManager : SingletonMonoBehaviour<ControllerManager> 
@@ -8,9 +9,24 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 	// 各種キーの入力の有無
 
 	/// <summary>
-	/// 方向キー/左スティック（コントローラー）
+	/// 方向キー/左スティック上（コントローラー.斜めは複数同時）
+	/// </summary>	
+	public bool Top;
+
+	/// <summary>
+	/// 方向キー/左スティック下
 	/// </summary>
-	public float Tenkey;
+	public bool Under;
+
+	/// <summary>
+	/// 方向キー/左スティック左
+	/// </summary>
+	public bool Left;
+
+	/// <summary>
+	/// 方向キー/左スティック右
+	/// </summary>
+	public bool Right;
 	
 	/// <summary>
 	/// 射撃・決定
@@ -142,12 +158,25 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 		// 十字キー入力方向検出
 		this.UpdateAsObservable().Subscribe(_ =>
 		{
-			var horizontal = Input.GetAxisRaw("Horizontal");        // 横入力を検出
-			var vertical = Input.GetAxisRaw("Vertical");            // 縦入力を検出
+			float horizontal = Input.GetAxisRaw("Horizontal");        // 横入力を検出
+			float vertical = Input.GetAxisRaw("Vertical");            // 縦入力を検出
+
+			if (vertical > 0.0f && Math.Abs(Input.GetAxisRaw("Horizontal")) < 0.1f)
+			{
+				Top = true;
+			}
+			Top = false;
+
 
 		});
 
+
 		// http://www.slideshare.net/torisoup/unity-unirx
+		// 射撃検知
+
+		// 格闘検知
+
+		// 
 	}
 
 	// Update is called once per frame
