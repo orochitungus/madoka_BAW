@@ -161,23 +161,88 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 			float horizontal = Input.GetAxisRaw("Horizontal");        // 横入力を検出
 			float vertical = Input.GetAxisRaw("Vertical");            // 縦入力を検出
 
-			if (vertical > 0.0f && Math.Abs(Input.GetAxisRaw("Horizontal")) < 0.1f)
-			{
-				Top = true;
-			}
-			Top = false;
+            // 上
+            if (vertical > 0.0f && Math.Abs(horizontal) < 0.1f)
+            {
+                Top = true;
+            }
+            else
+            {
+                Top = false;
+            }
+
+            // 下
+            if (vertical < 0.0f && Math.Abs(horizontal) < 0.1f)
+            {
+                Under = true;
+            }
+            else
+            {
+                Under = false;
+            }
+
+            // 左
+            if (horizontal > 0.0f && Math.Abs(vertical) < 0.1f)
+            {
+                Left = true;
+            }
+            else
+            {
+                Left = false;
+            }
+
+            // 右
+            if(horizontal < 0.0f && Math.Abs(vertical) < 0.1f)
+            {
+                Right = true;
+            }
+            else
+            {
+                Right = false;
+            }        
+            
+        });
+        // ステップ入力検知
+        // 前ステップ
+        var frontstepstream = this.UpdateAsObservable().Where(_ => Top);
+        frontstepstream.Buffer(frontstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { FrontStep = true; });
+        frontstepstream.Buffer(frontstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { FrontStep = false; });
+
+        // 左前ステップ
+        var leftfrontstepstream = this.UpdateAsObservable().Where(_ => Top && Left);
+        leftfrontstepstream.Buffer(leftfrontstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { LeftFrontStep = true; });
+        leftfrontstepstream.Buffer(leftfrontstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { LeftFrontStep = false; });
+
+        // 左ステップ
+        var leftstepstream = this.UpdateAsObservable().Where(_ => Left);
+        leftstepstream.Buffer(leftstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { LeftStep = true; });
+        leftstepstream.Buffer(leftstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { LeftStep = false; });
+
+        // 左後ステップ
+        var leftbackstepstream = this.UpdateAsObservable().Where(_ => Left && Under);
+        leftbackstepstream.Buffer(leftbackstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { LeftBackStep = true; });
+        leftbackstepstream.Buffer(leftbackstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { LeftBackStep = false; });
+
+        // 後ステップ
+        var backstepstream = this.UpdateAsObservable().Where(_ => Under);
+        backstepstream.Buffer(backstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { BackStep = true; });
+        backstepstream.Buffer(backstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { BackStep = false; });
+
+        // 右後ステップ
+        var rightbackstepstream = this.UpdateAsObservable().Where(_ => Right && Under);
+        rightbackstepstream.Buffer(rightbackstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { RightBackStep = true; });
+        rightbackstepstream.Buffer(rightbackstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { RightBackStep = true; });
+
+        // 右ステップ
 
 
-		});
+        // http://www.slideshare.net/torisoup/unity-unirx
+        // 射撃検知
 
+        // 格闘検知
 
-		// http://www.slideshare.net/torisoup/unity-unirx
-		// 射撃検知
-
-		// 格闘検知
-
-		// 
-	}
+        // 
+    }
 
 	// Update is called once per frame
 	void Update () 
