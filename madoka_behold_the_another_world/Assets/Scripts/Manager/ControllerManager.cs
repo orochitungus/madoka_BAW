@@ -231,18 +231,34 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
         // 右後ステップ
         var rightbackstepstream = this.UpdateAsObservable().Where(_ => Right && Under);
         rightbackstepstream.Buffer(rightbackstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { RightBackStep = true; });
-        rightbackstepstream.Buffer(rightbackstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { RightBackStep = true; });
+        rightbackstepstream.Buffer(rightbackstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { RightBackStep = false; });
 
-        // 右ステップ
+		// 右ステップ
+		var rightstepstream = this.UpdateAsObservable().Where(_ => Right);
+		rightstepstream.Buffer(rightstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { RightStep = true; });
+		rightstepstream.Buffer(rightstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { RightStep = false; });
 
+		// 右前ステップ
+		var rightfrontstepstrem = this.UpdateAsObservable().Where(_ => Right && Top);
+		rightfrontstepstrem.Buffer(rightfrontstepstrem.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { RightFrontStep = true; });
+		rightfrontstepstrem.Buffer(rightfrontstepstrem.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { RightFrontStep = false; });
 
-        // http://www.slideshare.net/torisoup/unity-unirx
-        // 射撃検知
+		// http://www.slideshare.net/torisoup/unity-unirx
+		// 射撃検知
 
-        // 格闘検知
+		// 格闘検知
 
-        // 
-    }
+		// ブーストダッシュ検知
+
+		// ジャンプ検知
+
+		// サーチ解除検知
+
+		// サーチ検知
+
+		// 特殊格闘検知 
+
+	}
 
 	// Update is called once per frame
 	void Update () 
