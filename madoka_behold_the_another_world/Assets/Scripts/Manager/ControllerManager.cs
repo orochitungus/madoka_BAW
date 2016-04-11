@@ -245,19 +245,33 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 
 		// http://www.slideshare.net/torisoup/unity-unirx
 		// 射撃検知
+		string shotcode_keyboard = PlayerPrefs.GetString("Shot_Keyboard");
+		string shotcode_controller = PlayerPrefs.GetString("Shot_Controller");
 
 		// 格闘検知
+		string wrestlecode_keyboard = PlayerPrefs.GetString("Wrestle_Keyboard")
 
-		// ブーストダッシュ検知
+		// キー入力
+		if (Input.anyKeyDown)
+		{
+			Array k = Enum.GetValues(typeof(KeyCode));
+			for (int i = 0; i < k.Length; i++)
+			{
+			}
 
-		// ジャンプ検知
+			// 格闘検知
 
-		// サーチ解除検知
+			// ブーストダッシュ検知
 
-		// サーチ検知
+			// ジャンプ検知
 
-		// 特殊格闘検知 
+			// サーチ解除検知
 
+			// サーチ検知
+
+			// 特殊格闘検知 
+
+		}
 	}
 
 	// Update is called once per frame
