@@ -244,34 +244,66 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 		rightfrontstepstrem.Buffer(rightfrontstepstrem.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { RightFrontStep = false; });
 
 		// http://www.slideshare.net/torisoup/unity-unirx
-		// 射撃検知
+		// 射撃
 		string shotcode_keyboard = PlayerPrefs.GetString("Shot_Keyboard");
 		string shotcode_controller = PlayerPrefs.GetString("Shot_Controller");
 
-		// 格闘検知
-		string wrestlecode_keyboard = PlayerPrefs.GetString("Wrestle_Keyboard")
+		// 格闘
+		string wrestlecode_keyboard = PlayerPrefs.GetString("Wrestle_Keyboard");
+		string wrestlecode_controller = PlayerPrefs.GetString("Wrestle_Controller");
 
-		// キー入力
+		// ジャンプ
+		string jump_keyboard = PlayerPrefs.GetString("Jump_Keyboard");
+		string jump_controller = PlayerPrefs.GetString("Jump_Controller");
+
+		// サーチ
+		string search_keyboard = PlayerPrefs.GetString("Search_Keyboard");
+		string search_controller = PlayerPrefs.GetString("Search_Controller");
+
+		// サブ射撃
+		string subshot_keyboard = PlayerPrefs.GetString("SubShot_Keyboard");
+		string subshot_controller = PlayerPrefs.GetString("SubShot_Controller");
+
+		// 特殊格闘 
+		string exwrestle_keyboard = PlayerPrefs.GetString("EXWrestle_Keyboad");
+		string exwrestle_controller = PlayerPrefs.GetString("EXWrestle_Controller");
+
+		// 特殊射撃
+		string exshot_keyboard = PlayerPrefs.GetString("EXShot_Keyboard");
+		string exshot_controller = PlayerPrefs.GetString("EXShot_Controller");
+
+		// メニュー
+		string menu_keyboard = PlayerPrefs.GetString("Menu_Keyboard");
+		string menu_controller = PlayerPrefs.GetString("Menu_Controller");
+
+		// コマンド
+		string command_keyboard = PlayerPrefs.GetString("Command_Keyboard");
+		string command_controller = PlayerPrefs.GetString("Commnd_Controller");
+
+		// 視点変更上
+		string viewchangeupper_keyboard = PlayerPrefs.GetString("ElevationUpper_Keyboard");
+		string viewchangeupper_controller = PlayerPrefs.GetString("ElevationUpper_Controller");
+
+		// 視点変更下
+		string viewchangedown_keyboard = PlayerPrefs.GetString("ElevationDown_Keyboard");
+		string viewchangedown_controller = PlayerPrefs.GetString("ElevationDown_Controller");
+
+		// 視点変更左
+		string viewchangeleft_keyboard = PlayerPrefs.GetString("AzimuthLeft_Keyboard");
+		string viewchangeleft_controller = PlayerPrefs.GetString("AzimuthLeft_Controller");
+
+		// 視点変更右
+
+		// キー入力取得
 		if (Input.anyKeyDown)
 		{
 			Array k = Enum.GetValues(typeof(KeyCode));
 			for (int i = 0; i < k.Length; i++)
 			{
+
 			}
-
-			// 格闘検知
-
-			// ブーストダッシュ検知
-
-			// ジャンプ検知
-
-			// サーチ解除検知
-
-			// サーチ検知
-
-			// 特殊格闘検知 
-
 		}
+		// ジョイスティック２取得
 	}
 
 	// Update is called once per frame
