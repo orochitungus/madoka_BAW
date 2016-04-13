@@ -99,12 +99,6 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 	public bool BoostDash;
 
 	/// <summary>
-	/// マジックバースト（射撃・格闘・ジャンプ）検出
-	/// </summary>
-	public bool MagicBurst;
-
-	
-	/// <summary>
 	/// フロントステップ（前2回）検出
 	/// </summary>
 	public bool FrontStep;
@@ -143,6 +137,11 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 	/// 右前ステップ（右上2回）検出
 	/// </summary>
 	public bool RightFrontStep;
+
+    /// <summary>
+    /// サーチボタン長押しによるアンロック
+    /// </summary>
+    public bool Unlock;
 
 	// Use this for initialization
 	void Start () 
@@ -292,23 +291,292 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 		string viewchangeleft_keyboard = PlayerPrefs.GetString("AzimuthLeft_Keyboard");
 		string viewchangeleft_controller = PlayerPrefs.GetString("AzimuthLeft_Controller");
 
-		// 視点変更右
+        // 視点変更右
+        string viewchangeright_keyboard = PlayerPrefs.GetString("AzimuthRight_Keyboard");
+        string viewchangeright_controller = PlayerPrefs.GetString("AzimuthRight_Controller");
 
-		// キー入力取得
-		if (Input.anyKeyDown)
-		{
-			Array k = Enum.GetValues(typeof(KeyCode));
-			for (int i = 0; i < k.Length; i++)
-			{
+        // キー入力取得
+        this.UpdateAsObservable().Subscribe(_ =>
+        {
+            if (Input.anyKeyDown)
+            {
+                Array k = Enum.GetValues(typeof(KeyCode));
+                for (int i = 0; i < k.Length; i++)
+                {
+                    // キー取得(キーボード）
+                    if (Input.GetKeyDown((KeyCode)k.GetValue(i)))
+                    {
+                        // テンキーとマウス入力と画面クリック以外のキー入力を取得する
+                        if (k.GetValue(i).ToString().IndexOf("Arrow") < 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0 && k.GetValue(i).ToString().IndexOf("Joystick") < 0)
+                        {
+                            // 射撃取得
+                            if (k.GetValue(i).ToString() == shotcode_keyboard)
+                            {
+                                Shot = true;
+                            }
+                            else
+                            {
+                                Shot = false;
+                            }
+                            // 格闘取得
+                            if (k.GetValue(i).ToString() == wrestlecode_keyboard)
+                            {
+                                Wrestle = true;
+                            }
+                            else
+                            {
+                                Wrestle = false;
+                            }
+                            // ジャンプ取得
+                            if (k.GetValue(i).ToString() == jump_keyboard)
+                            {
+                                Jump = true;
+                            }
+                            else
+                            {
+                                Jump = false;
+                            }
+                            // サーチ取得
+                            if (k.GetValue(i).ToString() == search_keyboard)
+                            {
+                                Search = true;
+                            }
+                            else
+                            {
+                                Search = false;
+                            }
+                            // メニュー取得
+                            if (k.GetValue(i).ToString() == menu_keyboard)
+                            {
+                                Menu = true;
+                            }
+                            else
+                            {
+                                Menu = false;
+                            }
+                            // コマンド取得
+                            if (k.GetValue(i).ToString() == command_keyboard)
+                            {
+                                Command = true;
+                            }
+                            else
+                            {
+                                Command = false;
+                            }
+                            // サブ射撃取得
+                            if (k.GetValue(i).ToString() == subshot_keyboard)
+                            {
+                                SubShot = true;
+                            }
+                            else
+                            {
+                                Wrestle = false;
+                            }
+                            // 特殊射撃取得
+                            if (k.GetValue(i).ToString() == exshot_keyboard)
+                            {
+                                EXShot = true;
+                            }
+                            else
+                            {
+                                EXShot = false;
+                            }
+                            // 特殊格闘取得
+                            if (k.GetValue(i).ToString() == exwrestle_keyboard)
+                            {
+                                EXWrestle = true;
+                            }
+                            else
+                            {
+                                EXWrestle = false;
+                            }
+                            // 視点変更上取得
+                            if (k.GetValue(i).ToString() == viewchangeupper_keyboard)
+                            {
+                                ElevationAngleUpper = true;
+                            }
+                            else
+                            {
+                                ElevationAngleUpper = false;
+                            }
+                            // 視点変更下取得
+                            if (k.GetValue(i).ToString() == viewchangedown_keyboard)
+                            {
+                                ElevationAngleDown = true;
+                            }
+                            else
+                            {
+                                ElevationAngleDown = false;
+                            }
+                            // 視点変更左取得
+                            if (k.GetValue(i).ToString() == viewchangeleft_keyboard)
+                            {
+                                AzimuthLeft = true;
+                            }
+                            else
+                            {
+                                AzimuthLeft = false;
+                            }
+                            // 視点変更右取得
+                            if (k.GetValue(i).ToString() == viewchangeright_keyboard)
+                            {
+                                AzimuthRight = true;
+                            }
+                            else
+                            {
+                                AzimuthRight = false;
+                            }
+                        }
+                        // キー入力取得（コントローラー）
+                        if (k.GetValue(i).ToString().IndexOf("Joystick1") >= 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0)
+                        {
+                            // 射撃取得
+                            if (k.GetValue(i).ToString() == shotcode_controller)
+                            {
+                                Shot = true;
+                            }
+                            else
+                            {
+                                Shot = false;
+                            }
+                            // 格闘取得
+                            if (k.GetValue(i).ToString() == wrestlecode_controller)
+                            {
+                                Wrestle = true;
+                            }
+                            else
+                            {
+                                Wrestle = false;
+                            }
+                            // ジャンプ取得
+                            if (k.GetValue(i).ToString() == jump_controller)
+                            {
+                                Jump = true;
+                            }
+                            else
+                            {
+                                Jump = false;
+                            }
+                            // サーチ取得
+                            if (k.GetValue(i).ToString() == search_controller)
+                            {
+                                Search = true;
+                            }
+                            else
+                            {
+                                Search = false;
+                            }
+                            // メニュー取得
+                            if (k.GetValue(i).ToString() == menu_controller)
+                            {
+                                Menu = true;
+                            }
+                            else
+                            {
+                                Menu = false;
+                            }
+                            // コマンド取得
+                            if (k.GetValue(i).ToString() == command_controller)
+                            {
+                                Command = true;
+                            }
+                            else
+                            {
+                                Command = false;
+                            }
+                            // サブ射撃取得
+                            if (k.GetValue(i).ToString() == subshot_controller)
+                            {
+                                SubShot = true;
+                            }
+                            else
+                            {
+                                Wrestle = false;
+                            }
+                            // 特殊射撃取得
+                            if (k.GetValue(i).ToString() == exshot_controller)
+                            {
+                                EXShot = true;
+                            }
+                            else
+                            {
+                                EXShot = false;
+                            }
+                            // 特殊格闘取得
+                            if (k.GetValue(i).ToString() == exwrestle_controller)
+                            {
+                                EXWrestle = true;
+                            }
+                            else
+                            {
+                                EXWrestle = false;
+                            }
+                            // 視点変更上取得
+                            if (k.GetValue(i).ToString() == viewchangeupper_controller)
+                            {
+                                ElevationAngleUpper = true;
+                            }
+                            else
+                            {
+                                ElevationAngleUpper = false;
+                            }
+                            // 視点変更下取得
+                            if (k.GetValue(i).ToString() == viewchangedown_controller)
+                            {
+                                ElevationAngleDown = true;
+                            }
+                            else
+                            {
+                                ElevationAngleDown = false;
+                            }
+                            // 視点変更左取得
+                            if (k.GetValue(i).ToString() == viewchangeleft_controller)
+                            {
+                                AzimuthLeft = true;
+                            }
+                            else
+                            {
+                                AzimuthLeft = false;
+                            }
+                            // 視点変更右取得
+                            if (k.GetValue(i).ToString() == viewchangeright_controller)
+                            {
+                                AzimuthRight = true;
+                            }
+                            else
+                            {
+                                AzimuthRight = false;
+                            }
+                        }
+                    }
+                }
 
-			}
-		}
-		// ジョイスティック２取得
-	}
+            }
+        });
+
+
+        // BD
+        var boostdashstream = this.UpdateAsObservable().Where(_ => Jump);
+        boostdashstream.Buffer(boostdashstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { BoostDash = true; });
+        boostdashstream.Buffer(boostdashstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { BoostDash = false; });
+
+        // ロック外し
+        var unlockstream = this.UpdateAsObservable().Where(_ => Search);
+        // ロック外しキャンセル
+        var unlockcancelstream = this.UpdateAsObservable().Where(_ => !Search);
+        // ロック外し実行（1秒以上長押しでロックが外れる）
+        unlockstream.SelectMany(_ => Observable.Timer(TimeSpan.FromSeconds(1.0f)))
+        // 途中でロックボタンが離れるとリセット
+        .TakeUntil(unlockcancelstream).RepeatUntilDestroy(this.gameObject).Subscribe(_ => { Unlock = true; });
+        // ロック外しキャンセル
+        unlockcancelstream.Timestamp().Zip(unlockcancelstream.Timestamp(), (d, u) => (u.Timestamp - d.Timestamp).TotalMilliseconds / 1000.0f).Where(time => time < 1.0f).Subscribe(t => Unlock = false);
+    }
 
 	// Update is called once per frame
 	void Update () 
 	{
 	
 	}
+
+    
 }
