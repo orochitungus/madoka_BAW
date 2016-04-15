@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: dfce2a202fca61644815f8c2c6b12e6b
+timeCreated: 1452107152
+licenseType: Store
+ShaderImporter:
+  defaultTextures:
+  - _MainTex: {instanceID: 0}
+  - _ShadowTex: {instanceID: 0}
+  - _RampTex: {fileID: 2800000, guid: 315cd6d3d4ab2654ca00555e4fa2657b, type: 3}
+  - _ShadowRateTex: {instanceID: 0}
+  - _SpecularTex: {instanceID: 0}
+  - _SphereTex: {instanceID: 0}
+  - _EdgeColTex: {instanceID: 0}
+  - _EdgeSizeTex: {instanceID: 0}
+  - _NormalTex: {instanceID: 0}
+  - _RimRampTex: {fileID: 2800000, guid: 315cd6d3d4ab2654ca00555e4fa2657b, type: 3}
+  - _RimLightTex: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
