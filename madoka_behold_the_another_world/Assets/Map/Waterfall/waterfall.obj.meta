@@ -1,37 +1,31 @@
 fileFormatVersion: 2
-guid: dfbca7c1b32489d419cf375566fae25a
-labels:
-- Bamboo
-- Bush
-- Foliage
-- Nature
-- Plant
-- Vegetation
+guid: d1e7b9d4525fc74468eb854d5a661548
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: bush_04
+    100000: water_layer1
     100002: //RootNode
-    100004: Bush_04
-    100006: Bush_04_collider
-    400000: bush_04
+    100004: water_layer2
+    100006: water_layer3
+    400000: water_layer1
     400002: //RootNode
-    400004: Bush_04
-    400006: Bush_04_collider
-    2300000: bush_04
-    2300002: Bush_04
-    2300004: Bush_04_collider
-    3300000: bush_04
-    3300002: Bush_04
-    3300004: Bush_04_collider
-    4300000: bush_04
-    4300002: Bush_04
-    4300004: Bush_04_collider
-    9500000: //RootNode
+    400004: water_layer2
+    400006: water_layer3
+    2300000: water_layer1
+    2300002: water_layer2
+    2300004: water_layer3
+    3300000: water_layer1
+    3300002: water_layer2
+    3300004: water_layer3
+    4300000: default
+    4300002: water_layer1
+    4300004: water_layer2
+    4300006: water_layer3
+    11100000: //RootNode
   materials:
     importMaterials: 0
-    materialName: 0
-    materialSearch: 0
+    materialName: 2
+    materialSearch: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -52,7 +46,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.125
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
@@ -69,7 +63,7 @@ ModelImporter:
     useFileScale: 0
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 0
+    normalImportMode: 1
     tangentImportMode: 4
   importAnimation: 1
   copyAvatar: 0
@@ -86,9 +80,9 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 1
   humanoidOversampling: 1
-  additionalBone: 0
+  additionalBone: 1
   userData: 
   assetBundleName: 
   assetBundleVariant: 
