@@ -358,7 +358,7 @@ public class KeyConfigController : MonoBehaviour
 								CommandControllerText.text = k.GetValue(i).ToString().Substring(9);
 								break;
 							case NOWSELECT.MENU:
-								CommandControllerText.text = k.GetValue(i).ToString().Substring(9);
+								MenuControllerText.text = k.GetValue(i).ToString().Substring(9);
 								break;
 							case NOWSELECT.SUBSHOT:
 								SubShotControllerText.text = k.GetValue(i).ToString().Substring(9);
@@ -415,7 +415,7 @@ public class KeyConfigController : MonoBehaviour
                 originalbuton = CommandKeyboardText.text;
                 break;
             case NOWSELECT.ELEVATIONUPPER:
-                originalbuton = ElevationUpperControllerText.text;
+                originalbuton = ElevationUpperKeyboardText.text;
                 break;
             case NOWSELECT.ELEVETIONDOWN:
                 originalbuton = ElevetionDownKeyboardText.text;
@@ -616,7 +616,7 @@ public class KeyConfigController : MonoBehaviour
 			OverlapDoneController(originalbuton, NOWSELECT.WRESTLE);
 		}
 		// ジャンプに割り振っているものと同じボタンが押された
-		else if (JumpKeyboadText.text == insert)
+		else if (JumpControllerText.text == insert)
 		{
 			OverlapDoneController(originalbuton, NOWSELECT.JUMP);
 		}
