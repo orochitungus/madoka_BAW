@@ -551,7 +551,71 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 		// テンキーとマウス入力と画面クリック以外のキー入力を取得する
 		if (k.GetValue(i).ToString().IndexOf("Arrow") < 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0 && k.GetValue(i).ToString().IndexOf("Joystick") < 0)
 		{
-			
+			// 射撃取得
+			if (k.GetValue(i).ToString() == shotcode_keyboard)
+			{
+				Shot = false;
+			}
+			// 格闘取得
+			if (k.GetValue(i).ToString() == wrestlecode_keyboard)
+			{
+				Wrestle = false;
+			}
+			// ジャンプ取得
+			if (k.GetValue(i).ToString() == jump_keyboard)
+			{
+				Jump = false;
+			}
+			// サーチ取得
+			if (k.GetValue(i).ToString() == search_keyboard)
+			{
+				Search = false;
+			}
+			// メニュー取得
+			if (k.GetValue(i).ToString() == menu_keyboard)
+			{
+				Menu = false;
+			}
+			// コマンド取得
+			if (k.GetValue(i).ToString() == command_keyboard)
+			{
+				Command = false;
+			}
+			// サブ射撃取得
+			if (k.GetValue(i).ToString() == subshot_keyboard)
+			{
+				SubShot = false;
+			}
+			// 特殊射撃取得
+			if (k.GetValue(i).ToString() == exshot_keyboard)
+			{
+				EXShot = false;
+			}
+			// 特殊格闘取得
+			if (k.GetValue(i).ToString() == exwrestle_keyboard)
+			{
+				EXWrestle = false;
+			}
+			// 視点変更上取得
+			if (k.GetValue(i).ToString() == viewchangeupper_keyboard)
+			{
+				ElevationAngleUpper = false;
+			}
+			// 視点変更下取得
+			if (k.GetValue(i).ToString() == viewchangedown_keyboard)
+			{
+				ElevationAngleDown = false;
+			}
+			// 視点変更左取得
+			if (k.GetValue(i).ToString() == viewchangeleft_keyboard)
+			{
+				AzimuthLeft = false;
+			}
+			// 視点変更右取得
+			if (k.GetValue(i).ToString() == viewchangeright_keyboard)
+			{
+				AzimuthRight = false;
+			}
 		}
 		// キー入力取得（コントローラー）
 		if (k.GetValue(i).ToString().IndexOf("Joystick1") >= 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0)
