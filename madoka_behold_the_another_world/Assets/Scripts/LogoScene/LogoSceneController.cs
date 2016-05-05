@@ -66,7 +66,7 @@ public class LogoSceneController : MonoBehaviour
 		yield return new WaitForSeconds(3.0f);
 		// コントローラー設定をやっていたらタイトルへ、していなかったらコントローラー設定へ
 		// タイトルへ遷移
-		if (PlayerPrefs.GetInt("ControllerSetting") == 2)
+		if (PlayerPrefs.GetInt("TenKeySetup") == 0 || PlayerPrefs.GetInt("RightStickSetup") == 0)
 		{
 			FadeManager.Instance.LoadLevel("title", 1.0f);
 		}

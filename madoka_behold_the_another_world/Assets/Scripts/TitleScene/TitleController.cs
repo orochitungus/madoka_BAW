@@ -22,6 +22,13 @@ public class TitleController : MonoBehaviour
 	/// </summary>
 	public Animator TitleCanvasAnimator;
 
+	/// <summary>
+	/// Mainmenuの制御
+	/// </summary>
+	public MainmenuController Mainmanucontroller;
+
+	
+
 	void Awake()
 	{
 		// FPS設定

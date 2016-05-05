@@ -7,20 +7,56 @@ public class OPCamera : MonoBehaviour
 
 	public ControllerManager Controllermanager;
 
+	/// <summary>
+	/// TitleCanvasにくっついているタイトル画面制御用のAnimator
+	/// </summary>
+	Animator StateAnimator;
+	int []stateCode = new int[4];
+
+	void Awake()
+	{
+		// Animatorを取得する
+		StateAnimator = Titlecontroller.TitleCanvas.GetComponent<TitleCanvas>().TitleCanvasAnimator;
+		// モーション登録
+		stateCode[0] = Animator.StringToHash("Base Layer.LogoStandby");
+		stateCode[1] = Animator.StringToHash("Base Layer.LogoAppear");
+		stateCode[2] = Animator.StringToHash("Base Layer.LogoFullAppear");
+		stateCode[3] = Animator.StringToHash("BAse Layer.LoadSelect");
+	}
+
 	// Use this for initialization
 	void Start () 
 	{
 		
 	}
 	
+
 	// Update is called once per frame
 	void Update () 
 	{
 		// コントローラーのショットキーが押されたらタイトル画面へ移行する
 		if(ControllerManager.Instance.Shot)
 		{
-			Titlecontroller.TitleCanvas.gameObject.SetActive(true);
-			Titlecontroller.TitleCanvas.GetComponent<TitleCanvas>().AppearDone();
+			AnimatorStateInfo state = Titlecontroller.TitleCanvas.GetComponent<TitleCanvas>().TitleCanvasAnimator.GetCurrentAnimatorStateInfo(0);
+
+			if (state.fullPathHash == stateCode[0])
+			{
+				Titlecontroller.TitleCanvas.gameObject.SetActive(true);
+				Titlecontroller.TitleCanvas.GetComponent<TitleCanvas>().AppearDone();
+			}
+			// タイトル表示中にショットキーが押されたら、SEを鳴らしてメニュー画面へ移行する
+			else if(state.fullPathHash == stateCode[1])
+			{
+				AudioManager.Instance.PlaySE("OK");	
+				Titlecontroller.TitleCanvas.GetComponent<TitleCanvas>().ModeSelectSetup();
+				Titlecontroller.Mainmanucontroller.NowSelect = 0;
+				Titlecontroller.Mainmanucontroller.ModeChangeDone = true;
+			}
+			// メインメニュー表示中
+			else if(state.fullPathHash == stateCode[2])
+			{
+				
+			}
 		}
 	}
 

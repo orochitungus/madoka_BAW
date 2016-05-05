@@ -204,6 +204,17 @@ public class KeyConfigController : MonoBehaviour
 	public Text AzimhthRightKeyboadText;
 	public Text AzimhthRightControllerText;
 
+	/// <summary>
+	/// 各ステートの登録番号
+	/// </summary>
+	public int Standby;
+	public int OpenControllerSetting;
+	public int CloseControllerSetting;
+	public int Controller1EraseAndController2Appear;
+	public int CloseController2Setting;
+
+	public ControllerSettingPopup Controllersettingpopup;
+
 	void Awake()
 	{
 		// AudioManagerがあるか判定
@@ -234,6 +245,12 @@ public class KeyConfigController : MonoBehaviour
 			GameObject loadManager = (GameObject)Instantiate(Resources.Load("ControllerManager"));
 			loadManager.name = "ControllerManager";
 		}
+		// ControllerSettingのモーション登録
+		Standby = Animator.StringToHash("Base Layer.Standby");
+		OpenControllerSetting = Animator.StringToHash("Base Layer.OpenControllerSetting");
+		CloseControllerSetting = Animator.StringToHash("Base Layer.CloseControllerSetting");
+		Controller1EraseAndController2Appear = Animator.StringToHash("Base Layer.Controller1EraseAndController2Appear");
+		CloseController2Setting = Animator.StringToHash("Base Layer.CloseController2Setting");
 	}
 
 	// Use this for initialization
@@ -242,18 +259,34 @@ public class KeyConfigController : MonoBehaviour
         // モード初期化
         Nowmode = NowMode.SETTINGSTANDBY;
 
-        // 初期状態で右コントローラーのセッティングが成されていなければ、セッティングに入る。キャンセルも切る
+        // 初期状態で十字キーと右コントローラーのセッティングが成されていなければ、セッティングに入る。キャンセルも切る
         this.UpdateAsObservable().Where(_ => Nowmode == NowMode.SETTINGSTANDBY).Subscribe(_AppDomain =>
         {
-            if (PlayerPrefs.GetInt("ControllerSetting") < 1)
+			// 十字キー未設定
+            if (PlayerPrefs.GetInt("TenKeySetup") == 0)
             {
+				Controllersettingpopup.Popup1Text.text = "コントローラーの十字キーの設定を行います\nこの操作を行わないと、コントローラーの十字キーが使えなくなります\nなお、オプション画面からの設定も可能となります\nアナログスティックのないコントローラーは設定不要です\n設定を行いますか？";
+				Controllersettingpopup.SettingTarget = SETTINGTARGET.TENKEY;
 				Controllersetting.SetBool("SetRightStick", true);
 				CancelButton.interactable = false;
             }
-            // セッティングが成されていたらステートを切り替える（ポップアップを出さない）
-            else
+			// 方向キー未設定
+			else if (PlayerPrefs.GetInt("RightStickSetup") == 0)
+			{
+				Controllersettingpopup.Popup1Text.text = "コントローラーの右アナログスティックの設定を行います\nこの操作を行わないと、コントローラーの右スティックが使えなくなります\nなお、オプション画面からの設定も可能となります\n\n設定を行いますか？";
+				Controllersettingpopup.SettingTarget = SETTINGTARGET.RIGHTSTICK;
+				Controllersetting.SetBool("SetRightStick", true);
+				CancelButton.interactable = false;
+				// 各ステートを上書き(方向キー除く）
+				OverWriteState(false);
+			}
+			// セッティングが成されていたらステートを切り替える（ポップアップを出さない）
+			else
             {
                 Nowmode = NowMode.POPUPCLOSE;
+				Controllersetting.Play("Base Layer.CloseControllerSetting");
+				// 各ステートを上書き
+				OverWriteState(true);
             }
         });
 
@@ -269,6 +302,92 @@ public class KeyConfigController : MonoBehaviour
 		});
 	}
 
+	/// <summary>
+	/// 各ボタンのステート表示を上書きする
+	/// </summary>
+	/// <param name="RightStick">右スティックの設定を書くか否か</param>
+	public void OverWriteState(bool RightStick)
+	{
+		ShotKeyboardText.text = PlayerPrefs.GetString("Shot_Keyboard");
+		ShotControllerText.text = PlayerPrefs.GetString("Shot_Controller").Substring(9);
+
+		WrestleKeyboardText.text = PlayerPrefs.GetString("Wrestle_Keyboard");		;
+		WrestleControllerText.text = PlayerPrefs.GetString("Wrestle_Controller").Substring(9);
+
+		JumpKeyboadText.text = PlayerPrefs.GetString("Jump_Keyboard");
+		JumpControllerText.text = PlayerPrefs.GetString("Jump_Controller").Substring(9);
+
+		SearchKeyboardText.text = PlayerPrefs.GetString("Search_Keyboard");
+		SearchControllerText.text = PlayerPrefs.GetString("Search_Controller").Substring(9);
+
+		CommandKeyboardText.text = PlayerPrefs.GetString("Command_Keyboard");
+		CommandControllerText.text = PlayerPrefs.GetString("Commnd_Controller").Substring(9);
+
+		MenuKeyboardText.text = PlayerPrefs.GetString("Menu_Keyboard");
+		MenuControllerText.text = PlayerPrefs.GetString("Menu_Controller").Substring(9);
+
+		SubShotKeyboardText.text = PlayerPrefs.GetString("SubShot_Keyboard");
+		SubShotControllerText.text = PlayerPrefs.GetString("SubShot_Controller").Substring(9);
+
+		ExShotKeyboardText.text = PlayerPrefs.GetString("EXShot_Keyboard");
+		ExShotControllerText.text = PlayerPrefs.GetString("EXShot_Controller").Substring(9);
+
+		ExWrestleKeyboardText.text = PlayerPrefs.GetString("EXWrestle_Keyboad");
+		ExWrestleControllerText.text = PlayerPrefs.GetString("EXWrestle_Controller").Substring(9);
+
+		if (!RightStick)
+		{
+			return; 
+		}
+		ElevationUpperKeyboardText.text = PlayerPrefs.GetString("ElevationUpper_Keyboard");
+		// 軸設定
+		if (ElevationUpperControllerText.text.IndexOf("Axis") >=0)
+		{
+			ElevationUpperControllerText.text =  PlayerPrefs.GetString("ElevationUpper_Controller");
+		}
+		// キー設定
+		else
+		{
+			ElevationUpperControllerText.text =  PlayerPrefs.GetString("ElevationUpper_Controller").Substring(9);
+		}
+		
+
+		ElevetionDownKeyboardText.text = PlayerPrefs.GetString("ElevationDown_Keyboard");
+		// 軸設定
+		if (ElevationDownControllerText.text.IndexOf("Axis") >=0)
+		{
+			ElevationDownControllerText.text = PlayerPrefs.GetString("ElevationDown_Controller");
+		}
+		// キー設定
+		else
+		{
+			ElevationDownControllerText.text = PlayerPrefs.GetString("ElevationDown_Controller").Substring(9);
+		}
+
+		AzimuthLeftKeyboardText.text = PlayerPrefs.GetString("AzimuthLeft_Keyboard");
+		// 軸設定
+		if (ElevationDownControllerText.text.IndexOf("Axis") >=0)
+		{
+			AzimuthLeftControllerText.text = PlayerPrefs.GetString("AzimuthLeft_Controller");
+		}
+		// キー設定
+		else
+		{
+			AzimuthLeftControllerText.text = PlayerPrefs.GetString("AzimuthLeft_Controller").Substring(9);
+		}
+
+		AzimhthRightKeyboadText.text = PlayerPrefs.GetString("AzimuthRight_Keyboard");
+		// 軸設定
+		if (ElevationDownControllerText.text.IndexOf("Axis") >=0)
+		{
+			AzimhthRightControllerText.text = PlayerPrefs.GetString("AzimuthRight_Controller");
+		}
+		// キー設定
+		else
+		{
+			AzimhthRightControllerText.text = PlayerPrefs.GetString("AzimuthRight_Controller").Substring(9);
+		}
+	}
 
 	public void GetKeyInput(NOWSELECT nowselect)
 	{
@@ -279,7 +398,6 @@ public class KeyConfigController : MonoBehaviour
 			Array k = Enum.GetValues(typeof(KeyCode));
 			for (int i = 0; i < k.Length; i++)
 			{	
-
 				// キー取得
 				if (Input.GetKeyDown((KeyCode)k.GetValue(i)))
 				{
@@ -1348,6 +1466,22 @@ public class KeyConfigController : MonoBehaviour
 		Controllersetting.SetBool("ControllerSettingClose", false);
 		Controllersetting.SetBool("CloseController2", false);
 		Controllersetting.Play("OpenControllerSetting");
+		PlayerPrefs.SetInt("ControllerSetting", 11);
+		Controllersettingpopup.Popup1Text.text = "コントローラーの右アナログスティックの設定を行います\nこの操作を行わないと、コントローラーの右スティックが使えなくなります\nなお、オプション画面からの設定も可能となります\n\n設定を行いますか？";
+		Controllersettingpopup.SettingTarget = SETTINGTARGET.RIGHTSTICK;
+	}
+
+	/// <summary>
+	/// 十字キー設定ボタンが押された時の処理
+	/// </summary>
+	public void OnClickSetTenkey()
+	{
+		Controllersetting.SetBool("ControllerSettingClose", false);
+		Controllersetting.SetBool("CloseController2", false);
+		Controllersetting.Play("OpenControllerSetting");
+		PlayerPrefs.SetInt("ControllerSetting", 1);
+		Controllersettingpopup.Popup1Text.text = "コントローラーの十字キーの設定を行います\nこの操作を行わないと、コントローラーの十字キーが使えなくなります\nなお、オプション画面からの設定も可能となります\nアナログスティックのないコントローラーは設定不要です\n設定を行いますか？";
+		Controllersettingpopup.SettingTarget = SETTINGTARGET.TENKEY;
 	}
 
 	/// <summary>
@@ -1473,14 +1607,17 @@ public class KeyConfigController : MonoBehaviour
 		if(!CancelButton.interactable)
 		{
 			// 保持情報をセーブ
-			PlayerPrefs.SetInt("ControllerSetting", 2);
+			PlayerPrefs.SetInt("ControllerSetting", 20);
 			// タイトルへ遷移
 			FadeManager.Instance.LoadLevel("title", 1.0f);
 		}
 		// Cancelボタンがアクティブ（オプションから来た）→セーブしてオプションへ遷移
 		else
 		{
-			// オプションへ遷移
+			// 保持情報をセーブ
+			PlayerPrefs.SetInt("ControllerSetting", 20);
+			// タイトルへ遷移
+			FadeManager.Instance.LoadLevel("title", 1.0f);
 		}
 	}
 

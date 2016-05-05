@@ -10,6 +10,11 @@ public class ControllerSettingPopup : MonoBehaviour
 	public KeyConfigController Keyconfigcontroller;
 
 	/// <summary>
+	/// 1個目のポップアップの文字列
+	/// </summary>
+	public Text Popup1Text;
+
+	/// <summary>
 	/// ２個目のポップアップのタイトル表示部
 	/// </summary>
 	public Text Popup2Title;
@@ -43,6 +48,35 @@ public class ControllerSettingPopup : MonoBehaviour
 	/// 右方向の入力
 	/// </summary>
 	private string _RightInput;
+
+	/// <summary>
+	/// 各ステートの登録番号
+	/// </summary>
+	public int Standby;
+	public int OpenControllerSetting;
+	public int CloseControllerSetting;
+	public int Controller1EraseAndController2Appear;
+	public int CloseController2Setting;
+
+	public SETTINGTARGET SettingTarget;
+
+	void Awake()
+	{
+		// モーション登録
+		Standby = Animator.StringToHash("Base Layer.Standby");
+		OpenControllerSetting = Animator.StringToHash("Base Layer.OpenControllerSetting");
+		CloseControllerSetting = Animator.StringToHash("Base Layer.CloseControllerSetting");
+		Controller1EraseAndController2Appear = Animator.StringToHash("Base Layer.Controller1EraseAndController2Appear");
+		CloseController2Setting = Animator.StringToHash("Base Layer.CloseController2Setting");
+	}
+
+	/// <summary>
+	/// 右スティック設定済みでここに来た場合、最初のポップアップを強制的に閉じる
+	/// </summary>
+	public void CloseThisPopUp()
+	{
+		Controllersettingpopup.Play("Base Layer.CloseControllerSetting");
+	}
 
     /// <summary>
     /// OKボタンを押した場合、スティック設定に入る
@@ -95,19 +129,50 @@ public class ControllerSettingPopup : MonoBehaviour
 		}
 		else if(Keyconfigcontroller.Nowmode == KeyConfigController.NowMode.RICHTSTICKFINALCHECK)
 		{
-			// 下の枠に登録
-			// ↑
-			Keyconfigcontroller.ElevationUpperControllerText.text = _UpperInput;
-			// ↓
-			Keyconfigcontroller.ElevationDownControllerText.text = _DownInput;
-			// ←
-			Keyconfigcontroller.AzimuthLeftControllerText.text = _LeftInput;
-			// →
-			Keyconfigcontroller.AzimhthRightControllerText.text = _RightInput;
-			// ポップアップを消す
-			Controllersettingpopup.SetBool("Conctroller2Appear", false);
-			Controllersettingpopup.SetBool("CloseController2", true);
-			Keyconfigcontroller.Nowmode = KeyConfigController.NowMode.POPUPCLOSE;
+			// 方向キーの場合
+			if (SettingTarget == SETTINGTARGET.TENKEY)
+			{
+				// 設定情報保存
+				PlayerPrefs.SetString("KeyUP",_UpperInput);
+				PlayerPrefs.SetString("KeyDown", _DownInput);
+				PlayerPrefs.SetString("KeyLeft", _LeftInput);
+				PlayerPrefs.SetString("KeyRight", _RightInput);
+				PlayerPrefs.SetInt("TenKeySetup",1);
+				// 右スティック未設定の場合、右スティック選択画面表示
+				if (PlayerPrefs.GetInt("RightStickSetup") < 1)
+				{
+					Keyconfigcontroller.Nowmode = KeyConfigController.NowMode.SETTINGSTANDBY;
+					Controllersettingpopup.Play("Base Layer.OpenControllerSetting");
+					Controllersettingpopup.SetBool("Conctroller2Appear", false);
+					SettingTarget = SETTINGTARGET.RIGHTSTICK;
+				}
+				else
+				{
+					// ポップアップを消す
+					Controllersettingpopup.SetBool("Conctroller2Appear", false);
+					Controllersettingpopup.SetBool("CloseController2", true);
+					Keyconfigcontroller.Nowmode = KeyConfigController.NowMode.POPUPCLOSE;
+					
+				}
+			}
+			// 右スティックの場合
+			else if (SettingTarget == SETTINGTARGET.RIGHTSTICK)
+			{
+				// 下の枠に登録
+				// ↑
+				Keyconfigcontroller.ElevationUpperControllerText.text = _UpperInput;
+				// ↓
+				Keyconfigcontroller.ElevationDownControllerText.text = _DownInput;
+				// ←
+				Keyconfigcontroller.AzimuthLeftControllerText.text = _LeftInput;
+				// →
+				Keyconfigcontroller.AzimhthRightControllerText.text = _RightInput;
+				// ポップアップを消す
+				Controllersettingpopup.SetBool("Conctroller2Appear", false);
+				Controllersettingpopup.SetBool("CloseController2", true);
+				Keyconfigcontroller.Nowmode = KeyConfigController.NowMode.POPUPCLOSE;
+				PlayerPrefs.SetInt("RightStickSetup", 1);			
+			}
 		}
 	}
 
@@ -150,24 +215,64 @@ public class ControllerSettingPopup : MonoBehaviour
 			switch (Keyconfigcontroller.Nowmode)
 			{
 				case KeyConfigController.NowMode.RIGHTSTICK2UPPERCHECK:
-					Popup2Title.text = "INPUT \n \"RIGHTSTICK UPPER\"";
-					Popup2QuestionText.text = "右スティックを上に倒してください\n中止する場合はCANCELを押してください";
+					if (SettingTarget == SETTINGTARGET.RIGHTSTICK)
+					{
+						Popup2Title.text = "INPUT \n \"RIGHTSTICK UPPER\"";
+						Popup2QuestionText.text = "右スティックを上に倒してください\n中止する場合はCANCELを押してください";
+					}
+					else if(SettingTarget == SETTINGTARGET.TENKEY)
+					{
+						Popup2Title.text = "INPUT \n \"TENKEY UPPER\"";
+						Popup2QuestionText.text = "十字キーを上に倒してください\n中止する場合はCANCELを押してください";
+					}
 					break;
 				case KeyConfigController.NowMode.RIGHTSTICK2DOWNCHECK:
-					Popup2Title.text = "INPUT \n \"RIGHTSTICK DOWN\"";
-					Popup2QuestionText.text = "右スティックを下に倒してください\n中止する場合はCANCELを押してください";
+					if (SettingTarget == SETTINGTARGET.RIGHTSTICK)
+					{
+						Popup2Title.text = "INPUT \n \"RIGHTSTICK DOWN\"";
+						Popup2QuestionText.text = "右スティックを下に倒してください\n中止する場合はCANCELを押してください";
+					}
+					else if (SettingTarget == SETTINGTARGET.TENKEY)
+					{
+						Popup2Title.text = "INPUT \n \"TENKEY DOWN\"";
+						Popup2QuestionText.text = "十字キーを下に倒してください\n中止する場合はCANCELを押してください";
+					}
 					break;
 				case KeyConfigController.NowMode.RIGHTSTICK2LEFTCHECK:
-					Popup2Title.text = "INPUT \n \"RIGHTSTICK LEFT\"";
-					Popup2QuestionText.text = "右スティックを左に倒してください\n中止する場合はCANCELを押してください";
+					if (SettingTarget == SETTINGTARGET.RIGHTSTICK)
+					{
+						Popup2Title.text = "INPUT \n \"RIGHTSTICK LEFT\"";
+						Popup2QuestionText.text = "右スティックを左に倒してください\n中止する場合はCANCELを押してください";
+					}
+					else if (SettingTarget == SETTINGTARGET.TENKEY)
+					{
+						Popup2Title.text = "INPUT \n \"TENKEY LEFT\"";
+						Popup2QuestionText.text = "十字キーを左に倒してください\n中止する場合はCANCELを押してください";
+					}
 					break;
 				case KeyConfigController.NowMode.RIGHTSTICK2RIGHTCHECK:
-					Popup2Title.text = "INPUT \n \"RIGHTSTICK RIGHT\"";
-					Popup2QuestionText.text = "右スティックを右に倒してください\n中止する場合はCANCELを押してください";
+					if (SettingTarget == SETTINGTARGET.RIGHTSTICK)
+					{
+						Popup2Title.text = "INPUT \n \"RIGHTSTICK RIGHT\"";
+						Popup2QuestionText.text = "右スティックを右に倒してください\n中止する場合はCANCELを押してください";
+					}
+					else if (SettingTarget == SETTINGTARGET.TENKEY)
+					{
+						Popup2Title.text = "INPUT \n \"TENKEY RIGHT\"";
+						Popup2QuestionText.text = "十字キーを右に倒してください\n中止する場合はCANCELを押してください";
+					}
 					break;
 				case KeyConfigController.NowMode.RICHTSTICKFINALCHECK:
-					Popup2Title.text = "SETTING COMPLETE!!";
-					Popup2QuestionText.text = "右スティックの設定が完了しました\n確定する場合はOKを、やり直す場合はCANCELを押してください";
+					if (SettingTarget == SETTINGTARGET.RIGHTSTICK)
+					{
+						Popup2Title.text = "SETTING COMPLETE!!";
+						Popup2QuestionText.text = "右スティックの設定が完了しました\n確定する場合はOKを、やり直す場合はCANCELを押してください";
+					}
+					else if (SettingTarget == SETTINGTARGET.TENKEY)
+					{
+						Popup2Title.text = "SETTING COMPLETE!!";
+						Popup2QuestionText.text = "方向キーの設定が完了しました\n確定する場合はOKを、やり直す場合はCANCELを押してください";
+					}
 					break;
 					
 			}	
@@ -278,4 +383,10 @@ public class ControllerSettingPopup : MonoBehaviour
 
 		return "";
 	}
+}
+
+public enum SETTINGTARGET
+{
+	TENKEY,
+	RIGHTSTICK
 }

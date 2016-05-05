@@ -9,13 +9,16 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
 {
     public List<AudioClip> BGMList;     // 鳴らすBGMのリスト
     public List<AudioClip> SEList;      // 鳴らすSEのリスト
-    public int MaxSE = 10;              // 同時に鳴らせる最大SE数（SEは使わない可能性大）
+	public List<AudioClip> VoiceList;	// 鳴らすVOICEのリスト
+    public int MaxSE;              // 同時に鳴らせる最大SE数（SEは使わない可能性大）
+	public int MaxVoice;
 
     private AudioSource bgmSource = null;
     private List<AudioSource> seSources = null;
+	private List<AudioSource> voiceSources = null;
     private Dictionary<string, AudioClip> bgmDict = null;
     private Dictionary<string, AudioClip> seDict = null;
-
+	private Dictionary<string, AudioClip> voiceDict = null;
 
     public void Awake()
     {
@@ -35,10 +38,12 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
         // AudioSourceを生成
         this.bgmSource = this.gameObject.AddComponent<AudioSource>();
         this.seSources = new List<AudioSource>();
+		this.voiceSources = new List<AudioSource>();
 
         // BGMとSEのリストを作成
         this.bgmDict = new Dictionary<string, AudioClip>();
         this.seDict = new Dictionary<string, AudioClip>();
+		this.voiceDict = new Dictionary<string, AudioClip>();
 
         Action<Dictionary<string, AudioClip>, AudioClip> addClipDict = (dict, c) =>
         {
@@ -49,6 +54,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
         };
         this.BGMList.ForEach(bgm => addClipDict(this.bgmDict, bgm));
         this.SEList.ForEach(se => addClipDict(this.seDict, se));
+		this.VoiceList.ForEach(voice => addClipDict(this.voiceDict, voice));
     }
 
     // SE再生
@@ -98,6 +104,30 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
         this.bgmSource.clip = null;
     }
 
+	// voice再生
+	public void PlayVoice(string voiceName)
+	{
+		if(voiceDict == null)
+		{
+			return;
+		}
+		if (!this.voiceDict.ContainsKey(voiceName)) throw new ArgumentException(voiceName + " not found", "voiceName");
+		AudioSource source = this.voiceSources.FirstOrDefault(s => !s.isPlaying);
+		if (source == null)
+		{
+			if (this.voiceSources.Count >= this.MaxVoice)
+			{
+				Debug.Log("voice AudioSource is full");
+				return;
+			}
+
+			source = this.gameObject.AddComponent<AudioSource>();
+			this.voiceSources.Add(source);
+		}
+
+		source.clip = this.voiceDict[voiceName];
+		source.Play();
+	}
 
 }
 

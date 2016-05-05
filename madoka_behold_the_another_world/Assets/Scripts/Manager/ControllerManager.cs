@@ -14,19 +14,59 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 	public bool Top;
 
 	/// <summary>
+	/// 方向キー上を離した
+	/// </summary>
+	public bool TopUp;
+
+	/// <summary>
+	/// 方向キー上を長押した
+	/// </summary>
+	public bool TopLongPress;
+
+	/// <summary>
 	/// 方向キー/左スティック下
 	/// </summary>
 	public bool Under;
 
+	/// <summary>
+	/// 方向キー下を離した
+	/// </summary>
+	public bool UnderUp;
+
+	/// <summary>
+	/// 方向キー下を長押した
+	/// </summary>
+	public bool UnderLongPress;
+	
 	/// <summary>
 	/// 方向キー/左スティック左
 	/// </summary>
 	public bool Left;
 
 	/// <summary>
+	/// 方向キー左を離した
+	/// </summary>
+	public bool LeftUp;
+
+	/// <summary>
+	/// 方向キー左を長押した
+	/// </summary>
+	public bool LeftLongPress;
+
+	/// <summary>
 	/// 方向キー/左スティック右
 	/// </summary>
 	public bool Right;
+
+	/// <summary>
+	/// 方向キー右を離した
+	/// </summary>
+	public bool RightUp;
+
+	/// <summary>
+	/// 方向キー右を長押した
+	/// </summary>
+	public bool RightLongPress;
 	
 	/// <summary>
 	/// 射撃・決定
@@ -144,6 +184,8 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
     public bool Unlock;
 
 
+
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -155,14 +197,146 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 
 		DontDestroyOnLoad(this.gameObject);
 
-		// 十字キー入力方向検出
+		// 十字キー設定取得
+		string Upkey = PlayerPrefs.GetString("KeyUP");
+		string Downkey = PlayerPrefs.GetString("KeyDown");
+		string Leftkey = PlayerPrefs.GetString("KeyLeft");
+		string Rightkey = PlayerPrefs.GetString("KeyRight");
+
+		
+
+		// 右ジョイスティックからの入力を受け取る
+
+		// 十字キー/ジョイスティック左入力方向検出
 		this.UpdateAsObservable().Subscribe(_ =>
 		{
-			float horizontal = Input.GetAxisRaw("Horizontal");        // 横入力を検出
-			float vertical = Input.GetAxisRaw("Vertical");            // 縦入力を検出
+			float horizontal = Input.GetAxisRaw("Horizontal");      // 横入力を検出(左スティック)
+			float vertical = Input.GetAxisRaw("Vertical");          // 縦入力を検出(左スティック)
+			float horizontal2 = 0.0f;                               // 横入力を検出(十字キー）
+			float vertical2 = 0.0f;									// 横入力を検出(十字キー)
 
-            // 上
-            if (vertical > 0.0f && Math.Abs(horizontal) < 0.1f)
+			// 十字キーからの入力があればそっちを優先する
+			// 上or下
+			// 軸はAxis3～8(Horizontal2,3,4,Vertical2,3,4)のどれ？それともボタン？
+			string verticalVector = "";
+			// 上下どっちが＋？
+			//bool isTopPlus = true;
+			if (Rightkey.IndexOf("Button") >= 0)
+			{
+				verticalVector = "Button";
+			}
+			//// MINUSが入っていたらIsTopPlusをfalseにする(上入力がマイナスになるため）
+			//if (Upkey.IndexOf("MINUS") >= 0)
+			//{
+			//	isTopPlus = false;
+			//}
+			// 左or右
+			string horizontalVector = "";
+			// 左右どっちが＋？
+			bool isRightPlus = true;
+			if (Rightkey.IndexOf("Button") >= 0)
+			{
+				horizontalVector = "Button";
+			}
+			// MINUSが入っていたらIsRightPlusをfalseにする（右方向がマイナスになるため）
+			if (Rightkey.IndexOf("MINUS") >= 0)
+			{
+				isRightPlus = false;
+			}
+
+			// 軸入力だった場合
+			if (Upkey.IndexOf("3rd") >= 0)
+			{
+				vertical2 = Input.GetAxisRaw("Vertical2");
+			}
+			else if (Upkey.IndexOf("4th") >= 0)
+			{
+				vertical2 = Input.GetAxisRaw("Vertical3");
+			}
+			else if (Upkey.IndexOf("5th") >= 0)
+			{
+				vertical2 = Input.GetAxisRaw("Horizontal2");
+			}
+			else if (Upkey.IndexOf("6th") >= 0)
+			{
+				vertical2 = Input.GetAxisRaw("Horizontal3");
+			}
+			else if (Upkey.IndexOf("7th") >= 0)
+			{
+				vertical2 = Input.GetAxisRaw("Vertical4");
+			}
+			else if (Upkey.IndexOf("8th") >= 0)
+			{
+				vertical2 = Input.GetAxisRaw("Horizontal4");
+			}
+			//if (!isTopPlus)
+			//{
+			//	vertical2 *= -1;
+			//}
+
+			if (Rightkey.IndexOf("3rd") >= 0)
+			{
+				horizontal2 = Input.GetAxisRaw("Vertical2");
+			}
+			else if (Rightkey.IndexOf("4th") >= 0)
+			{
+				horizontal2 = Input.GetAxisRaw("Vertical3");
+			}
+			else if (Rightkey.IndexOf("5th") >= 0)
+			{
+				horizontal2 = Input.GetAxisRaw("Horizontal2");
+			}
+			else if (Rightkey.IndexOf("6th") >= 0)
+			{
+				horizontal2 = Input.GetAxisRaw("Horizontal3");
+			}
+			else if (Rightkey.IndexOf("7th") >= 0)
+			{
+				horizontal2 = Input.GetAxisRaw("Vertical4");
+			}
+			else if (Rightkey.IndexOf("8th") >= 0)
+			{
+				horizontal2 = Input.GetAxisRaw("Horizontal4");
+			}
+
+			if (!isRightPlus)
+			{
+				horizontal2 *= -1;
+			}
+			// ボタン入力だった場合
+			if (verticalVector == "Button")
+			{
+				if (Input.GetButtonDown(Upkey))
+				{
+					vertical2 = 1.0f;
+				}
+				else if (Input.GetButtonDown(Downkey))
+				{
+					vertical2 = -1.0f;
+				}
+				else
+				{
+					vertical2 = 0.0f;
+				}
+			}
+			if (horizontalVector == "Button")
+			{
+				if (Input.GetButtonDown(Rightkey))
+				{
+					horizontal2 = 1.0f;
+				}
+				else if (Input.GetButtonDown(Leftkey))
+				{
+					horizontal2 = -1.0f;
+				}
+				else
+				{
+					horizontal2 = 0.0f;
+				}
+			}
+			
+			// 上
+			if ((vertical > 0.0f && Math.Abs(horizontal) < 0.1f) || (vertical2 > 0.0f && Math.Abs(horizontal2) < 0.1f))
             {
                 Top = true;
             }
@@ -172,9 +346,9 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
             }
 
             // 下
-            if (vertical < 0.0f && Math.Abs(horizontal) < 0.1f)
+            if ((vertical < 0.0f && Math.Abs(horizontal) < 0.1f) || (vertical2 < 0.0f && Math.Abs(horizontal2) < 0.1f))
             {
-                Under = true;
+				Under = true;
             }
             else
             {
@@ -182,7 +356,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
             }
 
             // 左
-            if (horizontal > 0.0f && Math.Abs(vertical) < 0.1f)
+            if ((horizontal > 0.0f && Math.Abs(vertical) < 0.1f) || (horizontal2 > 0.0f && Math.Abs(vertical2) < 0.1f))
             {
                 Left = true;
             }
@@ -192,16 +366,20 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
             }
 
             // 右
-            if(horizontal < 0.0f && Math.Abs(vertical) < 0.1f)
-            {
+            if((horizontal < 0.0f && Math.Abs(vertical) < 0.1f) || (horizontal2 < 0.0f && Math.Abs(vertical2) < 0.1f))
+			{
                 Right = true;
             }
             else
             {
                 Right = false;
-            }        
-            
-        });
+            }
+
+			
+			
+			
+
+		});
         // ステップ入力検知
         // 前ステップ
         var frontstepstream = this.UpdateAsObservable().Where(_ => Top);
@@ -310,11 +488,14 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
                     {
 						GetKeyInput(i,k);
                     }
+					// 解除取得
+
 					// 非入力時解除
 					else
 					{
 						GetKeyNotInput(i, k);
 					}
+					
                 }
             }			
         });
@@ -400,7 +581,6 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 	/// </summary>
 	public void GetKeyInput(int i,Array k)
 	{
-		
 		// テンキーとマウス入力と画面クリック以外のキー入力を取得する
 		if (k.GetValue(i).ToString().IndexOf("Arrow") < 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0 && k.GetValue(i).ToString().IndexOf("Joystick") < 0)
 		{
@@ -620,7 +800,71 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 		// キー入力取得（コントローラー）
 		if (k.GetValue(i).ToString().IndexOf("Joystick1") >= 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0)
 		{
-
+			// 射撃取得
+			if (k.GetValue(i).ToString() == shotcode_controller)
+			{
+				Shot = false;
+			}
+			// 格闘取得
+			if (k.GetValue(i).ToString() == wrestlecode_controller)
+			{
+				Wrestle = false;
+			}
+			// ジャンプ取得
+			if (k.GetValue(i).ToString() == jump_controller)
+			{
+				Jump = false;
+			}
+			// サーチ取得
+			if (k.GetValue(i).ToString() == search_controller)
+			{
+				Search = false;
+			}
+			// メニュー取得
+			if (k.GetValue(i).ToString() == menu_controller)
+			{
+				Menu = false;
+			}
+			// コマンド取得
+			if (k.GetValue(i).ToString() == command_controller)
+			{
+				Command = false;
+			}
+			// サブ射撃取得
+			if (k.GetValue(i).ToString() == subshot_controller)
+			{
+				SubShot = false;
+			}
+			// 特殊射撃取得
+			if (k.GetValue(i).ToString() == exshot_controller)
+			{
+				EXShot = false;
+			}
+			// 特殊格闘取得
+			if (k.GetValue(i).ToString() == exwrestle_controller)
+			{
+				EXWrestle = false;
+			}
+			// 視点変更上取得
+			if (k.GetValue(i).ToString() == viewchangeupper_controller)
+			{
+				ElevationAngleUpper = false;
+			}
+			// 視点変更下取得
+			if (k.GetValue(i).ToString() == viewchangedown_controller)
+			{
+				ElevationAngleDown = false;
+			}
+			// 視点変更左取得
+			if (k.GetValue(i).ToString() == viewchangeleft_controller)
+			{
+				AzimuthLeft = false;
+			}
+			// 視点変更右取得
+			if (k.GetValue(i).ToString() == viewchangeright_controller)
+			{
+				AzimuthRight = false;
+			}
 		}
 	}
     
