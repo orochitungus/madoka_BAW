@@ -74,7 +74,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
             source = this.gameObject.AddComponent<AudioSource>();
             this.seSources.Add(source);
         }
-
+		source.volume = PlayerPrefs.GetFloat("SEVolume");
         source.clip = this.seDict[seName];
         source.Play();
     }
@@ -94,6 +94,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
         if (this.bgmSource.clip == this.bgmDict[bgmName]) return;
         this.bgmSource.Stop();        
         this.bgmSource.clip = this.bgmDict[bgmName];
+		this.bgmSource.volume = PlayerPrefs.GetFloat("BGMVolume");
         this.bgmSource.Play();
         this.bgmSource.loop = true;
     }
@@ -103,6 +104,11 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
         this.bgmSource.Stop();
         this.bgmSource.clip = null;
     }
+	// ボリューム変更
+	public void ChangeBGMVol(float next)
+	{
+		this.bgmSource.volume = next;
+	}
 
 	// voice再生
 	public void PlayVoice(string voiceName)
@@ -126,6 +132,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
 		}
 
 		source.clip = this.voiceDict[voiceName];
+		source.volume = PlayerPrefs.GetFloat("VoiceVolue");
 		source.Play();
 	}
 

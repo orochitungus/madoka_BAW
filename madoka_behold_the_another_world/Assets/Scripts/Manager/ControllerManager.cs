@@ -356,7 +356,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
             }
 
             // 左
-            if ((horizontal > 0.0f && Math.Abs(vertical) < 0.1f) || (horizontal2 > 0.0f && Math.Abs(vertical2) < 0.1f))
+            if ((horizontal < 0.0f && Math.Abs(vertical) < 0.1f) || (horizontal2 < 0.0f && Math.Abs(vertical2) < 0.1f))
             {
                 Left = true;
             }
@@ -366,7 +366,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
             }
 
             // 右
-            if((horizontal < 0.0f && Math.Abs(vertical) < 0.1f) || (horizontal2 < 0.0f && Math.Abs(vertical2) < 0.1f))
+            if((horizontal > 0.0f && Math.Abs(vertical) < 0.1f) || (horizontal2 > 0.0f && Math.Abs(vertical2) < 0.1f))
 			{
                 Right = true;
             }

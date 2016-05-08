@@ -1623,6 +1623,7 @@ public class KeyConfigController : MonoBehaviour
 
 	public void OnClickCancelButton()
 	{
-		// オプションへ遷移する
+		// タイトルへ遷移する
+		FadeManager.Instance.LoadLevel("title", 1.0f);
 	}
 }

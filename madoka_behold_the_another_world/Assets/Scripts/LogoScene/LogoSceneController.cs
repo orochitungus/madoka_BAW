@@ -64,6 +64,20 @@ public class LogoSceneController : MonoBehaviour
 		yield return new WaitForSeconds(1.0f);
 		LogoAppear.SetTrigger("Start");
 		yield return new WaitForSeconds(3.0f);
+		// 音関係を初期化（設定されてなければ1で設定）
+		if(PlayerPrefs.GetFloat("BGMVolume") == 0)
+		{
+			PlayerPrefs.SetFloat("BGMVolume",1.0f);
+		}
+		if(PlayerPrefs.GetFloat("SEVolume") == 0)
+		{
+			PlayerPrefs.SetFloat("SEVolume", 1.0f);
+		}
+		if(PlayerPrefs.GetFloat("VoiceVolue") == 0)
+		{
+			PlayerPrefs.SetFloat("VoiceVolue", 1.0f);
+		}
+		
 		// コントローラー設定をやっていたらタイトルへ、していなかったらコントローラー設定へ
 		// タイトルへ遷移
 		if (PlayerPrefs.GetInt("TenKeySetup") == 0 || PlayerPrefs.GetInt("RightStickSetup") == 0)

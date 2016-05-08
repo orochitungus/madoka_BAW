@@ -35,6 +35,9 @@ public class MainmenuController : MonoBehaviour
 
 	public LoadSelectController Loadselectcontroller;
 	public TitleController Titlecontroller;
+	public TitleCanvas Titlecanvas;
+	public OptionController Optioncontroller;
+	public QuitController Quitcontroller;
 	
 	// Use this for initialization
 	void Start () 
@@ -63,7 +66,7 @@ public class MainmenuController : MonoBehaviour
 			_PreUnderInput = false;
 		});
 		// 短押し判定(前フレーム押してない）		
-		this.UpdateAsObservable().Subscribe(_ => 
+		this.UpdateAsObservable().Where(_ => Titlecanvas.TitleCanvasAnimator.GetCurrentAnimatorStateInfo(0).fullPathHash == Animator.StringToHash("Base Layer.LogoFullAppear")).Subscribe(_ => 
 		{
 			// 上
 			if(!_PreTopInput && ControllerManager.Instance.Top)
@@ -101,7 +104,7 @@ public class MainmenuController : MonoBehaviour
 
 
 
-		this.UpdateAsObservable().Subscribe(_ => 
+		this.UpdateAsObservable().Where(_ => Titlecanvas.TitleCanvasAnimator.GetCurrentAnimatorStateInfo(0).fullPathHash == Animator.StringToHash("Base Layer.LogoFullAppear")).Subscribe(_ => 
 		{			
 			// カーソル位置制御
 			switch (NowSelect)
@@ -158,9 +161,15 @@ public class MainmenuController : MonoBehaviour
 						break;
 					case 2:			// フリーバトル開始
 						break;
-					case 3:			// オプション開始
+					case 3:         // オプション開始
+						AudioManager.Instance.PlaySE("OK");
+						Titlecontroller.TitleCanvasAnimator.Play("Base Layer.OptionAppear");
+						Optioncontroller.NowSelect = 0;
 						break;
 					case 4:         // 終了確認ポップアップ表示
+						AudioManager.Instance.PlaySE("OK");
+						Titlecontroller.TitleCanvasAnimator.Play("Base Layer.QuitAppear");
+						Quitcontroller.NowSelect = 1;
 						break;
 				}
 			}

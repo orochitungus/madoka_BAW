@@ -17,6 +17,10 @@ public class TitleCanvas : MonoBehaviour
 	public int LoadSelect;
 	public int LoadFileSelectAppear;
 	public int LoadFileSelectClose;
+	public int OptionAppear;
+	public int OptionClose;
+	public int QuitAppear;
+	public int QuitClose;
 
 	public AnimatorStateInfo Animatorstate;  
 
@@ -29,6 +33,10 @@ public class TitleCanvas : MonoBehaviour
 		LoadSelect = Animator.StringToHash("Base Layer.LoadSelect");
 		LoadFileSelectAppear = Animator.StringToHash("Base Layer.LoadFileSelectAppear");
 		LoadFileSelectClose = Animator.StringToHash("Base Layer.LoadFileSelectClose");
+		OptionAppear = Animator.StringToHash("Base Layer.OptionAppear");
+		OptionClose = Animator.StringToHash("Base Layer.OptionClose");
+		QuitAppear = Animator.StringToHash("Base Layer.QuitAppear");
+		QuitClose = Animator.StringToHash("Base Layer.QuitClose");
 	}
 
 	// Use this for initialization
