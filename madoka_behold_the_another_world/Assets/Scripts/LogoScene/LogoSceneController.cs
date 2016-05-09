@@ -40,7 +40,14 @@ public class LogoSceneController : MonoBehaviour
 			GameObject loadManager = (GameObject)Instantiate(Resources.Load("ControllerManager"));
 			loadManager.name = "ControllerManager";
 		}
-	}
+        // PauseManagerがあるか判定
+        if (GameObject.Find("PauseManager") == null)
+        {
+            // 無ければ作る
+            GameObject pauseManager = (GameObject)Instantiate(Resources.Load("PauseManager"));
+            pauseManager.name = "PauseManager";
+        }
+    }
 
 	// Use this for initialization
 	void Start () 

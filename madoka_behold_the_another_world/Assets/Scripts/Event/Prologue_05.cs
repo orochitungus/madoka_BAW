@@ -43,6 +43,13 @@ public class Prologue_05 : EventBase
             GameObject loadManager = (GameObject)Instantiate(Resources.Load("LoadManager"));
             loadManager.name = "LoadManager";
         }
+        // PauseManagerがあるか判定
+        if (GameObject.Find("PauseManager") == null)
+        {
+            // 無ければ作る
+            GameObject pauseManager = (GameObject)Instantiate(Resources.Load("PauseManager"));
+            pauseManager.name = "PauseManager";
+        }
 
         EventInitialize();
 	}
