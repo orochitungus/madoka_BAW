@@ -79,27 +79,21 @@ public partial class CharacterControl_Base : MonoBehaviour
     }
 
     // 誰であるか
-    public Character_Spec.CHARACTER_NAME m_character_name;
+    public Character_Spec.CHARACTER_NAME CharacterName;
 
     // 頭部オブジェクト
-    public GameObject m_Head;
+    public GameObject HeadObject;
 
     // 胸部オブジェクト
-    public GameObject m_Brest;
+    public GameObject BrestObject;
 
     // 覚醒時エフェクト
-    public GameObject m_Insp_ArousalEffect;
+    public GameObject ArousalEffect;
 
     // ポーズコントローラー
-    private GameObject m_pausecontroller;
+    private GameObject Pausecontroller;
 
-    // CPU
-    // ルーチンを拾う
-    AIControl_Base.CPUMODE m_cpumode;
-    // テンキー入力を拾う
-	AIControl_Base.TENKEY_OUTPUT m_tenkey;
-    // キー入力を拾う
-	AIControl_Base.KEY_OUTPUT m_key; 
+    
 
     // AnimationState を 2 つ用意し交互に切り替えて昔の状態を参照できるようにする。
     public AnimationState[] m_AnimState = new AnimationState[2];
@@ -519,17 +513,17 @@ public partial class CharacterControl_Base : MonoBehaviour
             // 個別ステートを初期化（インスペクタでもできるけど一応こっちでやっておこう）
             // 後、ブースト量などはここで設定しておかないと下で初期化できない
             // レベル
-            this.m_level = savingparameter.GetNowLevel((int)m_character_name);           
+            this.m_level = savingparameter.GetNowLevel((int)CharacterName);           
             // 攻撃力レベル
-            this.m_StrLevel = savingparameter.GetStrLevel((int)m_character_name);        
+            this.m_StrLevel = savingparameter.GetStrLevel((int)CharacterName);        
             // 防御力レベル
-            this.m_DefLevel = savingparameter.GetDefLevel((int)m_character_name);            
+            this.m_DefLevel = savingparameter.GetDefLevel((int)CharacterName);            
             // 残弾数レベル
-            this.m_BulLevel = savingparameter.GetBulLevel((int)m_character_name);            
+            this.m_BulLevel = savingparameter.GetBulLevel((int)CharacterName);            
             // ブースト量レベル
-            this.m_BoostLevel = savingparameter.GetBoostLevel((int)m_character_name);            
+            this.m_BoostLevel = savingparameter.GetBoostLevel((int)CharacterName);            
             // 覚醒ゲージレベル
-            this.m_ArousalLevel = savingparameter.GetArousalLevel((int)m_character_name);
+            this.m_ArousalLevel = savingparameter.GetArousalLevel((int)CharacterName);
             			
         }
         // 敵の場合はインスペクターで設定
@@ -561,35 +555,35 @@ public partial class CharacterControl_Base : MonoBehaviour
         }
 
 		// HP初期値
-		this.m_NowHitpoint_OR = Character_Spec.HP_OR[(int)m_character_name];
+		this.m_NowHitpoint_OR = Character_Spec.HP_OR[(int)CharacterName];
 		// HP成長係数
-		this.m_NowHitpoint_Growth = Character_Spec.HP_Grouth[(int)m_character_name];
+		this.m_NowHitpoint_Growth = Character_Spec.HP_Grouth[(int)CharacterName];
 				
 		
         // ブースト量初期値(Lv1の時の値）
-        this.m_Boost_OR = Character_Spec.Boost_OR[(int)m_character_name];
+        this.m_Boost_OR = Character_Spec.Boost_OR[(int)CharacterName];
         // ブースト量成長係数
-        this.m_Boost_Growth = Character_Spec.Boost_Growth[(int)m_character_name];
+        this.m_Boost_Growth = Character_Spec.Boost_Growth[(int)CharacterName];
 
         // 覚醒ゲージ量初期値(LV1の時の値）
-        this.m_Arousal_OR = Character_Spec.Arousal_OR[(int)m_character_name];
+        this.m_Arousal_OR = Character_Spec.Arousal_OR[(int)CharacterName];
         // 覚醒ゲージ量成長係数
-        this.m_Arousal_Growth = Character_Spec.Arousal_Growth[(int)m_character_name];
+        this.m_Arousal_Growth = Character_Spec.Arousal_Growth[(int)CharacterName];
 
         // 使用可能武器をセット（初期段階で使用不能にしておきたいものは、各キャラのStartでこの関数を呼んだ後に再定義）
-        for (int i = 0; i < Character_Spec.cs[(int)m_character_name].Length; i++)
+        for (int i = 0; i < Character_Spec.cs[(int)CharacterName].Length; i++)
         {
             // 使用の可否を初期化
             m_WeaponUseAble[i] = true;
             // 弾があるものは残弾数を初期化
-            if (Character_Spec.cs[(int)m_character_name][i].m_OriginalBulletNum > 0)
+            if (Character_Spec.cs[(int)CharacterName][i].m_OriginalBulletNum > 0)
             {
-                this.m_BulletNum[i] = Character_Spec.cs[(int)m_character_name][i].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][i].m_OriginalBulletNum;
+                this.m_BulletNum[i] = Character_Spec.cs[(int)CharacterName][i].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)CharacterName][i].m_OriginalBulletNum;
             }
             // 硬直時間があるものは硬直時間を初期化
-            if (Character_Spec.cs[(int)m_character_name][i].m_WaitTime > 0)
+            if (Character_Spec.cs[(int)CharacterName][i].m_WaitTime > 0)
             {
-                this.m_BulletWaitTime[i] = Character_Spec.cs[(int)m_character_name][i].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][i].m_WaitTime;
+                this.m_BulletWaitTime[i] = Character_Spec.cs[(int)CharacterName][i].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)CharacterName][i].m_WaitTime;
             }
         }
         // ダッシュキャンセル硬直時間
@@ -1951,12 +1945,12 @@ public partial class CharacterControl_Base : MonoBehaviour
             // CPU情報
             var CPU = this.GetComponentInChildren<AIControl_Base>();
             // テンキー入力を拾う
-            this.m_tenkey = CPU.m_tenkeyoutput;
+            this.CPUTenkey = CPU.CPUTenkeyoutput;
             // テンキーの種類からhorizontalとverticalを取得
-            if ((int)CPU.m_tenkeyoutput <= 8)
+            if ((int)CPU.CPUTenkeyoutput <= 8)
             {
-                horizontal = CPU.m_lever[(int)CPU.m_tenkeyoutput].x;
-                vertical = CPU.m_lever[(int)CPU.m_tenkeyoutput].y;
+                horizontal = CPU.m_lever[(int)CPU.CPUTenkeyoutput].x;
+                vertical = CPU.m_lever[(int)CPU.CPUTenkeyoutput].y;
             }
         }
 
@@ -2096,7 +2090,7 @@ public partial class CharacterControl_Base : MonoBehaviour
             // 一応歩き撃ちフラグはここでも折る
             RunShotDone = false;
             // 上体の角度を戻す
-            this.m_Brest.transform.rotation = Quaternion.Euler(0, 0, 0);
+            this.BrestObject.transform.rotation = Quaternion.Euler(0, 0, 0);
             m_AnimState[0] = AnimationState.AirDash;
             this.m_Rotatehold = false;
             this.m_Boost = this.m_Boost - this.m_DashCancelUseBoost;
@@ -2255,7 +2249,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         this.m_Boost = GetMaxBoost(this.m_BoostLevel);
         
 		// 上体を初期化する
-        this.m_Brest.transform.rotation = Quaternion.Euler(0, 0, 0);
+        this.BrestObject.transform.rotation = Quaternion.Euler(0, 0, 0);
 		// 歩き撃ちフラグを初期化する
         this.RunShotDone = false;
 
@@ -2272,7 +2266,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         if (IsPlayer != CHARACTERCODE.ENEMY)
         {
             // SavingParameterからのステートの変更を受け付ける
-            int charactername = (int)this.m_character_name;
+            int charactername = (int)this.CharacterName;
             // HP
             m_NowHitpoint = savingparameter.GetNowHP(charactername);
             // 覚醒ゲージ
@@ -2409,7 +2403,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         m_reload = new Reload();
 
         // ポーズコントローラー取得
-        m_pausecontroller = GameObject.Find("Pause Controller");
+        Pausecontroller = GameObject.Find("Pause Controller");
 
         // 足音取得(StageSettingで決めているので、その値を拾う
         GameObject stagesetting = GameObject.Find("StageSetting");
@@ -2533,43 +2527,43 @@ public partial class CharacterControl_Base : MonoBehaviour
             // CPU情報
             var CPU = this.GetComponentInChildren<AIControl_Base>();
             // キー入力を拾う
-            this.m_key = CPU.m_keyoutput;
+            this.CPUKey = CPU.CPUKeyoutput;
             // テンキー入力を拾う
-            this.m_tenkey = CPU.m_tenkeyoutput;
+            this.CPUTenkey = CPU.CPUTenkeyoutput;
             // テンキー入力に応じてフラグを立てる
             // 前
-			if (m_tenkey == AIControl_Base.TENKEY_OUTPUT.TOP)
+			if (CPUTenkey == AIControl_Base.TENKEY_OUTPUT.TOP)
             {
                 m_hasFrontInput = true;
             }
             // 後
-			else if (m_tenkey == AIControl_Base.TENKEY_OUTPUT.UNDER)
+			else if (CPUTenkey == AIControl_Base.TENKEY_OUTPUT.UNDER)
             {
                 m_hasBackInput = true;
             }
             // 左
-			else if (m_tenkey == AIControl_Base.TENKEY_OUTPUT.LEFT)
+			else if (CPUTenkey == AIControl_Base.TENKEY_OUTPUT.LEFT)
             {
                 m_hasLeftInput = true;
             }
             // 右
-			else if (m_tenkey == AIControl_Base.TENKEY_OUTPUT.RIGHT)
+			else if (CPUTenkey == AIControl_Base.TENKEY_OUTPUT.RIGHT)
             {
                 m_hasRightInput = true;
             }
             // 左ステップ
-			else if (m_tenkey == AIControl_Base.TENKEY_OUTPUT.LEFTSTEP)
+			else if (CPUTenkey == AIControl_Base.TENKEY_OUTPUT.LEFTSTEP)
             {
                 m_hasLeftStepInput = true;
             }
             // 右ステップ
-			else if (m_tenkey == AIControl_Base.TENKEY_OUTPUT.RIGHTSTEP)
+			else if (CPUTenkey == AIControl_Base.TENKEY_OUTPUT.RIGHTSTEP)
             {
                 m_hasRightStepInput = true;
             }
             // 入力を受けたキーごとにフラグを立てる
             // CPUは同時押し判定を出さないので、1個ずつ来ると考えてOK
-            switch (this.m_key)
+            switch (this.CPUKey)
             {
                 case AIControl_Base.KEY_OUTPUT.SHOT:
                     this.m_hasShotInput = true;
@@ -2663,7 +2657,7 @@ public partial class CharacterControl_Base : MonoBehaviour
                     break;
             }
             // 入力を受けたテンキーに応じてフラグを立てる（この時点ではありなしさえ拾えばいい。実際の値を使うのはUpdateRotationなので、入力の有無さえ拾えればいい）
-            if (this.m_tenkey != AIControl_Base.TENKEY_OUTPUT.NEUTRAL)
+            if (this.CPUTenkey != AIControl_Base.TENKEY_OUTPUT.NEUTRAL)
             {
                 this.m_hasVHInput = true;
             }
@@ -2714,11 +2708,11 @@ public partial class CharacterControl_Base : MonoBehaviour
             // CPU情報
             var CPU = this.GetComponentInChildren<AIControl_Base>();
             // キー入力を拾う
-            this.m_key = CPU.m_keyoutput;
+            this.CPUKey = CPU.CPUKeyoutput;
           
             // 入力を受けたキーごとにフラグを立てる
             // CPUは同時押し判定を出さないので、1個ずつ来ると考えてOK
-            switch (this.m_key)
+            switch (this.CPUKey)
             {
                 default:
                     break;
@@ -2726,7 +2720,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         }
                 
         // キャラを取得
-        int character = (int)m_character_name;
+        int character = (int)CharacterName;
         // 覚醒入力を取得し、その場合覚醒開始画面へ移行してポーズ  
         if (m_hasArousalInput && !m_isArousal && savingparameter.GetGemContimination(character) < 100.0f)
         {
@@ -2759,7 +2753,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         if (m_isArousal)
         {
             m_Arousal -= Time.deltaTime * 10;
-            savingparameter.SetNowArousal((int)m_character_name, m_Arousal);
+            savingparameter.SetNowArousal((int)CharacterName, m_Arousal);
             if (m_Arousal <= 0)
             {
                 // 覚醒状態解除
@@ -2876,7 +2870,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     private void unuseArousal()
     {
         // ポーズコントローラーのインスタンスを取得
-        var pausecontroller2 = m_pausecontroller.GetComponent<PauseControllerInputDetector>();
+        var pausecontroller2 = Pausecontroller.GetComponent<PauseControllerInputDetector>();
         // 時間を再度動かす
         pausecontroller2.pauseController.DeactivatePauseProtocol();
     }
@@ -2884,12 +2878,12 @@ public partial class CharacterControl_Base : MonoBehaviour
     // 覚醒開始処理
     private void arousalStart()
     {
-        if (m_pausecontroller == null)
+        if (Pausecontroller == null)
         {
             return;
         }
         // ポーズコントローラーのインスタンスを取得
-        var pausecontroller2 = m_pausecontroller.GetComponent<PauseControllerInputDetector>();
+        var pausecontroller2 = Pausecontroller.GetComponent<PauseControllerInputDetector>();
         // 時間を止める
         pausecontroller2.pauseController.ActivatePauseProtocol();
         // 覚醒前処理
@@ -2914,7 +2908,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         if (this.IsPlayer != CHARACTERCODE.ENEMY)
         {
             // SavingParameterからのステートの変更を受け付ける
-            int charactername = (int)this.m_character_name;
+            int charactername = (int)this.CharacterName;
             // レベル
             m_level = savingparameter.GetNowLevel(charactername);
             // 攻撃力
@@ -3059,7 +3053,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         if (this.IsPlayer != CHARACTERCODE.ENEMY)
         {
             // SavingParameterからのステートの変更を受け付ける
-            int charactername = (int)this.m_character_name;
+            int charactername = (int)this.CharacterName;
             // SavingParameterに現在のステートを渡す
             // 最大HP
             savingparameter.SetMaxHP(charactername, GetMaxHitpoint(m_level));
@@ -3095,7 +3089,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         // 覚醒モード移行
         m_isArousal = true;
         // エフェクト出現（エフェクトはCharacerControl_Baseのpublicに入れておく）
-        m_arousalEffect = Instantiate(m_Insp_ArousalEffect) as GameObject;
+        m_arousalEffect = Instantiate(ArousalEffect) as GameObject;
         // エフェクトと本体の動きを同期させる
         m_arousalEffect.GetComponent<Rigidbody>().isKinematic = true;
         m_arousalEffect.transform.position = this.transform.position;
@@ -3150,7 +3144,7 @@ public partial class CharacterControl_Base : MonoBehaviour
             // 歩き撃ちフラグを折る
             RunShotDone = false;
             // 上体を戻す
-            m_Brest.transform.rotation = Quaternion.Euler(0, 0, 0);
+            BrestObject.transform.rotation = Quaternion.Euler(0, 0, 0);
             shotmode = ShotMode.NORMAL;
             DeleteBlend();
             // 方向キー入力があった場合かつ地上にいた場合
