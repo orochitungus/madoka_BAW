@@ -127,15 +127,15 @@ public class Bullet : MonoBehaviour
             if (m_Obj_OR != null && m_Obj_OR.GetComponent<CharacterControl_Base>().GetShotmode() == CharacterControl_Base.ShotMode.SHOT)
             {
                 // その時の座標を保持する
-                this.GetComponent<Rigidbody>().position = m_Obj_OR.GetComponent<CharacterControl_Base>().m_ArrowRoot.GetComponent<Rigidbody>().position;
+                this.GetComponent<Rigidbody>().position = m_Obj_OR.GetComponent<CharacterControl_Base>().MainShotRoot.GetComponent<Rigidbody>().position;
                 // 進行方向ベクトルを保持する
-                this.m_MoveDirection = m_Obj_OR.GetComponent<CharacterControl_Base>().m_BulletMoveDirection;
+                this.m_MoveDirection = m_Obj_OR.GetComponent<CharacterControl_Base>().BulletMoveDirection;
                 // 攻撃力を保持する
-                this.m_OffemsivePower = m_Obj_OR.GetComponent<CharacterControl_Base>().m_offensive_power;
+                this.m_OffemsivePower = m_Obj_OR.GetComponent<CharacterControl_Base>().OffensivePowerOfBullet;
                 // ダウン値を保持する
-                this.m_DownRatio = m_Obj_OR.GetComponent<CharacterControl_Base>().m_downratio_power;
+                this.m_DownRatio = m_Obj_OR.GetComponent<CharacterControl_Base>().DownratioPowerOfBullet;
                 // 覚醒ゲージ増加量を保持する
-                this.m_ArousalRatio = m_Obj_OR.GetComponent<CharacterControl_Base>().m_arousalRatio;
+                this.m_ArousalRatio = m_Obj_OR.GetComponent<CharacterControl_Base>().ArousalRatioOfBullet;
 
                 // 親のステートを発射完了へ切り替える
                 m_Obj_OR.GetComponent<CharacterControl_Base>().SetShotmode(CharacterControl_Base.ShotMode.

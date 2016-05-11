@@ -539,36 +539,134 @@ public class CharacterControlBase : MonoBehaviour
         HasRightStepInput = false;
     }
 
-    // 追撃可能時間(ダメージ硬直時間）
-    public float DamagedWaitTime;
-    // 追撃可能累積時間    
-    public float DamagedTime;
+	/// <summary>
+	/// 追撃可能時間(ダメージ硬直時間）
+	/// </summary>
+	public float DamagedWaitTime;
 
-    // ダウン値復帰時間
-    public float DownRebirthWaitTime;
-    // ダウン値累積時間
-    public float DownRebirthTime;
+	/// <summary>
+	/// 追撃可能累積時間
+	/// </summary>
+	public float DamagedTime;
 
-    // ダウン時間（ダウンしている時間）
-    public float DownWaitTime;
-    // ダウン累積時間
-    public float DownTime;
+	/// <summary>
+	/// ダウン値復帰時間
+	/// </summary>
+	public float DownRebirthWaitTime;
+	
+	/// <summary>
+	/// ダウン値累積時間
+	/// </summary>
+	public float DownRebirthTime;
 
-    // 累積押し時間（射撃）をカウント
-    protected int ShotCharge;
+	/// <summary>
+	/// ダウン時間（ダウンしている時間）
+	/// </summary>
+	public float DownWaitTime;
+
+	/// <summary>
+	/// ダウン累積時間
+	/// </summary>
+	public float DownTime;
+
+	/// <summary>
+	/// 累積押し時間（射撃）をカウント
+	/// </summary>
+	protected int ShotCharge;
     public int GetShotCharge()
     {
         return ShotCharge;
     }
-    // 累積押し時間（格闘）をカウント
-    protected int WrestleCharge;
+
+	/// <summary>
+	/// 累積押し時間（格闘）をカウント
+	/// </summary>
+	protected int WrestleCharge;
     public int GetWrestleCharge()
     {
         return WrestleCharge;
     }
 
-    // Use this for initialization
-    void Start ()
+	/// <summary>
+	/// 1Fあたりの射撃チャージゲージ増加量
+	/// </summary>
+	protected int ShotIncrease;
+
+	/// <summary>
+	/// 1Fあたりの格闘チャージゲージ増加量
+	/// </summary>
+	protected int WrestleIncrease;
+
+	/// <summary>
+	/// 1Fあたりの射撃チャージゲージ減衰量
+	/// </summary>
+	protected int ShotDecrease;
+
+	/// <summary>
+	/// 1Fあたりの格闘チャージゲージ減衰量
+	/// </summary>
+	protected int WrestleDecrease;
+
+	/// <summary>
+	/// チャージ最大値（固定。ここを超えたら発射）
+	/// </summary>
+	private int ChargeMax;
+
+	public int GetChargeMax()
+	{
+		return ChargeMax;
+	}
+
+	/// <summary>
+	/// モード状態（モードチェンジがないキャラは常時Normalのまま）
+	/// </summary>
+	public enum ModeState
+	{
+		NORMAL,
+		ANOTHER_MODE
+	}
+	/// <summary>
+	/// 現在のモード
+	/// </summary>
+	public ModeState Nowmode;
+
+	/// <summary>
+	/// コライダの地面からの高さ
+	/// </summary>
+	public float Collider_Height;
+
+	/// <summary>
+	///  射出する弾の方向ベクトル(スプレッドのときはこれを基準にしてずらす）
+	/// </summary>
+	public Vector3 BulletMoveDirection;
+
+	/// <summary>
+	/// 射出する弾の配置位置
+	/// </summary>
+	public Vector3 BulletPos;
+
+	/// <summary>
+	/// 射出する弾の攻撃力
+	/// </summary>
+	public int OffensivePowerOfBullet;
+
+	/// <summary>
+	/// 射出する弾のダウン値
+	/// </summary>
+	public float DownratioPowerOfBullet;
+
+	/// <summary>
+	/// 射出する弾の覚醒ゲージ増加量
+	/// </summary>
+	public float ArousalRatioOfBullet;
+
+	// 通常射撃用弾丸の配置用フック(他の専用武器は派生先で用意）
+	public GameObject MainShotRoot;
+	// リロードクラス
+	protected Reload ReloadSystem;
+
+	// Use this for initialization
+	void Start ()
     {
 	
 	}

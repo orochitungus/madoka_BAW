@@ -190,7 +190,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
         this.m_StepBackTime = 0.4f;
 
         // コライダの地面からの高さ
-        this.m_Collider_Height = 1.5f;
+        this.Collider_Height = 1.5f;
 
         // ロックオン距離
         this.m_Rockon_Range = 100.0f;
@@ -202,8 +202,8 @@ public class Homura_Final_BattleControl : CharacterControl_Base
         shotmode = ShotMode.NORMAL;
 
 		// 弾のステート
-		this.m_BulletMoveDirection = Vector3.zero;
-		this.m_BulletPos = Vector3.zero;
+		this.BulletMoveDirection = Vector3.zero;
+		this.BulletPos = Vector3.zero;
 		
 		// HPを初期化
 		
@@ -229,13 +229,13 @@ public class Homura_Final_BattleControl : CharacterControl_Base
             Update_Animation();    
             // リロード実行           
             // メイン射撃
-            m_reload.OneByOne(ref m_BulletNum[(int)ShotType.NORMAL_SHOT], Time.time, Character_Spec.cs[(int)m_character_name][(int)ShotType.NORMAL_SHOT].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][(int)ShotType.NORMAL_SHOT].m_OriginalBulletNum,
+            ReloadSystem.OneByOne(ref m_BulletNum[(int)ShotType.NORMAL_SHOT], Time.time, Character_Spec.cs[(int)m_character_name][(int)ShotType.NORMAL_SHOT].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][(int)ShotType.NORMAL_SHOT].m_OriginalBulletNum,
                 Character_Spec.cs[(int)m_character_name][(int)ShotType.NORMAL_SHOT].m_reloadtime, ref m_mainshotendtime);
             // サブ射撃
-            m_reload.AllTogether(ref m_BulletNum[(int)ShotType.SUB_SHOT], Time.time, Character_Spec.cs[(int)m_character_name][(int)ShotType.SUB_SHOT].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][(int)ShotType.SUB_SHOT].m_OriginalBulletNum,
+            ReloadSystem.AllTogether(ref m_BulletNum[(int)ShotType.SUB_SHOT], Time.time, Character_Spec.cs[(int)m_character_name][(int)ShotType.SUB_SHOT].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][(int)ShotType.SUB_SHOT].m_OriginalBulletNum,
                 Character_Spec.cs[(int)m_character_name][(int)ShotType.SUB_SHOT].m_reloadtime, ref m_subshotendtime);
             // 特殊射撃
-            m_reload.OneByOne(ref m_BulletNum[(int)ShotType.EX_SHOT], Time.time, Character_Spec.cs[(int)m_character_name][(int)ShotType.EX_SHOT].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][(int)ShotType.EX_SHOT].m_OriginalBulletNum,
+            ReloadSystem.OneByOne(ref m_BulletNum[(int)ShotType.EX_SHOT], Time.time, Character_Spec.cs[(int)m_character_name][(int)ShotType.EX_SHOT].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][(int)ShotType.EX_SHOT].m_OriginalBulletNum,
                 Character_Spec.cs[(int)m_character_name][(int)ShotType.EX_SHOT].m_reloadtime, ref m_exshotendtime);
         }
         // 特定条件下でZ軸回転するバグがあるので防止
@@ -694,8 +694,8 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                 }
             }
             // 矢の出現ポジションをフックと一致させる
-            Vector3 pos = m_ArrowRoot.transform.position;
-            Quaternion rot = Quaternion.Euler(m_ArrowRoot.transform.rotation.eulerAngles.x, m_ArrowRoot.transform.rotation.eulerAngles.y, m_ArrowRoot.transform.rotation.eulerAngles.z);
+            Vector3 pos = MainShotRoot.transform.position;
+            Quaternion rot = Quaternion.Euler(MainShotRoot.transform.rotation.eulerAngles.x, MainShotRoot.transform.rotation.eulerAngles.y, MainShotRoot.transform.rotation.eulerAngles.z);
             //m_ArrowRoot.rigidbody.isKinematic = true;
             // 矢を出現させる
             // サブ射撃
@@ -705,7 +705,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                 // 親子関係を再設定する(=矢をフックの子にする）
                 if (obj.transform.parent == null)
                 {
-                    obj.transform.parent = m_ArrowRoot.transform;
+                    obj.transform.parent = MainShotRoot.transform;
                     // 矢の親子関係を付けておく
                     obj.transform.GetComponent<Rigidbody>().isKinematic = true;
                 }
@@ -718,7 +718,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                 // 親子関係を再設定する(=矢をフックの子にする）
                 if (obj.transform.parent == null)
                 {
-                    obj.transform.parent = m_ArrowRoot.transform;
+                    obj.transform.parent = MainShotRoot.transform;
                     // 矢の親子関係を付けておく
                     obj.transform.GetComponent<Rigidbody>().isKinematic = true;
                 }
@@ -753,7 +753,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                 // 親子関係を再設定する(=矢をフックの子にする）
                 if (obj.transform.parent == null)
                 {
-                    obj.transform.parent = m_ArrowRoot.transform;
+                    obj.transform.parent = MainShotRoot.transform;
                     // 矢の親子関係を付けておく
                     obj.transform.GetComponent<Rigidbody>().isKinematic = true;
                 }
@@ -765,7 +765,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                 // 親子関係を再設定する(=矢をフックの子にする）
                 if (obj.transform.parent == null)
                 {
-                    obj.transform.parent = m_ArrowRoot.transform;
+                    obj.transform.parent = MainShotRoot.transform;
                     // 矢の親子関係を付けておく
                     obj.transform.GetComponent<Rigidbody>().isKinematic = true;
                 }
@@ -907,11 +907,11 @@ public class Homura_Final_BattleControl : CharacterControl_Base
             }
 
             // 矢のフックの位置に弾の位置を代入する
-            this.m_BulletPos = this.m_ArrowRoot.transform.position;
+            this.BulletPos = this.MainShotRoot.transform.position;
             // 同じく回転角を代入する
             if (arrow != null)
             {
-                this.m_BulletMoveDirection = arrow.m_MoveDirection;
+                this.BulletMoveDirection = arrow.m_MoveDirection;
             }
             if (type == ShotType.NORMAL_SHOT)
             {
@@ -955,11 +955,11 @@ public class Homura_Final_BattleControl : CharacterControl_Base
     private void setOffensivePower(SkillType_Homura_B kind)
     {
         // 攻撃力を決定する(ここの2がスキルのインデックス。下も同様）
-        this.m_offensive_power = Character_Spec.cs[(int)m_character_name][(int)kind].m_OriginalStr + Character_Spec.cs[(int)m_character_name][(int)kind].m_GrowthCoefficientStr * (this.m_StrLevel - 1);
+        this.OffensivePowerOfBullet = Character_Spec.cs[(int)m_character_name][(int)kind].m_OriginalStr + Character_Spec.cs[(int)m_character_name][(int)kind].m_GrowthCoefficientStr * (this.m_StrLevel - 1);
         // ダウン値を決定する
-        this.m_downratio_power = Character_Spec.cs[(int)m_character_name][(int)kind].m_DownPoint;
+        this.DownratioPowerOfBullet = Character_Spec.cs[(int)m_character_name][(int)kind].m_DownPoint;
         // 覚醒ゲージ増加量を決定する
-        m_arousalRatio = Character_Spec.cs[(int)m_character_name][(int)kind].m_arousal;
+        ArousalRatioOfBullet = Character_Spec.cs[(int)m_character_name][(int)kind].m_arousal;
     }
 
     // N格闘1段目

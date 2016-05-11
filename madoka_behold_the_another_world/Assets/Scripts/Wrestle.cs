@@ -422,7 +422,7 @@ public partial class CharacterControl_Base
                 case AnimationState.Shot_AirDash:
                 case AnimationState.Shot_run:
                 case AnimationState.Shot_toponly:
-                    if (m_Nowmode == ModeState.NORMAL)
+                    if (Nowmode == ModeState.NORMAL)
                     {
                         skill = CharacterSkill.SkillType.SHOT;
                     }
@@ -433,7 +433,7 @@ public partial class CharacterControl_Base
                     break;
                 // サブ射撃
                 case AnimationState.Sub_Shot:
-                    if (m_Nowmode == ModeState.NORMAL)
+                    if (Nowmode == ModeState.NORMAL)
                     {
                         skill = CharacterSkill.SkillType.SUB_SHOT;
                     }
@@ -444,7 +444,7 @@ public partial class CharacterControl_Base
                     break;
                 // 特殊射撃
                 case AnimationState.EX_Shot:
-                    if (m_Nowmode == ModeState.NORMAL)
+                    if (Nowmode == ModeState.NORMAL)
                     {
                         skill = CharacterSkill.SkillType.EX_SHOT;
                     }
@@ -462,7 +462,7 @@ public partial class CharacterControl_Base
                     IndexOR = IndexOR - (int)AnimationState.Wrestle_1;
                     int wrestle1;
                     // ノーマル
-                    if (m_Nowmode == ModeState.NORMAL)
+                    if (Nowmode == ModeState.NORMAL)
                     {                        
                         wrestle1 = (int)CharacterSkill.SkillType.WRESTLE_1;                        
                     }

@@ -374,19 +374,19 @@ public partial class CharacterControl_Base : MonoBehaviour
     }
 
     // 1Fあたりの射撃チャージゲージ増加量
-    protected int m_ShotIncrease;
+    protected int ShotIncrease;
     // 1Fあたりの格闘チャージゲージ増加量
-    protected int m_WrestleIncrease;
+    protected int WrestleIncrease;
     // 1Fあたりの射撃チャージゲージ減衰量
-    protected int m_ShotDecrease;
+    protected int ShotDecrease;
     // 1Fあたりの格闘チャージゲージ減衰量
-    protected int m_WrestleDecrease;
+    protected int WrestleDecrease;
     // チャージ最大値（固定。ここを超えたら発射）
-    private int m_ChargeMax;
+    private int ChargeMax;
 
     public int GetChargeMax()
     {
-        return m_ChargeMax;
+        return ChargeMax;
     }
 
     // モード状態（モードチェンジがないキャラは常時Normalのまま）
@@ -396,10 +396,10 @@ public partial class CharacterControl_Base : MonoBehaviour
         ANOTHER_MODE
     }
     // 現在のモード
-    public ModeState m_Nowmode;
+    public ModeState Nowmode;
 
     // コライダの地面からの高さ
-    public float m_Collider_Height;
+    public float Collider_Height;
 
 
     // 現在の動作の内容
@@ -480,20 +480,20 @@ public partial class CharacterControl_Base : MonoBehaviour
     }
 
     // 射出する弾の方向ベクトル(スプレッドのときはこれを基準にしてずらす）
-    public Vector3 m_BulletMoveDirection;
+    public Vector3 BulletMoveDirection;
     // 射出する弾の配置位置
-    public Vector3 m_BulletPos;
+    public Vector3 BulletPos;
     // 射出する弾の攻撃力
-    public int m_offensive_power;
+    public int OffensivePowerOfBullet;
     // 射出する弾のダウン値
-    public float m_downratio_power;
+    public float DownratioPowerOfBullet;
     // 射出する弾の覚醒ゲージ増加量
-    public float m_arousalRatio;
+    public float ArousalRatioOfBullet;
 
     // 通常射撃用弾丸の配置用フック(他の専用武器は派生先で用意）
-    public GameObject m_ArrowRoot;
+    public GameObject MainShotRoot;
     // リロードクラス
-    protected Reload m_reload;
+    protected Reload ReloadSystem;
 
     // 足音
     public AudioClip m_ashioto_normal;
@@ -975,19 +975,19 @@ public partial class CharacterControl_Base : MonoBehaviour
                 {
                     m_ShotCharge = 0;
                 }
-                m_ShotCharge += this.m_ShotIncrease;
+                m_ShotCharge += this.ShotIncrease;
             }
             // 解除するとm_ShotChargeを減衰
             else
             {
                 if (m_ShotCharge > 0)
                 {
-                    m_ShotCharge -= this.m_ShotDecrease;
+                    m_ShotCharge -= this.ShotDecrease;
                 }
             }
         }
         // MAX状態で離されるとチャージ量を0にしてtrue
-        if (m_ShotCharge >= m_ChargeMax && (Input.GetButtonUp("Shot") || Input.GetButtonUp("EX_Shot") || Input.GetButtonUp("Arousal")))
+        if (m_ShotCharge >= ChargeMax && (Input.GetButtonUp("Shot") || Input.GetButtonUp("EX_Shot") || Input.GetButtonUp("Arousal")))
         {
             m_ShotCharge = 0;
             compleate = true;
@@ -1009,19 +1009,19 @@ public partial class CharacterControl_Base : MonoBehaviour
                 {
                     m_WrestleCharge = 0;
                 }
-                m_WrestleCharge += this.m_WrestleIncrease;
+                m_WrestleCharge += this.WrestleIncrease;
             }
             // 解除するとm_ShotChargeを減衰
             else
             {
                 if (this.m_WrestleCharge > 0)
                 {
-                    m_WrestleCharge -= this.m_WrestleDecrease;
+                    m_WrestleCharge -= this.WrestleDecrease;
                 }
             }
         }
         // MAX状態で離されるとチャージ量を0にしてtrue
-        if (m_WrestleCharge >= m_ChargeMax && (Input.GetButtonUp("Wrestle") || Input.GetButtonUp("EX_Wrestle") || Input.GetButtonUp("Arousal")))
+        if (m_WrestleCharge >= ChargeMax && (Input.GetButtonUp("Wrestle") || Input.GetButtonUp("EX_Wrestle") || Input.GetButtonUp("Arousal")))
         {
             m_WrestleCharge = 0;
             compleate = true;
@@ -2227,7 +2227,7 @@ public partial class CharacterControl_Base : MonoBehaviour
             Debug.LogError("カプセルコライダが見つからない");
             Application.Quit();
         }
-        this.m_layOriginOffs = new Vector3(0.0f, m_Collider_Height, 0.0f);
+        this.m_layOriginOffs = new Vector3(0.0f, Collider_Height, 0.0f);
         this.m_laylength = collider.radius + collider.height;// / 2 + 1.5f;//0.2f;
         //this.m_layOriginOffs = new Vector3(0.0f, m_Collider_Height, 0.0f);
         //this.m_laylength = m_charactercontroller.radius + m_charactercontroller.height / 2 + 1.5f;
@@ -2385,16 +2385,16 @@ public partial class CharacterControl_Base : MonoBehaviour
         m_ReversalUseBoost = 20.0f;
 
         // 1Fあたりの射撃チャージゲージ増加量
-        m_ShotIncrease = 2;
+        ShotIncrease = 2;
         // 1Fあたりの格闘チャージゲージ増加量
-        m_WrestleIncrease = 2;
+        WrestleIncrease = 2;
         // 1Fあたりの射撃チャージゲージ減衰量
-        m_ShotDecrease = 4;
+        ShotDecrease = 4;
         // 1Fあたりの格闘チャージゲージ減衰量
-        m_WrestleDecrease = 4;
+        WrestleDecrease = 4;
 
         // チャージ最大値
-        m_ChargeMax = 100;
+        ChargeMax = 100;
 
         // インターフェースの描画フラグ
         if (m_isPlayer == CHARACTERCODE.PLAYER)
@@ -2406,7 +2406,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         m_hitjumpover = false;
         m_hitunjumpover = false;
         // リロードクラス作成
-        m_reload = new Reload();
+        ReloadSystem = new Reload();
 
         // ポーズコントローラー取得
         m_pausecontroller = GameObject.Find("Pause Controller");
@@ -3215,10 +3215,10 @@ public partial class CharacterControl_Base : MonoBehaviour
     protected void DestroyArrow()
     {
         // 弾があるなら消す(m_ArrowRootの下に何かあるなら全部消す）
-        int ChildCount = this.m_ArrowRoot.transform.childCount;
+        int ChildCount = this.MainShotRoot.transform.childCount;
         for (int i = 0; i < ChildCount; i++)
         {
-            Transform child = this.m_ArrowRoot.transform.GetChild(i);
+            Transform child = this.MainShotRoot.transform.GetChild(i);
             Destroy(child.gameObject);
         }
     }
