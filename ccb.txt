@@ -110,141 +110,141 @@ public partial class CharacterControl_Base : MonoBehaviour
         AROUSAL                 // 誰かの覚醒による時間停止
     };
     // 時間停止系のenumの値
-    public TimeStopMode m_timstopmode;
+    public TimeStopMode Timestopmode;
     // 時間停止・遅延のmasterであるか否か（これがtrueだと時間停止の影響を受けない.発動者にのみtureにする。）
-    public bool m_TimeStopMaster;
+    public bool Timestopmaster;
 
-    public float m_Rockon_Range;    // ロックオン距離（この距離を超えて撃つと誘導や補正が入らない）
-    public float m_Rockon_RangeLimit;// ロックオン限界距離（この距離を超えるとロックオン判定に入らない）
+    public float RockonRange;    // ロックオン距離（この距離を超えて撃つと誘導や補正が入らない）
+    public float RockonRangeLimit;// ロックオン限界距離（この距離を超えるとロックオン判定に入らない）
 
     // ジャンプ時間
-    public float m_JumpWaitTime;
-    public float m_JumpTime;
+    public float JumpWaitTime;
+    public float JumpTime;
 
     // 着地硬直
-    public float m_LandingWaitTime;
-    public float m_LandingTime;
+    public float LandingWaitTime;
+    public float LandingTime;
 
     // 攻撃行動硬直
-    public float m_AttackTime;
+    public float AttackTime;
 
     // 移動用ステート
-    public Vector3 m_MoveDirection;   // 移動方向
-    public Vector3 m_MoveDirection_OR;// 射撃などの射出前における移動方向
-    public Vector3 m_BlowDirection;   // ダウンする時や吹き飛び属性の攻撃を食らった時の方向ベクトル
-    public float m_WalkSpeed;         // 移動速度（歩行の場合）
-    public float m_RunSpeed;          // 移動速度（走行の場合）
-    public float m_AirDashSpeed;      // 移動速度（空中ダッシュの場合）
-    public float m_AirMoveSpeed;      // 移動速度（空中慣性移動の場合）
-    public float m_RateofRise;        // 上昇速度
+    public Vector3 MoveDirection;   // 移動方向
+    public Vector3 MoveDirection_OR;// 射撃などの射出前における移動方向
+    public Vector3 BlowDirection;   // ダウンする時や吹き飛び属性の攻撃を食らった時の方向ベクトル
+    public float WalkSpeed;         // 移動速度（歩行の場合）
+    public float RunSpeed;          // 移動速度（走行の場合）
+    public float AirDashSpeed;      // 移動速度（空中ダッシュの場合）
+    public float AirMoveSpeed;      // 移動速度（空中慣性移動の場合）
+    public float RiseSpeed;        // 上昇速度
 
 
     // ジャンプ時のブースト消費量
-    protected float m_JumpUseBoost;
+    protected float JumpUseBoost;
 
     // ダッシュキャンセル時のブースト消費量
-    protected float m_DashCancelUseBoost;
+    protected float DashCancelUseBoost;
 
     // ダッシュキャンセル硬直時間
-    protected float m_DashCancelWaittime;
+    protected float DashCancelWaittime;
     // ダッシュキャンセル累積時間
-    protected float m_DashCancelTime;
+    protected float DashCancelTime;
 
     // ステップ時のブースト消費量
-    protected float m_StepUseBoost;
+    protected float StepUseBoost;
 
     // ダウン回避時のブースト消費量
-    protected float m_ReversalUseBoost;
+    protected float ReversalUseBoost;
 
     // レベル
-    public int m_level = 1;
+    public int Level = 1;
 
     // 取得技（オートスキル含む）
-    public int m_SkillUse = 1;      // 1つ習得するたびにインクリメント
+    public int SkillUse = 1;      // 1つ習得するたびにインクリメント
 
     // 攻撃力レベル
-    public int m_StrLevel = 1;
+    public int StrLevel = 1;
 
     // 防御力レベル
-    public int m_DefLevel = 1;
+    public int DefLevel = 1;
 
     // 残弾数レベル
-    public int m_BulLevel = 1;
+    public int BulLevel = 1;
 
     // ブースト量レベル
-    public int m_BoostLevel = 1;
+    public int BoostLevel = 1;
 
     // 覚醒ゲージレベル
-    public int m_ArousalLevel = 1;
+    public int ArousalLevel = 1;
 
     // ブースト量
-    public float m_Boost;
+    public float Boost;
     // ブースト量初期値(Lv1の時の値）
-    public float m_Boost_OR;
+    public float Boost_OR;
     // ブースト量成長係数
-    public float m_Boost_Growth;
+    public float Boost_Growth;
 
     // 覚醒ゲージ量
-    public float m_Arousal;
+    public float Arousal;
     public void AddArousal(float arousal)
     {
-        m_Arousal = m_Arousal + arousal;
+        Arousal = Arousal + arousal;
     }
     // 覚醒ゲージ量初期値(LV1の時の値）
-    public float m_Arousal_OR;
+    public float Arousal_OR;
     // 覚醒ゲージ量成長係数
-    public float m_Arousal_Growth;
+    public float Arousal_Growth;
 
     // 覚醒状態であるか否か
-    public bool m_isArousal;
+    public bool IsArousal;
 
     // ブースト消費量（1Fあたり）
-    public float m_BoostLess;
+    public float BoostLess;
 
     // ステップ移動距離
-    public float m_Step_Move_Length;
+    public float StepMoveLength;
 
     // ステップ初速（X/Z軸）
-    public float m_Step_Initial_velocity;
+    public float StepInitialVelocity;
     // ステップ時の１F当たりの移動量
-    public float m_Step_Move_1F;
+    public float StepMove1F;
 
     // ステップ累積移動距離
-    public float m_SteppingLength;
+    public float SteppingLength;
 
     // ステップ時の移動角度
-    public Quaternion m_steprot;
+    public Quaternion StepRotation;
 
     // ステップ終了時の硬直時間
-    public float m_StepBackTime;
+    public float StepBackTime;
 
     // 現在のダウン値
-    public float m_nowDownRatio;
+    public float NowDownRatio;
 
     // 現在のHP
-    public int m_NowHitpoint;
+    public int NowHitpoint;
     // 現在のHPの表示値
-    public int m_DrawHitpoint;
+    public int DrawHitpoint;
 	// HP初期値（Lv1のときの値）
-	public int m_NowHitpoint_OR;
+	public int NowHitpoint_OR;
 	// HP成長係数
-	public int m_NowHitpoint_Growth;
+	public int NowHitpoint_Growth;
     // 現在のソウルジェム汚染率
     public float m_GemContamination;
 	
     // ダウン値の閾値（これを超えるとダウン状態へ移行.基本全員5でOK、一部のボスをそれ以上に）
-    public float m_DownRatio;
+    public float DownRatioBias;
 
     // ダウン時の打ち上げ量
-    public float m_launchOffset;
+    public float LaunchOffset;
 
     // ブーストゲージ用テクスチャ
-    public Texture2D m_BoostTex;
+    public Texture2D BoostTex;
 
     // 覚醒ゲージ用テクスチャ
-    public Texture2D m_ArousalTex;
+    public Texture2D ArousalTex;
     // 覚醒可能「OK!!」表示用テクスチャ
-    public Texture2D m_ArousalOK;
+    public Texture2D ArousalOK;
     // ブーストゲージ/覚醒ゲージ外枠
     public Texture2D m_WindowParts;
 
@@ -252,84 +252,84 @@ public partial class CharacterControl_Base : MonoBehaviour
     public Texture2D m_ItemEquip;
 
     // ロックオン状態か否か
-    public bool m_IsRockon;
+    public bool IsRockon;
     // ロックオンボタンを何F押したか
     public int m_RockonButtonPress;
     // ロックオン解除までの時間
     protected int m_RockonCancelTime;
 
     // 移動方向固定状態か否か
-    protected bool m_Rotatehold;
+    protected bool Rotatehold;
 
     // アーマー状態か否か
-    public bool m_IsArmor;
+    public bool IsArmor;
 
     // 地上にいるか否か
-    protected bool m_isGrounded;
+    protected bool IsGrounded;
 
     // AIが取るのでアクセサ用意
     public bool GetInGround()
     {
-        return m_isGrounded;
+        return IsGrounded;
     }
 
     // 入力関係
     // 攻撃系は離したときか入力の瞬間に判定をとる（そうしないと連続入力などがとれない）
 
     // テンキー入力があったか否か
-    protected bool m_hasVHInput;
+    protected bool HasVHInput;
     // 射撃入力があったか否か
-    protected bool m_hasShotInput;
+    protected bool HasShotInput;
     // ジャンプ入力があったか否か
-    protected bool m_hasJumpInput;
+    protected bool HasJumpInput;
     // ダッシュキャンセル入力があったか否か
-    protected bool m_hasDashCancelInput;
+    protected bool HasDashCancelInput;
     // 空中ダッシュ入力があったか否か
-    protected bool m_hasAirDashInput;
+    protected bool HasAirDashInput;
     // サーチ入力があったか否か
-    protected bool m_hasSearchInput;
+    protected bool HasSearchInput;
     // サーチキャンセル入力があったか否か
-    public bool m_hasSearchCancelInput;
+    public bool HasSearchCancelInput;
     // 格闘入力があったか否か
-    protected bool m_hasWrestleInput;
+    protected bool HasWrestleInput;
     // サブ射撃入力があったか否か
-    protected bool m_hasSubShotInput;
+    protected bool HasSubShotInput;
     // 特殊射撃入力があったか否か
-    protected bool m_hasExShotInput;
+    protected bool HasExShotInput;
     // 特殊格闘入力があったか否か
-    protected bool m_hasExWrestleInput;
+    protected bool HasExWrestleInput;
     // アイテム入力があったか否か
-    protected bool m_hasItemInput;
+    protected bool HasItemInput;
     // ポーズ入力があったか否か
-    protected bool m_hasPauseInput;
+    protected bool HasPauseInput;
     // 覚醒入力があったか否か
-    protected bool m_hasArousalInput;
+    protected bool HasArousalInput;
     // 覚醒技入力があったか否か（コマンドは同じだが、処理順番の関係上別にしておかないとCPUは覚醒した時点で覚醒技を入力したという扱いになってしまう）
-    protected bool m_hasArousalAttackInput;
+    protected bool HasArousalAttackInput;
     // 射撃チャージ入力があったか否か
-    protected bool m_hasShotChargeInput;
+    protected bool HasShotChargeInput;
     // 格闘チャージ入力があったか否か
-    protected bool m_hasWrestleChargeInput;
+    protected bool HasWrestleChargeInput;
     // 前入力があったか否か
-    protected bool m_hasFrontInput;
+    protected bool HasFrontInput;
     // 左入力があったか否か
-    protected bool m_hasLeftInput;
+    protected bool HasLeftInput;
     // 右入力があったか否か
-    protected bool m_hasRightInput;
+    protected bool HasRightInput;
     // 後入力があったか否か
-    protected bool m_hasBackInput;
+    protected bool HasBackInput;
     // 左ステップ入力があったか否か（CPU専用）
-    protected bool m_hasLeftStepInput;
+    protected bool HasLeftStepInput;
     // 右ステップ入力があったか否か（CPU専用）
-    protected bool m_hasRightStepInput;
+    protected bool HasRightStepInput;
     // ソウルバースト入力があったか否か
-    protected bool m_hasSoulBurstInput;
+    protected bool HasSoulBurstInput;
 
     // ステップ入力強制解除
     public void StepStop()
     {
-        m_hasLeftStepInput = false;
-        m_hasRightStepInput = false;
+        HasLeftStepInput = false;
+        HasRightStepInput = false;
     }
 
     // 使用可能な武装（弾切れもしくはリロード中は使用不可にする.順番はCharacter_Specのインデックスの射撃武装）
@@ -340,31 +340,31 @@ public partial class CharacterControl_Base : MonoBehaviour
     public float[] m_BulletWaitTime = new float[20];
 
     // 追撃可能時間(ダメージ硬直時間）
-    public float m_DamagedWaitTime;
+    public float DamagedWaitTime;
     // 追撃可能累積時間    
-    public float m_DamagedTime;
+    public float DamagedTime;
 
     // ダウン値復帰時間
-    public float m_DownRebirthWaitTime;
+    public float DownRebirthWaitTime;
     // ダウン値累積時間
-    public float m_DownRebirthTime;
+    public float DownRebirthTime;
 
     // ダウン時間（ダウンしている時間）
-    public float m_DownWaitTime;
+    public float DownWaitTime;
     // ダウン累積時間
-    public float m_DownTime;
+    public float DownTime;
 
     // 累積押し時間（射撃）をカウント
-    protected int m_ShotCharge;
+    protected int ShotCharge;
     public int GetShotCharge()
     {
-        return m_ShotCharge;
+        return ShotCharge;
     }
 	// 累積押し時間（格闘）をカウント
-    protected int m_WrestleCharge;
+    protected int WrestleCharge;
     public int GetWrestleCharge()
     {
-        return m_WrestleCharge;
+        return WrestleCharge;
     }
 
     // 1Fあたりの射撃チャージゲージ増加量
@@ -513,62 +513,62 @@ public partial class CharacterControl_Base : MonoBehaviour
             // 個別ステートを初期化（インスペクタでもできるけど一応こっちでやっておこう）
             // 後、ブースト量などはここで設定しておかないと下で初期化できない
             // レベル
-            this.m_level = savingparameter.GetNowLevel((int)CharacterName);           
+            this.Level = savingparameter.GetNowLevel((int)CharacterName);           
             // 攻撃力レベル
-            this.m_StrLevel = savingparameter.GetStrLevel((int)CharacterName);        
+            this.StrLevel = savingparameter.GetStrLevel((int)CharacterName);        
             // 防御力レベル
-            this.m_DefLevel = savingparameter.GetDefLevel((int)CharacterName);            
+            this.DefLevel = savingparameter.GetDefLevel((int)CharacterName);            
             // 残弾数レベル
-            this.m_BulLevel = savingparameter.GetBulLevel((int)CharacterName);            
+            this.BulLevel = savingparameter.GetBulLevel((int)CharacterName);            
             // ブースト量レベル
-            this.m_BoostLevel = savingparameter.GetBoostLevel((int)CharacterName);            
+            this.BoostLevel = savingparameter.GetBoostLevel((int)CharacterName);            
             // 覚醒ゲージレベル
-            this.m_ArousalLevel = savingparameter.GetArousalLevel((int)CharacterName);
+            this.ArousalLevel = savingparameter.GetArousalLevel((int)CharacterName);
             			
         }
         // 敵の場合はインスペクターで設定
        
         // 1を割っていた場合は1に
-        if (this.m_level < 1)
+        if (this.Level < 1)
         {
-            this.m_level = 1;
+            this.Level = 1;
         }
-        if (this.m_StrLevel < 1)
+        if (this.StrLevel < 1)
         {
-            this.m_StrLevel = 1;
+            this.StrLevel = 1;
         }
-        if (this.m_DefLevel < 1)
+        if (this.DefLevel < 1)
         {
-            this.m_DefLevel = 1;
+            this.DefLevel = 1;
         }
-        if (this.m_BulLevel < 1)
+        if (this.BulLevel < 1)
         {
-            this.m_BulLevel = 1;
+            this.BulLevel = 1;
         }
-        if (this.m_BoostLevel < 1)
+        if (this.BoostLevel < 1)
         {
-            this.m_BoostLevel = 1;
+            this.BoostLevel = 1;
         }
-        if (this.m_ArousalLevel < 1)
+        if (this.ArousalLevel < 1)
         {
-            this.m_ArousalLevel = 1;
+            this.ArousalLevel = 1;
         }
 
 		// HP初期値
-		this.m_NowHitpoint_OR = Character_Spec.HP_OR[(int)CharacterName];
+		this.NowHitpoint_OR = Character_Spec.HP_OR[(int)CharacterName];
 		// HP成長係数
-		this.m_NowHitpoint_Growth = Character_Spec.HP_Grouth[(int)CharacterName];
+		this.NowHitpoint_Growth = Character_Spec.HP_Grouth[(int)CharacterName];
 				
 		
         // ブースト量初期値(Lv1の時の値）
-        this.m_Boost_OR = Character_Spec.Boost_OR[(int)CharacterName];
+        this.Boost_OR = Character_Spec.Boost_OR[(int)CharacterName];
         // ブースト量成長係数
-        this.m_Boost_Growth = Character_Spec.Boost_Growth[(int)CharacterName];
+        this.Boost_Growth = Character_Spec.Boost_Growth[(int)CharacterName];
 
         // 覚醒ゲージ量初期値(LV1の時の値）
-        this.m_Arousal_OR = Character_Spec.Arousal_OR[(int)CharacterName];
+        this.Arousal_OR = Character_Spec.Arousal_OR[(int)CharacterName];
         // 覚醒ゲージ量成長係数
-        this.m_Arousal_Growth = Character_Spec.Arousal_Growth[(int)CharacterName];
+        this.Arousal_Growth = Character_Spec.Arousal_Growth[(int)CharacterName];
 
         // 使用可能武器をセット（初期段階で使用不能にしておきたいものは、各キャラのStartでこの関数を呼んだ後に再定義）
         for (int i = 0; i < Character_Spec.cs[(int)CharacterName].Length; i++)
@@ -578,16 +578,16 @@ public partial class CharacterControl_Base : MonoBehaviour
             // 弾があるものは残弾数を初期化
             if (Character_Spec.cs[(int)CharacterName][i].m_OriginalBulletNum > 0)
             {
-                this.m_BulletNum[i] = Character_Spec.cs[(int)CharacterName][i].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)CharacterName][i].m_OriginalBulletNum;
+                this.m_BulletNum[i] = Character_Spec.cs[(int)CharacterName][i].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][i].m_OriginalBulletNum;
             }
             // 硬直時間があるものは硬直時間を初期化
             if (Character_Spec.cs[(int)CharacterName][i].m_WaitTime > 0)
             {
-                this.m_BulletWaitTime[i] = Character_Spec.cs[(int)CharacterName][i].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)CharacterName][i].m_WaitTime;
+                this.m_BulletWaitTime[i] = Character_Spec.cs[(int)CharacterName][i].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][i].m_WaitTime;
             }
         }
         // ダッシュキャンセル硬直時間
-        this.m_DashCancelTime = 0.2f;
+        this.DashCancelTime = 0.2f;
         // プレイヤーでない限りカメラを切っておく
         var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
         if (IsPlayer != CHARACTERCODE.PLAYER)
@@ -962,28 +962,28 @@ public partial class CharacterControl_Base : MonoBehaviour
         bool compleate = false;
         if (IsPlayer == CHARACTERCODE.PLAYER)
         {
-            // 入力中はm_ShotChargeを増加
+            // 入力中はShotChargeを増加
             if (Input.GetButton("Shot") || Input.GetButton("EX_Shot") || Input.GetButton("Arousal"))
             {
-                if (m_ShotCharge < 0)
+                if (ShotCharge < 0)
                 {
-                    m_ShotCharge = 0;
+                    ShotCharge = 0;
                 }
-                m_ShotCharge += this.m_ShotIncrease;
+                ShotCharge += this.m_ShotIncrease;
             }
-            // 解除するとm_ShotChargeを減衰
+            // 解除するとShotChargeを減衰
             else
             {
-                if (m_ShotCharge > 0)
+                if (ShotCharge > 0)
                 {
-                    m_ShotCharge -= this.m_ShotDecrease;
+                    ShotCharge -= this.m_ShotDecrease;
                 }
             }
         }
         // MAX状態で離されるとチャージ量を0にしてtrue
-        if (m_ShotCharge >= m_ChargeMax && (Input.GetButtonUp("Shot") || Input.GetButtonUp("EX_Shot") || Input.GetButtonUp("Arousal")))
+        if (ShotCharge >= m_ChargeMax && (Input.GetButtonUp("Shot") || Input.GetButtonUp("EX_Shot") || Input.GetButtonUp("Arousal")))
         {
-            m_ShotCharge = 0;
+            ShotCharge = 0;
             compleate = true;
         }
         return compleate;
@@ -996,28 +996,28 @@ public partial class CharacterControl_Base : MonoBehaviour
         bool compleate = false;
         if (IsPlayer == CHARACTERCODE.PLAYER)
         {
-            // 入力中はm_ShotChargeを増加
+            // 入力中はShotChargeを増加
             if (Input.GetButton("Wrestle") || Input.GetButton("EX_Wrestle") || Input.GetButton("Arousal"))
             {
-                if (m_WrestleCharge < 0)
+                if (WrestleCharge < 0)
                 {
-                    m_WrestleCharge = 0;
+                    WrestleCharge = 0;
                 }
-                m_WrestleCharge += this.m_WrestleIncrease;
+                WrestleCharge += this.m_WrestleIncrease;
             }
-            // 解除するとm_ShotChargeを減衰
+            // 解除するとShotChargeを減衰
             else
             {
-                if (this.m_WrestleCharge > 0)
+                if (this.WrestleCharge > 0)
                 {
-                    m_WrestleCharge -= this.m_WrestleDecrease;
+                    WrestleCharge -= this.m_WrestleDecrease;
                 }
             }
         }
         // MAX状態で離されるとチャージ量を0にしてtrue
-        if (m_WrestleCharge >= m_ChargeMax && (Input.GetButtonUp("Wrestle") || Input.GetButtonUp("EX_Wrestle") || Input.GetButtonUp("Arousal")))
+        if (WrestleCharge >= m_ChargeMax && (Input.GetButtonUp("Wrestle") || Input.GetButtonUp("EX_Wrestle") || Input.GetButtonUp("Arousal")))
         {
-            m_WrestleCharge = 0;
+            WrestleCharge = 0;
             compleate = true;
         }
         return compleate;
@@ -1086,7 +1086,7 @@ public partial class CharacterControl_Base : MonoBehaviour
                                 {
                                     m_PastInputs_Jump[x] = JumpInputState.NONE;
                                 }
-                                this.m_DashCancelTime = Time.time;
+                                this.DashCancelTime = Time.time;
                                 return true;
                             }
                         }
@@ -1203,7 +1203,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     // アイテム入力があったか否か
     protected bool HasItemInput()
     {
-        if (IsPlayer == CHARACTERCODE.PLAYER && m_NowHitpoint > 0)
+        if (IsPlayer == CHARACTERCODE.PLAYER && NowHitpoint > 0)
         {
             if (Input.GetButtonDown("Item"))
             {
@@ -1358,7 +1358,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     protected void JumpDone()
     {
         m_AnimState[0] = AnimationState.Jump;
-        this.m_Boost = this.m_Boost - this.m_JumpUseBoost;
+        this.Boost = this.Boost - this.JumpUseBoost;
         this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.Jump]);
     }
       
@@ -1420,7 +1420,7 @@ public partial class CharacterControl_Base : MonoBehaviour
             {
                 m_AnimState[0] = m_anims[(int)i];
                 // ロックオン時は相手の方向を見てステップする
-                if (this.m_IsRockon)
+                if (this.IsRockon)
                 {
                     // 対象の座標を取得（カメラ(MainCamera)→Enemy)
                     var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();                  
@@ -1448,7 +1448,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         if (nowrot >= 157.5 || nowrot < -157.5f)
         {
             m_AnimState[0] = m_anims[3];
-            if (this.m_IsRockon)
+            if (this.IsRockon)
             {               
                 // 対象の座標を取得（カメラ(MainCamera)→Enemy)
                 var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
@@ -1467,10 +1467,10 @@ public partial class CharacterControl_Base : MonoBehaviour
                 this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.FrontStep]);
             }
         }
-        this.m_Boost = this.m_Boost - this.m_StepUseBoost;
+        this.Boost = this.Boost - this.StepUseBoost;
 
         // ステップ累積距離を0に初期化
-        this.m_SteppingLength = 0.0f;
+        this.SteppingLength = 0.0f;
 
         // 空中ステップのために重力無効
         this.GetComponent<Rigidbody>().useGravity = false;
@@ -1478,8 +1478,8 @@ public partial class CharacterControl_Base : MonoBehaviour
         // 移動方向取得
         UpdateRotation_step();
 
-        // 何らかの理由でm_MoveDirectionが0になったとき、強制的に入れる（射撃直後にステップを入れると高確率でこの現象が起こる）
-        if (m_MoveDirection == Vector3.zero)
+        // 何らかの理由でMoveDirectionが0になったとき、強制的に入れる（射撃直後にステップを入れると高確率でこの現象が起こる）
+        if (MoveDirection == Vector3.zero)
         {
             // キーの入力方向を取る（ステップすべき方向を取る）
             int inputrot = 0;
@@ -1526,7 +1526,7 @@ public partial class CharacterControl_Base : MonoBehaviour
             // 上に進む場合
             if (inputrot == 1)
             {
-                m_MoveDirection = transform.rotation * Vector3.forward;
+                MoveDirection = transform.rotation * Vector3.forward;
             }
             // 下に進む場合
             else if (inputrot == 5)
@@ -1534,7 +1534,7 @@ public partial class CharacterControl_Base : MonoBehaviour
                 // 方向算出(現在の方向の後ろ側）
                 float nowrotY = transform.rotation.eulerAngles.y + 180;
                 Quaternion rot = Quaternion.Euler(new Vector3(0, nowrotY, 0));
-                m_MoveDirection = rot * Vector3.forward;
+                MoveDirection = rot * Vector3.forward;
             }
             // 左上・左・左下へ進む場合
             else if (2 <= inputrot && inputrot <= 4)
@@ -1545,7 +1545,7 @@ public partial class CharacterControl_Base : MonoBehaviour
                 float x = (float)Math.Sin(nowrotY - Math.PI / 2);
                 // 方向ベクトル算出：Z
                 float z = (float)Math.Sin(nowrotY);
-                m_MoveDirection = new Vector3(x, 0, z);
+                MoveDirection = new Vector3(x, 0, z);
             }
             // 右上・右・右下へ進む場合
             else
@@ -1556,14 +1556,14 @@ public partial class CharacterControl_Base : MonoBehaviour
                 float x = (float)Math.Cos(nowrotY);
                 // 方向ベクトル算出：Z
                 float z = (float)Math.Sin(nowrotY - Math.PI);
-                m_MoveDirection = new Vector3(x, 0, z);
+                MoveDirection = new Vector3(x, 0, z);
             }            
         }
 
         // 格闘キャンセルステップは入力の関係でMoveDirectinが相手の方向を向いているため、MoveDirectionを再設定する
         if (rainbow)
         {
-            this.m_MoveDirection = this.m_steprot * Vector3.forward;
+            this.MoveDirection = this.StepRotation * Vector3.forward;
         }
        
         // どうも無理っぽい（普通のジャンプに化けてしまい、加速度演算が無理？）
@@ -1579,16 +1579,16 @@ public partial class CharacterControl_Base : MonoBehaviour
     {
         // 実行中で終了していなかった場合終了まで待つ（硬直扱い）   
         // 終了判定
-        if (Time.time > m_StepStartTime + 1.35f/*this.m_LandingTime*/)
+        if (Time.time > m_StepStartTime + 1.35f/*this.LandingTime*/)
         {            
             // 無効になっていたら重力を復活させる
             this.GetComponent<Rigidbody>().useGravity = true;
             // 地上にいたら着地
-            if (m_isGrounded)
+            if (IsGrounded)
             {
                 m_AnimState[0] = AnimationState.Idle;
                 // ブースト量を初期化する
-                this.m_Boost = GetMaxBoost(this.m_BoostLevel);
+                this.Boost = GetMaxBoost(this.BoostLevel);
             }
             // 空中にいたら角度を戻して落下
             else
@@ -1609,9 +1609,9 @@ public partial class CharacterControl_Base : MonoBehaviour
     protected virtual void Shot()
     {
         m_AnimState[1] = AnimationState.Shot;
-        if (m_isGrounded)
+        if (IsGrounded)
         {
-            m_Boost = GetMaxBoost(m_BoostLevel);
+            Boost = GetMaxBoost(BoostLevel);
         }
     }
 
@@ -1626,7 +1626,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     protected virtual void ShotAirDash()
     {
         // ブースト切れ時にFallDone、DestroyWrestleを実行する
-        if (m_Boost <= 0)
+        if (Boost <= 0)
         {
             this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
             DestroyWrestle();
@@ -1634,7 +1634,7 @@ public partial class CharacterControl_Base : MonoBehaviour
             m_fallStartTime = Time.time;
         }
         // 着地時にLandingを実行する
-        if (m_isGrounded)
+        if (IsGrounded)
         {
             LandingDone();
         }
@@ -1681,7 +1681,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     protected virtual void StepCancel()
     {
         // キャンセルダッシュ入力を受け取ったら、キャンセルして空中ダッシュする
-        if (this.m_hasDashCancelInput)
+        if (this.HasDashCancelInput)
         {
             this.m_addInput = false;
             // くっついている格闘判定を捨てる
@@ -1697,20 +1697,20 @@ public partial class CharacterControl_Base : MonoBehaviour
             StepDone(1, StepCheck(),true);
         }
         // CPU時左ステップ
-        else if (m_hasLeftStepInput)
+        else if (HasLeftStepInput)
         {
             // くっついている格闘判定を捨てる
             DestroyWrestle();
             StepDone(1, new Vector2(-1, 0),true);
-            m_hasLeftStepInput = false;
+            HasLeftStepInput = false;
         }
         // CPU時右ステップ
-        else if (m_hasRightStepInput)
+        else if (HasRightStepInput)
         {
             // くっついている格闘判定を捨てる
             DestroyWrestle();
             StepDone(1, new Vector2(1, 0),true);
-            m_hasRightStepInput = false;
+            HasRightStepInput = false;
         }
     }
 
@@ -1786,9 +1786,9 @@ public partial class CharacterControl_Base : MonoBehaviour
     protected virtual void BackWrestle()
     {
         //1．ブーストゲージを減衰させる
-        m_Boost -= Time.deltaTime * 5.0f;
+        Boost -= Time.deltaTime * 5.0f;
         //2．ブーストゲージが0になると、強制的にIdleに戻す
-        if (m_Boost <= 0)
+        if (Boost <= 0)
         {
             this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Idle]);
             DestroyWrestle();
@@ -1808,9 +1808,9 @@ public partial class CharacterControl_Base : MonoBehaviour
     {
         StepCancel();
         // 発動中常時ブースト消費
-        this.m_Boost = this.m_Boost - this.m_BoostLess;
+        this.Boost = this.Boost - this.BoostLess;
         // ブースト切れ時にFallDone、DestroyWrestleを実行する
-        if (m_Boost <= 0)
+        if (Boost <= 0)
         {
             this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
             DestroyWrestle();
@@ -1839,11 +1839,11 @@ public partial class CharacterControl_Base : MonoBehaviour
     protected virtual void FrontExWrestle1()
     {
         // 毎フレームブーストを消費する
-        m_Boost -= Time.deltaTime * 100.0f;
+        Boost -= Time.deltaTime * 100.0f;
         // 重力無効
         this.GetComponent<Rigidbody>().useGravity = false;
         // ブーストが0になったらFallにする
-        if (m_Boost <= 0)
+        if (Boost <= 0)
         {
             // 判定オブジェクトを破棄する.一応くっついているものはすべて削除
             DestroyWrestle();
@@ -1899,9 +1899,9 @@ public partial class CharacterControl_Base : MonoBehaviour
     protected virtual void BackExWrestle()
     {
         // 毎フレームブーストを消費する
-        m_Boost -= Time.deltaTime * 100;
+        Boost -= Time.deltaTime * 100;
         // ブーストが0になったらFallにする
-        if (m_Boost <= 0)
+        if (Boost <= 0)
         {
             // 判定オブジェクトを破棄する.一応くっついているものはすべて削除
             DestroyWrestle();
@@ -1912,7 +1912,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         }
         StepCancel();
         // 接地したらLandingにする
-        if (m_isGrounded)
+        if (IsGrounded)
         {
             // 判定オブジェクトを破棄する.一応くっついているものはすべて削除
             DestroyWrestle();
@@ -1958,13 +1958,13 @@ public partial class CharacterControl_Base : MonoBehaviour
         // 案1：敵と重なるような状態になったら一時的に移動方向を固定する(角度が特異姿勢になるので、暴走する）
         // 案2：敵と重なるような状態になったらカメラを反転する
         // ガンダムは1と2の併用？2はやってないか。一定距離離れたら固定が解除されているだけっぽい→1で確定
-        if (this.m_IsRockon)
+        if (this.IsRockon)
         {
             // 敵（ロックオン対象）の座標を取得
             Player_Camera_Controller targetspec = GetComponentInChildren<Player_Camera_Controller>();
             if (targetspec.Enemy == null)
             {
-                m_IsRockon = false;
+                IsRockon = false;
                 return;
             }
             Vector3 targetpos = targetspec.Enemy.transform.position;
@@ -1973,11 +1973,11 @@ public partial class CharacterControl_Base : MonoBehaviour
 
 
             // XとZの差が一定値以下で移動方向固定(空中移動時限定）
-            if (!this.m_isGrounded)
+            if (!this.IsGrounded)
             {
                 if (Math.Abs(targetpos.x - myPos.x) < 10.0f && Math.Abs(targetpos.z - myPos.z) < 10.0f)
                 {
-                    this.m_Rotatehold = true;
+                    this.Rotatehold = true;
                     return;
                 }
             }
@@ -2074,7 +2074,7 @@ public partial class CharacterControl_Base : MonoBehaviour
                 finalRot = Quaternion.LookRotation(wForward);
             }
         }
-        this.m_steprot = finalRot;
+        this.StepRotation = finalRot;
 
     }
     
@@ -2083,7 +2083,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     // 弓ほむら・まどかのモーションキャンセルなどはこの前に行うこと
     protected virtual void CancelDashDone()
     {
-        if (this.m_Boost > 0)
+        if (this.Boost > 0)
         {
             // 格闘判定削除
             DestroyWrestle();
@@ -2092,60 +2092,60 @@ public partial class CharacterControl_Base : MonoBehaviour
             // 上体の角度を戻す
             this.BrestObject.transform.rotation = Quaternion.Euler(0, 0, 0);
             m_AnimState[0] = AnimationState.AirDash;
-            this.m_Rotatehold = false;
-            this.m_Boost = this.m_Boost - this.m_DashCancelUseBoost;
+            this.Rotatehold = false;
+            this.Boost = this.Boost - this.DashCancelUseBoost;
             this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.AirDash]);
             // 移動方向取得
             //UpdateRotation();
-            //this.m_MoveDirection = transform.rotation * Vector3.forward;
+            //this.MoveDirection = transform.rotation * Vector3.forward;
             // 角度に応じてX、Zの方向を切り替える
             if (this.transform.rotation.eulerAngles.y >= 337.5f && this.transform.rotation.eulerAngles.y < 22.5f)
             {
-                m_MoveDirection.x = 0.0f;
-                m_MoveDirection.z = 0.0f;
+                MoveDirection.x = 0.0f;
+                MoveDirection.z = 0.0f;
             }
             else if (this.transform.rotation.eulerAngles.y >= 22.5f && this.transform.rotation.eulerAngles.y < 67.5f)
             {
-                m_MoveDirection.x = 0.7f;
-                m_MoveDirection.z = 0.0f;
+                MoveDirection.x = 0.7f;
+                MoveDirection.z = 0.0f;
             }
             else if (this.transform.rotation.eulerAngles.y >= 67.5f && this.transform.rotation.eulerAngles.y < 112.5f)
             {
-                m_MoveDirection.x = 1.0f;
-                m_MoveDirection.z = 0.0f;
+                MoveDirection.x = 1.0f;
+                MoveDirection.z = 0.0f;
             }
             else if (this.transform.rotation.eulerAngles.y >= 112.5f && this.transform.rotation.eulerAngles.y < 157.5f)
             {
-                m_MoveDirection.x = 0.7f;
-                m_MoveDirection.z = -0.5f;
+                MoveDirection.x = 0.7f;
+                MoveDirection.z = -0.5f;
             }
             else if (this.transform.rotation.eulerAngles.y >= 157.5f && this.transform.rotation.eulerAngles.y < 202.5f)
             {
-                m_MoveDirection.x = 0.0f;
-                m_MoveDirection.z = -1.0f;
+                MoveDirection.x = 0.0f;
+                MoveDirection.z = -1.0f;
             }
             else if (this.transform.rotation.eulerAngles.y >= 202.5f && this.transform.rotation.eulerAngles.y < 247.5f)
             {
-                m_MoveDirection.x = -0.7f;
-                m_MoveDirection.z = -0.5f;
+                MoveDirection.x = -0.7f;
+                MoveDirection.z = -0.5f;
             }
             else if (this.transform.rotation.eulerAngles.y >= 247.5f && this.transform.rotation.eulerAngles.y < 292.5f)
             {
-                m_MoveDirection.x = -1.0f;
-                m_MoveDirection.z = 0.0f;
+                MoveDirection.x = -1.0f;
+                MoveDirection.z = 0.0f;
             }
             else if (this.transform.rotation.eulerAngles.y >= 292.5f && this.transform.rotation.eulerAngles.y < 337.5f)
             {
-                m_MoveDirection.x = -0.7f;
-                m_MoveDirection.z = 0.0f;
+                MoveDirection.x = -0.7f;
+                MoveDirection.z = 0.0f;
             }
 
             // 上方向への慣性を切る
-            this.m_MoveDirection.y = 0;
+            this.MoveDirection.y = 0;
             // 発動中重力無効
             this.GetComponent<Rigidbody>().useGravity = false;
             // その方向へ移動
-            GetComponent<Rigidbody>().AddForce(this.m_MoveDirection.x, 10, this.m_MoveDirection.z);
+            GetComponent<Rigidbody>().AddForce(this.MoveDirection.x, 10, this.MoveDirection.z);
         }
     }
 
@@ -2160,8 +2160,8 @@ public partial class CharacterControl_Base : MonoBehaviour
         this.GetComponent<Rigidbody>().useGravity = true;
         this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
         //this.animation.Play(m_AnimationNames[(int)AnimationState.Fall]);
-        RiseSpeed = new Vector3(0, -this.m_RateofRise, 0);
-        //this.m_MoveDirection = new Vector3(0, 0, 0);
+        RiseSpeed = new Vector3(0, -this.RiseSpeed, 0);
+        //this.MoveDirection = new Vector3(0, 0, 0);
         m_AnimState[0] = AnimationState.Fall;
         m_fallStartTime = Time.time;
     }
@@ -2177,7 +2177,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.Landing]);
         m_AnimState[0] = AnimationState.Landing;
         // 着地したので硬直を設定する
-        this.m_LandingTime = Time.time;
+        this.LandingTime = Time.time;
     }
 
     // 着地後共通動作
@@ -2185,15 +2185,15 @@ public partial class CharacterControl_Base : MonoBehaviour
     {
         m_AnimState[1] = AnimationState.Landing;
         // 地響き防止
-        this.m_MoveDirection = transform.rotation * new Vector3(0, 0, 0);
+        this.MoveDirection = transform.rotation * new Vector3(0, 0, 0);
         // モーション終了時にアイドルへ移行
         // 硬直時間が終わるとIdleへ戻る。オバヒ着地とかやりたいならBoost0でLandingTimeの値を変えるとか
-        if (Time.time > this.m_LandingTime + this.m_LandingWaitTime)
+        if (Time.time > this.LandingTime + this.LandingWaitTime)
         {
             m_AnimState[0] = AnimationState.Idle;
             this.GetComponent<Animation>().Play(file);
             // ブースト量を初期化する
-            this.m_Boost = GetMaxBoost(this.m_BoostLevel);
+            this.Boost = GetMaxBoost(this.BoostLevel);
         }
     }
 
@@ -2232,21 +2232,21 @@ public partial class CharacterControl_Base : MonoBehaviour
         this.m_CurAnimPos = 0;
 
         // ジャンプ硬直
-        this.m_JumpTime = -this.m_JumpWaitTime;
+        this.JumpTime = -this.JumpWaitTime;
 
         // 着地硬直
-        this.m_LandingTime = -this.m_LandingWaitTime;
+        this.LandingTime = -this.LandingWaitTime;
 
-        // 歩行速度(m_WalkSpeed等はそれぞれで設定）
-        this.m_MoveDirection = Vector3.zero;
+        // 歩行速度(WalkSpeed等はそれぞれで設定）
+        this.MoveDirection = Vector3.zero;
         // 吹き飛び速度
-        this.m_BlowDirection = Vector3.zero;
+        this.BlowDirection = Vector3.zero;
 
         // 初期アニメIdleを再生する
         this.GetComponent<Animation>().Play(this.m_AnimationNames[(int)AnimationState.Idle]);
 
         // ブースト量を初期化する
-        this.m_Boost = GetMaxBoost(this.m_BoostLevel);
+        this.Boost = GetMaxBoost(this.BoostLevel);
         
 		// 上体を初期化する
         this.BrestObject.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -2254,11 +2254,11 @@ public partial class CharacterControl_Base : MonoBehaviour
         this.RunShotDone = false;
 
         // 覚醒ゲージ量を初期化する
-        this.m_Arousal = GetMaxArousal(this.m_ArousalLevel);
+        this.Arousal = GetMaxArousal(this.ArousalLevel);
         // 覚醒ゲージを初期化する
-        this.m_Arousal = 0;
+        this.Arousal = 0;
         // 覚醒状態を初期化する
-        m_isArousal = false;
+        IsArousal = false;
 		// 覚醒演出状態を初期化する
 		ArousalAttackProduction = false;
 
@@ -2268,49 +2268,49 @@ public partial class CharacterControl_Base : MonoBehaviour
             // SavingParameterからのステートの変更を受け付ける
             int charactername = (int)this.CharacterName;
             // HP
-            m_NowHitpoint = savingparameter.GetNowHP(charactername);
+            NowHitpoint = savingparameter.GetNowHP(charactername);
             // 覚醒ゲージ
-            m_Arousal = savingparameter.GetNowArousal(charactername);
+            Arousal = savingparameter.GetNowArousal(charactername);
             // ソウルジェム汚染率
             m_GemContamination = savingparameter.GetGemContimination(charactername);
         }
         // 敵の時HP、覚醒ゲージ、ソウルジェム汚染率を初期化する
         else
         {
-            m_NowHitpoint = GetMaxHitpoint(this.m_level);
-            m_Arousal = 0;
+            NowHitpoint = GetMaxHitpoint(this.Level);
+            Arousal = 0;
             m_GemContamination = 0;
         }
 
         // ロックオンを初期化する
-        this.m_IsRockon = false;
+        this.IsRockon = false;
         this.m_RockonButtonPress = 0;
         this.m_RockonCancelTime = 30;
 
         // 進行方向固定フラグを初期化する
-        this.m_Rotatehold = false;
+        this.Rotatehold = false;
 
         // アーマー状態を初期化する
-        this.m_IsArmor = false;
+        this.IsArmor = false;
 
         // 過去入力を初期化する
         ResetPastInputs();
         ResetPastInputsJump();
 
         // 時間停止のルートを初期化する
-        this.m_TimeStopMaster = false;
+        this.Timestopmaster = false;
 
         // ダウン値の閾値を初期化する
-        this.m_DownRatio = MadokaDefine.DOWNRATIO;
+        this.DownRatioBias = MadokaDefine.DOWNRATIO;
 
         // ダウン値を初期化する
-        this.m_nowDownRatio  = 0;
+        this.NowDownRatio  = 0;
 
         // ダウン時間を初期化する
-        this.m_DownTime = 0;
+        this.DownTime = 0;
 
         // ダウン時の打ち上げ量を初期化する
-        this.m_launchOffset = 10.0f;
+        this.LaunchOffset = 10.0f;
 
         // 死亡時の爆発フラグを初期化する
         this.m_Explode = false;
@@ -2321,62 +2321,62 @@ public partial class CharacterControl_Base : MonoBehaviour
         this.m_addInput = false;
         
         // テンキー入力があったか否か
-        this.m_hasVHInput = false;
+        this.HasVHInput = false;
         // ショット入力があったか否か
-        this.m_hasShotInput = false;
+        this.HasShotInput = false;
         // ジャンプ入力があったか否か
-        this.m_hasJumpInput = false;
+        this.HasJumpInput = false;
         // ダッシュキャンセル入力があったか否か
-        this.m_hasDashCancelInput = false;
+        this.HasDashCancelInput = false;
         // 空中ダッシュ入力があったか否か
-        this.m_hasAirDashInput = false;
+        this.HasAirDashInput = false;
         // サーチ入力があったか否か
-        this.m_hasSearchInput = false;
+        this.HasSearchInput = false;
         // サーチキャンセル入力があったか否か
-        this.m_hasSearchCancelInput = false;
+        this.HasSearchCancelInput = false;
         // 格闘入力があったか否か
-        this.m_hasWrestleInput = false;
+        this.HasWrestleInput = false;
         // サブ射撃入力があったか否か
-        this.m_hasSubShotInput = false;
+        this.HasSubShotInput = false;
         // 特殊射撃入力があったか否か
-        this.m_hasExShotInput = false;
+        this.HasExShotInput = false;
         // 特殊格闘入力があったか否か
-        this.m_hasExWrestleInput = false;
+        this.HasExWrestleInput = false;
         // アイテム入力があったか否か
-        this.m_hasItemInput = false;
+        this.HasItemInput = false;
         // ポーズ入力があったか否か
-        this.m_hasPauseInput = false;
+        this.HasPauseInput = false;
         // 覚醒入力があったか否か
-        this.m_hasArousalInput = false;
+        this.HasArousalInput = false;
         // 覚醒技入力があったか否か
-        this.m_hasArousalAttackInput = false;
+        this.HasArousalAttackInput = false;
         // 前入力があったか否か
-        this.m_hasFrontInput = false;
+        this.HasFrontInput = false;
         // 左入力があったか否か
-        this.m_hasLeftInput = false;
+        this.HasLeftInput = false;
         // 右入力があったか否か
-        this.m_hasRightInput = false;
+        this.HasRightInput = false;
         // 後入力があったか否か
-        this.m_hasBackInput = false;
+        this.HasBackInput = false;
         // ソウルバースト入力があったか否か
-        this.m_hasSoulBurstInput = false;
+        this.HasSoulBurstInput = false;
 
-        // m_DownRebirthTime/waitの初期化とカウントを行う
-        // m_DamagedTime/waitの初期化とカウントを行う
-        // m_DownTime/waitの初期化とカウントを行う
+        // DownRebirthTime/waitの初期化とカウントを行う
+        // DamagedTime/waitの初期化とカウントを行う
+        // DownTime/waitの初期化とカウントを行う
 
-        // m_DownRebirthTime/waitの初期化を行う(ダウン値がリセットされるまでの時間）
-        m_DownRebirthTime = 0;
-        m_DownRebirthWaitTime = 3.0f;
-        // m_DamagedTime/waitの初期化とカウントを行う(ダメージによる硬直時間）
-        m_DamagedTime = 0;
-        m_DamagedWaitTime = 1.0f;
-        // m_DownTimeの初期化とカウントを行う(ダウン時の累積時間）
-        m_DownTime = 0;
-        m_DownWaitTime = 3.0f;
+        // DownRebirthTime/waitの初期化を行う(ダウン値がリセットされるまでの時間）
+        DownRebirthTime = 0;
+        DownRebirthWaitTime = 3.0f;
+        // DamagedTime/waitの初期化とカウントを行う(ダメージによる硬直時間）
+        DamagedTime = 0;
+        DamagedWaitTime = 1.0f;
+        // DownTimeの初期化とカウントを行う(ダウン時の累積時間）
+        DownTime = 0;
+        DownWaitTime = 3.0f;
 
         // 復帰時のブースト消費量
-        m_ReversalUseBoost = 20.0f;
+        ReversalUseBoost = 20.0f;
 
         // 1Fあたりの射撃チャージゲージ増加量
         m_ShotIncrease = 2;
@@ -2397,8 +2397,8 @@ public partial class CharacterControl_Base : MonoBehaviour
             m_DrawInterface = false;
 
         // 壁面接触フラグ
-        m_hitjumpover = false;
-        m_hitunjumpover = false;
+        Hitjumpover = false;
+        Hitunjumpover = false;
         // リロードクラス作成
         m_reload = new Reload();
 
@@ -2443,7 +2443,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     protected bool Update_Core()
     {
         // 接地判定
-        m_isGrounded = onGround2();       
+        IsGrounded = onGround2();       
                 
         // ESC強制終了（後で直す）
         if (Input.GetKey(KeyCode.Escape))
@@ -2453,7 +2453,7 @@ public partial class CharacterControl_Base : MonoBehaviour
 
         // PC死亡時、PauseControllerを消す(メニュー画面に移行させないため）
         // また、ショット入力でタイトル画面へ移行する
-        if (m_NowHitpoint < 1 && IsPlayer == CHARACTERCODE.PLAYER)
+        if (NowHitpoint < 1 && IsPlayer == CHARACTERCODE.PLAYER)
         {
             GameObject PauseController = GameObject.Find("Pause Controller");
             if (PauseController)
@@ -2479,43 +2479,43 @@ public partial class CharacterControl_Base : MonoBehaviour
         if (IsPlayer == CHARACTERCODE.PLAYER)
         {
             // 方向キー取得
-            this.m_hasVHInput = HasVHInput();
+            this.HasVHInput = HasVHInput();
             // ショット入力があったか否か
-            this.m_hasShotInput = HasShotInput();
+            this.HasShotInput = HasShotInput();
             // ジャンプ入力があったか否か
-            this.m_hasJumpInput = HasJumpInput();
+            this.HasJumpInput = HasJumpInput();
             // ダッシュキャンセル入力があったか否か
-            this.m_hasDashCancelInput = HasDashCancelInput();
+            this.HasDashCancelInput = HasDashCancelInput();
             // サーチ入力があったか否か
-            this.m_hasSearchInput = HasSearchInput();
+            this.HasSearchInput = HasSearchInput();
             // サーチキャンセル入力があったか否か
-            this.m_hasSearchCancelInput = HasSerchPress();
+            this.HasSearchCancelInput = HasSerchPress();
             // 格闘入力があったか否か
-            this.m_hasWrestleInput = HasWrestleInput();
+            this.HasWrestleInput = HasWrestleInput();
             // サブ射撃入力があったか否か
-            this.m_hasSubShotInput = HasSubShotInput();
+            this.HasSubShotInput = HasSubShotInput();
             // 特殊射撃入力があったか否か
-            this.m_hasExShotInput = HasExShotInput();
+            this.HasExShotInput = HasExShotInput();
             // 特殊格闘入力があったか否か
-            this.m_hasExWrestleInput = HasExWrestleInput();
+            this.HasExWrestleInput = HasExWrestleInput();
             // アイテム入力があったか否か
-            this.m_hasItemInput = HasItemInput();
+            this.HasItemInput = HasItemInput();
             // ポーズ入力があったか否か
-            this.m_hasPauseInput = HasPauseInput();
+            this.HasPauseInput = HasPauseInput();
             // 覚醒入力があったか否か
-            this.m_hasArousalInput = HasArousalInput();
+            this.HasArousalInput = HasArousalInput();
             // 覚醒技入力があったか否か
-            this.m_hasArousalAttackInput = HasArousalInput();
+            this.HasArousalAttackInput = HasArousalInput();
             // 前入力があったか否か
-            this.m_hasFrontInput = HasFrontInput();
+            this.HasFrontInput = HasFrontInput();
             // 左入力があったか否か
-            this.m_hasLeftInput = HasLeftInput();
+            this.HasLeftInput = HasLeftInput();
             // 右入力があったか否か
-            this.m_hasRightInput = HasRightInput();
+            this.HasRightInput = HasRightInput();
             // 後入力があったか否か
-            this.m_hasBackInput = HasBackInput();
+            this.HasBackInput = HasBackInput();
             // ソウルバースト入力があったか否か
-            this.m_hasSoulBurstInput = HasSoulBurstInput();
+            this.HasSoulBurstInput = HasSoulBurstInput();
             // 位置を保持
             savingparameter.nowposition = this.transform.position;
             // 角度を保持
@@ -2534,136 +2534,136 @@ public partial class CharacterControl_Base : MonoBehaviour
             // 前
 			if (CPUTenkey == AIControl_Base.TENKEY_OUTPUT.TOP)
             {
-                m_hasFrontInput = true;
+                HasFrontInput = true;
             }
             // 後
 			else if (CPUTenkey == AIControl_Base.TENKEY_OUTPUT.UNDER)
             {
-                m_hasBackInput = true;
+                HasBackInput = true;
             }
             // 左
 			else if (CPUTenkey == AIControl_Base.TENKEY_OUTPUT.LEFT)
             {
-                m_hasLeftInput = true;
+                HasLeftInput = true;
             }
             // 右
 			else if (CPUTenkey == AIControl_Base.TENKEY_OUTPUT.RIGHT)
             {
-                m_hasRightInput = true;
+                HasRightInput = true;
             }
             // 左ステップ
 			else if (CPUTenkey == AIControl_Base.TENKEY_OUTPUT.LEFTSTEP)
             {
-                m_hasLeftStepInput = true;
+                HasLeftStepInput = true;
             }
             // 右ステップ
 			else if (CPUTenkey == AIControl_Base.TENKEY_OUTPUT.RIGHTSTEP)
             {
-                m_hasRightStepInput = true;
+                HasRightStepInput = true;
             }
             // 入力を受けたキーごとにフラグを立てる
             // CPUは同時押し判定を出さないので、1個ずつ来ると考えてOK
             switch (this.CPUKey)
             {
                 case AIControl_Base.KEY_OUTPUT.SHOT:
-                    this.m_hasShotInput = true;
+                    this.HasShotInput = true;
                     break;
                 case AIControl_Base.KEY_OUTPUT.JUMP:
-                    this.m_hasJumpInput = true;
+                    this.HasJumpInput = true;
                     break;
                 case AIControl_Base.KEY_OUTPUT.DASHCANCEL:
-                    this.m_hasDashCancelInput = true;
+                    this.HasDashCancelInput = true;
                     break;
                 case AIControl_Base.KEY_OUTPUT.AIRDASH:
-                    this.m_hasAirDashInput = true;
+                    this.HasAirDashInput = true;
                     break;
                 case AIControl_Base.KEY_OUTPUT.SEARCH:
-                    this.m_hasSearchInput = true;
+                    this.HasSearchInput = true;
                     break;
                 case AIControl_Base.KEY_OUTPUT.SEACHCANCEL:
-                    this.m_hasSearchCancelInput = true;
+                    this.HasSearchCancelInput = true;
                     break;
                 case AIControl_Base.KEY_OUTPUT.WRESTLE:
-                    this.m_hasWrestleInput = true;
+                    this.HasWrestleInput = true;
                     break;
                 case AIControl_Base.KEY_OUTPUT.SUBSHOT:
-                    this.m_hasSubShotInput = true;
+                    this.HasSubShotInput = true;
                     break;
                 case AIControl_Base.KEY_OUTPUT.EXSHOT:
-                    this.m_hasExShotInput = true;
+                    this.HasExShotInput = true;
                     break;
                 case AIControl_Base.KEY_OUTPUT.EXWRESTLE:
-                    this.m_hasExWrestleInput = true;
+                    this.HasExWrestleInput = true;
                     break;
                 case AIControl_Base.KEY_OUTPUT.ITEM:
-                    this.m_hasItemInput = true;
+                    this.HasItemInput = true;
                     break;
                 case AIControl_Base.KEY_OUTPUT.PAUSE:
-                    this.m_hasPauseInput = true;
+                    this.HasPauseInput = true;
                     break;
                 case AIControl_Base.KEY_OUTPUT.AROUSAL:
-                    this.m_hasArousalInput = true;
+                    this.HasArousalInput = true;
                     break;
                 case AIControl_Base.KEY_OUTPUT.AROUSALATTACK:
-                    this.m_hasArousalAttackInput = true;
+                    this.HasArousalAttackInput = true;
                     break;
                 case AIControl_Base.KEY_OUTPUT.CHARGESHOT:
-                    this.m_hasShotChargeInput = true;
+                    this.HasShotChargeInput = true;
                     break;
                 case AIControl_Base.KEY_OUTPUT.CHARGEWRESTE:
-                    this.m_hasWrestleChargeInput = true;
+                    this.HasWrestleChargeInput = true;
                     break;  
                 default:                    
                     // ショット入力があったか否か
-                    this.m_hasShotInput = false;
+                    this.HasShotInput = false;
                     // ジャンプ入力があったか否か
-                    this.m_hasJumpInput = false;
+                    this.HasJumpInput = false;
                     // ダッシュキャンセル入力があったか否か
-                    this.m_hasDashCancelInput = false;
+                    this.HasDashCancelInput = false;
                     // サーチ入力があったか否か
-                    this.m_hasSearchInput = false;
+                    this.HasSearchInput = false;
                     // サーチキャンセル入力があったか否か
-                    this.m_hasSearchCancelInput = false;
+                    this.HasSearchCancelInput = false;
                     // 格闘入力があったか否か
-                    this.m_hasWrestleInput = false;
+                    this.HasWrestleInput = false;
                     // サブ射撃入力があったか否か
-                    this.m_hasSubShotInput = false;
+                    this.HasSubShotInput = false;
                     // 特殊射撃入力があったか否か
-                    this.m_hasExShotInput = false;
+                    this.HasExShotInput = false;
                     // 特殊格闘入力があったか否か
-                    this.m_hasExWrestleInput = false;
+                    this.HasExWrestleInput = false;
                     // アイテム入力があったか否か
-                    this.m_hasItemInput = false;
+                    this.HasItemInput = false;
                     // ポーズ入力があったか否か
-                    this.m_hasPauseInput = false;
+                    this.HasPauseInput = false;
                     // 覚醒入力があったか否か
-                    this.m_hasArousalInput = false;
+                    this.HasArousalInput = false;
                     // 覚醒技入力があったか否か
-                    this.m_hasArousalAttackInput = false;
+                    this.HasArousalAttackInput = false;
                     // 射撃チャージ入力があったか否か
-                    this.m_hasShotChargeInput = false;
+                    this.HasShotChargeInput = false;
                     // 格闘チャージ入力があったか否か
-                    this.m_hasWrestleChargeInput = false;
+                    this.HasWrestleChargeInput = false;
                     // 前入力があったか否か
-                    this.m_hasFrontInput = false;
+                    this.HasFrontInput = false;
                     // 左入力があったか否か
-                    this.m_hasLeftInput = false;
+                    this.HasLeftInput = false;
                     // 右入力があったか否か
-                    this.m_hasRightInput = false;
+                    this.HasRightInput = false;
                     // 後入力があったか否か
-                    this.m_hasBackInput = false;
+                    this.HasBackInput = false;
                     // ソウルバースト入力があったか否か
-                    this.m_hasSoulBurstInput = false;
+                    this.HasSoulBurstInput = false;
                     break;
             }
             // 入力を受けたテンキーに応じてフラグを立てる（この時点ではありなしさえ拾えばいい。実際の値を使うのはUpdateRotationなので、入力の有無さえ拾えればいい）
             if (this.CPUTenkey != AIControl_Base.TENKEY_OUTPUT.NEUTRAL)
             {
-                this.m_hasVHInput = true;
+                this.HasVHInput = true;
             }
             else
             {
-                this.m_hasVHInput = false;
+                this.HasVHInput = false;
             }
         }
 
@@ -2680,12 +2680,12 @@ public partial class CharacterControl_Base : MonoBehaviour
 
         // 時間停止中falseを強制返し
         // 通常時、ポーズ入力で停止.ただし死んだら無効
-        if (m_timstopmode != TimeStopMode.PAUSE)
+        if (Timestopmode != TimeStopMode.PAUSE)
         {
-            if(m_hasPauseInput && m_NowHitpoint > 0)
+            if(HasPauseInput && NowHitpoint > 0)
             {
-                this.m_TimeStopMaster = true;
-                m_timstopmode = TimeStopMode.PAUSE;
+                this.Timestopmaster = true;
+                Timestopmode = TimeStopMode.PAUSE;
                 // 動作を止める
                 FreezePositionAll();
             }
@@ -2699,9 +2699,9 @@ public partial class CharacterControl_Base : MonoBehaviour
         if (IsPlayer == CHARACTERCODE.PLAYER)
         {
             // 射撃
-            this.m_hasShotChargeInput = HasShotChargeInput();
+            this.HasShotChargeInput = HasShotChargeInput();
             // 格闘
-            this.m_hasWrestleChargeInput = HasWrestleChargeInput();
+            this.HasWrestleChargeInput = HasWrestleChargeInput();
         }
         else
         {
@@ -2722,11 +2722,11 @@ public partial class CharacterControl_Base : MonoBehaviour
         // キャラを取得
         int character = (int)CharacterName;
         // 覚醒入力を取得し、その場合覚醒開始画面へ移行してポーズ  
-        if (m_hasArousalInput && !m_isArousal && savingparameter.GetGemContimination(character) < 100.0f)
+        if (HasArousalInput && !IsArousal && savingparameter.GetGemContimination(character) < 100.0f)
         {
             
             // 最低でもLV1時の覚醒ゲージがないと覚醒不可(ポーズを強制解除して抜ける）
-            if (m_Arousal < GetMaxArousal(1))
+            if (Arousal < GetMaxArousal(1))
             {
                 unuseArousal();
             }
@@ -2739,10 +2739,10 @@ public partial class CharacterControl_Base : MonoBehaviour
             }
         }
         // 覚醒中は覚醒技を発動
-        else if (m_hasArousalAttackInput && m_isArousal)
+        else if (HasArousalAttackInput && IsArousal)
         {
             // アーマーをONにする
-            m_IsArmor = true;
+            IsArmor = true;
             // アニメーションを固有のものに変更
             m_AnimState[0] = AnimationState.Arousal_Attack;
             // 覚醒前処理を未実行に変更
@@ -2750,30 +2750,30 @@ public partial class CharacterControl_Base : MonoBehaviour
         }
 
         // 覚醒時、覚醒ゲージ減少
-        if (m_isArousal)
+        if (IsArousal)
         {
-            m_Arousal -= Time.deltaTime * 10;
-            savingparameter.SetNowArousal((int)CharacterName, m_Arousal);
-            if (m_Arousal <= 0)
+            Arousal -= Time.deltaTime * 10;
+            savingparameter.SetNowArousal((int)CharacterName, Arousal);
+            if (Arousal <= 0)
             {
                 // 覚醒状態解除
                 // 覚醒エフェクトを消す
                 Destroy(m_arousalEffect);
                 // ゲージを0にする
-                m_Arousal = 0;
+                Arousal = 0;
                 // 覚醒フラグを折る
-                m_isArousal = false;
+                IsArousal = false;
             }
         }
 
 
-        //m_nowDownRatioが0を超えていて、Damage_Initではなく（ダウン値加算前にリセットされる）m_DownRebirthTimeが規定時間を経過し、かつダウン値が閾値より小さければダウン値をリセットする
-        if (m_nowDownRatio > 0 && this.m_AnimState[0] != AnimationState.DamageInit)
+        //NowDownRatioが0を超えていて、Damage_Initではなく（ダウン値加算前にリセットされる）DownRebirthTimeが規定時間を経過し、かつダウン値が閾値より小さければダウン値をリセットする
+        if (NowDownRatio > 0 && this.m_AnimState[0] != AnimationState.DamageInit)
         {
-            if ((Time.time > m_DownRebirthTime + m_DownRebirthWaitTime) && (this.m_nowDownRatio < this.m_DownRatio))
+            if ((Time.time > DownRebirthTime + DownRebirthWaitTime) && (this.NowDownRatio < this.DownRatioBias))
             {
-                this.m_DownRebirthTime = 0;
-                this.m_nowDownRatio = 0.0f;
+                this.DownRebirthTime = 0;
+                this.NowDownRatio = 0.0f;
             }
         }
 
@@ -2789,26 +2789,26 @@ public partial class CharacterControl_Base : MonoBehaviour
         // 移動処理はステートの影響を受けないように UpdateAnimation のステートスイッチの前に処理する。
         // ステートごとに処理をする場合、それをメソッド化してそれぞれのステートに置く。
         // 走行速度を変更する、アニメーションステートが Run だった場合 RunSpeed を使う。
-        var MoveSpeed = this.m_RunSpeed;
+        var MoveSpeed = this.RunSpeed;
         // 空中ダッシュ時/空中ダッシュ射撃時
         if (m_AnimState[0] == AnimationState.AirDash || m_AnimState[0] == AnimationState.Shot_AirDash)
         {
             // rigidbodyにくっついている慣性が邪魔なので消す（勝手に落下開始する）
             GetComponent<Rigidbody>().velocity = Vector3.zero;
             GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-            MoveSpeed = this.m_AirDashSpeed;
+            MoveSpeed = this.AirDashSpeed;
         }
         // 空中慣性移動時
         else if (m_AnimState[0] == AnimationState.Jumping || m_AnimState[0] == AnimationState.Fall)
         {           
-            MoveSpeed = this.m_AirMoveSpeed;
+            MoveSpeed = this.AirMoveSpeed;
         }
         // ステップ時(重力補正カット)
         else if (m_AnimState[0] == AnimationState.BackStep || m_AnimState[0] == AnimationState.FrontStep || m_AnimState[0] == AnimationState.LeftStep || m_AnimState[0] == AnimationState.RightStep)
         {
             this.GetComponent<Rigidbody>().useGravity = false;  // 重力無効
-            MoveSpeed = this.m_Step_Initial_velocity;
-            this.m_MoveDirection.y = 0;         // Y移動無効            
+            MoveSpeed = this.StepInitialVelocity;
+            this.MoveDirection.y = 0;         // Y移動無効            
         }
         // 格闘時(ガード含む）
         else if (m_AnimState[0] == AnimationState.Wrestle_1 || m_AnimState[0] == AnimationState.Wrestle_2 || m_AnimState[0] == AnimationState.Wrestle_3 ||
@@ -2828,12 +2828,12 @@ public partial class CharacterControl_Base : MonoBehaviour
              
 
         // キリカの時間遅延を受けているとき、1/4に
-        if (m_timstopmode == TimeStopMode.TIME_DELAY)
+        if (Timestopmode == TimeStopMode.TIME_DELAY)
         {
             MoveSpeed *= 0.25f;
         }
         // ほむらの時間停止を受けているときなど、0に
-        else if (m_timstopmode == TimeStopMode.TIME_STOP || m_timstopmode == TimeStopMode.PAUSE || m_timstopmode == TimeStopMode.AROUSAL)
+        else if (Timestopmode == TimeStopMode.TIME_STOP || Timestopmode == TimeStopMode.PAUSE || Timestopmode == TimeStopMode.AROUSAL)
         {
             MoveSpeed = 0;
             return false;
@@ -2841,7 +2841,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         if (this.RigidBody != null)//(this.m_charactercontroller != null)
         {            
             // 速度ベクトルを作る
-            Vector3 velocity = this.m_MoveDirection * MoveSpeed;
+            Vector3 velocity = this.MoveDirection * MoveSpeed;
             // 走行中/アイドル中/吹き飛び中/ダウン中
             if (this.m_AnimState[0] == AnimationState.Run || this.m_AnimState[0] == AnimationState.Idle || this.m_AnimState[0] == AnimationState.Blow || this.m_AnimState[0] == AnimationState.Down)
             {
@@ -2851,13 +2851,13 @@ public partial class CharacterControl_Base : MonoBehaviour
             
         }
         // HP表示を増減させる(回復は一瞬で、被ダメージは徐々に減る）
-        if (m_NowHitpoint < m_DrawHitpoint)
+        if (NowHitpoint < DrawHitpoint)
         {
-            m_DrawHitpoint -= 2;            
+            DrawHitpoint -= 2;            
         }
         else
         {
-            m_DrawHitpoint = m_NowHitpoint;
+            DrawHitpoint = NowHitpoint;
         }
         
         // 時間停止を解除したら動き出す
@@ -2898,8 +2898,8 @@ public partial class CharacterControl_Base : MonoBehaviour
         // カットインイベント発動
         CutinEvent.UseAsousalCutinCamera();
         // 時間停止
-        this.m_TimeStopMaster = true;
-        m_timstopmode = TimeStopMode.AROUSAL;   
+        this.Timestopmaster = true;
+        Timestopmode = TimeStopMode.AROUSAL;   
     }
 
     // 継承先のLateUpdateで実行すること
@@ -2910,23 +2910,23 @@ public partial class CharacterControl_Base : MonoBehaviour
             // SavingParameterからのステートの変更を受け付ける
             int charactername = (int)this.CharacterName;
             // レベル
-            m_level = savingparameter.GetNowLevel(charactername);
+            Level = savingparameter.GetNowLevel(charactername);
             // 攻撃力
-            m_StrLevel = savingparameter.GetStrLevel(charactername);
+            StrLevel = savingparameter.GetStrLevel(charactername);
             // 防御力
-            m_DefLevel = savingparameter.GetDefLevel(charactername);
+            DefLevel = savingparameter.GetDefLevel(charactername);
             // 残弾数
-            m_BulLevel = savingparameter.GetBulLevel(charactername);
+            BulLevel = savingparameter.GetBulLevel(charactername);
             // ブースト量
-            m_BoostLevel = savingparameter.GetBoostLevel(charactername);
+            BoostLevel = savingparameter.GetBoostLevel(charactername);
             // 覚醒ゲージ
-            m_ArousalLevel = savingparameter.GetArousalLevel(charactername);
+            ArousalLevel = savingparameter.GetArousalLevel(charactername);
             // ソウルジェム汚染率
             m_GemContamination = savingparameter.GetGemContimination(charactername);
             // HP
-            m_NowHitpoint = savingparameter.GetNowHP(charactername);            
+            NowHitpoint = savingparameter.GetNowHP(charactername);            
             // 覚醒ゲージ量
-            m_Arousal = savingparameter.GetNowArousal(charactername);
+            Arousal = savingparameter.GetNowArousal(charactername);
         }   
     }
 
@@ -2934,11 +2934,11 @@ public partial class CharacterControl_Base : MonoBehaviour
     // ポーズを解除する
     public void ReleasePause()
     {
-        if (m_timstopmode == TimeStopMode.PAUSE)
+        if (Timestopmode == TimeStopMode.PAUSE)
         {
-            if (m_hasPauseInput)
+            if (HasPauseInput)
             {
-                m_timstopmode = TimeStopMode.NORMAL;
+                Timestopmode = TimeStopMode.NORMAL;
                 //Time.timeScale = 1;
             }
             //return false; // ここでreturnをさせてUpdateを抜けさせると、そのキャラ「だけ」が止まる
@@ -2952,12 +2952,12 @@ public partial class CharacterControl_Base : MonoBehaviour
     // 第3引数：時間停止の状態
     protected void ContlroleAnimationSpeed(AnimationState animationstate, float speed,TimeStopMode timestopmode)
     {
-        if (m_timstopmode == TimeStopMode.TIME_DELAY)
+        if (Timestopmode == TimeStopMode.TIME_DELAY)
         {
             speed *= 0.25f;
         }
         // ほむらの時間停止を受けているときなど、0に
-        else if (m_timstopmode == TimeStopMode.TIME_STOP || m_timstopmode == TimeStopMode.PAUSE || m_timstopmode == TimeStopMode.AROUSAL)
+        else if (Timestopmode == TimeStopMode.TIME_STOP || Timestopmode == TimeStopMode.PAUSE || Timestopmode == TimeStopMode.AROUSAL)
         {
             speed = 0;         
         }
@@ -2967,19 +2967,19 @@ public partial class CharacterControl_Base : MonoBehaviour
     // 最大ブースト量算出関数
     public float GetMaxBoost(int nowlevel)
     {
-        return (float)(m_Boost_Growth * m_BoostLevel + m_Boost_OR);
+        return (float)(Boost_Growth * BoostLevel + Boost_OR);
     }
 
     // 最大覚醒ゲージ量算出関数
     public float GetMaxArousal(int nowlevel)
     {
-        return (float)(m_Arousal_Growth * (nowlevel - 1) + m_Arousal_OR);
+        return (float)(Arousal_Growth * (nowlevel - 1) + Arousal_OR);
     }
 	
 	// 最大HP算出関数
 	public int GetMaxHitpoint(int nowlevel)
 	{
-		return (int)(m_NowHitpoint_Growth * m_level + m_NowHitpoint_OR);
+		return (int)(NowHitpoint_Growth * Level + NowHitpoint_OR);
 	}
 	
     
@@ -2998,13 +2998,13 @@ public partial class CharacterControl_Base : MonoBehaviour
     protected void StepMove(AnimationState astate)
     {
         // 移動距離をインクリメントする（初期位置との差では壁に当たったときに無限に動き続ける）
-        this.m_SteppingLength += this.m_Step_Move_1F;
+        this.SteppingLength += this.StepMove1F;
 
         // 地面オブジェクトに触れた場合は着地モーションへ移行(暴走防止のために、上昇中は判定禁止.時間で判定しないと、引っかかったときに無限ループする)
-        if (this.m_SteppingLength > this.m_Step_Move_Length)
+        if (this.SteppingLength > this.StepMoveLength)
         {
             //MoveDirection.y = -2;                
-            this.m_MoveDirection = transform.rotation * Vector3.forward;
+            this.MoveDirection = transform.rotation * Vector3.forward;
             switch (astate)
             {
                 case AnimationState.FrontStep:
@@ -3027,10 +3027,10 @@ public partial class CharacterControl_Base : MonoBehaviour
     protected bool CancelCheck()
     {
         // ブーストが残っていればキャンセルダッシュは受け付ける（方向入力は受け付けない）
-        if (this.m_Boost > 0)
+        if (this.Boost > 0)
         {
             // 方向キーなしで再度ジャンプを押した場合、慣性ジャンプ
-            if (!m_hasVHInput && Input.GetButton("Jump"))
+            if (!HasVHInput && Input.GetButton("Jump"))
             {
                 // 上昇制御をAddForceにするとやりにくい（特に慣性ジャンプ）
                 JumpDone();
@@ -3056,7 +3056,7 @@ public partial class CharacterControl_Base : MonoBehaviour
             int charactername = (int)this.CharacterName;
             // SavingParameterに現在のステートを渡す
             // 最大HP
-            savingparameter.SetMaxHP(charactername, GetMaxHitpoint(m_level));
+            savingparameter.SetMaxHP(charactername, GetMaxHitpoint(Level));
         }
     }
 
@@ -3085,9 +3085,9 @@ public partial class CharacterControl_Base : MonoBehaviour
             ReversalInit();
         }
 	    // ブースト全回復
-        m_Boost = GetMaxBoost(m_BoostLevel);
+        Boost = GetMaxBoost(BoostLevel);
         // 覚醒モード移行
-        m_isArousal = true;
+        IsArousal = true;
         // エフェクト出現（エフェクトはCharacerControl_Baseのpublicに入れておく）
         m_arousalEffect = Instantiate(ArousalEffect) as GameObject;
         // エフェクトと本体の動きを同期させる
@@ -3138,7 +3138,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     // 歩き撃ちのアニメーションを戻す
     protected void ReturnMotion()
     {
-        if (shotmode == ShotMode.SHOTDONE && Time.time > this.m_AttackTime + this.m_BulletWaitTime[(int)ShotType.NORMAL_SHOT])
+        if (shotmode == ShotMode.SHOTDONE && Time.time > this.AttackTime + this.m_BulletWaitTime[(int)ShotType.NORMAL_SHOT])
         {
             //Debug.Log("ResutrnMotion");
             // 歩き撃ちフラグを折る
@@ -3148,12 +3148,12 @@ public partial class CharacterControl_Base : MonoBehaviour
             shotmode = ShotMode.NORMAL;
             DeleteBlend();
             // 方向キー入力があった場合かつ地上にいた場合
-            if (m_isGrounded && m_hasVHInput)
+            if (IsGrounded && HasVHInput)
             {
                 this.m_AnimState[0] = AnimationState.Run;
             }
             // 方向キー入力がなくかつ地上にいた場合
-            else if (m_isGrounded)
+            else if (IsGrounded)
             {
                 this.m_AnimState[0] = AnimationState.Idle;
             }
@@ -3233,23 +3233,23 @@ public partial class CharacterControl_Base : MonoBehaviour
     protected void moveshot(bool run)
     {
         // ロックオン中かつshotmode=RELOADの時は全体を相手の方へ向ける
-        if (this.m_IsRockon && shotmode != ShotMode.NORMAL && shotmode != ShotMode.SHOTDONE)
+        if (this.IsRockon && shotmode != ShotMode.NORMAL && shotmode != ShotMode.SHOTDONE)
         {
             RotateToTarget();
         }
         // 入力中はそちらへ進む
-        if (m_hasVHInput)
+        if (HasVHInput)
         {
             // ロック時に矢を撃つときは本体が相手の方向を向いているため、専用の処理が要る
-            if (this.m_IsRockon && shotmode != ShotMode.NORMAL)
+            if (this.IsRockon && shotmode != ShotMode.NORMAL)
             {
                 UpdateRotation_step();      // steprotは相手の方向を向いたまま動くので、こっちを使う
-                this.m_MoveDirection = this.m_steprot * Vector3.forward;
+                this.MoveDirection = this.StepRotation * Vector3.forward;
             }
             else
             {
                 UpdateRotation();
-                this.m_MoveDirection = this.transform.rotation * Vector3.forward;
+                this.MoveDirection = this.transform.rotation * Vector3.forward;
             }
         }
         // 入力が外れると、落下する
@@ -3259,7 +3259,7 @@ public partial class CharacterControl_Base : MonoBehaviour
             {
                 this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Idle]);
             }
-            this.m_MoveDirection = Vector3.zero;
+            this.MoveDirection = Vector3.zero;
         }
     }
     // 首もしくは上体ををロックオン対象へ向ける
@@ -3342,16 +3342,16 @@ public partial class CharacterControl_Base : MonoBehaviour
     }
 
     // 飛び越し可能な壁に接触した
-    private bool m_hitjumpover;
+    private bool Hitjumpover;
     public bool Gethitjumpover()
     {
-        return m_hitjumpover;
+        return Hitjumpover;
     }
     // 飛び越し不能な壁に接触した
-    private bool m_hitunjumpover;
+    private bool Hitunjumpover;
     public bool Gethitunjumpover()
     {
-        return m_hitunjumpover;
+        return Hitunjumpover;
     }
 
      // 接触を判定する
@@ -3360,23 +3360,23 @@ public partial class CharacterControl_Base : MonoBehaviour
         // 飛び越し可能な壁に接触した
         if (collision.gameObject.tag == "jumpover")
         {
-            m_hitjumpover = true;
+            Hitjumpover = true;
             return;
         }
         // 飛び越し不能な壁に接触した
         else if (collision.gameObject.tag == "unjumpover")
         {
-            m_hitunjumpover = true;
+            Hitunjumpover = true;
             return;
         }
-        m_hitjumpover = false;
-        m_hitunjumpover = false;
+        Hitjumpover = false;
+        Hitunjumpover = false;
     }
 
     // 本体を強制停止させる
     protected void EmagencyStop()
     {
-        this.m_MoveDirection = Vector3.zero;
+        this.MoveDirection = Vector3.zero;
         m_AnimState[0] = AnimationState.Idle;
     }
         
