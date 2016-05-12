@@ -607,9 +607,9 @@ public partial class CharacterControl_Base : MonoBehaviour
 
     }
 
-    protected int hitcounter;
-    bool hitcounterdone;
-    const int hitcounterBias = 20;
+    protected int Hitcounter;
+    bool Hitcounterdone;
+    const int HitcounterBias = 20;
 
     // 接地判定を行う。足元に5本(中心と前後左右)レイを落とし、そのいずれかが接触していれば接地。全部外れていれば落下
     protected bool onGround2()
@@ -667,13 +667,13 @@ public partial class CharacterControl_Base : MonoBehaviour
             CapsuleCollider collider = GetComponent<CapsuleCollider>();
             if (Physics.Raycast(transform.position + this.m_layOriginOffs, -Vector3.up, this.m_laylength - collider.radius, this.m_layMask))           
             {
-                hitcounterdone = false;
+                Hitcounterdone = false;
                 return true;
             }
             else
             {
-                hitcounterdone = true;
-                hitcounter = hitcounterBias + 1;
+                Hitcounterdone = true;
+                Hitcounter = HitcounterBias + 1;
                 return false;
             }
         }
@@ -683,38 +683,38 @@ public partial class CharacterControl_Base : MonoBehaviour
             // ジャンプを開始したとき
             if (m_AnimState[0] == AnimationState.Jump)
             {
-                hitcounterdone = true;
-                hitcounter = hitcounterBias + 1;
+                Hitcounterdone = true;
+                Hitcounter = HitcounterBias + 1;
                 return false;
             }
             // ジャンプ中
             else if (m_AnimState[0] == AnimationState.Jumping && !Physics.Raycast(transform.position + this.m_layOriginOffs, -Vector3.up, this.m_laylength, this.m_layMask))
             {
-                hitcounterdone = true;
-                hitcounter = hitcounterBias + 1;
+                Hitcounterdone = true;
+                Hitcounter = HitcounterBias + 1;
                 return false;
             }
             // 接地しているとき
             else if (Physics.Raycast(transform.position + this.m_layOriginOffs, -Vector3.up, this.m_laylength, this.m_layMask))
             {
-                hitcounterdone = false;
+                Hitcounterdone = false;
                 return true;
             }
             // 離れた時
             else
             {
-                if (!hitcounterdone)
+                if (!Hitcounterdone)
                 {
-                    hitcounterdone = true;
-                    hitcounter = 0;
+                    Hitcounterdone = true;
+                    Hitcounter = 0;
                 }
                 else
                 {
-                    hitcounter++;
+                    Hitcounter++;
                 }
             }
         }
-        if (hitcounter > hitcounterBias)
+        if (Hitcounter > HitcounterBias)
         {
             return false;
         }
