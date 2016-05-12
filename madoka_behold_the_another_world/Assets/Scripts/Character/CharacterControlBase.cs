@@ -539,10 +539,25 @@ public class CharacterControlBase : MonoBehaviour
         HasRightStepInput = false;
     }
 
-	/// <summary>
-	/// 追撃可能時間(ダメージ硬直時間）
-	/// </summary>
-	public float DamagedWaitTime;
+    /// <summary>
+    /// 使用可能な武装（弾切れもしくはリロード中は使用不可にする.順番はCharacter_Specのインデックスの射撃武装）
+    /// </summary>
+    public bool[] WeaponUseAble = new bool[20];
+
+    /// <summary>
+    /// 弾数を消費するタイプの武装の場合、残弾数
+    /// </summary>
+    public int[] BulletNum = new int[20];
+
+    /// <summary>
+    /// 射撃攻撃の硬直時間
+    /// </summary>
+    public float[] BulletWaitTime = new float[20];
+
+    /// <summary>
+    /// 追撃可能時間(ダメージ硬直時間）
+    /// </summary>
+    public float DamagedWaitTime;
 
 	/// <summary>
 	/// 追撃可能累積時間
@@ -660,13 +675,118 @@ public class CharacterControlBase : MonoBehaviour
 	/// </summary>
 	public float ArousalRatioOfBullet;
 
-	// 通常射撃用弾丸の配置用フック(他の専用武器は派生先で用意）
-	public GameObject MainShotRoot;
-	// リロードクラス
-	protected Reload ReloadSystem;
+    /// <summary>
+    /// 通常射撃用弾丸の配置用フック(他の専用武器は派生先で用意）
+    /// </summary>
+    public GameObject MainShotRoot;
+    
+    /// <summary>
+    /// リロードクラス
+    /// </summary>
+    protected Reload ReloadSystem;
 
-	// Use this for initialization
-	void Start ()
+    /// <summary>
+    /// プレイヤーのレベル設定を行う
+    /// </summary>
+    protected void SettingPleyerLevel()
+    {
+        // 自機もしくは自機の僚機
+        if (IsPlayer != CHARACTERCODE.ENEMY)
+        {
+            // 0を拾った場合は1に
+            // 個別ステートを初期化（インスペクタでもできるけど一応こっちでやっておこう）
+            // 後、ブースト量などはここで設定しておかないと下で初期化できない
+            // レベル
+            Level = savingparameter.GetNowLevel((int)CharacterName);
+            // 攻撃力レベル
+            StrLevel = savingparameter.GetStrLevel((int)CharacterName);
+            // 防御力レベル
+            DefLevel = savingparameter.GetDefLevel((int)CharacterName);
+            // 残弾数レベル
+            BulLevel = savingparameter.GetBulLevel((int)CharacterName);
+            // ブースト量レベル
+            BoostLevel = savingparameter.GetBoostLevel((int)CharacterName);
+            // 覚醒ゲージレベル
+            ArousalLevel = savingparameter.GetArousalLevel((int)CharacterName);
+
+        }
+        // 敵の場合はインスペクターで設定
+
+        // 1を割っていた場合は1に
+        if (Level < 1)
+        {
+            Level = 1;
+        }
+        if (StrLevel < 1)
+        {
+            StrLevel = 1;
+        }
+        if (DefLevel < 1)
+        {
+            DefLevel = 1;
+        }
+        if (BulLevel < 1)
+        {
+            BulLevel = 1;
+        }
+        if (BoostLevel < 1)
+        {
+            BoostLevel = 1;
+        }
+        if (ArousalLevel < 1)
+        {
+            ArousalLevel = 1;
+        }
+
+        // HP初期値
+        NowHitpoint_OR = Character_Spec.HP_OR[(int)CharacterName];
+        // HP成長係数
+        NowHitpoint_Growth = Character_Spec.HP_Grouth[(int)CharacterName];
+
+
+        // ブースト量初期値(Lv1の時の値）
+        Boost_OR = Character_Spec.Boost_OR[(int)CharacterName];
+        // ブースト量成長係数
+        Boost_Growth = Character_Spec.Boost_Growth[(int)CharacterName];
+
+        // 覚醒ゲージ量初期値(LV1の時の値）
+        Arousal_OR = Character_Spec.Arousal_OR[(int)CharacterName];
+        // 覚醒ゲージ量成長係数
+        Arousal_Growth = Character_Spec.Arousal_Growth[(int)CharacterName];
+
+        // 使用可能武器をセット（初期段階で使用不能にしておきたいものは、各キャラのStartでこの関数を呼んだ後に再定義）
+        for (int i = 0; i < Character_Spec.cs[(int)CharacterName].Length; i++)
+        {
+            // 使用の可否を初期化
+            WeaponUseAble[i] = true;
+            // 弾があるものは残弾数を初期化
+            if (Character_Spec.cs[(int)CharacterName][i].m_OriginalBulletNum > 0)
+            {
+                BulletNum[i] = Character_Spec.cs[(int)CharacterName][i].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][i].m_OriginalBulletNum;
+            }
+            // 硬直時間があるものは硬直時間を初期化
+            if (Character_Spec.cs[(int)CharacterName][i].m_WaitTime > 0)
+            {
+                BulletWaitTime[i] = Character_Spec.cs[(int)CharacterName][i].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][i].m_WaitTime;
+            }
+        }
+        // ダッシュキャンセル硬直時間
+        DashCancelTime = 0.2f;
+        // プレイヤーでない限りカメラを切っておく
+        var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
+        if (IsPlayer != CHARACTERCODE.PLAYER)
+        {
+            target.GetComponent<Camera>().enabled = false;
+        }
+        else
+        {
+            target.GetComponent<Camera>().enabled = true;
+        }
+
+    }
+
+    // Use this for initialization
+    void Start ()
     {
 	
 	}

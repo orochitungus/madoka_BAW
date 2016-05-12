@@ -89,35 +89,35 @@ public class DrawBulletNum : MonoBehaviour
                     // 弾数描画
                     // 使用可能状態にあり、かつ残弾数が0を超えているか？
                     // あるなら緑字で描画
-                    if (target.m_WeaponUseAble[i] && target.m_BulletNum[i] > 0)
+                    if (target.WeaponUseAble[i] && target.BulletNum[i] > 0)
                     {
-                        if (target.m_BulletNum[i] >= 100)
+                        if (target.BulletNum[i] >= 100)
                         {
-                            GUI.Label(new Rect(0, 80.0f, 1500.0f, 100.0f), target.m_BulletNum[i].ToString(), "Bullet_Use");
+                            GUI.Label(new Rect(0, 80.0f, 1500.0f, 100.0f), target.BulletNum[i].ToString(), "Bullet_Use");
                         }
-                        else if (target.m_BulletNum[i] >= 10)
+                        else if (target.BulletNum[i] >= 10)
                         {
-                            GUI.Label(new Rect(20, 80.0f, 1500.0f, 100.0f), target.m_BulletNum[i].ToString(), "Bullet_Use");
+                            GUI.Label(new Rect(20, 80.0f, 1500.0f, 100.0f), target.BulletNum[i].ToString(), "Bullet_Use");
                         }
                         else
                         {
-                            GUI.Label(new Rect(30, 80.0f, 1500.0f, 100.0f), target.m_BulletNum[i].ToString(), "Bullet_Use");
+                            GUI.Label(new Rect(30, 80.0f, 1500.0f, 100.0f), target.BulletNum[i].ToString(), "Bullet_Use");
                         }
                     }
                     // ないなら赤字で描画
                     else
                     {
-                        if (target.m_BulletNum[i] >= 100)
+                        if (target.BulletNum[i] >= 100)
                         {
-                            GUI.Label(new Rect(0, 80.0f, 1500.0f, 100.0f), target.m_BulletNum[i].ToString(), "Bullet_NotUse");
+                            GUI.Label(new Rect(0, 80.0f, 1500.0f, 100.0f), target.BulletNum[i].ToString(), "Bullet_NotUse");
                         }
-                        else if (target.m_BulletNum[i] >= 10)
+                        else if (target.BulletNum[i] >= 10)
                         {
-                            GUI.Label(new Rect(20, 80.0f, 1500.0f, 100.0f), target.m_BulletNum[i].ToString(), "Bullet_NotUse");
+                            GUI.Label(new Rect(20, 80.0f, 1500.0f, 100.0f), target.BulletNum[i].ToString(), "Bullet_NotUse");
                         }
                         else
                         {
-                            GUI.Label(new Rect(30, 80.0f, 1500.0f, 100.0f), target.m_BulletNum[i].ToString(), "Bullet_NotUse");
+                            GUI.Label(new Rect(30, 80.0f, 1500.0f, 100.0f), target.BulletNum[i].ToString(), "Bullet_NotUse");
                         }
                     }
 

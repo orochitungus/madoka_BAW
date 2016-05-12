@@ -105,7 +105,7 @@ public class AIControl_Majyu : AIControl_Base
 				}
 				// 残弾数がなく、弾を撃ってから規定時間はなにもしない
 				var targetState = ControlTarget.GetComponent<majyu_BattleControl>();
-				if (targetState.m_BulletNum[0] > 0 && !Shoted)
+				if (targetState.BulletNum[0] > 0 && !Shoted)
 				{
 					m_cpumode = CPUMODE.FIREFIGHT;
 					keyoutput = KEY_OUTPUT.SHOT;

@@ -207,13 +207,13 @@ public class Scono_Battle_Control : CharacterControl_Base
             Update_Animation();
             // リロード実行           
             // メイン射撃
-            ReloadSystem.OneByOne(ref m_BulletNum[(int)ShotType.NORMAL_SHOT], Time.time, Character_Spec.cs[(int)m_character_name][(int)ShotType.NORMAL_SHOT].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][(int)ShotType.NORMAL_SHOT].m_OriginalBulletNum,
+            ReloadSystem.OneByOne(ref BulletNum[(int)ShotType.NORMAL_SHOT], Time.time, Character_Spec.cs[(int)m_character_name][(int)ShotType.NORMAL_SHOT].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][(int)ShotType.NORMAL_SHOT].m_OriginalBulletNum,
                 Character_Spec.cs[(int)m_character_name][(int)ShotType.NORMAL_SHOT].m_reloadtime, ref m_mainshotendtime);
             // サブ射撃
-            ReloadSystem.AllTogether(ref m_BulletNum[1], Time.time, Character_Spec.cs[(int)m_character_name][1].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][1].m_OriginalBulletNum,
+            ReloadSystem.AllTogether(ref BulletNum[1], Time.time, Character_Spec.cs[(int)m_character_name][1].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][1].m_OriginalBulletNum,
                Character_Spec.cs[(int)m_character_name][1].m_reloadtime, ref m_subshotendtime);
             // 特殊射撃
-            ReloadSystem.OneByOne(ref m_BulletNum[2], Time.time, Character_Spec.cs[(int)m_character_name][2].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][2].m_OriginalBulletNum,
+            ReloadSystem.OneByOne(ref BulletNum[2], Time.time, Character_Spec.cs[(int)m_character_name][2].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][2].m_OriginalBulletNum,
                Character_Spec.cs[(int)m_character_name][2].m_reloadtime, ref m_exshotendtime);
         }
         // 最初のステージで負けたらプロローグ３へ移行
@@ -577,7 +577,7 @@ public class Scono_Battle_Control : CharacterControl_Base
         // サブ射撃・特殊射撃の場合(強制的に停止か落下になる）
         if (type == ShotType.SUB_SHOT || type == ShotType.EX_SHOT)
         {
-            if (Time.time > this.m_AttackTime + this.m_BulletWaitTime[BulletType])
+            if (Time.time > this.m_AttackTime + this.BulletWaitTime[BulletType])
             {
                 // 合成状態を解除
                 ReturnMotion();
@@ -609,7 +609,7 @@ public class Scono_Battle_Control : CharacterControl_Base
         else if (type == ShotType.NORMAL_SHOT)
         {
             // 終わった後でなく、開始時にも来るのでSHOTDONEを追加
-            if (Time.time > this.m_AttackTime + this.m_BulletWaitTime[BulletType])
+            if (Time.time > this.m_AttackTime + this.BulletWaitTime[BulletType])
             {
                 // 合成状態を解除
                 ReturnMotion();
@@ -694,7 +694,7 @@ public class Scono_Battle_Control : CharacterControl_Base
                 break;
 
         }
-        if (this.m_BulletNum[BulletType] > 0)
+        if (this.BulletNum[BulletType] > 0)
         {
             // ロックオン時本体の方向を相手に向ける       
             if (this.m_IsRockon)
@@ -703,20 +703,20 @@ public class Scono_Battle_Control : CharacterControl_Base
             }
             // 弾を消費する（サブ射撃なら1、特殊射撃なら2）
             // チャージ射撃除く            
-            this.m_BulletNum[BulletType]--;
+            this.BulletNum[BulletType]--;
             // 撃ち終わった時間を設定する                
             // メイン（弾数がMax-1のとき）
-            if (type == ShotType.NORMAL_SHOT && m_BulletNum[BulletType] == Character_Spec.cs[(int)m_character_name][BulletType].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][BulletType].m_OriginalBulletNum - 1)
+            if (type == ShotType.NORMAL_SHOT && BulletNum[BulletType] == Character_Spec.cs[(int)m_character_name][BulletType].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][BulletType].m_OriginalBulletNum - 1)
             {
                 m_mainshotendtime = Time.time;
             }
             // サブ（弾数が0のとき）
-            else if (type == ShotType.SUB_SHOT && m_BulletNum[BulletType] == 0)
+            else if (type == ShotType.SUB_SHOT && BulletNum[BulletType] == 0)
             {
                 m_subshotendtime = Time.time;
             }
             // 特殊（弾数がMax-1のとき）
-            else if (type == ShotType.EX_SHOT && m_BulletNum[BulletType] == Character_Spec.cs[(int)m_character_name][BulletType].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][BulletType].m_OriginalBulletNum - 1)
+            else if (type == ShotType.EX_SHOT && BulletNum[BulletType] == Character_Spec.cs[(int)m_character_name][BulletType].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][BulletType].m_OriginalBulletNum - 1)
             {
                 m_exshotendtime = Time.time;
             }
@@ -1133,11 +1133,11 @@ public class Scono_Battle_Control : CharacterControl_Base
     {
         // 全武装回復
         // メイン
-        m_BulletNum[(int)Skilltype_Scono.SHOT] = Character_Spec.cs[(int)m_character_name][(int)Skilltype_Scono.SHOT].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][(int)Skilltype_Scono.SHOT].m_OriginalBulletNum;
+        BulletNum[(int)Skilltype_Scono.SHOT] = Character_Spec.cs[(int)m_character_name][(int)Skilltype_Scono.SHOT].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][(int)Skilltype_Scono.SHOT].m_OriginalBulletNum;
         // サブ
-        m_BulletNum[(int)Skilltype_Scono.SUB_SHOT] = Character_Spec.cs[(int)m_character_name][(int)Skilltype_Scono.SUB_SHOT].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][(int)Skilltype_Scono.SUB_SHOT].m_OriginalBulletNum;
+        BulletNum[(int)Skilltype_Scono.SUB_SHOT] = Character_Spec.cs[(int)m_character_name][(int)Skilltype_Scono.SUB_SHOT].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][(int)Skilltype_Scono.SUB_SHOT].m_OriginalBulletNum;
         // 特殊射撃
-        m_BulletNum[(int)Skilltype_Scono.EX_SHOT] = Character_Spec.cs[(int)m_character_name][(int)Skilltype_Scono.EX_SHOT].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][(int)Skilltype_Scono.EX_SHOT].m_OriginalBulletNum;
+        BulletNum[(int)Skilltype_Scono.EX_SHOT] = Character_Spec.cs[(int)m_character_name][(int)Skilltype_Scono.EX_SHOT].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][(int)Skilltype_Scono.EX_SHOT].m_OriginalBulletNum;
         base.ArousalInitialize();
         m_nowState = ArousalState.INITIALIZE;
     }

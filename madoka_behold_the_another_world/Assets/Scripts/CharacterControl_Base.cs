@@ -339,11 +339,11 @@ public partial class CharacterControl_Base : MonoBehaviour
     }
 
     // 使用可能な武装（弾切れもしくはリロード中は使用不可にする.順番はCharacter_Specのインデックスの射撃武装）
-    public bool []m_WeaponUseAble = new bool[20];
+    public bool []WeaponUseAble = new bool[20];
     // 弾数を消費するタイプの武装の場合、残弾数
-    public int[] m_BulletNum = new int[20];
+    public int[] BulletNum = new int[20];
     // 射撃攻撃の硬直時間
-    public float[] m_BulletWaitTime = new float[20];
+    public float[] BulletWaitTime = new float[20];
 
     // 追撃可能時間(ダメージ硬直時間）
     public float m_DamagedWaitTime;
@@ -580,16 +580,16 @@ public partial class CharacterControl_Base : MonoBehaviour
         for (int i = 0; i < Character_Spec.cs[(int)m_character_name].Length; i++)
         {
             // 使用の可否を初期化
-            m_WeaponUseAble[i] = true;
+            WeaponUseAble[i] = true;
             // 弾があるものは残弾数を初期化
             if (Character_Spec.cs[(int)m_character_name][i].m_OriginalBulletNum > 0)
             {
-                this.m_BulletNum[i] = Character_Spec.cs[(int)m_character_name][i].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][i].m_OriginalBulletNum;
+                this.BulletNum[i] = Character_Spec.cs[(int)m_character_name][i].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][i].m_OriginalBulletNum;
             }
             // 硬直時間があるものは硬直時間を初期化
             if (Character_Spec.cs[(int)m_character_name][i].m_WaitTime > 0)
             {
-                this.m_BulletWaitTime[i] = Character_Spec.cs[(int)m_character_name][i].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][i].m_WaitTime;
+                this.BulletWaitTime[i] = Character_Spec.cs[(int)m_character_name][i].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][i].m_WaitTime;
             }
         }
         // ダッシュキャンセル硬直時間
@@ -3144,7 +3144,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     // 歩き撃ちのアニメーションを戻す
     protected void ReturnMotion()
     {
-        if (shotmode == ShotMode.SHOTDONE && Time.time > this.m_AttackTime + this.m_BulletWaitTime[(int)ShotType.NORMAL_SHOT])
+        if (shotmode == ShotMode.SHOTDONE && Time.time > this.m_AttackTime + this.BulletWaitTime[(int)ShotType.NORMAL_SHOT])
         {
             //Debug.Log("ResutrnMotion");
             // 歩き撃ちフラグを折る

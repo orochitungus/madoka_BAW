@@ -156,19 +156,19 @@ public class AIControl_Scono : AIControl_Base
 					keyoutput = KEY_OUTPUT.AROUSALATTACK;
 					return true;
 				}
-				else if (0.2f <= attacktype && attacktype < 0.6f && targetState.m_BulletNum[0] > 0)                
+				else if (0.2f <= attacktype && attacktype < 0.6f && targetState.BulletNum[0] > 0)                
 				{
 					m_cpumode = CPUMODE.FIREFIGHT;
 					keyoutput = KEY_OUTPUT.SHOT;
 					return true;
 				}
-				else if (0.6f <= attacktype && attacktype < 0.75f && targetState.m_BulletNum[1] > 0)
+				else if (0.6f <= attacktype && attacktype < 0.75f && targetState.BulletNum[1] > 0)
 				{
 					m_cpumode = CPUMODE.FIREFIGHT;
 					keyoutput = KEY_OUTPUT.SUBSHOT;
 					return true;
 				}
-				else if (0.75f <= attacktype && attacktype <= 1.0f && targetState.m_BulletNum[2] > 0)
+				else if (0.75f <= attacktype && attacktype <= 1.0f && targetState.BulletNum[2] > 0)
 				{
 					m_cpumode = CPUMODE.FIREFIGHT;
 					keyoutput = KEY_OUTPUT.EXSHOT;

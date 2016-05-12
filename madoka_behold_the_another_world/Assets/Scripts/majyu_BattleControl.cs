@@ -181,7 +181,7 @@ public class majyu_BattleControl : CharacterControl_Base
             Update_Animation();
             // リロード実行           
             // メイン射撃
-            ReloadSystem.OneByOne(ref m_BulletNum[(int)ShotType.NORMAL_SHOT], Time.time, Character_Spec.cs[(int)m_character_name][(int)ShotType.NORMAL_SHOT].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][(int)ShotType.NORMAL_SHOT].m_OriginalBulletNum,
+            ReloadSystem.OneByOne(ref BulletNum[(int)ShotType.NORMAL_SHOT], Time.time, Character_Spec.cs[(int)m_character_name][(int)ShotType.NORMAL_SHOT].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][(int)ShotType.NORMAL_SHOT].m_OriginalBulletNum,
                 Character_Spec.cs[(int)m_character_name][(int)ShotType.NORMAL_SHOT].m_reloadtime, ref m_mainshotendtime);
         }
 	}
@@ -438,7 +438,7 @@ public class majyu_BattleControl : CharacterControl_Base
         if (type == ShotType.NORMAL_SHOT)
         {
             // 終わった後でなく、開始時にも来るのでSHOTDONEを追加
-            if (Time.time > this.m_AttackTime + this.m_BulletWaitTime[(int)type])
+            if (Time.time > this.m_AttackTime + this.BulletWaitTime[(int)type])
             {
                 // 合成状態を解除
                 ReturnMotion();
@@ -485,7 +485,7 @@ public class majyu_BattleControl : CharacterControl_Base
     protected void Shoot(ShotType type)
     {
          // 弾があるとき限定
-        if (this.m_BulletNum[(int)type] > 0)
+        if (this.BulletNum[(int)type] > 0)
         {
             // ロックオン時本体の方向を相手に向ける       
             if (this.m_IsRockon)
@@ -495,10 +495,10 @@ public class majyu_BattleControl : CharacterControl_Base
             // 弾を消費する（サブ射撃なら1、特殊射撃なら2）
             if (type != ShotType.CHARGE_SHOT)
             {
-                this.m_BulletNum[(int)type]--;
+                this.BulletNum[(int)type]--;
                 // 撃ち終わった時間を設定する                
                 // メイン（弾数がMax-1のとき）
-                if (type == ShotType.NORMAL_SHOT && m_BulletNum[(int)type] == Character_Spec.cs[(int)m_character_name][(int)type].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][(int)type].m_OriginalBulletNum - 1)
+                if (type == ShotType.NORMAL_SHOT && BulletNum[(int)type] == Character_Spec.cs[(int)m_character_name][(int)type].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][(int)type].m_OriginalBulletNum - 1)
                 {
                     m_mainshotendtime = Time.time;
                 }

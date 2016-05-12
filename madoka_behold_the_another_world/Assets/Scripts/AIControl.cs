@@ -90,7 +90,7 @@ public class AIControl : AIControl_Base
                 }
                 // 残弾数がなければなにもしない
                 var targetState = ControlTarget.GetComponent<majyu_BattleControl>();
-                if (targetState.m_BulletNum[0] > 0)
+                if (targetState.BulletNum[0] > 0)
                 {
                     m_cpumode = CPUMODE.FIREFIGHT;
                     keyoutput = KEY_OUTPUT.SHOT;
