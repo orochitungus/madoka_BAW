@@ -475,7 +475,7 @@ public class Scono_Battle_Control : CharacterControl_Base
                 GetComponent<Rigidbody>().position = new Vector3(this.GetComponent<Rigidbody>().position.x, this.GetComponent<Rigidbody>().position.y + 3, this.GetComponent<Rigidbody>().position.z);
             }
 			// CPUの時はキャンセルさせない
-			if(m_isPlayer == CHARACTERCODE.PLAYER)
+			if(IsPlayer == CHARACTERCODE.PLAYER)
 			{ 
 				CancelDashDone();
 			}
@@ -1175,7 +1175,7 @@ public class Scono_Battle_Control : CharacterControl_Base
     public void ReturnIdle()
     {
         this.m_Arousal = 0;
-        if(m_isPlayer != CHARACTERCODE.ENEMY)
+        if(IsPlayer != CHARACTERCODE.ENEMY)
         {
             int characterindex = (int)m_character_name;
             savingparameter.SetNowArousal(characterindex, 0.0f);

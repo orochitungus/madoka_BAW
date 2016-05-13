@@ -31,7 +31,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         }
         this.m_NowHitpoint -= damage;
         // 死んだ場合、止めを刺したキャラに経験値が加算されるようにする（味方殺しでは経験値は増えない。また、まどかとアルティメットまどか、弓ほむらと銃ほむらは経験値とLVを共有する）
-        if (m_isPlayer == CHARACTERCODE.ENEMY && m_NowHitpoint < 1)
+        if (IsPlayer == CHARACTERCODE.ENEMY && m_NowHitpoint < 1)
         {
             // 与える経験値の総量
             int addexp = Character_Spec.Exp[(int)m_character_name];
@@ -62,7 +62,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         }
 
         // PCにヒットさせた場合、savingparameterの値も変える
-        if (m_isPlayer == CHARACTERCODE.PLAYER || m_isPlayer == CHARACTERCODE.PLAYER_ALLY)
+        if (IsPlayer == CHARACTERCODE.PLAYER || IsPlayer == CHARACTERCODE.PLAYER_ALLY)
         {
             int charactername = (int)this.m_character_name;
             savingparameter.SetNowHP(charactername, m_NowHitpoint);
@@ -74,7 +74,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     {
         m_Arousal += arousal;
         // PCにヒットさせた場合、savingparameterの値も変える
-        if (m_isPlayer == CHARACTERCODE.PLAYER || m_isPlayer == CHARACTERCODE.PLAYER_ALLY)
+        if (IsPlayer == CHARACTERCODE.PLAYER || IsPlayer == CHARACTERCODE.PLAYER_ALLY)
         {
             int charactername = (int)this.m_character_name;
             savingparameter.SetNowArousal(charactername, m_Arousal);
@@ -131,7 +131,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         {
             animationstate = AnimationState.BlowInit;
             // 属性がEnemyなら爆発エフェクトを貼り付ける
-            if (this.m_isPlayer == CHARACTERCODE.ENEMY)
+            if (this.IsPlayer == CHARACTERCODE.ENEMY)
             {
                 // エフェクトをロードする
                 Object Explosion = Resources.Load("Explosion_death");
@@ -307,7 +307,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         if (Time.time > this.m_DownTime + this.m_DownWaitTime)
         {
             // ただし自機側ではHP0だと復活させない
-            if (m_isPlayer == CHARACTERCODE.PLAYER || m_isPlayer == CHARACTERCODE.PLAYER_ALLY)
+            if (IsPlayer == CHARACTERCODE.PLAYER || IsPlayer == CHARACTERCODE.PLAYER_ALLY)
             {
                 if (m_NowHitpoint < 1)
                 {

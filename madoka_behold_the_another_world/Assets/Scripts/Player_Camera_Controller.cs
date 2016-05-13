@@ -89,7 +89,7 @@ public class Player_Camera_Controller : MonoBehaviour
         // 戦闘用キャラ
         if (target != null)
         {
-            if (target.m_isPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER)
+            if (target.IsPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER)
             {
                 // CPU時、AudioListenerを解除           
                 Camera.enabled = false;
@@ -129,7 +129,7 @@ public class Player_Camera_Controller : MonoBehaviour
             return;
 
         // CPU時、CPUの情報を拾う
-        if (target.m_isPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER)
+        if (target.IsPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER)
         {
             // ルーチンを拾う
             this.m_cpumode = targetAI.m_cpumode;
@@ -143,13 +143,13 @@ public class Player_Camera_Controller : MonoBehaviour
             UnlockDone(target);
         }
         // ロックオンボタンが押された（この判定はCharacterControl_Baseの派生側で拾う）
-        else if (target.HasSearchInput() || this.m_key == AIControl.KEY_OUTPUT.SEARCH)
+        else if (target.GetSearchInput() || this.m_key == AIControl.KEY_OUTPUT.SEARCH)
         {
             // ロックオンしていなかった
             if (!target.m_IsRockon)
             {
                 // 自分がPC側か敵側か取得する
-                switch (target.m_isPlayer)
+                switch (target.IsPlayer)
                 {
                     // PC側の場合、敵を検索する
                     // 自機
@@ -206,7 +206,7 @@ public class Player_Camera_Controller : MonoBehaviour
             else
             {
                 // 敵もしくは僚機の哨戒状態で目的地にたどり着いたときにこの状態になる
-                if (target.m_isPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER)
+                if (target.IsPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER)
                 {   // ここに指示が来る前に、cpumodeは切り替わっている
                     // 往路(終点をロックオン）
                     if (this.m_cpumode == AIControl.CPUMODE.OUTWARD_JOURNEY)
@@ -586,7 +586,7 @@ public class Player_Camera_Controller : MonoBehaviour
         // このカメラが追跡している対象がCPUのときは書かない（多分無駄メモリ）
         if (target != null)
         {
-            if (target.m_isPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER || !m_DrawInterface)
+            if (target.IsPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER || !m_DrawInterface)
             {
                 return;
             }

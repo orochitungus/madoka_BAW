@@ -1329,7 +1329,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
         // 判定に吹き飛び判定を設定する
         decision_instance.SetDownratio(m_downratioArousal);
         // 判定に自分が敵か味方かを教える
-        if (m_isPlayer == CHARACTERCODE.PLAYER || m_isPlayer == CHARACTERCODE.PLAYER_ALLY)
+        if (IsPlayer == CHARACTERCODE.PLAYER || IsPlayer == CHARACTERCODE.PLAYER_ALLY)
         {
             decision_instance.m_IsPlayer = true;
         }

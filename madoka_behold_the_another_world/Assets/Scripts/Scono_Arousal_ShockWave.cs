@@ -59,7 +59,7 @@ public class Scono_Arousal_ShockWave : MonoBehaviour
 
         // 親オブジェクトを拾う
         // 自機がPLAYERかPLAYER_ALLYの場合
-        if (m_Obj_OR.GetComponent<CharacterControl_Base>().m_isPlayer != CharacterControl_Base.CHARACTERCODE.ENEMY)
+        if (m_Obj_OR.GetComponent<CharacterControl_Base>().IsPlayer != CharacterControl_Base.CHARACTERCODE.ENEMY)
         {
             player = "Player";
             enemy = "Enemy";

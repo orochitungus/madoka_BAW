@@ -73,15 +73,30 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 	/// </summary>
 	public bool Shot;
 
+    /// <summary>
+    /// 射撃長押し
+    /// </summary>
+    public bool Shotting;
+
 	/// <summary>
 	/// 格闘
 	/// </summary>
 	public bool Wrestle;
 
+    /// <summary>
+    /// 格闘長押し
+    /// </summary>
+    public bool Wrestling;
+
 	/// <summary>
 	/// ジャンプ・キャンセル
 	/// </summary>
 	public bool Jump;
+
+    /// <summary>
+    /// ジャンプ長押し
+    /// </summary>
+    public bool Jumping;
 
 	/// <summary>
 	/// サーチ
@@ -483,13 +498,16 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
                 Array k = Enum.GetValues(typeof(KeyCode));
                 for (int i = 0; i < k.Length; i++)
                 {
-                    // 入力時キー取得
+                    // 入力キー取得
                     if (Input.GetKeyDown((KeyCode)k.GetValue(i)))
                     {
 						GetKeyInput(i,k);
                     }
-					// 解除取得
-
+					// 長押し取得
+                    else if(Input.GetKey((KeyCode)k.GetValue(i)))
+                    {
+                        GetKeyLongInput(i, k);
+                    }
 					// 非入力時解除
 					else
 					{
@@ -721,6 +739,48 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 		}
 	}
 
+    public void GetKeyLongInput(int i, Array k)
+    {
+        // テンキーとマウス入力と画面クリック以外のキー入力を取得する
+        if (k.GetValue(i).ToString().IndexOf("Arrow") < 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0 && k.GetValue(i).ToString().IndexOf("Joystick") < 0)
+        {
+            // 射撃チャージ取得
+            if (k.GetValue(i).ToString() == shotcode_keyboard)
+            {
+                Shotting = true;
+            }
+            // 格闘チャージ取得
+            if (k.GetValue(i).ToString() == wrestlecode_keyboard)
+            {
+                Wrestling = true;
+            }
+            // ジャンプ取得
+            if (k.GetValue(i).ToString() == jump_keyboard)
+            {
+                Jumping = true;
+            }
+        }
+        // キー入力取得（コントローラー）
+        if (k.GetValue(i).ToString().IndexOf("Joystick1") >= 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0)
+        {
+            // 射撃取得
+            if (k.GetValue(i).ToString() == shotcode_controller)
+            {
+                Shotting = true;
+            }
+            // 格闘取得
+            if (k.GetValue(i).ToString() == wrestlecode_controller)
+            {
+                Wrestling = true;
+            }
+            // ジャンプ取得
+            if (k.GetValue(i).ToString() == jump_controller)
+            {
+                Jumping = true;
+            }
+        }
+    }
+
 	/// <summary>
 	/// 入力解除されたキーのフラグを折る
 	/// </summary>
@@ -735,16 +795,19 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 			if (k.GetValue(i).ToString() == shotcode_keyboard)
 			{
 				Shot = false;
+                Shotting = false;
 			}
 			// 格闘取得
 			if (k.GetValue(i).ToString() == wrestlecode_keyboard)
 			{
 				Wrestle = false;
+                Wrestling = false;
 			}
 			// ジャンプ取得
 			if (k.GetValue(i).ToString() == jump_keyboard)
 			{
 				Jump = false;
+                Jumping = false;
 			}
 			// サーチ取得
 			if (k.GetValue(i).ToString() == search_keyboard)
@@ -804,16 +867,19 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 			if (k.GetValue(i).ToString() == shotcode_controller)
 			{
 				Shot = false;
+                Shotting = false;
 			}
 			// 格闘取得
 			if (k.GetValue(i).ToString() == wrestlecode_controller)
 			{
 				Wrestle = false;
+                Wrestling = false;
 			}
 			// ジャンプ取得
 			if (k.GetValue(i).ToString() == jump_controller)
 			{
 				Jump = false;
+                Jumping = false;
 			}
 			// サーチ取得
 			if (k.GetValue(i).ToString() == search_controller)

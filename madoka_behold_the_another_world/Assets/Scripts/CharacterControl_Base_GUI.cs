@@ -13,7 +13,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     public void OnGUI()
     {
         // CPU制御か覚醒した瞬間の時は書かない（多分無駄メモリ）
-        if (m_isPlayer != CHARACTERCODE.PLAYER || !m_DrawInterface)
+        if (IsPlayer != CHARACTERCODE.PLAYER || !m_DrawInterface)
         {
             return;
         }

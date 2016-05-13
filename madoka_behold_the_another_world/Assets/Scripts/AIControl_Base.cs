@@ -140,7 +140,7 @@ public class AIControl_Base : MonoBehaviour
         // 対象がプレイヤーであるか否かのフラグを拾う
         var target = ControlTarget.GetComponentInChildren<CharacterControl_Base>();
 
-        this.m_isPlayer = target.m_isPlayer;
+        this.m_isPlayer = target.IsPlayer;
 
         // 一応キー初期化(ルーチンはインスペクタで拾う）
         m_tenkeyoutput = TENKEY_OUTPUT.NEUTRAL;

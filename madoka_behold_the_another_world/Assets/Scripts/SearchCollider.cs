@@ -65,14 +65,14 @@ public class SearchCollider : MonoBehaviour
             if (m_isPlayer == CharacterControl_Base.CHARACTERCODE.PLAYER_ALLY || m_isPlayer == CharacterControl_Base.CHARACTERCODE.PLAYER)
             {
                 // 敵であればエンカウント
-                if (hit.m_isPlayer == CharacterControl_Base.CHARACTERCODE.ENEMY)
+                if (hit.IsPlayer == CharacterControl_Base.CHARACTERCODE.ENEMY)
                 {
                     m_isEncounter = true;
                     m_hitCharacter = collision.gameObject;
                     return;
                 }
                 // 味方であれば強制抜け（フラグを弄らせない）
-                else if (hit.m_isPlayer == CharacterControl_Base.CHARACTERCODE.PLAYER_ALLY || m_isPlayer == CharacterControl_Base.CHARACTERCODE.PLAYER)
+                else if (hit.IsPlayer == CharacterControl_Base.CHARACTERCODE.PLAYER_ALLY || m_isPlayer == CharacterControl_Base.CHARACTERCODE.PLAYER)
                 {
                     m_isEncounter = false;
                     return;
@@ -82,14 +82,14 @@ public class SearchCollider : MonoBehaviour
             else
             {
                 // PCであればエンカウント
-                if (hit.m_isPlayer == CharacterControl_Base.CHARACTERCODE.PLAYER || hit.m_isPlayer == CharacterControl_Base.CHARACTERCODE.PLAYER_ALLY)
+                if (hit.IsPlayer == CharacterControl_Base.CHARACTERCODE.PLAYER || hit.IsPlayer == CharacterControl_Base.CHARACTERCODE.PLAYER_ALLY)
                 {
                     m_isEncounter = true;
                     m_hitCharacter = collision.gameObject;
                     return;
                 }
                 // 敵であれば強制抜け（フラグを弄らせない）
-                else if (hit.m_isPlayer == CharacterControl_Base.CHARACTERCODE.ENEMY)
+                else if (hit.IsPlayer == CharacterControl_Base.CHARACTERCODE.ENEMY)
                 {
                     m_isEncounter = false;
                     return;

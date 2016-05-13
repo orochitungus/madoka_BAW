@@ -25,7 +25,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <summary>
     /// レイの長さ
     /// </summary>
-    private float _Laylength;
+    public float Laylength;
 
     /// <summary>
     /// ground属性をもったレイヤー（この場合8）
@@ -783,6 +783,272 @@ public class CharacterControlBase : MonoBehaviour
             target.GetComponent<Camera>().enabled = true;
         }
 
+    }
+
+    /// <summary>
+    /// 接地判定関連
+    /// </summary>
+    protected int Hitcounter;
+    bool Hitcounterdone;
+    const int HitcounterBias = 20;
+
+    // 接地判定を行う。足元に5本(中心と前後左右)レイを落とし、そのいずれかが接触していれば接地。全部外れていれば落下
+    protected bool onGround()
+    {
+        // 座標
+        Vector3[] layStartPos = new Vector3[5];
+        // カプセルコライダ
+        CapsuleCollider collider = GetComponent<CapsuleCollider>();
+        // 中心
+        layStartPos[0] = transform.position + LayOriginOffs;
+        // 左
+        layStartPos[1] = new Vector3(layStartPos[0].x + collider.radius, layStartPos[0].y, layStartPos[0].z);
+        // 右
+        layStartPos[2] = new Vector3(layStartPos[0].x - collider.radius, layStartPos[0].y, layStartPos[0].z);
+        // 前
+        layStartPos[3] = new Vector3(layStartPos[0].x, layStartPos[0].y, layStartPos[0].z + collider.radius);
+        // 後
+        layStartPos[4] = new Vector3(layStartPos[0].x, layStartPos[0].y, layStartPos[0].z - collider.radius);
+        int hitcount = 0;
+        for (int i = 0; i < layStartPos.Length; i++)
+        {
+            if (Physics.Raycast(layStartPos[i], -Vector3.up, Laylength + 1.5f, LayMask))
+            {
+                hitcount++;
+            }          
+        }
+        // 1つでもヒットしたら接地とする
+        if (hitcount > 0)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// 移動キーが押されているかどうかをチェックする
+    /// </summary>
+    /// <returns></returns>
+    protected bool GetVHInput()
+    {
+        // PC時のみ。CPU時は何か別の関数を用意
+        if (IsPlayer == CHARACTERCODE.PLAYER)
+        {
+           if(ControllerManager.Instance.Top || ControllerManager.Instance.Left || ControllerManager.Instance.Right || ControllerManager.Instance.Under)
+           {
+               return true;
+           }
+           else
+           {
+               return false;
+           }
+        }
+        return false;
+        
+    }
+
+    /// <summary>
+    /// 方向キー入力（上）が押されているかをチェックする（横が入っていたらアウト）
+    /// </summary>
+    /// <returns></returns>
+    protected bool GetFrontInput()
+    {
+        if (ControllerManager.Instance.Top)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// 方向キー入力（下）が押されているかをチェックする（横が入っていたらアウト）
+    /// </summary>
+    /// <returns></returns>
+    protected bool GetBackInput()
+    {
+        if (ControllerManager.Instance.Under)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// 方向キー入力（左）が押されているかをチェックする（縦が入っていたらアウト）
+    /// </summary>
+    /// <returns></returns>
+    protected bool GetLeftInput()
+    {
+        if (ControllerManager.Instance.Left)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// 方向キー入力（右）が押されているかをチェックする（縦が入っていたらアウト）
+    /// </summary>
+    /// <returns></returns>
+    protected bool GetRightInput()
+    {
+        if (ControllerManager.Instance.Right)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// ショット入力があったか否かをチェックする
+    /// </summary>
+    /// <returns></returns>
+    protected bool GetShotInput()
+    {
+        if (IsPlayer == CHARACTERCODE.PLAYER)
+        {
+            if(ControllerManager.Instance.Shot)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// 射撃入力が押しっぱなしであるか離されたかをチェックする 
+    /// </summary>
+    /// <returns>チャージ完了状態で離されたか否か</returns>
+    protected bool GetShotChargeInput()
+    {
+        bool compleate = false;
+        if (IsPlayer == CHARACTERCODE.PLAYER)
+        {
+            // 入力中はm_ShotChargeを増加
+            if (ControllerManager.Instance.Shotting)
+            {
+                if (ShotCharge < 0)
+                {
+                    ShotCharge = 0;
+                }
+                ShotCharge += ShotIncrease;
+            }
+            // 解除するとm_ShotChargeを減衰
+            else
+            {
+                if (ShotCharge > 0)
+                {
+                    ShotCharge -= ShotDecrease;
+                }
+            }
+        }
+        // MAX状態で離されるとチャージ量を0にしてtrue
+        if (ShotCharge >= ChargeMax && (!ControllerManager.Instance.Shot))
+        {
+            ShotCharge = 0;
+            compleate = true;
+        }
+        return compleate;
+    }
+    
+    /// <summary>
+    /// 格闘入力が押しっぱなしであるか離されたかをチェックする
+    /// </summary>
+    /// <returns>チャージ完了状態で離されたか否か</returns>
+    protected bool GetWrestleChargeInput()
+    {
+        bool compleate = false;
+        if (IsPlayer == CHARACTERCODE.PLAYER)
+        {
+            // 入力中はm_ShotChargeを増加
+            if (ControllerManager.Instance.Wrestling)
+            {
+                if (WrestleCharge < 0)
+                {
+                    WrestleCharge = 0;
+                }
+                WrestleCharge += WrestleIncrease;
+            }
+            // 解除するとm_ShotChargeを減衰
+            else
+            {
+                if (WrestleCharge > 0)
+                {
+                    WrestleCharge -= WrestleDecrease;
+                }
+            }
+        }
+        // MAX状態で離されるとチャージ量を0にしてtrue
+        if (WrestleCharge >= ChargeMax && (!ControllerManager.Instance.Wrestle))
+        {
+            WrestleCharge = 0;
+            compleate = true;
+        }
+        return compleate;
+    }
+
+    /// <summary>
+    /// ジャンプ入力があったか否かをチェックする 
+    /// </summary>
+    /// <returns></returns>
+    protected bool GetJumpInput()
+    {
+        if (IsPlayer == CHARACTERCODE.PLAYER)
+        {
+            if (ControllerManager.Instance.Jump)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// ジャンプ長押し入力があったか否かをチェックする
+    /// </summary>
+    /// <returns></returns>
+    protected bool GetJumpintInput()
+    {
+        if (IsPlayer == CHARACTERCODE.PLAYER)
+        {
+            if (ControllerManager.Instance.Jumping)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// ダッシュキャンセル入力があったか否かをチェックする
+    /// </summary>
+    /// <returns></returns>
+    protected bool GetDashCancelInput()
+    {
+        if (IsPlayer == CHARACTERCODE.PLAYER)
+        {
+            if (ControllerManager.Instance.BoostDash)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // サーチ入力があったか否かをチェックする
+    // カメラ側で取得が要るのでここはpublicに
+    public bool GetSearchInput()
+    {
+        if (IsPlayer == CHARACTERCODE.PLAYER)
+        {
+            if (Input.GetButtonDown("Search"))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     // Use this for initialization

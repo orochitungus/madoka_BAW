@@ -35,12 +35,12 @@ public class DrawRadar : MonoBehaviour
 
         // マーカーのテクスチャを張り替え
         // 僚機
-        if (target.m_isPlayer == CharacterControl_Base.CHARACTERCODE.PLAYER_ALLY)
+        if (target.IsPlayer == CharacterControl_Base.CHARACTERCODE.PLAYER_ALLY)
         {
             m_MarkerObject.GetComponent<Renderer>().material.mainTexture = (Texture)Instantiate(m_MarkerAlly);
         }
         // 敵機
-        else if (target.m_isPlayer == CharacterControl_Base.CHARACTERCODE.ENEMY)
+        else if (target.IsPlayer == CharacterControl_Base.CHARACTERCODE.ENEMY)
         {
             m_MarkerObject.GetComponent<Renderer>().material.mainTexture = (Texture)Instantiate(m_MarkerEnemy);
         }
@@ -61,7 +61,7 @@ public class DrawRadar : MonoBehaviour
         // 元の位置を取得(元位置のオフセットなので、相対）
         m_platePos_OR = Pl.transform.localPosition;
 
-        if (target.m_isPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER)
+        if (target.IsPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER)
         {
             // プレイヤーキャラを取得する
             // 全オブジェクトを検索
@@ -73,7 +73,7 @@ public class DrawRadar : MonoBehaviour
                 {
                     continue;
                 }
-                if (go.GetComponentInChildren<CharacterControl_Base>().m_isPlayer == CharacterControl_Base.CHARACTERCODE.PLAYER)
+                if (go.GetComponentInChildren<CharacterControl_Base>().IsPlayer == CharacterControl_Base.CHARACTERCODE.PLAYER)
                 {
                     m_playerObject = go;
                     break;
@@ -108,7 +108,7 @@ public class DrawRadar : MonoBehaviour
     {
         // 属性「自機」以外は描画しない
         var target = m_Player.GetComponentInChildren<CharacterControl_Base>();
-        if (target.m_isPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER)
+        if (target.IsPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER)
         {
             return;
         }
@@ -152,7 +152,7 @@ public class DrawRadar : MonoBehaviour
        
 
         // 属性「自機」以外は描画しない       
-        if (target.m_isPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER)
+        if (target.IsPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER)
         {
             return;
         }

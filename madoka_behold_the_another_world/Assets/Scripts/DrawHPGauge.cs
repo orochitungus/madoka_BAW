@@ -18,7 +18,7 @@ public class DrawHPGauge : MonoBehaviour
     {
         var target = m_Player.GetComponentInChildren<CharacterControl_Base>();
         // CPU制御の時は描かない
-        if (target.m_isPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER)
+        if (target.IsPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER)
         {
             return;
         }

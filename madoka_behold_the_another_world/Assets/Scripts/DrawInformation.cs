@@ -31,7 +31,7 @@ public class DrawInformation : MonoBehaviour
     {
         CharacterControl_Base target = m_Player.GetComponentInChildren<CharacterControl_Base>();
         // CPU制御の時は描かない
-        if (target != null && target.m_isPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER)
+        if (target != null && target.IsPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER)
         {
             return;
         }

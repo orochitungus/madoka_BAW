@@ -337,11 +337,11 @@ public class StageSetting : MonoBehaviour
             CharacterControl_Base playerCharacter = PlayerCharacter.GetComponentInChildren<CharacterControl_Base>();
             if (partynumber == 0)
             {
-                playerCharacter.m_isPlayer = CharacterControl_Base.CHARACTERCODE.PLAYER;
+                playerCharacter.IsPlayer = CharacterControl_Base.CHARACTERCODE.PLAYER;
             }
             else
             {
-                playerCharacter.m_isPlayer = CharacterControl_Base.CHARACTERCODE.PLAYER_ALLY;
+                playerCharacter.IsPlayer = CharacterControl_Base.CHARACTERCODE.PLAYER_ALLY;
             }
             // キャラクターの向きを決める
             // カメラ

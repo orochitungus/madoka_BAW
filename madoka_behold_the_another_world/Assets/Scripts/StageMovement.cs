@@ -32,7 +32,7 @@ public class StageMovement : MonoBehaviour
         // プレイヤーだった場合指定したシーンへ移動
         if(target != null)
         {
-            if(target.m_isPlayer == CharacterControl_Base.CHARACTERCODE.PLAYER)
+            if(target.IsPlayer == CharacterControl_Base.CHARACTERCODE.PLAYER)
             {
                 CheckStory();
             }

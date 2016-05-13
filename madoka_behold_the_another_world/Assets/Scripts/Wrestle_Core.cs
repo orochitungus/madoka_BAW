@@ -105,7 +105,7 @@ public class Wrestle_Core : MonoBehaviour
         var master = m_Obj_OR.GetComponent<CharacterControl_Base>();
        
         // 自機がPLAYERかPLAYER_ALLYの場合
-        if (master.m_isPlayer != CharacterControl_Base.CHARACTERCODE.ENEMY)
+        if (master.IsPlayer != CharacterControl_Base.CHARACTERCODE.ENEMY)
         {
             player = "Player";
             enemy = "Enemy";
@@ -171,7 +171,7 @@ public class Wrestle_Core : MonoBehaviour
         if (master.m_isArousal == false)
         {
             // プレイヤーの場合
-            if (master.GetComponent<CharacterControl_Base>().m_isPlayer != CharacterControl_Base.CHARACTERCODE.ENEMY)
+            if (master.GetComponent<CharacterControl_Base>().IsPlayer != CharacterControl_Base.CHARACTERCODE.ENEMY)
             {
                 savingparameter.AddArousal((int)master.m_character_name, m_arousalRatio);
             }

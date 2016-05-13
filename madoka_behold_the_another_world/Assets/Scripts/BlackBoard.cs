@@ -16,7 +16,7 @@ public class BlackBoard : MonoBehaviour
         GameObject parent = gameObject.transform.parent.gameObject;
         // 親オブジェクトのCharacterControl_Baseを取得
         var parentData = parent.GetComponent<CharacterControl_Base>();
-        CharacterControl_Base.CHARACTERCODE cpu = parentData.m_isPlayer;
+        CharacterControl_Base.CHARACTERCODE cpu = parentData.IsPlayer;
         // CPUの場合、BlackBoardの描画を切る
         if (cpu != CharacterControl_Base.CHARACTERCODE.PLAYER)
         {

@@ -50,7 +50,7 @@ public class FieldItemController : MonoBehaviour
 		CharacterControl_Base_Quest hitQuestCharacter = character.gameObject.GetComponent<CharacterControl_Base_Quest>();
 
 		// プレイヤーであれば処理開始
-		if((hitBattleCharacter != null && hitBattleCharacter.m_isPlayer == CharacterControl_Base.CHARACTERCODE.PLAYER) || hitQuestCharacter != null)
+		if((hitBattleCharacter != null && hitBattleCharacter.IsPlayer == CharacterControl_Base.CHARACTERCODE.PLAYER) || hitQuestCharacter != null)
 		{
 			// アイテム入手音を鳴らす
 			AudioSource.PlayClipAtPoint(ItemSE, transform.position);

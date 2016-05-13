@@ -40,7 +40,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         PLAYER_ALLY,    // プレイヤー僚機
         ENEMY           // 敵
     };
-    public CHARACTERCODE m_isPlayer;
+    public CHARACTERCODE IsPlayer;
 
     // 弾の種類(CharacterSpecの配置順に合わせること）
     public enum ShotType
@@ -361,16 +361,16 @@ public partial class CharacterControl_Base : MonoBehaviour
     public float m_DownTime;
 
     // 累積押し時間（射撃）をカウント
-    protected int m_ShotCharge;
+    protected int ShotCharge;
     public int GetShotCharge()
     {
-        return m_ShotCharge;
+        return ShotCharge;
     }
 	// 累積押し時間（格闘）をカウント
-    protected int m_WrestleCharge;
+    protected int WrestleCharge;
     public int GetWrestleCharge()
     {
-        return m_WrestleCharge;
+        return WrestleCharge;
     }
 
     // 1Fあたりの射撃チャージゲージ増加量
@@ -513,7 +513,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     protected void SettingPleyerLevel()
     {
         // 自機もしくは自機の僚機
-        if (m_isPlayer != CHARACTERCODE.ENEMY)
+        if (IsPlayer != CHARACTERCODE.ENEMY)
         {
             // 0を拾った場合は1に
             // 個別ステートを初期化（インスペクタでもできるけど一応こっちでやっておこう）
@@ -596,7 +596,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         this.m_DashCancelTime = 0.2f;
         // プレイヤーでない限りカメラを切っておく
         var target = m_MainCamera.GetComponentInChildren<Player_Camera_Controller>();
-        if (m_isPlayer != CHARACTERCODE.PLAYER)
+        if (IsPlayer != CHARACTERCODE.PLAYER)
         {
             target.GetComponent<Camera>().enabled = false;
         }
@@ -759,7 +759,7 @@ public partial class CharacterControl_Base : MonoBehaviour
             m_PastInputs[i] = m_PastInputs[i + 1];
         }
         // 現在の値を最後に持ってくる
-        m_PastInputs[m_PastInputs.Length - 1] = GetVHInput();
+        m_PastInputs[m_PastInputs.Length - 1] = CheckVHInput();
     }
 
     // 過去30Fの入力を拾う
@@ -768,7 +768,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     {        
         Vector2 CheckOUTValue = new Vector2(0, 0);
         // CPU時除く(CPUのステップはまた別にとる）
-        if (m_isPlayer != CHARACTERCODE.PLAYER)
+        if (IsPlayer != CHARACTERCODE.PLAYER)
         {
             return CheckOUTValue;
         }
@@ -880,7 +880,7 @@ public partial class CharacterControl_Base : MonoBehaviour
 
     // 何を入力したか取得する
     // 方向キーの量を算出する
-    protected Vector2 GetVHInput()
+    protected Vector2 CheckVHInput()
     {
         Vector2 Value = new Vector2(0, 0);
 
@@ -891,10 +891,10 @@ public partial class CharacterControl_Base : MonoBehaviour
 
 
     // 移動キーが押されているかどうかをチェックする HasVHInput を追加する。
-    protected bool HasVHInput()
+    protected bool GetVHInput()
     {
         // PC時のみ。CPU時は何か別の関数を用意
-        if (m_isPlayer == CHARACTERCODE.PLAYER)
+        if (IsPlayer == CHARACTERCODE.PLAYER)
         {
             if (0.0f != Input.GetAxisRaw("Horizontal"))
             {
@@ -910,7 +910,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     }
 
     // 方向キー入力（上）が押されているかをチェックする（横が入っていたらアウト）
-    protected bool HasFrontInput()
+    protected bool GetFrontInput()
     {
         if (Input.GetAxisRaw("Vertical") > 0.0f && Math.Abs(Input.GetAxisRaw("Horizontal")) < 0.1f)
         {
@@ -919,7 +919,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         return false;
     }
     // 方向キー入力（下）が押されているかをチェックする（横が入っていたらアウト）
-    protected bool HasBackInput()
+    protected bool GetBackInput()
     {
         if (Input.GetAxisRaw("Vertical") < 0.0f && Math.Abs(Input.GetAxisRaw("Horizontal")) < 0.1f)
         {
@@ -929,7 +929,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     }
 
     // 方向キー入力（左）が押されているかをチェックする（縦が入っていたらアウト）
-    protected bool HasLeftInput()
+    protected bool GetLeftInput()
     {
         if (Input.GetAxisRaw("Horizontal") < 0.0f && Math.Abs(Input.GetAxisRaw("Vertical")) < 0.1f)
         {
@@ -938,7 +938,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         return false;
     }
     // 方向キー入力（右）が押されているかをチェックする（縦が入っていたらアウト）
-    protected bool HasRightInput()
+    protected bool GetRightInput()
     {
         if (Input.GetAxisRaw("Horizontal") > 0.0f && Math.Abs(Input.GetAxisRaw("Vertical")) < 0.1f)
         {
@@ -948,9 +948,9 @@ public partial class CharacterControl_Base : MonoBehaviour
     }
 
     // ショット入力があったか否かをチェックする
-    protected bool HasShotInput()
+    protected bool GetShotInput()
     {
-        if (m_isPlayer == CHARACTERCODE.PLAYER)
+        if (IsPlayer == CHARACTERCODE.PLAYER)
         {
             // GetButtonDownは瞬間をとる
             if(Input.GetButtonDown("Shot"))
@@ -963,33 +963,33 @@ public partial class CharacterControl_Base : MonoBehaviour
 
     // 射撃入力が押しっぱなしであるか離されたかをチェックする
     // ret      :チャージ完了状態で離されたか否か
-    protected bool HasShotChargeInput()
+    protected bool GetShotChargeInput()
     {
         bool compleate = false;
-        if (m_isPlayer == CHARACTERCODE.PLAYER)
+        if (IsPlayer == CHARACTERCODE.PLAYER)
         {
             // 入力中はm_ShotChargeを増加
             if (Input.GetButton("Shot") || Input.GetButton("EX_Shot") || Input.GetButton("Arousal"))
             {
-                if (m_ShotCharge < 0)
+                if (ShotCharge < 0)
                 {
-                    m_ShotCharge = 0;
+                    ShotCharge = 0;
                 }
-                m_ShotCharge += this.ShotIncrease;
+                ShotCharge += this.ShotIncrease;
             }
             // 解除するとm_ShotChargeを減衰
             else
             {
-                if (m_ShotCharge > 0)
+                if (ShotCharge > 0)
                 {
-                    m_ShotCharge -= this.ShotDecrease;
+                    ShotCharge -= this.ShotDecrease;
                 }
             }
         }
         // MAX状態で離されるとチャージ量を0にしてtrue
-        if (m_ShotCharge >= ChargeMax && (Input.GetButtonUp("Shot") || Input.GetButtonUp("EX_Shot") || Input.GetButtonUp("Arousal")))
+        if (ShotCharge >= ChargeMax && (Input.GetButtonUp("Shot") || Input.GetButtonUp("EX_Shot") || Input.GetButtonUp("Arousal")))
         {
-            m_ShotCharge = 0;
+            ShotCharge = 0;
             compleate = true;
         }
         return compleate;
@@ -997,43 +997,43 @@ public partial class CharacterControl_Base : MonoBehaviour
 
     // 格闘入力が押しっぱなしであるか離されたかをチェックする
     // ret      :チャージ完了状態で離されたか否か
-    protected bool HasWrestleChargeInput()
+    protected bool GetWrestleChargeInput()
     {
         bool compleate = false;
-        if (m_isPlayer == CHARACTERCODE.PLAYER)
+        if (IsPlayer == CHARACTERCODE.PLAYER)
         {
             // 入力中はm_ShotChargeを増加
             if (Input.GetButton("Wrestle") || Input.GetButton("EX_Wrestle") || Input.GetButton("Arousal"))
             {
-                if (m_WrestleCharge < 0)
+                if (WrestleCharge < 0)
                 {
-                    m_WrestleCharge = 0;
+                    WrestleCharge = 0;
                 }
-                m_WrestleCharge += this.WrestleIncrease;
+                WrestleCharge += this.WrestleIncrease;
             }
             // 解除するとm_ShotChargeを減衰
             else
             {
-                if (this.m_WrestleCharge > 0)
+                if (this.WrestleCharge > 0)
                 {
-                    m_WrestleCharge -= this.WrestleDecrease;
+                    WrestleCharge -= this.WrestleDecrease;
                 }
             }
         }
         // MAX状態で離されるとチャージ量を0にしてtrue
-        if (m_WrestleCharge >= ChargeMax && (Input.GetButtonUp("Wrestle") || Input.GetButtonUp("EX_Wrestle") || Input.GetButtonUp("Arousal")))
+        if (WrestleCharge >= ChargeMax && (Input.GetButtonUp("Wrestle") || Input.GetButtonUp("EX_Wrestle") || Input.GetButtonUp("Arousal")))
         {
-            m_WrestleCharge = 0;
+            WrestleCharge = 0;
             compleate = true;
         }
         return compleate;
     }
 
     // ジャンプ入力があったか否かをチェックする
-    protected bool HasJumpInput()
+    protected bool GetJumpInput()
     {
         // 長押し上昇があるのでこっちは長押しを認める
-        if (m_isPlayer == CHARACTERCODE.PLAYER)
+        if (IsPlayer == CHARACTERCODE.PLAYER)
         {
             if (Input.GetButton("Jump"))
             {
@@ -1045,7 +1045,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     }    
 
     // ダッシュキャンセル入力があったか否かをチェックする
-    protected bool HasDashCancelInput()
+    protected bool GetDashCancelInput()
     {
         // 今までの値を１つずつ上へ移動させる
         for (int i = 0; i < m_PastInputs_Jump.Length - 1; i++)
@@ -1105,9 +1105,9 @@ public partial class CharacterControl_Base : MonoBehaviour
 
     // サーチ入力があったか否かをチェックする
     // カメラ側で取得が要るのでここはpublicに
-    public bool HasSearchInput()
+    public bool GetSearchInput()
     {
-        if (m_isPlayer == CHARACTERCODE.PLAYER)
+        if (IsPlayer == CHARACTERCODE.PLAYER)
         {
             if (Input.GetButtonDown("Search"))
             {
@@ -1120,7 +1120,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     // サーチ長押し（ロックオン解除）があったか否かをチェック
     public bool HasSerchPress()
     {
-        if (m_isPlayer == CHARACTERCODE.PLAYER)
+        if (IsPlayer == CHARACTERCODE.PLAYER)
         {
             if (Input.GetAxisRaw("Search") > 0)
             {
@@ -1142,7 +1142,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     // 格闘入力があったか否か
     protected bool HasWrestleInput()
     {
-        if (m_isPlayer == CHARACTERCODE.PLAYER)
+        if (IsPlayer == CHARACTERCODE.PLAYER)
         {
             if (Input.GetButtonDown("Wrestle"))
             {
@@ -1154,7 +1154,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     // サブ射撃入力があったか否か(判定の都合上優先度はノーマル射撃及び格闘より上にすること)
     protected bool HasSubShotInput()
     {
-        if (m_isPlayer == CHARACTERCODE.PLAYER)
+        if (IsPlayer == CHARACTERCODE.PLAYER)
         {
             // 同時押し（射撃＋格闘）
             if (Input.GetButtonDown("Wrestle") && Input.GetButtonDown("Shot"))
@@ -1172,7 +1172,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     // 特殊射撃入力があったか否か(判定の都合上優先度はノーマル射撃及びジャンプより上にすること)
     protected bool HasExShotInput()
     {
-        if (m_isPlayer == CHARACTERCODE.PLAYER)
+        if (IsPlayer == CHARACTERCODE.PLAYER)
         {
             // 同時押し（射撃＋ジャンプ）
             if (Input.GetButtonDown("Shot") && Input.GetButtonDown("Jump"))
@@ -1190,7 +1190,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     // 特殊格闘入力があったか否か(判定の都合上優先度はノーマル射撃及びジャンプより上にすること)
     protected bool HasExWrestleInput()
     {
-        if (m_isPlayer == CHARACTERCODE.PLAYER)
+        if (IsPlayer == CHARACTERCODE.PLAYER)
         {
             // 同時押し（格闘＋ジャンプ）
             if (Input.GetButtonDown("Wrestle") && Input.GetButtonDown("Jump"))
@@ -1209,7 +1209,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     // アイテム入力があったか否か
     protected bool HasItemInput()
     {
-        if (m_isPlayer == CHARACTERCODE.PLAYER && m_NowHitpoint > 0)
+        if (IsPlayer == CHARACTERCODE.PLAYER && m_NowHitpoint > 0)
         {
             if (Input.GetButtonDown("Item"))
             {
@@ -1290,7 +1290,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     // ポーズ入力があったか否か
     protected bool HasPauseInput()
     {
-        if (m_isPlayer == CHARACTERCODE.PLAYER)
+        if (IsPlayer == CHARACTERCODE.PLAYER)
         {
             if (Input.GetButtonDown("Pause"))
             {
@@ -1302,7 +1302,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     // 覚醒入力があったか否か(優先度の都合上一番高くする)
     protected bool HasArousalInput()
     {
-        if (m_isPlayer == CHARACTERCODE.PLAYER)
+        if (IsPlayer == CHARACTERCODE.PLAYER)
         {
             // 射撃・格闘・ジャンプ
             if (Input.GetButtonDown("Shot") && Input.GetButtonDown("Wrestle") && Input.GetButtonDown("Jump"))
@@ -1329,7 +1329,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     // ソウルバースト入力があったか否か
     protected bool HasSoulBurstInput()
     {
-        if (m_isPlayer == CHARACTERCODE.PLAYER)
+        if (IsPlayer == CHARACTERCODE.PLAYER)
         {
             // 射撃・格闘・ジャンプ・サーチ
             if (Input.GetButtonDown("Shot") && Input.GetButtonDown("Wrestle") && Input.GetButtonDown("Jump") && Input.GetButtonDown("Search"))
@@ -1946,7 +1946,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         // スケールの影響は受けるがここでは無視する。
 
         // CPU時、ここで入力を取得
-        if (this.m_isPlayer != CHARACTERCODE.PLAYER)
+        if (this.IsPlayer != CHARACTERCODE.PLAYER)
         {
             // CPU情報
             var CPU = this.GetComponentInChildren<AIControl_Base>();
@@ -2213,7 +2213,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         this.m_rigidbody = GetComponent<Rigidbody>();
 
         // PCでなければカメラを無効化しておく
-        if (this.m_isPlayer != CHARACTERCODE.PLAYER)
+        if (this.IsPlayer != CHARACTERCODE.PLAYER)
         {
             // 自分にひっついているカメラオブジェクトを探し、カメラを切っておく
             transform.Find("Main Camera").GetComponent<Camera>().enabled = false;
@@ -2269,7 +2269,7 @@ public partial class CharacterControl_Base : MonoBehaviour
 		ArousalAttackProduction = false;
 
         // PC時・HP・覚醒ゲージ・ソウルジェム汚染率を初期化する
-        if (m_isPlayer != CHARACTERCODE.ENEMY)
+        if (IsPlayer != CHARACTERCODE.ENEMY)
         {
             // SavingParameterからのステートの変更を受け付ける
             int charactername = (int)this.m_character_name;
@@ -2397,7 +2397,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         ChargeMax = 100;
 
         // インターフェースの描画フラグ
-        if (m_isPlayer == CHARACTERCODE.PLAYER)
+        if (IsPlayer == CHARACTERCODE.PLAYER)
             m_DrawInterface = true;
         else
             m_DrawInterface = false;
@@ -2459,14 +2459,14 @@ public partial class CharacterControl_Base : MonoBehaviour
 
         // PC死亡時、PauseControllerを消す(メニュー画面に移行させないため）
         // また、ショット入力でタイトル画面へ移行する
-        if (m_NowHitpoint < 1 && m_isPlayer == CHARACTERCODE.PLAYER)
+        if (m_NowHitpoint < 1 && IsPlayer == CHARACTERCODE.PLAYER)
         {
             GameObject PauseController = GameObject.Find("Pause Controller");
             if (PauseController)
             {
                 Destroy(PauseController);
             }
-            if (HasShotInput())
+            if (GetShotInput())
             {
                 // 例外１：最初のスコノ戦で負けたらプロローグ３へ
                 if (savingparameter.story == 1)
@@ -2482,18 +2482,18 @@ public partial class CharacterControl_Base : MonoBehaviour
 
         
         // プレイヤー操作の場合（CPU操作の場合はまた別に）
-        if (m_isPlayer == CHARACTERCODE.PLAYER)
+        if (IsPlayer == CHARACTERCODE.PLAYER)
         {
             // 方向キー取得
-            this.m_hasVHInput = HasVHInput();
+            this.m_hasVHInput = GetVHInput();
             // ショット入力があったか否か
-            this.m_hasShotInput = HasShotInput();
+            this.m_hasShotInput = GetShotInput();
             // ジャンプ入力があったか否か
-            this.m_hasJumpInput = HasJumpInput();
+            this.m_hasJumpInput = GetJumpInput();
             // ダッシュキャンセル入力があったか否か
-            this.m_hasDashCancelInput = HasDashCancelInput();
+            this.m_hasDashCancelInput = GetDashCancelInput();
             // サーチ入力があったか否か
-            this.m_hasSearchInput = HasSearchInput();
+            this.m_hasSearchInput = GetSearchInput();
             // サーチキャンセル入力があったか否か
             this.m_hasSearchCancelInput = HasSerchPress();
             // 格闘入力があったか否か
@@ -2513,13 +2513,13 @@ public partial class CharacterControl_Base : MonoBehaviour
             // 覚醒技入力があったか否か
             this.m_hasArousalAttackInput = HasArousalInput();
             // 前入力があったか否か
-            this.m_hasFrontInput = HasFrontInput();
+            this.m_hasFrontInput = GetFrontInput();
             // 左入力があったか否か
-            this.m_hasLeftInput = HasLeftInput();
+            this.m_hasLeftInput = GetLeftInput();
             // 右入力があったか否か
-            this.m_hasRightInput = HasRightInput();
+            this.m_hasRightInput = GetRightInput();
             // 後入力があったか否か
-            this.m_hasBackInput = HasBackInput();
+            this.m_hasBackInput = GetBackInput();
             // ソウルバースト入力があったか否か
             this.m_hasSoulBurstInput = HasSoulBurstInput();
             // 位置を保持
@@ -2702,12 +2702,12 @@ public partial class CharacterControl_Base : MonoBehaviour
         // 時間停止中にやってほしくない処理はここ以降に記述すること
 
         // チャージショット関連の入力を取得(時間停止中に減衰されると困るので、ここで管理。また、通常の射撃や格闘より優先度は高くする
-        if (m_isPlayer == CHARACTERCODE.PLAYER)
+        if (IsPlayer == CHARACTERCODE.PLAYER)
         {
             // 射撃
-            this.m_hasShotChargeInput = HasShotChargeInput();
+            this.m_hasShotChargeInput = GetShotChargeInput();
             // 格闘
-            this.m_hasWrestleChargeInput = HasWrestleChargeInput();
+            this.m_hasWrestleChargeInput = GetWrestleChargeInput();
         }
         else
         {
@@ -2911,7 +2911,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     // 継承先のLateUpdateで実行すること
     protected void LateUdate_Core()
     {
-        if (this.m_isPlayer != CHARACTERCODE.ENEMY)
+        if (this.IsPlayer != CHARACTERCODE.ENEMY)
         {
             // SavingParameterからのステートの変更を受け付ける
             int charactername = (int)this.m_character_name;
@@ -3056,7 +3056,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     // HP・SG汚染率・LVを書き換える
     void FixedUpdate()
     {       
-        if (this.m_isPlayer != CHARACTERCODE.ENEMY)
+        if (this.IsPlayer != CHARACTERCODE.ENEMY)
         {
             // SavingParameterからのステートの変更を受け付ける
             int charactername = (int)this.m_character_name;

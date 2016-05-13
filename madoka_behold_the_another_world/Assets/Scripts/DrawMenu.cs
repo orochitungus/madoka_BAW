@@ -196,7 +196,7 @@ public partial class DrawMenu : MonoBehaviour
         // 戦闘用
         if (master != null)
         {
-            if (master.m_isPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER)
+            if (master.IsPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER)
             {
                 return;
             }
@@ -268,7 +268,7 @@ public partial class DrawMenu : MonoBehaviour
         // 戦闘用
         if (master != null)
         {
-            if (master.m_isPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER)
+            if (master.IsPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER)
             {
                 return;
             }

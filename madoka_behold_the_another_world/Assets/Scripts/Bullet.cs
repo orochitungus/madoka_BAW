@@ -282,7 +282,7 @@ public class Bullet : MonoBehaviour
 
         // 親オブジェクトを拾う
         // 自機がPLAYERかPLAYER_ALLYの場合
-        if (m_Obj_OR.GetComponent<CharacterControl_Base>().m_isPlayer != CharacterControl_Base.CHARACTERCODE.ENEMY)
+        if (m_Obj_OR.GetComponent<CharacterControl_Base>().IsPlayer != CharacterControl_Base.CHARACTERCODE.ENEMY)
         {
             player = "Player";
             enemy = "Enemy";
@@ -421,7 +421,7 @@ public class Bullet : MonoBehaviour
             if (m_Obj_OR.GetComponent<CharacterControl_Base>().m_isArousal == false)
             {
                 // 攻撃を当てた側が味方側の場合
-                if (m_InjectionObject.GetComponent<CharacterControl_Base>().m_isPlayer != CharacterControl_Base.CHARACTERCODE.ENEMY)
+                if (m_InjectionObject.GetComponent<CharacterControl_Base>().IsPlayer != CharacterControl_Base.CHARACTERCODE.ENEMY)
                 {
                     savingparameter.AddArousal(m_CharacterIndex, m_ArousalRatio);
                 }
@@ -516,7 +516,7 @@ public class Bullet : MonoBehaviour
         if (m_Obj_OR.GetComponent<CharacterControl_Base>().m_isArousal == false)
         {
             // 攻撃を当てた側が味方側の場合
-            if (m_InjectionObject.GetComponent<CharacterControl_Base>().m_isPlayer != CharacterControl_Base.CHARACTERCODE.ENEMY)
+            if (m_InjectionObject.GetComponent<CharacterControl_Base>().IsPlayer != CharacterControl_Base.CHARACTERCODE.ENEMY)
             {
                 float nextArousal = m_ArousalRatio + savingparameter.GetNowArousal(m_CharacterIndex);
                 savingparameter.AddArousal(m_CharacterIndex, nextArousal);
