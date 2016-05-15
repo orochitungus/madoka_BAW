@@ -314,10 +314,10 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 				horizontal2 = Input.GetAxisRaw("Horizontal4");
 			}
 
-			if (!isRightPlus)
-			{
-				horizontal2 *= -1;
-			}
+			//if (!isRightPlus)
+			//{
+			//	horizontal2 *= -1;
+			//}
 			// ボタン入力だった場合
 			if (verticalVector == "Button")
 			{

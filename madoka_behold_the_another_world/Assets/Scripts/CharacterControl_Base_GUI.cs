@@ -41,7 +41,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         DrawEquipItem(m_ItemEquip, new Vector2(ITEMEQUIP_X, ITEMEQUIP_Y));
 
         // ゲームオーバー表示
-        if (m_NowHitpoint < 1)
+        if (NowHitpoint < 1)
         {
             // Game
             if (m_gameoverstringposition_Game_X < 50.0f)

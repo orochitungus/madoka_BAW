@@ -41,12 +41,12 @@ public class LogoSceneController : MonoBehaviour
 			loadManager.name = "ControllerManager";
 		}
         // PauseManagerがあるか判定
-        if (GameObject.Find("PauseManager") == null)
-        {
-            // 無ければ作る
-            GameObject pauseManager = (GameObject)Instantiate(Resources.Load("PauseManager"));
-            pauseManager.name = "PauseManager";
-        }
+        //if (GameObject.Find("PauseManager") == null)
+        //{
+        //    // 無ければ作る
+        //    GameObject pauseManager = (GameObject)Instantiate(Resources.Load("PauseManager"));
+        //    pauseManager.name = "PauseManager";
+        //}
     }
 
 	// Use this for initialization
@@ -84,10 +84,12 @@ public class LogoSceneController : MonoBehaviour
 		{
 			PlayerPrefs.SetFloat("VoiceVolue", 1.0f);
 		}
-		
+
+		int x = PlayerPrefs.GetInt("TenKeySetup");
+		int y = PlayerPrefs.GetInt("RightStickSetup");
 		// コントローラー設定をやっていたらタイトルへ、していなかったらコントローラー設定へ
 		// タイトルへ遷移
-		if (PlayerPrefs.GetInt("TenKeySetup") == 0 || PlayerPrefs.GetInt("RightStickSetup") == 0)
+		if (PlayerPrefs.GetInt("TenKeySetup") != 0 || PlayerPrefs.GetInt("RightStickSetup") != 0)
 		{
 			FadeManager.Instance.LoadLevel("title", 1.0f);
 		}

@@ -247,7 +247,7 @@ public class Player_Camera_Controller : MonoBehaviour
         if (target.m_IsRockon && m_cpumode != AIControl.CPUMODE.OUTWARD_JOURNEY && m_cpumode != AIControl.CPUMODE.RETURN_PATH)
         {
             var rockontarget = Enemy.GetComponentInChildren<CharacterControl_Base>();
-            if (rockontarget != null && rockontarget.m_NowHitpoint < 1)
+            if (rockontarget != null && rockontarget.NowHitpoint < 1)
             {
                 UnlockDone(target);
             }

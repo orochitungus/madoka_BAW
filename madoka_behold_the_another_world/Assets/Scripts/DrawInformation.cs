@@ -166,7 +166,7 @@ public class DrawInformation : MonoBehaviour
     	// 敵のステートを取得
         var Enemy = Camera.Enemy.GetComponentInChildren<CharacterControl_Base>();
 	    // 敵のHPを取得
-        int Enemy_HP = Enemy.m_NowHitpoint;
+        int Enemy_HP = Enemy.NowHitpoint;
         
         // 下に余り分のHPを星として表示する
         // HPゲージの長さは650。HPの量：ゲージの長さ=m_maxHPValue:650として計算する

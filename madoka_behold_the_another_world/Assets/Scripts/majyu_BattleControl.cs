@@ -118,7 +118,7 @@ public class majyu_BattleControl : CharacterControl_Base
       
 		
 		// HP初期化
-		this.m_NowHitpoint = GetMaxHitpoint(this.m_level);
+		this.NowHitpoint = GetMaxHitpoint(this.m_level);
 
         // ジャンプ硬直
         this.m_JumpWaitTime = 0.5f;

@@ -255,7 +255,7 @@ public partial class CharacterControl_Base
     protected virtual void Animation_Idle()
     {
         // 死んでいたらダウン
-        if (m_NowHitpoint <= 1)
+        if (NowHitpoint <= 1)
         {
             this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Down]);
             m_AnimState[0] = AnimationState.Down;

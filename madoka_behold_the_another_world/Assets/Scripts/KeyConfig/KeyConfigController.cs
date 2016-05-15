@@ -77,6 +77,10 @@ public class KeyConfigController : MonoBehaviour
 	/// </summary>
 	public Button CancelButton;
 
+	/// <summary>
+	/// アイテムボタン
+	/// </summary>
+	public Button Item;
 
     /// <summary>
     /// どれが選択されているか
@@ -89,6 +93,7 @@ public class KeyConfigController : MonoBehaviour
         SEARCH,
         COMMAND,
         MENU,
+		ITEM,
         SUBSHOT,
         EXSHOT,
         EXWRESTLE,
@@ -129,6 +134,9 @@ public class KeyConfigController : MonoBehaviour
 
     public Image MenuKeyboard;
     public Image MenuController;
+
+	public Image ItemKeyboard;
+	public Image ItemController;
 
     public Image SubShotKeyboard;
     public Image SubShotController;
@@ -182,6 +190,9 @@ public class KeyConfigController : MonoBehaviour
 
 	public Text MenuKeyboardText;
 	public Text MenuControllerText;
+
+	public Text ItemKeyboardText;
+	public Text ItemControllerText;
 
 	public Text SubShotKeyboardText;
 	public Text SubShotControllerText;
@@ -246,12 +257,12 @@ public class KeyConfigController : MonoBehaviour
 			loadManager.name = "ControllerManager";
 		}
         // PauseManagerがあるか判定
-        if (GameObject.Find("PauseManager") == null)
-        {
-            // 無ければ作る
-            GameObject pauseManager = (GameObject)Instantiate(Resources.Load("PauseManager"));
-            pauseManager.name = "PauseManager";
-        }
+        //if (GameObject.Find("PauseManager") == null)
+        //{
+        //    // 無ければ作る
+        //    GameObject pauseManager = (GameObject)Instantiate(Resources.Load("PauseManager"));
+        //    pauseManager.name = "PauseManager";
+        //}
         // ControllerSettingのモーション登録
         Standby = Animator.StringToHash("Base Layer.Standby");
 		OpenControllerSetting = Animator.StringToHash("Base Layer.OpenControllerSetting");
@@ -315,90 +326,288 @@ public class KeyConfigController : MonoBehaviour
 	/// <param name="RightStick">右スティックの設定を書くか否か</param>
 	public void OverWriteState(bool RightStick)
 	{
-		ShotKeyboardText.text = PlayerPrefs.GetString("Shot_Keyboard");
-		ShotControllerText.text = PlayerPrefs.GetString("Shot_Controller").Substring(9);
-
-		WrestleKeyboardText.text = PlayerPrefs.GetString("Wrestle_Keyboard");		;
-		WrestleControllerText.text = PlayerPrefs.GetString("Wrestle_Controller").Substring(9);
-
-		JumpKeyboadText.text = PlayerPrefs.GetString("Jump_Keyboard");
-		JumpControllerText.text = PlayerPrefs.GetString("Jump_Controller").Substring(9);
-
-		SearchKeyboardText.text = PlayerPrefs.GetString("Search_Keyboard");
-		SearchControllerText.text = PlayerPrefs.GetString("Search_Controller").Substring(9);
-
-		CommandKeyboardText.text = PlayerPrefs.GetString("Command_Keyboard");
-		CommandControllerText.text = PlayerPrefs.GetString("Commnd_Controller").Substring(9);
-
-		MenuKeyboardText.text = PlayerPrefs.GetString("Menu_Keyboard");
-		MenuControllerText.text = PlayerPrefs.GetString("Menu_Controller").Substring(9);
-
-		SubShotKeyboardText.text = PlayerPrefs.GetString("SubShot_Keyboard");
-		SubShotControllerText.text = PlayerPrefs.GetString("SubShot_Controller").Substring(9);
-
-		ExShotKeyboardText.text = PlayerPrefs.GetString("EXShot_Keyboard");
-		ExShotControllerText.text = PlayerPrefs.GetString("EXShot_Controller").Substring(9);
-
-		ExWrestleKeyboardText.text = PlayerPrefs.GetString("EXWrestle_Keyboad");
-		ExWrestleControllerText.text = PlayerPrefs.GetString("EXWrestle_Controller").Substring(9);
+		if (PlayerPrefs.GetString("Shot_Keyboard") != "")
+		{
+			ShotKeyboardText.text = PlayerPrefs.GetString("Shot_Keyboard");
+		}
+		else
+		{
+			ShotKeyboardText.text = "A";
+		}
+		if (PlayerPrefs.GetString("Shot_Controller") != "")
+		{
+			ShotControllerText.text = PlayerPrefs.GetString("Shot_Controller").Substring(9);
+		}
+		else
+		{
+			ShotControllerText.text = "Button0";
+		}
+		if(PlayerPrefs.GetString("Wrestle_Keyboard") != "")
+		{
+			WrestleKeyboardText.text = PlayerPrefs.GetString("Wrestle_Keyboard");
+		}
+		else
+		{
+			WrestleKeyboardText.text = "s";
+		}
+		if (PlayerPrefs.GetString("Wrestle_Controller") != "")
+		{
+			WrestleControllerText.text = PlayerPrefs.GetString("Wrestle_Controller").Substring(9);
+		}
+		else
+		{
+			WrestleControllerText.text = "Button1";
+		}
+		if (PlayerPrefs.GetString("Jump_Keyboard") != "")
+		{
+			JumpKeyboadText.text = PlayerPrefs.GetString("Jump_Keyboard");
+		}
+		else
+		{
+			JumpKeyboadText.text = "x";
+		}
+		if (PlayerPrefs.GetString("Jump_Controller") != "")
+		{
+			JumpControllerText.text = PlayerPrefs.GetString("Jump_Controller").Substring(9);
+		}
+		else
+		{
+			JumpControllerText.text = "Button2";
+		}
+		if (PlayerPrefs.GetString("Search_Keyboard") != "")
+		{
+			SearchKeyboardText.text = PlayerPrefs.GetString("Search_Keyboard");
+		}
+		else
+		{
+			SearchKeyboardText.text = "c";
+		}
+		if (PlayerPrefs.GetString("Search_Controller") != "")
+		{
+			SearchControllerText.text = PlayerPrefs.GetString("Search_Controller").Substring(9);
+		}
+		else
+		{
+			SearchControllerText.text = "Button3";
+		}
+		if (PlayerPrefs.GetString("Command_Keyboard") != "")
+		{
+			CommandKeyboardText.text = PlayerPrefs.GetString("Command_Keyboard");
+		}
+		else
+		{
+			CommandKeyboardText.text = "q";
+		}
+		if (PlayerPrefs.GetString("Commnd_Controller") != "")
+		{
+			CommandControllerText.text = PlayerPrefs.GetString("Commnd_Controller").Substring(9);
+		}
+		else
+		{
+			CommandControllerText.text = "Button4";
+		}
+		if (PlayerPrefs.GetString("Menu_Keyboard") != "")
+		{
+			MenuKeyboardText.text = PlayerPrefs.GetString("Menu_Keyboard");
+		}
+		else
+		{
+			MenuKeyboardText.text = "w";
+		}
+		if (PlayerPrefs.GetString("Menu_Controller") != "")
+		{
+			MenuControllerText.text = PlayerPrefs.GetString("Menu_Controller").Substring(9);
+		}
+		else
+		{
+			MenuControllerText.text = "Button5";
+		}
+		if (PlayerPrefs.GetString("Item_Keyboard") != "")
+		{
+			ItemKeyboardText.text = PlayerPrefs.GetString("Item_Keyboard");
+		}
+		else
+		{
+			ItemKeyboardText.text = "d";			
+		}
+		if (PlayerPrefs.GetString("Item_Controller") != "")
+		{
+			ItemControllerText.text = PlayerPrefs.GetString("Item_Controller").Substring(9);
+		}
+		else
+		{
+			ItemControllerText.text = "Button9";
+		}
+		if (PlayerPrefs.GetString("SubShot_Keyboard") != "")
+		{
+			SubShotKeyboardText.text = PlayerPrefs.GetString("SubShot_Keyboard");
+		}
+		else
+		{
+			SubShotKeyboardText.text = "e";
+		}
+		if (PlayerPrefs.GetString("SubShot_Controller") != "")
+		{
+			SubShotControllerText.text = PlayerPrefs.GetString("SubShot_Controller").Substring(9);
+		}
+		else
+		{
+			SubShotControllerText.text = "Button6";
+		}
+		if (PlayerPrefs.GetString("EXShot_Keyboard") != "")
+		{
+			ExShotKeyboardText.text = PlayerPrefs.GetString("EXShot_Keyboard");
+		}
+		else
+		{
+			ExShotKeyboardText.text = "r";
+		}
+		if(PlayerPrefs.GetString("EXShot_Controller") != "")
+		{
+			ExShotControllerText.text = PlayerPrefs.GetString("EXShot_Controller").Substring(9);
+		}
+		else
+		{
+			ExShotControllerText.text = "Button7";
+		}
+		if (PlayerPrefs.GetString("EXWrestle_Keyboad") != "")
+		{
+			ExWrestleKeyboardText.text = PlayerPrefs.GetString("EXWrestle_Keyboad");
+		}
+		else
+		{
+			ExWrestleKeyboardText.text = "t";
+		}
+		if(PlayerPrefs.GetString("EXWrestle_Controller") != "")
+		{
+			ExWrestleControllerText.text = PlayerPrefs.GetString("EXWrestle_Controller").Substring(9);
+		}
+		else
+		{
+			ExWrestleControllerText.text = "Button8";
+		}
 
 		if (!RightStick)
 		{
 			return; 
 		}
-		ElevationUpperKeyboardText.text = PlayerPrefs.GetString("ElevationUpper_Keyboard");
-		// 軸設定
-		if (ElevationUpperControllerText.text.IndexOf("Axis") >=0)
-		{
-			ElevationUpperControllerText.text =  PlayerPrefs.GetString("ElevationUpper_Controller");
-		}
-		// キー設定
-		else
-		{
-			ElevationUpperControllerText.text =  PlayerPrefs.GetString("ElevationUpper_Controller").Substring(9);
-		}
-		
 
-		ElevetionDownKeyboardText.text = PlayerPrefs.GetString("ElevationDown_Keyboard");
-		// 軸設定
-		if (ElevationDownControllerText.text.IndexOf("Axis") >=0)
+		// キーボードの場合
+		if (PlayerPrefs.GetString("ElevationUpper_Keyboard") != "")
 		{
-			ElevationDownControllerText.text = PlayerPrefs.GetString("ElevationDown_Controller");
+			ElevationUpperKeyboardText.text = PlayerPrefs.GetString("ElevationUpper_Keyboard");
 		}
-		// キー設定
 		else
 		{
-			ElevationDownControllerText.text = PlayerPrefs.GetString("ElevationDown_Controller").Substring(9);
+			ElevationUpperKeyboardText.text = "u";
 		}
 
-		AzimuthLeftKeyboardText.text = PlayerPrefs.GetString("AzimuthLeft_Keyboard");
-		// 軸設定
-		if (ElevationDownControllerText.text.IndexOf("Axis") >=0)
+		// コントローラーの場合
+		if (PlayerPrefs.GetString("ElevationUpper_Controller") != "")
 		{
-			AzimuthLeftControllerText.text = PlayerPrefs.GetString("AzimuthLeft_Controller");
+			// 軸設定
+			if (ElevationUpperControllerText.text.IndexOf("Axis") >=0)
+			{
+				ElevationUpperControllerText.text =  PlayerPrefs.GetString("ElevationUpper_Controller");
+			}
+			// キー設定
+			else
+			{
+				ElevationUpperControllerText.text =  PlayerPrefs.GetString("ElevationUpper_Controller").Substring(9);
+			}
 		}
-		// キー設定
 		else
 		{
-			AzimuthLeftControllerText.text = PlayerPrefs.GetString("AzimuthLeft_Controller").Substring(9);
+			ElevationUpperControllerText.text = "-";
 		}
 
-		AzimhthRightKeyboadText.text = PlayerPrefs.GetString("AzimuthRight_Keyboard");
-		// 軸設定
-		if (ElevationDownControllerText.text.IndexOf("Axis") >=0)
+		// キーボードの場合
+		if (PlayerPrefs.GetString("ElevationDown_Keyboard") != "")
 		{
-			AzimhthRightControllerText.text = PlayerPrefs.GetString("AzimuthRight_Controller");
+			ElevetionDownKeyboardText.text = PlayerPrefs.GetString("ElevationDown_Keyboard");
 		}
-		// キー設定
 		else
 		{
-			AzimhthRightControllerText.text = PlayerPrefs.GetString("AzimuthRight_Controller").Substring(9);
+			ElevetionDownKeyboardText.text = "i";
+		}
+		// コントローラーの場合
+		if (PlayerPrefs.GetString("ElevationDown_Controller") != "")
+		{
+			// 軸設定
+			if (ElevationDownControllerText.text.IndexOf("Axis") >=0)
+			{
+				ElevationDownControllerText.text = PlayerPrefs.GetString("ElevationDown_Controller");
+			}
+			// キー設定
+			else
+			{
+				ElevationDownControllerText.text = PlayerPrefs.GetString("ElevationDown_Controller").Substring(9);
+			}
+		}
+		else
+		{
+			ElevationDownControllerText.text = "-";
+		}
+
+		// キーボードの場合
+		if (PlayerPrefs.GetString("AzimuthLeft_Keyboard") != "")
+		{
+			AzimuthLeftKeyboardText.text = PlayerPrefs.GetString("AzimuthLeft_Keyboard");
+		}
+		else
+		{
+			AzimuthLeftKeyboardText.text = "o";
+		}
+		// コントローラーの場合
+		if (PlayerPrefs.GetString("AzimuthLeft_Controller") != "")
+		{
+			// 軸設定
+			if (ElevationDownControllerText.text.IndexOf("Axis") >=0)
+			{
+				AzimuthLeftControllerText.text = PlayerPrefs.GetString("AzimuthLeft_Controller");
+			}
+			// キー設定
+			else
+			{
+				AzimuthLeftControllerText.text = PlayerPrefs.GetString("AzimuthLeft_Controller").Substring(9);
+			}
+		}
+		else
+		{
+			AzimuthLeftControllerText.text = "-";
+		}
+
+		// キーボードの場合
+		if(PlayerPrefs.GetString("AzimuthRight_Keyboard") != "")
+		{
+			AzimhthRightKeyboadText.text = PlayerPrefs.GetString("AzimuthRight_Keyboard");
+		}
+		else
+		{
+			AzimhthRightKeyboadText.text = "p";
+		}
+		// コントローラーの場合
+		if (PlayerPrefs.GetString("AzimuthRight_Controller") != "")
+		{
+			// 軸設定
+			if (ElevationDownControllerText.text.IndexOf("Axis") >=0)
+			{
+				AzimhthRightControllerText.text = PlayerPrefs.GetString("AzimuthRight_Controller");
+			}
+			// キー設定
+			else
+			{
+				AzimhthRightControllerText.text = PlayerPrefs.GetString("AzimuthRight_Controller").Substring(9);
+			}
+		}
+		else
+		{
+			AzimhthRightControllerText.text = "";
 		}
 	}
 
 	public void GetKeyInput(NOWSELECT nowselect)
-	{
-		
+	{		
 		// キー入力
 		if (Input.anyKeyDown)
 		{
@@ -435,6 +644,9 @@ public class KeyConfigController : MonoBehaviour
 							case NOWSELECT.MENU:
 								MenuKeyboardText.text = k.GetValue(i).ToString();
 								break;
+							case NOWSELECT.ITEM:
+								ItemKeyboardText.text = k.GetValue(i).ToString();
+								break;
 							case NOWSELECT.SUBSHOT:
 								SubShotKeyboardText.text = k.GetValue(i).ToString();
 								break;
@@ -460,7 +672,7 @@ public class KeyConfigController : MonoBehaviour
 					}
 					// ジョイスティック
 					// ジョイスティック1以外のボタンおよび軸入力は無視
-					if (k.GetValue(i).ToString().IndexOf("Joystick1") >= 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0)
+					else if (k.GetValue(i).ToString().IndexOf("Joystick1") >= 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0)
 					{
 						// ダブり対策
 						OverlapCheckController(k.GetValue(i).ToString().Substring(9), nowselect);
@@ -484,6 +696,9 @@ public class KeyConfigController : MonoBehaviour
 								break;
 							case NOWSELECT.MENU:
 								MenuControllerText.text = k.GetValue(i).ToString().Substring(9);
+								break;
+							case NOWSELECT.ITEM:
+								ItemControllerText.text = k.GetValue(i).ToString().Substring(9);
 								break;
 							case NOWSELECT.SUBSHOT:
 								SubShotControllerText.text = k.GetValue(i).ToString().Substring(9);
@@ -539,6 +754,9 @@ public class KeyConfigController : MonoBehaviour
             case NOWSELECT.COMMAND:
                 originalbuton = CommandKeyboardText.text;
                 break;
+			case NOWSELECT.ITEM:
+				originalbuton = ItemKeyboardText.text;
+				break;
             case NOWSELECT.ELEVATIONUPPER:
                 originalbuton = ElevationUpperKeyboardText.text;
                 break;
@@ -590,6 +808,11 @@ public class KeyConfigController : MonoBehaviour
         {
             OverlapDone(originalbuton, NOWSELECT.COMMAND);
         }
+		// アイテムに割り振っているものと同じボタンが押された
+		else if(ItemKeyboardText.text == insert)
+		{
+			OverlapDone(originalbuton, NOWSELECT.ITEM);
+		}
         // サブ射撃に割り振っているものと同じボタンが押された
         else if (SubShotKeyboardText.text == insert)
         {
@@ -654,6 +877,9 @@ public class KeyConfigController : MonoBehaviour
 			case NOWSELECT.MENU:
 				MenuKeyboardText.text = origin;
 				break;
+			case NOWSELECT.ITEM:
+				ItemKeyboardText.text = origin;
+				break;
 			case NOWSELECT.SUBSHOT:
 				SubShotKeyboardText.text = origin;
 				break;
@@ -703,6 +929,9 @@ public class KeyConfigController : MonoBehaviour
 				break;
 			case NOWSELECT.COMMAND:
 				originalbuton = CommandControllerText.text;
+				break;
+			case NOWSELECT.ITEM:
+				originalbuton = ItemControllerText.text;
 				break;
 			case NOWSELECT.ELEVATIONUPPER:
 				originalbuton = ElevationUpperControllerText.text;
@@ -754,6 +983,10 @@ public class KeyConfigController : MonoBehaviour
 		else if (CommandControllerText.text == insert)
 		{
 			OverlapDoneController(originalbuton, NOWSELECT.COMMAND);
+		}
+		else if(ItemControllerText.text == insert)
+		{
+			OverlapDoneController(originalbuton, NOWSELECT.ITEM);
 		}
 		// サブ射撃に割り振っているものと同じボタンが押された
 		else if (SubShotControllerText.text == insert)
@@ -821,6 +1054,9 @@ public class KeyConfigController : MonoBehaviour
 			case NOWSELECT.MENU:
 				MenuControllerText.text = origin;
 				break;
+			case NOWSELECT.ITEM:
+				ItemControllerText.text = origin;
+				break;
 			case NOWSELECT.SUBSHOT:
 				SubShotControllerText.text = origin;
 				break;
@@ -878,6 +1114,9 @@ public class KeyConfigController : MonoBehaviour
         MenuKeyboard.color = new Color(1, 1, 1);
         MenuController.color = new Color(1, 1, 1);
 
+		ItemKeyboard.color = new Color(1, 1, 1);
+		ItemController.color = new Color(1, 1, 1);
+
         SubShotKeyboard.color = new Color(1, 1, 1);
         SubShotController.color = new Color(1, 1, 1);
 
@@ -926,7 +1165,10 @@ public class KeyConfigController : MonoBehaviour
         MenuKeyboard.color = new Color(1, 1, 1);
         MenuController.color = new Color(1, 1, 1);
 
-        SubShotKeyboard.color = new Color(1, 1, 1);
+		ItemKeyboard.color = new Color(1, 1, 1);
+		ItemController.color = new Color(1, 1, 1);
+
+		SubShotKeyboard.color = new Color(1, 1, 1);
         SubShotController.color = new Color(1, 1, 1);
 
         ExShotKeyboard.color = new Color(1, 1, 1);
@@ -973,7 +1215,10 @@ public class KeyConfigController : MonoBehaviour
         MenuKeyboard.color = new Color(1, 1, 1);
         MenuController.color = new Color(1, 1, 1);
 
-        SubShotKeyboard.color = new Color(1, 1, 1);
+		ItemKeyboard.color = new Color(1, 1, 1);
+		ItemController.color = new Color(1, 1, 1);
+
+		SubShotKeyboard.color = new Color(1, 1, 1);
         SubShotController.color = new Color(1, 1, 1);
 
         ExShotKeyboard.color = new Color(1, 1, 1);
@@ -1019,6 +1264,9 @@ public class KeyConfigController : MonoBehaviour
 
 		MenuKeyboard.color = new Color(1, 1, 1);
 		MenuController.color = new Color(1, 1, 1);
+
+		ItemKeyboard.color = new Color(1, 1, 1);
+		ItemController.color = new Color(1, 1, 1);
 
 		SubShotKeyboard.color = new Color(1, 1, 1);
 		SubShotController.color = new Color(1, 1, 1);
@@ -1067,6 +1315,9 @@ public class KeyConfigController : MonoBehaviour
 		MenuKeyboard.color = new Color(1, 1, 1);
 		MenuController.color = new Color(1, 1, 1);
 
+		ItemKeyboard.color = new Color(1, 1, 1);
+		ItemController.color = new Color(1, 1, 1);
+
 		SubShotKeyboard.color = new Color(1, 1, 1);
 		SubShotController.color = new Color(1, 1, 1);
 
@@ -1113,6 +1364,59 @@ public class KeyConfigController : MonoBehaviour
 
 		MenuKeyboard.color = new Color(1, 0, 0);
 		MenuController.color = new Color(1, 0, 0);
+
+		ItemKeyboard.color = new Color(1, 1, 1);
+		ItemController.color = new Color(1, 1, 1);
+
+		SubShotKeyboard.color = new Color(1, 1, 1);
+		SubShotController.color = new Color(1, 1, 1);
+
+		ExShotKeyboard.color = new Color(1, 1, 1);
+		ExShotController.color = new Color(1, 1, 1);
+
+		ExWrestleKeyboard.color = new Color(1, 1, 1);
+		ExWrestleController.color = new Color(1, 1, 1);
+
+		ElevationUpperKeyboard.color = new Color(1, 1, 1);
+		ElevationUpperController.color = new Color(1, 1, 1);
+
+		ElevetionDownKeyboard.color = new Color(1, 1, 1);
+		ElevationDownController.color = new Color(1, 1, 1);
+
+		AzimuthLeftKeyboard.color = new Color(1, 1, 1);
+		AzimuthLeftController.color = new Color(1, 1, 1);
+
+		AzimhthRightKeyboad.color = new Color(1, 1, 1);
+		AzimhthRightController.color = new Color(1, 1, 1);
+	}
+
+	/// <summary>
+	/// アイテムボタンが押された時の処理
+	/// </summary>
+	public void OnClickItem()
+	{
+		Nowselect = NOWSELECT.ITEM;
+		// 選択対象のカーソルを赤にし、それ以外を白にする
+		ShotKeyboard.color = new Color(1, 1, 1);
+		ShotController.color = new Color(1, 1, 1);
+
+		WrestleKeyboard.color = new Color(1, 1, 1);
+		WrestleController.color = new Color(1, 1, 1);
+
+		JumpKeyboad.color = new Color(1, 1, 1);
+		JumpController.color = new Color(1, 1, 1);
+
+		SearchKeyboard.color = new Color(1, 1, 1);
+		SearchController.color = new Color(1, 1, 1);
+
+		CommandKeyboard.color = new Color(1, 1, 1);
+		CommandController.color = new Color(1, 1, 1);
+
+		MenuKeyboard.color = new Color(1, 1, 1);
+		MenuController.color = new Color(1, 1, 1);
+
+		ItemKeyboard.color = new Color(1, 0, 0);
+		ItemController.color = new Color(1, 0, 0);
 
 		SubShotKeyboard.color = new Color(1, 1, 1);
 		SubShotController.color = new Color(1, 1, 1);
@@ -1161,6 +1465,9 @@ public class KeyConfigController : MonoBehaviour
 		MenuKeyboard.color = new Color(1, 1, 1);
 		MenuController.color = new Color(1, 1, 1);
 
+		ItemKeyboard.color = new Color(1, 1, 1);
+		ItemController.color = new Color(1, 1, 1);
+
 		SubShotKeyboard.color = new Color(1, 0, 0);
 		SubShotController.color = new Color(1, 0, 0);
 
@@ -1207,6 +1514,9 @@ public class KeyConfigController : MonoBehaviour
 
 		MenuKeyboard.color = new Color(1, 1, 1);
 		MenuController.color = new Color(1, 1, 1);
+
+		ItemKeyboard.color = new Color(1, 1, 1);
+		ItemController.color = new Color(1, 1, 1);
 
 		SubShotKeyboard.color = new Color(1, 1, 1);
 		SubShotController.color = new Color(1, 1, 1);
@@ -1255,6 +1565,9 @@ public class KeyConfigController : MonoBehaviour
 		MenuKeyboard.color = new Color(1, 1, 1);
 		MenuController.color = new Color(1, 1, 1);
 
+		ItemKeyboard.color = new Color(1, 1, 1);
+		ItemController.color = new Color(1, 1, 1);
+
 		SubShotKeyboard.color = new Color(1, 1, 1);
 		SubShotController.color = new Color(1, 1, 1);
 
@@ -1301,6 +1614,9 @@ public class KeyConfigController : MonoBehaviour
 
 		MenuKeyboard.color = new Color(1, 1, 1);
 		MenuController.color = new Color(1, 1, 1);
+
+		ItemKeyboard.color = new Color(1, 1, 1);
+		ItemController.color = new Color(1, 1, 1);
 
 		SubShotKeyboard.color = new Color(1, 1, 1);
 		SubShotController.color = new Color(1, 1, 1);
@@ -1349,6 +1665,9 @@ public class KeyConfigController : MonoBehaviour
 		MenuKeyboard.color = new Color(1, 1, 1);
 		MenuController.color = new Color(1, 1, 1);
 
+		ItemKeyboard.color = new Color(1, 1, 1);
+		ItemController.color = new Color(1, 1, 1);
+
 		SubShotKeyboard.color = new Color(1, 1, 1);
 		SubShotController.color = new Color(1, 1, 1);
 
@@ -1396,6 +1715,9 @@ public class KeyConfigController : MonoBehaviour
 		MenuKeyboard.color = new Color(1, 1, 1);
 		MenuController.color = new Color(1, 1, 1);
 
+		ItemKeyboard.color = new Color(1, 1, 1);
+		ItemController.color = new Color(1, 1, 1);
+
 		SubShotKeyboard.color = new Color(1, 1, 1);
 		SubShotController.color = new Color(1, 1, 1);
 
@@ -1442,6 +1764,9 @@ public class KeyConfigController : MonoBehaviour
 
 		MenuKeyboard.color = new Color(1, 1, 1);
 		MenuController.color = new Color(1, 1, 1);
+
+		ItemKeyboard.color = new Color(1, 1, 1);
+		ItemController.color = new Color(1, 1, 1);
 
 		SubShotKeyboard.color = new Color(1, 1, 1);
 		SubShotController.color = new Color(1, 1, 1);
@@ -1532,6 +1857,10 @@ public class KeyConfigController : MonoBehaviour
 		PlayerPrefs.SetString("Menu_Keyboard", MenuKeyboardText.text);
 		// コントローラー
 		PlayerPrefs.SetString("Menu_Controller", "Joystick1" + MenuControllerText.text);
+
+		// アイテム
+		PlayerPrefs.SetString("Item_Keyboard", ItemKeyboardText.text);
+		PlayerPrefs.SetString("Item_Controller", "Joystick1" + ItemControllerText.text);
 
 		// サブ射撃
 		// キーボード

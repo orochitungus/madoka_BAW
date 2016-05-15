@@ -277,12 +277,12 @@ public class EventBase : MonoBehaviour
             loadManager.name = "LoadManager";
         }
         // PauseManagerがあるか判定
-        if(GameObject.Find("PauseManager") == null)
-        {
-            // 無ければ作る
-            GameObject pauseManager = (GameObject)Instantiate(Resources.Load("PauseManager"));
-            pauseManager.name = "PauseManager";
-        }
+        //if(GameObject.Find("PauseManager") == null)
+        //{
+        //    // 無ければ作る
+        //    GameObject pauseManager = (GameObject)Instantiate(Resources.Load("PauseManager"));
+        //    pauseManager.name = "PauseManager";
+        //}
         //ここで黒テクスチャ作る
         StartCoroutine(CreateBlackTexture());
     }

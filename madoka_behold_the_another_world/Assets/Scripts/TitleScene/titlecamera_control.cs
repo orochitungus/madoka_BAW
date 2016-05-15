@@ -200,12 +200,12 @@ public partial class titlecamera_control : MonoBehaviour
             loadManager.name = "LoadManager";
         }
         // PauseManagerがあるか判定
-        if (GameObject.Find("PauseManager") == null)
-        {
-            // 無ければ作る
-            GameObject pauseManager = (GameObject)Instantiate(Resources.Load("PauseManager"));
-            pauseManager.name = "PauseManager";
-        }
+        //if (GameObject.Find("PauseManager") == null)
+        //{
+        //    // 無ければ作る
+        //    GameObject pauseManager = (GameObject)Instantiate(Resources.Load("PauseManager"));
+        //    pauseManager.name = "PauseManager";
+        //}
         // BGM再生開始（ここに来るとこのBGMに切り替わるので、毎回通す）
         AudioManager.Instance.PlayBGM("Snow");
 	}

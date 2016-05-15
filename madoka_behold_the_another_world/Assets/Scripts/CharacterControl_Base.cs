@@ -228,7 +228,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     public float m_nowDownRatio;
 
     // 現在のHP
-    public int m_NowHitpoint;
+    public int NowHitpoint;
     // 現在のHPの表示値
     public int m_DrawHitpoint;
 	// HP初期値（Lv1のときの値）
@@ -1118,7 +1118,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     }
 
     // サーチ長押し（ロックオン解除）があったか否かをチェック
-    public bool HasSerchPress()
+    public bool GetUnSerchInput()
     {
         if (IsPlayer == CHARACTERCODE.PLAYER)
         {
@@ -1140,7 +1140,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     }
 
     // 格闘入力があったか否か
-    protected bool HasWrestleInput()
+    protected bool GetWrestleInput()
     {
         if (IsPlayer == CHARACTERCODE.PLAYER)
         {
@@ -1152,7 +1152,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         return false;
     }
     // サブ射撃入力があったか否か(判定の都合上優先度はノーマル射撃及び格闘より上にすること)
-    protected bool HasSubShotInput()
+    protected bool GetSubShotInput()
     {
         if (IsPlayer == CHARACTERCODE.PLAYER)
         {
@@ -1170,7 +1170,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         return false;
     }
     // 特殊射撃入力があったか否か(判定の都合上優先度はノーマル射撃及びジャンプより上にすること)
-    protected bool HasExShotInput()
+    protected bool GetExShotInput()
     {
         if (IsPlayer == CHARACTERCODE.PLAYER)
         {
@@ -1188,7 +1188,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         return false;
     }
     // 特殊格闘入力があったか否か(判定の都合上優先度はノーマル射撃及びジャンプより上にすること)
-    protected bool HasExWrestleInput()
+    protected bool GetExWrestleInput()
     {
         if (IsPlayer == CHARACTERCODE.PLAYER)
         {
@@ -1207,9 +1207,9 @@ public partial class CharacterControl_Base : MonoBehaviour
     }
 
     // アイテム入力があったか否か
-    protected bool HasItemInput()
+    protected bool GetItemInput()
     {
-        if (IsPlayer == CHARACTERCODE.PLAYER && m_NowHitpoint > 0)
+        if (IsPlayer == CHARACTERCODE.PLAYER && NowHitpoint > 0)
         {
             if (Input.GetButtonDown("Item"))
             {
@@ -2274,7 +2274,7 @@ public partial class CharacterControl_Base : MonoBehaviour
             // SavingParameterからのステートの変更を受け付ける
             int charactername = (int)this.m_character_name;
             // HP
-            m_NowHitpoint = savingparameter.GetNowHP(charactername);
+            NowHitpoint = savingparameter.GetNowHP(charactername);
             // 覚醒ゲージ
             m_Arousal = savingparameter.GetNowArousal(charactername);
             // ソウルジェム汚染率
@@ -2283,7 +2283,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         // 敵の時HP、覚醒ゲージ、ソウルジェム汚染率を初期化する
         else
         {
-            m_NowHitpoint = GetMaxHitpoint(this.m_level);
+            NowHitpoint = GetMaxHitpoint(this.m_level);
             m_Arousal = 0;
             m_GemContamination = 0;
         }
@@ -2459,7 +2459,7 @@ public partial class CharacterControl_Base : MonoBehaviour
 
         // PC死亡時、PauseControllerを消す(メニュー画面に移行させないため）
         // また、ショット入力でタイトル画面へ移行する
-        if (m_NowHitpoint < 1 && IsPlayer == CHARACTERCODE.PLAYER)
+        if (NowHitpoint < 1 && IsPlayer == CHARACTERCODE.PLAYER)
         {
             GameObject PauseController = GameObject.Find("Pause Controller");
             if (PauseController)
@@ -2495,17 +2495,17 @@ public partial class CharacterControl_Base : MonoBehaviour
             // サーチ入力があったか否か
             this.m_hasSearchInput = GetSearchInput();
             // サーチキャンセル入力があったか否か
-            this.m_hasSearchCancelInput = HasSerchPress();
+            this.m_hasSearchCancelInput = GetUnSerchInput();
             // 格闘入力があったか否か
-            this.m_hasWrestleInput = HasWrestleInput();
+            this.m_hasWrestleInput = GetWrestleInput();
             // サブ射撃入力があったか否か
-            this.m_hasSubShotInput = HasSubShotInput();
+            this.m_hasSubShotInput = GetSubShotInput();
             // 特殊射撃入力があったか否か
-            this.m_hasExShotInput = HasExShotInput();
+            this.m_hasExShotInput = GetExShotInput();
             // 特殊格闘入力があったか否か
-            this.m_hasExWrestleInput = HasExWrestleInput();
+            this.m_hasExWrestleInput = GetExWrestleInput();
             // アイテム入力があったか否か
-            this.m_hasItemInput = HasItemInput();
+            this.m_hasItemInput = GetItemInput();
             // ポーズ入力があったか否か
             this.m_hasPauseInput = HasPauseInput();
             // 覚醒入力があったか否か
@@ -2688,7 +2688,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         // 通常時、ポーズ入力で停止.ただし死んだら無効
         if (m_timstopmode != TimeStopMode.PAUSE)
         {
-            if(m_hasPauseInput && m_NowHitpoint > 0)
+            if(m_hasPauseInput && NowHitpoint > 0)
             {
                 this.m_TimeStopMaster = true;
                 m_timstopmode = TimeStopMode.PAUSE;
@@ -2857,13 +2857,13 @@ public partial class CharacterControl_Base : MonoBehaviour
             
         }
         // HP表示を増減させる(回復は一瞬で、被ダメージは徐々に減る）
-        if (m_NowHitpoint < m_DrawHitpoint)
+        if (NowHitpoint < m_DrawHitpoint)
         {
             m_DrawHitpoint -= 2;            
         }
         else
         {
-            m_DrawHitpoint = m_NowHitpoint;
+            m_DrawHitpoint = NowHitpoint;
         }
         
         // 時間停止を解除したら動き出す
@@ -2930,7 +2930,7 @@ public partial class CharacterControl_Base : MonoBehaviour
             // ソウルジェム汚染率
             m_GemContamination = savingparameter.GetGemContimination(charactername);
             // HP
-            m_NowHitpoint = savingparameter.GetNowHP(charactername);            
+            NowHitpoint = savingparameter.GetNowHP(charactername);            
             // 覚醒ゲージ量
             m_Arousal = savingparameter.GetNowArousal(charactername);
         }   

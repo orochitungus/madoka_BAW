@@ -29,9 +29,9 @@ public partial class CharacterControl_Base : MonoBehaviour
         {
             damage = 1;
         }
-        this.m_NowHitpoint -= damage;
+        this.NowHitpoint -= damage;
         // 死んだ場合、止めを刺したキャラに経験値が加算されるようにする（味方殺しでは経験値は増えない。また、まどかとアルティメットまどか、弓ほむらと銃ほむらは経験値とLVを共有する）
-        if (IsPlayer == CHARACTERCODE.ENEMY && m_NowHitpoint < 1)
+        if (IsPlayer == CHARACTERCODE.ENEMY && NowHitpoint < 1)
         {
             // 与える経験値の総量
             int addexp = Character_Spec.Exp[(int)m_character_name];
@@ -65,7 +65,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         if (IsPlayer == CHARACTERCODE.PLAYER || IsPlayer == CHARACTERCODE.PLAYER_ALLY)
         {
             int charactername = (int)this.m_character_name;
-            savingparameter.SetNowHP(charactername, m_NowHitpoint);
+            savingparameter.SetNowHP(charactername, NowHitpoint);
         }
     }
 
@@ -127,7 +127,7 @@ public partial class CharacterControl_Base : MonoBehaviour
 
 	    
 	    // 死亡時は強制吹き飛び属性
-        if (this.m_NowHitpoint < 1)
+        if (this.NowHitpoint < 1)
         {
             animationstate = AnimationState.BlowInit;
             // 属性がEnemyなら爆発エフェクトを貼り付ける
@@ -309,7 +309,7 @@ public partial class CharacterControl_Base : MonoBehaviour
             // ただし自機側ではHP0だと復活させない
             if (IsPlayer == CHARACTERCODE.PLAYER || IsPlayer == CHARACTERCODE.PLAYER_ALLY)
             {
-                if (m_NowHitpoint < 1)
+                if (NowHitpoint < 1)
                 {
                     return;
                 }

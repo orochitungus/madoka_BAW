@@ -217,7 +217,7 @@ public class Scono_Battle_Control : CharacterControl_Base
                Character_Spec.cs[(int)m_character_name][2].m_reloadtime, ref m_exshotendtime);
         }
         // 最初のステージで負けたらプロローグ３へ移行
-        if (m_NowHitpoint < 1 && savingparameter.story == 1)
+        if (NowHitpoint < 1 && savingparameter.story == 1)
         {
 			FadeManager.Instance.LoadLevel("Prologue3", 1.0f);
         }

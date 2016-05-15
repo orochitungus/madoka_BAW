@@ -63,12 +63,12 @@ public class TitleController : MonoBehaviour
 			loadManager.name = "ControllerManager";
 		}
         // PauseManagerがあるか判定
-        if (GameObject.Find("PauseManager") == null)
-        {
-            // 無ければ作る
-            GameObject pauseManager = (GameObject)Instantiate(Resources.Load("PauseManager"));
-            pauseManager.name = "PauseManager";
-        }
+        //if (GameObject.Find("PauseManager") == null)
+        //{
+        //    // 無ければ作る
+        //    GameObject pauseManager = (GameObject)Instantiate(Resources.Load("PauseManager"));
+        //    pauseManager.name = "PauseManager";
+        //}
     }
 
 	// Use this for initialization
