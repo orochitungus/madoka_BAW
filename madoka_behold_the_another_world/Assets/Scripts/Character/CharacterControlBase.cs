@@ -480,9 +480,9 @@ public class CharacterControlBase : MonoBehaviour
     protected bool HasItemInput;
 
     /// <summary>
-    /// ポーズ入力があったか否か
+    /// メニュー入力があったか否か
     /// </summary>
-    protected bool HasPauseInput;
+    protected bool HasMenuInput;
 
     // 覚醒入力があったか否か
     protected bool HasArousalInput;
@@ -1149,83 +1149,128 @@ public class CharacterControlBase : MonoBehaviour
 	// アイテム入力があったか否か
 	protected bool GetItemInput()
 	{
-		//if (IsPlayer == CHARACTERCODE.PLAYER && NowHitpoint > 0)
-		//{
-		//	if (Input.GetButtonDown("Item"))
-		//	{
-		//		// 装備しているアイテムを取得
-		//		int nowitem = savingparameter.GetNowEquipItem();
-		//		// 装備しているアイテムが何個あるか取得
-		//		int numofitem = savingparameter.GetItemNum(nowitem);
-		//		// アイテムの個数が0なら強制抜け
-		//		if (numofitem < 1)
-		//		{
-		//			return false;
-		//		}
-		//		// 装備しているアイテムが全体用か否か
-		//		bool isall = Item.itemspec[nowitem].IsAll();
-		//		// 無効判定(全体）
-		//		if (isall)
-		//		{
-		//			if (!savingparameter.ItemUseCheckAll(nowitem))
-		//			{
-		//				return false;
-		//			}
-		//		}
-		//		// 無効判定(単体）
-		//		else
-		//		{
-		//			if (!savingparameter.ItemUseCheck(nowitem, 0))
-		//			{
-		//				return false;
-		//			}
-		//		}
+		if (IsPlayer == CHARACTERCODE.PLAYER && NowHitpoint > 0)
+		{
+			if (ControllerManager.Instance.Item)
+			{
+				// 装備しているアイテムを取得
+				int nowitem = savingparameter.GetNowEquipItem();
+				// 装備しているアイテムが何個あるか取得
+				int numofitem = savingparameter.GetItemNum(nowitem);
+				// アイテムの個数が0なら強制抜け
+				if (numofitem < 1)
+				{
+					return false;
+				}
+				// 装備しているアイテムが全体用か否か
+				bool isall = Item.itemspec[nowitem].IsAll();
+				// 無効判定(全体）
+				if (isall)
+				{
+					if (!savingparameter.ItemUseCheckAll(nowitem))
+					{
+						return false;
+					}
+				}
+				// 無効判定(単体）
+				else
+				{
+					if (!savingparameter.ItemUseCheck(nowitem, 0))
+					{
+						return false;
+					}
+				}
 
-		//		// アイテムの効果を出す
-		//		savingparameter.ItemDone(nowitem, 0);
-		//		// エフェクトとSEを再生する
-		//		UnityEngine.Object ItemEffect = null;
-		//		// HP回復
-		//		if (Item.itemspec[nowitem].ItemFuciton() == ItemSpec.ItemFunction.REBIRETH_HP)
-		//		{
-		//			// エフェクト作成
-		//			ItemEffect = Resources.Load("RebirthHP1");
-		//			// SE再生
-		//			AudioSource.PlayClipAtPoint(RebirthHP1, transform.position);
-		//		}
-		//		// 蘇生（パーティーを組めるようになってから）
-		//		else if (Item.itemspec[nowitem].ItemFuciton() == ItemSpec.ItemFunction.REBIRTH_DEATH)
-		//		{
-		//			// エフェクト作成
-		//			ItemEffect = Resources.Load("Resurrection1");
-		//			// SE再生
-		//			AudioSource.PlayClipAtPoint(Regenaration, transform.position);
-		//		}
-		//		// SG浄化
-		//		else if (Item.itemspec[nowitem].ItemFuciton() == ItemSpec.ItemFunction.REBIRTH_SOUL)
-		//		{
-		//			// エフェクト作成
-		//			ItemEffect = Resources.Load("PurificationGem");
-		//			// SE再生
-		//			AudioSource.PlayClipAtPoint(PurificationSG, transform.position);
-		//		}
-		//		// 蘇生しつつ完全回復（蘇生はパーティーを組めるようになってから）
-		//		else if (Item.itemspec[nowitem].ItemFuciton() == ItemSpec.ItemFunction.REBIRTH_FULL)
-		//		{
-		//			// エフェクト作成
-		//			ItemEffect = Resources.Load("Resurrection1");
-		//			// SE再生
-		//			AudioSource.PlayClipAtPoint(Regenaration, transform.position);
-		//		}
-		//		// 現在の自分の位置にエフェクトを置く
-		//		var obj = (GameObject)Instantiate(ItemEffect, transform.position, transform.rotation);
-		//		// 親子関係を再設定する
-		//		obj.transform.parent = this.transform;
-		//		return true;
-		//	}
-		//}
+				// アイテムの効果を出す
+				savingparameter.ItemDone(nowitem, 0);
+				// エフェクトとSEを再生する
+				UnityEngine.Object ItemEffect = null;
+				// HP回復
+				if (Item.itemspec[nowitem].ItemFuciton() == ItemSpec.ItemFunction.REBIRETH_HP)
+				{
+					// エフェクト作成
+					ItemEffect = Resources.Load("RebirthHP1");
+					// SE再生
+					AudioManager.Instance.PlaySE("RebirthHP1");
+				}
+				// 蘇生（パーティーを組めるようになってから）
+				else if (Item.itemspec[nowitem].ItemFuciton() == ItemSpec.ItemFunction.REBIRTH_DEATH)
+				{
+					// エフェクト作成
+					ItemEffect = Resources.Load("Resurrection1");
+					// SE再生
+					AudioManager.Instance.PlaySE("Regeneration");
+				}
+				// SG浄化
+				else if (Item.itemspec[nowitem].ItemFuciton() == ItemSpec.ItemFunction.REBIRTH_SOUL)
+				{
+					// エフェクト作成
+					ItemEffect = Resources.Load("PurificationGem");
+					// SE再生
+					AudioManager.Instance.PlaySE("SoulGem");
+				}
+				// 蘇生しつつ完全回復（蘇生はパーティーを組めるようになってから）
+				else if (Item.itemspec[nowitem].ItemFuciton() == ItemSpec.ItemFunction.REBIRTH_FULL)
+				{
+					// エフェクト作成
+					ItemEffect = Resources.Load("Resurrection1");
+					// SE再生
+					AudioManager.Instance.PlaySE("Regeneration");
+				}
+				// 現在の自分の位置にエフェクトを置く
+				var obj = (GameObject)Instantiate(ItemEffect, transform.position, transform.rotation);
+				// 親子関係を再設定する
+				obj.transform.parent = this.transform;
+				return true;
+			}
+		}
 		return false;
 	}
+
+	/// <summary>
+	/// メニュー入力があったか否か
+	/// </summary>
+	/// <returns></returns>
+	protected bool GetMenuInput()
+	{
+		if (IsPlayer == CHARACTERCODE.PLAYER)
+		{
+			if (ControllerManager.Instance.Menu)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/// <summary>
+	/// 覚醒入力があったか否か(優先度の都合上一番高くする)
+	/// </summary>
+	/// <returns></returns>
+	protected bool GetArousalInput()
+	{
+		if (IsPlayer == CHARACTERCODE.PLAYER)
+		{
+			// 射撃・格闘・ジャンプ
+			if (ControllerManager.Instance.Shot && ControllerManager.Instance.Wrestle && ControllerManager.Instance.Jump)
+			{
+				return true;
+			}
+			// 特殊射撃＋格闘
+			else if (ControllerManager.Instance.EXShot && ControllerManager.Instance.Wrestle)
+			{
+				return true;
+			}
+			// 特殊格闘＋射撃
+			else if (ControllerManager.Instance.EXWrestle && ControllerManager.Instance.Shot)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+
 
 	// Use this for initialization
 	void Start ()

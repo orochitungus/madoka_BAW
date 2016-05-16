@@ -1940,7 +1940,7 @@ public class KeyConfigController : MonoBehaviour
 		}
 
 		// Cancelボタンが非アクティブ（初回）→セーブしてタイトルへ遷移
-		if(!CancelButton.interactable)
+		if (!CancelButton.interactable)
 		{
 			// 保持情報をセーブ
 			PlayerPrefs.SetInt("ControllerSetting", 20);
