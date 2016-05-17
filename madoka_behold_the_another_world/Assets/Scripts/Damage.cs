@@ -114,7 +114,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         
         
 	    // 動作及び慣性をカット
-        this.m_MoveDirection = Vector3.zero;
+        this.MoveDirection = Vector3.zero;
 	    // 飛び越えフラグをカット	
         this.m_Rotatehold = false;
 
@@ -256,17 +256,17 @@ public partial class CharacterControl_Base : MonoBehaviour
             this.m_AnimState[0] = AnimationState.Down;
             this.m_DownTime = Time.time;
             // 速度を0まで落とす（吹き飛び時のベクトルを消す）
-            this.m_MoveDirection = Vector3.zero;
+            this.MoveDirection = Vector3.zero;
             // 回転を戻す
             // rotationの固定を復活させ、0,0,0にする
             this.GetComponent<Rigidbody>().rotation = Quaternion.Euler(Vector3.zero);
         }
         // ブースト入力があった場合、ダウン値がMAX未満でブーストゲージが一定量あれば、Reversalへ変更	
         // rotationを0にして復帰アニメを再生する
-        else if (this.m_nowDownRatio <= this.m_DownRatio &&  this.m_hasJumpInput && this.m_Boost >= this.m_ReversalUseBoost)
+        else if (this.m_nowDownRatio <= this.m_DownRatio &&  this.m_hasJumpInput && this.Boost >= this.m_ReversalUseBoost)
         {
             // ブースト量を減らす
-            this.m_Boost -= this.m_ReversalUseBoost;
+            this.Boost -= this.m_ReversalUseBoost;
             // 復帰処理を行う
             ReversalInit();
         }
@@ -276,7 +276,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     protected virtual void SpinDown()
     {      
         // 落下に入ったら落下速度を調整する
-        m_MoveDirection.y = MadokaDefine.FALLSPEED;
+        MoveDirection.y = MadokaDefine.FALLSPEED;
         
         // 基本Blowと同じだが、着地と同時にアニメをダウンに切り替える
         if (this.m_isGrounded)
@@ -287,7 +287,7 @@ public partial class CharacterControl_Base : MonoBehaviour
             this.m_AnimState[0] = AnimationState.Down;
             this.m_DownTime = Time.time;
             // 速度を0まで落とす（吹き飛び時のベクトルを消す）
-            this.m_MoveDirection = Vector3.zero;
+            this.MoveDirection = Vector3.zero;
             // 回転を戻す
             // rotationの固定を復活させ、0,0,0にする
             this.GetComponent<Rigidbody>().rotation = Quaternion.Euler(Vector3.zero);

@@ -97,7 +97,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     public void DrawBoostGauge(Texture2D BoostGauge, Vector2 pos)
     {
         // ブースト量
-        float Bratio = this.m_Boost / GetMaxBoost(this.m_BoostLevel);
+        float Bratio = this.Boost / GetMaxBoost(this.m_BoostLevel);
         GUI.BeginGroup(new Rect(pos.x, pos.y, Bratio * GetMaxBoost(this.m_BoostLevel), 16.0f));
         // ここ以降はBeginGroup原点（上記のpos）からの座標になる点に注意
         // ゲージ本体

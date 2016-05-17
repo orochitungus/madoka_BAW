@@ -232,7 +232,7 @@ public partial class CharacterControl_Base
                 break;
         }
         // 1F前のMoveDirectionを保持
-        this.m_PreMoveDirection = this.m_MoveDirection;
+        this.m_PreMoveDirection = this.MoveDirection;
     }
     // 各アニメーション動作。攻撃モーションなどはキャラクターごとにこれらの関数をオーバーライドすること
 
@@ -266,7 +266,7 @@ public partial class CharacterControl_Base
         // ずれた本体角度を戻す(Yはそのまま）
         this.transform.rotation = Quaternion.Euler(new Vector3(0,this.transform.rotation.eulerAngles.y,0)); 
         m_AnimState[1] = AnimationState.Idle;
-        this.m_MoveDirection = Vector3.zero;      // 速度を0に
+        this.MoveDirection = Vector3.zero;      // 速度を0に
         this.m_BlowDirection = Vector3.zero;       
         this.m_Rotatehold = false;                // 固定フラグは折る
         // 慣性を殺す
@@ -275,7 +275,7 @@ public partial class CharacterControl_Base
         this.m_addInput = false;
         GetComponent<Rigidbody>().useGravity = true;
         // ブーストを回復させる
-        this.m_Boost = GetMaxBoost(this.m_BoostLevel);
+        this.Boost = GetMaxBoost(this.m_BoostLevel);
         // 地上にいるか？
         if (m_isGrounded)
         {
@@ -286,7 +286,7 @@ public partial class CharacterControl_Base
                 this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.Run]);
             }
             // ジャンプでジャンプへ移行(GetButtonDownで押しっぱなしにはならない。GetButtonで押しっぱなしに対応）
-            if (this.m_hasJumpInput && m_Boost > 0)
+            if (this.m_hasJumpInput && Boost > 0)
             {
                 // 上昇制御をAddForceにするとやりにくい（特に慣性ジャンプ）
                 JumpDone();
@@ -353,17 +353,17 @@ public partial class CharacterControl_Base
     protected virtual void Animation_Jumping()
     {
         m_AnimState[1] = AnimationState.Jumping;
-        Vector3 RiseSpeed = new Vector3(m_MoveDirection.x, this.m_RateofRise, m_MoveDirection.z);// = new Vector3(0, 0, 0);
+        Vector3 RiseSpeed = new Vector3(MoveDirection.x, this.m_RateofRise, MoveDirection.z);// = new Vector3(0, 0, 0);
         if (Time.time > this.m_JumpTime + this.m_JumpWaitTime)
         {
             // ジャンプ後の硬直終了時の処理はここに入れる
             // ジャンプ中にブーストがある限り上昇
-            if (this.m_Boost > 0)
+            if (this.Boost > 0)
             {               
                 // ボタンを押し続ける限り上昇
                 if (this.m_hasJumpInput)
                 {                   
-                    this.m_Boost = this.m_Boost - m_BoostLess;
+                    this.Boost = this.Boost - m_BoostLess;
                 }
                 // 離したら落下
                 else if (!this.m_hasJumpInput)
@@ -413,7 +413,7 @@ public partial class CharacterControl_Base
         // 硬直時間中は上昇してもらう
         else
         {
-            RiseSpeed = new Vector3(this.m_MoveDirection.x, this.m_RateofRise, this.m_MoveDirection.z);
+            RiseSpeed = new Vector3(this.MoveDirection.x, this.m_RateofRise, this.MoveDirection.z);
             // 上昇算演
             UpdateRotation();
         }
@@ -427,7 +427,7 @@ public partial class CharacterControl_Base
         }
 
         // 上昇算演
-        this.m_MoveDirection = RiseSpeed;
+        this.MoveDirection = RiseSpeed;
 
         // 上昇中にオブジェクトに触れた場合は着地モーションへ移行(暴走防止のために、硬直中は判定禁止)
         if (Time.time > this.m_JumpTime + this.m_JumpWaitTime)
@@ -454,7 +454,7 @@ public partial class CharacterControl_Base
         // ずれた本体角度を戻す(Yはそのまま）
         this.transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0)); 
         // ステップ時はm_MoveDirectionが消えたら困るので、一旦保持
-        Vector3 MoveDirection_OR = this.m_MoveDirection;
+        Vector3 MoveDirection_OR = this.MoveDirection;
         
         m_AnimState[1] = AnimationState.Fall;
         // 一応重力復活
@@ -469,7 +469,7 @@ public partial class CharacterControl_Base
             this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Fall]);            
         }
         // ブーストがあれば慣性移動及び再上昇可。なければ不可
-        if (this.m_Boost > 0)
+        if (this.Boost > 0)
         {            
             if (this.m_hasDashCancelInput)// ジャンプ再入力で向いている方向へ空中ダッシュ(上昇は押しっぱなし)           
             {                
@@ -484,7 +484,7 @@ public partial class CharacterControl_Base
             if (StepCheck().x != 0 || StepCheck().y != 0)
             {
                 // MoveDirectionを再生する
-                this.m_MoveDirection = MoveDirection_OR;
+                this.MoveDirection = MoveDirection_OR;
                 StepDone(1, StepCheck());                
                 return;
             }
@@ -506,16 +506,16 @@ public partial class CharacterControl_Base
         if (m_hasVHInput)
         {
             UpdateRotation();
-            this.m_MoveDirection = transform.rotation * Vector3.forward;
+            this.MoveDirection = transform.rotation * Vector3.forward;
         }
 
         // 落下速度調整
-        this.m_MoveDirection.y = MadokaDefine.FALLSPEED / 2;
+        this.MoveDirection.y = MadokaDefine.FALLSPEED / 2;
 
         // 着地時に着陸へ移行
         if (m_isGrounded)
         {
-            m_MoveDirection = Vector3.zero;
+            MoveDirection = Vector3.zero;
             LandingDone();
         }
     }
@@ -529,7 +529,7 @@ public partial class CharacterControl_Base
         m_AnimState[1] = AnimationState.Landing;
         this.m_Rotatehold = false;                // 固定フラグは折る
         // 地響き防止
-        this.m_MoveDirection = transform.rotation * new Vector3(0, 0, 0);
+        this.MoveDirection = transform.rotation * new Vector3(0, 0, 0);
         // モーション終了時にアイドルへ移行
         // 硬直時間が終わるとIdleへ戻る。オバヒ着地とかやりたいならBoost0でLandingTimeの値を変えるとか
         if (Time.time > this.m_LandingTime + this.m_LandingWaitTime)
@@ -537,7 +537,7 @@ public partial class CharacterControl_Base
             m_AnimState[0] = AnimationState.Idle;
             this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.Idle]);
             // ブースト量を初期化する
-            this.m_Boost = GetMaxBoost(this.m_BoostLevel);
+            this.Boost = GetMaxBoost(this.m_BoostLevel);
         }
     }
 
@@ -593,7 +593,7 @@ public partial class CharacterControl_Base
             {
                 FootSteps();
                 UpdateRotation();
-                this.m_MoveDirection = transform.rotation * Vector3.forward;
+                this.MoveDirection = transform.rotation * Vector3.forward;
             }
             // ステップの場合ステップ
             else if (StepCheck().x != 0 || StepCheck().y != 0) 
@@ -608,7 +608,7 @@ public partial class CharacterControl_Base
             }
 
             // ジャンプでジャンプへ移行(GetButtonDownで押しっぱなしにはならない。GetButtonで押しっぱなしに対応）
-            if (this.m_hasJumpInput && m_Boost > 0)
+            if (this.m_hasJumpInput && Boost > 0)
             {
                 // 上昇制御をAddForceにするとやりにくい（特に慣性ジャンプ）
                 JumpDone();
@@ -640,7 +640,7 @@ public partial class CharacterControl_Base
         this.GetComponent<Rigidbody>().useGravity = false;
         m_AnimState[1] = AnimationState.AirDash;
         // 
-        if (this.m_Boost > 0)
+        if (this.Boost > 0)
         {
             // 入力中はそちらへ進む
             //if (m_hasVHInput)
@@ -668,7 +668,7 @@ public partial class CharacterControl_Base
                 {
                     UpdateRotation();
                 }
-                this.m_MoveDirection = transform.rotation * Vector3.forward;
+                this.MoveDirection = transform.rotation * Vector3.forward;
             }
             // 方向キーなしで再度ジャンプを押した場合、慣性ジャンプ(硬直時間を超えていること)
             else if(!m_hasVHInput && (Time.time > this.m_DashCancelTime + m_DashCancelWaittime) && Input.GetButtonDown("Jump"))
@@ -690,7 +690,7 @@ public partial class CharacterControl_Base
         else
         {
             FallDone(RiseSpeed);
-            this.m_MoveDirection = RiseSpeed;
+            this.MoveDirection = RiseSpeed;
         }
         // 着地で着地モーションへ
         if (m_isGrounded)
@@ -698,7 +698,7 @@ public partial class CharacterControl_Base
             LandingDone();
         }
         // 常時ブースト消費
-        this.m_Boost = this.m_Boost - this.m_BoostLess;
+        this.Boost = this.Boost - this.m_BoostLess;
     }
 
     // Step時共通動作
@@ -750,7 +750,7 @@ public partial class CharacterControl_Base
         // 無効になっていたら重力を復活させる
         this.GetComponent<Rigidbody>().useGravity = true;
         // 動作を停止する
-        this.m_MoveDirection = new Vector3(0, 0, 0);        
+        this.MoveDirection = new Vector3(0, 0, 0);        
     }
 
     

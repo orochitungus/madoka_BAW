@@ -135,7 +135,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     public float m_AttackTime;
 
     // 移動用ステート
-    public Vector3 m_MoveDirection;   // 移動方向
+    public Vector3 MoveDirection;   // 移動方向
     public Vector3 m_MoveDirection_OR;// 射撃などの射出前における移動方向
     public Vector3 m_BlowDirection;   // ダウンする時や吹き飛び属性の攻撃を食らった時の方向ベクトル
     public float m_WalkSpeed;         // 移動速度（歩行の場合）
@@ -157,7 +157,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     protected float m_DashCancelTime;
 
     // ステップ時のブースト消費量
-    protected float m_StepUseBoost;
+    protected float StepUseBoost;
 
     // ダウン回避時のブースト消費量
     protected float m_ReversalUseBoost;
@@ -184,7 +184,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     public int m_ArousalLevel = 1;
 
     // ブースト量
-    public float m_Boost;
+    public float Boost;
     // ブースト量初期値(Lv1の時の値）
     public float m_Boost_OR;
     // ブースト量成長係数
@@ -216,10 +216,10 @@ public partial class CharacterControl_Base : MonoBehaviour
     public float m_Step_Move_1F;
 
     // ステップ累積移動距離
-    public float m_SteppingLength;
+    public float SteppingLength;
 
     // ステップ時の移動角度
-    public Quaternion m_steprot;
+    public Quaternion StepRotation;
 
     // ステップ終了時の硬直時間
     public float m_StepBackTime;
@@ -1364,7 +1364,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     protected void JumpDone()
     {
         m_AnimState[0] = AnimationState.Jump;
-        this.m_Boost = this.m_Boost - this.m_JumpUseBoost;
+        this.Boost = this.Boost - this.m_JumpUseBoost;
         this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.Jump]);
     }
       
@@ -1383,7 +1383,7 @@ public partial class CharacterControl_Base : MonoBehaviour
 
     // ステップ中フラグ
 
-    private bool m_stepdone;
+    private bool Stepdone;
 
     // ステップ時共通操作
     // 第1引数：Y方向への上昇量
@@ -1473,10 +1473,10 @@ public partial class CharacterControl_Base : MonoBehaviour
                 this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.FrontStep]);
             }
         }
-        this.m_Boost = this.m_Boost - this.m_StepUseBoost;
+        this.Boost = this.Boost - this.StepUseBoost;
 
         // ステップ累積距離を0に初期化
-        this.m_SteppingLength = 0.0f;
+        this.SteppingLength = 0.0f;
 
         // 空中ステップのために重力無効
         this.GetComponent<Rigidbody>().useGravity = false;
@@ -1485,7 +1485,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         UpdateRotation_step();
 
         // 何らかの理由でm_MoveDirectionが0になったとき、強制的に入れる（射撃直後にステップを入れると高確率でこの現象が起こる）
-        if (m_MoveDirection == Vector3.zero)
+        if (MoveDirection == Vector3.zero)
         {
             // キーの入力方向を取る（ステップすべき方向を取る）
             int inputrot = 0;
@@ -1532,7 +1532,7 @@ public partial class CharacterControl_Base : MonoBehaviour
             // 上に進む場合
             if (inputrot == 1)
             {
-                m_MoveDirection = transform.rotation * Vector3.forward;
+                MoveDirection = transform.rotation * Vector3.forward;
             }
             // 下に進む場合
             else if (inputrot == 5)
@@ -1540,7 +1540,7 @@ public partial class CharacterControl_Base : MonoBehaviour
                 // 方向算出(現在の方向の後ろ側）
                 float nowrotY = transform.rotation.eulerAngles.y + 180;
                 Quaternion rot = Quaternion.Euler(new Vector3(0, nowrotY, 0));
-                m_MoveDirection = rot * Vector3.forward;
+                MoveDirection = rot * Vector3.forward;
             }
             // 左上・左・左下へ進む場合
             else if (2 <= inputrot && inputrot <= 4)
@@ -1551,7 +1551,7 @@ public partial class CharacterControl_Base : MonoBehaviour
                 float x = (float)Math.Sin(nowrotY - Math.PI / 2);
                 // 方向ベクトル算出：Z
                 float z = (float)Math.Sin(nowrotY);
-                m_MoveDirection = new Vector3(x, 0, z);
+                MoveDirection = new Vector3(x, 0, z);
             }
             // 右上・右・右下へ進む場合
             else
@@ -1562,14 +1562,14 @@ public partial class CharacterControl_Base : MonoBehaviour
                 float x = (float)Math.Cos(nowrotY);
                 // 方向ベクトル算出：Z
                 float z = (float)Math.Sin(nowrotY - Math.PI);
-                m_MoveDirection = new Vector3(x, 0, z);
+                MoveDirection = new Vector3(x, 0, z);
             }            
         }
 
         // 格闘キャンセルステップは入力の関係でMoveDirectinが相手の方向を向いているため、MoveDirectionを再設定する
         if (rainbow)
         {
-            this.m_MoveDirection = this.m_steprot * Vector3.forward;
+            this.MoveDirection = this.StepRotation * Vector3.forward;
         }
        
         // どうも無理っぽい（普通のジャンプに化けてしまい、加速度演算が無理？）
@@ -1594,7 +1594,7 @@ public partial class CharacterControl_Base : MonoBehaviour
             {
                 m_AnimState[0] = AnimationState.Idle;
                 // ブースト量を初期化する
-                this.m_Boost = GetMaxBoost(this.m_BoostLevel);
+                this.Boost = GetMaxBoost(this.m_BoostLevel);
             }
             // 空中にいたら角度を戻して落下
             else
@@ -1617,7 +1617,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         m_AnimState[1] = AnimationState.Shot;
         if (m_isGrounded)
         {
-            m_Boost = GetMaxBoost(m_BoostLevel);
+            Boost = GetMaxBoost(m_BoostLevel);
         }
     }
 
@@ -1632,7 +1632,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     protected virtual void ShotAirDash()
     {
         // ブースト切れ時にFallDone、DestroyWrestleを実行する
-        if (m_Boost <= 0)
+        if (Boost <= 0)
         {
             this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
             DestroyWrestle();
@@ -1792,9 +1792,9 @@ public partial class CharacterControl_Base : MonoBehaviour
     protected virtual void BackWrestle()
     {
         //1．ブーストゲージを減衰させる
-        m_Boost -= Time.deltaTime * 5.0f;
+        Boost -= Time.deltaTime * 5.0f;
         //2．ブーストゲージが0になると、強制的にIdleに戻す
-        if (m_Boost <= 0)
+        if (Boost <= 0)
         {
             this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Idle]);
             DestroyWrestle();
@@ -1814,9 +1814,9 @@ public partial class CharacterControl_Base : MonoBehaviour
     {
         StepCancel();
         // 発動中常時ブースト消費
-        this.m_Boost = this.m_Boost - this.m_BoostLess;
+        this.Boost = this.Boost - this.m_BoostLess;
         // ブースト切れ時にFallDone、DestroyWrestleを実行する
-        if (m_Boost <= 0)
+        if (Boost <= 0)
         {
             this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
             DestroyWrestle();
@@ -1845,11 +1845,11 @@ public partial class CharacterControl_Base : MonoBehaviour
     protected virtual void FrontExWrestle1()
     {
         // 毎フレームブーストを消費する
-        m_Boost -= Time.deltaTime * 100.0f;
+        Boost -= Time.deltaTime * 100.0f;
         // 重力無効
         this.GetComponent<Rigidbody>().useGravity = false;
         // ブーストが0になったらFallにする
-        if (m_Boost <= 0)
+        if (Boost <= 0)
         {
             // 判定オブジェクトを破棄する.一応くっついているものはすべて削除
             DestroyWrestle();
@@ -1905,9 +1905,9 @@ public partial class CharacterControl_Base : MonoBehaviour
     protected virtual void BackExWrestle()
     {
         // 毎フレームブーストを消費する
-        m_Boost -= Time.deltaTime * 100;
+        Boost -= Time.deltaTime * 100;
         // ブーストが0になったらFallにする
-        if (m_Boost <= 0)
+        if (Boost <= 0)
         {
             // 判定オブジェクトを破棄する.一応くっついているものはすべて削除
             DestroyWrestle();
@@ -2080,7 +2080,7 @@ public partial class CharacterControl_Base : MonoBehaviour
                 finalRot = Quaternion.LookRotation(wForward);
             }
         }
-        this.m_steprot = finalRot;
+        this.StepRotation = finalRot;
 
     }
     
@@ -2089,7 +2089,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     // 弓ほむら・まどかのモーションキャンセルなどはこの前に行うこと
     protected virtual void CancelDashDone()
     {
-        if (this.m_Boost > 0)
+        if (this.Boost > 0)
         {
             // 格闘判定削除
             DestroyWrestle();
@@ -2099,7 +2099,7 @@ public partial class CharacterControl_Base : MonoBehaviour
             this.m_Brest.transform.rotation = Quaternion.Euler(0, 0, 0);
             m_AnimState[0] = AnimationState.AirDash;
             this.m_Rotatehold = false;
-            this.m_Boost = this.m_Boost - this.m_DashCancelUseBoost;
+            this.Boost = this.Boost - this.m_DashCancelUseBoost;
             this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.AirDash]);
             // 移動方向取得
             //UpdateRotation();
@@ -2107,51 +2107,51 @@ public partial class CharacterControl_Base : MonoBehaviour
             // 角度に応じてX、Zの方向を切り替える
             if (this.transform.rotation.eulerAngles.y >= 337.5f && this.transform.rotation.eulerAngles.y < 22.5f)
             {
-                m_MoveDirection.x = 0.0f;
-                m_MoveDirection.z = 0.0f;
+                MoveDirection.x = 0.0f;
+                MoveDirection.z = 0.0f;
             }
             else if (this.transform.rotation.eulerAngles.y >= 22.5f && this.transform.rotation.eulerAngles.y < 67.5f)
             {
-                m_MoveDirection.x = 0.7f;
-                m_MoveDirection.z = 0.0f;
+                MoveDirection.x = 0.7f;
+                MoveDirection.z = 0.0f;
             }
             else if (this.transform.rotation.eulerAngles.y >= 67.5f && this.transform.rotation.eulerAngles.y < 112.5f)
             {
-                m_MoveDirection.x = 1.0f;
-                m_MoveDirection.z = 0.0f;
+                MoveDirection.x = 1.0f;
+                MoveDirection.z = 0.0f;
             }
             else if (this.transform.rotation.eulerAngles.y >= 112.5f && this.transform.rotation.eulerAngles.y < 157.5f)
             {
-                m_MoveDirection.x = 0.7f;
-                m_MoveDirection.z = -0.5f;
+                MoveDirection.x = 0.7f;
+                MoveDirection.z = -0.5f;
             }
             else if (this.transform.rotation.eulerAngles.y >= 157.5f && this.transform.rotation.eulerAngles.y < 202.5f)
             {
-                m_MoveDirection.x = 0.0f;
-                m_MoveDirection.z = -1.0f;
+                MoveDirection.x = 0.0f;
+                MoveDirection.z = -1.0f;
             }
             else if (this.transform.rotation.eulerAngles.y >= 202.5f && this.transform.rotation.eulerAngles.y < 247.5f)
             {
-                m_MoveDirection.x = -0.7f;
-                m_MoveDirection.z = -0.5f;
+                MoveDirection.x = -0.7f;
+                MoveDirection.z = -0.5f;
             }
             else if (this.transform.rotation.eulerAngles.y >= 247.5f && this.transform.rotation.eulerAngles.y < 292.5f)
             {
-                m_MoveDirection.x = -1.0f;
-                m_MoveDirection.z = 0.0f;
+                MoveDirection.x = -1.0f;
+                MoveDirection.z = 0.0f;
             }
             else if (this.transform.rotation.eulerAngles.y >= 292.5f && this.transform.rotation.eulerAngles.y < 337.5f)
             {
-                m_MoveDirection.x = -0.7f;
-                m_MoveDirection.z = 0.0f;
+                MoveDirection.x = -0.7f;
+                MoveDirection.z = 0.0f;
             }
 
             // 上方向への慣性を切る
-            this.m_MoveDirection.y = 0;
+            this.MoveDirection.y = 0;
             // 発動中重力無効
             this.GetComponent<Rigidbody>().useGravity = false;
             // その方向へ移動
-            GetComponent<Rigidbody>().AddForce(this.m_MoveDirection.x, 10, this.m_MoveDirection.z);
+            GetComponent<Rigidbody>().AddForce(this.MoveDirection.x, 10, this.MoveDirection.z);
         }
     }
 
@@ -2191,7 +2191,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     {
         m_AnimState[1] = AnimationState.Landing;
         // 地響き防止
-        this.m_MoveDirection = transform.rotation * new Vector3(0, 0, 0);
+        this.MoveDirection = transform.rotation * new Vector3(0, 0, 0);
         // モーション終了時にアイドルへ移行
         // 硬直時間が終わるとIdleへ戻る。オバヒ着地とかやりたいならBoost0でLandingTimeの値を変えるとか
         if (Time.time > this.m_LandingTime + this.m_LandingWaitTime)
@@ -2199,7 +2199,7 @@ public partial class CharacterControl_Base : MonoBehaviour
             m_AnimState[0] = AnimationState.Idle;
             this.GetComponent<Animation>().Play(file);
             // ブースト量を初期化する
-            this.m_Boost = GetMaxBoost(this.m_BoostLevel);
+            this.Boost = GetMaxBoost(this.m_BoostLevel);
         }
     }
 
@@ -2244,7 +2244,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         this.m_LandingTime = -this.m_LandingWaitTime;
 
         // 歩行速度(m_WalkSpeed等はそれぞれで設定）
-        this.m_MoveDirection = Vector3.zero;
+        this.MoveDirection = Vector3.zero;
         // 吹き飛び速度
         this.m_BlowDirection = Vector3.zero;
 
@@ -2252,7 +2252,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         this.GetComponent<Animation>().Play(this.m_AnimationNames[(int)AnimationState.Idle]);
 
         // ブースト量を初期化する
-        this.m_Boost = GetMaxBoost(this.m_BoostLevel);
+        this.Boost = GetMaxBoost(this.m_BoostLevel);
         
 		// 上体を初期化する
         this.m_Brest.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -2814,7 +2814,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         {
             this.GetComponent<Rigidbody>().useGravity = false;  // 重力無効
             MoveSpeed = this.m_Step_Initial_velocity;
-            this.m_MoveDirection.y = 0;         // Y移動無効            
+            this.MoveDirection.y = 0;         // Y移動無効            
         }
         // 格闘時(ガード含む）
         else if (m_AnimState[0] == AnimationState.Wrestle_1 || m_AnimState[0] == AnimationState.Wrestle_2 || m_AnimState[0] == AnimationState.Wrestle_3 ||
@@ -2847,7 +2847,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         if (this.m_rigidbody != null)//(this.m_charactercontroller != null)
         {            
             // 速度ベクトルを作る
-            Vector3 velocity = this.m_MoveDirection * MoveSpeed;
+            Vector3 velocity = this.MoveDirection * MoveSpeed;
             // 走行中/アイドル中/吹き飛び中/ダウン中
             if (this.m_AnimState[0] == AnimationState.Run || this.m_AnimState[0] == AnimationState.Idle || this.m_AnimState[0] == AnimationState.Blow || this.m_AnimState[0] == AnimationState.Down)
             {
@@ -3004,13 +3004,13 @@ public partial class CharacterControl_Base : MonoBehaviour
     protected void StepMove(AnimationState astate)
     {
         // 移動距離をインクリメントする（初期位置との差では壁に当たったときに無限に動き続ける）
-        this.m_SteppingLength += this.m_Step_Move_1F;
+        this.SteppingLength += this.m_Step_Move_1F;
 
         // 地面オブジェクトに触れた場合は着地モーションへ移行(暴走防止のために、上昇中は判定禁止.時間で判定しないと、引っかかったときに無限ループする)
-        if (this.m_SteppingLength > this.m_Step_Move_Length)
+        if (this.SteppingLength > this.m_Step_Move_Length)
         {
             //MoveDirection.y = -2;                
-            this.m_MoveDirection = transform.rotation * Vector3.forward;
+            this.MoveDirection = transform.rotation * Vector3.forward;
             switch (astate)
             {
                 case AnimationState.FrontStep:
@@ -3033,7 +3033,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     protected bool CancelCheck()
     {
         // ブーストが残っていればキャンセルダッシュは受け付ける（方向入力は受け付けない）
-        if (this.m_Boost > 0)
+        if (this.Boost > 0)
         {
             // 方向キーなしで再度ジャンプを押した場合、慣性ジャンプ
             if (!m_hasVHInput && Input.GetButton("Jump"))
@@ -3091,7 +3091,7 @@ public partial class CharacterControl_Base : MonoBehaviour
             ReversalInit();
         }
 	    // ブースト全回復
-        m_Boost = GetMaxBoost(m_BoostLevel);
+        Boost = GetMaxBoost(m_BoostLevel);
         // 覚醒モード移行
         m_isArousal = true;
         // エフェクト出現（エフェクトはCharacerControl_Baseのpublicに入れておく）
@@ -3250,12 +3250,12 @@ public partial class CharacterControl_Base : MonoBehaviour
             if (this.m_IsRockon && shotmode != ShotMode.NORMAL)
             {
                 UpdateRotation_step();      // steprotは相手の方向を向いたまま動くので、こっちを使う
-                this.m_MoveDirection = this.m_steprot * Vector3.forward;
+                this.MoveDirection = this.StepRotation * Vector3.forward;
             }
             else
             {
                 UpdateRotation();
-                this.m_MoveDirection = this.transform.rotation * Vector3.forward;
+                this.MoveDirection = this.transform.rotation * Vector3.forward;
             }
         }
         // 入力が外れると、落下する
@@ -3265,7 +3265,7 @@ public partial class CharacterControl_Base : MonoBehaviour
             {
                 this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Idle]);
             }
-            this.m_MoveDirection = Vector3.zero;
+            this.MoveDirection = Vector3.zero;
         }
     }
     // 首もしくは上体ををロックオン対象へ向ける
@@ -3382,7 +3382,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     // 本体を強制停止させる
     protected void EmagencyStop()
     {
-        this.m_MoveDirection = Vector3.zero;
+        this.MoveDirection = Vector3.zero;
         m_AnimState[0] = AnimationState.Idle;
     }
         

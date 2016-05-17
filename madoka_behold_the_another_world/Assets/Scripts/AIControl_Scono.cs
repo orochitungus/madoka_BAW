@@ -44,7 +44,7 @@ public class AIControl_Scono : AIControl_Base
                
         // 地上にいてダウンしていなくブーストゲージがあった場合、飛行させる（着地硬直中などは飛べない）
         if (target.GetInGround() && target.m_AnimState[0] != CharacterControl_Base.AnimationState.Down && target.m_AnimState[0] != CharacterControl_Base.AnimationState.Reversal
-            && target.m_Boost > 0)
+            && target.Boost > 0)
         {
             keyoutput = KEY_OUTPUT.JUMP;
             m_cpumode = CPUMODE.NORMAL_RISE1;

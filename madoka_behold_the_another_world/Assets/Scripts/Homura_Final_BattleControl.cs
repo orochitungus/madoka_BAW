@@ -176,7 +176,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
         // ブースト消費量
         this.m_JumpUseBoost = 10;       // ジャンプ時
         this.m_DashCancelUseBoost = 10;   // ブーストダッシュ時
-        this.m_StepUseBoost = 10;         // ステップ時
+        this.StepUseBoost = 10;         // ステップ時
         this.m_BoostLess = 0.5f;        // ジャンプの上昇・BD時の1F当たりの消費量
  
         // ステップ移動距離
@@ -295,7 +295,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
             // 歩き撃ちはしないので、強制停止
             if (run || AirDash)
             {
-                this.m_MoveDirection = Vector3.zero;
+                this.MoveDirection = Vector3.zero;
                 m_AnimState[0] = AnimationState.Idle;
             }
             ChargeShotDone();
@@ -324,7 +324,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                     // それ以外なら強制的に停止して（立ち撃ちにして）撃つ
                     else
                     {
-                        this.m_MoveDirection = Vector3.zero;
+                        this.MoveDirection = Vector3.zero;
                         m_AnimState[0] = AnimationState.Idle;
                         ShotDone();
                     }
@@ -607,7 +607,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                     this.m_AnimState[0] = AnimationState.Run;
                 }
                 // 空中にいてダッシュ入力中でありかつブーストゲージがある
-                else if (!m_isGrounded && m_hasVHInput && m_hasJumpInput && this.m_Boost > 0)                
+                else if (!m_isGrounded && m_hasVHInput && m_hasJumpInput && this.Boost > 0)                
                 {
                     // 空中ダッシュのアニメを起動する
                     this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.AirDash]);
@@ -1241,8 +1241,8 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                     myPos = new Vector3(myPos.x, 0, myPos.z);
                     transform.rotation = Quaternion.LookRotation(targetpos - myPos);
                 }
-                this.m_MoveDirection = transform.rotation * Vector3.forward;
-                GetComponent<Rigidbody>().position = GetComponent<Rigidbody>().position + this.m_MoveDirection * m_WalkSpeed * Time.deltaTime;
+                this.MoveDirection = transform.rotation * Vector3.forward;
+                GetComponent<Rigidbody>().position = GetComponent<Rigidbody>().position + this.MoveDirection * m_WalkSpeed * Time.deltaTime;
                 // エフェクト/判定取り付け開始(どのフックに取り付けるか）
                 // 一応左→右の順で取り付けていく
                 // フックの名前(左）
@@ -1281,7 +1281,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                 break;
             case ArousalState.ATTACK:       // （ロックオンしている相手に向けて）飛行開始
                 // 前方向に向けて飛行開始
-                GetComponent<Rigidbody>().position = GetComponent<Rigidbody>().position + this.m_MoveDirection * m_AirDashSpeed * Time.deltaTime;
+                GetComponent<Rigidbody>().position = GetComponent<Rigidbody>().position + this.MoveDirection * m_AirDashSpeed * Time.deltaTime;
                 m_arousalAttackTime += Time.deltaTime;
                 // 飛行時間を終えたらENDへ移行
                 if (m_arousalAttackTime > m_arousalAttackTotal)

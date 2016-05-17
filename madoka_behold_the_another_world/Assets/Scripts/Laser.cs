@@ -78,7 +78,7 @@ public class Laser : MonoBehaviour
         if (target.m_nowDownRatio >= target.m_DownRatio || this.m_Hittype == CharacterSkill.HitType.BLOW)
         {   // 吹き飛びの場合、相手に方向ベクトルを与える            
             // Y軸方向は少し上向き
-            target.m_MoveDirection.y += 10;
+            target.MoveDirection.y += 10;
             // 吹き飛び方向を計算する
             Vector3 blowDirection_OR = transform.position - m_Obj_OR.transform.position;
             m_MoveDirection = Vector3.Normalize(blowDirection_OR);

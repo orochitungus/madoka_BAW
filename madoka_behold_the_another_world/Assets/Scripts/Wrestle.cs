@@ -84,7 +84,7 @@ public partial class CharacterControl_Base
             // 自機をロックオン対象に向ける
             transform.rotation = Quaternion.LookRotation(mypos - targetpos);
             // 方向ベクトルを向けた方向に合わせる            
-            m_MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
+            MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
         }
         // 本体角度が0の場合カメラの方向を移動方向とし、正規化して代入する
         else if (this.transform.rotation.eulerAngles.y == 0)
@@ -94,12 +94,12 @@ public partial class CharacterControl_Base
             Vector3 rotateOR_E = rotateOR.eulerAngles;
             rotateOR_E.x = 0;
             rotateOR = Quaternion.Euler(rotateOR_E);
-            this.m_MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+            this.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
         }
         // それ以外は本体の角度を移動方向にする
         else
         {
-            this.m_MoveDirection = Vector3.Normalize(this.transform.rotation * Vector3.forward);
+            this.MoveDirection = Vector3.Normalize(this.transform.rotation * Vector3.forward);
         }
         // アニメーション速度
         float speed = Character_Spec.cs[(int)m_character_name][skillIndex].m_Animspeed;
@@ -145,7 +145,7 @@ public partial class CharacterControl_Base
             // クォータニオンに変換
             Quaternion addrot_Q = Quaternion.Euler(addrot);
             // 方向ベクトルを向けた方向に合わせる            
-            m_MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
+            MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
         }
         // 本体角度が0の場合カメラの方向に45度足した値をを移動方向とし、正規化して代入する
         else if (this.transform.rotation.eulerAngles.y == 0)
@@ -156,7 +156,7 @@ public partial class CharacterControl_Base
             rotateOR_E.x = 0;
             rotateOR_E.y = rotateOR.eulerAngles.y - 10;
             rotateOR = Quaternion.Euler(rotateOR_E);
-            this.m_MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+            this.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
         }
         // それ以外は本体の角度+45度を移動方向にする
         else
@@ -164,7 +164,7 @@ public partial class CharacterControl_Base
             Vector3 addrot = this.transform.eulerAngles;
             addrot.y = addrot.y - 10;
             Quaternion addrot_Q = Quaternion.Euler(addrot);
-            this.m_MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
+            this.MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
         }
         // アニメーション速度
         float speed = Character_Spec.cs[(int)m_character_name][skillIndex].m_Animspeed;
@@ -210,7 +210,7 @@ public partial class CharacterControl_Base
             // クォータニオンに変換
             Quaternion addrot_Q = Quaternion.Euler(addrot);
             // 方向ベクトルを向けた方向に合わせる            
-            m_MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
+            MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
         }
         // 本体角度が0の場合カメラの方向に45度足した値をを移動方向とし、正規化して代入する
         else if (this.transform.rotation.eulerAngles.y == 0)
@@ -221,7 +221,7 @@ public partial class CharacterControl_Base
             rotateOR_E.x = 0;
             rotateOR_E.y = rotateOR.eulerAngles.y + 10;
             rotateOR = Quaternion.Euler(rotateOR_E);
-            this.m_MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+            this.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
         }
         // それ以外は本体の角度+45度を移動方向にする
         else
@@ -229,7 +229,7 @@ public partial class CharacterControl_Base
             Vector3 addrot = this.transform.eulerAngles;
             addrot.y = addrot.y + 10;
             Quaternion addrot_Q = Quaternion.Euler(addrot);
-            this.m_MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
+            this.MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
         }
         // アニメーション速度
         float speed = Character_Spec.cs[(int)m_character_name][skillIndex].m_Animspeed;
@@ -266,7 +266,7 @@ public partial class CharacterControl_Base
             // 自機をロックオン対象に向ける
             transform.rotation = Quaternion.LookRotation(mypos - targetpos);
             // 方向ベクトルを向けた方向に合わせる            
-            m_MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
+            MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
         }
         // 本体角度が0の場合カメラの方向を移動方向とし、正規化して代入する
         else if (this.transform.rotation.eulerAngles.y == 0)
@@ -277,7 +277,7 @@ public partial class CharacterControl_Base
             rotateOR_E.x = 0;
             rotateOR_E.y += 180;
             rotateOR = Quaternion.Euler(rotateOR_E);
-            this.m_MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+            this.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
         }
         //   ロックオンしていない場合→本体を前方方向へ向ける（現在の自分の角度がカメラ側を向いているので、180度加算してひっくり返す）
         else
@@ -285,7 +285,7 @@ public partial class CharacterControl_Base
             Vector3 addrot = this.transform.eulerAngles;
             addrot.y = addrot.y + 180;
             Quaternion addrot_Q = Quaternion.Euler(addrot);
-            this.m_MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
+            this.MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
         }
         //3．アニメーション速度を設定する
         float speed = Character_Spec.cs[(int)m_character_name][skillIndex].m_Animspeed;
@@ -321,13 +321,13 @@ public partial class CharacterControl_Base
             // 自機をロックオン対象に向ける
             transform.rotation = Quaternion.LookRotation(mypos - targetpos);
             // 方向ベクトルを上向きにする            
-            m_MoveDirection = new Vector3(0, 1, 0);
+            MoveDirection = new Vector3(0, 1, 0);
         }
         // 本体角度が0の場合カメラの方向を移動方向とし、正規化して代入する
         else if (this.transform.rotation.eulerAngles.y == 0)
         {
             // 方向ベクトルを上向きにする            
-            m_MoveDirection = new Vector3(0, 1, 0);
+            MoveDirection = new Vector3(0, 1, 0);
         }
         //   ロックオンしていない場合→本体を前方方向へ向ける（現在の自分の角度がカメラ側を向いているので、180度加算してひっくり返す）
         else
@@ -335,7 +335,7 @@ public partial class CharacterControl_Base
             Vector3 addrot = this.transform.eulerAngles;
             addrot.y = addrot.y + 180;
             // 方向ベクトルを上向きにする            
-            m_MoveDirection = new Vector3(0, 1, 0);
+            MoveDirection = new Vector3(0, 1, 0);
         }
         // アニメーション速度を設定する
         float speed = Character_Spec.cs[(int)m_character_name][skillIndex].m_Animspeed;
@@ -371,13 +371,13 @@ public partial class CharacterControl_Base
             // 自機をロックオン対象に向ける
             transform.rotation = Quaternion.LookRotation(mypos - targetpos);
             // 方向ベクトルを下向きにする            
-            m_MoveDirection = new Vector3(0, -1, 0);
+            MoveDirection = new Vector3(0, -1, 0);
         }
         // 本体角度が0の場合カメラの方向を移動方向とし、正規化して代入する
         else if (this.transform.rotation.eulerAngles.y == 0)
         {
             // 方向ベクトルを下向きにする            
-            m_MoveDirection = new Vector3(0, -1, 0);
+            MoveDirection = new Vector3(0, -1, 0);
         }
         //   ロックオンしていない場合→本体を前方方向へ向ける（現在の自分の角度がカメラ側を向いているので、180度加算してひっくり返す）
         else
@@ -386,7 +386,7 @@ public partial class CharacterControl_Base
             addrot.y = addrot.y + 180;
             this.transform.rotation = Quaternion.Euler(new Vector3(addrot.x, addrot.y, addrot.z));
             // 方向ベクトルを下向きにする            
-            m_MoveDirection = new Vector3(0, -1, 0);
+            MoveDirection = new Vector3(0, -1, 0);
         }
         // アニメーション速度を設定する
         float speed = Character_Spec.cs[(int)m_character_name][skillIndex].m_Animspeed;

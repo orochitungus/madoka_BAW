@@ -369,7 +369,7 @@ public class Bullet : MonoBehaviour
             if (target.m_nowDownRatio >= target.m_DownRatio || this.m_Hittype == CharacterSkill.HitType.BLOW)
             {   // 吹き飛びの場合、相手に方向ベクトルを与える            
                 // Y軸方向は少し上向き
-                target.m_MoveDirection.y += 10;
+                target.MoveDirection.y += 10;
                 target.m_BlowDirection = this.m_MoveDirection;
                 // 吹き飛びの場合、攻撃を当てた相手を浮かす（MadokaDefine.LAUNCHOFFSET)            
                 target.GetComponent<Rigidbody>().position = target.GetComponent<Rigidbody>().position + new Vector3(0, MadokaDefine.LAUNCHOFFSET, 0);
@@ -468,7 +468,7 @@ public class Bullet : MonoBehaviour
             if (target.m_nowDownRatio >= target.m_DownRatio || this.m_Hittype == CharacterSkill.HitType.BLOW)
             {   // 吹き飛びの場合、相手に方向ベクトルを与える            
                 // Y軸方向は少し上向き
-                target.m_MoveDirection.y += 10;
+                target.MoveDirection.y += 10;
                 target.m_BlowDirection = this.m_MoveDirection;
                 // 吹き飛びの場合、攻撃を当てた相手を浮かす（MadokaDefine.LAUNCHOFFSET)            
                 target.GetComponent<Rigidbody>().position = target.GetComponent<Rigidbody>().position + new Vector3(0, MadokaDefine.LAUNCHOFFSET, 0);

@@ -685,6 +685,7 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     protected Reload ReloadSystem;
 
+
     /// <summary>
     /// プレイヤーのレベル設定を行う
     /// </summary>
@@ -1271,6 +1272,213 @@ public class CharacterControlBase : MonoBehaviour
 	}
 
 
+	/// <summary>
+	/// ジャンプ時共通操作
+	/// この関数を各キャラで継承させ、そこでアニメーションの再生を行う
+	/// </summary>
+	protected virtual void JumpDone()
+	{
+		Boost = Boost - JumpUseBoost;
+	}
+
+	/// <summary>
+	/// ステップ中フラグ
+	/// ステップモーション再生中に立てること
+	/// </summary>
+	public bool Stepdone;
+
+	// ステップ時共通操作
+	// 第1引数：Y方向への上昇量
+	// 第2引数：入力の方向
+	// 第3引数：虹エフェクトにするか否か（通常はfalse)
+	protected virtual void StepDone(float Yforce, Vector2 inputVector, bool rainbow = false)
+	{
+		
+	}
+
+	/// <summary>
+	/// ワールド座標でのカメラの基底ベクトルを計算し、それを基にキャラクターの回転を計算する
+	/// </summary>
+	protected void UpdateRotation()
+    {
+        var finalRot = transform.rotation;
+        float horizontal = 0;        // 横入力を検出
+		float vertical = 0;            // 縦入力を検出
+		if (ControllerManager.Instance.Top)
+		{
+			vertical = 1.0f;
+		}
+		else if(ControllerManager.Instance.Under)
+		{
+			vertical = -1.0f;
+		}
+		
+		if(ControllerManager.Instance.Left)
+		{
+			horizontal = -1.0f;
+		}
+		else if(ControllerManager.Instance.Right)
+		{
+			horizontal = 1.0f;
+		}
+
+        var toWorldVector = MainCamera.transform.rotation;
+        // ベクトルは平行移動の影響を受けないので逆行列は使わない
+        // スケールの影響は受けるがここでは無視する。
+
+        // CPU時、ここで入力を取得
+        if (this.IsPlayer != CHARACTERCODE.PLAYER)
+        {
+            // CPU情報
+            var CPU = this.GetComponentInChildren<AIControl_Base>();
+            // テンキーの種類からhorizontalとverticalを取得
+            if ((int)CPU.m_tenkeyoutput <= 8)
+            {
+                horizontal = CPU.m_lever[(int)CPU.m_tenkeyoutput].x;
+                vertical = CPU.m_lever[(int)CPU.m_tenkeyoutput].y;
+            }
+        }
+
+        // ロックオン時特殊処理
+        // 案1：敵と重なるような状態になったら一時的に移動方向を固定する(角度が特異姿勢になるので、暴走する）
+        // 案2：敵と重なるような状態になったらカメラを反転する
+        // ガンダムは1と2の併用？2はやってないか。一定距離離れたら固定が解除されているだけっぽい→1で確定
+        if (this.IsRockon)
+        {
+            // 敵（ロックオン対象）の座標を取得
+            Player_Camera_Controller targetspec = GetComponentInChildren<Player_Camera_Controller>();
+            if (targetspec.Enemy == null)
+            {
+                IsRockon = false;
+                return;
+            }
+            Vector3 targetpos = targetspec.Enemy.transform.position;
+            // 自分の座標を取得
+            Vector3 myPos = transform.position;
+
+
+            // XとZの差が一定値以下で移動方向固定(空中移動時限定）
+            if (!this.IsGrounded)
+            {
+                if (Mathf.Abs(targetpos.x - myPos.x) < 10.0f && Mathf.Abs(targetpos.z - myPos.z) < 10.0f)
+                {
+                    Rotatehold = true;
+                    return;
+                }
+            }
+           
+        }
+        // 横入力時
+        if (0.0f != horizontal)
+        {
+            // ワールド座標でのカメラの横ベクトルを計算
+            var wRight = toWorldVector * Vector3.right;
+            wRight.y = 0.0f;
+            wRight.Normalize();
+            if (0.0f > horizontal)
+            {
+                // ネガティブ側が押されているので反転
+                wRight = -wRight;
+            }
+            finalRot = Quaternion.LookRotation(wRight);
+        }
+
+        // 縦入力時
+        if (0.0f != vertical)
+        {
+            if (0.0f != horizontal)
+            {
+                // 横移動をすでに行っている場合 45°回転する
+                var q = Quaternion.AngleAxis(-45 * vertical * horizontal, Vector3.up);
+                finalRot = q * finalRot;
+            }
+            else
+            {
+                // ワールド座標でのカメラの視線ベクトル
+                var wForward = toWorldVector * Vector3.forward;
+                wForward.y = 0;
+                wForward.Normalize();
+
+                if (0.0f > vertical)
+                {
+                    wForward = -wForward;
+                }
+
+                finalRot = Quaternion.LookRotation(wForward);
+            }
+        }
+        //Debug.Log("Rotation:" + finalRot);
+        
+        transform.rotation = finalRot;
+        
+    }
+
+    // 上記のステップ用（本体を回転させない）
+    protected void UpdateRotation_step()
+    {
+        var finalRot = transform.rotation;
+		float horizontal = 0;        // 横入力を検出
+		float vertical = 0;            // 縦入力を検出
+		if (ControllerManager.Instance.Top)
+		{
+			vertical = 1.0f;
+		}
+		else if (ControllerManager.Instance.Under)
+		{
+			vertical = -1.0f;
+		}
+
+		if (ControllerManager.Instance.Left)
+		{
+			horizontal = -1.0f;
+		}
+		else if (ControllerManager.Instance.Right)
+		{
+			horizontal = 1.0f;
+		}
+		var toWorldVector = MainCamera.transform.rotation;
+		
+        // 横入力時
+        if (0.0f != horizontal)
+        {
+            // ワールド座標でのカメラの横ベクトルを計算
+            var wRight = toWorldVector * Vector3.right;
+            wRight.y = 0.0f;
+            wRight.Normalize();
+            if (0.0f > horizontal)
+            {
+                // ネガティブ側が押されているので反転
+                wRight = -wRight;
+            }
+            finalRot = Quaternion.LookRotation(wRight);
+        }
+        // 縦入力時
+        if (0.0f != vertical)
+        {
+            if (0.0f != horizontal)
+            {
+                // 横移動をすでに行っている場合 45°回転する
+                var q = Quaternion.AngleAxis(-45 * vertical * horizontal, Vector3.up);
+                finalRot = q * finalRot;
+            }
+            else
+            {
+                // ワールド座標でのカメラの視線ベクトル
+                var wForward = toWorldVector * Vector3.forward;
+                wForward.y = 0;
+                wForward.Normalize();
+
+                if (0.0f > vertical)
+                {
+                    wForward = -wForward;
+                }
+
+                finalRot = Quaternion.LookRotation(wForward);
+            }
+        }
+		StepRotation = finalRot;
+
+    }
 
 	// Use this for initialization
 	void Start ()

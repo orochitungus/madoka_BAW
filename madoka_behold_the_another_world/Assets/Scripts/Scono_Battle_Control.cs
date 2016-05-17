@@ -162,7 +162,7 @@ public class Scono_Battle_Control : CharacterControl_Base
         // ブースト消費量
         this.m_JumpUseBoost = 20;       // ジャンプ時
         this.m_DashCancelUseBoost = 20;   // ブーストダッシュ時
-        this.m_StepUseBoost = 20;         // ステップ時
+        this.StepUseBoost = 20;         // ステップ時
         this.m_BoostLess = 0.5f;        // ジャンプの上昇・BD時の1F当たりの消費量
 
         // ステップ移動距離
@@ -324,7 +324,7 @@ public class Scono_Battle_Control : CharacterControl_Base
                     // それ以外なら強制的に停止して（立ち撃ちにして）撃つ
                     else
                     {
-                        this.m_MoveDirection = Vector3.zero;
+                        this.MoveDirection = Vector3.zero;
                         m_AnimState[0] = AnimationState.Idle;
                         ShotDone();
                     }
@@ -630,7 +630,7 @@ public class Scono_Battle_Control : CharacterControl_Base
                     this.m_AnimState[0] = AnimationState.Run;
                 }
                 // 空中にいてダッシュ入力中でありかつブーストゲージがある
-                else if (m_isGrounded && m_hasVHInput && m_hasJumpInput && this.m_Boost > 0)//(this.m_charactercontroller.isGrounded && m_hasVHInput && m_hasJumpInput && this.m_Boost > 0)
+                else if (m_isGrounded && m_hasVHInput && m_hasJumpInput && this.Boost > 0)//(this.m_charactercontroller.isGrounded && m_hasVHInput && m_hasJumpInput && this.m_Boost > 0)
                 {
                     // 空中ダッシュのアニメを起動する
                     this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.AirDash]);
@@ -669,7 +669,7 @@ public class Scono_Battle_Control : CharacterControl_Base
         this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.EX_Shot]);
         this.shotmode = ShotMode.RELORD;
 		// 位置と角度を固定する
-		this.m_MoveDirection = Vector3.zero;
+		this.MoveDirection = Vector3.zero;
 		this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
     }
 

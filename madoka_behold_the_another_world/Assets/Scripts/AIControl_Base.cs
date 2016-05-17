@@ -320,7 +320,7 @@ public class AIControl_Base : MonoBehaviour
 
         // 地上にいてダウンしていなくブーストゲージがあった場合、飛行させる（着地硬直中などは飛べない）
         if (target.GetInGround() && target.m_AnimState[0] != CharacterControl_Base.AnimationState.Down && target.m_AnimState[0] != CharacterControl_Base.AnimationState.Reversal
-            && target.m_Boost > 0)
+            && target.Boost > 0)
         {
             keyoutput = KEY_OUTPUT.JUMP;
             m_cpumode = CPUMODE.NORMAL_RISE1;
@@ -740,7 +740,7 @@ public class AIControl_Base : MonoBehaviour
         // 制御対象
         var target = ControlTarget.GetComponent<CharacterControl_Base>();
         // ブーストがある限り上昇
-        if (target.m_Boost > 0)
+        if (target.Boost > 0)
         {
             tenkeyoutput = TENKEY_OUTPUT.TOP;
             keyoutput = KEY_OUTPUT.EXWRESTLE;
@@ -781,7 +781,7 @@ public class AIControl_Base : MonoBehaviour
         // 制御対象
         var target = ControlTarget.GetComponent<CharacterControl_Base>();
         // ブーストがある限りガード
-        if (target.m_Boost > 0)
+        if (target.Boost > 0)
         {
             tenkeyoutput = TENKEY_OUTPUT.UNDER;
             keyoutput = KEY_OUTPUT.WRESTLE;
