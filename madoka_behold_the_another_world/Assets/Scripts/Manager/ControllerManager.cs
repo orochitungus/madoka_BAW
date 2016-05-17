@@ -109,6 +109,11 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 	public bool Command;
 
 	/// <summary>
+	/// アイテム
+	/// </summary>
+	public bool Item;
+
+	/// <summary>
 	/// メニュー
 	/// </summary>
 	public bool Menu;
@@ -212,11 +217,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 
 		DontDestroyOnLoad(this.gameObject);
 
-		// 十字キー設定取得
-		string Upkey = PlayerPrefs.GetString("KeyUP");
-		string Downkey = PlayerPrefs.GetString("KeyDown");
-		string Leftkey = PlayerPrefs.GetString("KeyLeft");
-		string Rightkey = PlayerPrefs.GetString("KeyRight");
+		
 
 		
 
@@ -225,6 +226,12 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 		// 十字キー/ジョイスティック左入力方向検出
 		this.UpdateAsObservable().Subscribe(_ =>
 		{
+			// 十字キー設定取得
+			string Upkey = PlayerPrefs.GetString("KeyUP");
+			string Downkey = PlayerPrefs.GetString("KeyDown");
+			string Leftkey = PlayerPrefs.GetString("KeyLeft");
+			string Rightkey = PlayerPrefs.GetString("KeyRight");
+
 			float horizontal = Input.GetAxisRaw("Horizontal");      // 横入力を検出(左スティック)
 			float vertical = Input.GetAxisRaw("Vertical");          // 縦入力を検出(左スティック)
 			float horizontal2 = 0.0f;                               // 横入力を検出(十字キー）
@@ -437,57 +444,63 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 		rightfrontstepstrem.Buffer(rightfrontstepstrem.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { RightFrontStep = false; });
 
 		// http://www.slideshare.net/torisoup/unity-unirx
-		// 射撃
-		shotcode_keyboard = PlayerPrefs.GetString("Shot_Keyboard");
-		shotcode_controller = PlayerPrefs.GetString("Shot_Controller");
+		this.UpdateAsObservable().Subscribe(_ =>
+		{
+			// 射撃
+			shotcode_keyboard = PlayerPrefs.GetString("Shot_Keyboard");
+			shotcode_controller = PlayerPrefs.GetString("Shot_Controller");
 
-		// 格闘
-		wrestlecode_keyboard = PlayerPrefs.GetString("Wrestle_Keyboard");
-		wrestlecode_controller = PlayerPrefs.GetString("Wrestle_Controller");
+			// 格闘
+			wrestlecode_keyboard = PlayerPrefs.GetString("Wrestle_Keyboard");
+			wrestlecode_controller = PlayerPrefs.GetString("Wrestle_Controller");
 
-		// ジャンプ
-		jump_keyboard = PlayerPrefs.GetString("Jump_Keyboard");
-		jump_controller = PlayerPrefs.GetString("Jump_Controller");
+			// ジャンプ
+			jump_keyboard = PlayerPrefs.GetString("Jump_Keyboard");
+			jump_controller = PlayerPrefs.GetString("Jump_Controller");
 
-		// サーチ
-		search_keyboard = PlayerPrefs.GetString("Search_Keyboard");
-		search_controller = PlayerPrefs.GetString("Search_Controller");
+			// サーチ
+			search_keyboard = PlayerPrefs.GetString("Search_Keyboard");
+			search_controller = PlayerPrefs.GetString("Search_Controller");
 
-		// サブ射撃
-		subshot_keyboard = PlayerPrefs.GetString("SubShot_Keyboard");
-		subshot_controller = PlayerPrefs.GetString("SubShot_Controller");
+			// アイテム
+			
 
-		// 特殊格闘 
-		exwrestle_keyboard = PlayerPrefs.GetString("EXWrestle_Keyboad");
-		exwrestle_controller = PlayerPrefs.GetString("EXWrestle_Controller");
+			// サブ射撃
+			subshot_keyboard = PlayerPrefs.GetString("SubShot_Keyboard");
+			subshot_controller = PlayerPrefs.GetString("SubShot_Controller");
 
-		// 特殊射撃
-		exshot_keyboard = PlayerPrefs.GetString("EXShot_Keyboard");
-		exshot_controller = PlayerPrefs.GetString("EXShot_Controller");
+			// 特殊格闘 
+			exwrestle_keyboard = PlayerPrefs.GetString("EXWrestle_Keyboad");
+			exwrestle_controller = PlayerPrefs.GetString("EXWrestle_Controller");
 
-		// メニュー
-		menu_keyboard = PlayerPrefs.GetString("Menu_Keyboard");
-		menu_controller = PlayerPrefs.GetString("Menu_Controller");
+			// 特殊射撃
+			exshot_keyboard = PlayerPrefs.GetString("EXShot_Keyboard");
+			exshot_controller = PlayerPrefs.GetString("EXShot_Controller");
 
-		// コマンド
-		command_keyboard = PlayerPrefs.GetString("Command_Keyboard");
-		command_controller = PlayerPrefs.GetString("Commnd_Controller");
+			// メニュー
+			menu_keyboard = PlayerPrefs.GetString("Menu_Keyboard");
+			menu_controller = PlayerPrefs.GetString("Menu_Controller");
 
-		// 視点変更上
-		viewchangeupper_keyboard = PlayerPrefs.GetString("ElevationUpper_Keyboard");
-		viewchangeupper_controller = PlayerPrefs.GetString("ElevationUpper_Controller");
+			// コマンド
+			command_keyboard = PlayerPrefs.GetString("Command_Keyboard");
+			command_controller = PlayerPrefs.GetString("Commnd_Controller");
 
-		// 視点変更下
-		viewchangedown_keyboard = PlayerPrefs.GetString("ElevationDown_Keyboard");
-		viewchangedown_controller = PlayerPrefs.GetString("ElevationDown_Controller");
+			// 視点変更上
+			viewchangeupper_keyboard = PlayerPrefs.GetString("ElevationUpper_Keyboard");
+			viewchangeupper_controller = PlayerPrefs.GetString("ElevationUpper_Controller");
 
-		// 視点変更左
-		viewchangeleft_keyboard = PlayerPrefs.GetString("AzimuthLeft_Keyboard");
-		viewchangeleft_controller = PlayerPrefs.GetString("AzimuthLeft_Controller");
+			// 視点変更下
+			viewchangedown_keyboard = PlayerPrefs.GetString("ElevationDown_Keyboard");
+			viewchangedown_controller = PlayerPrefs.GetString("ElevationDown_Controller");
 
-		// 視点変更右
-		viewchangeright_keyboard = PlayerPrefs.GetString("AzimuthRight_Keyboard");
-		viewchangeright_controller = PlayerPrefs.GetString("AzimuthRight_Controller");
+			// 視点変更左
+			viewchangeleft_keyboard = PlayerPrefs.GetString("AzimuthLeft_Keyboard");
+			viewchangeleft_controller = PlayerPrefs.GetString("AzimuthLeft_Controller");
+
+			// 視点変更右
+			viewchangeright_keyboard = PlayerPrefs.GetString("AzimuthRight_Keyboard");
+			viewchangeright_controller = PlayerPrefs.GetString("AzimuthRight_Controller");
+		});
 
 		// キー入力取得
 		this.UpdateAsObservable().Subscribe(_ =>
@@ -557,6 +570,10 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 	// サーチ
 	string search_keyboard;
 	string search_controller;
+
+	// アイテム
+	string item_keyboard;
+	string item_controller;
 
 	// サブ射撃
 	string subshot_keyboard;
@@ -632,6 +649,11 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 			{
 				Command = true;
 			}
+			// アイテム取得
+			if (k.GetValue(i).ToString() == item_keyboard)
+			{
+				Item = true;
+			}
 			// サブ射撃取得
 			if (k.GetValue(i).ToString() == subshot_keyboard)
 			{
@@ -700,6 +722,11 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 			if (k.GetValue(i).ToString() == command_controller)
 			{
 				Command = true;
+			}
+			// アイテム取得
+			if (k.GetValue(i).ToString() == item_controller)
+			{
+				Item = true;
 			}
 			// サブ射撃取得
 			if (k.GetValue(i).ToString() == subshot_controller)

@@ -1288,7 +1288,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     }
 
     // ポーズ入力があったか否か
-    protected bool HasPauseInput()
+    protected bool HasMenuInput()
     {
         if (IsPlayer == CHARACTERCODE.PLAYER)
         {
@@ -1300,7 +1300,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         return false;
     }
     // 覚醒入力があったか否か(優先度の都合上一番高くする)
-    protected bool HasArousalInput()
+    protected bool GetArousalInput()
     {
         if (IsPlayer == CHARACTERCODE.PLAYER)
         {
@@ -2507,11 +2507,11 @@ public partial class CharacterControl_Base : MonoBehaviour
             // アイテム入力があったか否か
             this.m_hasItemInput = GetItemInput();
             // ポーズ入力があったか否か
-            this.m_hasPauseInput = HasPauseInput();
+            this.m_hasPauseInput = HasMenuInput();
             // 覚醒入力があったか否か
-            this.m_hasArousalInput = HasArousalInput();
+            this.m_hasArousalInput = GetArousalInput();
             // 覚醒技入力があったか否か
-            this.m_hasArousalAttackInput = HasArousalInput();
+            this.m_hasArousalAttackInput = GetArousalInput();
             // 前入力があったか否か
             this.m_hasFrontInput = GetFrontInput();
             // 左入力があったか否か
