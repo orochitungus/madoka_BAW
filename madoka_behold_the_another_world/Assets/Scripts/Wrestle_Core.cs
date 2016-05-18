@@ -127,7 +127,7 @@ public class Wrestle_Core : MonoBehaviour
         }
 
         // ダウン中かダウン値MAXならダメージを与えない
-        if (target.m_AnimState[0] == CharacterControl_Base.AnimationState.Down || (target.m_DownRatio <= target.m_nowDownRatio))
+        if (target.m_AnimState[0] == CharacterControl_Base.AnimationState.Down || (target.DownRatio <= target.NowDownRatio))
         {
             // オブジェクトを自壊させる
             Destroy(gameObject);
@@ -168,7 +168,7 @@ public class Wrestle_Core : MonoBehaviour
         }
 
         // 本体の覚醒ゲージを増やす(覚醒時除く）
-        if (master.m_isArousal == false)
+        if (master.IsArousal == false)
         {
             // プレイヤーの場合
             if (master.GetComponent<CharacterControl_Base>().IsPlayer != CharacterControl_Base.CHARACTERCODE.ENEMY)
@@ -178,20 +178,20 @@ public class Wrestle_Core : MonoBehaviour
             // 敵の場合
             else
             {
-                master.m_Arousal += m_arousalRatio;
+                master.Arousal += m_arousalRatio;
             }
         }
         
         // ヒット時にダメージの種類をCharacterControl_Baseに与える
         // ダウン値を超えていたら吹き飛びへ移行
         // Blow属性の攻撃を与えた場合も吹き飛びへ移行
-        if (target.m_nowDownRatio >= target.m_DownRatio || this.m_Hittype == CharacterSkill.HitType.BLOW)
+        if (target.NowDownRatio >= target.DownRatio || this.m_Hittype == CharacterSkill.HitType.BLOW)
         {
             // 吹き飛びの場合、相手に方向ベクトルを与える            
             // Y軸方向は少し上向き
             target.MoveDirection.y += 5;
 
-            target.m_BlowDirection = m_Obj_OR.GetComponent<CharacterControl_Base>().MoveDirection;
+            target.BlowDirection = m_Obj_OR.GetComponent<CharacterControl_Base>().MoveDirection;
             // 吹き飛びの場合、攻撃を当てた相手を浮かす（m_launchOffset)            
             target.GetComponent<Rigidbody>().position = target.GetComponent<Rigidbody>().position + new Vector3(m_launchforce, this.m_launchOffset, m_launchforce);
             target.GetComponent<Rigidbody>().AddForce(master.MoveDirection.x * m_launchOffset, master.MoveDirection.y * m_launchOffset, master.MoveDirection.z * m_launchOffset);
@@ -201,7 +201,7 @@ public class Wrestle_Core : MonoBehaviour
         else
         {
             // ただしアーマー時ならダウン値とダメージだけ加算する(Damageにしない）
-            if (!target.m_IsArmor)
+            if (!target.IsArmor)
             {
                 target.m_AnimState[0] = CharacterControl_Base.AnimationState.DamageInit;
             }
@@ -217,12 +217,12 @@ public class Wrestle_Core : MonoBehaviour
     private void DamageCorrection()
     {
         // 攻撃側が覚醒中の場合
-        if (m_Obj_OR.GetComponent<CharacterControl_Base>().m_isArousal)
+        if (m_Obj_OR.GetComponent<CharacterControl_Base>().IsArousal)
         {
             m_offemsivePower = (int)(m_offemsivePower * MadokaDefine.AROUSAL_OFFENCE_UPPER);
         }
         // 防御側が覚醒中の場合
-        if (m_HitTarget.GetComponent<CharacterControl_Base>().m_isArousal)
+        if (m_HitTarget.GetComponent<CharacterControl_Base>().IsArousal)
         {
             m_offemsivePower = (int)(m_offemsivePower * MadokaDefine.AROUSAL_DEFFENSIVE_UPPER);
         }

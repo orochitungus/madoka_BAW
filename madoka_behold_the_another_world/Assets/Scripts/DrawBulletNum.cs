@@ -48,7 +48,7 @@ public class DrawBulletNum : MonoBehaviour
             GUI.skin = m_guiskin;
         }
         // レベル
-        int character_level = target.m_level;
+        int character_level = target.Level;
         // その武装をcharacter_specから探す
         for (int i = 0; i < (int)Character_Spec.cs[(int)m_Player].Length; i++)
         {

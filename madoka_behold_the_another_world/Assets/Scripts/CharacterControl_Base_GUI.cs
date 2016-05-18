@@ -97,22 +97,22 @@ public partial class CharacterControl_Base : MonoBehaviour
     public void DrawBoostGauge(Texture2D BoostGauge, Vector2 pos)
     {
         // ブースト量
-        float Bratio = this.Boost / GetMaxBoost(this.m_BoostLevel);
-        GUI.BeginGroup(new Rect(pos.x, pos.y, Bratio * GetMaxBoost(this.m_BoostLevel), 16.0f));
+        float Bratio = this.Boost / GetMaxBoost(this.BoostLevel);
+        GUI.BeginGroup(new Rect(pos.x, pos.y, Bratio * GetMaxBoost(this.BoostLevel), 16.0f));
         // ここ以降はBeginGroup原点（上記のpos）からの座標になる点に注意
         // ゲージ本体
         GUI.DrawTexture(new Rect(0, 0, BoostGauge.width, 16), BoostGauge);
         GUI.EndGroup();
         // ゲージ外枠
-        GUI.BeginGroup(new Rect(pos.x, pos.y, GetMaxBoost(this.m_BoostLevel), 16.0f));
+        GUI.BeginGroup(new Rect(pos.x, pos.y, GetMaxBoost(this.BoostLevel), 16.0f));
         // ゲージ左端
         GUI.DrawTexture(new Rect(0, 0, 2, 16), m_WindowParts);
         // ゲージ上端
-        GUI.DrawTexture(new Rect(0, 0, GetMaxBoost(this.m_BoostLevel), 2), m_WindowParts);
+        GUI.DrawTexture(new Rect(0, 0, GetMaxBoost(this.BoostLevel), 2), m_WindowParts);
         // ゲージ下端
-        GUI.DrawTexture(new Rect(0, 14, GetMaxBoost(this.m_BoostLevel), 2), m_WindowParts);
+        GUI.DrawTexture(new Rect(0, 14, GetMaxBoost(this.BoostLevel), 2), m_WindowParts);
         // ゲージ右端
-        GUI.DrawTexture(new Rect(GetMaxBoost(this.m_BoostLevel) - 2, 0, 2, 16), m_WindowParts);
+        GUI.DrawTexture(new Rect(GetMaxBoost(this.BoostLevel) - 2, 0, 2, 16), m_WindowParts);
         GUI.EndGroup();
     }
 
@@ -122,7 +122,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     public void DrawArousalGauge(Texture2D ArousalGauge, Vector2 pos)
     {
         // ゲージ量
-        float Aratio = this.m_Arousal / GetMaxArousal(this.m_ArousalLevel);
+        float Aratio = this.Arousal / GetMaxArousal(this.m_ArousalLevel);
         // ゲージ量絶対値
         float Arousal_abs = Aratio * GetMaxArousal(this.m_ArousalLevel);
         // 左端が右端の座標‐現在のゲージ量となる
@@ -149,7 +149,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         GUI.DrawTexture(new Rect(GetMaxArousal(this.m_ArousalLevel) - 2, 0, 2, 16), m_WindowParts);
         GUI.EndGroup();
         // OKの文字列（Lv1のMax以上になると表示される）
-        if (m_Arousal >= GetMaxArousal(1) && savingparameter.GetGemContimination((int)m_character_name) < 100.0f)
+        if (Arousal >= GetMaxArousal(1) && savingparameter.GetGemContimination((int)m_character_name) < 100.0f)
         {
             float xposition = (pos.x - Arousal_abs) + 64;
             //GUI.DrawTexture(new Rect(xposition, pos.y, 128, 128), m_ArousalOK);

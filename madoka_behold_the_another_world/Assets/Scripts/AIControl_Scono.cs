@@ -35,7 +35,7 @@ public class AIControl_Scono : AIControl_Base
         keyoutput = KEY_OUTPUT.NONE;
 
         // 覚醒ゲージが溜まっていて覚醒していなかったら覚醒する
-        if (target.m_Arousal >= target.m_Arousal_OR && !target.m_isArousal)
+        if (target.Arousal >= target.Arousal_OR && !target.IsArousal)
         {
             keyoutput = KEY_OUTPUT.NONE;
             m_cpumode = CPUMODE.AROUSAL;
@@ -150,7 +150,7 @@ public class AIControl_Scono : AIControl_Base
 				// 通常射撃・サブ射撃・特殊射撃・BD格闘・覚醒技（覚醒時のみ）のいずれかを行う
 				// 乱数を取得
 				float attacktype = Random.value;         // 攻撃手段(0-0.2:覚醒技(非覚醒時はBD格闘)、0.2-0.6(通常射撃）、0.6-0.8(サブ射撃）、0.8-1.0（特殊射撃）
-				if (0.0f <= attacktype && attacktype < 0.2f && target.m_isArousal)
+				if (0.0f <= attacktype && attacktype < 0.2f && target.IsArousal)
 				{
 					m_cpumode = CPUMODE.FIREFIGHT;
 					keyoutput = KEY_OUTPUT.AROUSALATTACK;

@@ -352,7 +352,7 @@ public class Bullet : MonoBehaviour
             // 吹き飛びの場合、相手に方向ベクトルを与える
 
             // ダウン中かダウン値MAXならダメージを与えない
-            if (target.m_AnimState[0] == CharacterControl_Base.AnimationState.Down || (target.m_DownRatio <= target.m_nowDownRatio))
+            if (target.m_AnimState[0] == CharacterControl_Base.AnimationState.Down || (target.DownRatio <= target.NowDownRatio))
             {
                 // オブジェクトを自壊させる
                 Destroy(gameObject);
@@ -366,11 +366,11 @@ public class Bullet : MonoBehaviour
             // ヒット時にダメージの種類をCharacterControl_Baseに与える
             // ダウン値を超えていたら吹き飛びへ移行
             // Blow属性の攻撃を与えた場合も吹き飛びへ移行
-            if (target.m_nowDownRatio >= target.m_DownRatio || this.m_Hittype == CharacterSkill.HitType.BLOW)
+            if (target.NowDownRatio >= target.DownRatio || this.m_Hittype == CharacterSkill.HitType.BLOW)
             {   // 吹き飛びの場合、相手に方向ベクトルを与える            
                 // Y軸方向は少し上向き
                 target.MoveDirection.y += 10;
-                target.m_BlowDirection = this.m_MoveDirection;
+                target.BlowDirection = this.m_MoveDirection;
                 // 吹き飛びの場合、攻撃を当てた相手を浮かす（MadokaDefine.LAUNCHOFFSET)            
                 target.GetComponent<Rigidbody>().position = target.GetComponent<Rigidbody>().position + new Vector3(0, MadokaDefine.LAUNCHOFFSET, 0);
                 target.GetComponent<Rigidbody>().AddForce(this.m_MoveDirection.x * MadokaDefine.LAUNCHOFFSET, this.m_MoveDirection.y * MadokaDefine.LAUNCHOFFSET, this.m_MoveDirection.z * MadokaDefine.LAUNCHOFFSET);
@@ -380,7 +380,7 @@ public class Bullet : MonoBehaviour
             else
             {
                 // ただしアーマー時ならダウン値とダメージだけ加算する(Damageにしない）
-                if (!target.m_IsArmor)
+                if (!target.IsArmor)
                 {
                     target.m_AnimState[0] = CharacterControl_Base.AnimationState.DamageInit;
                 }
@@ -418,7 +418,7 @@ public class Bullet : MonoBehaviour
             // ダウン値
             shockwave_state.SetDownratio(m_DownRatio);
             // 覚醒ゲージ増加（覚醒時除く）
-            if (m_Obj_OR.GetComponent<CharacterControl_Base>().m_isArousal == false)
+            if (m_Obj_OR.GetComponent<CharacterControl_Base>().IsArousal == false)
             {
                 // 攻撃を当てた側が味方側の場合
                 if (m_InjectionObject.GetComponent<CharacterControl_Base>().IsPlayer != CharacterControl_Base.CHARACTERCODE.ENEMY)
@@ -454,7 +454,7 @@ public class Bullet : MonoBehaviour
                 return;
             }
             // ダウン中かダウン値MAXならダメージを与えない
-            if (target.m_AnimState[0] == CharacterControl_Base.AnimationState.Down || (target.m_DownRatio <= target.m_nowDownRatio))
+            if (target.m_AnimState[0] == CharacterControl_Base.AnimationState.Down || (target.DownRatio <= target.NowDownRatio))
             {
                 return;
             }
@@ -465,11 +465,11 @@ public class Bullet : MonoBehaviour
             // ヒット時にダメージの種類をCharacterControl_Baseに与える
             // ダウン値を超えていたら吹き飛びへ移行
             // Blow属性の攻撃を与えた場合も吹き飛びへ移行
-            if (target.m_nowDownRatio >= target.m_DownRatio || this.m_Hittype == CharacterSkill.HitType.BLOW)
+            if (target.NowDownRatio >= target.DownRatio || this.m_Hittype == CharacterSkill.HitType.BLOW)
             {   // 吹き飛びの場合、相手に方向ベクトルを与える            
                 // Y軸方向は少し上向き
                 target.MoveDirection.y += 10;
-                target.m_BlowDirection = this.m_MoveDirection;
+                target.BlowDirection = this.m_MoveDirection;
                 // 吹き飛びの場合、攻撃を当てた相手を浮かす（MadokaDefine.LAUNCHOFFSET)            
                 target.GetComponent<Rigidbody>().position = target.GetComponent<Rigidbody>().position + new Vector3(0, MadokaDefine.LAUNCHOFFSET, 0);
                 target.GetComponent<Rigidbody>().AddForce(this.m_MoveDirection.x * MadokaDefine.LAUNCHOFFSET, this.m_MoveDirection.y * MadokaDefine.LAUNCHOFFSET, this.m_MoveDirection.z * MadokaDefine.LAUNCHOFFSET);
@@ -480,7 +480,7 @@ public class Bullet : MonoBehaviour
             else
             {
                 // ただしアーマー時ならダウン値とダメージだけ加算する(Damageにしない）
-                if (!target.m_IsArmor)
+                if (!target.IsArmor)
                 {
                     target.m_AnimState[0] = CharacterControl_Base.AnimationState.DamageInit;
                 }              
@@ -513,7 +513,7 @@ public class Bullet : MonoBehaviour
         // ダウン値加算
         collision.gameObject.SendMessage("DownRateInc", m_DownRatio);
         // 覚醒ゲージ加算（覚醒時除く）
-        if (m_Obj_OR.GetComponent<CharacterControl_Base>().m_isArousal == false)
+        if (m_Obj_OR.GetComponent<CharacterControl_Base>().IsArousal == false)
         {
             // 攻撃を当てた側が味方側の場合
             if (m_InjectionObject.GetComponent<CharacterControl_Base>().IsPlayer != CharacterControl_Base.CHARACTERCODE.ENEMY)
@@ -539,7 +539,7 @@ public class Bullet : MonoBehaviour
         // 攻撃側が覚醒中の場合
         if (m_InjectionObject != null)
         {
-            bool injection = m_InjectionObject.GetComponent<CharacterControl_Base>().m_isArousal;
+            bool injection = m_InjectionObject.GetComponent<CharacterControl_Base>().IsArousal;
             if (injection)
             {
                 m_OffemsivePower = (int)(m_OffemsivePower * MadokaDefine.AROUSAL_OFFENCE_UPPER);
@@ -548,7 +548,7 @@ public class Bullet : MonoBehaviour
         // 防御側が覚醒中の場合
         if (m_HitTarget != null)
         {
-            bool target = m_HitTarget.GetComponent<CharacterControl_Base>().m_isArousal;
+            bool target = m_HitTarget.GetComponent<CharacterControl_Base>().IsArousal;
             if (target)
             {
                 m_OffemsivePower = (int)(m_OffemsivePower * MadokaDefine.AROUSAL_DEFFENSIVE_UPPER);

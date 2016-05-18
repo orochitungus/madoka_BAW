@@ -858,7 +858,7 @@ public class AIControl_Base : MonoBehaviour
 
         // ノーロック状態なら強制的にロックオンフラグ
         var target = ControlTarget.GetComponentInChildren<CharacterControl_Base>();
-        if (target.m_IsRockon == false)
+        if (target.IsRockon == false)
         {
             keyoutput = KEY_OUTPUT.SEARCH;
             return;

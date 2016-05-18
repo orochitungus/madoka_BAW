@@ -8,10 +8,10 @@ public partial class CharacterControl_Base
 {
 
     // 格闘時の移動速度
-    protected float m_wrestlSpeed;        // N格闘1段目
+    protected float WrestlSpeed;        // N格闘1段目
 
     // 追加入力の有無を保持。trueであり
-    protected bool m_addInput;
+    protected bool AddInput;
 
 
     // 格闘攻撃の種類
@@ -52,10 +52,10 @@ public partial class CharacterControl_Base
 
 
     // N格1段目用判定の配置用フック(キャラごとに設定する。順番は上の列挙体と同じ）
-    public GameObject []m_WrestleRoot = new GameObject[(int)WrestleType.WRESTLE_TOTAL];
+    public GameObject []WrestleRoot = new GameObject[(int)WrestleType.WRESTLE_TOTAL];
 
     // 格闘判定のオブジェクト
-    public GameObject[] m_WrestleObject = new GameObject[(int)WrestleType.WRESTLE_TOTAL];
+    public GameObject[] WrestleObject = new GameObject[(int)WrestleType.WRESTLE_TOTAL];
 
     // 格闘開始（一応派生は認めておく。専用のはそっちで利用）
     // WrestleType      [in]:格闘攻撃の種類
@@ -63,7 +63,7 @@ public partial class CharacterControl_Base
     protected virtual void WrestleDone(AnimationState WrestleType, int skilltype)
     {
         // 追加入力フラグをカット
-        this.m_addInput = false;
+        this.AddInput = false;
         // ステートを設定する
         // skilltypeのインデックス(格闘系はSkillType.Wrestle1+Xなので、Xにwrestletypeを代入）
         int skillIndex = skilltype;
@@ -71,10 +71,10 @@ public partial class CharacterControl_Base
         float movespeed = Character_Spec.cs[(int)m_character_name][skillIndex].m_Movespeed;
         // 移動方向
         // ロックオン且つ本体角度が0でない時、相手の方向を移動方向とする
-        if (m_IsRockon && this.transform.rotation.eulerAngles.y != 0)
+        if (IsRockon && this.transform.rotation.eulerAngles.y != 0)
         {
             // ロックオン対象を取得
-            var target = m_MainCamera.GetComponentInChildren<Player_Camera_Controller>();
+            var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
             // ロックオン対象の座標
             Vector3 targetpos = target.transform.position;
             // 上記の座標は足元を向いているので、自分の高さに補正する
@@ -90,7 +90,7 @@ public partial class CharacterControl_Base
         else if (this.transform.rotation.eulerAngles.y == 0)
         {
             // ただしそのままだとカメラが下を向いているため、一旦その分は補正する
-            Quaternion rotateOR = m_MainCamera.transform.rotation;
+            Quaternion rotateOR = MainCamera.transform.rotation;
             Vector3 rotateOR_E = rotateOR.eulerAngles;
             rotateOR_E.x = 0;
             rotateOR = Quaternion.Euler(rotateOR_E);
@@ -113,7 +113,7 @@ public partial class CharacterControl_Base
         // アニメーションの速度を調整する
         this.GetComponent<Animation>()[m_AnimationNames[(int)WrestleType]].speed = speed;
         // 移動速度を調整する
-        this.m_wrestlSpeed = movespeed;       
+        this.WrestlSpeed = movespeed;       
     }
 
     // 回り込み近接・左(相手の斜め前へ移動して回り込むタイプ）
@@ -122,7 +122,7 @@ public partial class CharacterControl_Base
     protected virtual void WrestleDone_GoAround_Left(AnimationState WrestleType, int skilltype)
     {
         // 追加入力フラグをカット
-        this.m_addInput = false;
+        this.AddInput = false;
         // ステートを設定する
         // skilltypeのインデックス(格闘系はSkillType.Wrestle1+Xなので、Xにwrestletypeを代入）
         int skillIndex = skilltype;
@@ -130,10 +130,10 @@ public partial class CharacterControl_Base
         float movespeed = Character_Spec.cs[(int)m_character_name][skillIndex].m_Movespeed;
         // 移動方向
         // ロックオン且つ本体角度が0でない時、相手の左側を移動方向とする（通常時のロックオン時左移動をさせつつ前進させる）
-        if (m_IsRockon && this.transform.rotation.eulerAngles.y != 0)
+        if (IsRockon && this.transform.rotation.eulerAngles.y != 0)
         {
             // ロックオン対象を取得
-            var target = m_MainCamera.GetComponentInChildren<Player_Camera_Controller>();
+            var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
             // ロックオン対象の座標
             Vector3 targetpos = target.transform.position;
             // 自機の座標
@@ -151,7 +151,7 @@ public partial class CharacterControl_Base
         else if (this.transform.rotation.eulerAngles.y == 0)
         {
             // ただしそのままだとカメラが下を向いているため、一旦その分は補正する
-            Quaternion rotateOR = m_MainCamera.transform.rotation;
+            Quaternion rotateOR = MainCamera.transform.rotation;
             Vector3 rotateOR_E = rotateOR.eulerAngles;
             rotateOR_E.x = 0;
             rotateOR_E.y = rotateOR.eulerAngles.y - 10;
@@ -178,7 +178,7 @@ public partial class CharacterControl_Base
         // アニメーションの速度を調整する
         this.GetComponent<Animation>()[m_AnimationNames[(int)WrestleType]].speed = speed;
         // 移動速度を調整する
-        this.m_wrestlSpeed = movespeed; 
+        this.WrestlSpeed = movespeed; 
     }
 
     // 回り込み近接・右(相手の斜め前へ移動して回り込むタイプ）
@@ -187,7 +187,7 @@ public partial class CharacterControl_Base
     protected virtual void WrestleDone_GoAround_Right(AnimationState WrestleType, int skilltype)
     {
         // 追加入力フラグをカット
-        this.m_addInput = false;
+        this.AddInput = false;
         // ステートを設定する
         // skilltypeのインデックス(格闘系はSkillType.Wrestle1+Xなので、Xにwrestletypeを代入）
         int skillIndex = skilltype;
@@ -195,10 +195,10 @@ public partial class CharacterControl_Base
         float movespeed = Character_Spec.cs[(int)m_character_name][skillIndex].m_Movespeed;
         // 移動方向
         // ロックオン且つ本体角度が0でない時、相手の左側を移動方向とする（通常時のロックオン時左移動をさせつつ前進させる）
-        if (m_IsRockon && this.transform.rotation.eulerAngles.y != 0)
+        if (IsRockon && this.transform.rotation.eulerAngles.y != 0)
         {
             // ロックオン対象を取得
-            var target = m_MainCamera.GetComponentInChildren<Player_Camera_Controller>();
+            var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
             // ロックオン対象の座標
             Vector3 targetpos = target.transform.position;
             // 自機の座標
@@ -216,7 +216,7 @@ public partial class CharacterControl_Base
         else if (this.transform.rotation.eulerAngles.y == 0)
         {
             // ただしそのままだとカメラが下を向いているため、一旦その分は補正する
-            Quaternion rotateOR = m_MainCamera.transform.rotation;
+            Quaternion rotateOR = MainCamera.transform.rotation;
             Vector3 rotateOR_E = rotateOR.eulerAngles;
             rotateOR_E.x = 0;
             rotateOR_E.y = rotateOR.eulerAngles.y + 10;
@@ -243,7 +243,7 @@ public partial class CharacterControl_Base
         // アニメーションの速度を調整する
         this.GetComponent<Animation>()[m_AnimationNames[(int)WrestleType]].speed = speed;
         // 移動速度を調整する
-        this.m_wrestlSpeed = movespeed; 
+        this.WrestlSpeed = movespeed; 
     }
 
     // 後格闘（防御）
@@ -251,14 +251,14 @@ public partial class CharacterControl_Base
     protected virtual void GuardDone(int skilltype)
     {
         //1．追加入力フラグをカット
-        this.m_addInput = false;
+        this.AddInput = false;
         int skillIndex = skilltype;
         //2．ロックオンしている場合→自機をロックオン対象に向ける
         // ロックオン且つ本体角度が0でない時
-        if (m_IsRockon && this.transform.rotation.eulerAngles.y != 0)
+        if (IsRockon && this.transform.rotation.eulerAngles.y != 0)
         {
             // ロックオン対象を取得
-            var target = m_MainCamera.GetComponentInChildren<Player_Camera_Controller>();
+            var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
             // ロックオン対象の座標
             Vector3 targetpos = target.transform.position;
             // 自機の座標
@@ -272,7 +272,7 @@ public partial class CharacterControl_Base
         else if (this.transform.rotation.eulerAngles.y == 0)
         {
             // ただしそのままだとカメラが下を向いているため、一旦その分は補正する
-            Quaternion rotateOR = m_MainCamera.transform.rotation;
+            Quaternion rotateOR = MainCamera.transform.rotation;
             Vector3 rotateOR_E = rotateOR.eulerAngles;
             rotateOR_E.x = 0;
             rotateOR_E.y += 180;
@@ -296,7 +296,7 @@ public partial class CharacterControl_Base
         //6．アニメーションの速度を調整する
         this.GetComponent<Animation>()[m_AnimationNames[(int)AnimationState.Back_Wrestle]].speed = speed;
         //7．移動速度を0にする
-        this.m_wrestlSpeed = 0;
+        this.WrestlSpeed = 0;
     }
 
     // 前特殊格闘
@@ -304,16 +304,16 @@ public partial class CharacterControl_Base
     protected virtual void WrestleDone_UpperEx(int skilltype)
     {
         // 追加入力フラグをカット
-        this.m_addInput = false;
+        this.AddInput = false;
         // ステートを変更		
         int skillIndex = skilltype;	
 	    // 移動速度取得
         float movespeed = Character_Spec.cs[(int)m_character_name][skillIndex].m_Movespeed;
         // ロックオン中なら移動方向をロックオン対象のほうへ固定する
-        if (m_IsRockon && this.transform.rotation.eulerAngles.y != 0)
+        if (IsRockon && this.transform.rotation.eulerAngles.y != 0)
         {
             // ロックオン対象を取得
-            var target = m_MainCamera.GetComponentInChildren<Player_Camera_Controller>();
+            var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
             // ロックオン対象の座標
             Vector3 targetpos = target.transform.position;
             // 自機の座標
@@ -346,7 +346,7 @@ public partial class CharacterControl_Base
         // アニメーションの速度を調整する
         this.GetComponent<Animation>()[m_AnimationNames[(int)AnimationState.EX_Front_Wrestle_1]].speed = speed;
         // 移動速度を上にする
-        this.m_wrestlSpeed = movespeed;
+        this.WrestlSpeed = movespeed;
     }
 
     // 後特殊格闘
@@ -354,16 +354,16 @@ public partial class CharacterControl_Base
     protected virtual void WrestleDone_DownEx(int skilltype)
     {
         // 追加入力フラグをカット
-        this.m_addInput = false;
+        this.AddInput = false;
         // ステートを変更		
         int skillIndex = skilltype;
         // 移動速度取得
         float movespeed = Character_Spec.cs[(int)m_character_name][skillIndex].m_Movespeed;
         // ロックオン中なら移動方向をロックオン対象のほうへ固定する
-        if (m_IsRockon && this.transform.rotation.eulerAngles.y != 0)
+        if (IsRockon && this.transform.rotation.eulerAngles.y != 0)
         {
             // ロックオン対象を取得
-            var target = m_MainCamera.GetComponentInChildren<Player_Camera_Controller>();
+            var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
             // ロックオン対象の座標
             Vector3 targetpos = target.transform.position;
             // 自機の座標
@@ -397,7 +397,7 @@ public partial class CharacterControl_Base
         // アニメーションの速度を調整する
         this.GetComponent<Animation>()[m_AnimationNames[(int)AnimationState.BACK_EX_Wrestle]].speed = speed;
         // 移動速度を設定する
-        this.m_wrestlSpeed = movespeed;
+        this.WrestlSpeed = movespeed;
     }
 
     // 格闘終了時に実行
@@ -408,9 +408,9 @@ public partial class CharacterControl_Base
         // 判定オブジェクトを破棄する.一応くっついているものはすべて削除
         DestroyWrestle();
         // 格闘の累積時間を初期化
-        m_wrestletime = 0;
+        Wrestletime = 0;
         // 派生ありで入力を持っていたら、次のモーションを再生する
-        if (m_addInput && wrestletype != AnimationState.Idle)
+        if (AddInput && wrestletype != AnimationState.Idle)
         {
             // スキルのインデックス
             CharacterSkill.SkillType skill = CharacterSkill.SkillType.NONE;
@@ -479,7 +479,7 @@ public partial class CharacterControl_Base
         // 持っていなかったら、地上→Idleに戻る、空中→Fallに戻る（IdleとFallで追加入力フラグは強制カット）
         else
         {
-            if (this.m_isGrounded)
+            if (this.IsGrounded)
             {
                 m_AnimState[0] = AnimationState.Idle;
                 this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Idle]);
@@ -487,7 +487,7 @@ public partial class CharacterControl_Base
             else
             {
                 m_AnimState[0] = AnimationState.Fall;
-                m_fallStartTime = Time.time;
+                FallStartTime = Time.time;
                 this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
             }
         }
@@ -499,13 +499,13 @@ public partial class CharacterControl_Base
     protected virtual void WrestleStart(WrestleType wrestletype)
     {
         // 判定を生成し・フックと一致させる  
-        Vector3 pos = m_WrestleRoot[(int)wrestletype].transform.position;
-        Quaternion rot = m_WrestleRoot[(int)wrestletype].transform.rotation;
-        var obj = (GameObject)Instantiate(m_WrestleObject[(int)wrestletype], pos, rot);
+        Vector3 pos = WrestleRoot[(int)wrestletype].transform.position;
+        Quaternion rot = WrestleRoot[(int)wrestletype].transform.rotation;
+        var obj = (GameObject)Instantiate(WrestleObject[(int)wrestletype], pos, rot);
         // 親子関係を再設定する(=判定をフックの子にする）
         if (obj.transform.parent == null)
         {
-            obj.transform.parent = m_WrestleRoot[(int)wrestletype].transform;
+            obj.transform.parent = WrestleRoot[(int)wrestletype].transform;
             // 親子関係を付けておく
             obj.transform.GetComponent<Rigidbody>().isKinematic = true;
         }      
@@ -622,13 +622,13 @@ public partial class CharacterControl_Base
     protected virtual void GuardStart()
     {
         // 判定を生成し・フックと一致させる  
-        Vector3 pos = m_WrestleRoot[(int)WrestleType.BACK_WRESTLE].transform.position;
-        Quaternion rot = m_WrestleRoot[(int)WrestleType.BACK_WRESTLE].transform.rotation;
-        var obj = (GameObject)Instantiate(m_WrestleObject[(int)WrestleType.BACK_WRESTLE], pos, rot);
+        Vector3 pos = WrestleRoot[(int)WrestleType.BACK_WRESTLE].transform.position;
+        Quaternion rot = WrestleRoot[(int)WrestleType.BACK_WRESTLE].transform.rotation;
+        var obj = (GameObject)Instantiate(WrestleObject[(int)WrestleType.BACK_WRESTLE], pos, rot);
         // 親子関係を再設定する(=判定をフックの子にする）
         if (obj.transform.parent == null)
         {
-            obj.transform.parent = m_WrestleRoot[(int)WrestleType.BACK_WRESTLE].transform;
+            obj.transform.parent = WrestleRoot[(int)WrestleType.BACK_WRESTLE].transform;
             // 親子関係を付けておく
             obj.transform.GetComponent<Rigidbody>().isKinematic = true;
         }
@@ -638,12 +638,12 @@ public partial class CharacterControl_Base
     // くっついている格闘オブジェクトをすべて消す
     protected void DestroyWrestle()
     {
-        for (int i = 0; i < m_WrestleRoot.Length; i++)
+        for (int i = 0; i < WrestleRoot.Length; i++)
         {            
             // あらかじめ子があるかチェックしないとGetChildを使うときはエラーになる
-            if (this.m_WrestleRoot[i] != null && this.m_WrestleRoot[i].GetComponentInChildren<Wrestle_Core>() != null)
+            if (this.WrestleRoot[i] != null && this.WrestleRoot[i].GetComponentInChildren<Wrestle_Core>() != null)
             {
-                var wrestle = this.m_WrestleRoot[i].GetComponentInChildren<Wrestle_Core>();
+                var wrestle = this.WrestleRoot[i].GetComponentInChildren<Wrestle_Core>();
                
                 if (wrestle != null)
                 {

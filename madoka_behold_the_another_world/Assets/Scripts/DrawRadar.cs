@@ -187,7 +187,7 @@ public class DrawRadar : MonoBehaviour
         
         
         // 非ロック時
-        if (!target.m_IsRockon)
+        if (!target.IsRockon)
         {
             m_PerspectiveCamera.transform.rotation = Quaternion.Euler(radarrot.x, m_rotate_OR.y + 180.0f, radarrot.z);
         }

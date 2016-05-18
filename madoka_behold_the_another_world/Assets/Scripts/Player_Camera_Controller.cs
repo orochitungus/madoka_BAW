@@ -138,7 +138,7 @@ public class Player_Camera_Controller : MonoBehaviour
         }
 
         // 解除入力が行われた
-        if (target.m_IsRockon && target.m_hasSearchCancelInput)
+        if (target.IsRockon && target.m_hasSearchCancelInput)
         {
             UnlockDone(target);
         }
@@ -146,7 +146,7 @@ public class Player_Camera_Controller : MonoBehaviour
         else if (target.GetSearchInput() || this.m_key == AIControl.KEY_OUTPUT.SEARCH)
         {
             // ロックオンしていなかった
-            if (!target.m_IsRockon)
+            if (!target.IsRockon)
             {
                 // 自分がPC側か敵側か取得する
                 switch (target.IsPlayer)
@@ -175,7 +175,7 @@ public class Player_Camera_Controller : MonoBehaviour
                                 }
                                 Enemy = target.EndingPoint;
                                 IsRockOn = true;
-                                target.m_IsRockon = true;                                
+                                target.IsRockon = true;                                
                                 break;
                             // 起点へ向けて移動中
                             case AIControl.CPUMODE.RETURN_PATH:
@@ -186,7 +186,7 @@ public class Player_Camera_Controller : MonoBehaviour
                                 }
                                 Enemy = target.StartingPoint;
                                 IsRockOn = true;
-                                target.m_IsRockon = true;                                
+                                target.IsRockon = true;                                
                                 break;                            
                             default:
                                 // 外れたら哨戒に戻る
@@ -194,7 +194,7 @@ public class Player_Camera_Controller : MonoBehaviour
                                 {
                                     this.m_cpumode = AIControl.CPUMODE.OUTWARD_JOURNEY;
                                     IsRockOn = false;
-                                    target.m_IsRockon = false;
+                                    target.IsRockon = false;
                                 }
                                 break;
                         }
@@ -244,7 +244,7 @@ public class Player_Camera_Controller : MonoBehaviour
         }
 
         // ロックオン対象が死んでいたら強制的にロックを解除する（CPUの哨戒モード時は除く）
-        if (target.m_IsRockon && m_cpumode != AIControl.CPUMODE.OUTWARD_JOURNEY && m_cpumode != AIControl.CPUMODE.RETURN_PATH)
+        if (target.IsRockon && m_cpumode != AIControl.CPUMODE.OUTWARD_JOURNEY && m_cpumode != AIControl.CPUMODE.RETURN_PATH)
         {
             var rockontarget = Enemy.GetComponentInChildren<CharacterControl_Base>();
             if (rockontarget != null && rockontarget.NowHitpoint < 1)
@@ -279,7 +279,7 @@ public class Player_Camera_Controller : MonoBehaviour
         // 有効範囲内に敵が誰もいなければ、ロックオンを解除する
         if (RockOnTarget == null)
         {
-            target.m_IsRockon = false;
+            target.IsRockon = false;
             this.IsRockOn = false;
             return false;
         }
@@ -331,7 +331,7 @@ public class Player_Camera_Controller : MonoBehaviour
 		if(exitdown)
 		{
 			CharacterControl_Base rockontarget = RockOnTarget[most_near].GetComponent<CharacterControl_Base>();
-			if(rockontarget.m_nowDownRatio >= rockontarget.m_DownRatio)
+			if(rockontarget.NowDownRatio >= rockontarget.DownRatio)
 			{
 				return false;
 			}
@@ -344,7 +344,7 @@ public class Player_Camera_Controller : MonoBehaviour
         // 対象のインデックスを保持する
         m_nowTarget = most_near;
         // PC側のロックオンフラグを立てる
-        target.m_IsRockon = true;
+        target.IsRockon = true;
         return true;
     }
 
@@ -383,7 +383,7 @@ public class Player_Camera_Controller : MonoBehaviour
 				if (m_nowTarget == nexttarget)
 				{
 					IsRockOn = false;
-					target.m_IsRockon = false;
+					target.IsRockon = false;
 					// 増援が来たことの判定はここでやる（初めてロックオンした時の処理をここでもう一度）
 					return;
 				}
@@ -424,7 +424,7 @@ public class Player_Camera_Controller : MonoBehaviour
 		// 対象のインデックスを保持する
 		m_nowTarget = nexttarget;
 		// PC側のロックオンフラグを立てる
-		target.m_IsRockon = true;
+		target.IsRockon = true;
 	}
 
     /// <summary>
@@ -434,7 +434,7 @@ public class Player_Camera_Controller : MonoBehaviour
     private void UnlockDone(CharacterControl_Base target)
     {
         IsRockOn = false;
-        target.m_IsRockon = false;
+        target.IsRockon = false;
         this.Enemy = null;
         RockOnTarget.Clear();
 		// カメラを戻す
@@ -634,7 +634,7 @@ public class Player_Camera_Controller : MonoBehaviour
 
             
             // ダウン値を超えている（ダウンか強制ダウン吹き飛び中）か、ダウン値を超えていてもダウンしているなら黄色ロック
-            if (this.Enemy.GetComponentInChildren<CharacterControl_Base>().m_nowDownRatio >= this.Enemy.GetComponentInChildren<CharacterControl_Base>().m_DownRatio
+            if (this.Enemy.GetComponentInChildren<CharacterControl_Base>().NowDownRatio >= this.Enemy.GetComponentInChildren<CharacterControl_Base>().DownRatio
                 || Enemy.GetComponentInChildren<CharacterControl_Base>().m_AnimState[0] == CharacterControl_Base.AnimationState.Down)
             {
                 GUI.DrawTexture(new Rect(0.0f, 0.0f, 128.0f, 128.0f), m_RockonCursor_Yellow);

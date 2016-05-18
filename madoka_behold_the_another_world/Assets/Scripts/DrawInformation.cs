@@ -67,7 +67,7 @@ public class DrawInformation : MonoBehaviour
         // 基本的にBoostなどと同じ方式で変更
         // その下に敵の名前
         // 非ロックオン時は書かない
-        if (target != null && target.m_IsRockon)
+        if (target != null && target.IsRockon)
         {
             DrawEnemyHPGauge(m_EnemyHP_Tex, new Vector2(210.0f, 35.0f));
         }

@@ -135,7 +135,7 @@ public class DrawHPGauge : MonoBehaviour
         GUI.Label(new Rect(NamePosition.x, NamePosition.y, 1500.0f, 100.0f), playername, "Name");
 
         // 対象のレベルをm_Playerから引き出して描画
-        int level = target.m_level;
+        int level = target.Level;
         // 10の位
         int level_10 = (int)(level / 10);
         // 1の位

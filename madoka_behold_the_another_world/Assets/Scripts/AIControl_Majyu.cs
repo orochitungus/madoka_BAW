@@ -138,7 +138,7 @@ public class AIControl_Majyu : AIControl_Base
 		CharacterControl_Base target = ControlTarget.GetComponent<CharacterControl_Base>();
 
 		// 相手がダウンしていた場合(回復中含む)
-		if(rockonTarget != null && rockonTarget.m_nowDownRatio >= rockonTarget.m_DownRatio)
+		if(rockonTarget != null && rockonTarget.NowDownRatio >= rockonTarget.DownRatio)
 		{ 
 			// ロックオン対象が二人以上いた場合、ロックを切り替える
 			// ロックオン対象が誰もいなかった場合、哨戒に戻す

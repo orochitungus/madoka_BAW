@@ -6,7 +6,7 @@ using System.Collections;
 public partial class CharacterControl_Base : MonoBehaviour 
 {   
    
-    private bool m_Explode;                 // 死亡エフェクトの存在
+    private bool Explode;                 // 死亡エフェクトの存在
     private static int m_DamageLess = 2;    // この値×防御力分ダメージが減衰する
 
 
@@ -72,12 +72,12 @@ public partial class CharacterControl_Base : MonoBehaviour
     // 被弾側の覚醒ゲージを増加させる。SendMessageで弾丸などから呼ばれる
     public void DamageArousal(float arousal)
     {
-        m_Arousal += arousal;
+        Arousal += arousal;
         // PCにヒットさせた場合、savingparameterの値も変える
         if (IsPlayer == CHARACTERCODE.PLAYER || IsPlayer == CHARACTERCODE.PLAYER_ALLY)
         {
             int charactername = (int)this.m_character_name;
-            savingparameter.SetNowArousal(charactername, m_Arousal);
+            savingparameter.SetNowArousal(charactername, Arousal);
         }
     }
 
@@ -85,7 +85,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     // 被弾時ダウン値を加算させる
     public void DownRateInc(float downratio)
     {
-        this.m_nowDownRatio += downratio;
+        this.NowDownRatio += downratio;
     }
     // 被弾時ステートを変える 
     public virtual void DamageInit(AnimationState animationstate)
@@ -116,7 +116,7 @@ public partial class CharacterControl_Base : MonoBehaviour
 	    // 動作及び慣性をカット
         this.MoveDirection = Vector3.zero;
 	    // 飛び越えフラグをカット	
-        this.m_Rotatehold = false;
+        this.Rotatehold = false;
 
         // 固定状態をカット
         this.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
@@ -140,10 +140,10 @@ public partial class CharacterControl_Base : MonoBehaviour
                 // 親子関係を再設定する
                 obj.transform.parent = this.transform;                
                 // 死亡爆発が起こったというフラグを立てる
-                this.m_Explode = true;
+                this.Explode = true;
             }
             animationstate = AnimationState.BlowInit;
-            m_nowDownRatio = 5;
+            NowDownRatio = 5;
         }
 
 
@@ -191,7 +191,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 
         // 錐揉みダウン（ダウン値MAX）なら錐揉みダウンアニメを再生し、ステートをSpinDownへ切り替える
-        if (this.m_nowDownRatio >= this.m_DownRatio)
+        if (this.NowDownRatio >= this.DownRatio)
         {
             // 錐揉みダウンアニメを再生する
             this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.SpinDown]);
@@ -207,7 +207,7 @@ public partial class CharacterControl_Base : MonoBehaviour
             this.m_AnimState[0] = AnimationState.Blow;
         }    
         // 攻撃と同じベクトルを与える。ここの値はm_BlowDirectionに保存したものを使う
-        this.GetComponent<Rigidbody>().AddForce(this.m_BlowDirection.x*10, 10, this.m_BlowDirection.z*10);       
+        this.GetComponent<Rigidbody>().AddForce(this.BlowDirection.x*10, 10, this.BlowDirection.z*10);       
     }
 
     // ダメージ(のけぞり）
@@ -217,7 +217,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         if (Time.time > this.m_DamagedTime + this.m_DamagedWaitTime)
         {      
             // 空中にいた→ダウンアニメを再生する→Blowへ移行（飛ばされない）
-            if (!this.m_isGrounded)
+            if (!this.IsGrounded)
             {
                 // Rotateの固定を解除        
                 this.GetComponent<Rigidbody>().freezeRotation = false;
@@ -249,12 +249,12 @@ public partial class CharacterControl_Base : MonoBehaviour
         // ステートを復帰にする
 
         // 接地までなにもせず、接地したらDownへ移行し、m_DownTimeを計算する
-        if (this.m_isGrounded)
+        if (this.IsGrounded)
         {
             this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.Down]);
             // downへ移行
             this.m_AnimState[0] = AnimationState.Down;
-            this.m_DownTime = Time.time;
+            this.DownTime = Time.time;
             // 速度を0まで落とす（吹き飛び時のベクトルを消す）
             this.MoveDirection = Vector3.zero;
             // 回転を戻す
@@ -263,7 +263,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         }
         // ブースト入力があった場合、ダウン値がMAX未満でブーストゲージが一定量あれば、Reversalへ変更	
         // rotationを0にして復帰アニメを再生する
-        else if (this.m_nowDownRatio <= this.m_DownRatio &&  this.m_hasJumpInput && this.Boost >= this.m_ReversalUseBoost)
+        else if (this.NowDownRatio <= this.DownRatio &&  this.m_hasJumpInput && this.Boost >= this.m_ReversalUseBoost)
         {
             // ブースト量を減らす
             this.Boost -= this.m_ReversalUseBoost;
@@ -279,13 +279,13 @@ public partial class CharacterControl_Base : MonoBehaviour
         MoveDirection.y = MadokaDefine.FALLSPEED;
         
         // 基本Blowと同じだが、着地と同時にアニメをダウンに切り替える
-        if (this.m_isGrounded)
+        if (this.IsGrounded)
         {
             // ダウンアニメを再生
             this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.Down]);
             // downへ移行
             this.m_AnimState[0] = AnimationState.Down;
-            this.m_DownTime = Time.time;
+            this.DownTime = Time.time;
             // 速度を0まで落とす（吹き飛び時のベクトルを消す）
             this.MoveDirection = Vector3.zero;
             // 回転を戻す
@@ -304,7 +304,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         this.GetComponent<Rigidbody>().freezeRotation = true;
 
 	    // m_DownTimeが規定値を超えると、復帰アニメを再生する
-        if (Time.time > this.m_DownTime + this.m_DownWaitTime)
+        if (Time.time > this.DownTime + this.m_DownWaitTime)
         {
             // ただし自機側ではHP0だと復活させない
             if (IsPlayer == CHARACTERCODE.PLAYER || IsPlayer == CHARACTERCODE.PLAYER_ALLY)
@@ -330,7 +330,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     {
         // 復帰アニメが終わると、Idleにする
         // ダウン値を0に戻す
-        this.m_nowDownRatio = 0.0f;
+        this.NowDownRatio = 0.0f;
         // m_DownRebirthTimeを0にする
         this.m_DownRebirthTime = 0;
         // ステートをIdleに戻す
@@ -338,7 +338,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         // Idleのアニメを再生する
         this.GetComponent<Animation>().Play(this.m_AnimationNames[(int)AnimationState.Idle]);
         // m_DownTimeを0にする
-        this.m_DownTime = 0;
+        this.DownTime = 0;
     }
 
     // 復帰処理

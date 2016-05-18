@@ -89,7 +89,7 @@ public class Scono_Arousal_ShockWave : MonoBehaviour
 		}
 
         // ダウン中かダウン値MAXならダメージを与えない
-        if (target.m_AnimState[0] == CharacterControl_Base.AnimationState.Down || (target.m_DownRatio <= target.m_nowDownRatio))
+        if (target.m_AnimState[0] == CharacterControl_Base.AnimationState.Down || (target.DownRatio <= target.NowDownRatio))
         {           
             return;
         }
@@ -122,11 +122,11 @@ public class Scono_Arousal_ShockWave : MonoBehaviour
 
         // 食らった相手を吹き飛ばす
         // 接触した相手を動作させる
-        if (target.m_nowDownRatio >= target.m_DownRatio || this.m_Hittype == CharacterSkill.HitType.BLOW)
+        if (target.NowDownRatio >= target.DownRatio || this.m_Hittype == CharacterSkill.HitType.BLOW)
         {   // 吹き飛びの場合、相手に方向ベクトルを与える            
             // Y軸方向は少し上向き
             target.MoveDirection.y += 10;
-            target.m_BlowDirection = MoveDirection;
+            target.BlowDirection = MoveDirection;
             // 吹き飛びの場合、攻撃を当てた相手を浮かす（m_launchOffset)            
             target.GetComponent<Rigidbody>().position = target.GetComponent<Rigidbody>().position + new Vector3(0, MadokaDefine.LAUNCHOFFSET, 0);
             target.GetComponent<Rigidbody>().AddForce(MoveDirection.x * MadokaDefine.LAUNCHOFFSET, MoveDirection.y * MadokaDefine.LAUNCHOFFSET, MoveDirection.z * MadokaDefine.LAUNCHOFFSET);
@@ -136,7 +136,7 @@ public class Scono_Arousal_ShockWave : MonoBehaviour
         else
         {
             // ただしアーマー時ならダウン値とダメージだけ加算する(Damageにしない）
-            if (!target.m_IsArmor)
+            if (!target.IsArmor)
             {
                 target.m_AnimState[0] = CharacterControl_Base.AnimationState.DamageInit;
             }
@@ -150,7 +150,7 @@ public class Scono_Arousal_ShockWave : MonoBehaviour
         // 攻撃側が覚醒中の場合
         if (m_Obj_OR != null)
         {
-            bool injection = m_Obj_OR.GetComponent<CharacterControl_Base>().m_isArousal;
+            bool injection = m_Obj_OR.GetComponent<CharacterControl_Base>().IsArousal;
             if (injection)
             {
                 m_OffemsivePower = (int)(m_OffemsivePower * MadokaDefine.AROUSAL_OFFENCE_UPPER);
@@ -159,7 +159,7 @@ public class Scono_Arousal_ShockWave : MonoBehaviour
         // 防御側が覚醒中の場合
         if (m_HitTarget != null)
         {
-            bool target = m_HitTarget.GetComponent<CharacterControl_Base>().m_isArousal;
+            bool target = m_HitTarget.GetComponent<CharacterControl_Base>().IsArousal;
             if (target)
             {
                 m_OffemsivePower = (int)(m_OffemsivePower * MadokaDefine.AROUSAL_DEFFENSIVE_UPPER);

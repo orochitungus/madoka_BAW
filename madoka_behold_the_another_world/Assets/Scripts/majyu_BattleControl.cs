@@ -118,23 +118,23 @@ public class majyu_BattleControl : CharacterControl_Base
       
 		
 		// HP初期化
-		this.NowHitpoint = GetMaxHitpoint(this.m_level);
+		this.NowHitpoint = GetMaxHitpoint(this.Level);
 
         // ジャンプ硬直
         this.m_JumpWaitTime = 0.5f;
 
         //着地硬直
-        this.m_LandingWaitTime = 1.5f;
+        this._LandingWaitTime = 1.5f;
 
         this.m_WalkSpeed = 3.0f;                             // 移動速度（歩行の場合）
         this.m_RunSpeed = 2.0f * this.m_WalkSpeed;          // 移動速度（走行の場合）
         this.m_AirDashSpeed = 8.0f * this.m_WalkSpeed;          // 移動速度（空中ダッシュの場合）
         this.m_AirMoveSpeed = 3.5f * this.m_WalkSpeed;          // 移動速度（空中慣性移動の場合）
-        this.m_RateofRise = 2.0f * this.m_WalkSpeed;        // 上昇速度
+        this.RiseSpeed = 2.0f * this.m_WalkSpeed;        // 上昇速度
 
         // ブースト消費量
         this.m_JumpUseBoost = 20;       // ジャンプ時
-        this.m_DashCancelUseBoost = 20;   // ブーストダッシュ時
+        this.DashCancelUseBoost = 20;   // ブーストダッシュ時
         this.StepUseBoost = 20;         // ステップ時
         this.m_BoostLess = 0.5f;        // ジャンプの上昇・BD時の1F当たりの消費量
 
@@ -192,24 +192,24 @@ public class majyu_BattleControl : CharacterControl_Base
     private void AttackDone(bool run = false,bool AirDash = false)
     {
         // 射撃で射撃へ移行
-        if (m_hasShotInput)
+        if (HasShotInput)
         {
             if (run)
             {
-                if (this.m_IsRockon)
+                if (this.IsRockon)
                 {
                     // ①　transform.TransformDirection(Vector3.forward)でオブジェクトの正面の情報を得る
                     var forward = this.transform.TransformDirection(Vector3.forward);
                     // ②　自分の場所から対象との距離を引く
                     // カメラからEnemyを求める
-                    var target = m_MainCamera.transform.GetComponentInChildren<Player_Camera_Controller>();
+                    var target = MainCamera.transform.GetComponentInChildren<Player_Camera_Controller>();
                     var targetDirection = target.Enemy.transform.position - transform.position;
                     // ③　①と②の角度をVector3.Angleで取る　			
                     float angle = Vector3.Angle(forward, targetDirection);
                     // 角度60度以内なら上体回しで撃つ（歩き撃ち限定で上記の矢の方向ベクトルを加算する）
                     if (angle < 60)
                     {
-                        m_RunShotDone = true;
+                        RunShotDone = true;
                         ShotDone();
                     }
                     // それ以外なら強制的に停止して（立ち撃ちにして）撃つ
@@ -223,7 +223,7 @@ public class majyu_BattleControl : CharacterControl_Base
                 // 非ロック状態なら歩き撃ちフラグを立てる
                 else
                 {
-                    m_RunShotDone = true;
+                    RunShotDone = true;
                     ShotDone();
                 }
             }
@@ -241,7 +241,7 @@ public class majyu_BattleControl : CharacterControl_Base
                 WrestleDone_UpperEx((int)SkillType_Majyu.EX_FRONT_WRESTLE_1);
             }
             // 空中で後特殊格闘
-            else if (m_hasBackInput && !m_isGrounded)
+            else if (m_hasBackInput && !IsGrounded)
             {
                 WrestleDone_DownEx((int)SkillType_Majyu.BACK_EX_WRESTLE);
             }
@@ -287,16 +287,16 @@ public class majyu_BattleControl : CharacterControl_Base
         ReturnMotion();
         base.Animation_Idle();
         // 格闘の累積時間を初期化
-        m_wrestletime = 0;
+        Wrestletime = 0;
        
         // キャンセルダッシュ入力でキャンセルダッシュ
-        if (m_hasDashCancelInput)
+        if (HasDashCancelInput)
         {
             CancelDashDone();
         }
         
         // 地上にいるか？(落下開始時は一応禁止）
-        if (m_isGrounded)
+        if (IsGrounded)
         {
             AttackDone();
         }
@@ -315,7 +315,7 @@ public class majyu_BattleControl : CharacterControl_Base
         ReturnMotion();
         base.Animation_Fall();
         // キャンセルダッシュ入力でキャンセルダッシュ
-        if (m_hasDashCancelInput)
+        if (HasDashCancelInput)
         {
             CancelDashDone();
         }
@@ -328,7 +328,7 @@ public class majyu_BattleControl : CharacterControl_Base
     {
         base.Animation_Run();
         // キャンセルダッシュ入力でキャンセルダッシュ
-        if (m_hasDashCancelInput)
+        if (HasDashCancelInput)
         {
             CancelDashDone();
         }
@@ -356,10 +356,10 @@ public class majyu_BattleControl : CharacterControl_Base
     protected override void Shot()
     {
         // キャンセルダッシュ受付
-        if (this.m_hasDashCancelInput)
+        if (this.HasDashCancelInput)
         {
             // 地上でキャンセルすると浮かないので浮かす
-            if (this.m_isGrounded)
+            if (this.IsGrounded)
             {
                 GetComponent<Rigidbody>().position = new Vector3(this.GetComponent<Rigidbody>().position.x, this.GetComponent<Rigidbody>().position.y + 3, this.GetComponent<Rigidbody>().position.z);
             }
@@ -372,10 +372,10 @@ public class majyu_BattleControl : CharacterControl_Base
     protected override void ShotRun()
     {
         // キャンセルダッシュ受付
-        if (this.m_hasDashCancelInput)
+        if (this.HasDashCancelInput)
         {
             // 地上でキャンセルすると浮かないので浮かす
-            if (this.m_isGrounded)
+            if (this.IsGrounded)
             {
                 GetComponent<Rigidbody>().position = new Vector3(this.GetComponent<Rigidbody>().position.x, this.GetComponent<Rigidbody>().position.y + 3, this.GetComponent<Rigidbody>().position.z);
             }
@@ -389,10 +389,10 @@ public class majyu_BattleControl : CharacterControl_Base
     protected override void ShotAirDash()
     {
         // キャンセルダッシュ受付
-        if (this.m_hasDashCancelInput)
+        if (this.HasDashCancelInput)
         {
             // 地上でキャンセルすると浮かないので浮かす
-            if (this.m_isGrounded)
+            if (this.IsGrounded)
             {
                 GetComponent<Rigidbody>().position = new Vector3(this.GetComponent<Rigidbody>().position.x, this.GetComponent<Rigidbody>().position.y + 3, this.GetComponent<Rigidbody>().position.z);
             }
@@ -410,9 +410,9 @@ public class majyu_BattleControl : CharacterControl_Base
         // 格闘判定があるなら消す
         DestroyWrestle();
         // 歩き撃ちフラグを折る
-        m_RunShotDone = false;
+        RunShotDone = false;
         // 上体を戻す
-        m_Brest.transform.rotation = Quaternion.Euler(0, 0, 0);
+        BrestObject.transform.rotation = Quaternion.Euler(0, 0, 0);
         // モーションを戻す
         shotmode = ShotMode.NORMAL;
         DeleteBlend();
@@ -443,7 +443,7 @@ public class majyu_BattleControl : CharacterControl_Base
                 // 合成状態を解除
                 ReturnMotion();
                 // 地上にいて静止中
-                if (m_isGrounded && !this.m_hasVHInput)
+                if (IsGrounded && !this.HasVHInput)
                 {
                     // アイドルモードのアニメを起動する
                     this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Idle]);
@@ -451,7 +451,7 @@ public class majyu_BattleControl : CharacterControl_Base
                     this.m_AnimState[0] = AnimationState.Idle;
                 }
                 // 地上にいて歩行中
-                else if (m_isGrounded)
+                else if (IsGrounded)
                 {
                     // 走行モードのアニメを起動する
                     this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Run]);
@@ -459,7 +459,7 @@ public class majyu_BattleControl : CharacterControl_Base
                     this.m_AnimState[0] = AnimationState.Run;
                 }
                 // 空中にいてダッシュ入力中でありかつブーストゲージがある
-                else if (!m_isGrounded && m_hasVHInput && m_hasJumpInput && this.Boost > 0)
+                else if (!IsGrounded && HasVHInput && m_hasJumpInput && this.Boost > 0)
                 {
                     // 空中ダッシュのアニメを起動する
                     this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.AirDash]);
@@ -472,7 +472,7 @@ public class majyu_BattleControl : CharacterControl_Base
                     this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
                     this.GetComponent<Animation>()[m_AnimationNames[(int)AnimationState.Fall]].blendMode = AnimationBlendMode.Blend; // 合成モードを戻しておく
                     this.m_AnimState[0] = AnimationState.Fall;
-                    m_fallStartTime = Time.time;
+                    FallStartTime = Time.time;
                     // ショットのステートを戻す
                     shotmode = ShotMode.NORMAL;
                 }
@@ -488,7 +488,7 @@ public class majyu_BattleControl : CharacterControl_Base
         if (this.BulletNum[(int)type] > 0)
         {
             // ロックオン時本体の方向を相手に向ける       
-            if (this.m_IsRockon)
+            if (this.IsRockon)
             {
                 RotateToTarget();
             }
@@ -532,7 +532,7 @@ public class majyu_BattleControl : CharacterControl_Base
         {
             beam.m_Speed = Character_Spec.cs[(int)m_character_name][0].m_Movespeed;
             // ロックオン状態で歩き撃ちしているとき
-            if (this.m_IsRockon && this.m_RunShotDone)
+            if (this.IsRockon && this.RunShotDone)
             {
                 // ロックオン対象の座標を取得
                 var target = GetComponentInChildren<Player_Camera_Controller>();
@@ -542,7 +542,7 @@ public class majyu_BattleControl : CharacterControl_Base
                 // 本体
                 Quaternion mainrot = Quaternion.LookRotation(targetpos - this.transform.position);
                 // 胸部
-                Vector3 normalizeRot_OR = m_Brest.transform.rotation.eulerAngles;
+                Vector3 normalizeRot_OR = BrestObject.transform.rotation.eulerAngles;
                 // 本体と胸部と矢の補正値分回転角度を合成
                 Vector3 addrot = mainrot.eulerAngles + normalizeRot_OR - new Vector3(0, 70.0f, 0);
                 Quaternion qua = Quaternion.Euler(addrot);
@@ -552,7 +552,7 @@ public class majyu_BattleControl : CharacterControl_Base
                 beam.m_MoveDirection = Vector3.Normalize(normalizeRot);
             }
             // ロックオンしているとき
-            else if (m_IsRockon)
+            else if (IsRockon)
             {
                 // ロックオン対象の座標を取得
                 var target = GetComponentInChildren<Player_Camera_Controller>();
@@ -572,7 +572,7 @@ public class majyu_BattleControl : CharacterControl_Base
                 if (this.transform.rotation.eulerAngles == Vector3.zero)
                 {
                     // ただしそのままだとカメラが下を向いているため、一旦その分は補正する
-                    Quaternion rotateOR = m_MainCamera.transform.rotation;
+                    Quaternion rotateOR = MainCamera.transform.rotation;
                     Vector3 rotateOR_E = rotateOR.eulerAngles;
                     rotateOR_E.x = 0;
                     rotateOR = Quaternion.Euler(rotateOR_E);
@@ -626,11 +626,11 @@ public class majyu_BattleControl : CharacterControl_Base
         // 追加の格闘入力を受け取ったら、派生フラグを立てる
         if (this.m_hasWrestleInput || this.m_hasExWrestleInput)
         {
-            this.m_addInput = true;
+            this.AddInput = true;
         }
         // 一定時間経ったら、強制終了
         float wrestletimeBias = Character_Spec.cs[(int)m_character_name][(int)SkillType_Majyu.WRESTLE_1].m_animationTime;
-        if (m_wrestletime > wrestletimeBias)
+        if (Wrestletime > wrestletimeBias)
         {
             WrestleFinish(AnimationState.Idle);
         }
@@ -643,11 +643,11 @@ public class majyu_BattleControl : CharacterControl_Base
         // 追加の格闘入力を受け取ったら、派生フラグを立てる
         if (this.m_hasWrestleInput || this.m_hasExWrestleInput)
         {
-            this.m_addInput = true;
+            this.AddInput = true;
         }
         // 一定時間経ったら、強制終了
         float wrestletimeBias = Character_Spec.cs[(int)m_character_name][(int)SkillType_Majyu.WRESTLE_2].m_animationTime;
-        if (m_wrestletime > wrestletimeBias)
+        if (Wrestletime > wrestletimeBias)
         {
             WrestleFinish(AnimationState.Idle);
         }
@@ -658,7 +658,7 @@ public class majyu_BattleControl : CharacterControl_Base
         base.Wrestle3();
         // 一定時間経ったら、強制終了
         float wrestletimeBias = Character_Spec.cs[(int)m_character_name][(int)SkillType_Majyu.WRESTLE_2].m_animationTime;
-        if (m_wrestletime > wrestletimeBias)
+        if (Wrestletime > wrestletimeBias)
         {
             WrestleFinish(AnimationState.Idle);
         }
@@ -669,7 +669,7 @@ public class majyu_BattleControl : CharacterControl_Base
         base.FrontWrestle1();
         // 一定時間経ったら、強制終了
         float wrestletimeBias = Character_Spec.cs[(int)m_character_name][(int)SkillType_Majyu.FRONT_WRESTLE_1].m_animationTime;
-        if (m_wrestletime > wrestletimeBias)
+        if (Wrestletime > wrestletimeBias)
         {
             WrestleFinish(AnimationState.Idle);
         }
@@ -678,23 +678,23 @@ public class majyu_BattleControl : CharacterControl_Base
     void LateUpdate()
     {
         // ロックオン時首を相手の方向へ向ける(本体角度との合成になっているので、本体角度分減算してやらないと正常に向かない）
-        if (this.m_IsRockon && this.m_AnimState[0] != AnimationState.Shot && this.m_AnimState[0] != AnimationState.EX_Shot
+        if (this.IsRockon && this.m_AnimState[0] != AnimationState.Shot && this.m_AnimState[0] != AnimationState.EX_Shot
            && this.m_AnimState[0] != AnimationState.Sub_Shot && this.m_AnimState[0] != AnimationState.Front_Wrestle_2
-           && this.m_AnimState[0] != AnimationState.Shot_run && this.m_AnimState[0] != AnimationState.Charge_Shot && !m_RunShotDone)
+           && this.m_AnimState[0] != AnimationState.Shot_run && this.m_AnimState[0] != AnimationState.Charge_Shot && !RunShotDone)
         {
             SetNeckRotate(this.m_Head, 0.0f);
         }
         // 歩き射撃時,上体をロックオン対象へ向ける
-        if (this.m_IsRockon && m_RunShotDone)
+        if (this.IsRockon && RunShotDone)
         {
-            SetNeckRotate(this.m_Brest, 0.0f);
+            SetNeckRotate(this.BrestObject, 0.0f);
         }
         // ロックオンしていないときはそのまま本体角度分回す
-        else if (m_RunShotDone)
+        else if (RunShotDone)
         {
             // 本体角度
             Vector3 rotate = this.transform.rotation.eulerAngles;
-            m_Brest.transform.rotation = Quaternion.Euler(0, 74 + rotate.y, 0);
+            BrestObject.transform.rotation = Quaternion.Euler(0, 74 + rotate.y, 0);
         }
         // アニメーション終了処理判定
         // 射撃
