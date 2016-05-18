@@ -104,7 +104,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         // 吹き飛びならDamageInit→BlowDoneを呼ぶ
 
         // m_DownRebirthTimeのカウントを開始
-        this.m_DownRebirthTime = Time.time;
+        this.DownRebirthTime = Time.time;
 
         // （継承先で本体にくっついていたオブジェクトをカット）
 	    // （UpdateCoreで入力をポーズ以外すべて禁止）
@@ -263,7 +263,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         }
         // ブースト入力があった場合、ダウン値がMAX未満でブーストゲージが一定量あれば、Reversalへ変更	
         // rotationを0にして復帰アニメを再生する
-        else if (this.NowDownRatio <= this.DownRatio &&  this.m_hasJumpInput && this.Boost >= this.m_ReversalUseBoost)
+        else if (this.NowDownRatio <= this.DownRatio &&  this.HasJumpInput && this.Boost >= this.m_ReversalUseBoost)
         {
             // ブースト量を減らす
             this.Boost -= this.m_ReversalUseBoost;
@@ -332,7 +332,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         // ダウン値を0に戻す
         this.NowDownRatio = 0.0f;
         // m_DownRebirthTimeを0にする
-        this.m_DownRebirthTime = 0;
+        this.DownRebirthTime = 0;
         // ステートをIdleに戻す
         this.m_AnimState[0] = AnimationState.Idle;
         // Idleのアニメを再生する

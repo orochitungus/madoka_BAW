@@ -287,49 +287,49 @@ public partial class CharacterControl_Base : MonoBehaviour
     // 射撃入力があったか否か
     protected bool HasShotInput;
     // ジャンプ入力があったか否か
-    protected bool m_hasJumpInput;
+    protected bool HasJumpInput;
     // ダッシュキャンセル入力があったか否か
     protected bool HasDashCancelInput;
     // 空中ダッシュ入力があったか否か
-    protected bool m_hasAirDashInput;
+    protected bool HasAirDashInput;
     // サーチ入力があったか否か
-    protected bool m_hasSearchInput;
+    protected bool HasSearchInput;
     // サーチキャンセル入力があったか否か
-    public bool m_hasSearchCancelInput;
+    public bool HasSearchCancelInput;
     // 格闘入力があったか否か
-    protected bool m_hasWrestleInput;
+    protected bool HasWrestleInput;
     // サブ射撃入力があったか否か
-    protected bool m_hasSubShotInput;
+    protected bool HasSubShotInput;
     // 特殊射撃入力があったか否か
-    protected bool m_hasExShotInput;
+    protected bool HasExShotInput;
     // 特殊格闘入力があったか否か
-    protected bool m_hasExWrestleInput;
+    protected bool HasExWrestleInput;
     // アイテム入力があったか否か
-    protected bool m_hasItemInput;
+    protected bool HasItemInput;
     // ポーズ入力があったか否か
-    protected bool m_hasPauseInput;
+    protected bool HasPauseInput;
     // 覚醒入力があったか否か
-    protected bool m_hasArousalInput;
+    protected bool HasArousalInput;
     // 覚醒技入力があったか否か（コマンドは同じだが、処理順番の関係上別にしておかないとCPUは覚醒した時点で覚醒技を入力したという扱いになってしまう）
-    protected bool m_hasArousalAttackInput;
+    protected bool HasArousalAttackInput;
     // 射撃チャージ入力があったか否か
     protected bool m_hasShotChargeInput;
     // 格闘チャージ入力があったか否か
     protected bool m_hasWrestleChargeInput;
     // 前入力があったか否か
-    protected bool m_hasFrontInput;
+    protected bool HasFrontInput;
     // 左入力があったか否か
-    protected bool m_hasLeftInput;
+    protected bool HasLeftInput;
     // 右入力があったか否か
-    protected bool m_hasRightInput;
+    protected bool HasRightInput;
     // 後入力があったか否か
-    protected bool m_hasBackInput;
+    protected bool HasBackInput;
     // 左ステップ入力があったか否か（CPU専用）
     protected bool HasLeftStepInput;
     // 右ステップ入力があったか否か（CPU専用）
     protected bool HasRightStepInput;
     // ソウルバースト入力があったか否か
-    protected bool m_hasSoulBurstInput;
+
 
     // ステップ入力強制解除
     public void StepStop()
@@ -353,7 +353,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     // ダウン値復帰時間
     public float m_DownRebirthWaitTime;
     // ダウン値累積時間
-    public float m_DownRebirthTime;
+    public float DownRebirthTime;
 
     // ダウン時間（ダウンしている時間）
     public float m_DownWaitTime;
@@ -2205,7 +2205,7 @@ public partial class CharacterControl_Base : MonoBehaviour
 
 
 	// 継承先のStart開幕で実行すること
-	protected virtual void FirstSetting(Animator animator) 
+	protected virtual void FirstSetting() 
 	{
         // CharacterControllerを取得
         //this.m_charactercontroller = GetComponent<CharacterController>();
@@ -2331,48 +2331,47 @@ public partial class CharacterControl_Base : MonoBehaviour
         // ショット入力があったか否か
         HasShotInput = false;
         // ジャンプ入力があったか否か
-        this.m_hasJumpInput = false;
+        HasJumpInput = false;
         // ダッシュキャンセル入力があったか否か
-        this.HasDashCancelInput = false;
+        HasDashCancelInput = false;
         // 空中ダッシュ入力があったか否か
-        this.m_hasAirDashInput = false;
+        HasAirDashInput = false;
         // サーチ入力があったか否か
-        this.m_hasSearchInput = false;
+        HasSearchInput = false;
         // サーチキャンセル入力があったか否か
-        this.m_hasSearchCancelInput = false;
+        HasSearchCancelInput = false;
         // 格闘入力があったか否か
-        this.m_hasWrestleInput = false;
+        HasWrestleInput = false;
         // サブ射撃入力があったか否か
-        this.m_hasSubShotInput = false;
+        HasSubShotInput = false;
         // 特殊射撃入力があったか否か
-        this.m_hasExShotInput = false;
+        HasExShotInput = false;
         // 特殊格闘入力があったか否か
-        this.m_hasExWrestleInput = false;
+        HasExWrestleInput = false;
         // アイテム入力があったか否か
-        this.m_hasItemInput = false;
+        HasItemInput = false;
         // ポーズ入力があったか否か
-        this.m_hasPauseInput = false;
+        HasPauseInput = false;
         // 覚醒入力があったか否か
-        this.m_hasArousalInput = false;
+        HasArousalInput = false;
         // 覚醒技入力があったか否か
-        this.m_hasArousalAttackInput = false;
+        HasArousalAttackInput = false;
         // 前入力があったか否か
-        this.m_hasFrontInput = false;
+        HasFrontInput = false;
         // 左入力があったか否か
-        this.m_hasLeftInput = false;
+        HasLeftInput = false;
         // 右入力があったか否か
-        this.m_hasRightInput = false;
+        HasRightInput = false;
         // 後入力があったか否か
-        this.m_hasBackInput = false;
-        // ソウルバースト入力があったか否か
-        this.m_hasSoulBurstInput = false;
+        HasBackInput = false;
+        
 
         // m_DownRebirthTime/waitの初期化とカウントを行う
         // m_DamagedTime/waitの初期化とカウントを行う
         // m_DownTime/waitの初期化とカウントを行う
 
         // m_DownRebirthTime/waitの初期化を行う(ダウン値がリセットされるまでの時間）
-        m_DownRebirthTime = 0;
+        DownRebirthTime = 0;
         m_DownRebirthWaitTime = 3.0f;
         // m_DamagedTime/waitの初期化とカウントを行う(ダメージによる硬直時間）
         m_DamagedTime = 0;
@@ -2489,39 +2488,39 @@ public partial class CharacterControl_Base : MonoBehaviour
             // ショット入力があったか否か
             this.HasShotInput = GetShotInput();
             // ジャンプ入力があったか否か
-            this.m_hasJumpInput = GetJumpInput();
+            this.HasJumpInput = GetJumpInput();
             // ダッシュキャンセル入力があったか否か
             this.HasDashCancelInput = GetDashCancelInput();
             // サーチ入力があったか否か
-            this.m_hasSearchInput = GetSearchInput();
+            this.HasSearchInput = GetSearchInput();
             // サーチキャンセル入力があったか否か
-            this.m_hasSearchCancelInput = GetUnSerchInput();
+            this.HasSearchCancelInput = GetUnSerchInput();
             // 格闘入力があったか否か
-            this.m_hasWrestleInput = GetWrestleInput();
+            this.HasWrestleInput = GetWrestleInput();
             // サブ射撃入力があったか否か
-            this.m_hasSubShotInput = GetSubShotInput();
+            this.HasSubShotInput = GetSubShotInput();
             // 特殊射撃入力があったか否か
-            this.m_hasExShotInput = GetExShotInput();
+            this.HasExShotInput = GetExShotInput();
             // 特殊格闘入力があったか否か
-            this.m_hasExWrestleInput = GetExWrestleInput();
+            this.HasExWrestleInput = GetExWrestleInput();
             // アイテム入力があったか否か
-            this.m_hasItemInput = GetItemInput();
+            this.HasItemInput = GetItemInput();
             // ポーズ入力があったか否か
-            this.m_hasPauseInput = HasMenuInput();
+            this.HasPauseInput = HasMenuInput();
             // 覚醒入力があったか否か
-            this.m_hasArousalInput = GetArousalInput();
+            this.HasArousalInput = GetArousalInput();
             // 覚醒技入力があったか否か
-            this.m_hasArousalAttackInput = GetArousalInput();
+            this.HasArousalAttackInput = GetArousalInput();
             // 前入力があったか否か
-            this.m_hasFrontInput = GetFrontInput();
+            this.HasFrontInput = GetFrontInput();
             // 左入力があったか否か
-            this.m_hasLeftInput = GetLeftInput();
+            this.HasLeftInput = GetLeftInput();
             // 右入力があったか否か
-            this.m_hasRightInput = GetRightInput();
+            this.HasRightInput = GetRightInput();
             // 後入力があったか否か
-            this.m_hasBackInput = GetBackInput();
+            this.HasBackInput = GetBackInput();
             // ソウルバースト入力があったか否か
-            this.m_hasSoulBurstInput = HasSoulBurstInput();
+            
             // 位置を保持
             savingparameter.nowposition = this.transform.position;
             // 角度を保持
@@ -2540,22 +2539,22 @@ public partial class CharacterControl_Base : MonoBehaviour
             // 前
 			if (m_tenkey == AIControl_Base.TENKEY_OUTPUT.TOP)
             {
-                m_hasFrontInput = true;
+                HasFrontInput = true;
             }
             // 後
 			else if (m_tenkey == AIControl_Base.TENKEY_OUTPUT.UNDER)
             {
-                m_hasBackInput = true;
+                HasBackInput = true;
             }
             // 左
 			else if (m_tenkey == AIControl_Base.TENKEY_OUTPUT.LEFT)
             {
-                m_hasLeftInput = true;
+                HasLeftInput = true;
             }
             // 右
 			else if (m_tenkey == AIControl_Base.TENKEY_OUTPUT.RIGHT)
             {
-                m_hasRightInput = true;
+                HasRightInput = true;
             }
             // 左ステップ
 			else if (m_tenkey == AIControl_Base.TENKEY_OUTPUT.LEFTSTEP)
@@ -2575,43 +2574,43 @@ public partial class CharacterControl_Base : MonoBehaviour
                     this.HasShotInput = true;
                     break;
                 case AIControl_Base.KEY_OUTPUT.JUMP:
-                    this.m_hasJumpInput = true;
+                    this.HasJumpInput = true;
                     break;
                 case AIControl_Base.KEY_OUTPUT.DASHCANCEL:
                     this.HasDashCancelInput = true;
                     break;
                 case AIControl_Base.KEY_OUTPUT.AIRDASH:
-                    this.m_hasAirDashInput = true;
+                    this.HasAirDashInput = true;
                     break;
                 case AIControl_Base.KEY_OUTPUT.SEARCH:
-                    this.m_hasSearchInput = true;
+                    this.HasSearchInput = true;
                     break;
                 case AIControl_Base.KEY_OUTPUT.SEACHCANCEL:
-                    this.m_hasSearchCancelInput = true;
+                    this.HasSearchCancelInput = true;
                     break;
                 case AIControl_Base.KEY_OUTPUT.WRESTLE:
-                    this.m_hasWrestleInput = true;
+                    this.HasWrestleInput = true;
                     break;
                 case AIControl_Base.KEY_OUTPUT.SUBSHOT:
-                    this.m_hasSubShotInput = true;
+                    this.HasSubShotInput = true;
                     break;
                 case AIControl_Base.KEY_OUTPUT.EXSHOT:
-                    this.m_hasExShotInput = true;
+                    this.HasExShotInput = true;
                     break;
                 case AIControl_Base.KEY_OUTPUT.EXWRESTLE:
-                    this.m_hasExWrestleInput = true;
+                    this.HasExWrestleInput = true;
                     break;
                 case AIControl_Base.KEY_OUTPUT.ITEM:
-                    this.m_hasItemInput = true;
+                    this.HasItemInput = true;
                     break;
                 case AIControl_Base.KEY_OUTPUT.PAUSE:
-                    this.m_hasPauseInput = true;
+                    this.HasPauseInput = true;
                     break;
                 case AIControl_Base.KEY_OUTPUT.AROUSAL:
-                    this.m_hasArousalInput = true;
+                    this.HasArousalInput = true;
                     break;
                 case AIControl_Base.KEY_OUTPUT.AROUSALATTACK:
-                    this.m_hasArousalAttackInput = true;
+                    this.HasArousalAttackInput = true;
                     break;
                 case AIControl_Base.KEY_OUTPUT.CHARGESHOT:
                     this.m_hasShotChargeInput = true;
@@ -2623,43 +2622,42 @@ public partial class CharacterControl_Base : MonoBehaviour
                     // ショット入力があったか否か
                     this.HasShotInput = false;
                     // ジャンプ入力があったか否か
-                    this.m_hasJumpInput = false;
+                    this.HasJumpInput = false;
                     // ダッシュキャンセル入力があったか否か
                     this.HasDashCancelInput = false;
                     // サーチ入力があったか否か
-                    this.m_hasSearchInput = false;
+                    this.HasSearchInput = false;
                     // サーチキャンセル入力があったか否か
-                    this.m_hasSearchCancelInput = false;
+                    this.HasSearchCancelInput = false;
                     // 格闘入力があったか否か
-                    this.m_hasWrestleInput = false;
+                    this.HasWrestleInput = false;
                     // サブ射撃入力があったか否か
-                    this.m_hasSubShotInput = false;
+                    this.HasSubShotInput = false;
                     // 特殊射撃入力があったか否か
-                    this.m_hasExShotInput = false;
+                    this.HasExShotInput = false;
                     // 特殊格闘入力があったか否か
-                    this.m_hasExWrestleInput = false;
+                    this.HasExWrestleInput = false;
                     // アイテム入力があったか否か
-                    this.m_hasItemInput = false;
+                    this.HasItemInput = false;
                     // ポーズ入力があったか否か
-                    this.m_hasPauseInput = false;
+                    this.HasPauseInput = false;
                     // 覚醒入力があったか否か
-                    this.m_hasArousalInput = false;
+                    this.HasArousalInput = false;
                     // 覚醒技入力があったか否か
-                    this.m_hasArousalAttackInput = false;
+                    this.HasArousalAttackInput = false;
                     // 射撃チャージ入力があったか否か
                     this.m_hasShotChargeInput = false;
                     // 格闘チャージ入力があったか否か
                     this.m_hasWrestleChargeInput = false;
                     // 前入力があったか否か
-                    this.m_hasFrontInput = false;
+                    this.HasFrontInput = false;
                     // 左入力があったか否か
-                    this.m_hasLeftInput = false;
+                    this.HasLeftInput = false;
                     // 右入力があったか否か
-                    this.m_hasRightInput = false;
+                    this.HasRightInput = false;
                     // 後入力があったか否か
-                    this.m_hasBackInput = false;
+                    this.HasBackInput = false;
                     // ソウルバースト入力があったか否か
-                    this.m_hasSoulBurstInput = false;
                     break;
             }
             // 入力を受けたテンキーに応じてフラグを立てる（この時点ではありなしさえ拾えばいい。実際の値を使うのはUpdateRotationなので、入力の有無さえ拾えればいい）
@@ -2688,7 +2686,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         // 通常時、ポーズ入力で停止.ただし死んだら無効
         if (m_timstopmode != TimeStopMode.PAUSE)
         {
-            if(m_hasPauseInput && NowHitpoint > 0)
+            if(HasPauseInput && NowHitpoint > 0)
             {
                 this.TimeStopMaster = true;
                 m_timstopmode = TimeStopMode.PAUSE;
@@ -2728,7 +2726,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         // キャラを取得
         int character = (int)m_character_name;
         // 覚醒入力を取得し、その場合覚醒開始画面へ移行してポーズ  
-        if (m_hasArousalInput && !IsArousal && savingparameter.GetGemContimination(character) < 100.0f)
+        if (HasArousalInput && !IsArousal && savingparameter.GetGemContimination(character) < 100.0f)
         {
             
             // 最低でもLV1時の覚醒ゲージがないと覚醒不可(ポーズを強制解除して抜ける）
@@ -2745,7 +2743,7 @@ public partial class CharacterControl_Base : MonoBehaviour
             }
         }
         // 覚醒中は覚醒技を発動
-        else if (m_hasArousalAttackInput && IsArousal)
+        else if (HasArousalAttackInput && IsArousal)
         {
             // アーマーをONにする
             IsArmor = true;
@@ -2776,9 +2774,9 @@ public partial class CharacterControl_Base : MonoBehaviour
         //m_nowDownRatioが0を超えていて、Damage_Initではなく（ダウン値加算前にリセットされる）m_DownRebirthTimeが規定時間を経過し、かつダウン値が閾値より小さければダウン値をリセットする
         if (NowDownRatio > 0 && this.m_AnimState[0] != AnimationState.DamageInit)
         {
-            if ((Time.time > m_DownRebirthTime + m_DownRebirthWaitTime) && (this.NowDownRatio < this.DownRatio))
+            if ((Time.time > DownRebirthTime + m_DownRebirthWaitTime) && (this.NowDownRatio < this.DownRatio))
             {
-                this.m_DownRebirthTime = 0;
+                this.DownRebirthTime = 0;
                 this.NowDownRatio = 0.0f;
             }
         }
@@ -2942,7 +2940,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     {
         if (m_timstopmode == TimeStopMode.PAUSE)
         {
-            if (m_hasPauseInput)
+            if (HasPauseInput)
             {
                 m_timstopmode = TimeStopMode.NORMAL;
                 //Time.timeScale = 1;

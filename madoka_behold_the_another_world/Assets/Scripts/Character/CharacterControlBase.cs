@@ -690,15 +690,25 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     private float _FallStartTime;
 
-    // 格闘時の移動速度
-    protected float WrestlSpeed;        // N格闘1段目
+	// 使用する足音
+	private StageSetting.FootType _Foottype;
 
-    // 追加入力の有無を保持。trueであり
-    protected bool AddInput;
+	// 格闘関係
 
+	/// <summary>
+	/// 格闘時の移動速度
+	/// </summary>
+	protected float WrestlSpeed;        // N格闘1段目
 
-    // 格闘攻撃の種類
-    public enum WrestleType
+	/// <summary>
+	/// 追加入力の有無を保持。trueであり
+	/// </summary>
+	protected bool AddInput;
+
+	/// <summary>
+	/// 格闘攻撃の種類
+	/// </summary>
+	public enum WrestleType
     {
         WRESTLE_1,              // N格1段目
         WRESTLE_2,              // N格2段目
@@ -734,16 +744,27 @@ public class CharacterControlBase : MonoBehaviour
     };
 
 
-    // N格1段目用判定の配置用フック(キャラごとに設定する。順番は上の列挙体と同じ）
-    public GameObject[] WrestleRoot = new GameObject[(int)WrestleType.WRESTLE_TOTAL];
+	/// <summary>
+	/// N格1段目用判定の配置用フック(キャラごとに設定する。順番は上の列挙体と同じ）
+	/// </summary>
+	public GameObject[] WrestleRoot = new GameObject[(int)WrestleType.WRESTLE_TOTAL];
 
-    // 格闘判定のオブジェクト
-    public GameObject[] WrestleObject = new GameObject[(int)WrestleType.WRESTLE_TOTAL];
+	/// <summary>
+	/// 格闘判定のオブジェクト
+	/// </summary>
+	public GameObject[] WrestleObject = new GameObject[(int)WrestleType.WRESTLE_TOTAL];
 
-    /// <summary>
-    /// プレイヤーのレベル設定を行う
-    /// </summary>
-    protected void SettingPleyerLevel()
+	// ダメージ関連
+
+	/// <summary>
+	/// 死亡エフェクトの存在
+	/// </summary>
+	private bool Explode; 
+
+	/// <summary>
+	/// プレイヤーのレベル設定を行う
+	/// </summary>
+	protected void SettingPleyerLevel()
     {
         // 自機もしくは自機の僚機
         if (IsPlayer != CHARACTERCODE.ENEMY)
@@ -2401,10 +2422,251 @@ public class CharacterControlBase : MonoBehaviour
         }
     }
 
+	/// <summary>
+	/// 初期化
+	/// </summary>
+	/// <param name="animator"></param>
+	/// <param name="idlehash">アイドルモーションのhashID</param>
+	protected virtual void FirstSetting(Animator animator,int idlehash)
+	{
+		// CharacterControllerを取得
+		//this.m_charactercontroller = GetComponent<CharacterController>();
+		// Rigidbodyを取得
+		RigidBody = GetComponent<Rigidbody>();
+
+		// PCでなければカメラを無効化しておく
+		if (this.IsPlayer != CHARACTERCODE.PLAYER)
+		{
+			// 自分にひっついているカメラオブジェクトを探し、カメラを切っておく
+			transform.Find("Main Camera").GetComponent<Camera>().enabled = false;
+		}
+		// 変数の初期設定はキャラごとに行う(アニメーションファイルの名前はここで入力。オーバーライドした場合継承元の内容も同時実行できたはず？）        
+
+		// 設置関係を初期化
+		var collider = GetComponent<CapsuleCollider>();
+		if (null == collider)
+		{
+			Debug.LogError("カプセルコライダが見つからない");
+			Application.Quit();
+		}
+		LayOriginOffs = new Vector3(0.0f, Collider_Height, 0.0f);
+		Laylength = collider.radius + collider.height;// / 2 + 1.5f;//0.2f;
+													  //this.m_layOriginOffs = new Vector3(0.0f, m_Collider_Height, 0.0f);
+													  //this.m_laylength = m_charactercontroller.radius + m_charactercontroller.height / 2 + 1.5f;
+		LayMask = 1 << 8;       // layMaskは無視するレイヤーを指定する。8のgroundレイヤー以外を無視する
+
+		
+		// ジャンプ硬直
+		JumpTime = -JumpWaitTime;
+
+		// 着地硬直
+		LandingTime = -LandingWaitTime;
+
+		// 歩行速度(m_WalkSpeed等はそれぞれで設定）
+		MoveDirection = Vector3.zero;
+		// 吹き飛び速度
+		BlowDirection = Vector3.zero;
+
+		// 初期アニメIdleを再生する
+		animator.Play(idlehash);
+
+		// ブースト量を初期化する
+		Boost = GetMaxBoost(this.BoostLevel);
+
+		// 上体を初期化する
+		BrestObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+		// 歩き撃ちフラグを初期化する
+		RunShotDone = false;
+
+		// 覚醒ゲージ量を初期化する
+		Arousal = GetMaxArousal(ArousalLevel);
+		// 覚醒ゲージを初期化する
+		Arousal = 0;
+		// 覚醒状態を初期化する
+		IsArousal = false;
+		// 覚醒演出状態を初期化する
+		ArousalAttackProduction = false;
+
+		// PC時・HP・覚醒ゲージ・ソウルジェム汚染率を初期化する
+		if (IsPlayer != CHARACTERCODE.ENEMY)
+		{
+			// SavingParameterからのステートの変更を受け付ける
+			int charactername = (int)CharacterName;
+			// HP
+			NowHitpoint = savingparameter.GetNowHP(charactername);
+			// 覚醒ゲージ
+			Arousal = savingparameter.GetNowArousal(charactername);			
+		}
+		// 敵の時HP、覚醒ゲージを初期化する
+		else
+		{
+			NowHitpoint = GetMaxHitpoint(this.Level);
+			Arousal = 0;
+		}
+
+		// ロックオンを初期化する
+		IsRockon = false;
+
+		// 進行方向固定フラグを初期化する
+		Rotatehold = false;
+
+		// アーマー状態を初期化する
+		IsArmor = false;
+
+		
+		// 時間停止のルートを初期化する
+		TimeStopMaster = false;
+
+		// ダウン値の閾値を初期化する
+		DownRatioBias = MadokaDefine.DOWNRATIO;
+
+		// ダウン値を初期化する
+		NowDownRatio  = 0;
+
+		// ダウン時間を初期化する
+		DownTime = 0;
+
+		// ダウン時の打ち上げ量を初期化する
+		LaunchOffset = 10.0f;
+
+		// 死亡時の爆発フラグを初期化する
+		Explode = false;
+
+		// 格闘時の動作速度を初期化する
+		WrestlSpeed = 0.0f;
+		// 格闘時の追加入力の有無を初期化する
+		AddInput = false;
+
+		// テンキー入力があったか否か
+		HasVHInput = false;
+		// ショット入力があったか否か
+		HasShotInput = false;
+		// ジャンプ入力があったか否か
+		HasJumpInput = false;
+		// ダッシュキャンセル入力があったか否か
+		HasDashCancelInput = false;
+		// 空中ダッシュ入力があったか否か
+		HasAirDashInput = false;
+		// サーチ入力があったか否か
+		HasSearchInput = false;
+		// サーチキャンセル入力があったか否か
+		HasSearchCancelInput = false;
+		// 格闘入力があったか否か
+		HasWrestleInput = false;
+		// サブ射撃入力があったか否か
+		HasSubShotInput = false;
+		// 特殊射撃入力があったか否か
+		HasExShotInput = false;
+		// 特殊格闘入力があったか否か
+		HasExWrestleInput = false;
+		// アイテム入力があったか否か
+		HasItemInput = false;
+		// ポーズ入力があったか否か
+		HasMenuInput = false;
+		// 覚醒入力があったか否か
+		HasArousalInput = false;
+		// 覚醒技入力があったか否か
+		HasArousalAttackInput = false;
+		// 前入力があったか否か
+		HasFrontInput = false;
+		// 左入力があったか否か
+		HasLeftInput = false;
+		// 右入力があったか否か
+		HasRightInput = false;
+		// 後入力があったか否か
+		HasBackInput = false;
 
 
-    // Use this for initialization
-    void Start ()
+		// m_DownRebirthTime/waitの初期化とカウントを行う
+		// m_DamagedTime/waitの初期化とカウントを行う
+		// m_DownTime/waitの初期化とカウントを行う
+
+		// m_DownRebirthTime/waitの初期化を行う(ダウン値がリセットされるまでの時間）
+		DownRebirthTime = 0;
+		DownRebirthWaitTime = 3.0f;
+		// m_DamagedTime/waitの初期化とカウントを行う(ダメージによる硬直時間）
+		DamagedTime = 0;
+		DamagedWaitTime = 1.0f;
+		// m_DownTimeの初期化とカウントを行う(ダウン時の累積時間）
+		DownTime = 0;
+		DownWaitTime = 3.0f;
+
+		// 復帰時のブースト消費量
+		ReversalUseBoost = 20.0f;
+
+		// 1Fあたりの射撃チャージゲージ増加量
+		ShotIncrease = 2;
+		// 1Fあたりの格闘チャージゲージ増加量
+		WrestleIncrease = 2;
+		// 1Fあたりの射撃チャージゲージ減衰量
+		ShotDecrease = 4;
+		// 1Fあたりの格闘チャージゲージ減衰量
+		WrestleDecrease = 4;
+
+		// チャージ最大値
+		ChargeMax = 100;
+
+		// インターフェースの描画フラグ
+		if (IsPlayer == CHARACTERCODE.PLAYER)
+		{
+			// TODO:インターフェースに描画する 
+		}		
+		
+
+		// 壁面接触フラグ
+		_Hitjumpover = false;
+		_Hitunjumpover = false;
+		// リロードクラス作成
+		ReloadSystem = new Reload();
+
+		// ポーズコントローラー取得
+		Pausecontroller = GameObject.Find("Pause Controller");
+
+		// 足音取得(StageSettingで決めているので、その値を拾う
+		GameObject stagesetting = GameObject.Find("StageSetting");
+		if (stagesetting != null)
+		{
+			var ss = stagesetting.GetComponent<StageSetting>();
+			int ft = ss.getFootType();
+			if (ft == 0)
+			{
+				_Foottype = StageSetting.FootType.FootType_Normal;
+			}
+			else if (ft == 1)
+			{
+				_Foottype = StageSetting.FootType.FootType_Wood;
+			}
+			else if (ft == 2)
+			{
+				_Foottype = StageSetting.FootType.FootType_Jari;
+			}
+			else if (ft == 3)
+			{
+				_Foottype = StageSetting.FootType.FootType_Snow;
+			}
+			else if (ft == 4)
+			{
+				_Foottype = StageSetting.FootType.FootType_Carpet;
+			}
+		}
+		
+	}
+
+	// 飛び越し可能な壁に接触した
+	private bool _Hitjumpover;
+	public bool Gethitjumpover()
+	{
+		return _Hitjumpover;
+	}
+	// 飛び越し不能な壁に接触した
+	private bool _Hitunjumpover;
+	public bool Gethitunjumpover()
+	{
+		return _Hitunjumpover;
+	}
+
+	// Use this for initialization
+	void Start ()
     {
 	
 	}

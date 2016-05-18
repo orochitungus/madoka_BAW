@@ -138,7 +138,7 @@ public class Player_Camera_Controller : MonoBehaviour
         }
 
         // 解除入力が行われた
-        if (target.IsRockon && target.m_hasSearchCancelInput)
+        if (target.IsRockon && target.HasSearchCancelInput)
         {
             UnlockDone(target);
         }

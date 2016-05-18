@@ -251,7 +251,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
     private void AttackDone(bool run = false,bool AirDash = false)
     {
         // サブ射撃でサブ射撃へ移行
-        if (m_hasSubShotInput)
+        if (HasSubShotInput)
         {
             // 歩き撃ちはしないので、強制停止
             if (run || AirDash)
@@ -261,7 +261,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
             SubShotDone();
         }
         // 特殊射撃で特殊射撃へ移行
-        else if (m_hasExShotInput)
+        else if (HasExShotInput)
         {
             // 歩き撃ちはしないので、強制停止
             if (run || AirDash)
@@ -271,15 +271,15 @@ public class Homura_Final_BattleControl : CharacterControl_Base
             ExShotDone();
         }
         // 特殊格闘で特殊格闘へ移行
-        else if (m_hasExWrestleInput)
+        else if (HasExWrestleInput)
         {
             // 前特殊格闘
-            if (m_hasFrontInput)
+            if (HasFrontInput)
             {
                 WrestleDone_UpperEx((int)SkillType_Homura_B.EX_FRONT_WRESTLE_1);
             }
             // 空中で後特殊格闘
-            else if (m_hasBackInput && !IsGrounded)
+            else if (HasBackInput && !IsGrounded)
             {
                 WrestleDone_DownEx((int)SkillType_Homura_B.BACK_EX_WRESTLE);
             }
@@ -342,7 +342,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
             }
         }
         // 格闘で格闘へ移行
-        else if (m_hasWrestleInput)
+        else if (HasWrestleInput)
         {
             if (AirDash)
             {
@@ -353,22 +353,22 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                 // 前格闘と横格闘への分岐はここで（2段目・3段目の分岐はやっているときに）
 
                 // 前格闘で前格闘へ移行
-                if (m_hasFrontInput)
+                if (HasFrontInput)
                 {
                     WrestleDone(AnimationState.Front_Wrestle_1, (int)SkillType_Homura_B.FRONT_WRESTLE_1);
                 }
                 // 左格闘で左格闘へ移行
-                else if (m_hasLeftInput)
+                else if (HasLeftInput)
                 {
                     WrestleDone_GoAround_Left(AnimationState.Left_Wrestle_1, (int)SkillType_Homura_B.LEFT_WRESTLE_1);
                 }
                 // 右格闘で右格闘へ移行
-                else if (m_hasRightInput)
+                else if (HasRightInput)
                 {
                     WrestleDone_GoAround_Right(AnimationState.Right_Wrestle_1, (int)SkillType_Homura_B.RIGHT_WRESTLE_1);
                 }
                 // 後格闘で後格闘へ移行
-                else if (m_hasBackInput)
+                else if (HasBackInput)
                 {
                     GuardDone((int)SkillType_Homura_B.BACK_WRESTLE);
                 }
@@ -607,7 +607,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                     this.m_AnimState[0] = AnimationState.Run;
                 }
                 // 空中にいてダッシュ入力中でありかつブーストゲージがある
-                else if (!IsGrounded && HasVHInput && m_hasJumpInput && this.Boost > 0)                
+                else if (!IsGrounded && HasVHInput && HasJumpInput && this.Boost > 0)                
                 {
                     // 空中ダッシュのアニメを起動する
                     this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.AirDash]);
@@ -967,7 +967,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
     {
         base.Wrestle1();
         // 追加の格闘入力を受け取ったら、派生フラグを立てる
-        if (this.m_hasWrestleInput || this.m_hasExWrestleInput)
+        if (this.HasWrestleInput || this.HasExWrestleInput)
         {
             this.AddInput = true;
         }
@@ -983,7 +983,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
     {
         base.Wrestle2();
         // 追加の格闘入力を受け取ったら、派生フラグを立てる
-        if (this.m_hasWrestleInput || this.m_hasExWrestleInput)
+        if (this.HasWrestleInput || this.HasExWrestleInput)
         {
             this.AddInput = true;
         }

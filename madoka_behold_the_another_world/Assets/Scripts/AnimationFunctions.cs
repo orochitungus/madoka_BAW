@@ -286,7 +286,7 @@ public partial class CharacterControl_Base
                 this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.Run]);
             }
             // ジャンプでジャンプへ移行(GetButtonDownで押しっぱなしにはならない。GetButtonで押しっぱなしに対応）
-            if (this.m_hasJumpInput && Boost > 0)
+            if (this.HasJumpInput && Boost > 0)
             {
                 // 上昇制御をAddForceにするとやりにくい（特に慣性ジャンプ）
                 JumpDone();
@@ -361,12 +361,12 @@ public partial class CharacterControl_Base
             if (this.Boost > 0)
             {               
                 // ボタンを押し続ける限り上昇
-                if (this.m_hasJumpInput)
+                if (this.HasJumpInput)
                 {                   
                     this.Boost = this.Boost - m_BoostLess;
                 }
                 // 離したら落下
-                else if (!this.m_hasJumpInput)
+                else if (!this.HasJumpInput)
                 {
                     FallDone(RiseSpeed);
                 }
@@ -418,7 +418,7 @@ public partial class CharacterControl_Base
             UpdateRotation();
         }
         // ボタンを離したら下降へ移行
-        if (!this.m_hasJumpInput)
+        if (!this.HasJumpInput)
         {
             this.GetComponent<Animation>().CrossFade(m_AnimationNames[(int)AnimationState.Fall]);
             m_AnimState[0] = AnimationState.Fall;
@@ -476,7 +476,7 @@ public partial class CharacterControl_Base
                 CancelDashDone();
             }
             // ジャンプボタンで再ジャンプ
-            else if (this.m_hasJumpInput)
+            else if (this.HasJumpInput)
             {
                 JumpDone();
             }
@@ -608,7 +608,7 @@ public partial class CharacterControl_Base
             }
 
             // ジャンプでジャンプへ移行(GetButtonDownで押しっぱなしにはならない。GetButtonで押しっぱなしに対応）
-            if (this.m_hasJumpInput && Boost > 0)
+            if (this.HasJumpInput && Boost > 0)
             {
                 // 上昇制御をAddForceにするとやりにくい（特に慣性ジャンプ）
                 JumpDone();
@@ -644,7 +644,7 @@ public partial class CharacterControl_Base
         {
             // 入力中はそちらへ進む
             //if (m_hasVHInput)
-            if(this.m_hasJumpInput)
+            if(this.HasJumpInput)
             {
                 // 相手を飛び越えたとき、一定距離を離すと再入力を認める
                 //if (this.m_IsRockon)
