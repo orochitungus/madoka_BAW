@@ -142,7 +142,7 @@ public class Wrestle_Core : MonoBehaviour
                 // 覚醒時ダメージ補正
                 DamageCorrection();
                 // 攻撃したキャラクター
-                int CharacterIndex = (int)(m_Obj_OR.GetComponent<CharacterControl_Base>().m_character_name);
+                int CharacterIndex = (int)(m_Obj_OR.GetComponent<CharacterControl_Base>().CharacterName);
                 // ダメージ
                 collision.gameObject.GetComponent<CharacterControl_Base>().DamageHP(CharacterIndex, m_offemsivePower);
             }
@@ -152,7 +152,7 @@ public class Wrestle_Core : MonoBehaviour
                 // 覚醒時ダメージ補正
                 DamageCorrection();
                 // 攻撃したキャラクター
-                int AttackedCharacter = (int)(m_Obj_OR.GetComponent<CharacterControl_Base>().m_character_name);
+                int AttackedCharacter = (int)(m_Obj_OR.GetComponent<CharacterControl_Base>().CharacterName);
                 // ダメージ量
                 int AttackedDamage = (int)((float)m_offemsivePower / MadokaDefine.FRENDLYFIRE_RATIO);
                 //var arr = new int[AttackedCharacter, AttackedDamage];
@@ -173,7 +173,7 @@ public class Wrestle_Core : MonoBehaviour
             // プレイヤーの場合
             if (master.GetComponent<CharacterControl_Base>().IsPlayer != CharacterControl_Base.CHARACTERCODE.ENEMY)
             {
-                savingparameter.AddArousal((int)master.m_character_name, m_arousalRatio);
+                savingparameter.AddArousal((int)master.CharacterName, m_arousalRatio);
             }
             // 敵の場合
             else

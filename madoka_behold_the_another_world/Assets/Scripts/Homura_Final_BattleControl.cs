@@ -180,12 +180,12 @@ public class Homura_Final_BattleControl : CharacterControl_Base
         this.m_BoostLess = 0.5f;        // ジャンプの上昇・BD時の1F当たりの消費量
  
         // ステップ移動距離
-        this.m_Step_Move_Length = 10.0f;
+        this.StepMoveLength = 10.0f;
         
         // ステップ初速（X/Z軸）
         this.m_Step_Initial_velocity = 30.0f;
         // ステップ時の１F当たりの移動量
-        this.m_Step_Move_1F = 1.0f;
+        this.StepMove1F = 1.0f;
         // ステップ終了時硬直時間
         this.m_StepBackTime = 0.4f;
 
@@ -229,14 +229,14 @@ public class Homura_Final_BattleControl : CharacterControl_Base
             Update_Animation();    
             // リロード実行           
             // メイン射撃
-            ReloadSystem.OneByOne(ref BulletNum[(int)ShotType.NORMAL_SHOT], Time.time, Character_Spec.cs[(int)m_character_name][(int)ShotType.NORMAL_SHOT].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][(int)ShotType.NORMAL_SHOT].m_OriginalBulletNum,
-                Character_Spec.cs[(int)m_character_name][(int)ShotType.NORMAL_SHOT].m_reloadtime, ref m_mainshotendtime);
+            ReloadSystem.OneByOne(ref BulletNum[(int)ShotType.NORMAL_SHOT], Time.time, Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_OriginalBulletNum,
+                Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_reloadtime, ref m_mainshotendtime);
             // サブ射撃
-            ReloadSystem.AllTogether(ref BulletNum[(int)ShotType.SUB_SHOT], Time.time, Character_Spec.cs[(int)m_character_name][(int)ShotType.SUB_SHOT].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][(int)ShotType.SUB_SHOT].m_OriginalBulletNum,
-                Character_Spec.cs[(int)m_character_name][(int)ShotType.SUB_SHOT].m_reloadtime, ref m_subshotendtime);
+            ReloadSystem.AllTogether(ref BulletNum[(int)ShotType.SUB_SHOT], Time.time, Character_Spec.cs[(int)CharacterName][(int)ShotType.SUB_SHOT].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.SUB_SHOT].m_OriginalBulletNum,
+                Character_Spec.cs[(int)CharacterName][(int)ShotType.SUB_SHOT].m_reloadtime, ref m_subshotendtime);
             // 特殊射撃
-            ReloadSystem.OneByOne(ref BulletNum[(int)ShotType.EX_SHOT], Time.time, Character_Spec.cs[(int)m_character_name][(int)ShotType.EX_SHOT].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][(int)ShotType.EX_SHOT].m_OriginalBulletNum,
-                Character_Spec.cs[(int)m_character_name][(int)ShotType.EX_SHOT].m_reloadtime, ref m_exshotendtime);
+            ReloadSystem.OneByOne(ref BulletNum[(int)ShotType.EX_SHOT], Time.time, Character_Spec.cs[(int)CharacterName][(int)ShotType.EX_SHOT].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.EX_SHOT].m_OriginalBulletNum,
+                Character_Spec.cs[(int)CharacterName][(int)ShotType.EX_SHOT].m_reloadtime, ref m_exshotendtime);
         }
         // 特定条件下でZ軸回転するバグがあるので防止
         if (Math.Abs(this.transform.rotation.eulerAngles.z) > 0f)
@@ -678,7 +678,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                 this.BulletNum[(int)type]--;
                 // 撃ち終わった時間を設定する                
                 // メイン（弾数がMax-1のとき）
-                if (type == ShotType.NORMAL_SHOT && BulletNum[(int)type] == Character_Spec.cs[(int)m_character_name][(int)type].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][(int)type].m_OriginalBulletNum - 1)
+                if (type == ShotType.NORMAL_SHOT && BulletNum[(int)type] == Character_Spec.cs[(int)CharacterName][(int)type].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)type].m_OriginalBulletNum - 1)
                 {
                     m_mainshotendtime = Time.time;
                 }
@@ -688,7 +688,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                     m_subshotendtime = Time.time;
                 }
                 // 特殊（弾数がMax-1のとき）
-                else if (type == ShotType.EX_SHOT && BulletNum[(int)type] == Character_Spec.cs[(int)m_character_name][(int)type].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][(int)type].m_OriginalBulletNum - 1)
+                else if (type == ShotType.EX_SHOT && BulletNum[(int)type] == Character_Spec.cs[(int)CharacterName][(int)type].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)type].m_OriginalBulletNum - 1)
                 {
                     m_exshotendtime = Time.time;
                 }
@@ -791,22 +791,22 @@ public class Homura_Final_BattleControl : CharacterControl_Base
             // チャージ射撃は若干速く
             if (type == ShotType.CHARGE_SHOT)
             {
-                arrow.m_Speed = Character_Spec.cs[(int)m_character_name][1].m_Movespeed;
+                arrow.m_Speed = Character_Spec.cs[(int)CharacterName][1].m_Movespeed;
             }
             else
             {
                 if (arrow != null)
                 {
-                    arrow.m_Speed = Character_Spec.cs[(int)m_character_name][0].m_Movespeed;
+                    arrow.m_Speed = Character_Spec.cs[(int)CharacterName][0].m_Movespeed;
                 }
                 // 特殊射撃の左右の2発
                 if (arrow_ex_L != null)
                 {
-                    arrow_ex_L.m_Speed = Character_Spec.cs[(int)m_character_name][3].m_Movespeed;
+                    arrow_ex_L.m_Speed = Character_Spec.cs[(int)CharacterName][3].m_Movespeed;
                 }
                 if (arrow_ex_R != null)
                 {
-                    arrow_ex_R.m_Speed = Character_Spec.cs[(int)m_character_name][3].m_Movespeed;
+                    arrow_ex_R.m_Speed = Character_Spec.cs[(int)CharacterName][3].m_Movespeed;
                 }
             }
             // 矢の方向を決定する(本体と同じ方向に向けて打ち出す。ただしノーロックで本体の向きが0のときはベクトルが0になるので、このときだけはカメラの方向に飛ばす）
@@ -955,11 +955,11 @@ public class Homura_Final_BattleControl : CharacterControl_Base
     private void setOffensivePower(SkillType_Homura_B kind)
     {
         // 攻撃力を決定する(ここの2がスキルのインデックス。下も同様）
-        this.OffensivePowerOfBullet = Character_Spec.cs[(int)m_character_name][(int)kind].m_OriginalStr + Character_Spec.cs[(int)m_character_name][(int)kind].m_GrowthCoefficientStr * (this.m_StrLevel - 1);
+        this.OffensivePowerOfBullet = Character_Spec.cs[(int)CharacterName][(int)kind].m_OriginalStr + Character_Spec.cs[(int)CharacterName][(int)kind].m_GrowthCoefficientStr * (this.StrLevel - 1);
         // ダウン値を決定する
-        this.DownratioPowerOfBullet = Character_Spec.cs[(int)m_character_name][(int)kind].m_DownPoint;
+        this.DownratioPowerOfBullet = Character_Spec.cs[(int)CharacterName][(int)kind].m_DownPoint;
         // 覚醒ゲージ増加量を決定する
-        ArousalRatioOfBullet = Character_Spec.cs[(int)m_character_name][(int)kind].m_arousal;
+        ArousalRatioOfBullet = Character_Spec.cs[(int)CharacterName][(int)kind].m_arousal;
     }
 
     // N格闘1段目
@@ -972,7 +972,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
             this.AddInput = true;
         }
         // 一定時間経ったら、強制終了
-        float wrestletimeBias = Character_Spec.cs[(int)m_character_name][(int)SkillType_Homura_B.WRESTLE_1].m_animationTime;
+        float wrestletimeBias = Character_Spec.cs[(int)CharacterName][(int)SkillType_Homura_B.WRESTLE_1].m_animationTime;
         if (Wrestletime > wrestletimeBias)
         {
             WrestleFinish(AnimationState.Idle);
@@ -988,7 +988,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
             this.AddInput = true;
         }
         // 一定時間経ったら、強制終了
-        float wrestletimeBias = Character_Spec.cs[(int)m_character_name][(int)SkillType_Homura_B.WRESTLE_2].m_animationTime;
+        float wrestletimeBias = Character_Spec.cs[(int)CharacterName][(int)SkillType_Homura_B.WRESTLE_2].m_animationTime;
         if (Wrestletime > wrestletimeBias)
         {
             WrestleFinish(AnimationState.Idle);
@@ -999,7 +999,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
     {
         base.Wrestle3();
         // 一定時間経ったら、強制終了
-        float wrestletimeBias = Character_Spec.cs[(int)m_character_name][(int)SkillType_Homura_B.WRESTLE_2].m_animationTime;
+        float wrestletimeBias = Character_Spec.cs[(int)CharacterName][(int)SkillType_Homura_B.WRESTLE_2].m_animationTime;
         if (Wrestletime > wrestletimeBias)
         {
             WrestleFinish(AnimationState.Idle);
@@ -1012,7 +1012,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
         Wrestletime += Time.deltaTime;
         base.ExWrestle1();
         // 一定時間経ったら、強制終了
-        float wrestletimeBias = Character_Spec.cs[(int)m_character_name][(int)SkillType_Homura_B.EX_WRESTLE_1].m_animationTime;
+        float wrestletimeBias = Character_Spec.cs[(int)CharacterName][(int)SkillType_Homura_B.EX_WRESTLE_1].m_animationTime;
         if (Wrestletime > wrestletimeBias)
         {
             WrestleFinish(AnimationState.Idle);
@@ -1024,7 +1024,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
     {
         base.FrontWrestle1();
         // 一定時間経ったら、強制終了
-        float wrestletimeBias = Character_Spec.cs[(int)m_character_name][(int)SkillType_Homura_B.FRONT_WRESTLE_1].m_animationTime;
+        float wrestletimeBias = Character_Spec.cs[(int)CharacterName][(int)SkillType_Homura_B.FRONT_WRESTLE_1].m_animationTime;
         if (Wrestletime > wrestletimeBias)
         {
             WrestleFinish(AnimationState.Idle);
@@ -1049,7 +1049,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
             this.transform.rotation = Quaternion.LookRotation(Target_VertualPos - Mine_VerturalPos);
         }
         // 一定時間経ったら、強制終了
-        float wrestletimeBias = Character_Spec.cs[(int)m_character_name][(int)SkillType_Homura_B.LEFT_WRESTLE_1].m_animationTime;
+        float wrestletimeBias = Character_Spec.cs[(int)CharacterName][(int)SkillType_Homura_B.LEFT_WRESTLE_1].m_animationTime;
         if (Wrestletime > wrestletimeBias)
         {
             WrestleFinish(AnimationState.Idle);
@@ -1074,7 +1074,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
             this.transform.rotation = Quaternion.LookRotation(Target_VertualPos - Mine_VerturalPos);
         }
         // 一定時間経ったら、強制終了
-        float wrestletimeBias = Character_Spec.cs[(int)m_character_name][(int)SkillType_Homura_B.RIGHT_WRESTLE_1].m_animationTime;
+        float wrestletimeBias = Character_Spec.cs[(int)CharacterName][(int)SkillType_Homura_B.RIGHT_WRESTLE_1].m_animationTime;
         if (Wrestletime > wrestletimeBias)
         {
             WrestleFinish(AnimationState.Idle);
@@ -1168,11 +1168,11 @@ public class Homura_Final_BattleControl : CharacterControl_Base
     {
         // 全武装回復
         // メイン
-        BulletNum[(int)SkillType_Homura_B.SHOT] = Character_Spec.cs[(int)m_character_name][(int)SkillType_Homura_B.SHOT].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][(int)SkillType_Homura_B.SHOT].m_OriginalBulletNum;
+        BulletNum[(int)SkillType_Homura_B.SHOT] = Character_Spec.cs[(int)CharacterName][(int)SkillType_Homura_B.SHOT].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)SkillType_Homura_B.SHOT].m_OriginalBulletNum;
         // サブ
-        BulletNum[(int)SkillType_Homura_B.SUB_SHOT] = Character_Spec.cs[(int)m_character_name][(int)SkillType_Homura_B.SUB_SHOT].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][(int)SkillType_Homura_B.SUB_SHOT].m_OriginalBulletNum;
+        BulletNum[(int)SkillType_Homura_B.SUB_SHOT] = Character_Spec.cs[(int)CharacterName][(int)SkillType_Homura_B.SUB_SHOT].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)SkillType_Homura_B.SUB_SHOT].m_OriginalBulletNum;
         // 特殊射撃
-        BulletNum[(int)SkillType_Homura_B.EX_SHOT] = Character_Spec.cs[(int)m_character_name][(int)SkillType_Homura_B.EX_SHOT].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][(int)SkillType_Homura_B.EX_SHOT].m_OriginalBulletNum;
+        BulletNum[(int)SkillType_Homura_B.EX_SHOT] = Character_Spec.cs[(int)CharacterName][(int)SkillType_Homura_B.EX_SHOT].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)SkillType_Homura_B.EX_SHOT].m_OriginalBulletNum;
         base.ArousalInitialize();
     }
 

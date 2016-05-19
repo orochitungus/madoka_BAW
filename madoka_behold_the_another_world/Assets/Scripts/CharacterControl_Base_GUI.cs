@@ -122,11 +122,11 @@ public partial class CharacterControl_Base : MonoBehaviour
     public void DrawArousalGauge(Texture2D ArousalGauge, Vector2 pos)
     {
         // ゲージ量
-        float Aratio = this.Arousal / GetMaxArousal(this.m_ArousalLevel);
+        float Aratio = this.Arousal / GetMaxArousal(this.ArousalLevel);
         // ゲージ量絶対値
-        float Arousal_abs = Aratio * GetMaxArousal(this.m_ArousalLevel);
+        float Arousal_abs = Aratio * GetMaxArousal(this.ArousalLevel);
         // 左端が右端の座標‐現在のゲージ量となる
-        GUI.BeginGroup(new Rect(pos.x - Arousal_abs, pos.y, GetMaxArousal(this.m_ArousalLevel) * Aratio, 16.0f));
+        GUI.BeginGroup(new Rect(pos.x - Arousal_abs, pos.y, GetMaxArousal(this.ArousalLevel) * Aratio, 16.0f));
         // ここ以降はBeginGroup原点（上記のpos）からの座標になる点に注意
         // ゲージ本体(最大値-現在の幅分左にオフセット)        
         GUI.DrawTexture(new Rect(-Arousal_abs, 0, ArousalGauge.width, 16), ArousalGauge);
@@ -134,22 +134,22 @@ public partial class CharacterControl_Base : MonoBehaviour
         GUI.EndGroup();
 
         // 外枠左端座標
-        float leftpos = pos.x - GetMaxArousal(this.m_ArousalLevel);
+        float leftpos = pos.x - GetMaxArousal(this.ArousalLevel);
         // ゲージ外枠
-        GUI.BeginGroup(new Rect(leftpos, pos.y, GetMaxArousal(this.m_ArousalLevel), 16.0f));
+        GUI.BeginGroup(new Rect(leftpos, pos.y, GetMaxArousal(this.ArousalLevel), 16.0f));
         // ゲージ左端１（Lv1のときのゲージ量）
         GUI.DrawTexture(new Rect(0, 0, 2, 16), m_WindowParts);
         // ゲージ左端２（右端のゲージ量）
 
         // ゲージ上端
-        GUI.DrawTexture(new Rect(0, 0, GetMaxArousal(this.m_ArousalLevel), 2), m_WindowParts);
+        GUI.DrawTexture(new Rect(0, 0, GetMaxArousal(this.ArousalLevel), 2), m_WindowParts);
         // ゲージ下端
-        GUI.DrawTexture(new Rect(0, 14, GetMaxArousal(this.m_ArousalLevel), 2), m_WindowParts);
+        GUI.DrawTexture(new Rect(0, 14, GetMaxArousal(this.ArousalLevel), 2), m_WindowParts);
         // ゲージ右端
-        GUI.DrawTexture(new Rect(GetMaxArousal(this.m_ArousalLevel) - 2, 0, 2, 16), m_WindowParts);
+        GUI.DrawTexture(new Rect(GetMaxArousal(this.ArousalLevel) - 2, 0, 2, 16), m_WindowParts);
         GUI.EndGroup();
         // OKの文字列（Lv1のMax以上になると表示される）
-        if (Arousal >= GetMaxArousal(1) && savingparameter.GetGemContimination((int)m_character_name) < 100.0f)
+        if (Arousal >= GetMaxArousal(1) && savingparameter.GetGemContimination((int)CharacterName) < 100.0f)
         {
             float xposition = (pos.x - Arousal_abs) + 64;
             //GUI.DrawTexture(new Rect(xposition, pos.y, 128, 128), m_ArousalOK);

@@ -139,12 +139,12 @@ public class majyu_BattleControl : CharacterControl_Base
         this.m_BoostLess = 0.5f;        // ジャンプの上昇・BD時の1F当たりの消費量
 
         // ステップ移動距離
-        this.m_Step_Move_Length = 10.0f;
+        this.StepMoveLength = 10.0f;
 
         // ステップ初速（X/Z軸）
         this.m_Step_Initial_velocity = 30.0f;
         // ステップ時の１F当たりの移動量
-        this.m_Step_Move_1F = 1.0f;
+        this.StepMove1F = 1.0f;
         // ステップ終了時硬直時間
         this.m_StepBackTime = 0.7f;
 
@@ -181,8 +181,8 @@ public class majyu_BattleControl : CharacterControl_Base
             Update_Animation();
             // リロード実行           
             // メイン射撃
-            ReloadSystem.OneByOne(ref BulletNum[(int)ShotType.NORMAL_SHOT], Time.time, Character_Spec.cs[(int)m_character_name][(int)ShotType.NORMAL_SHOT].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][(int)ShotType.NORMAL_SHOT].m_OriginalBulletNum,
-                Character_Spec.cs[(int)m_character_name][(int)ShotType.NORMAL_SHOT].m_reloadtime, ref m_mainshotendtime);
+            ReloadSystem.OneByOne(ref BulletNum[(int)ShotType.NORMAL_SHOT], Time.time, Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_OriginalBulletNum,
+                Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_reloadtime, ref m_mainshotendtime);
         }
 	}
 
@@ -498,7 +498,7 @@ public class majyu_BattleControl : CharacterControl_Base
                 this.BulletNum[(int)type]--;
                 // 撃ち終わった時間を設定する                
                 // メイン（弾数がMax-1のとき）
-                if (type == ShotType.NORMAL_SHOT && BulletNum[(int)type] == Character_Spec.cs[(int)m_character_name][(int)type].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][(int)type].m_OriginalBulletNum - 1)
+                if (type == ShotType.NORMAL_SHOT && BulletNum[(int)type] == Character_Spec.cs[(int)CharacterName][(int)type].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)type].m_OriginalBulletNum - 1)
                 {
                     m_mainshotendtime = Time.time;
                 }
@@ -530,7 +530,7 @@ public class majyu_BattleControl : CharacterControl_Base
         // ビームの速度を設定する
         if (beam != null)
         {
-            beam.m_Speed = Character_Spec.cs[(int)m_character_name][0].m_Movespeed;
+            beam.m_Speed = Character_Spec.cs[(int)CharacterName][0].m_Movespeed;
             // ロックオン状態で歩き撃ちしているとき
             if (this.IsRockon && this.RunShotDone)
             {
@@ -592,11 +592,11 @@ public class majyu_BattleControl : CharacterControl_Base
             if (type == ShotType.NORMAL_SHOT)
             {
                 // 攻撃力を決定する(ここの0がスキルのインデックス。下も同様）
-                this.OffensivePowerOfBullet = Character_Spec.cs[(int)m_character_name][(int)SkillType_Majyu.SHOT].m_OriginalStr + Character_Spec.cs[(int)m_character_name][0].m_GrowthCoefficientStr * (this.m_StrLevel - 1);
+                this.OffensivePowerOfBullet = Character_Spec.cs[(int)CharacterName][(int)SkillType_Majyu.SHOT].m_OriginalStr + Character_Spec.cs[(int)CharacterName][0].m_GrowthCoefficientStr * (this.StrLevel - 1);
                 // ダウン値を決定する
-                this.DownratioPowerOfBullet = Character_Spec.cs[(int)m_character_name][(int)SkillType_Majyu.SHOT].m_DownPoint;
+                this.DownratioPowerOfBullet = Character_Spec.cs[(int)CharacterName][(int)SkillType_Majyu.SHOT].m_DownPoint;
                 // 覚醒ゲージ増加量を決定する
-                ArousalRatioOfBullet = Character_Spec.cs[(int)m_character_name][(int)SkillType_Majyu.SHOT].m_arousal;
+                ArousalRatioOfBullet = Character_Spec.cs[(int)CharacterName][(int)SkillType_Majyu.SHOT].m_arousal;
             }
             shotmode = ShotMode.SHOT;
             // 固定状態を解除
@@ -629,7 +629,7 @@ public class majyu_BattleControl : CharacterControl_Base
             this.AddInput = true;
         }
         // 一定時間経ったら、強制終了
-        float wrestletimeBias = Character_Spec.cs[(int)m_character_name][(int)SkillType_Majyu.WRESTLE_1].m_animationTime;
+        float wrestletimeBias = Character_Spec.cs[(int)CharacterName][(int)SkillType_Majyu.WRESTLE_1].m_animationTime;
         if (Wrestletime > wrestletimeBias)
         {
             WrestleFinish(AnimationState.Idle);
@@ -646,7 +646,7 @@ public class majyu_BattleControl : CharacterControl_Base
             this.AddInput = true;
         }
         // 一定時間経ったら、強制終了
-        float wrestletimeBias = Character_Spec.cs[(int)m_character_name][(int)SkillType_Majyu.WRESTLE_2].m_animationTime;
+        float wrestletimeBias = Character_Spec.cs[(int)CharacterName][(int)SkillType_Majyu.WRESTLE_2].m_animationTime;
         if (Wrestletime > wrestletimeBias)
         {
             WrestleFinish(AnimationState.Idle);
@@ -657,7 +657,7 @@ public class majyu_BattleControl : CharacterControl_Base
     {
         base.Wrestle3();
         // 一定時間経ったら、強制終了
-        float wrestletimeBias = Character_Spec.cs[(int)m_character_name][(int)SkillType_Majyu.WRESTLE_2].m_animationTime;
+        float wrestletimeBias = Character_Spec.cs[(int)CharacterName][(int)SkillType_Majyu.WRESTLE_2].m_animationTime;
         if (Wrestletime > wrestletimeBias)
         {
             WrestleFinish(AnimationState.Idle);
@@ -668,7 +668,7 @@ public class majyu_BattleControl : CharacterControl_Base
     {
         base.FrontWrestle1();
         // 一定時間経ったら、強制終了
-        float wrestletimeBias = Character_Spec.cs[(int)m_character_name][(int)SkillType_Majyu.FRONT_WRESTLE_1].m_animationTime;
+        float wrestletimeBias = Character_Spec.cs[(int)CharacterName][(int)SkillType_Majyu.FRONT_WRESTLE_1].m_animationTime;
         if (Wrestletime > wrestletimeBias)
         {
             WrestleFinish(AnimationState.Idle);

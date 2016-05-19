@@ -68,7 +68,7 @@ public partial class CharacterControl_Base
         // skilltypeのインデックス(格闘系はSkillType.Wrestle1+Xなので、Xにwrestletypeを代入）
         int skillIndex = skilltype;
         // 移動速度
-        float movespeed = Character_Spec.cs[(int)m_character_name][skillIndex].m_Movespeed;
+        float movespeed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Movespeed;
         // 移動方向
         // ロックオン且つ本体角度が0でない時、相手の方向を移動方向とする
         if (IsRockon && this.transform.rotation.eulerAngles.y != 0)
@@ -102,7 +102,7 @@ public partial class CharacterControl_Base
             this.MoveDirection = Vector3.Normalize(this.transform.rotation * Vector3.forward);
         }
         // アニメーション速度
-        float speed = Character_Spec.cs[(int)m_character_name][skillIndex].m_Animspeed;
+        float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
         // m_AnimStateを変更する
         this.m_AnimState[0] = WrestleType;
 
@@ -127,7 +127,7 @@ public partial class CharacterControl_Base
         // skilltypeのインデックス(格闘系はSkillType.Wrestle1+Xなので、Xにwrestletypeを代入）
         int skillIndex = skilltype;
         // 移動速度
-        float movespeed = Character_Spec.cs[(int)m_character_name][skillIndex].m_Movespeed;
+        float movespeed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Movespeed;
         // 移動方向
         // ロックオン且つ本体角度が0でない時、相手の左側を移動方向とする（通常時のロックオン時左移動をさせつつ前進させる）
         if (IsRockon && this.transform.rotation.eulerAngles.y != 0)
@@ -167,7 +167,7 @@ public partial class CharacterControl_Base
             this.MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
         }
         // アニメーション速度
-        float speed = Character_Spec.cs[(int)m_character_name][skillIndex].m_Animspeed;
+        float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
         // m_AnimStateを変更する
         this.m_AnimState[0] = WrestleType;
 
@@ -192,7 +192,7 @@ public partial class CharacterControl_Base
         // skilltypeのインデックス(格闘系はSkillType.Wrestle1+Xなので、Xにwrestletypeを代入）
         int skillIndex = skilltype;
         // 移動速度
-        float movespeed = Character_Spec.cs[(int)m_character_name][skillIndex].m_Movespeed;
+        float movespeed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Movespeed;
         // 移動方向
         // ロックオン且つ本体角度が0でない時、相手の左側を移動方向とする（通常時のロックオン時左移動をさせつつ前進させる）
         if (IsRockon && this.transform.rotation.eulerAngles.y != 0)
@@ -232,7 +232,7 @@ public partial class CharacterControl_Base
             this.MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
         }
         // アニメーション速度
-        float speed = Character_Spec.cs[(int)m_character_name][skillIndex].m_Animspeed;
+        float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
         // m_AnimStateを変更する
         this.m_AnimState[0] = WrestleType;
 
@@ -288,7 +288,7 @@ public partial class CharacterControl_Base
             this.MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
         }
         //3．アニメーション速度を設定する
-        float speed = Character_Spec.cs[(int)m_character_name][skillIndex].m_Animspeed;
+        float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
         //4．AnimStateを変更する
         this.m_AnimState[0] = AnimationState.Back_Wrestle;
         //5．アニメーションを再生する
@@ -308,7 +308,7 @@ public partial class CharacterControl_Base
         // ステートを変更		
         int skillIndex = skilltype;	
 	    // 移動速度取得
-        float movespeed = Character_Spec.cs[(int)m_character_name][skillIndex].m_Movespeed;
+        float movespeed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Movespeed;
         // ロックオン中なら移動方向をロックオン対象のほうへ固定する
         if (IsRockon && this.transform.rotation.eulerAngles.y != 0)
         {
@@ -338,7 +338,7 @@ public partial class CharacterControl_Base
             MoveDirection = new Vector3(0, 1, 0);
         }
         // アニメーション速度を設定する
-        float speed = Character_Spec.cs[(int)m_character_name][skillIndex].m_Animspeed;
+        float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
         // AnimStateを変更する
         this.m_AnimState[0] = AnimationState.EX_Front_Wrestle_1;
         // アニメーションを再生する
@@ -358,7 +358,7 @@ public partial class CharacterControl_Base
         // ステートを変更		
         int skillIndex = skilltype;
         // 移動速度取得
-        float movespeed = Character_Spec.cs[(int)m_character_name][skillIndex].m_Movespeed;
+        float movespeed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Movespeed;
         // ロックオン中なら移動方向をロックオン対象のほうへ固定する
         if (IsRockon && this.transform.rotation.eulerAngles.y != 0)
         {
@@ -389,7 +389,7 @@ public partial class CharacterControl_Base
             MoveDirection = new Vector3(0, -1, 0);
         }
         // アニメーション速度を設定する
-        float speed = Character_Spec.cs[(int)m_character_name][skillIndex].m_Animspeed;
+        float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
         // AnimStateを変更する
         this.m_AnimState[0] = AnimationState.BACK_EX_Wrestle;
         // アニメーションを再生する
@@ -515,7 +515,7 @@ public partial class CharacterControl_Base
         int skillIndex = 0;/*(int)CharacterSkill.SkillType.WRESTLE_1 + (int)wrestletype;*/
  
         // キャラごとに構成が異なるので、ここで処理分岐(入力が格闘でありながら、動作が格闘でない技を持つキャラが多くいる）
-        switch (m_character_name)
+        switch (CharacterName)
         {
             case Character_Spec.CHARACTER_NAME.MEMBER_MADOKA:
                 if (wrestletype == WrestleType.WRESTLE_1) skillIndex = 4;
@@ -601,13 +601,13 @@ public partial class CharacterControl_Base
 
         // 各ステートを計算する
         // 攻撃力
-        int offensive = Character_Spec.cs[(int)m_character_name][skillIndex].m_OriginalStr + Character_Spec.cs[(int)m_character_name][skillIndex].m_GrowthCoefficientStr * (this.m_StrLevel - 1);
+        int offensive = Character_Spec.cs[(int)CharacterName][skillIndex].m_OriginalStr + Character_Spec.cs[(int)CharacterName][skillIndex].m_GrowthCoefficientStr * (this.StrLevel - 1);
         // ダウン値
-        float downR = Character_Spec.cs[(int)m_character_name][skillIndex].m_DownPoint;
+        float downR = Character_Spec.cs[(int)CharacterName][skillIndex].m_DownPoint;
         // 覚醒ゲージ増加量
-        float arousal = Character_Spec.cs[(int)m_character_name][skillIndex].m_arousal + Character_Spec.cs[(int)m_character_name][skillIndex].m_GrowthCoefficientStr * (this.m_StrLevel - 1);
+        float arousal = Character_Spec.cs[(int)CharacterName][skillIndex].m_arousal + Character_Spec.cs[(int)CharacterName][skillIndex].m_GrowthCoefficientStr * (this.StrLevel - 1);
         // ヒットタイプ
-        CharacterSkill.HitType hittype = Character_Spec.cs[(int)m_character_name][skillIndex].m_Hittype;
+        CharacterSkill.HitType hittype = Character_Spec.cs[(int)CharacterName][skillIndex].m_Hittype;
         // 打ち上げ量（とりあえず固定）
 
         // 格闘時に加算する力（固定）

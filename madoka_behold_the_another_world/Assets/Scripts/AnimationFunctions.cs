@@ -18,7 +18,7 @@ public partial class CharacterControl_Base
         switch (m_AnimState[0])
         {
             case AnimationState.Idle:                   // 通常
-                ContlroleAnimationSpeed(AnimationState.Idle, 1.0f, m_timstopmode);
+                ContlroleAnimationSpeed(AnimationState.Idle, 1.0f, Timestopmode);
                 Animation_Idle();
                 break;
             case AnimationState.Walk:                   // 歩行
@@ -40,7 +40,7 @@ public partial class CharacterControl_Base
                 Animation_Jumping_underonly();
                 break;
             case AnimationState.Fall:                   // 落下
-                ContlroleAnimationSpeed(AnimationState.Fall, 1.0f, m_timstopmode);
+                ContlroleAnimationSpeed(AnimationState.Fall, 1.0f, Timestopmode);
                 this.GetComponent<Animation>()[m_AnimationNames[(int)AnimationState.Fall]].speed = 1.0f;
                 Animation_Fall();
                 break;
@@ -48,7 +48,7 @@ public partial class CharacterControl_Base
                 Animation_Landing();
                 break;
             case AnimationState.Run:                    // 走行
-                ContlroleAnimationSpeed(AnimationState.Run, 1.0f, m_timstopmode);
+                ContlroleAnimationSpeed(AnimationState.Run, 1.0f, Timestopmode);
                 this.GetComponent<Animation>()[m_AnimationNames[(int)AnimationState.Run]].speed = 1.0f;
                 Animation_Run();
                 break;
@@ -56,7 +56,7 @@ public partial class CharacterControl_Base
                 Animation_Run_underonly();
                 break;
             case AnimationState.AirDash:                // 空中ダッシュ
-                ContlroleAnimationSpeed(AnimationState.AirDash, 1.0f, m_timstopmode);
+                ContlroleAnimationSpeed(AnimationState.AirDash, 1.0f, Timestopmode);
                 Animation_AirDash();
                 break;
             case AnimationState.FrontStep:              // 前ステップ中
@@ -203,7 +203,7 @@ public partial class CharacterControl_Base
                 BackExWrestle();
                 break;
             case AnimationState.Reversal:               // ダウン復帰
-                ContlroleAnimationSpeed(AnimationState.Reversal, 1.0f, m_timstopmode);
+                ContlroleAnimationSpeed(AnimationState.Reversal, 1.0f, Timestopmode);
                 Reversal();
                 break;
             case AnimationState.Arousal_Attack:         // 覚醒技
@@ -216,7 +216,7 @@ public partial class CharacterControl_Base
                 Damage();
                 break;
             case AnimationState.Down:                   // ダウン
-                ContlroleAnimationSpeed(AnimationState.Down, 1.0f, m_timstopmode);
+                ContlroleAnimationSpeed(AnimationState.Down, 1.0f, Timestopmode);
                 Down();
                 break;
             case AnimationState.BlowInit:               // 吹き飛び前処理
@@ -254,6 +254,10 @@ public partial class CharacterControl_Base
     // Idle時共通操作
     protected virtual void Animation_Idle()
     {
+        // 移行後復活
+        //IsStep = false;
+        //IsWrestle = false;
+ 
         // 死んでいたらダウン
         if (NowHitpoint <= 1)
         {

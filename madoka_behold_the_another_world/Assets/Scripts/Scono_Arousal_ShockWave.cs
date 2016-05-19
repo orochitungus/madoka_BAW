@@ -39,7 +39,7 @@ public class Scono_Arousal_ShockWave : MonoBehaviour
         // 被弾時の挙動を設定
         m_Hittype = CharacterSkill.HitType.BLOW;
         // 攻撃力レベルを設定
-        int AttackLv = m_Obj_OR.GetComponent<CharacterControl_Base>().m_StrLevel;
+        int AttackLv = m_Obj_OR.GetComponent<CharacterControl_Base>().StrLevel;
         // ダメージを設定
         m_OffemsivePower = 310 + 5 * (AttackLv - 1); 
         // ダウン値を設定

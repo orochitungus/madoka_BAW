@@ -79,7 +79,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     }
 
     // 誰であるか
-    public Character_Spec.CHARACTER_NAME m_character_name;
+    public Character_Spec.CHARACTER_NAME CharacterName;
 
     // 頭部オブジェクト
     public GameObject m_Head;
@@ -116,7 +116,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         AROUSAL                 // 誰かの覚醒による時間停止
     };
     // 時間停止系のenumの値
-    public TimeStopMode m_timstopmode;
+    public TimeStopMode Timestopmode;
     // 時間停止・遅延のmasterであるか否か（これがtrueだと時間停止の影響を受けない.発動者にのみtureにする。）
     public bool TimeStopMaster;
 
@@ -169,19 +169,19 @@ public partial class CharacterControl_Base : MonoBehaviour
     public int m_SkillUse = 1;      // 1つ習得するたびにインクリメント
 
     // 攻撃力レベル
-    public int m_StrLevel = 1;
+    public int StrLevel = 1;
 
     // 防御力レベル
-    public int m_DefLevel = 1;
+    public int DefLevel = 1;
 
     // 残弾数レベル
-    public int m_BulLevel = 1;
+    public int BulLevel = 1;
 
     // ブースト量レベル
     public int BoostLevel = 1;
 
     // 覚醒ゲージレベル
-    public int m_ArousalLevel = 1;
+    public int ArousalLevel = 1;
 
     // ブースト量
     public float Boost;
@@ -208,12 +208,12 @@ public partial class CharacterControl_Base : MonoBehaviour
     public float m_BoostLess;
 
     // ステップ移動距離
-    public float m_Step_Move_Length;
+    public float StepMoveLength;
 
     // ステップ初速（X/Z軸）
     public float m_Step_Initial_velocity;
     // ステップ時の１F当たりの移動量
-    public float m_Step_Move_1F;
+    public float StepMove1F;
 
     // ステップ累積移動距離
     public float SteppingLength;
@@ -519,17 +519,17 @@ public partial class CharacterControl_Base : MonoBehaviour
             // 個別ステートを初期化（インスペクタでもできるけど一応こっちでやっておこう）
             // 後、ブースト量などはここで設定しておかないと下で初期化できない
             // レベル
-            this.Level = savingparameter.GetNowLevel((int)m_character_name);           
+            this.Level = savingparameter.GetNowLevel((int)CharacterName);           
             // 攻撃力レベル
-            this.m_StrLevel = savingparameter.GetStrLevel((int)m_character_name);        
+            this.StrLevel = savingparameter.GetStrLevel((int)CharacterName);        
             // 防御力レベル
-            this.m_DefLevel = savingparameter.GetDefLevel((int)m_character_name);            
+            this.DefLevel = savingparameter.GetDefLevel((int)CharacterName);            
             // 残弾数レベル
-            this.m_BulLevel = savingparameter.GetBulLevel((int)m_character_name);            
+            this.BulLevel = savingparameter.GetBulLevel((int)CharacterName);            
             // ブースト量レベル
-            this.BoostLevel = savingparameter.GetBoostLevel((int)m_character_name);            
+            this.BoostLevel = savingparameter.GetBoostLevel((int)CharacterName);            
             // 覚醒ゲージレベル
-            this.m_ArousalLevel = savingparameter.GetArousalLevel((int)m_character_name);
+            this.ArousalLevel = savingparameter.GetArousalLevel((int)CharacterName);
             			
         }
         // 敵の場合はインスペクターで設定
@@ -539,57 +539,57 @@ public partial class CharacterControl_Base : MonoBehaviour
         {
             this.Level = 1;
         }
-        if (this.m_StrLevel < 1)
+        if (this.StrLevel < 1)
         {
-            this.m_StrLevel = 1;
+            this.StrLevel = 1;
         }
-        if (this.m_DefLevel < 1)
+        if (this.DefLevel < 1)
         {
-            this.m_DefLevel = 1;
+            this.DefLevel = 1;
         }
-        if (this.m_BulLevel < 1)
+        if (this.BulLevel < 1)
         {
-            this.m_BulLevel = 1;
+            this.BulLevel = 1;
         }
         if (this.BoostLevel < 1)
         {
             this.BoostLevel = 1;
         }
-        if (this.m_ArousalLevel < 1)
+        if (this.ArousalLevel < 1)
         {
-            this.m_ArousalLevel = 1;
+            this.ArousalLevel = 1;
         }
 
 		// HP初期値
-		this.NowHitpoint_OR = Character_Spec.HP_OR[(int)m_character_name];
+		this.NowHitpoint_OR = Character_Spec.HP_OR[(int)CharacterName];
 		// HP成長係数
-		this.NowHitpointGrowth = Character_Spec.HP_Grouth[(int)m_character_name];
+		this.NowHitpointGrowth = Character_Spec.HP_Grouth[(int)CharacterName];
 				
 		
         // ブースト量初期値(Lv1の時の値）
-        this.Boost_OR = Character_Spec.Boost_OR[(int)m_character_name];
+        this.Boost_OR = Character_Spec.Boost_OR[(int)CharacterName];
         // ブースト量成長係数
-        this.BoostGrowth = Character_Spec.Boost_Growth[(int)m_character_name];
+        this.BoostGrowth = Character_Spec.Boost_Growth[(int)CharacterName];
 
         // 覚醒ゲージ量初期値(LV1の時の値）
-        this.Arousal_OR = Character_Spec.Arousal_OR[(int)m_character_name];
+        this.Arousal_OR = Character_Spec.Arousal_OR[(int)CharacterName];
         // 覚醒ゲージ量成長係数
-        this.ArousalGrowth = Character_Spec.Arousal_Growth[(int)m_character_name];
+        this.ArousalGrowth = Character_Spec.Arousal_Growth[(int)CharacterName];
 
         // 使用可能武器をセット（初期段階で使用不能にしておきたいものは、各キャラのStartでこの関数を呼んだ後に再定義）
-        for (int i = 0; i < Character_Spec.cs[(int)m_character_name].Length; i++)
+        for (int i = 0; i < Character_Spec.cs[(int)CharacterName].Length; i++)
         {
             // 使用の可否を初期化
             WeaponUseAble[i] = true;
             // 弾があるものは残弾数を初期化
-            if (Character_Spec.cs[(int)m_character_name][i].m_OriginalBulletNum > 0)
+            if (Character_Spec.cs[(int)CharacterName][i].m_OriginalBulletNum > 0)
             {
-                this.BulletNum[i] = Character_Spec.cs[(int)m_character_name][i].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][i].m_OriginalBulletNum;
+                this.BulletNum[i] = Character_Spec.cs[(int)CharacterName][i].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][i].m_OriginalBulletNum;
             }
             // 硬直時間があるものは硬直時間を初期化
-            if (Character_Spec.cs[(int)m_character_name][i].m_WaitTime > 0)
+            if (Character_Spec.cs[(int)CharacterName][i].m_WaitTime > 0)
             {
-                this.BulletWaitTime[i] = Character_Spec.cs[(int)m_character_name][i].m_GrowthCoefficientBul * (this.m_BulLevel - 1) + Character_Spec.cs[(int)m_character_name][i].m_WaitTime;
+                this.BulletWaitTime[i] = Character_Spec.cs[(int)CharacterName][i].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][i].m_WaitTime;
             }
         }
         // ダッシュキャンセル硬直時間
@@ -2260,7 +2260,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         RunShotDone = false;
 
         // 覚醒ゲージ量を初期化する
-        Arousal = GetMaxArousal(this.m_ArousalLevel);
+        Arousal = GetMaxArousal(this.ArousalLevel);
         // 覚醒ゲージを初期化する
         Arousal = 0;
         // 覚醒状態を初期化する
@@ -2272,7 +2272,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         if (IsPlayer != CHARACTERCODE.ENEMY)
         {
             // SavingParameterからのステートの変更を受け付ける
-            int charactername = (int)this.m_character_name;
+            int charactername = (int)this.CharacterName;
             // HP
             NowHitpoint = savingparameter.GetNowHP(charactername);
             // 覚醒ゲージ
@@ -2684,12 +2684,12 @@ public partial class CharacterControl_Base : MonoBehaviour
 
         // 時間停止中falseを強制返し
         // 通常時、ポーズ入力で停止.ただし死んだら無効
-        if (m_timstopmode != TimeStopMode.PAUSE)
+        if (Timestopmode != TimeStopMode.PAUSE)
         {
             if(HasPauseInput && NowHitpoint > 0)
             {
                 this.TimeStopMaster = true;
-                m_timstopmode = TimeStopMode.PAUSE;
+                Timestopmode = TimeStopMode.PAUSE;
                 // 動作を止める
                 FreezePositionAll();
             }
@@ -2724,7 +2724,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         }
                 
         // キャラを取得
-        int character = (int)m_character_name;
+        int character = (int)CharacterName;
         // 覚醒入力を取得し、その場合覚醒開始画面へ移行してポーズ  
         if (HasArousalInput && !IsArousal && savingparameter.GetGemContimination(character) < 100.0f)
         {
@@ -2757,12 +2757,12 @@ public partial class CharacterControl_Base : MonoBehaviour
         if (IsArousal)
         {
             Arousal -= Time.deltaTime * 10;
-            savingparameter.SetNowArousal((int)m_character_name, Arousal);
+            savingparameter.SetNowArousal((int)CharacterName, Arousal);
             if (Arousal <= 0)
             {
                 // 覚醒状態解除
                 // 覚醒エフェクトを消す
-                Destroy(m_arousalEffect);
+                Destroy(ArousalEffect);
                 // ゲージを0にする
                 Arousal = 0;
                 // 覚醒フラグを折る
@@ -2832,12 +2832,12 @@ public partial class CharacterControl_Base : MonoBehaviour
              
 
         // キリカの時間遅延を受けているとき、1/4に
-        if (m_timstopmode == TimeStopMode.TIME_DELAY)
+        if (Timestopmode == TimeStopMode.TIME_DELAY)
         {
             MoveSpeed *= 0.25f;
         }
         // ほむらの時間停止を受けているときなど、0に
-        else if (m_timstopmode == TimeStopMode.TIME_STOP || m_timstopmode == TimeStopMode.PAUSE || m_timstopmode == TimeStopMode.AROUSAL)
+        else if (Timestopmode == TimeStopMode.TIME_STOP || Timestopmode == TimeStopMode.PAUSE || Timestopmode == TimeStopMode.AROUSAL)
         {
             MoveSpeed = 0;
             return false;
@@ -2903,7 +2903,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         CutinEvent.UseAsousalCutinCamera();
         // 時間停止
         this.TimeStopMaster = true;
-        m_timstopmode = TimeStopMode.AROUSAL;   
+        Timestopmode = TimeStopMode.AROUSAL;   
     }
 
     // 継承先のLateUpdateで実行すること
@@ -2912,21 +2912,20 @@ public partial class CharacterControl_Base : MonoBehaviour
         if (this.IsPlayer != CHARACTERCODE.ENEMY)
         {
             // SavingParameterからのステートの変更を受け付ける
-            int charactername = (int)this.m_character_name;
+            int charactername = (int)this.CharacterName;
             // レベル
             Level = savingparameter.GetNowLevel(charactername);
             // 攻撃力
-            m_StrLevel = savingparameter.GetStrLevel(charactername);
+            StrLevel = savingparameter.GetStrLevel(charactername);
             // 防御力
-            m_DefLevel = savingparameter.GetDefLevel(charactername);
+            DefLevel = savingparameter.GetDefLevel(charactername);
             // 残弾数
-            m_BulLevel = savingparameter.GetBulLevel(charactername);
+            BulLevel = savingparameter.GetBulLevel(charactername);
             // ブースト量
             BoostLevel = savingparameter.GetBoostLevel(charactername);
             // 覚醒ゲージ
-            m_ArousalLevel = savingparameter.GetArousalLevel(charactername);
-            // ソウルジェム汚染率
-            m_GemContamination = savingparameter.GetGemContimination(charactername);
+            ArousalLevel = savingparameter.GetArousalLevel(charactername);
+            
             // HP
             NowHitpoint = savingparameter.GetNowHP(charactername);            
             // 覚醒ゲージ量
@@ -2938,11 +2937,11 @@ public partial class CharacterControl_Base : MonoBehaviour
     // ポーズを解除する
     public void ReleasePause()
     {
-        if (m_timstopmode == TimeStopMode.PAUSE)
+        if (Timestopmode == TimeStopMode.PAUSE)
         {
             if (HasPauseInput)
             {
-                m_timstopmode = TimeStopMode.NORMAL;
+                Timestopmode = TimeStopMode.NORMAL;
                 //Time.timeScale = 1;
             }
             //return false; // ここでreturnをさせてUpdateを抜けさせると、そのキャラ「だけ」が止まる
@@ -2956,12 +2955,12 @@ public partial class CharacterControl_Base : MonoBehaviour
     // 第3引数：時間停止の状態
     protected void ContlroleAnimationSpeed(AnimationState animationstate, float speed,TimeStopMode timestopmode)
     {
-        if (m_timstopmode == TimeStopMode.TIME_DELAY)
+        if (Timestopmode == TimeStopMode.TIME_DELAY)
         {
             speed *= 0.25f;
         }
         // ほむらの時間停止を受けているときなど、0に
-        else if (m_timstopmode == TimeStopMode.TIME_STOP || m_timstopmode == TimeStopMode.PAUSE || m_timstopmode == TimeStopMode.AROUSAL)
+        else if (Timestopmode == TimeStopMode.TIME_STOP || Timestopmode == TimeStopMode.PAUSE || Timestopmode == TimeStopMode.AROUSAL)
         {
             speed = 0;         
         }
@@ -3002,10 +3001,10 @@ public partial class CharacterControl_Base : MonoBehaviour
     protected void StepMove(AnimationState astate)
     {
         // 移動距離をインクリメントする（初期位置との差では壁に当たったときに無限に動き続ける）
-        this.SteppingLength += this.m_Step_Move_1F;
+        SteppingLength += StepMove1F;
 
         // 地面オブジェクトに触れた場合は着地モーションへ移行(暴走防止のために、上昇中は判定禁止.時間で判定しないと、引っかかったときに無限ループする)
-        if (this.SteppingLength > this.m_Step_Move_Length)
+        if (SteppingLength > StepMoveLength)
         {
             //MoveDirection.y = -2;                
             this.MoveDirection = transform.rotation * Vector3.forward;
@@ -3057,7 +3056,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         if (this.IsPlayer != CHARACTERCODE.ENEMY)
         {
             // SavingParameterからのステートの変更を受け付ける
-            int charactername = (int)this.m_character_name;
+            int charactername = (int)this.CharacterName;
             // SavingParameterに現在のステートを渡す
             // 最大HP
             savingparameter.SetMaxHP(charactername, GetMaxHitpoint(Level));
@@ -3078,7 +3077,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     }
 
     // 覚醒時のエフェクト
-    protected GameObject m_arousalEffect;
+    protected GameObject ArousalEffect;
 
     // 覚醒開始時の共通処理(残弾の回復はキャラごとに覚醒でも回復禁止のものがあるのでこの関数のオーバーライドで行うこと）
     protected virtual void ArousalInitialize()
@@ -3093,11 +3092,11 @@ public partial class CharacterControl_Base : MonoBehaviour
         // 覚醒モード移行
         IsArousal = true;
         // エフェクト出現（エフェクトはCharacerControl_Baseのpublicに入れておく）
-        m_arousalEffect = Instantiate(m_Insp_ArousalEffect) as GameObject;
+        ArousalEffect = Instantiate(m_Insp_ArousalEffect) as GameObject;
         // エフェクトと本体の動きを同期させる
-        m_arousalEffect.GetComponent<Rigidbody>().isKinematic = true;
-        m_arousalEffect.transform.position = this.transform.position;
-        m_arousalEffect.transform.parent = transform;
+        ArousalEffect.GetComponent<Rigidbody>().isKinematic = true;
+        ArousalEffect.transform.position = this.transform.position;
+        ArousalEffect.transform.parent = transform;
        
         // 全ゲージ消去
         // CharacterControl_Base依存

@@ -83,7 +83,7 @@ public class Arousal_Camera_Controller : MonoBehaviour
         // Player_Camera_Controller依存
         var master = m_insp_Master.GetComponent<CharacterControl_Base>();
         master.MainCamera.GetComponent<Player_Camera_Controller>().m_DrawInterface = true;
-        master.m_timstopmode = CharacterControl_Base.TimeStopMode.NORMAL;
+        master.Timestopmode = CharacterControl_Base.TimeStopMode.NORMAL;
         // カメラを切っておく
         Camera camera = GetComponentInChildren<Camera>();
         camera.enabled = false;

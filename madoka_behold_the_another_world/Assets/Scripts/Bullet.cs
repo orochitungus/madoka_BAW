@@ -173,7 +173,7 @@ public class Bullet : MonoBehaviour
             var hittarget = hit.collider.gameObject.GetComponent<AIControl_Base>();
             var hittarget2 = hit.collider.gameObject.GetComponent<CharacterControl_Base>();
             // ガード姿勢を取らせる(自分の弾は除く)
-            if (hittarget != null && m_CharacterIndex != (int)hittarget2.m_character_name)
+            if (hittarget != null && m_CharacterIndex != (int)hittarget2.CharacterName)
             {
                 // 相手がNOMOVEの時にはガードは取らせない
                 if (hittarget.m_cpumode != AIControl_Base.CPUMODE.NOMOVE)
@@ -228,7 +228,7 @@ public class Bullet : MonoBehaviour
                         Quaternion looklot = Quaternion.LookRotation(m_TargetObject.transform.position - this.transform.position);
                         Vector3 looklotE = looklot.eulerAngles;
                         // ほむらの時のみ90度補正
-                        if (parent.m_character_name == Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B)
+                        if (parent.CharacterName == Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B)
                         {
                             looklot = Quaternion.Euler(looklotE.x, looklotE.y + 90.0f, looklotE.z);
                         }

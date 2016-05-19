@@ -200,7 +200,7 @@ public class DrawInformation : MonoBehaviour
         }
         GUI.EndGroup();
         // 名前
-        string name = Character_Spec.Name[(int)Enemy.m_character_name];
+        string name = Character_Spec.Name[(int)Enemy.CharacterName];
         GUI.Label(new Rect(pos.x, pos.y + 15.0f, 1500.0f, 100.0f), name, "Ename"); 
     }
 }

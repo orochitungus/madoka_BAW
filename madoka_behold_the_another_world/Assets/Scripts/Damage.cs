@@ -24,7 +24,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     public void DamageHP(int attackedcharacter, int damage)
     {
         // 防御力分ダメージを減衰する
-        damage -= m_DefLevel * m_DamageLess;
+        damage -= DefLevel * m_DamageLess;
         if (damage <= 0)
         {
             damage = 1;
@@ -34,7 +34,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         if (IsPlayer == CHARACTERCODE.ENEMY && NowHitpoint < 1)
         {
             // 与える経験値の総量
-            int addexp = Character_Spec.Exp[(int)m_character_name];
+            int addexp = Character_Spec.Exp[(int)CharacterName];
             if (savingparameter.GetNowHP(attackedcharacter) > 0)
             {
                 savingparameter.AddExp(attackedcharacter, addexp);
@@ -64,7 +64,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         // PCにヒットさせた場合、savingparameterの値も変える
         if (IsPlayer == CHARACTERCODE.PLAYER || IsPlayer == CHARACTERCODE.PLAYER_ALLY)
         {
-            int charactername = (int)this.m_character_name;
+            int charactername = (int)this.CharacterName;
             savingparameter.SetNowHP(charactername, NowHitpoint);
         }
     }
@@ -76,7 +76,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         // PCにヒットさせた場合、savingparameterの値も変える
         if (IsPlayer == CHARACTERCODE.PLAYER || IsPlayer == CHARACTERCODE.PLAYER_ALLY)
         {
-            int charactername = (int)this.m_character_name;
+            int charactername = (int)this.CharacterName;
             savingparameter.SetNowArousal(charactername, Arousal);
         }
     }
@@ -213,6 +213,9 @@ public partial class CharacterControl_Base : MonoBehaviour
     // ダメージ(のけぞり）
     public virtual void Damage()
     {
+        // TODO:移行後復活 
+        // IsStep = false;
+        // IsWrestle = false;
         // ダメージ硬直終了
         if (Time.time > this.m_DamagedTime + this.m_DamagedWaitTime)
         {      

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 using UniRx;
 using UniRx.Triggers;
 
@@ -417,6 +418,16 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     public bool IsGrounded;
 
+    /// <summary>
+    /// ステップしているか否か
+    /// </summary>
+    public bool IsStep;
+
+    /// <summary>
+    /// 格闘しているか否か
+    /// </summary>
+    public bool IsWrestle;
+
     // 入力関係
 
     /// <summary>
@@ -690,15 +701,18 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     private float _FallStartTime;
 
-	// 使用する足音
-	private StageSetting.FootType _Foottype;
-
-	// 格闘関係
-
 	/// <summary>
-	/// 格闘時の移動速度
-	/// </summary>
-	protected float WrestlSpeed;        // N格闘1段目
+    /// 使用する足音
+    /// </summary>
+	private StageSetting.FootType _Foottype;
+    
+
+    // 格闘関係
+
+    /// <summary>
+    /// 格闘時の移動速度
+    /// </summary>
+    protected float WrestlSpeed;        // N格闘1段目
 
 	/// <summary>
 	/// 追加入力の有無を保持。trueであり
@@ -892,6 +906,57 @@ public class CharacterControlBase : MonoBehaviour
             {
                 hitcount++;
             }          
+        }
+        // 1つでもヒットしたら接地とする
+        if (hitcount > 0)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// 接地判定を行う。足元に5本(中心と前後左右)レイを落とし、そのいずれかが接触していれば接地。全部外れていれば落下
+    /// </summary>
+    /// <param name="isSpindown">錐揉みダウンのときは判定が変わるのでそのためのフラグ</param>
+    /// <returns></returns>
+    protected bool onGround2(bool isSpindown)
+    {
+        // 座標
+        Vector3[] layStartPos = new Vector3[5];
+        // カプセルコライダ
+        CapsuleCollider collider = GetComponent<CapsuleCollider>();
+        // 中心
+        layStartPos[0] = transform.position + this.LayOriginOffs;
+        // 左
+        layStartPos[1] = new Vector3(layStartPos[0].x + collider.radius, layStartPos[0].y, layStartPos[0].z);
+        // 右
+        layStartPos[2] = new Vector3(layStartPos[0].x - collider.radius, layStartPos[0].y, layStartPos[0].z);
+        // 前
+        layStartPos[3] = new Vector3(layStartPos[0].x, layStartPos[0].y, layStartPos[0].z + collider.radius);
+        // 後
+        layStartPos[4] = new Vector3(layStartPos[0].x, layStartPos[0].y, layStartPos[0].z - collider.radius);
+        int hitcount = 0;
+        for (int i = 0; i < layStartPos.Length; i++)
+        {
+            //Debug.DrawLine(layStartPos[i], new Vector3(layStartPos[i].x, layStartPos[i].y - 0.5f, layStartPos[i].z), Color.red); 
+            // 錐揉みダウン時
+            if (isSpindown)
+            {
+                if (Physics.Raycast(layStartPos[i], -Vector3.up, this.Laylength - collider.radius, this.LayMask))
+                {
+                    hitcount++;
+                }
+            }
+            // 通常時
+            else
+            {
+                if (Physics.Raycast(layStartPos[i], -Vector3.up, this.Laylength + 1.5f, this.LayMask))
+                {
+                    hitcount++;
+                }
+            }
         }
         // 1つでもヒットしたら接地とする
         if (hitcount > 0)
@@ -1356,11 +1421,6 @@ public class CharacterControlBase : MonoBehaviour
 		Boost = Boost - JumpUseBoost;
 	}
 
-	/// <summary>
-	/// ステップ中フラグ
-	/// ステップモーション再生中に立てること
-	/// </summary>
-	public bool Stepdone;
 
     /// <summary>
     /// ステップ時共通操作
@@ -1372,6 +1432,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="rainbow">虹エフェクトにするか否か（通常はfalse)</param>
     protected virtual void StepDone(float Yforce, Vector2 inputVector, Animator animator, int[] stepanimations, bool rainbow = false)
 	{
+        IsStep = true;
         // エフェクトを生成
         UnityEngine.Object Effect;
         // 通常
@@ -1662,6 +1723,7 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>    
     protected virtual void Wrestle1(Animator animator, int airdashhash, int[] stepanimations)
     {
+        IsWrestle = true;
         Wrestletime += Time.deltaTime;
         StepCancel(animator,airdashhash,stepanimations);
     }
@@ -1674,6 +1736,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="stepanimations"></param>
     protected virtual void Wrestle2(Animator animator, int airdashhash, int[] stepanimations)
     {
+        IsWrestle = true;
         Wrestletime += Time.deltaTime;
         StepCancel(animator, airdashhash, stepanimations);
     }
@@ -1686,6 +1749,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="stepanimations"></param>
     protected virtual void Wrestle3(Animator animator, int airdashhash, int[] stepanimations)
     {
+        IsWrestle = true;
         Wrestletime += Time.deltaTime;
         StepCancel(animator, airdashhash, stepanimations);
     }
@@ -1708,6 +1772,7 @@ public class CharacterControlBase : MonoBehaviour
             ControllerManager.Instance.RightBackStep || ControllerManager.Instance.RightStep || ControllerManager.Instance.RightFrontStep)
         {
             Vector2 stepinput = Vector2.zero;
+            IsStep = true;
             // 入力方向取得
             if(ControllerManager.Instance.FrontStep)
             {
@@ -1787,6 +1852,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="stepanimations"></param>
     protected virtual void FrontWrestle1(Animator animator, int airdashhash, int[] stepanimations)
     {
+        IsWrestle = true;
         Wrestletime += Time.deltaTime;
         StepCancel(animator, airdashhash, stepanimations);
     }
@@ -1799,6 +1865,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="stepanimations"></param>
     protected virtual void FrontWrestle2(Animator animator, int airdashhash, int[] stepanimations)
     {
+        IsWrestle = true;
         Wrestletime += Time.deltaTime;
         StepCancel(animator, airdashhash, stepanimations);
     }
@@ -1811,6 +1878,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="stepanimations"></param>
     protected virtual void FrontWrestle3(Animator animator, int airdashhash, int[] stepanimations)
     {
+        IsWrestle = true;
         Wrestletime += Time.deltaTime;
         StepCancel(animator, airdashhash, stepanimations);
     }
@@ -1823,6 +1891,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="stepanimations"></param>
     protected virtual void LeftWrestle1(Animator animator, int airdashhash, int[] stepanimations)
     {
+        IsWrestle = true;
         Wrestletime += Time.deltaTime;
         StepCancel(animator, airdashhash, stepanimations);
     }
@@ -1835,6 +1904,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="stepanimations"></param>
     protected virtual void LeftWrestle2(Animator animator, int airdashhash, int[] stepanimations)
     {
+        IsWrestle = true;
         Wrestletime += Time.deltaTime;
         StepCancel(animator, airdashhash, stepanimations);
     }
@@ -1847,6 +1917,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="stepanimations"></param>
     protected virtual void LeftWrestle3(Animator animator, int airdashhash, int[] stepanimations)
     {
+        IsWrestle = true;
         Wrestletime += Time.deltaTime;
         StepCancel(animator, airdashhash, stepanimations);
     }
@@ -1859,6 +1930,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="stepanimations"></param>
     protected virtual void RightWrestle1(Animator animator, int airdashhash, int[] stepanimations)
     {
+        IsWrestle = true;
         Wrestletime += Time.deltaTime;
         StepCancel(animator, airdashhash, stepanimations);
     }
@@ -1871,6 +1943,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="stepanimations"></param>
     protected virtual void RightWrestle2(Animator animator, int airdashhash, int[] stepanimations)
     {
+        IsWrestle = true;
         Wrestletime += Time.deltaTime;
         StepCancel(animator, airdashhash, stepanimations);
     }
@@ -1883,6 +1956,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="stepanimations"></param>
     protected virtual void RightWrestle3(Animator animator, int airdashhash, int[] stepanimations)
     {
+        IsWrestle = true;
         Wrestletime += Time.deltaTime;
         StepCancel(animator, airdashhash, stepanimations);
     }
@@ -1894,6 +1968,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="idlehash">アイドル時のハッシュID</param>
     protected virtual void BackWrestle(Animator animator, int idlehash)
     {
+        IsWrestle = true;
         //1．ブーストゲージを減衰させる
         Boost -= Time.deltaTime * 5.0f;
         //2．ブーストゲージが0になると、強制的にIdleに戻す
@@ -1919,6 +1994,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="fallhash">落下のハッシュID</param>
     protected virtual void AirDashWrestle(Animator animator, int airdashhash, int[] stepanimations,int fallhash)
     {
+        IsWrestle = true;
         StepCancel(animator, airdashhash, stepanimations);
         // 発動中常時ブースト消費
         Boost = Boost - BoostLess;
@@ -1934,17 +2010,19 @@ public class CharacterControlBase : MonoBehaviour
     // 特殊格闘1段目（特殊格闘はキャラによっては射撃や回復だったりするのでStepCancelは継承先につけること
     protected virtual void ExWrestle1()
     {
-
+        IsWrestle = true;
     }
 
     // 特殊格闘2段目
     protected virtual void ExWrestle2()
     {
+        IsWrestle = true;
     }
 
     // 特殊格闘3段目
     protected virtual void ExWrestle3()
     {
+        IsWrestle = true;
     }
 
     /// <summary>
@@ -1956,6 +2034,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="fallhash"></param>
     protected virtual void FrontExWrestle1(Animator animator, int airdashhash, int[] stepanimations, int fallhash)
     {
+        IsWrestle = true;
         // 毎フレームブーストを消費する
         Boost -= Time.deltaTime * 100.0f;
         // 重力無効
@@ -1977,6 +2056,7 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     protected virtual void FrontExWrestle2()
     {
+        IsWrestle = true;
     }
 
     /// <summary>
@@ -1984,6 +2064,7 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     protected virtual void FrontExWrestle3()
     {
+        IsWrestle = true;
     }
 
     /// <summary>
@@ -1991,6 +2072,7 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     protected virtual void LeftExWrestle1()
     {
+        IsWrestle = true;
     }
 
     /// <summary>
@@ -1998,6 +2080,7 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     protected virtual void LeftExWrestle2()
     {
+        IsWrestle = true;
     }
 
     /// <summary>
@@ -2005,6 +2088,7 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     protected virtual void LeftExWrestle3()
     {
+        IsWrestle = true;
     }
 
     /// <summary>
@@ -2012,6 +2096,7 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     protected virtual void RightExWrestle1()
     {
+        IsWrestle = true;
     }
 
     /// <summary>
@@ -2019,6 +2104,7 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     protected virtual void RightExWrestle2()
     {
+        IsWrestle = true;
     }
 
     /// <summary>
@@ -2026,6 +2112,7 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     protected virtual void RightExWrestle3()
     {
+        IsWrestle = true;
     }
 
     /// <summary>
@@ -2038,6 +2125,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="landinghash"></param>
     protected virtual void BackExWrestle(Animator animator, int airdashhash, int[] stepanimations, int fallhash,int landinghash)
     {
+        IsWrestle = true;
         // 毎フレームブーストを消費する
         Boost -= Time.deltaTime * 100;
         // ブーストが0になったらFallにする
@@ -2099,6 +2187,8 @@ public class CharacterControlBase : MonoBehaviour
     {
         if (this.Boost > 0)
         {
+            IsStep = false;
+            IsWrestle = false;
             // 格闘判定削除
             DestroyWrestle();
             // 一応歩き撃ちフラグはここでも折る
@@ -2171,6 +2261,8 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="fallhash">fall状態のハッシュコード</param>
     protected void FallDone(Vector3 RiseSpeed,Animator animator, int fallhash)
     {
+        IsStep = false;
+        IsWrestle = false;
         this.GetComponent<Rigidbody>().useGravity = true;
         animator.Play(fallhash);
         RiseSpeed = new Vector3(0, -this.RiseSpeed, 0);
@@ -2652,21 +2744,1169 @@ public class CharacterControlBase : MonoBehaviour
 		
 	}
 
-	// 飛び越し可能な壁に接触した
-	private bool _Hitjumpover;
+    /// <summary>
+    ///  継承先のUpdate開幕で実行すること
+    /// また、時間停止状態の場合、falseを返す
+    /// </summary>
+    /// <param name="isSpindown">錐揉みダウン状態</param>
+    /// <param name="animator">このオブジェクトのアニメーター</param>
+    /// <param name="downhash">ダウン時のハッシュID</param>
+    /// <param name="airdashhash">空中ダッシュ時のハッシュID</param>
+    /// <param name="airshothash">空中射撃時のハッシュID</param>
+    /// <param name="fallhash">落下時のハッシュID</param>
+    /// <param name="jumpinghash">上昇中のハッシュID</param>
+    /// <param name="blowhash">吹き飛び時のハッシュID</param>
+    /// <param name="idlehash">アイドル時のハッシュID</param>
+    /// <param name="runhash">走行時のハッシュID</param>
+    /// <returns></returns>
+    protected bool Update_Core(bool isSpindown, Animator animator, int downhash,int airdashhash,int airshothash,int jumpinghash, int fallhash,int idlehash,int blowhash,int runhash)
+    {
+        // 接地判定
+        IsGrounded = onGround2(isSpindown);
+
+        
+        // PC死亡時、PauseControllerを消す(メニュー画面に移行させないため）
+        // また、ショット入力でタイトル画面へ移行する
+        if (NowHitpoint < 1 && IsPlayer == CHARACTERCODE.PLAYER)
+        {
+            GameObject PauseController = GameObject.Find("Pause Controller");
+            if (PauseController)
+            {
+                Destroy(PauseController);
+            }
+            if (GetShotInput())
+            {
+                // 例外１：最初のスコノ戦で負けたらプロローグ３へ
+                if (savingparameter.story == 1)
+                {
+                    FadeManager.Instance.LoadLevel("Prologue3", 1.0f);
+                }
+                else
+                {
+                    FadeManager.Instance.LoadLevel("title", 1.0f);
+                }
+            }
+        }
+
+
+        // プレイヤー操作の場合（CPU操作の場合はまた別に）
+        if (IsPlayer == CHARACTERCODE.PLAYER)
+        {
+            // 方向キー取得
+            HasVHInput = GetVHInput();
+            // ショット入力があったか否か
+            HasShotInput = GetShotInput();
+            // ジャンプ入力があったか否か
+            HasJumpInput = GetJumpInput();
+            // ダッシュキャンセル入力があったか否か
+            HasDashCancelInput = GetDashCancelInput();
+            // サーチ入力があったか否か
+            HasSearchInput = GetSearchInput();
+            // サーチキャンセル入力があったか否か
+            HasSearchCancelInput = GetUnSerchInput();
+            // 格闘入力があったか否か
+            HasWrestleInput = GetWrestleInput();
+            // サブ射撃入力があったか否か
+            HasSubShotInput = GetSubShotInput();
+            // 特殊射撃入力があったか否か
+            HasExShotInput = GetExShotInput();
+            // 特殊格闘入力があったか否か
+            HasExWrestleInput = GetExWrestleInput();
+            // アイテム入力があったか否か
+            HasItemInput = GetItemInput();
+            // メニュー入力があったか否か
+            HasMenuInput = GetMenuInput();
+            // 覚醒入力があったか否か
+            HasArousalInput = GetArousalInput();
+            // 覚醒技入力があったか否か
+            HasArousalAttackInput = GetArousalInput();
+            // 前入力があったか否か
+            HasFrontInput = GetFrontInput();
+            // 左入力があったか否か
+            HasLeftInput = GetLeftInput();
+            // 右入力があったか否か
+            HasRightInput = GetRightInput();
+            // 後入力があったか否か
+            HasBackInput = GetBackInput();
+            
+            // 位置を保持
+            savingparameter.nowposition = this.transform.position;
+            // 角度を保持
+            savingparameter.nowrotation = new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+        }
+        // CPU操作の場合（ステップのフラグもここで拾う）
+        else
+        {
+            // CPU情報
+            var CPU = this.GetComponentInChildren<AIControl_Base>();
+            // CPUのキー入力を拾う
+            AIControl_Base.KEY_OUTPUT key = CPU.m_keyoutput;
+            // CPUのテンキー入力を拾う
+            AIControl_Base.TENKEY_OUTPUT tenkey = CPU.m_tenkeyoutput;
+            // テンキー入力に応じてフラグを立てる
+            // 前
+            if (tenkey == AIControl_Base.TENKEY_OUTPUT.TOP)
+            {
+                HasFrontInput = true;
+            }
+            // 後
+            else if (tenkey == AIControl_Base.TENKEY_OUTPUT.UNDER)
+            {
+                HasBackInput = true;
+            }
+            // 左
+            else if (tenkey == AIControl_Base.TENKEY_OUTPUT.LEFT)
+            {
+                HasLeftInput = true;
+            }
+            // 右
+            else if (tenkey == AIControl_Base.TENKEY_OUTPUT.RIGHT)
+            {
+                HasRightInput = true;
+            }
+            // 左ステップ
+            else if (tenkey == AIControl_Base.TENKEY_OUTPUT.LEFTSTEP)
+            {
+                HasLeftStepInput = true;
+            }
+            // 右ステップ
+            else if (tenkey == AIControl_Base.TENKEY_OUTPUT.RIGHTSTEP)
+            {
+                HasRightStepInput = true;
+            }
+            // 入力を受けたキーごとにフラグを立てる
+            // CPUは同時押し判定を出さないので、1個ずつ来ると考えてOK
+            switch (key)
+            {
+                case AIControl_Base.KEY_OUTPUT.SHOT:
+                    HasShotInput = true;
+                    break;
+                case AIControl_Base.KEY_OUTPUT.JUMP:
+                    HasJumpInput = true;
+                    break;
+                case AIControl_Base.KEY_OUTPUT.DASHCANCEL:
+                    HasDashCancelInput = true;
+                    break;
+                case AIControl_Base.KEY_OUTPUT.AIRDASH:
+                    HasAirDashInput = true;
+                    break;
+                case AIControl_Base.KEY_OUTPUT.SEARCH:
+                    HasSearchInput = true;
+                    break;
+                case AIControl_Base.KEY_OUTPUT.SEACHCANCEL:
+                    HasSearchCancelInput = true;
+                    break;
+                case AIControl_Base.KEY_OUTPUT.WRESTLE:
+                    HasWrestleInput = true;
+                    break;
+                case AIControl_Base.KEY_OUTPUT.SUBSHOT:
+                    HasSubShotInput = true;
+                    break;
+                case AIControl_Base.KEY_OUTPUT.EXSHOT:
+                    HasExShotInput = true;
+                    break;
+                case AIControl_Base.KEY_OUTPUT.EXWRESTLE:
+                    HasExWrestleInput = true;
+                    break;
+                case AIControl_Base.KEY_OUTPUT.ITEM:
+                    HasItemInput = true;
+                    break;               
+                case AIControl_Base.KEY_OUTPUT.AROUSAL:
+                    HasArousalInput = true;
+                    break;
+                case AIControl_Base.KEY_OUTPUT.AROUSALATTACK:
+                    HasArousalAttackInput = true;
+                    break;
+                case AIControl_Base.KEY_OUTPUT.CHARGESHOT:
+                    HasShotChargeInput = true;
+                    break;
+                case AIControl_Base.KEY_OUTPUT.CHARGEWRESTE:
+                    HasWrestleChargeInput = true;
+                    break;
+                default:
+                    // ショット入力があったか否か
+                    HasShotInput = false;
+                    // ジャンプ入力があったか否か
+                    HasJumpInput = false;
+                    // ダッシュキャンセル入力があったか否か
+                    HasDashCancelInput = false;
+                    // サーチ入力があったか否か
+                    HasSearchInput = false;
+                    // サーチキャンセル入力があったか否か
+                    HasSearchCancelInput = false;
+                    // 格闘入力があったか否か
+                    HasWrestleInput = false;
+                    // サブ射撃入力があったか否か
+                    HasSubShotInput = false;
+                    // 特殊射撃入力があったか否か
+                    HasExShotInput = false;
+                    // 特殊格闘入力があったか否か
+                    HasExWrestleInput = false;
+                    // アイテム入力があったか否か
+                    HasItemInput = false;                    
+                    // 覚醒入力があったか否か
+                    HasArousalInput = false;
+                    // 覚醒技入力があったか否か
+                    HasArousalAttackInput = false;
+                    // 射撃チャージ入力があったか否か
+                    HasShotChargeInput = false;
+                    // 格闘チャージ入力があったか否か
+                    HasWrestleChargeInput = false;
+                    // 前入力があったか否か
+                    HasFrontInput = false;
+                    // 左入力があったか否か
+                    HasLeftInput = false;
+                    // 右入力があったか否か
+                    HasRightInput = false;
+                    // 後入力があったか否か
+                    HasBackInput = false;
+                    // ソウルバースト入力があったか否か
+                    break;
+            }
+            // 入力を受けたテンキーに応じてフラグを立てる（この時点ではありなしさえ拾えばいい。実際の値を使うのはUpdateRotationなので、入力の有無さえ拾えればいい）
+            if (tenkey != AIControl_Base.TENKEY_OUTPUT.NEUTRAL)
+            {
+                this.HasVHInput = true;
+            }
+            else
+            {
+                this.HasVHInput = false;
+            }
+        }
+
+        // 死亡時、エフェクトが消滅したら自壊させる
+        if (this.Explode)
+        {
+            if (GetComponentInChildren<Deadfx>() == null)
+            {
+                Destroy(gameObject);
+            }
+        }
+
+
+
+        // 時間停止中falseを強制返し
+        // 通常時、ポーズ入力で停止.ただし死んだら無効
+        if (Timestopmode != TimeStopMode.PAUSE)
+        {
+            if (HasMenuInput && NowHitpoint > 0)
+            {
+                this.TimeStopMaster = true;
+                Timestopmode = TimeStopMode.PAUSE;
+                // 動作を止める
+                FreezePositionAll();
+            }
+        }
+
+
+
+        // 時間停止中にやってほしくない処理はここ以降に記述すること
+
+        // チャージショット関連の入力を取得(時間停止中に減衰されると困るので、ここで管理。また、通常の射撃や格闘より優先度は高くする
+        if (IsPlayer == CHARACTERCODE.PLAYER)
+        {
+            // 射撃
+            HasShotChargeInput = GetShotChargeInput();
+            // 格闘
+            HasWrestleChargeInput = GetWrestleChargeInput();
+        }
+        else
+        {
+            // CPU情報
+            var CPU = this.GetComponentInChildren<AIControl_Base>();
+            // CPUのキー入力を拾う
+            AIControl_Base.KEY_OUTPUT key = CPU.m_keyoutput;
+            // CPUのテンキー入力を拾う
+            AIControl_Base.TENKEY_OUTPUT tenkey = CPU.m_tenkeyoutput;
+            // キー入力を拾う
+            key = CPU.m_keyoutput;
+
+            // 入力を受けたキーごとにフラグを立てる
+            // CPUは同時押し判定を出さないので、1個ずつ来ると考えてOK
+            switch (key)
+            {
+                default:
+                    break;
+            }
+        }
+
+        // キャラを取得
+        int character = (int)CharacterName;
+        // 覚醒入力を取得し、その場合覚醒開始画面へ移行してポーズ  
+        if (HasArousalInput && !IsArousal && savingparameter.GetGemContimination(character) < 100.0f)
+        {
+            // 最低でもLV1時の覚醒ゲージがないと覚醒不可(ポーズを強制解除して抜ける）
+            if (Arousal < GetMaxArousal(1))
+            {
+                unuseArousal();
+            }
+            else
+            {
+                float OR_GemCont = savingparameter.GetGemContimination(character);                
+                arousalStart();
+            }
+        }
+        // 覚醒中は覚醒技を発動
+        else if (HasArousalAttackInput && IsArousal)
+        {
+            // アーマーをONにする
+            IsArmor = true;
+            
+            // 覚醒前処理を未実行に変更
+            InitializeArousal = false;
+        }
+
+        // 覚醒時、覚醒ゲージ減少
+        if (IsArousal)
+        {
+            Arousal -= Time.deltaTime * 10;
+            savingparameter.SetNowArousal((int)CharacterName, Arousal);
+            if (Arousal <= 0)
+            {
+                // 覚醒状態解除
+                // 覚醒エフェクトを消す
+                ArousalEffect.SetActive(false);
+                // ゲージを0にする
+                Arousal = 0;
+                // 覚醒フラグを折る
+                IsArousal = false;
+            }
+        }
+
+
+        //m_nowDownRatioが0を超えていて、Damage_Initではなく（ダウン値加算前にリセットされる）m_DownRebirthTimeが規定時間を経過し、かつダウン値が閾値より小さければダウン値をリセットする
+        if (NowDownRatio > 0 && animator.GetHashCode() != downhash)
+        {
+            if ((Time.time > DownRebirthTime + DownRebirthWaitTime) && (this.NowDownRatio < this.DownRatioBias))
+            {
+                this.DownRebirthTime = 0;
+                this.NowDownRatio = 0.0f;
+            }
+        }
+
+        // MoveDirection は アニメーションステート Walk で設定され、アニメーションステートが Idle の場合リセットされる。
+        // 移動処理はステートの影響を受けないように UpdateAnimation のステートスイッチの前に処理する。
+        // ステートごとに処理をする場合、それをメソッド化してそれぞれのステートに置く。
+        // 走行速度を変更する、アニメーションステートが Run だった場合 RunSpeed を使う。
+        var MoveSpeed = RunSpeed;
+        // 空中ダッシュ時/空中ダッシュ射撃時
+        if (animator.GetHashCode() == airdashhash || animator.GetHashCode() == airshothash)
+        {
+            // rigidbodyにくっついている慣性が邪魔なので消す（勝手に落下開始する）
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+            GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            MoveSpeed = AirDashSpeed;
+        }
+        // 空中慣性移動時
+        else if (animator.GetHashCode() == jumpinghash || animator.GetHashCode() == fallhash)
+        {
+            MoveSpeed = AirMoveSpeed;
+        }
+        // ステップ時(重力補正カット)
+        else if (IsStep)
+        {
+            this.GetComponent<Rigidbody>().useGravity = false;  // 重力無効
+            MoveSpeed = StepInitialVelocity;
+            this.MoveDirection.y = 0;         // Y移動無効            
+        }
+        // 格闘時(ガード含む）
+        else if (IsWrestle)
+        {
+            this.GetComponent<Rigidbody>().useGravity = false;  // 重力無効            
+            MoveSpeed = this.WrestlSpeed;
+        }
+
+
+        // キリカの時間遅延を受けているとき、1/4に
+        if (Timestopmode == TimeStopMode.TIME_DELAY)
+        {
+            MoveSpeed *= 0.25f;
+        }
+        // ほむらの時間停止を受けているときなど、0に
+        else if (Timestopmode == TimeStopMode.TIME_STOP || Timestopmode == TimeStopMode.PAUSE || Timestopmode == TimeStopMode.AROUSAL)
+        {
+            MoveSpeed = 0;
+            return false;
+        }
+        if (RigidBody != null)
+        {
+            // 速度ベクトルを作る
+            Vector3 velocity = this.MoveDirection * MoveSpeed;
+            // 走行中/アイドル中/吹き飛び中/ダウン中
+            if (animator.GetHashCode() == runhash || animator.GetHashCode() == idlehash || animator.GetHashCode() == blowhash || animator.GetHashCode() == downhash)
+            {
+                velocity.y = MadokaDefine.FALLSPEED;      // ある程度下方向へのベクトルをかけておかないと、スロープ中に落ちる
+            }
+            RigidBody.velocity = velocity;
+
+        }
+        // HP表示を増減させる(回復は一瞬で、被ダメージは徐々に減る）
+        if (NowHitpoint < DrawHitpoint)
+        {
+            DrawHitpoint -= 2;
+        }
+        else
+        {
+            DrawHitpoint = NowHitpoint;
+        }
+
+        // 時間停止を解除したら動き出す
+        return true;
+    }
+
+    /// <summary>
+    /// 継承先のLateUpdateで実行すること
+    /// </summary>
+    protected void LateUdate_Core()
+    {
+        if (this.IsPlayer != CHARACTERCODE.ENEMY)
+        {
+            // SavingParameterからのステートの変更を受け付ける
+            int charactername = (int)CharacterName;
+            // レベル
+            Level = savingparameter.GetNowLevel(charactername);
+            // 攻撃力
+            StrLevel = savingparameter.GetStrLevel(charactername);
+            // 防御力
+            DefLevel = savingparameter.GetDefLevel(charactername);
+            // 残弾数
+            BulLevel = savingparameter.GetBulLevel(charactername);
+            // ブースト量
+            BoostLevel = savingparameter.GetBoostLevel(charactername);
+            // 覚醒ゲージ
+            ArousalLevel = savingparameter.GetArousalLevel(charactername);
+
+            // HP
+            NowHitpoint = savingparameter.GetNowHP(charactername);
+            // 覚醒ゲージ量
+            Arousal = savingparameter.GetNowArousal(charactername);
+
+            
+            // SavingParameterに現在のステートを渡す
+            // 最大HP
+            savingparameter.SetMaxHP(charactername, GetMaxHitpoint(Level));
+        }
+    }
+
+    /// <summary>
+    /// ポーズを解除する
+    /// </summary>
+    public void ReleasePause()
+    {
+        if (Timestopmode == TimeStopMode.PAUSE)
+        {
+            if (HasMenuInput)
+            {
+                Timestopmode = TimeStopMode.NORMAL;
+                //Time.timeScale = 1;
+            }
+        }
+    }
+
+    /// <summary>
+    /// アニメーションの速度を調整する
+    /// </summary>
+    /// <param name="animator">速度制御対象のanimator</param>
+    /// <param name="speed">速度倍率(0～1）</param>
+    /// <param name="timestopmode">どのような状態であるか</param>
+    protected void ContlroleAnimationSpeed(Animator animator, float speed, TimeStopMode timestopmode)
+    {
+        if (Timestopmode == TimeStopMode.TIME_DELAY)
+        {
+            speed *= 0.25f;
+        }
+        // ほむらの時間停止を受けているときなど、0に
+        else if (Timestopmode == TimeStopMode.TIME_STOP || Timestopmode == TimeStopMode.PAUSE || Timestopmode == TimeStopMode.AROUSAL)
+        {
+            speed = 0;
+        }
+        animator.speed = speed;
+    }
+
+    private const float ITEM_X = 30.0f;
+    private const float ITEM_Y = 5.0f;
+
+    private const float EQUIP_ITEM_X = 115.0f;
+    private const float EQUIP_ITEM_Y = 1.0f;
+
+    private const float ITEMNUM_X = 370.0f;
+    private const float ITEMNUM_Y = 5.0f;
+
+    // ステップ時共通動作
+    // 第1引数：ステップの内容
+    /// <summary>
+    /// ステップ時共通動作
+    /// 移動距離をカウントしつつ、既定の移動距離を移動すると戻りモーションを再生する
+    /// </summary>
+    /// <param name="animator">本体のAnimator</param>
+    /// <param name="frontstephash">フロントステップのハッシュID</param>
+    /// <param name="frontstepbackhash">フロントステップ戻りのハッシュID</param>
+    /// <param name="leftstephash">左ステップのハッシュID</param>
+    /// <param name="leftstepbackhash">左ステップ戻りのハッシュID</param>
+    /// <param name="rightstephash">右ステップのハッシュID</param>
+    /// <param name="rightstepbackhash">右ステップ戻りのハッシュID</param>
+    /// <param name="backstephash">バックステップのハッシュID</param>
+    /// <param name="backstepbackhash">バックステップ戻りのハッシュID</param>
+    protected void StepMove(Animator animator, int frontstephash,int frontstepbackhash, int leftstephash, int leftstepbackhash, int rightstephash, int rightstepbackhash, int backstephash,int backstepbackhash)
+    {
+        // 移動距離をインクリメントする（初期位置との差では壁に当たったときに無限に動き続ける）
+        SteppingLength += StepMove1F;
+
+        // 地面オブジェクトに触れた場合は着地モーションへ移行(暴走防止のために、上昇中は判定禁止.時間で判定しないと、引っかかったときに無限ループする)
+        if (SteppingLength > StepMoveLength)
+        {
+            //MoveDirection.y = -2;                
+            this.MoveDirection = transform.rotation * Vector3.forward;
+            if( animator.GetHashCode() == frontstephash)
+            {
+                animator.Play(frontstepbackhash);
+            }
+            else if(animator.GetHashCode() == leftstephash)
+            {
+                animator.Play(leftstepbackhash);
+            }
+            else if(animator.GetHashCode() == rightstephash)
+            {
+                animator.Play(rightstepbackhash);
+            }
+            else if(animator.GetHashCode() == backstephash)
+            {
+                animator.Play(backstepbackhash);
+            }
+        }
+    }
+
+    // ステップ落下時のキャンセルダッシュ及び再ジャンプ受付
+    protected bool CancelCheck(Animator animator, int airdashhash)
+    {
+        // ブーストが残っていればキャンセルダッシュは受け付ける（方向入力は受け付けない）
+        if (this.Boost > 0)
+        {
+            // 方向キーなしで再度ジャンプを押した場合、慣性ジャンプ
+            if (!HasVHInput && ControllerManager.Instance.Jump)
+            {
+                // 上昇制御をAddForceにするとやりにくい（特に慣性ジャンプ）
+                JumpDone();
+                return true;
+            }
+            // ジャンプ再入力で向いている方向へ空中ダッシュ(上昇は押しっぱなし)            
+            else if (ControllerManager.Instance.Jump)
+            {
+                CancelDashDone(animator,airdashhash);
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    /// <summary>
+    /// 本体を相手の方向へ向ける
+    /// </summary>
+    protected void RotateToTarget()
+    {
+        // ロックオン対象の座標を取得
+        var target = GetComponentInChildren<Player_Camera_Controller>();
+        // 対象の座標を取得
+        Vector3 targetpos = target.Enemy.transform.position;
+        // 本体の回転角度を拾う
+        Quaternion mainrot = Quaternion.LookRotation(targetpos - this.transform.position);
+        // 本体の回転を実行する
+        this.transform.rotation = mainrot;
+    }
+
+    /// <summary>
+    /// 歩き撃ちのアニメーションを戻す
+    /// </summary>
+    protected void ReturnMotion(Animator animator, int runhash, int idlehash, int fallhash)
+    {
+        
+        // 歩き撃ちフラグを折る
+        RunShotDone = false;
+        // 上体を戻す
+        BrestObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+        
+        // 方向キー入力があった場合かつ地上にいた場合
+        if (IsGrounded && HasVHInput)
+        {
+            animator.Play(runhash);
+        }
+        // 方向キー入力がなくかつ地上にいた場合
+        else if (IsGrounded)
+        {
+            animator.Play(idlehash);
+        }
+        // 空中にいた場合
+        else
+        {
+            animator.Play(fallhash);
+            _FallStartTime = Time.time;
+        }
+        
+    }
+
+
+    /// <summary>
+    /// 装填開始（通常射撃）
+    /// </summary>
+    protected void ShotDone(Animator animator,int runhash,int shotrunhash,int shotairdashhash,int airdashhash, int shothash)
+    {
+        // 一旦空中発射フラグを切る（この辺は他のキャラも考えるべきかもしれない。というかこれはcharacterControl_Baseにおいた方がいいかもしれない
+        // 歩き撃ちができない場合もあるから基底にしてオーバーライドが妥当か？
+
+        // 歩行時は上半身のみにして走行（下半身のみ）と合成(ブレンドツリーで合成し、上体を捻らせて銃口補正をかける)
+        if (animator.GetHashCode() == runhash)
+        {
+            animator.Play(shotrunhash);
+        }
+        else if (animator.GetHashCode() == airdashhash)
+        {
+            animator.Play(shotairdashhash); // 空中ダッシュ射撃へ移行
+        }
+        else
+        {
+            animator.Play(shothash);       // 通常撃ちへ移行
+        }
+
+        Shotmode = ShotMode.RELORD;        // 装填状態へ移行
+    }
+
+    /// <summary>
+    /// キャンセル等で本体に弾丸（矢など）があった場合消す
+    /// </summary>
+    protected void DestroyArrow()
+    {
+        // 弾があるなら消す(m_ArrowRootの下に何かあるなら全部消す）
+        int ChildCount = this.MainShotRoot.transform.childCount;
+        for (int i = 0; i < ChildCount; i++)
+        {
+            Transform child = this.MainShotRoot.transform.GetChild(i);
+            Destroy(child.gameObject);
+        }
+    }
+
+    /// <summary>
+    /// 上記の任意のフック以下のオブジェクトを消す
+    /// </summary>
+    /// <param name="root"></param>
+    protected void DestroyObject(GameObject root)
+    {
+        int ChildCount = root.transform.childCount;
+        for (int i = 0; i < ChildCount; i++)
+        {
+            Transform child = root.transform.GetChild(i);
+            Destroy(child.gameObject);
+        }
+    }
+
+
+    /// <summary>
+    /// 空中ダッシュ・歩き射撃共通操作
+    /// </summary>
+    /// <param name="run">歩き射撃であるか否か</param>
+    /// <param name="animator">制御対象のanimator</param>
+    /// <param name="idlehash">idleのハッシュID</param>
+    protected void moveshot(bool run, Animator animator, int idlehash)
+    {
+        // ロックオン中かつshotmode=RELOADの時は全体を相手の方へ向ける
+        if (this.IsRockon && Shotmode != ShotMode.NORMAL && Shotmode != ShotMode.SHOTDONE)
+        {
+            RotateToTarget();
+        }
+        // 入力中はそちらへ進む
+        if (HasVHInput)
+        {
+            // ロック時に矢を撃つときは本体が相手の方向を向いているため、専用の処理が要る
+            if (this.IsRockon && Shotmode != ShotMode.NORMAL)
+            {
+                UpdateRotation_step();      // steprotは相手の方向を向いたまま動くので、こっちを使う
+                this.MoveDirection = this.StepRotation * Vector3.forward;
+            }
+            else
+            {
+                UpdateRotation();
+                this.MoveDirection = this.transform.rotation * Vector3.forward;
+            }
+        }
+        // 入力が外れると、落下する
+        else
+        {
+            if (run)
+            {
+                animator.Play(idlehash);
+            }
+            this.MoveDirection = Vector3.zero;
+        }
+    }
+
+    // 首もしくは上体ををロックオン対象へ向ける
+    // obj              [in]:動かす対象
+    // Correction       [in]:Y軸の補正値
+    protected void SetNeckRotate(GameObject obj, float Correction)
+    {
+        // ロックオン対象の座標を取得
+        //var target = obj.GetComponentInChildren<Player_Camera_Controller>();
+        var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
+
+        // 対象の座標を取得
+        Vector3 targetpos = target.Enemy.transform.position;
+        // 動かす対象の座標を取得
+        Vector3 Headpos = obj.transform.position;
+        Vector3 HeadRot_E = CalcCorrection(Headpos, targetpos, Correction);
+        // 回転を実行する
+        obj.transform.localRotation = Quaternion.Euler(HeadRot_E);
+
+    }
+
+    /// <summary>
+    /// ロックオン対象へ体を向けるときの補正値を計算する
+    /// </summary>
+    /// <param name="Headpos">本体の座標</param>
+    /// <param name="targetpos">ロックオン対象の座標</param>
+    /// <param name="Correction">Y軸の補正値</param>
+    /// <returns>補正値</returns>
+    Vector3 CalcCorrection(Vector3 Headpos, Vector3 targetpos, float Correction)
+    {
+        Vector3 HeadRot_E = Vector3.zero;
+
+        // 頭部を相手に向けるための角度を出す（クォータニオンでやると範囲指定が難しいのでオイラー角）
+        Quaternion HeadRot = Quaternion.LookRotation(targetpos - Headpos);
+        // 取得した角度を本体の角度分減算する
+        // 本体の回転角度を拾う
+        Quaternion mainrot = transform.rotation;
+
+        // 本体の角度分減算する
+        HeadRot_E = HeadRot.eulerAngles - mainrot.eulerAngles;
+
+
+        // リミットをここで実行(Eulerの場合-360－360で来る点に注意）
+        // Y
+        HeadRot_E.y = CalcCorrictionRetry(HeadRot_E);
+        HeadRot_E.x = 0.0f;
+        HeadRot_E.z = 0.0f;
+
+        // 補正値を加算する
+        HeadRot_E.y += Correction;
+
+        return HeadRot_E;
+    }
+
+    // 補正計算を再実行する
+    // Headrot              [in]:頭部の計算結果のY軸の角度
+    float CalcCorrictionRetry(Vector3 HeadRot)
+    {
+        // Y
+        if (HeadRot.y > 60.0f && HeadRot.y <= 120.0f)
+        {
+            HeadRot.y = 60.0f;
+        }
+        else if (HeadRot.y > 240.0f && HeadRot.y < 300.0f)
+        {
+            HeadRot.y = 300.0f;
+        }
+        else if (HeadRot.y < -60.0f && HeadRot.y >= -120.0f)
+        {
+            HeadRot.y = 300.0f;
+        }
+        else if (HeadRot.y < -240.0f && HeadRot.y > -300.0f)
+        {
+            HeadRot.y = 60.0f;
+        }
+        else
+        {
+            HeadRot.y = 0.0f;
+        }
+
+        return HeadRot.y;
+    }
+
+
+
+    /// <summary>
+    /// 飛び越し可能な壁に接触した
+    /// </summary>
+    private bool _Hitjumpover;
 	public bool Gethitjumpover()
 	{
 		return _Hitjumpover;
 	}
-	// 飛び越し不能な壁に接触した
-	private bool _Hitunjumpover;
+    /// <summary>
+    /// 飛び越し不能な壁に接触した
+    /// </summary>
+    private bool _Hitunjumpover;
 	public bool Gethitunjumpover()
 	{
 		return _Hitunjumpover;
 	}
 
-	// Use this for initialization
-	void Start ()
+    /// <summary>
+    /// 接触を判定する
+    /// </summary>
+    /// <param name="collision"></param>
+    private void OnTriggerStay(Collider collision)
+    {
+        // 飛び越し可能な壁に接触した
+        if (collision.gameObject.tag == "jumpover")
+        {
+            _Hitjumpover = true;
+            return;
+        }
+        // 飛び越し不能な壁に接触した
+        else if (collision.gameObject.tag == "unjumpover")
+        {
+            _Hitunjumpover = true;
+            return;
+        }
+        _Hitjumpover = false;
+        _Hitunjumpover = false;
+    }
+
+    /// <summary>
+    /// 本体を強制停止させる
+    /// </summary>
+    /// <param name="animator"></param>
+    /// <param name="idlehash"></param>
+    protected void EmagencyStop(Animator animator, int idlehash)
+    {
+        this.MoveDirection = Vector3.zero;
+        animator.Play(idlehash);
+    }
+
+    /// <summary>
+    /// 全CharacterControllBase継承オブジェクトの配置位置を固定する
+    /// </summary>
+    public void FreezePositionAll()
+    {
+        CharacterControl_Base[] Character = FindObjectsOfType(typeof(CharacterControl_Base)) as CharacterControl_Base[];
+        foreach (CharacterControl_Base i in Character)
+        {
+            i.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+        }
+    }
+
+    /// <summary>
+    /// 全CharacterControllBase継承オブジェクトの配置位置固定を解除する
+    /// </summary>
+    public void UnFreezePositionAll()
+    {
+        CharacterControl_Base[] Character = FindObjectsOfType(typeof(CharacterControl_Base)) as CharacterControl_Base[];
+        foreach (CharacterControl_Base i in Character)
+        {
+            i.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        }
+    }
+
+    /// <summary>
+    /// 覚醒開始無効処理
+    /// </summary>
+    private void unuseArousal()
+    {
+        // ポーズコントローラーのインスタンスを取得
+        var pausecontroller2 = Pausecontroller.GetComponent<PauseControllerInputDetector>();
+        // 時間を再度動かす
+        pausecontroller2.pauseController.DeactivatePauseProtocol();
+    }
+
+    /// <summary>
+    /// 覚醒開始処理
+    /// </summary>
+    private void arousalStart()
+    {
+        if (Pausecontroller == null)
+        {
+            return;
+        }
+        // ポーズコントローラーのインスタンスを取得
+        var pausecontroller2 = Pausecontroller.GetComponent<PauseControllerInputDetector>();
+        // 時間を止める
+        pausecontroller2.pauseController.ActivatePauseProtocol();
+        // 覚醒前処理
+        ArousalInitialize();
+        // カットインカメラ有効化
+        // ArousalCameraを有効化
+        ArousalCamera.enabled = true;
+        // ポーズ実行
+        FreezePositionAll();
+        // カットインイベントを有効化
+        Arousal_Camera_Controller CutinEvent = ArousalCamera.GetComponentInChildren<Arousal_Camera_Controller>();
+        // カットインイベント発動
+        CutinEvent.UseAsousalCutinCamera();
+        // 時間停止
+        TimeStopMaster = true;
+        Timestopmode = TimeStopMode.AROUSAL;
+    }
+
+    // 覚醒開始時の共通処理(残弾の回復はキャラごとに覚醒でも回復禁止のものがあるのでこの関数のオーバーライドで行うこと）
+    protected virtual void ArousalInitialize()
+    {
+        // TODO:ダメージ中はreversalに変更する
+        
+        // ブースト全回復
+        Boost = GetMaxBoost(BoostLevel);
+        // 覚醒モード移行
+        IsArousal = true;
+        // エフェクト出現（エフェクトはCharacerControl_Baseのpublicに入れておく）
+        ArousalEffect.SetActive(true);
+        // エフェクトと本体の動きを同期させる
+        ArousalEffect.GetComponent<Rigidbody>().isKinematic = true;
+        ArousalEffect.transform.position = this.transform.position;
+        ArousalEffect.transform.parent = transform;
+
+        // 全ゲージ消去
+        // CharacterControl_Base依存
+        // TODO:インターフェースを消す
+
+        // Player_Camera_Controler依存
+        var camerastate = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
+        camerastate.m_DrawInterface = false;
+    }
+
+    /// <summary>
+    /// 格闘開始（一応派生は認めておく。専用のはそっちで利用）
+    /// </summary>
+    /// <param name="animator">格闘攻撃の種類</param>
+    /// <param name="skilltype">スキルのインデックス(キャラごとに異なる)</param>
+    /// <param name="wrestlehash">使用する格闘のハッシュID</param>
+    protected virtual void WrestleDone(Animator animator, int skilltype,int wrestlehash)
+    {
+        // 追加入力フラグをカット
+        this.AddInput = false;
+        // ステートを設定する
+        // skilltypeのインデックス(格闘系はSkillType.Wrestle1+Xなので、Xにwrestletypeを代入）
+        int skillIndex = skilltype;
+        // 移動速度
+        float movespeed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Movespeed;
+        // 移動方向
+        // ロックオン且つ本体角度が0でない時、相手の方向を移動方向とする
+        if (IsRockon && this.transform.rotation.eulerAngles.y != 0)
+        {
+            // ロックオン対象を取得
+            var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
+            // ロックオン対象の座標
+            Vector3 targetpos = target.transform.position;
+            // 上記の座標は足元を向いているので、自分の高さに補正する
+            targetpos.y = transform.position.y;
+            // 自機の座標
+            Vector3 mypos = transform.position;
+            // 自機をロックオン対象に向ける
+            transform.rotation = Quaternion.LookRotation(mypos - targetpos);
+            // 方向ベクトルを向けた方向に合わせる            
+            MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
+        }
+        // 本体角度が0の場合カメラの方向を移動方向とし、正規化して代入する
+        else if (this.transform.rotation.eulerAngles.y == 0)
+        {
+            // ただしそのままだとカメラが下を向いているため、一旦その分は補正する
+            Quaternion rotateOR = MainCamera.transform.rotation;
+            Vector3 rotateOR_E = rotateOR.eulerAngles;
+            rotateOR_E.x = 0;
+            rotateOR = Quaternion.Euler(rotateOR_E);
+            this.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+        }
+        // それ以外は本体の角度を移動方向にする
+        else
+        {
+            this.MoveDirection = Vector3.Normalize(this.transform.rotation * Vector3.forward);
+        }
+        // アニメーション速度
+        float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
+
+        // アニメーションを再生する
+        animator.Play(wrestlehash);
+               
+        // アニメーションの速度を調整する
+        animator.speed = speed;
+        // 移動速度を調整する
+        this.WrestlSpeed = movespeed;
+    }
+
+    /// <summary>
+    /// 回り込み近接・左(相手の斜め前へ移動して回り込むタイプ）
+    /// </summary>
+    /// <param name="animator">格闘攻撃の種類</param>
+    /// <param name="skilltype">スキルのインデックス(キャラごとに異なる)</param>
+    /// <param name="wrestlehash">使用する格闘のハッシュID</param>
+    protected virtual void WrestleDone_GoAround_Left(Animator animator, int skilltype,int wrestlehash)
+    {
+        // 追加入力フラグをカット
+        this.AddInput = false;
+        // ステートを設定する
+        // skilltypeのインデックス(格闘系はSkillType.Wrestle1+Xなので、Xにwrestletypeを代入）
+        int skillIndex = skilltype;
+        // 移動速度
+        float movespeed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Movespeed;
+        // 移動方向
+        // ロックオン且つ本体角度が0でない時、相手の左側を移動方向とする（通常時のロックオン時左移動をさせつつ前進させる）
+        if (IsRockon && this.transform.rotation.eulerAngles.y != 0)
+        {
+            // ロックオン対象を取得
+            var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
+            // ロックオン対象の座標
+            Vector3 targetpos = target.transform.position;
+            // 自機の座標
+            Vector3 mypos = transform.position;
+            // 自機をロックオン対象に向ける
+            transform.rotation = Quaternion.LookRotation(mypos - targetpos);
+            // 自機をロックオン対象の左側に向ける(上記の角度から45度ずらす）
+            Vector3 addrot = new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y - 10, transform.rotation.eulerAngles.z);
+            // クォータニオンに変換
+            Quaternion addrot_Q = Quaternion.Euler(addrot);
+            // 方向ベクトルを向けた方向に合わせる            
+            MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
+        }
+        // 本体角度が0の場合カメラの方向に45度足した値をを移動方向とし、正規化して代入する
+        else if (this.transform.rotation.eulerAngles.y == 0)
+        {
+            // ただしそのままだとカメラが下を向いているため、一旦その分は補正する
+            Quaternion rotateOR = MainCamera.transform.rotation;
+            Vector3 rotateOR_E = rotateOR.eulerAngles;
+            rotateOR_E.x = 0;
+            rotateOR_E.y = rotateOR.eulerAngles.y - 10;
+            rotateOR = Quaternion.Euler(rotateOR_E);
+            this.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+        }
+        // それ以外は本体の角度+45度を移動方向にする
+        else
+        {
+            Vector3 addrot = this.transform.eulerAngles;
+            addrot.y = addrot.y - 10;
+            Quaternion addrot_Q = Quaternion.Euler(addrot);
+            this.MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
+        }
+        // アニメーション速度
+        float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
+        // アニメーションを再生する
+        animator.Play(wrestlehash);
+
+        // アニメーションの速度を調整する
+        animator.speed = speed;
+        // 移動速度を調整する
+        this.WrestlSpeed = movespeed;
+    }
+
+
+    /// <summary>
+    /// 回り込み近接・右(相手の斜め前へ移動して回り込むタイプ）
+    /// </summary>
+    /// <param name="animator">制御対象のanimator</param>
+    /// <param name="skilltype">スキルのインデックス/キャラごとに異なる</param>
+    /// <param name="wrestlehash">使用する格闘のハッシュID</param>
+    protected virtual void WrestleDone_GoAround_Right(Animator animator, int skilltype, int wrestlehash)
+    {
+        // 追加入力フラグをカット
+        this.AddInput = false;
+        // ステートを設定する
+        // skilltypeのインデックス(格闘系はSkillType.Wrestle1+Xなので、Xにwrestletypeを代入）
+        int skillIndex = skilltype;
+        // 移動速度
+        float movespeed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Movespeed;
+        // 移動方向
+        // ロックオン且つ本体角度が0でない時、相手の左側を移動方向とする（通常時のロックオン時左移動をさせつつ前進させる）
+        if (IsRockon && this.transform.rotation.eulerAngles.y != 0)
+        {
+            // ロックオン対象を取得
+            var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
+            // ロックオン対象の座標
+            Vector3 targetpos = target.transform.position;
+            // 自機の座標
+            Vector3 mypos = transform.position;
+            // 自機をロックオン対象に向ける
+            transform.rotation = Quaternion.LookRotation(mypos - targetpos);
+            // 自機をロックオン対象の左側に向ける(上記の角度から45度ずらす）
+            Vector3 addrot = new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + 10, transform.rotation.eulerAngles.z);
+            // クォータニオンに変換
+            Quaternion addrot_Q = Quaternion.Euler(addrot);
+            // 方向ベクトルを向けた方向に合わせる            
+            MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
+        }
+        // 本体角度が0の場合カメラの方向に45度足した値をを移動方向とし、正規化して代入する
+        else if (this.transform.rotation.eulerAngles.y == 0)
+        {
+            // ただしそのままだとカメラが下を向いているため、一旦その分は補正する
+            Quaternion rotateOR = MainCamera.transform.rotation;
+            Vector3 rotateOR_E = rotateOR.eulerAngles;
+            rotateOR_E.x = 0;
+            rotateOR_E.y = rotateOR.eulerAngles.y + 10;
+            rotateOR = Quaternion.Euler(rotateOR_E);
+            this.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+        }
+        // それ以外は本体の角度+45度を移動方向にする
+        else
+        {
+            Vector3 addrot = this.transform.eulerAngles;
+            addrot.y = addrot.y + 10;
+            Quaternion addrot_Q = Quaternion.Euler(addrot);
+            this.MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
+        }
+        // アニメーション速度
+        float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
+        // アニメーションを再生する
+        animator.Play(wrestlehash);
+
+        // アニメーションの速度を調整する
+        animator.speed = speed;
+        // 移動速度を調整する
+        this.WrestlSpeed = movespeed;
+    }
+
+    /// <summary>
+    /// 後格闘（防御）
+    /// </summary>
+    /// <param name="animator">制御対象のanimator</param>
+    /// <param name="skilltype">スキルのインデックス/キャラごとに異なる</param>
+    /// <param name="wrestlehash">使用する格闘のハッシュID</param>
+    protected virtual void GuardDone(Animator animator, int skilltype, int wrestlehash)
+    {
+        //1．追加入力フラグをカット
+        this.AddInput = false;
+        int skillIndex = skilltype;
+        //2．ロックオンしている場合→自機をロックオン対象に向ける
+        // ロックオン且つ本体角度が0でない時
+        if (IsRockon && this.transform.rotation.eulerAngles.y != 0)
+        {
+            // ロックオン対象を取得
+            var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
+            // ロックオン対象の座標
+            Vector3 targetpos = target.transform.position;
+            // 自機の座標
+            Vector3 mypos = transform.position;
+            // 自機をロックオン対象に向ける
+            transform.rotation = Quaternion.LookRotation(mypos - targetpos);
+            // 方向ベクトルを向けた方向に合わせる            
+            MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
+        }
+        // 本体角度が0の場合カメラの方向を移動方向とし、正規化して代入する
+        else if (this.transform.rotation.eulerAngles.y == 0)
+        {
+            // ただしそのままだとカメラが下を向いているため、一旦その分は補正する
+            Quaternion rotateOR = MainCamera.transform.rotation;
+            Vector3 rotateOR_E = rotateOR.eulerAngles;
+            rotateOR_E.x = 0;
+            rotateOR_E.y += 180;
+            rotateOR = Quaternion.Euler(rotateOR_E);
+            this.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+        }
+        //   ロックオンしていない場合→本体を前方方向へ向ける（現在の自分の角度がカメラ側を向いているので、180度加算してひっくり返す）
+        else
+        {
+            Vector3 addrot = this.transform.eulerAngles;
+            addrot.y = addrot.y + 180;
+            Quaternion addrot_Q = Quaternion.Euler(addrot);
+            this.MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
+        }
+        //3．アニメーション速度を設定する
+        float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
+        // アニメーションを再生する
+        animator.Play(wrestlehash);
+
+        // アニメーションの速度を調整する
+        animator.speed = speed;
+        //7．移動速度を0にする
+        this.WrestlSpeed = 0;
+    }
+
+    // Use this for initialization
+    void Start ()
     {
 	
 	}

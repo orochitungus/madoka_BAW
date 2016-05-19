@@ -200,7 +200,7 @@ public partial class DrawMenu : MonoBehaviour
             {
                 return;
             }
-            if (master.m_timstopmode == CharacterControl_Base.TimeStopMode.PAUSE)
+            if (master.Timestopmode == CharacterControl_Base.TimeStopMode.PAUSE)
             {
                 // これをやっておかないとループする
                 if (!m_isDraw)

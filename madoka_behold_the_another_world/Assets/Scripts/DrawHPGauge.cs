@@ -129,7 +129,7 @@ public class DrawHPGauge : MonoBehaviour
         GUI.Label(new Rect(SG_Position.x + 14.0f, SG_Position.y, 1500.0f, 100.0f), "%", "SG_dot");
 
         // 対象の名前をm_Playerから引き出してCharacter_Specの配列から取得して描画
-        string playername = Character_Spec.Name[(int)target.m_character_name];
+        string playername = Character_Spec.Name[(int)target.CharacterName];
         NamePosition.x = 10;
         NamePosition.y = 152;
         GUI.Label(new Rect(NamePosition.x, NamePosition.y, 1500.0f, 100.0f), playername, "Name");

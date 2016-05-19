@@ -15,7 +15,7 @@ public class Scono_Exshot : Laser2
         // 被弾時の挙動を設定
         m_Hittype = Character_Spec.cs[m_CharacterIndex][2].m_Hittype;
         // 攻撃力レベルを取得
-        int StrLevel = m_Obj_OR.GetComponent<CharacterControl_Base>().m_StrLevel;
+        int StrLevel = m_Obj_OR.GetComponent<CharacterControl_Base>().StrLevel;
         // 攻撃力を決定
         m_OffemsivePower = Character_Spec.cs[m_CharacterIndex][2].m_OriginalStr + Character_Spec.cs[m_CharacterIndex][2].m_GrowthCoefficientStr * (StrLevel - 1);
         // ダウン値を決定
