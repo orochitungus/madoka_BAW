@@ -3,10 +3,10 @@ BGM‚ÆSE‚ÍƒTƒEƒ“ƒhƒ}ƒl[ƒWƒƒ[ˆË‘¶‚É‚·‚é(Žž·‚µ‘Ö‚¦j
 ’eŠÛ•ÛŽ‚Í–{‘Ì‚É‚·‚éiŽËoŽž‚ÉØ‚è—£‚µA‚È‚­‚È‚Á‚½‚ç‚»‚Ì“s“xì‚è”ñƒAƒNƒeƒBƒu‚É‚·‚éjBƒŒ[ƒU[Œn‚ÍƒLƒƒƒ“ƒZƒ‹‚©”í’e‚ÅÁ‚¦‚é‚Ì‚Å‚PŒÂ‚ÅOKjBs‚«‚½ê‡‚Í‹­§“I‚ÉÁ‚µ‚Ä–{‘Ì‚ÉƒŠƒ[ƒh‚³‚¹‚éj
 	ƒƒbƒNƒIƒ“ƒJ[ƒ\ƒ‹‚Í“G‚É’u‚«AƒƒbƒN‚µ‚½‚çƒAƒNƒeƒBƒu‚·‚é‚æ‚¤‚É‚·‚éi‘Ì—ÍƒQ[ƒW‚àã•\Ž¦j
 
-Mecanim€‹’‚ÌCharacterControlBase‚ðì‚é(Damage.cs Wrestle.cs Animation.cs‚àC³j
-														¨5/18
-	ƒŠƒo[ƒTƒ‹’†–³“Gó‘Ô‚É‚·‚é
-	ƒXƒe[ƒg‚ÍAnimator‚Å§Œä‚·‚é‚æ‚¤‚É‚·‚éiŠî–{“®ì‚Ì“o˜^”Ô†‚Ì‚Ý‘‚¢‚Ä‚¨‚­B•‘•Žg—pŠÖ˜A‚Í”h¶æ‚Éj
+CharacterControleBase‚ðMechanim€‹’‚É·‚µ‘Ö‚¦‚é			¨5/18
+	ƒŠƒo[ƒTƒ‹‚Ì–³“GŽžŠÔ‚ðì¬‚·‚é
+
+ˆË—ŠƒŠƒXƒg‚ðì¬‚·‚éBæmŽqAƒCƒUƒxƒ‹Aƒ~ƒqƒƒƒGƒ‰		¨5/20
 
 í“¬ƒCƒ“ƒ^[ƒtƒF[ƒX‚ðUGUI‚É·‚µ‘Ö‚¦‚é					¨5/22
 
@@ -16,7 +16,7 @@ Mecanim€‹’‚ÌCharacterControlBase‚ðì‚é(Damage.cs Wrestle.cs Animation.cs‚àC³
 
 ƒƒbƒNƒIƒ“ƒJ[ƒ\ƒ‹‚ðo‚é‚æ‚¤‚É‚·‚é						¨6/1
 
-PauseController‚ðŽg—p‰Â”\‚É‚·‚éi]—ˆ‚Ì‚Ü‚Ü‚Å‚ÍƒIƒuƒWƒFƒNƒg‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg‚ª‘S•”Á‚¦‚éHj
+PauseController‚ðŽg—p‰Â”\‚É‚·‚éi]—ˆ‚Ì‚Ü‚Ü‚Å‚ÍƒIƒuƒWƒFƒNƒg‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg‚ª‘S•”Á‚¦‚éH‹|‚Ù‚Þ‚çì¬‚Æ•½sì‹ÆBŠoÁŠÖ˜A‚Å‚Ç‚Ì“¹Žg‚¤j
 														¨6/4
 
 ã‹LƒNƒ‰ƒX‚ðŒp³‚µ‚ÄƒXƒRƒm‚ðì¬‚·‚é(ã’…‚Æ”¯‚ÆƒXƒJ[ƒg‚Æ–XŽqü‚è‚Í•¨—‰‰ŽZ‚ð“K—p‚·‚é‚½‚ßƒAƒjƒ‚ð“ü‚ê‚È‚¢j
@@ -141,6 +141,32 @@ TalkSystem‚Ì‚«o‚µ‚Ì‘å‚«‚³‚ðƒCƒxƒ“ƒgƒV[ƒ“‚Ì‚»‚ê‚Æˆê’v‚³‚¹‚é
 ƒQƒ‹ƒgƒ‹[ƒg‚ÌŽg‚¢–‚‚ðì‚é
 
 ƒ}ƒ~i§•žj‚ðì‚é
+
+ƒ}ƒ~‚Ì•”‰®‚ðì‚é
+
+”pƒrƒ‹‚ðì‚é
+
+‹±‰î•ƒ‚ðì‚é
+
+ƒVƒƒƒ‹ƒƒbƒeƒXƒe[ƒW‚ðì‚é
+
+ƒVƒƒƒ‹ƒƒbƒe‚ÌŽg‚¢–‚‚ðì‚é
+
+ƒVƒƒƒ‹ƒƒbƒe‚ðì‚éi‘æ1E‘æ2‘o•ûj
+
+‚³‚â‚©i–‚–@­—j‚ðì‚é
+
+ƒLƒ‹ƒXƒeƒ“ƒXƒe[ƒW‚ðì‚é
+
+ƒLƒ‹ƒXƒeƒ“‚ÌŽg‚¢–‚‚ðì‚é
+
+ƒLƒ‹ƒXƒeƒ“‚ðì‚é
+
+ˆÇŽq‚ðì‚é
+
+‚ä‚Ü‚ðì‚é
+
+ƒzƒeƒ‹‚ÌˆÇŽq‚Ì•”‰®‚ðì‚é
 
 
 
