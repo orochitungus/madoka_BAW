@@ -7,7 +7,7 @@ public partial class CharacterControl_Base : MonoBehaviour
 {   
    
     private bool Explode;                 // 死亡エフェクトの存在
-    private static int m_DamageLess = 2;    // この値×防御力分ダメージが減衰する
+    private static int DamageLess = 2;    // この値×防御力分ダメージが減衰する
 
 
     // 被弾時HPを減少させる。SendMessageで弾丸などから呼ばれる
@@ -24,7 +24,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     public void DamageHP(int attackedcharacter, int damage)
     {
         // 防御力分ダメージを減衰する
-        damage -= DefLevel * m_DamageLess;
+        damage -= DefLevel * DamageLess;
         if (damage <= 0)
         {
             damage = 1;

@@ -773,7 +773,17 @@ public class CharacterControlBase : MonoBehaviour
 	/// <summary>
 	/// 死亡エフェクトの存在
 	/// </summary>
-	private bool Explode; 
+	private bool Explode;
+
+	/// <summary>
+	/// この値×防御力分ダメージが減衰する
+	/// </summary>
+	private static int DamageLess = 2;
+
+	/// <summary>
+	/// 無敵であるか否か（リバーサル等で使う）
+	/// </summary>
+	public bool Invincible;
 
 	/// <summary>
 	/// プレイヤーのレベル設定を行う
@@ -3318,7 +3328,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <summary>
     /// 歩き撃ちのアニメーションを戻す
     /// </summary>
-    protected void ReturnMotion(Animator animator, int runhash, int idlehash, int fallhash)
+    protected virtual void ReturnMotion(Animator animator, int runhash, int idlehash, int fallhash)
     {
         
         // 歩き撃ちフラグを折る
@@ -3349,7 +3359,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <summary>
     /// 装填開始（通常射撃）
     /// </summary>
-    protected void ShotDone(Animator animator,int runhash,int shotrunhash,int shotairdashhash,int airdashhash, int shothash)
+    protected virtual void ShotDone(Animator animator,int runhash,int shotrunhash,int shotairdashhash,int airdashhash, int shothash)
     {
         // 一旦空中発射フラグを切る（この辺は他のキャラも考えるべきかもしれない。というかこれはcharacterControl_Baseにおいた方がいいかもしれない
         // 歩き撃ちができない場合もあるから基底にしてオーバーライドが妥当か？
@@ -3374,7 +3384,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <summary>
     /// キャンセル等で本体に弾丸（矢など）があった場合消す
     /// </summary>
-    protected void DestroyArrow()
+    protected virtual void DestroyArrow()
     {
         // 弾があるなら消す(m_ArrowRootの下に何かあるなら全部消す）
         int ChildCount = this.MainShotRoot.transform.childCount;
@@ -3406,7 +3416,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="run">歩き射撃であるか否か</param>
     /// <param name="animator">制御対象のanimator</param>
     /// <param name="idlehash">idleのハッシュID</param>
-    protected void moveshot(bool run, Animator animator, int idlehash)
+    protected virtual void Moveshot(bool run, Animator animator, int idlehash)
     {
         // ロックオン中かつshotmode=RELOADの時は全体を相手の方へ向ける
         if (this.IsRockon && Shotmode != ShotMode.NORMAL && Shotmode != ShotMode.SHOTDONE)
@@ -3905,8 +3915,750 @@ public class CharacterControlBase : MonoBehaviour
         this.WrestlSpeed = 0;
     }
 
-    // Use this for initialization
-    void Start ()
+	/// <summary>
+	/// 前特殊格闘
+	/// </summary>
+	/// <param name="animator">制御対象のanimator</param>
+	/// <param name="skilltype">スキルのインデックス/キャラごとに異なる</param>
+	/// <param name="wrestlehash">使用する格闘のハッシュID</param>
+	protected virtual void WrestleDone_UpperEx(Animator animator, int skilltype, int wrestlehash)
+	{
+		// 追加入力フラグをカット
+		this.AddInput = false;
+		// ステートを変更		
+		int skillIndex = skilltype;
+		// 移動速度取得
+		float movespeed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Movespeed;
+		// ロックオン中なら移動方向をロックオン対象のほうへ固定する
+		if (IsRockon && this.transform.rotation.eulerAngles.y != 0)
+		{
+			// ロックオン対象を取得
+			var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
+			// ロックオン対象の座標
+			Vector3 targetpos = target.transform.position;
+			// 自機の座標
+			Vector3 mypos = transform.position;
+			// 自機をロックオン対象に向ける
+			transform.rotation = Quaternion.LookRotation(mypos - targetpos);
+			// 方向ベクトルを上向きにする            
+			MoveDirection = new Vector3(0, 1, 0);
+		}
+		// 本体角度が0の場合カメラの方向を移動方向とし、正規化して代入する
+		else if (this.transform.rotation.eulerAngles.y == 0)
+		{
+			// 方向ベクトルを上向きにする            
+			MoveDirection = new Vector3(0, 1, 0);
+		}
+		//   ロックオンしていない場合→本体を前方方向へ向ける（現在の自分の角度がカメラ側を向いているので、180度加算してひっくり返す）
+		else
+		{
+			Vector3 addrot = this.transform.eulerAngles;
+			addrot.y = addrot.y + 180;
+			// 方向ベクトルを上向きにする            
+			MoveDirection = new Vector3(0, 1, 0);
+		}
+		// アニメーション速度を設定する
+		float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
+		// AnimStateを変更する
+		animator.Play(wrestlehash);
+		// アニメーションの速度を調整する
+		animator.speed = speed;
+		// 移動速度を上にする
+		WrestlSpeed = movespeed;
+	}
+
+	/// <summary>
+	/// 後特殊格闘
+	/// </summary>
+	/// <param name="animator">制御対象のanimator</param>
+	/// <param name="skilltype">スキルのインデックス/キャラごとに異なる</param>
+	/// <param name="wrestlehash">使用する格闘のハッシュID</param>
+	protected virtual void WrestleDone_DownEx(Animator animator, int skilltype, int wrestlehash)
+	{
+		// 追加入力フラグをカット
+		this.AddInput = false;
+		// ステートを変更		
+		int skillIndex = skilltype;
+		// 移動速度取得
+		float movespeed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Movespeed;
+		// ロックオン中なら移動方向をロックオン対象のほうへ固定する
+		if (IsRockon && this.transform.rotation.eulerAngles.y != 0)
+		{
+			// ロックオン対象を取得
+			var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
+			// ロックオン対象の座標
+			Vector3 targetpos = target.transform.position;
+			// 自機の座標
+			Vector3 mypos = transform.position;
+			// 自機をロックオン対象に向ける
+			transform.rotation = Quaternion.LookRotation(mypos - targetpos);
+			// 方向ベクトルを下向きにする            
+			MoveDirection = new Vector3(0, -1, 0);
+		}
+		// 本体角度が0の場合カメラの方向を移動方向とし、正規化して代入する
+		else if (this.transform.rotation.eulerAngles.y == 0)
+		{
+			// 方向ベクトルを下向きにする            
+			MoveDirection = new Vector3(0, -1, 0);
+		}
+		//   ロックオンしていない場合→本体を前方方向へ向ける（現在の自分の角度がカメラ側を向いているので、180度加算してひっくり返す）
+		else
+		{
+			Vector3 addrot = this.transform.eulerAngles;
+			addrot.y = addrot.y + 180;
+			this.transform.rotation = Quaternion.Euler(new Vector3(addrot.x, addrot.y, addrot.z));
+			// 方向ベクトルを下向きにする            
+			MoveDirection = new Vector3(0, -1, 0);
+		}
+		// アニメーション速度を設定する
+		float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
+		// AnimStateを変更する
+		animator.Play(wrestlehash);
+		// アニメーションの速度を調整する
+		animator.speed = speed;
+		// 移動速度を設定する
+		WrestlSpeed = movespeed;
+	}
+
+	/// <summary>
+	/// 格闘終了時に実行	
+	/// </summary>
+	/// <param name="animator"></param>
+	/// <param name="wrestletype">派生先の格闘の種類</param>
+	/// <param name="wrestlehash">派生先の格闘のハッシュID</param>
+	/// <param name="shothash">派生先が通常射撃の場合のハッシュＩＤ</param>
+	/// <param name="runshothash">派生先が走行射撃の場合のハッシュＩＤ</param>
+	/// <param name="airdashshothash">派生先が空中ダッシュ射撃の場合のハッシュＩＤ</param>
+	/// <param name="subshothash">派生先がサブ射撃の場合のハッシュＩＤ</param>
+	protected virtual void WrestleFinish(Animator animator,CharacterSkill.SkillType wrestletype, int wrestlehash,int shothash, int runshothash, int airdashshothash,int subshothash, int exshothash,int idlehash,int fallhash)
+	{
+		// 判定オブジェクトを破棄する.一応くっついているものはすべて削除
+		DestroyWrestle();
+		// 格闘の累積時間を初期化
+		Wrestletime = 0;
+		// 派生ありで入力を持っていたら、次のモーションを再生する
+		if (AddInput && wrestlehash != 0)
+		{
+			// スキルのインデックス
+			CharacterSkill.SkillType skill = CharacterSkill.SkillType.NONE;
+			if(wrestlehash == shothash || wrestlehash == runshothash || wrestlehash == airdashshothash)
+			{
+				if (Nowmode == ModeState.NORMAL)
+				{
+					skill = CharacterSkill.SkillType.SHOT;
+				}
+				else
+				{
+					skill = CharacterSkill.SkillType.SHOT_M2;
+				}
+			}
+			else if(wrestlehash == subshothash)
+			{
+				if (Nowmode == ModeState.NORMAL)
+				{
+					skill = CharacterSkill.SkillType.SUB_SHOT;
+				}
+				else
+				{
+					skill = CharacterSkill.SkillType.SUB_SHOT_M2;
+				}
+			}
+			else if(wrestlehash == exshothash)
+			{
+				if (Nowmode == ModeState.NORMAL)
+				{
+					skill = CharacterSkill.SkillType.EX_SHOT;
+				}
+				else
+				{
+					skill = CharacterSkill.SkillType.EX_SHOT_M2;
+				}
+			}
+			else
+			{	
+				skill = wrestletype;
+			}			
+			WrestleDone(animator,(int)skill,wrestlehash);
+		}
+		// 持っていなかったら、地上→Idleに戻る、空中→Fallに戻る（IdleとFallで追加入力フラグは強制カット）
+		else
+		{
+			if (this.IsGrounded)
+			{
+				animator.Play(idlehash);
+			}
+			else
+			{				
+				_FallStartTime = Time.time;
+				animator.Play(fallhash);
+			}
+		}
+	}
+
+	/// <summary>
+	/// 格闘判定出現時に実行（一応派生は認めておく。専用のはそっちで利用）
+	/// </summary>
+	/// <param name="wrestletype">格闘攻撃の種類</param>
+	protected virtual void WrestleStart(WrestleType wrestletype)
+	{
+		// 判定を生成し・フックと一致させる  
+		Vector3 pos = WrestleRoot[(int)wrestletype].transform.position;
+		Quaternion rot = WrestleRoot[(int)wrestletype].transform.rotation;
+		var obj = (GameObject)Instantiate(WrestleObject[(int)wrestletype], pos, rot);
+		// 親子関係を再設定する(=判定をフックの子にする）
+		if (obj.transform.parent == null)
+		{
+			obj.transform.parent = WrestleRoot[(int)wrestletype].transform;
+			// 親子関係を付けておく
+			obj.transform.GetComponent<Rigidbody>().isKinematic = true;
+		}
+
+		// ステートを設定する
+		// skilltypeのインデックス(格闘系はSkillType.Wrestle1+Xなので、Xにwrestletypeを代入）
+		int skillIndex = 0;/*(int)CharacterSkill.SkillType.WRESTLE_1 + (int)wrestletype;*/
+
+		// キャラごとに構成が異なるので、ここで処理分岐(入力が格闘でありながら、動作が格闘でない技を持つキャラが多くいる）
+		switch (CharacterName)
+		{
+			case Character_Spec.CHARACTER_NAME.MEMBER_MADOKA:
+				if (wrestletype == WrestleType.WRESTLE_1)
+					skillIndex = 4;
+				else if (wrestletype == WrestleType.WRESTLE_2)
+					skillIndex = 5;
+				else if (wrestletype == WrestleType.WRESTLE_3)
+					skillIndex = 6;
+				else if (wrestletype == WrestleType.FRONT_WRESTLE_1)
+					skillIndex = 8;
+				else if (wrestletype == WrestleType.LEFT_WRESTLE_1)
+					skillIndex = 9;
+				else if (wrestletype == WrestleType.RIGHT_WRESTLE_1)
+					skillIndex = 10;
+				else if (wrestletype == WrestleType.BACK_WRESTLE)
+					skillIndex = 11;
+				else if (wrestletype == WrestleType.AIRDASH_WRESTLE)
+					skillIndex = 12;
+				else if (wrestletype == WrestleType.EX_FRONT_WRESTLE_1)
+					skillIndex = 14;
+				else if (wrestletype == WrestleType.BACK_EX_WRESTLE)
+					skillIndex = 15;
+				break;
+			case Character_Spec.CHARACTER_NAME.MEMBER_UL_MADOKA:
+				break;
+			case Character_Spec.CHARACTER_NAME.MEMBER_SAYAKA:
+				break;
+			case Character_Spec.CHARACTER_NAME.MEMBER_MAMI:
+				break;
+			case Character_Spec.CHARACTER_NAME.MEMBER_HOMURA:
+				break;
+			case Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B:
+				if (wrestletype == WrestleType.WRESTLE_1)
+					skillIndex = 4;
+				else if (wrestletype == WrestleType.WRESTLE_2)
+					skillIndex = 5;
+				else if (wrestletype == WrestleType.WRESTLE_3)
+					skillIndex = 6;
+				else if (wrestletype == WrestleType.FRONT_WRESTLE_1)
+					skillIndex = 7;
+				else if (wrestletype == WrestleType.LEFT_WRESTLE_1)
+					skillIndex = 8;
+				else if (wrestletype == WrestleType.RIGHT_WRESTLE_1)
+					skillIndex = 9;
+				else if (wrestletype == WrestleType.BACK_WRESTLE)
+					skillIndex = 10;
+				else if (wrestletype == WrestleType.AIRDASH_WRESTLE)
+					skillIndex = 11;
+				else if (wrestletype == WrestleType.EX_WRESTLE_1)
+					skillIndex = 12;
+				else if (wrestletype == WrestleType.EX_FRONT_WRESTLE_1)
+					skillIndex = 13;
+				else if (wrestletype == WrestleType.BACK_EX_WRESTLE)
+					skillIndex = 14;
+				break;
+			case Character_Spec.CHARACTER_NAME.MEMBER_KYOKO:
+
+				break;
+			case Character_Spec.CHARACTER_NAME.MEMBER_YUMA:
+				if (wrestletype == WrestleType.WRESTLE_1)
+					skillIndex = 3;
+				else if (wrestletype == WrestleType.WRESTLE_2)
+					skillIndex = 4;
+				else if (wrestletype == WrestleType.WRESTLE_3)
+					skillIndex = 5;
+				else if (wrestletype == WrestleType.FRONT_WRESTLE_1)
+					skillIndex = 6;
+				else if (wrestletype == WrestleType.LEFT_WRESTLE_1)
+					skillIndex = 7;
+				else if (wrestletype == WrestleType.RIGHT_WRESTLE_1)
+					skillIndex = 8;
+				else if (wrestletype == WrestleType.BACK_WRESTLE)
+					skillIndex = 9;
+				else if (wrestletype == WrestleType.AIRDASH_WRESTLE)
+					skillIndex = 10;
+				else if (wrestletype == WrestleType.EX_FRONT_WRESTLE_1)
+					skillIndex = 12;
+				else if (wrestletype == WrestleType.BACK_EX_WRESTLE)
+					skillIndex = 13;
+				break;
+			case Character_Spec.CHARACTER_NAME.MEMBER_ORIKO:
+				break;
+			case Character_Spec.CHARACTER_NAME.MEMBER_KIRIKA:
+				break;
+			case Character_Spec.CHARACTER_NAME.MEMBER_SCHONO:
+				if (wrestletype == WrestleType.WRESTLE_1)
+					skillIndex = 3;
+				else if (wrestletype == WrestleType.WRESTLE_2)
+					skillIndex = 4;
+				else if (wrestletype == WrestleType.WRESTLE_3)
+					skillIndex = 5;
+				else if (wrestletype == WrestleType.FRONT_WRESTLE_1)
+					skillIndex = 6;
+				else if (wrestletype == WrestleType.LEFT_WRESTLE_1)
+					skillIndex = 7;
+				else if (wrestletype == WrestleType.RIGHT_WRESTLE_1)
+					skillIndex = 8;
+				else if (wrestletype == WrestleType.BACK_WRESTLE)
+					skillIndex = 9;
+				else if (wrestletype == WrestleType.AIRDASH_WRESTLE)
+					skillIndex = 10;
+				else if (wrestletype == WrestleType.EX_WRESTLE_1)
+					skillIndex = 11;
+				else if (wrestletype == WrestleType.EX_FRONT_WRESTLE_1)
+					skillIndex = 12;
+				else if (wrestletype == WrestleType.BACK_EX_WRESTLE)
+					skillIndex = 13;
+				break;
+			case Character_Spec.CHARACTER_NAME.ENEMY_MAJYU:
+				if (wrestletype == WrestleType.WRESTLE_1)
+					skillIndex = 1;
+				else if (wrestletype == WrestleType.WRESTLE_2)
+					skillIndex = 2;
+				else if (wrestletype == WrestleType.WRESTLE_3)
+					skillIndex = 3;
+				else if (wrestletype == WrestleType.FRONT_WRESTLE_1)
+					skillIndex = 4;
+				else if (wrestletype == WrestleType.BACK_WRESTLE)
+					skillIndex = 5;
+				else if (wrestletype == WrestleType.AIRDASH_WRESTLE)
+					skillIndex = 6;
+				else if (wrestletype == WrestleType.EX_FRONT_WRESTLE_1)
+					skillIndex = 7;
+				else if (wrestletype == WrestleType.BACK_EX_WRESTLE)
+					skillIndex = 8;
+				break;
+		}
+
+
+
+		// 格闘判定を拾う
+		var wrestleCollision = GetComponentInChildren<Wrestle_Core>();
+
+		// 各ステートを計算する
+		// 攻撃力
+		int offensive = Character_Spec.cs[(int)CharacterName][skillIndex].m_OriginalStr + Character_Spec.cs[(int)CharacterName][skillIndex].m_GrowthCoefficientStr * (this.StrLevel - 1);
+		// ダウン値
+		float downR = Character_Spec.cs[(int)CharacterName][skillIndex].m_DownPoint;
+		// 覚醒ゲージ増加量
+		float arousal = Character_Spec.cs[(int)CharacterName][skillIndex].m_arousal + Character_Spec.cs[(int)CharacterName][skillIndex].m_GrowthCoefficientStr * (this.StrLevel - 1);
+		// ヒットタイプ
+		CharacterSkill.HitType hittype = Character_Spec.cs[(int)CharacterName][skillIndex].m_Hittype;
+		// 打ち上げ量（とりあえず固定）
+
+		// 格闘時に加算する力（固定）
+
+		// 判定のセッティングを行う
+		wrestleCollision.SetStatus(offensive, downR, arousal, hittype);	
+	}
+
+	// 後格闘（防御）判定出現時に実行
+	protected virtual void GuardStart()
+	{
+		// 判定を生成し・フックと一致させる  
+		Vector3 pos = WrestleRoot[(int)WrestleType.BACK_WRESTLE].transform.position;
+		Quaternion rot = WrestleRoot[(int)WrestleType.BACK_WRESTLE].transform.rotation;
+		var obj = (GameObject)Instantiate(WrestleObject[(int)WrestleType.BACK_WRESTLE], pos, rot);
+		// 親子関係を再設定する(=判定をフックの子にする）
+		if (obj.transform.parent == null)
+		{
+			obj.transform.parent = WrestleRoot[(int)WrestleType.BACK_WRESTLE].transform;
+			// 親子関係を付けておく
+			obj.transform.GetComponent<Rigidbody>().isKinematic = true;
+		}
+
+	}
+
+
+	/// <summary>
+	/// 被弾時HPを減少させる。SendMessageで弾丸などから呼ばれる
+	/// </summary>
+	/// <param name="arr">攻撃したキャラクター/与えるダメージ量</param>
+	public void DamageHP(int[] arr)
+	{
+		int attackedcharacter = arr[0];
+		int damage = arr[1];
+		DamageHP(attackedcharacter, damage);
+	}
+
+	/// <summary>
+	/// 上記の引数2個指定バージョン
+	/// </summary>
+	/// <param name="attackedcharacter"></param>
+	/// <param name="damage"></param>
+	public void DamageHP(int attackedcharacter, int damage)
+	{
+		// 防御力分ダメージを減衰する
+		damage -= DefLevel * DamageLess;
+		if (damage <= 0)
+		{
+			damage = 1;
+		}
+		this.NowHitpoint -= damage;
+		// 死んだ場合、止めを刺したキャラに経験値が加算されるようにする（味方殺しでは経験値は増えない。また、まどかとアルティメットまどか、弓ほむらと銃ほむらは経験値とLVを共有する）
+		if (IsPlayer == CHARACTERCODE.ENEMY && NowHitpoint < 1)
+		{
+			// 与える経験値の総量
+			int addexp = Character_Spec.Exp[(int)CharacterName];
+			if (savingparameter.GetNowHP(attackedcharacter) > 0)
+			{
+				savingparameter.AddExp(attackedcharacter, addexp);
+				// 銃ほむらの場合、弓ほむらにも加算する
+				if (attackedcharacter == (int)Character_Spec.CHARACTER_NAME.MEMBER_HOMURA)
+				{
+					savingparameter.AddExp((int)Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B, addexp);
+				}
+				// 弓ほむらの場合、銃ほむらにも加算する
+				else if (attackedcharacter == (int)Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B)
+				{
+					savingparameter.AddExp((int)Character_Spec.CHARACTER_NAME.MEMBER_HOMURA, addexp);
+				}
+				// まどかの場合、アルティメットまどかにも加算する
+				else if (attackedcharacter == (int)Character_Spec.CHARACTER_NAME.MEMBER_MADOKA)
+				{
+					savingparameter.AddExp((int)Character_Spec.CHARACTER_NAME.MEMBER_UL_MADOKA, addexp);
+				}
+				// アルティメットまどかの場合、まどかにも加算する
+				else if (attackedcharacter == (int)Character_Spec.CHARACTER_NAME.MEMBER_UL_MADOKA)
+				{
+					savingparameter.AddExp((int)Character_Spec.CHARACTER_NAME.MEMBER_MADOKA, addexp);
+				}
+			}
+		}
+
+		// PCにヒットさせた場合、savingparameterの値も変える
+		if (IsPlayer == CHARACTERCODE.PLAYER || IsPlayer == CHARACTERCODE.PLAYER_ALLY)
+		{
+			int charactername = (int)this.CharacterName;
+			savingparameter.SetNowHP(charactername, NowHitpoint);
+		}
+	}
+
+	/// <summary>
+	/// 被弾側の覚醒ゲージを増加させる。SendMessageで弾丸などから呼ばれる
+	/// </summary>
+	/// <param name="arousal"></param>
+	public void DamageArousal(float arousal)
+	{
+		Arousal += arousal;
+		// PCにヒットさせた場合、savingparameterの値も変える
+		if (IsPlayer == CHARACTERCODE.PLAYER || IsPlayer == CHARACTERCODE.PLAYER_ALLY)
+		{
+			int charactername = (int)this.CharacterName;
+			savingparameter.SetNowArousal(charactername, Arousal);
+		}
+	}
+
+	// 被弾時ダウン値を加算させる
+	public void DownRateInc(float downratio)
+	{
+		NowDownRatio += downratio;
+	}
+
+	// エフェクト破壊関数
+	protected void BrokenEffect()
+	{
+		// ステップ
+		if (gameObject.transform.FindChild("StepEffect(Clone)") != null)
+		{
+			Destroy(gameObject.transform.FindChild("StepEffect(Clone)").gameObject);
+		}
+		// 格闘ステップキャンセル
+		if (gameObject.transform.FindChild("StepEffectCancel(Clone)") != null)
+		{
+			Destroy(gameObject.transform.FindChild("StepEffectCancel(Clone)").gameObject);
+		}
+	}
+
+	// 被弾時ステートを変える 
+	public virtual void DamageInit(Animator animator, int damagehash,int blowinithash,int blowhash,int spindownhash)
+	{
+		// くっついているエフェクトを消す
+		BrokenEffect();
+		// くっついている格闘判定を消す
+		DestroyWrestle();
+		// 継承先で本体にくっついていたオブジェクトをカット
+		// m_DownRebirthTimeのカウントを開始
+		// 入力をポーズ以外すべて禁止
+		// ダメージアニメーションを再生
+		// 動作及び慣性をカット
+		// 飛び越えフラグをカット
+		// のけぞりならDamageInit→DamageDoneを呼ぶ
+		// 吹き飛びならDamageInit→BlowDoneを呼ぶ
+
+		// m_DownRebirthTimeのカウントを開始
+		DownRebirthTime = Time.time;
+
+		// （継承先で本体にくっついていたオブジェクトをカット）
+		// （UpdateCoreで入力をポーズ以外すべて禁止）
+		// ダメージアニメーションを再生
+		//Debug.Log(m_AnimationNames[(int)AnimationState.Damage]);
+		animator.Play(damagehash);
+
+
+		// 動作及び慣性をカット
+		this.MoveDirection = Vector3.zero;
+		// 飛び越えフラグをカット	
+		this.Rotatehold = false;
+
+		// 固定状態をカット
+		this.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+		// ずれた本体角度を戻す(Yはそのまま）
+		this.transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0));
+		this.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+
+
+
+		// 死亡時は強制吹き飛び属性
+		if (this.NowHitpoint < 1)
+		{
+			// 属性がEnemyなら爆発エフェクトを貼り付ける
+			if (this.IsPlayer == CHARACTERCODE.ENEMY)
+			{
+				// エフェクトをロードする
+				Object Explosion = Resources.Load("Explosion_death");
+				// 現在の自分の位置にエフェクトを置く
+				var obj = (GameObject)Instantiate(Explosion, transform.position, transform.rotation);
+				// 親子関係を再設定する
+				obj.transform.parent = this.transform;
+				// 死亡爆発が起こったというフラグを立てる
+				this.Explode = true;
+			}
+			animator.Play(blowinithash);
+			NowDownRatio = 5;
+		}
+
+
+		// 吹き飛び
+		if (animator.GetHashCode() == blowinithash)
+		{
+			BlowDone(animator,spindownhash,blowhash);
+		}
+		// のけぞりならDamageInit→DamageDoneを呼ぶ
+		else
+		{
+			DamageDone(animator,damagehash);
+		}
+
+	}
+
+	// のけぞりダメージ時、ダメージの処理を行う
+	public virtual void DamageDone(Animator animator, int damagehash)
+	{
+		// 重力をカット
+		// ダメージ硬直の計算開始
+		// ステートをDamageに切り替える
+
+		// 重力をカット
+		this.GetComponent<Rigidbody>().useGravity = false;
+		// ダメージ硬直の計算開始
+		DamagedTime = Time.time;
+		// ステートをDamageに切り替える
+		animator.Play(damagehash);
+	}
+
+	// 吹き飛びダメージ時、ダメージの処理を行う
+	public virtual void BlowDone(Animator animator,int spindownhash,int blowhash)
+	{
+		// Rotateの固定を解除        
+		// 重力を復活
+		// ステートをBlowへ切り替える
+		// ダウン値がMAXならステートをDownに切り替える
+		// ダウンアニメを再生する
+		// m_launchOffsetだけ浮かし、攻撃と同じベクトルを与える。ここの値はm_BlowDirectionに保存したものを使う
+
+
+		// 重力を復活
+		this.GetComponent<Rigidbody>().useGravity = true;
+		// 固定していた場合、固定解除
+		this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+
+		// 錐揉みダウン（ダウン値MAX）なら錐揉みダウンアニメを再生し、ステートをSpinDownへ切り替える
+		if (this.NowDownRatio >= this.DownRatioBias)
+		{
+			// 錐揉みダウンアニメを再生する
+			animator.Play(spindownhash);
+			// 無敵をONにする
+			Invincible = true;
+		}
+		// そうでないならステートをBlowに切り替える
+		else
+		{
+			// Rotateの固定を解除        
+			GetComponent<Rigidbody>().freezeRotation = false;
+			// ダウンアニメを再生する
+			animator.Play(blowhash);
+		}
+		// 攻撃と同じベクトルを与える。ここの値はm_BlowDirectionに保存したものを使う
+		// TODO:Velocityで飛ばしてるのでMoveDirectionに変えてそれで飛ばす
+		RigidBody.AddForce(this.BlowDirection.x*10, 10, this.BlowDirection.z*10);
+	}
+
+	// ダメージ(のけぞり）
+	public virtual void Damage(Animator animator, int damagehash,int idlehash,int blowhash)
+	{
+		// TODO:移行後復活 
+		// IsStep = false;
+		// IsWrestle = false;
+		// ダメージ硬直終了
+		if (Time.time > DamagedTime + DamagedWaitTime)
+		{
+			// 空中にいた→ダウンアニメを再生する→Blowへ移行（飛ばされない）
+			if (!this.IsGrounded)
+			{
+				// Rotateの固定を解除        
+				RigidBody.freezeRotation = false;
+				// ダウンアニメを再生する
+				animator.Play(blowhash);
+				// 重力を復活
+				this.GetComponent<Rigidbody>().useGravity = true;				
+			}
+			// 地上にいた→Idleへ移行し、Rotateをすべて0にして固定する
+			else
+			{
+				RigidBody.useGravity = true;
+				animator.Play(idlehash);
+			}
+		}
+	}
+
+	// 吹き飛び
+	protected virtual void Blow(Animator animator,int downhash,int reversalhash)
+	{
+		// 接地までなにもせず、接地したらDownへ移行し、m_DownTimeを計算する
+		// ブースト入力があった場合、ダウン値がMAX未満でブーストゲージが一定量あれば、Reversalへ変更	
+		// ブースト量を減らす
+		// rotationを0にして復帰アニメを再生する
+		// 再固定する
+		// ステートを復帰にする
+
+		// 接地までなにもせず、接地したらDownへ移行し、m_DownTimeを計算する
+		if (this.IsGrounded)
+		{
+			animator.Play(downhash);
+			// downへ移行
+			this.DownTime = Time.time;
+			// 速度を0まで落とす（吹き飛び時のベクトルを消す）
+			this.MoveDirection = Vector3.zero;
+			// 回転を戻す
+			// rotationの固定を復活させ、0,0,0にする
+			this.GetComponent<Rigidbody>().rotation = Quaternion.Euler(Vector3.zero);
+		}
+		// ブースト入力があった場合、ダウン値がMAX未満でブーストゲージが一定量あれば、Reversalへ変更	
+		// rotationを0にして復帰アニメを再生する
+		else if (this.NowDownRatio <= DownRatioBias &&  this.HasJumpInput && Boost >= ReversalUseBoost)
+		{
+			// ブースト量を減らす
+			this.Boost -= this.ReversalUseBoost;
+			// 復帰処理を行う
+			ReversalInit(animator,reversalhash);
+		}
+	}
+
+	// 錐揉みダウン
+	protected virtual void SpinDown(Animator animator,int downhash)
+	{
+		// 落下に入ったら落下速度を調整する
+		MoveDirection.y = MadokaDefine.FALLSPEED;
+
+		// 基本Blowと同じだが、着地と同時にアニメをダウンに切り替える
+		if (IsGrounded)
+		{
+			// downへ移行
+			animator.Play(downhash);
+			this.DownTime = Time.time;
+			// 速度を0まで落とす（吹き飛び時のベクトルを消す）
+			this.MoveDirection = Vector3.zero;
+			// 回転を戻す
+			// rotationの固定を復活させ、0,0,0にする
+			this.GetComponent<Rigidbody>().rotation = Quaternion.Euler(Vector3.zero);
+		}
+	}
+
+
+
+	// ダウン
+	protected virtual void Down(Animator animator,int reversalhash)
+	{
+		// rotationの固定を復活させ、0,0,0にする
+		this.GetComponent<Rigidbody>().rotation = Quaternion.Euler(Vector3.zero);
+		this.GetComponent<Rigidbody>().freezeRotation = true;
+
+		// m_DownTimeが規定値を超えると、復帰アニメを再生する
+		if (Time.time > DownTime + DownWaitTime)
+		{
+			// ただし自機側ではHP0だと復活させない
+			if (IsPlayer == CHARACTERCODE.PLAYER || IsPlayer == CHARACTERCODE.PLAYER_ALLY)
+			{
+				if (NowHitpoint < 1)
+				{
+					return;
+				}
+			}
+			ReversalInit(animator,reversalhash);
+		}
+	}
+
+	// ダウン復帰
+	protected virtual void Reversal()
+	{
+
+
+	}
+
+	// ダウン復帰後処理（ダウン復帰アニメの最終フレームに実装）
+	protected virtual void ReversalComplete(Animator animator, int idlehash)
+	{
+		// 復帰アニメが終わると、Idleにする
+		// ダウン値を0に戻す
+		this.NowDownRatio = 0.0f;
+		// m_DownRebirthTimeを0にする
+		this.DownRebirthTime = 0;
+		// ステートをIdleに戻す
+		animator.Play(idlehash);
+		// m_DownTimeを0にする
+		this.DownTime = 0;
+		// 無敵時間を解除する
+		StartCoroutine(InvincibleCut());
+	}
+
+	
+	public IEnumerator InvincibleCut()
+	{
+		yield return new WaitForSeconds(1.0f);
+		Invincible = false;
+	}
+
+	// 復帰処理
+	protected void ReversalInit(Animator animator,int reversalhash)
+	{
+		// rotationの固定を復活させ、0,0,0にする
+		this.GetComponent<Rigidbody>().rotation = Quaternion.Euler(Vector3.zero);
+		// 再固定する
+		this.GetComponent<Rigidbody>().freezeRotation = true;
+		// ステートを復帰にする
+		animator.Play(reversalhash);
+	}
+
+	// Use this for initialization
+	void Start ()
     {
 	
 	}
