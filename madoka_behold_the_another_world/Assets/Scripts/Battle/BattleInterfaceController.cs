@@ -62,7 +62,7 @@ public class BattleInterfaceController : MonoBehaviour
     /// <summary>
     /// Information表示部分
     /// </summary>
-    public Text InformatinText;
+    public Text InformationText;
 
     /// <summary>
     /// 覚醒ゲージ
