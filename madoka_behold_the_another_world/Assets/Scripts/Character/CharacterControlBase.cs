@@ -659,7 +659,7 @@ public class CharacterControlBase : MonoBehaviour
 	/// <summary>
 	/// コライダの地面からの高さ
 	/// </summary>
-	public float Collider_Height;
+	public float ColliderHeight;
 
 	/// <summary>
 	///  射出する弾の方向ベクトル(スプレッドのときはこれを基準にしてずらす）
@@ -2551,7 +2551,7 @@ public class CharacterControlBase : MonoBehaviour
 			Debug.LogError("カプセルコライダが見つからない");
 			Application.Quit();
 		}
-		LayOriginOffs = new Vector3(0.0f, Collider_Height, 0.0f);
+		LayOriginOffs = new Vector3(0.0f, ColliderHeight, 0.0f);
 		Laylength = collider.radius + collider.height;// / 2 + 1.5f;//0.2f;
 													  //this.m_layOriginOffs = new Vector3(0.0f, m_Collider_Height, 0.0f);
 													  //this.m_laylength = m_charactercontroller.radius + m_charactercontroller.height / 2 + 1.5f;

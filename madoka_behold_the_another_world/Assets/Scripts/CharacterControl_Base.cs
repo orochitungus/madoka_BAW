@@ -120,11 +120,11 @@ public partial class CharacterControl_Base : MonoBehaviour
     // 時間停止・遅延のmasterであるか否か（これがtrueだと時間停止の影響を受けない.発動者にのみtureにする。）
     public bool TimeStopMaster;
 
-    public float m_Rockon_Range;    // ロックオン距離（この距離を超えて撃つと誘導や補正が入らない）
-    public float m_Rockon_RangeLimit;// ロックオン限界距離（この距離を超えるとロックオン判定に入らない）
+    public float RockonRange;    // ロックオン距離（この距離を超えて撃つと誘導や補正が入らない）
+    public float RockonRangeLimit;// ロックオン限界距離（この距離を超えるとロックオン判定に入らない）
 
     // ジャンプ時間
-    public float m_JumpWaitTime;
+    public float JumpWaitTime;
     public float JumpTime;
 
     // 着地硬直
@@ -138,15 +138,15 @@ public partial class CharacterControl_Base : MonoBehaviour
     public Vector3 MoveDirection;   // 移動方向
     public Vector3 m_MoveDirection_OR;// 射撃などの射出前における移動方向
     public Vector3 BlowDirection;   // ダウンする時や吹き飛び属性の攻撃を食らった時の方向ベクトル
-    public float m_WalkSpeed;         // 移動速度（歩行の場合）
-    public float m_RunSpeed;          // 移動速度（走行の場合）
-    public float m_AirDashSpeed;      // 移動速度（空中ダッシュの場合）
-    public float m_AirMoveSpeed;      // 移動速度（空中慣性移動の場合）
+    public float WalkSpeed;         // 移動速度（歩行の場合）
+    public float RunSpeed;          // 移動速度（走行の場合）
+    public float AirDashSpeed;      // 移動速度（空中ダッシュの場合）
+    public float AirMoveSpeed;      // 移動速度（空中慣性移動の場合）
     public float RiseSpeed;        // 上昇速度
 
 
     // ジャンプ時のブースト消費量
-    protected float m_JumpUseBoost;
+    protected float JumpUseBoost;
 
     // ダッシュキャンセル時のブースト消費量
     protected float DashCancelUseBoost;
@@ -205,13 +205,13 @@ public partial class CharacterControl_Base : MonoBehaviour
     public bool IsArousal;
 
     // ブースト消費量（1Fあたり）
-    public float m_BoostLess;
+    public float BoostLess;
 
     // ステップ移動距離
     public float StepMoveLength;
 
     // ステップ初速（X/Z軸）
-    public float m_Step_Initial_velocity;
+    public float StepInitialVelocity;
     // ステップ時の１F当たりの移動量
     public float StepMove1F;
 
@@ -222,7 +222,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     public Quaternion StepRotation;
 
     // ステップ終了時の硬直時間
-    public float m_StepBackTime;
+    public float StepBackTime;
 
     // 現在のダウン値
     public float NowDownRatio;
@@ -399,7 +399,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     public ModeState Nowmode;
 
     // コライダの地面からの高さ
-    public float Collider_Height;
+    public float ColliderHeight;
 
 
     // 現在の動作の内容
@@ -1364,7 +1364,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     protected void JumpDone()
     {
         m_AnimState[0] = AnimationState.Jump;
-        this.Boost = this.Boost - this.m_JumpUseBoost;
+        this.Boost = this.Boost - this.JumpUseBoost;
         this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.Jump]);
     }
       
@@ -1814,7 +1814,7 @@ public partial class CharacterControl_Base : MonoBehaviour
     {
         StepCancel();
         // 発動中常時ブースト消費
-        this.Boost = this.Boost - this.m_BoostLess;
+        this.Boost = this.Boost - this.BoostLess;
         // ブースト切れ時にFallDone、DestroyWrestleを実行する
         if (Boost <= 0)
         {
@@ -2227,7 +2227,7 @@ public partial class CharacterControl_Base : MonoBehaviour
             Debug.LogError("カプセルコライダが見つからない");
             Application.Quit();
         }
-        LayOriginOffs = new Vector3(0.0f, Collider_Height, 0.0f);
+        LayOriginOffs = new Vector3(0.0f, ColliderHeight, 0.0f);
         Laylength = collider.radius + collider.height;// / 2 + 1.5f;//0.2f;
         //this.m_layOriginOffs = new Vector3(0.0f, m_Collider_Height, 0.0f);
         //this.m_laylength = m_charactercontroller.radius + m_charactercontroller.height / 2 + 1.5f;
@@ -2238,7 +2238,7 @@ public partial class CharacterControl_Base : MonoBehaviour
         this.CurAnimPos = 0;
 
         // ジャンプ硬直
-        JumpTime = -this.m_JumpWaitTime;
+        JumpTime = -this.JumpWaitTime;
 
         // 着地硬直
         LandingTime = -_LandingWaitTime;
@@ -2793,25 +2793,25 @@ public partial class CharacterControl_Base : MonoBehaviour
         // 移動処理はステートの影響を受けないように UpdateAnimation のステートスイッチの前に処理する。
         // ステートごとに処理をする場合、それをメソッド化してそれぞれのステートに置く。
         // 走行速度を変更する、アニメーションステートが Run だった場合 RunSpeed を使う。
-        var MoveSpeed = this.m_RunSpeed;
+        var MoveSpeed = this.RunSpeed;
         // 空中ダッシュ時/空中ダッシュ射撃時
         if (m_AnimState[0] == AnimationState.AirDash || m_AnimState[0] == AnimationState.Shot_AirDash)
         {
             // rigidbodyにくっついている慣性が邪魔なので消す（勝手に落下開始する）
             GetComponent<Rigidbody>().velocity = Vector3.zero;
             GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-            MoveSpeed = this.m_AirDashSpeed;
+            MoveSpeed = this.AirDashSpeed;
         }
         // 空中慣性移動時
         else if (m_AnimState[0] == AnimationState.Jumping || m_AnimState[0] == AnimationState.Fall)
         {           
-            MoveSpeed = this.m_AirMoveSpeed;
+            MoveSpeed = this.AirMoveSpeed;
         }
         // ステップ時(重力補正カット)
         else if (m_AnimState[0] == AnimationState.BackStep || m_AnimState[0] == AnimationState.FrontStep || m_AnimState[0] == AnimationState.LeftStep || m_AnimState[0] == AnimationState.RightStep)
         {
             this.GetComponent<Rigidbody>().useGravity = false;  // 重力無効
-            MoveSpeed = this.m_Step_Initial_velocity;
+            MoveSpeed = this.StepInitialVelocity;
             this.MoveDirection.y = 0;         // Y移動無効            
         }
         // 格闘時(ガード含む）

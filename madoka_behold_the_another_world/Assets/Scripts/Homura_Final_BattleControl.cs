@@ -8,11 +8,11 @@ public class Homura_Final_BattleControl : CharacterControl_Base
 {
     
     // 通常射撃用の用の矢
-    public GameObject m_Insp_NormalArrow;
+    public GameObject NormalArrow;
     // チャージ射撃用の矢
-    public GameObject m_Insp_ChargeShotArrow;
+    public GameObject ChargeShotArrow;
     // サブ射撃用の矢
-    public GameObject m_Insp_SubShotArrow;
+    public GameObject SubShotArrow;
     // 特殊射撃用の矢(中央）
     public GameObject m_Insp_ExShotArrow;
     // 特殊射撃用の矢（左）
@@ -25,11 +25,11 @@ public class Homura_Final_BattleControl : CharacterControl_Base
     public GameObject m_Insp_ArrowRoot_Right;
 
     // メイン射撃撃ち終わり時間
-    private float m_mainshotendtime;
+    private float MainshotEndtime;
     // サブ射撃撃ち終わり時間
-    private float m_subshotendtime;
+    private float SubshotEndtime;
     // 特殊射撃撃ち終わり時間
-    private float m_exshotendtime;
+    private float ExshotEndtime;
     
 
     // 種類（キャラごとに技数は異なるので別々に作らないとアウト
@@ -66,8 +66,8 @@ public class Homura_Final_BattleControl : CharacterControl_Base
     void Awake()
     {
         // 覚醒技専用カメラをOFFにする
-        m_Insp_ArousalAttackCamera1.enabled = false;
-        m_Insp_ArousalAttackCamera2.enabled = false;
+        ArousalAttackCamera1.enabled = false;
+        ArousalAttackCamera2.enabled = false;
     }
 
 	// 開幕時に実行
@@ -162,57 +162,57 @@ public class Homura_Final_BattleControl : CharacterControl_Base
 
        
         // ジャンプ硬直
-        this.m_JumpWaitTime = 0.5f;
+        JumpWaitTime = 0.5f;
 
         //着地硬直
-        this._LandingWaitTime = 1.0f;
+        _LandingWaitTime = 1.0f;
 
-        this.m_WalkSpeed    = 1.0f;                             // 移動速度（歩行の場合）
-        this.m_RunSpeed     = 15.0f;                            // 移動速度（走行の場合）
-        this.m_AirDashSpeed = 20.0f;                             // 移動速度（空中ダッシュの場合）
-        this.m_AirMoveSpeed = 7.0f;                             // 移動速度（空中慣性移動の場合）
-        this.RiseSpeed   = 5.0f;                             // 上昇速度
+        WalkSpeed    = 1.0f;                             // 移動速度（歩行の場合）
+        RunSpeed     = 15.0f;                            // 移動速度（走行の場合）
+        AirDashSpeed = 20.0f;                            // 移動速度（空中ダッシュの場合）
+        AirMoveSpeed = 7.0f;                             // 移動速度（空中慣性移動の場合）
+        RiseSpeed   = 5.0f;                             // 上昇速度
 
         // ブースト消費量
-        this.m_JumpUseBoost = 10;       // ジャンプ時
-        this.DashCancelUseBoost = 10;   // ブーストダッシュ時
-        this.StepUseBoost = 10;         // ステップ時
-        this.m_BoostLess = 0.5f;        // ジャンプの上昇・BD時の1F当たりの消費量
+        JumpUseBoost = 10;       // ジャンプ時
+        DashCancelUseBoost = 10;   // ブーストダッシュ時
+        StepUseBoost = 10;         // ステップ時
+        BoostLess = 0.5f;        // ジャンプの上昇・BD時の1F当たりの消費量
  
         // ステップ移動距離
-        this.StepMoveLength = 10.0f;
+        StepMoveLength = 10.0f;
         
         // ステップ初速（X/Z軸）
-        this.m_Step_Initial_velocity = 30.0f;
+        StepInitialVelocity = 30.0f;
         // ステップ時の１F当たりの移動量
-        this.StepMove1F = 1.0f;
+        StepMove1F = 1.0f;
         // ステップ終了時硬直時間
-        this.m_StepBackTime = 0.4f;
+        StepBackTime = 0.4f;
 
         // コライダの地面からの高さ
-        this.Collider_Height = 1.5f;
+        ColliderHeight = 1.5f;
 
         // ロックオン距離
-        this.m_Rockon_Range = 100.0f;
+        RockonRange = 100.0f;
 
         // ロックオン限界距離
-        this.m_Rockon_RangeLimit = 200.0f;
+        RockonRangeLimit = 200.0f;
 
         // ショットのステート
         shotmode = ShotMode.NORMAL;
 
 		// 弾のステート
-		this.BulletMoveDirection = Vector3.zero;
-		this.BulletPos = Vector3.zero;
+		BulletMoveDirection = Vector3.zero;
+		BulletPos = Vector3.zero;
 		
 		// HPを初期化
 		
          // メイン射撃撃ち終わり時間
-        m_mainshotendtime = 0.0f;
+        MainshotEndtime = 0.0f;
         // サブ射撃撃ち終わり時間
-        m_subshotendtime = 0.0f;
+        SubshotEndtime = 0.0f;
         // 特殊射撃撃ち終わり時間
-        m_exshotendtime = 0.0f;
+        ExshotEndtime = 0.0f;
         
 
 	    // 共通ステートを初期化
@@ -230,13 +230,13 @@ public class Homura_Final_BattleControl : CharacterControl_Base
             // リロード実行           
             // メイン射撃
             ReloadSystem.OneByOne(ref BulletNum[(int)ShotType.NORMAL_SHOT], Time.time, Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_OriginalBulletNum,
-                Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_reloadtime, ref m_mainshotendtime);
+                Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_reloadtime, ref MainshotEndtime);
             // サブ射撃
             ReloadSystem.AllTogether(ref BulletNum[(int)ShotType.SUB_SHOT], Time.time, Character_Spec.cs[(int)CharacterName][(int)ShotType.SUB_SHOT].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.SUB_SHOT].m_OriginalBulletNum,
-                Character_Spec.cs[(int)CharacterName][(int)ShotType.SUB_SHOT].m_reloadtime, ref m_subshotendtime);
+                Character_Spec.cs[(int)CharacterName][(int)ShotType.SUB_SHOT].m_reloadtime, ref SubshotEndtime);
             // 特殊射撃
             ReloadSystem.OneByOne(ref BulletNum[(int)ShotType.EX_SHOT], Time.time, Character_Spec.cs[(int)CharacterName][(int)ShotType.EX_SHOT].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.EX_SHOT].m_OriginalBulletNum,
-                Character_Spec.cs[(int)CharacterName][(int)ShotType.EX_SHOT].m_reloadtime, ref m_exshotendtime);
+                Character_Spec.cs[(int)CharacterName][(int)ShotType.EX_SHOT].m_reloadtime, ref ExshotEndtime);
         }
         // 特定条件下でZ軸回転するバグがあるので防止
         if (Math.Abs(this.transform.rotation.eulerAngles.z) > 0f)
@@ -680,17 +680,17 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                 // メイン（弾数がMax-1のとき）
                 if (type == ShotType.NORMAL_SHOT && BulletNum[(int)type] == Character_Spec.cs[(int)CharacterName][(int)type].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)type].m_OriginalBulletNum - 1)
                 {
-                    m_mainshotendtime = Time.time;
+                    MainshotEndtime = Time.time;
                 }
                 // サブ（弾数が0のとき）
                 else if (type == ShotType.SUB_SHOT&& BulletNum[(int)type] == 0)
                 {
-                    m_subshotendtime = Time.time;
+                    SubshotEndtime = Time.time;
                 }
                 // 特殊（弾数がMax-1のとき）
                 else if (type == ShotType.EX_SHOT && BulletNum[(int)type] == Character_Spec.cs[(int)CharacterName][(int)type].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)type].m_OriginalBulletNum - 1)
                 {
-                    m_exshotendtime = Time.time;
+                    ExshotEndtime = Time.time;
                 }
             }
             // 矢の出現ポジションをフックと一致させる
@@ -701,7 +701,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
             // サブ射撃
             if (type == ShotType.SUB_SHOT)
             {
-                var obj = (GameObject)Instantiate(m_Insp_SubShotArrow, pos, rot);
+                var obj = (GameObject)Instantiate(SubShotArrow, pos, rot);
                 // 親子関係を再設定する(=矢をフックの子にする）
                 if (obj.transform.parent == null)
                 {
@@ -749,7 +749,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
             // 通常射撃(varは暗黙的な初期化ができない)
             else if (type == ShotType.NORMAL_SHOT)
             {
-                var obj = (GameObject)Instantiate(m_Insp_NormalArrow, pos, rot);
+                var obj = (GameObject)Instantiate(NormalArrow, pos, rot);
                 // 親子関係を再設定する(=矢をフックの子にする）
                 if (obj.transform.parent == null)
                 {
@@ -761,7 +761,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
             // チャージ射撃
             else if (type == ShotType.CHARGE_SHOT)
             {
-                var obj = (GameObject)Instantiate(m_Insp_ChargeShotArrow, pos, rot);
+                var obj = (GameObject)Instantiate(ChargeShotArrow, pos, rot);
                 // 親子関係を再設定する(=矢をフックの子にする）
                 if (obj.transform.parent == null)
                 {
@@ -1218,12 +1218,12 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                 m_wingHock.transform.parent = this.transform;                
                 m_nowState = ArousalState.FEATHERSET;
                 // 変数初期化
-                m_wingAppearCounter = 0;
-                m_wingboneCounter = 1;
-                m_leftwing_set = false;
-                m_arousalAttackTime = 0;
+                _WingAppearCounter = 0;
+                _WingboneCounter = 1;
+                _LeftwingSet = false;
+                ArousalAttackTime = 0;
                 // 専用カメラをONにする
-                m_Insp_ArousalAttackCamera1.enabled = true;
+                ArousalAttackCamera1.enabled = true;
 				// 覚醒技演出フラグをONにする
 				ArousalAttackProduction = true;
                 break;
@@ -1242,49 +1242,49 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                     transform.rotation = Quaternion.LookRotation(targetpos - myPos);
                 }
                 this.MoveDirection = transform.rotation * Vector3.forward;
-                GetComponent<Rigidbody>().position = GetComponent<Rigidbody>().position + this.MoveDirection * m_WalkSpeed * Time.deltaTime;
+                GetComponent<Rigidbody>().position = GetComponent<Rigidbody>().position + this.MoveDirection * WalkSpeed * Time.deltaTime;
                 // エフェクト/判定取り付け開始(どのフックに取り付けるか）
                 // 一応左→右の順で取り付けていく
                 // フックの名前(左）
-                string hockname_L = "homura_wing(Clone)/wing_bornl" + Convert.ToString(m_wingboneCounter);
-                string hockname_R = "homura_wing(Clone)/wing_bornr" + Convert.ToString(m_wingboneCounter);
+                string hockname_L = "homura_wing(Clone)/wing_bornl" + Convert.ToString(_WingboneCounter);
+                string hockname_R = "homura_wing(Clone)/wing_bornr" + Convert.ToString(_WingboneCounter);
                 // m_wingappearTime経過して、左の羽根をつけていないなら左の羽根と判定をつける
-                if (m_wingAppearCounter > m_wingappearTime && !m_leftwing_set)
+                if (_WingAppearCounter > _WingappearTime && !_LeftwingSet)
                 {
-                    m_leftwing_set = true;
+                    _LeftwingSet = true;
                     SetWing(hockname_L);
                 }
                 // さらにm_wingapperTime経過したら右の羽根と判定をつけてリセット
-                else if (m_wingAppearCounter > m_wingappearTime * 2)
+                else if (_WingAppearCounter > _WingappearTime * 2)
                 {
                     SetWing(hockname_R);
-                    m_wingAppearCounter = 0;
-                    m_leftwing_set = false;
-                    m_wingboneCounter++;
+                    _WingAppearCounter = 0;
+                    _LeftwingSet = false;
+                    _WingboneCounter++;
                     // 半分出したらカメラを横に
-                    if (m_wingboneCounter > 9)
+                    if (_WingboneCounter > 9)
                     {
-                        m_Insp_ArousalAttackCamera1.enabled = false;
-                        m_Insp_ArousalAttackCamera2.enabled = true;
+                        ArousalAttackCamera1.enabled = false;
+                        ArousalAttackCamera2.enabled = true;
                     }
                     // 全部出したらカメラを戻して飛行ポーズにして次へ行く
-                    if (m_wingboneCounter > m_maxboneNum)
+                    if (_WingboneCounter > _MaxboneNum)
                     {
-                        m_Insp_ArousalAttackCamera2.enabled = false;
+                        ArousalAttackCamera2.enabled = false;
                         this.GetComponent<Animation>().Play(m_AnimationNames[(int)AnimationState.AirDash]);
                         m_nowState = ArousalState.ATTACK;
 						// 演出フラグを折る
 						ArousalAttackProduction = false;
                     }
                 }
-                m_wingAppearCounter += Time.deltaTime;
+                _WingAppearCounter += Time.deltaTime;
                 break;
             case ArousalState.ATTACK:       // （ロックオンしている相手に向けて）飛行開始
                 // 前方向に向けて飛行開始
-                GetComponent<Rigidbody>().position = GetComponent<Rigidbody>().position + this.MoveDirection * m_AirDashSpeed * Time.deltaTime;
-                m_arousalAttackTime += Time.deltaTime;
+                GetComponent<Rigidbody>().position = GetComponent<Rigidbody>().position + this.MoveDirection * AirDashSpeed * Time.deltaTime;
+                ArousalAttackTime += Time.deltaTime;
                 // 飛行時間を終えたらENDへ移行
-                if (m_arousalAttackTime > m_arousalAttackTotal)
+                if (ArousalAttackTime > ArousalAttackTotal)
                 {
                     // 羽フックを壊す
                     Destroy(m_wingHock);
@@ -1322,12 +1322,12 @@ public class Homura_Final_BattleControl : CharacterControl_Base
         GameObject decision = (GameObject)Instantiate(m_Insp_WingAttacker, parenthock.transform.position, transform.rotation);
         decision.transform.parent = parenthock.transform;
         // 判定に攻撃力を設定する
-        int offensive = m_growthcoffecient_str * (this.Level - 1) + m_basis_offensive;
+        int offensive = _GrowthcOffecientStr * (this.Level - 1) + _BasisOffensive;
         var decision_instance = decision.GetComponentInChildren<Bazooka_ShockWave>();        
         decision_instance.SetDamage(offensive);
         decision_instance.SetCharacter((int)Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B);
         // 判定に吹き飛び判定を設定する
-        decision_instance.SetDownratio(m_downratioArousal);
+        decision_instance.SetDownratio(_DownratioArousal);
         // 判定に自分が敵か味方かを教える
         if (IsPlayer == CHARACTERCODE.PLAYER || IsPlayer == CHARACTERCODE.PLAYER_ALLY)
         {
@@ -1340,28 +1340,28 @@ public class Homura_Final_BattleControl : CharacterControl_Base
     }
 
     // 覚醒技基礎攻撃力
-    private const int m_basis_offensive = 270;
+    private const int _BasisOffensive = 270;
     // 覚醒技攻撃力成長係数
-    private const int m_growthcoffecient_str = 5;
+    private const int _GrowthcOffecientStr = 5;
     // 覚醒技ダウン値
-    private const int m_downratioArousal = 5;
+    private const int _DownratioArousal = 5;
 
     // 羽根と判定が出るときの間隔
-    private const float m_wingappearTime = 0.1f;
+    private const float _WingappearTime = 0.1f;
     // 羽根と判定が出るときのタイマー
-    private float m_wingAppearCounter;
+    private float _WingAppearCounter;
     // 羽根と判定が何番目のボーンであるかを示すカウンター
-    private int m_wingboneCounter;
+    private int _WingboneCounter;
     // 左側の羽根と判定をセットしたフラグ
-    private bool m_leftwing_set;
+    private bool _LeftwingSet;
     // ボーンの最大数
-    private const int m_maxboneNum = 17;
+    private const int _MaxboneNum = 17;
     // 専用カメラ1個目
-    public Camera m_Insp_ArousalAttackCamera1;
+    public Camera ArousalAttackCamera1;
     // 専用カメラ2個目
-    public Camera m_Insp_ArousalAttackCamera2;
+    public Camera ArousalAttackCamera2;
     // 総発動時間(秒）
-    private const float m_arousalAttackTotal = 10.0f;
+    private const float ArousalAttackTotal = 10.0f;
     // 累積発動時間（秒）
-    private float m_arousalAttackTime;
+    private float ArousalAttackTime;
 }

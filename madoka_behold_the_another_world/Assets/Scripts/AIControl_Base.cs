@@ -345,7 +345,7 @@ public class AIControl_Base : MonoBehaviour
         }
         // 敵との距離
         float distance = Vector3.Distance(pcc.Player.transform.position, pcc.Enemy.transform.position);
-        if ((int)m_latecpumode > (int)CPUMODE.RETURN_PATH && distance > target.m_Rockon_RangeLimit)
+        if ((int)m_latecpumode > (int)CPUMODE.RETURN_PATH && distance > target.RockonRangeLimit)
         {
             ReturnPatrol(target);
         }
@@ -403,7 +403,7 @@ public class AIControl_Base : MonoBehaviour
         // カメラ
         Player_Camera_Controller pcc = ControlTarget_Camera.GetComponent<Player_Camera_Controller>();
         float distance = Vector3.Distance(pcc.Player.transform.position, pcc.Enemy.transform.position);
-        if ((int)m_latecpumode > (int)CPUMODE.RETURN_PATH && distance > target.m_Rockon_RangeLimit)
+        if ((int)m_latecpumode > (int)CPUMODE.RETURN_PATH && distance > target.RockonRangeLimit)
         {
             ReturnPatrol(target);
         }

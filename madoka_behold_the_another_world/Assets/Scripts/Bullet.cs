@@ -208,7 +208,7 @@ public class Bullet : MonoBehaviour
                 // ロックオン範囲にいて、かつカウンターが閾値を超えていない場合は誘導する
                 if (this.m_InductionCounter < this.m_InductionBias && this.m_TargetObject != null)
                 {
-                    if (Vector3.Distance(this.m_InjectionObject.transform.position, this.m_TargetObject.transform.position) <= parent.m_Rockon_Range)
+                    if (Vector3.Distance(this.m_InjectionObject.transform.position, this.m_TargetObject.transform.position) <= parent.RockonRange)
                     {
                         // 敵のカプセルコライダの高さ分オフセット（そうしないと下向きのベクトルになる）
                         // キャラクターコントローラーを拾う

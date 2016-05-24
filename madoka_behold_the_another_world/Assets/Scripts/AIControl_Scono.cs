@@ -77,7 +77,7 @@ public class AIControl_Scono : AIControl_Base
         // 制御対象
         var target = ControlTarget.GetComponent<CharacterControl_Base>();
         // ロックオン距離内にいる
-        if (RockonTarget != null && Vector3.Distance(target.transform.position, RockonTarget.transform.position) <= target.m_Rockon_Range)
+        if (RockonTarget != null && Vector3.Distance(target.transform.position, RockonTarget.transform.position) <= target.RockonRange)
         {
             // 頭上をとったか取られたかした場合、前後特殊格闘（DOGFIGHT_AIR）を行ってもらう
             // 自機のXZ座標
@@ -210,7 +210,7 @@ public class AIControl_Scono : AIControl_Base
 		// カメラ
 		Player_Camera_Controller pcc = ControlTarget_Camera.GetComponent<Player_Camera_Controller>();
 		float distance = Vector3.Distance(pcc.Player.transform.position, pcc.Enemy.transform.position);
-		if ((int)m_latecpumode > (int)CPUMODE.RETURN_PATH && distance > target.m_Rockon_RangeLimit)
+		if ((int)m_latecpumode > (int)CPUMODE.RETURN_PATH && distance > target.RockonRangeLimit)
 		{
 			ReturnPatrol(target);
 		}

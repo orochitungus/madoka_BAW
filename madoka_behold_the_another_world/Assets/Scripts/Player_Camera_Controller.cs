@@ -403,7 +403,7 @@ public class Player_Camera_Controller : MonoBehaviour
             // 見つけたキャラとプレイヤーとの距離を測る
             float distance = Vector3.Distance(Player.transform.position, RockonCandidate[i].transform.position);
             // 距離がm_Rockon_RangeLimitの中に入っていたら、RockOnTargetに加える
-            if (distance <= target.m_Rockon_RangeLimit)
+            if (distance <= target.RockonRangeLimit)
             {
                 RockOnTarget.Add(RockonCandidate[i]);
             }
@@ -640,7 +640,7 @@ public class Player_Camera_Controller : MonoBehaviour
                 GUI.DrawTexture(new Rect(0.0f, 0.0f, 128.0f, 128.0f), m_RockonCursor_Yellow);
             }
             // 有効範囲にいたら赤ロック
-            else if (Vector3.Distance(nowpos, epos) <= this.Player.GetComponentInChildren<CharacterControl_Base>().m_Rockon_Range)
+            else if (Vector3.Distance(nowpos, epos) <= this.Player.GetComponentInChildren<CharacterControl_Base>().RockonRange)
             {
                 GUI.DrawTexture(new Rect(0.0f, 0.0f, 128.0f, 128.0f), m_RockonCursor_Red);
             }

@@ -358,7 +358,7 @@ public partial class CharacterControl_Base
     {
         m_AnimState[1] = AnimationState.Jumping;
         Vector3 RiseSpeed = new Vector3(MoveDirection.x, this.RiseSpeed, MoveDirection.z);// = new Vector3(0, 0, 0);
-        if (Time.time > this.JumpTime + this.m_JumpWaitTime)
+        if (Time.time > this.JumpTime + this.JumpWaitTime)
         {
             // ジャンプ後の硬直終了時の処理はここに入れる
             // ジャンプ中にブーストがある限り上昇
@@ -367,7 +367,7 @@ public partial class CharacterControl_Base
                 // ボタンを押し続ける限り上昇
                 if (this.HasJumpInput)
                 {                   
-                    this.Boost = this.Boost - m_BoostLess;
+                    this.Boost = this.Boost - BoostLess;
                 }
                 // 離したら落下
                 else if (!this.HasJumpInput)
@@ -434,7 +434,7 @@ public partial class CharacterControl_Base
         this.MoveDirection = RiseSpeed;
 
         // 上昇中にオブジェクトに触れた場合は着地モーションへ移行(暴走防止のために、硬直中は判定禁止)
-        if (Time.time > this.JumpTime + this.m_JumpWaitTime)
+        if (Time.time > this.JumpTime + this.JumpWaitTime)
         {
             if (IsGrounded) // 優先順位はこっちを下にしておかないと上昇前に引っかかる
             {
@@ -702,7 +702,7 @@ public partial class CharacterControl_Base
             LandingDone();
         }
         // 常時ブースト消費
-        this.Boost = this.Boost - this.m_BoostLess;
+        this.Boost = this.Boost - this.BoostLess;
     }
 
     // Step時共通動作

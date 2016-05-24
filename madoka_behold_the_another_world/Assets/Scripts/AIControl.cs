@@ -28,7 +28,7 @@ public class AIControl : AIControl_Base
         // 制御対象
         var target = ControlTarget.GetComponent<CharacterControl_Base>();
         // ロックオン距離内にいる
-        if (RockonTarget != null && Vector3.Distance(target.transform.position, RockonTarget.transform.position) <= target.m_Rockon_Range)
+        if (RockonTarget != null && Vector3.Distance(target.transform.position, RockonTarget.transform.position) <= target.RockonRange)
         {
             // 頭上をとったか取られたかした場合、前後特殊格闘（DOGFIGHT_AIR）を行ってもらう
             // 自機のXZ座標

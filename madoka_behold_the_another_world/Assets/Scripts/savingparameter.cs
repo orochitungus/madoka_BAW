@@ -43,6 +43,7 @@ public static class savingparameter
     {
         return nowparty[index];
     }
+        
 
     // 各キャラのレベル
     private static int[] nowlevel = new int[(int)Character_Spec.CHARACTER_NAME.CHARACTER_ALL_NUM];

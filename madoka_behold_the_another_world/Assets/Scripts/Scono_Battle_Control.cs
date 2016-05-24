@@ -148,41 +148,41 @@ public class Scono_Battle_Control : CharacterControl_Base
         // レベル関係はここまで
 
         // ジャンプ硬直
-        this.m_JumpWaitTime = 0.5f;
+        this.JumpWaitTime = 0.5f;
 
         //着地硬直
         this._LandingWaitTime = 1.0f;
 
-        this.m_WalkSpeed = 1.0f;                                // 移動速度（歩行の場合）
-        this.m_RunSpeed = 20.0f;                                // 移動速度（走行の場合）
-        this.m_AirDashSpeed = 20.0f;                            // 移動速度（空中ダッシュの場合）
-        this.m_AirMoveSpeed = 10.0f;                            // 移動速度（空中慣性移動の場合）
+        this.WalkSpeed = 1.0f;                                // 移動速度（歩行の場合）
+        this.RunSpeed = 20.0f;                                // 移動速度（走行の場合）
+        this.AirDashSpeed = 20.0f;                            // 移動速度（空中ダッシュの場合）
+        this.AirMoveSpeed = 10.0f;                            // 移動速度（空中慣性移動の場合）
         this.RiseSpeed = 8.0f;                               // 上昇速度
 
         // ブースト消費量
-        this.m_JumpUseBoost = 20;       // ジャンプ時
+        this.JumpUseBoost = 20;       // ジャンプ時
         this.DashCancelUseBoost = 20;   // ブーストダッシュ時
         this.StepUseBoost = 20;         // ステップ時
-        this.m_BoostLess = 0.5f;        // ジャンプの上昇・BD時の1F当たりの消費量
+        this.BoostLess = 0.5f;        // ジャンプの上昇・BD時の1F当たりの消費量
 
         // ステップ移動距離
         this.StepMoveLength = 10.0f;
 
         // ステップ初速（X/Z軸）
-        this.m_Step_Initial_velocity = 30.0f;
+        this.StepInitialVelocity = 30.0f;
         // ステップ時の１F当たりの移動量
         this.StepMove1F = 1.0f;
         // ステップ終了時硬直時間
-        this.m_StepBackTime = 0.4f;
+        this.StepBackTime = 0.4f;
 
         // コライダの地面からの高さ
-        this.Collider_Height = 1.6f;
+        this.ColliderHeight = 1.6f;
 
         // ロックオン距離
-        this.m_Rockon_Range = 100.0f;
+        this.RockonRange = 100.0f;
 
         // ロックオン限界距離
-        this.m_Rockon_RangeLimit = 200.0f;
+        this.RockonRangeLimit = 200.0f;
 
         // ショットのステート
         shotmode = ShotMode.NORMAL;

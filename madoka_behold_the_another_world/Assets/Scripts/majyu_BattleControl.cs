@@ -121,41 +121,41 @@ public class majyu_BattleControl : CharacterControl_Base
 		this.NowHitpoint = GetMaxHitpoint(this.Level);
 
         // ジャンプ硬直
-        this.m_JumpWaitTime = 0.5f;
+        this.JumpWaitTime = 0.5f;
 
         //着地硬直
         this._LandingWaitTime = 1.5f;
 
-        this.m_WalkSpeed = 3.0f;                             // 移動速度（歩行の場合）
-        this.m_RunSpeed = 2.0f * this.m_WalkSpeed;          // 移動速度（走行の場合）
-        this.m_AirDashSpeed = 8.0f * this.m_WalkSpeed;          // 移動速度（空中ダッシュの場合）
-        this.m_AirMoveSpeed = 3.5f * this.m_WalkSpeed;          // 移動速度（空中慣性移動の場合）
-        this.RiseSpeed = 2.0f * this.m_WalkSpeed;        // 上昇速度
+        this.WalkSpeed = 3.0f;                             // 移動速度（歩行の場合）
+        this.RunSpeed = 2.0f * this.WalkSpeed;          // 移動速度（走行の場合）
+        this.AirDashSpeed = 8.0f * this.WalkSpeed;          // 移動速度（空中ダッシュの場合）
+        this.AirMoveSpeed = 3.5f * this.WalkSpeed;          // 移動速度（空中慣性移動の場合）
+        this.RiseSpeed = 2.0f * this.WalkSpeed;        // 上昇速度
 
         // ブースト消費量
-        this.m_JumpUseBoost = 20;       // ジャンプ時
+        this.JumpUseBoost = 20;       // ジャンプ時
         this.DashCancelUseBoost = 20;   // ブーストダッシュ時
         this.StepUseBoost = 20;         // ステップ時
-        this.m_BoostLess = 0.5f;        // ジャンプの上昇・BD時の1F当たりの消費量
+        this.BoostLess = 0.5f;        // ジャンプの上昇・BD時の1F当たりの消費量
 
         // ステップ移動距離
         this.StepMoveLength = 10.0f;
 
         // ステップ初速（X/Z軸）
-        this.m_Step_Initial_velocity = 30.0f;
+        this.StepInitialVelocity = 30.0f;
         // ステップ時の１F当たりの移動量
         this.StepMove1F = 1.0f;
         // ステップ終了時硬直時間
-        this.m_StepBackTime = 0.7f;
+        this.StepBackTime = 0.7f;
 
         // コライダの地面からの高さ
-        this.Collider_Height = 1.5f;
+        this.ColliderHeight = 1.5f;
 
         // ロックオン距離
-        this.m_Rockon_Range = 90.0f;
+        this.RockonRange = 90.0f;
 
         // ロックオン限界距離
-        this.m_Rockon_RangeLimit = 200.0f;
+        this.RockonRangeLimit = 200.0f;
 
         // ショットのステート
         shotmode = ShotMode.NORMAL;
