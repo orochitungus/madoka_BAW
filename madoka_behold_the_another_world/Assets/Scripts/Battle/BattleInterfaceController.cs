@@ -13,24 +13,34 @@ public class BattleInterfaceController : MonoBehaviour
     public Text CharacterName;
 
     /// <summary>
-    /// キャラクターグラフィック表示部分
+    /// キャラクターグラフィック表示部分（順にプレイヤー・僚機1・僚機2）
     /// </summary>
-    public PlayerBG Playerbg;
+    public PlayerBG[] Playerbg;
 
-    /// <summary>
-    /// プレイヤーのHP表示部分
-    /// </summary>
-    public Text PlayerHP;
+	/// <summary>
+	/// プレイヤーのHP表示部分（順にプレイヤー・僚機1・僚機2）
+	/// </summary>
+	public Text[] PlayerHP;
 
-    /// <summary>
-    /// 現在のプレイヤーHP
-    /// </summary>
-    public int NowPlayerHP;
+	/// <summary>
+	/// 現在のプレイヤーHP（順にプレイヤー・僚機1・僚機2）
+	/// </summary>
+	public int[] NowPlayerHP = new int[3];
 
-    /// <summary>
-    /// 現在のプレイヤー最大HP
-    /// </summary>
-    public int MaxPlayerHP;
+	/// <summary>
+	/// 現在のプレイヤー最大HP（順にプレイヤー・僚機1・僚機2）
+	/// </summary>
+	public int[] MaxPlayerHP = new int[3];
+
+	/// <summary>
+	/// 僚機１の命令の文字列
+	/// </summary>
+	public Text Ally1Command;
+
+	/// <summary>
+	/// 僚機２の命令の文字列
+	/// </summary>
+	public Text Ally2Command;
 
     /// <summary>
     /// プレイヤーのレベル表示部分
@@ -38,26 +48,7 @@ public class BattleInterfaceController : MonoBehaviour
     public Text PlayerLv;
 
     public int NowPlayerLV;
-
-    /// <summary>
-    /// 僚機１キャラクターグラフィック
-    /// </summary>
-    public PlayerBG Ally1BG;
-
-    /// <summary>
-    /// 僚機１HP
-    /// </summary>
-    public Text Ally1HP;
-    
-    /// <summary>
-    /// 僚機２キャラクターグラフィック
-    /// </summary>
-    public PlayerBG Ally2BG;
-
-    /// <summary>
-    /// 僚機２HP
-    /// </summary>
-    public Text Ally2HP;
+	   
 
     /// <summary>
     /// Information表示部分
@@ -156,24 +147,28 @@ public class BattleInterfaceController : MonoBehaviour
             // ブーストゲージを表示
             BoostGauge.fillAmount = NowBoost / MaxBoost;
 
-            // HP表示
-            PlayerHP.text = NowPlayerHP.ToString();
 
-            // HPが1/4を割っていたら赤色
-            if(NowPlayerHP < 0.25f * MaxPlayerHP)
-            {
-                PlayerHP.color = new Color(1.0f, 0.0f, 0.0f);
-            }
-            // HPが1/2を割っていたら黄色
-            else if (NowPlayerHP < 0.5f * MaxPlayerHP)
-            {
-                PlayerHP.color = new Color(0.96f, 1.0f, 0.21f);
-            }
-            // それ以外なら黒
-            else
-            {
-                PlayerHP.color = new Color(1.0f, 1.0f, 1.0f);
-            }
+			for (int i = 0; i<Playerbg.Length; i++)
+			{
+				// HP表示
+				PlayerHP[i].text = NowPlayerHP.ToString();
+
+				// HPが1/4を割っていたら赤色
+				if (NowPlayerHP[i] < 0.25f * MaxPlayerHP[i])
+				{
+					PlayerHP[i].color = new Color(1.0f, 0.0f, 0.0f);
+				}
+				// HPが1/2を割っていたら黄色
+				else if (NowPlayerHP[i] < 0.5f * MaxPlayerHP[i])
+				{
+					PlayerHP[i].color = new Color(0.96f, 1.0f, 0.21f);
+				}
+				// それ以外なら黒
+				else
+				{
+					PlayerHP[i].color = new Color(1.0f, 1.0f, 1.0f);
+				}
+			}
 
             // レベル表示
             PlayerLv.text = "LEVEL - " + NowPlayerLV.ToString();
