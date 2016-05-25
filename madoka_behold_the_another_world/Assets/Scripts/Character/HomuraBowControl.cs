@@ -136,7 +136,49 @@ public class HomuraBowControl : CharacterControlBase
 	/// </summary>
 	public BattleInterfaceController Battleinterfacecontroller;
 
-	void Awake()
+    /// <summary>
+    /// 各種アニメのハッシュID
+    /// </summary>
+    private int _IDleID;
+    private int _WalkID;
+    private int _JumpID;
+    private int _JumpingID;
+    private int _FallID;
+    private int _LandingID;
+    private int _RunID;
+    private int _AirDashID;
+    private int _FrontStepID;
+    private int _LeftStepID;
+    private int _RightStepID;
+    private int _BackStepID;
+    private int _FrontStepBackID;
+    private int _LeftStepBackID;
+    private int _RightStepBackID;
+    private int _ShotID;
+    private int _RunShotID;
+    private int _AirShotID;
+    private int _ChargeShotID;
+    private int _SubShotID;
+    private int _EXShotID;
+    private int _Wrestle1ID;
+    private int _Wrestle2ID;
+    private int _Wrestle3ID;
+    private int _FrontWrestleID;
+    private int _LeftWrestleID;
+    private int _RightWrestleID;
+    private int _BackWrestleID;
+    private int _AirDashWrestleID;
+    private int _EXWrestleID;
+    private int _EXFrontWrestleID;
+    private int _EXBackWrestleID;
+    private int _ReversalID;
+    private int _ArousalAttackID;
+    private int _DamageID;
+    private int _DownID;
+    private int _BlowID;
+    private int _SprinDownID;
+
+    void Awake()
 	{
 		// 覚醒技専用カメラをOFFにする
 		ArousalAttackCamera1.enabled = false;
@@ -152,11 +194,69 @@ public class HomuraBowControl : CharacterControlBase
 
 	// Use this for initialization
 	void Start () 
-	{		
+	{	
+        // TODO:ハッシュID取得
+        	
 
 		this.UpdateAsObservable().Where(_ => IsPlayer == CHARACTERCODE.PLAYER).Subscribe(_ => 
 		{
-			// インターフェース制御		
+			// インターフェース制御
+            // PC/僚機共通
+            for(int i=0; i<3; i++)
+            {
+                // 顔グラフィック/現在HP/最大HP
+                if ((Character_Spec.CHARACTER_NAME)savingparameter.GetNowParty(i) == Character_Spec.CHARACTER_NAME.MEMBER_MADOKA)
+                {
+                    Battleinterfacecontroller.Playerbg[i].SelectPlayerBG(BustupSelect.MADOKA);                    
+                }
+                else if ((Character_Spec.CHARACTER_NAME)savingparameter.GetNowParty(i) == Character_Spec.CHARACTER_NAME.MEMBER_SAYAKA)
+                {
+                    Battleinterfacecontroller.Playerbg[i].SelectPlayerBG(BustupSelect.SAYAKA);
+                }
+                else if ((Character_Spec.CHARACTER_NAME)savingparameter.GetNowParty(i) == Character_Spec.CHARACTER_NAME.MEMBER_HOMURA)
+                {
+                    Battleinterfacecontroller.Playerbg[i].SelectPlayerBG(BustupSelect.HOMURA);
+                }
+                else if ((Character_Spec.CHARACTER_NAME)savingparameter.GetNowParty(i) == Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B)
+                {
+                    Battleinterfacecontroller.Playerbg[i].SelectPlayerBG(BustupSelect.HOMURA_B);
+                }
+                else if ((Character_Spec.CHARACTER_NAME)savingparameter.GetNowParty(i) == Character_Spec.CHARACTER_NAME.MEMBER_MAMI)
+                {
+                    Battleinterfacecontroller.Playerbg[i].SelectPlayerBG(BustupSelect.MAMI);
+                }
+                else if ((Character_Spec.CHARACTER_NAME)savingparameter.GetNowParty(i) == Character_Spec.CHARACTER_NAME.MEMBER_KYOKO)
+                {
+                    Battleinterfacecontroller.Playerbg[i].SelectPlayerBG(BustupSelect.KYOKO);
+                }
+                else if ((Character_Spec.CHARACTER_NAME)savingparameter.GetNowParty(i) == Character_Spec.CHARACTER_NAME.MEMBER_YUMA)
+                {
+                    Battleinterfacecontroller.Playerbg[i].SelectPlayerBG(BustupSelect.YUMA);
+                }
+                else if ((Character_Spec.CHARACTER_NAME)savingparameter.GetNowParty(i) == Character_Spec.CHARACTER_NAME.MEMBER_KIRIKA)
+                {
+                    Battleinterfacecontroller.Playerbg[i].SelectPlayerBG(BustupSelect.KIRIKA);
+                }
+                else if ((Character_Spec.CHARACTER_NAME)savingparameter.GetNowParty(i) == Character_Spec.CHARACTER_NAME.MEMBER_ORIKO)
+                {
+                    Battleinterfacecontroller.Playerbg[i].SelectPlayerBG(BustupSelect.ORIKO);
+                }
+                else if ((Character_Spec.CHARACTER_NAME)savingparameter.GetNowParty(i) == Character_Spec.CHARACTER_NAME.MEMBER_UL_MADOKA)
+                {
+                    Battleinterfacecontroller.Playerbg[i].SelectPlayerBG(BustupSelect.ULTIMADOKA);
+                }
+                else if ((Character_Spec.CHARACTER_NAME)savingparameter.GetNowParty(i) == Character_Spec.CHARACTER_NAME.MEMBER_SCHONO)
+                {
+                    Battleinterfacecontroller.Playerbg[i].SelectPlayerBG(BustupSelect.SCONO);
+                }
+                // 現在HP
+                Battleinterfacecontroller.NowPlayerHP[i] = savingparameter.GetNowHP(savingparameter.GetNowParty(i));
+
+                // 最大HP
+                Battleinterfacecontroller.MaxPlayerHP[i] = savingparameter.GetMaxHP(savingparameter.GetNowParty(i));
+            }
+            // PCのみ
+
 		});
 	}
 	
