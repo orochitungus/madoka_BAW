@@ -136,47 +136,56 @@ public class HomuraBowControl : CharacterControlBase
 	/// </summary>
 	public BattleInterfaceController Battleinterfacecontroller;
 
+    public Animator AnimatorUnit;
+
     /// <summary>
     /// 各種アニメのハッシュID
     /// </summary>
-    private int _IDleID;
-    private int _WalkID;
-    private int _JumpID;
-    private int _JumpingID;
-    private int _FallID;
-    private int _LandingID;
-    private int _RunID;
-    private int _AirDashID;
-    private int _FrontStepID;
-    private int _LeftStepID;
-    private int _RightStepID;
-    private int _BackStepID;
-    private int _FrontStepBackID;
-    private int _LeftStepBackID;
-    private int _RightStepBackID;
-    private int _ShotID;
-    private int _RunShotID;
-    private int _AirShotID;
-    private int _ChargeShotID;
-    private int _SubShotID;
-    private int _EXShotID;
-    private int _Wrestle1ID;
-    private int _Wrestle2ID;
-    private int _Wrestle3ID;
-    private int _FrontWrestleID;
-    private int _LeftWrestleID;
-    private int _RightWrestleID;
-    private int _BackWrestleID;
-    private int _AirDashWrestleID;
-    private int _EXWrestleID;
-    private int _EXFrontWrestleID;
-    private int _EXBackWrestleID;
-    private int _ReversalID;
-    private int _ArousalAttackID;
-    private int _DamageID;
-    private int _DownID;
-    private int _BlowID;
-    private int _SprinDownID;
+    public int IDleID;
+    public int WalkID;
+    public int JumpID;
+    public int JumpingID;
+    public int FallID;
+    public int LandingID;
+    public int RunID;
+    public int AirDashID;
+    public int FrontStepID;
+    public int LeftStepID;
+    public int RightStepID;
+    public int BackStepID;
+    public int FrontStepBackID;
+    public int LeftStepBackID;
+    public int RightStepBackID;
+    public int BackStepBackID;
+    public int ShotID;
+    public int RunShotID;
+    public int AirShotID;
+    public int ChargeShotID;
+    public int SubShotID;
+    public int EXShotID;
+    public int FollowThrowShotID;
+    public int FollowThrowRunShotID;
+    public int FollowThrowAirShotID;
+    public int FollowThrowChargeShotID;
+    public int FollowThrowSubShotID;
+    public int FollowThrowEXShotID;
+    public int Wrestle1ID;
+    public int Wrestle2ID;
+    public int Wrestle3ID;
+    public int FrontWrestleID;
+    public int LeftWrestleID;
+    public int RightWrestleID;
+    public int BackWrestleID;
+    public int AirDashWrestleID;
+    public int EXWrestleID;
+    public int EXFrontWrestleID;
+    public int EXBackWrestleID;
+    public int ReversalID;
+    public int ArousalAttackID;
+    public int DamageID;
+    public int DownID;
+    public int BlowID;
+    public int SpinDownID;
 
     void Awake()
 	{
@@ -194,11 +203,71 @@ public class HomuraBowControl : CharacterControlBase
 
 	// Use this for initialization
 	void Start () 
-	{	
+	{
         // TODO:ハッシュID取得
-        	
 
-		this.UpdateAsObservable().Where(_ => IsPlayer == CHARACTERCODE.PLAYER).Subscribe(_ => 
+
+        // 誰であるかを定義(インスペクターで拾う)
+        // レベル・攻撃力レベル・防御力レベル・残弾数レベル・ブースト量レベル・覚醒ゲージレベルを初期化
+        SettingPleyerLevel();
+
+        // ジャンプ硬直
+        JumpWaitTime = 0.5f;
+
+        //着地硬直
+        LandingWaitTime = 1.0f;
+
+        WalkSpeed = 1.0f;                            // 移動速度（歩行の場合）
+        RunSpeed = 15.0f;                            // 移動速度（走行の場合）
+        AirDashSpeed = 20.0f;                        // 移動速度（空中ダッシュの場合）
+        AirMoveSpeed = 7.0f;                         // 移動速度（空中慣性移動の場合）
+        RiseSpeed = 5.0f;                            // 上昇速度
+
+        // ブースト消費量
+        JumpUseBoost = 10;       // ジャンプ時
+        DashCancelUseBoost = 10;   // ブーストダッシュ時
+        StepUseBoost = 10;         // ステップ時
+        BoostLess = 0.5f;        // ジャンプの上昇・BD時の1F当たりの消費量
+
+        // ステップ移動距離
+        StepMoveLength = 10.0f;
+
+        // ステップ初速（X/Z軸）
+        StepInitialVelocity = 30.0f;
+        // ステップ時の１F当たりの移動量
+        StepMove1F = 1.0f;
+        // ステップ終了時硬直時間
+        StepBackTime = 0.4f;
+
+        // コライダの地面からの高さ
+        ColliderHeight = 1.5f;
+
+        // ロックオン距離
+        RockonRange = 100.0f;
+
+        // ロックオン限界距離
+        RockonRangeLimit = 200.0f;
+
+        // ショットのステート
+        Shotmode = ShotMode.NORMAL;
+
+        // 弾のステート
+        BulletMoveDirection = Vector3.zero;
+        BulletPos = Vector3.zero;
+
+        // HPを初期化
+
+        // メイン射撃撃ち終わり時間
+        MainshotEndtime = 0.0f;
+        // サブ射撃撃ち終わり時間
+        SubshotEndtime = 0.0f;
+        // 特殊射撃撃ち終わり時間
+        ExshotEndtime = 0.0f;
+        
+        // 共通ステートを初期化
+        FirstSetting(AnimatorUnit, IDleID);
+
+        this.UpdateAsObservable().Where(_ => IsPlayer == CHARACTERCODE.PLAYER).Subscribe(_ => 
 		{
 			// インターフェース制御
             // PC/僚機共通
@@ -256,13 +325,202 @@ public class HomuraBowControl : CharacterControlBase
                 Battleinterfacecontroller.MaxPlayerHP[i] = savingparameter.GetMaxHP(savingparameter.GetNowParty(i));
             }
             // PCのみ
+            // プレイヤーレベル
+            Battleinterfacecontroller.PlayerLv.text = "Level - " +  savingparameter.GetNowLevel(savingparameter.GetNowParty(0)).ToString();
+            // ブースト量
+            Battleinterfacecontroller.NowBoost = Boost;
+            // 最大ブースト量
+            Battleinterfacecontroller.MaxBoost = BoostLevel * BoostGrowth + Boost_OR;
+            // 覚醒ゲージ量
+            Battleinterfacecontroller.NowArousal = Arousal;
+            // 最大覚醒ゲージ量
+            Battleinterfacecontroller.MaxArousal = ArousalLevel * ArousalGrowth;
+            // 武装ゲージ関連
+
 
 		});
-	}
+
+        
+    }
 	
 	// Update is called once per frame
 	void Update () 
 	{
-	
-	}
+        if (AnimatorUnit.GetHashCode() == IDleID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == WalkID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == JumpID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == JumpingID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == FallID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == LandingID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == RunID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == AirDashID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == FrontStepID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == LeftStepID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == RightStepID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == BackStepID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == FrontStepBackID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == LeftStepBackID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == RightStepBackID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == ShotID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == RunShotID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == AirShotID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == ChargeShotID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == SubShotID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == EXShotID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == FollowThrowShotID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == FollowThrowRunShotID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == FollowThrowAirShotID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == FollowThrowChargeShotID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == FollowThrowSubShotID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == FollowThrowEXShotID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == Wrestle1ID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == Wrestle2ID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == Wrestle3ID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == FrontWrestleID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == LeftWrestleID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == RightWrestleID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == BackWrestleID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == AirDashWrestleID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == EXWrestleID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == EXFrontWrestleID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == EXBackWrestleID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == ReversalID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == ArousalAttackID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == DamageID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == DownID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == BlowID)
+        {
+
+        }
+        else if (AnimatorUnit.GetHashCode() == SpinDownID)
+        {
+
+        }
+    }
 }
