@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: a063d2cf1319a204fb7a6c1527ad62de
-timeCreated: 1464349112
+guid: 87f008e06daaf9e49b81d9d4ef0d2b45
+timeCreated: 1464510085
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -156,8 +156,31 @@ ModelImporter:
     4300000: body
     4300002: homura_bow
     4300004: homura_bowstring
-    7400000: homura_bow_leftstep
-    7400002: homura_bow_leftstep_back
+    7400000: Homura_Final_Battle_Wrestle1
+    7400002: Homura_Final_Battle_Wrestle2
+    7400004: Homura_Final_Battle_Wrestle3
+    7400006: homura_bow_spin_down
+    7400008: run(pentagram)
+    7400010: run(pentagram)_under_only
+    7400012: homura_bow_leftstep
+    7400014: homura_bow_leftstep_back
+    7400016: homura_bow_rightstep
+    7400018: homura_bow_rightstep_back
+    7400020: homura_bow_AirDash
+    7400022: homura_bow_fall
+    7400024: Homura_Final_Battle_Wrestle3-2
+    7400026: Homura_Final_Battle_Wrestle1-2
+    7400028: Homura_Final_Battle_Wrestle2-2
+    7400030: homura_bow_shot
+    7400032: homura_shot_followthrow
+    7400034: homura_shot_toponly
+    7400036: homura_shot_toponly_followthrow
+    7400038: homura_bow_chargeshot
+    7400040: homura_bow_chargeshot_followthrow
+    7400042: homura_bow_subshot
+    7400044: homura_bow_subshot_followthrow
+    7400046: homura_bow_exshot
+    7400048: homura_bow_exshot_followthrow
     9500000: //RootNode
     13700000: body
     13700002: homura_bow
