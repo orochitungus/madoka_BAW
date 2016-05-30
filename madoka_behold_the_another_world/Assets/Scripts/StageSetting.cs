@@ -59,8 +59,7 @@ public class StageSetting : MonoBehaviour
     }
     
     void Awake()
-    {
-		
+    {		
 
         // 最初のステージのみSavingParameterの初期化を行う（フラグはPublicでInspectorで外部から制御）
         if (m_InitializeSavingParameter)
@@ -105,11 +104,11 @@ public class StageSetting : MonoBehaviour
                     // クエストパート
                     if (m_isQuestStage)
                     {
-                        Instantiate(Resources.Load(m_CharacterFileName_Quest[savingparameter.GetNowParty(i)]), SetPosPlayer, Quaternion.Euler(SetRotPlayer));
+                        Instantiate(QuestCharacter[savingparameter.GetNowParty(i)], SetPosPlayer, Quaternion.Euler(SetRotPlayer));
                     }
                     else
                     {
-                        Instantiate(Resources.Load(m_CharacterFileName[savingparameter.GetNowParty(i)]), SetPosPlayer, Quaternion.Euler(SetRotPlayer));
+                        Instantiate(BattleCharacter[savingparameter.GetNowParty(i)], SetPosPlayer, Quaternion.Euler(SetRotPlayer));
                     }
                 }
                 // それ以外の場合
@@ -123,11 +122,11 @@ public class StageSetting : MonoBehaviour
                     // クエストパート
                     if (m_isQuestStage)
                     {
-                        Instantiate(Resources.Load(m_CharacterFileName_Quest[savingparameter.GetNowParty(i)]), SetPosPlayer, Quaternion.Euler(SetRotPlayer));
+                        Instantiate(QuestCharacter[savingparameter.GetNowParty(i)], SetPosPlayer, Quaternion.Euler(SetRotPlayer));
                     }
                     else
                     {
-                        Instantiate(Resources.Load(m_CharacterFileName[savingparameter.GetNowParty(i)]), SetPosPlayer, Quaternion.Euler(SetRotPlayer));
+                        Instantiate(BattleCharacter[savingparameter.GetNowParty(i)], SetPosPlayer, Quaternion.Euler(SetRotPlayer));
                     }
                 }
             }
@@ -195,25 +194,35 @@ public class StageSetting : MonoBehaviour
         }
     }
 
+	/// <summary>
+	/// 戦闘用キャラクター（順番は下のCharacterFileNameに合わせること）
+	/// </summary>
+	public GameObject []BattleCharacter;
+
+	/// <summary>
+	/// クエストパート用キャラクター
+	/// </summary>
+	public GameObject []QuestCharacter;
+
     // ロードするキャラクターのファイル名(ルート・戦闘用）
-    private string[] m_CharacterFileName = new string[]
+    private string[] _CharacterFileName = new string[]
     {
-        "",                         // なし
-        "",                         // 鹿目まどか
-        "",                         // 美樹さやか
-        "",                         // 暁美ほむら（銃）
-        "",                         // 巴マミ
-        "",                         // 佐倉杏子
-        "",                         // 千歳ゆま
-        "",                         // 呉キリカ
-        "",                         // 美国織莉子
-        "Sconosciuto_Battle_Use",   // スコノシュート（PC)
-        "Homura_Final_Battle_Use",  // 暁美ほむら（弓）
-        "",                         // アルティメットまどか（まどかの覚醒とは一応別扱い）
+        "",                         // 0  なし
+        "",                         // 1  鹿目まどか
+        "",                         // 2  美樹さやか
+        "",                         // 3  暁美ほむら（銃）
+        "",                         // 4  巴マミ
+        "",                         // 5  佐倉杏子
+        "",                         // 6  千歳ゆま
+        "",                         // 7  呉キリカ
+        "",                         // 8  美国織莉子
+        "Sconosciuto_Battle_Use",   // 9  スコノシュート（PC)
+        "HomuraBowBattleUse",		// 10 暁美ほむら（弓）
+        "",                         // 11 アルティメットまどか（まどかの覚醒とは一応別扱い）
     };
 
     // ロードするキャラクターのファイル名(ルート・クエストパート用）
-    private string[] m_CharacterFileName_Quest = new string[]
+    private string[] _CharacterFileName_Quest = new string[]
     {
         "",                                 // なし
         "",                                 // 鹿目まどか
@@ -229,39 +238,7 @@ public class StageSetting : MonoBehaviour
         "",                                 // アルティメットまどか（まどかの覚醒とは一応別扱い）
     };
    
-    //// ロードするキャラクターのファイル名（本体・戦闘用）
-    //private string[] m_CharacterFileNameCore = new string[]
-    //{
-    //    "",                                 // なし
-    //    "",                                 // 鹿目まどか
-    //    "",                                 // 美樹さやか
-    //    "",                                 // 暁美ほむら（銃）
-    //    "",                                 // 巴マミ
-    //    "",                                 // 佐倉杏子
-    //    "",                                 // 千歳ゆま
-    //    "",                                 // 呉キリカ
-    //    "",                                 // 美国織莉子
-    //    "Scono_battle_use",                 // スコノシュート（PC)
-    //    "homura_ribon_magica_battle_use",   // 暁美ほむら（弓）
-    //    "",                                 // アルティメットまどか（まどかの覚醒とは一応別扱い）
-    //};
-
-    //// ロードするキャラクターのファイル名（本体・クエストパート用）
-    //private string[] m_CharacterFileNameCore_Quest = new string[]
-    //{
-    //    "",                                 // なし
-    //    "",                                 // 鹿目まどか
-    //    "",                                 // 美樹さやか
-    //    "homura_uniform_use",               // 暁美ほむら（銃）
-    //    "",                                 // 巴マミ
-    //    "",                                 // 佐倉杏子
-    //    "",                                 // 千歳ゆま
-    //    "",                                 // 呉キリカ
-    //    "",                                 // 美国織莉子
-    //    "Scono_battle_use",                 // スコノシュート（PC)
-    //    "homura_uniform_use",               // 暁美ほむら（弓）
-    //    "",                                 // アルティメットまどか（まどかの覚醒とは一応別扱い）
-    //};
+    
 
 	// Use this for initialization
 	void Start () 
@@ -314,9 +291,9 @@ public class StageSetting : MonoBehaviour
         GameObject PlayerCharacter;
         // 戦闘ステージ
         if (!m_isQuestStage)
-            PlayerCharacter = GameObject.Find(m_CharacterFileName[savingparameter.GetNowParty(partynumber)] + "(Clone)");
+            PlayerCharacter = GameObject.Find(_CharacterFileName[savingparameter.GetNowParty(partynumber)] + "(Clone)");
         else
-            PlayerCharacter = GameObject.Find(m_CharacterFileName_Quest[savingparameter.GetNowParty(partynumber)] + "(Clone)");
+            PlayerCharacter = GameObject.Find(_CharacterFileName_Quest[savingparameter.GetNowParty(partynumber)] + "(Clone)");
         // ロードが終わるまでタイムラグがあるようなので一旦待つ
         if (PlayerCharacter == null)
         {
@@ -325,23 +302,23 @@ public class StageSetting : MonoBehaviour
         // Cloneがつくのでリネームする
         // 戦闘ステージ
         if (!m_isQuestStage)
-            PlayerCharacter.name = m_CharacterFileName[savingparameter.GetNowParty(partynumber)];
+            PlayerCharacter.name = _CharacterFileName[savingparameter.GetNowParty(partynumber)];
         else
-            PlayerCharacter.name = m_CharacterFileName_Quest[savingparameter.GetNowParty(partynumber)];
+            PlayerCharacter.name = _CharacterFileName_Quest[savingparameter.GetNowParty(partynumber)];
                 
         
         // 戦闘用
         if (!m_isQuestStage)
         {
             // そのキャラクターをPLAYERかALLYと設定する(戦闘時のみ)
-            CharacterControl_Base playerCharacter = PlayerCharacter.GetComponentInChildren<CharacterControl_Base>();
+            CharacterControlBase playerCharacter = PlayerCharacter.GetComponentInChildren<CharacterControlBase>();
             if (partynumber == 0)
             {
-                playerCharacter.IsPlayer = CharacterControl_Base.CHARACTERCODE.PLAYER;
+                playerCharacter.IsPlayer = CharacterControlBase.CHARACTERCODE.PLAYER;
             }
             else
             {
-                playerCharacter.IsPlayer = CharacterControl_Base.CHARACTERCODE.PLAYER_ALLY;
+                playerCharacter.IsPlayer = CharacterControlBase.CHARACTERCODE.PLAYER_ALLY;
             }
             // キャラクターの向きを決める
             // カメラ
