@@ -31,16 +31,16 @@ public class DrawRadar : MonoBehaviour
 	void Start () 
     {
         // 属性「自機」以外は描画せず、カメラも無効
-        var target = m_Player.GetComponentInChildren<CharacterControl_Base>();
+        var target = m_Player.GetComponentInChildren<CharacterControlBase>();
 
         // マーカーのテクスチャを張り替え
         // 僚機
-        if (target.IsPlayer == CharacterControl_Base.CHARACTERCODE.PLAYER_ALLY)
+        if (target.IsPlayer == CharacterControlBase.CHARACTERCODE.PLAYER_ALLY)
         {
             m_MarkerObject.GetComponent<Renderer>().material.mainTexture = (Texture)Instantiate(m_MarkerAlly);
         }
         // 敵機
-        else if (target.IsPlayer == CharacterControl_Base.CHARACTERCODE.ENEMY)
+        else if (target.IsPlayer == CharacterControlBase.CHARACTERCODE.ENEMY)
         {
             m_MarkerObject.GetComponent<Renderer>().material.mainTexture = (Texture)Instantiate(m_MarkerEnemy);
         }
@@ -61,7 +61,7 @@ public class DrawRadar : MonoBehaviour
         // 元の位置を取得(元位置のオフセットなので、相対）
         m_platePos_OR = Pl.transform.localPosition;
 
-        if (target.IsPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER)
+        if (target.IsPlayer != CharacterControlBase.CHARACTERCODE.PLAYER)
         {
             // プレイヤーキャラを取得する
             // 全オブジェクトを検索
@@ -69,11 +69,11 @@ public class DrawRadar : MonoBehaviour
             foreach (GameObject go in kouho)
             {
                 // CharacterControl_Baseを持たないものも検索されるので、そういうのは除外
-                if (go.GetComponentInChildren<CharacterControl_Base>() == null)
+                if (go.GetComponentInChildren<CharacterControlBase>() == null)
                 {
                     continue;
                 }
-                if (go.GetComponentInChildren<CharacterControl_Base>().IsPlayer == CharacterControl_Base.CHARACTERCODE.PLAYER)
+                if (go.GetComponentInChildren<CharacterControlBase>().IsPlayer == CharacterControlBase.CHARACTERCODE.PLAYER)
                 {
                     m_playerObject = go;
                     break;
@@ -107,8 +107,8 @@ public class DrawRadar : MonoBehaviour
     public void OnGUI()
     {
         // 属性「自機」以外は描画しない
-        var target = m_Player.GetComponentInChildren<CharacterControl_Base>();
-        if (target.IsPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER)
+        var target = m_Player.GetComponentInChildren<CharacterControlBase>();
+        if (target.IsPlayer != CharacterControlBase.CHARACTERCODE.PLAYER)
         {
             return;
         }
@@ -128,7 +128,7 @@ public class DrawRadar : MonoBehaviour
     void LateUpdate()
     {
         // PCを取得
-        var target = m_Player.GetComponentInChildren<CharacterControl_Base>();
+        var target = m_Player.GetComponentInChildren<CharacterControlBase>();
         // プレイヤーキャラの位置を追跡する
         Vector3 pcposition = m_Player.transform.position;
 
@@ -152,7 +152,7 @@ public class DrawRadar : MonoBehaviour
        
 
         // 属性「自機」以外は描画しない       
-        if (target.IsPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER)
+        if (target.IsPlayer != CharacterControlBase.CHARACTERCODE.PLAYER)
         {
             return;
         }

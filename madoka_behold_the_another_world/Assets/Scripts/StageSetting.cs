@@ -5,18 +5,21 @@ public class StageSetting : MonoBehaviour
 {
     // メンバー変数
     //・SavingParameterの初期化の有無
-    public bool m_InitializeSavingParameter;
+    public bool InitializeSavingParameter;
     // BGMを止めたい場合これをONに
-    public bool m_stopBGM;      
+    public bool StopBGM;      
     // 現在のステージをテストステージにしたいならここをＯＮ
-    public bool m_isTestStage;
+    public bool IsTestStage;
     // 現在のステージをクエストステージにしたいならここをON
-    public bool m_isQuestStage;
+    public bool IsQuestStage;
  
     // キャラクターの初期配置場所のインデックス
-    private int m_settingPosition;
+    private int SettingPosition;
 
-
+	/// <summary>
+	/// 戦闘用インターフェース
+	/// </summary>
+	public BattleInterfaceController Battleinterfacecontroller;
    
     // 鳴らす足音の種類
     public enum FootType
@@ -62,23 +65,23 @@ public class StageSetting : MonoBehaviour
     {		
 
         // 最初のステージのみSavingParameterの初期化を行う（フラグはPublicでInspectorで外部から制御）
-        if (m_InitializeSavingParameter)
+        if (InitializeSavingParameter)
         {
             savingparameter.savingparameter_Init();
         }
 
 		// テストステージだった場合はnowFieldを0にする
-		if (m_isTestStage)
+		if (IsTestStage)
 		{
 			savingparameter.nowField = 0;
 		}
         // 配置候補が複数ある場合があるので、何処に配置するか決める
-        m_settingPosition = 0;
+        SettingPosition = 0;
         for (int i = 0; i < StageCode.stagefromindex[savingparameter.nowField].Length; ++i)
         {
             if (savingparameter.beforeField == StageCode.stagefromindex[savingparameter.nowField][i])
             {
-                m_settingPosition = i;
+                SettingPosition = i;
                 break;
             }
         }
@@ -86,11 +89,17 @@ public class StageSetting : MonoBehaviour
         // 既定の値に基づいて開始時の規定位置にPCキャラクターを配置してカメラの方向を決定する（フラグで設定）
         // ロードするキャラクターの数（クエストパートは1体しかロードしない）
         int numofLoadCharacter = 3;
-        if (m_isQuestStage)
-            numofLoadCharacter = 1;
+		if (IsQuestStage)
+		{
+			numofLoadCharacter = 1;
+		}
+		else
+		{			
+
+		}
         for (int i = 0; i < numofLoadCharacter; i++)
         {            
-            // いない場合を除く
+            // いる場合
             if (savingparameter.GetNowParty(i) != 0)
             {
                 // ロードしてきた場合
@@ -102,34 +111,51 @@ public class StageSetting : MonoBehaviour
                     Vector3 SetRotPlayer = savingparameter.nowrotation;
                     // キャラクターをロードする
                     // クエストパート
-                    if (m_isQuestStage)
+                    if (IsQuestStage)
                     {
                         Instantiate(QuestCharacter[savingparameter.GetNowParty(i)], SetPosPlayer, Quaternion.Euler(SetRotPlayer));
                     }
+					// バトルパート
                     else
                     {
                         Instantiate(BattleCharacter[savingparameter.GetNowParty(i)], SetPosPlayer, Quaternion.Euler(SetRotPlayer));
+						// 現在HP
+						Battleinterfacecontroller.NowPlayerHP[i] = savingparameter.GetNowHP(savingparameter.GetNowParty(i));
+						// 最大HP
+						Battleinterfacecontroller.MaxPlayerHP[i] = savingparameter.GetMaxHP(savingparameter.GetNowParty(i));
                     }
                 }
                 // それ以外の場合
                 else
                 {
                     // 配置位置
-                    Vector3 SetPosPlayer = StagePosition.m_InitializeCharacterPos[savingparameter.nowField][m_settingPosition][i];
+                    Vector3 SetPosPlayer = StagePosition.m_InitializeCharacterPos[savingparameter.nowField][SettingPosition][i];
                     // 配置角度
-                    Vector3 SetRotPlayer = StagePosition.m_InitializeCharacterRot[savingparameter.nowField][m_settingPosition][i];
+                    Vector3 SetRotPlayer = StagePosition.m_InitializeCharacterRot[savingparameter.nowField][SettingPosition][i];
                     // キャラクターをロードする
                     // クエストパート
-                    if (m_isQuestStage)
+                    if (IsQuestStage)
                     {
                         Instantiate(QuestCharacter[savingparameter.GetNowParty(i)], SetPosPlayer, Quaternion.Euler(SetRotPlayer));
                     }
                     else
                     {
                         Instantiate(BattleCharacter[savingparameter.GetNowParty(i)], SetPosPlayer, Quaternion.Euler(SetRotPlayer));
-                    }
+						// 現在HP
+						Battleinterfacecontroller.NowPlayerHP[i] = savingparameter.GetNowHP(savingparameter.GetNowParty(i));
+						// 最大HP
+						Battleinterfacecontroller.MaxPlayerHP[i] = savingparameter.GetMaxHP(savingparameter.GetNowParty(i));
+					}
                 }
             }
+			// いない場合
+			else
+			{
+				Battleinterfacecontroller.NowPlayerHP[i] = 0;
+				Battleinterfacecontroller.MaxPlayerHP[i] = 0;
+				// 顔アイコンを消す
+				Battleinterfacecontroller.Playerbg[i].gameObject.SetActive(false);
+			}
         }
         // AudioManagerがあるか判定
         if (GameObject.Find("AudioManager") == null)
@@ -138,7 +164,7 @@ public class StageSetting : MonoBehaviour
             GameObject am = (GameObject)Instantiate(Resources.Load("AudioManager"));
             am.name = "AudioManager";   // このままだと名前にCloneがつくので消しておく
             // BGM再生開始(0はないので鳴らさない）
-            if (savingparameter.nowField > 0 && !m_stopBGM)
+            if (savingparameter.nowField > 0 && !StopBGM)
             {
                 AudioManager.Instance.PlayBGM(StageCode.stageBGM[savingparameter.nowField]);
             }
@@ -146,13 +172,13 @@ public class StageSetting : MonoBehaviour
         // あった場合、変化フラグがあった場合かロードした場合のみ再生
         else
         {
-            if (StageCode.changebgm[savingparameter.nowField][m_settingPosition] || savingparameter.beforeField == 9999)
+            if (StageCode.changebgm[savingparameter.nowField][SettingPosition] || savingparameter.beforeField == 9999)
             {
                 AudioManager.Instance.PlayBGM(StageCode.stageBGM[savingparameter.nowField]);
             }
         }
 		// CutinSystemがあるか判定(戦闘パートのみ)
-		if (GameObject.Find("CutinSystem") == null && !m_isQuestStage)
+		if (GameObject.Find("CutinSystem") == null && !IsQuestStage)
 		{
 			// 無ければ作る
 			GameObject cutinSystem = (GameObject)Instantiate(Resources.Load("CutinSystem"));
@@ -173,7 +199,7 @@ public class StageSetting : MonoBehaviour
 			fadeManager.name = "FadeManager";
 		}
 		// TalkSystemがあるか判定（非戦闘シーン限定）
-		if(GameObject.Find("TalkSystem") == null && m_isQuestStage)
+		if(GameObject.Find("TalkSystem") == null && IsQuestStage)
 		{
 			GameObject talkSystem = (GameObject)Instantiate(Resources.Load("TalkSystem"));
 			talkSystem.name = "TalkSystem";
@@ -267,7 +293,7 @@ public class StageSetting : MonoBehaviour
             }
 
             // クエストパートでは２、３人目は出さないので飛ばす
-            if (!m_isQuestStage)
+            if (!IsQuestStage)
             {
                 //・2キャラ目、3キャラ目がいる場合はその左右に配置する(いない場合は除く)
                 for (int i = 1; i < 3; i++)
@@ -290,7 +316,7 @@ public class StageSetting : MonoBehaviour
         // Findでロードしたキャラクターを探す
         GameObject PlayerCharacter;
         // 戦闘ステージ
-        if (!m_isQuestStage)
+        if (!IsQuestStage)
             PlayerCharacter = GameObject.Find(_CharacterFileName[savingparameter.GetNowParty(partynumber)] + "(Clone)");
         else
             PlayerCharacter = GameObject.Find(_CharacterFileName_Quest[savingparameter.GetNowParty(partynumber)] + "(Clone)");
@@ -301,14 +327,14 @@ public class StageSetting : MonoBehaviour
         }
         // Cloneがつくのでリネームする
         // 戦闘ステージ
-        if (!m_isQuestStage)
+        if (!IsQuestStage)
             PlayerCharacter.name = _CharacterFileName[savingparameter.GetNowParty(partynumber)];
         else
             PlayerCharacter.name = _CharacterFileName_Quest[savingparameter.GetNowParty(partynumber)];
                 
         
         // 戦闘用
-        if (!m_isQuestStage)
+        if (!IsQuestStage)
         {
             // そのキャラクターをPLAYERかALLYと設定する(戦闘時のみ)
             CharacterControlBase playerCharacter = PlayerCharacter.GetComponentInChildren<CharacterControlBase>();
@@ -327,7 +353,7 @@ public class StageSetting : MonoBehaviour
             if (playerCamera != null)
             {
                 // 本体の向きを変える
-                Vector3 bodyRot = StagePosition.m_InitializeCharacterRot[savingparameter.nowField][m_settingPosition][partynumber];
+                Vector3 bodyRot = StagePosition.m_InitializeCharacterRot[savingparameter.nowField][SettingPosition][partynumber];
                 playerCharacter.transform.rotation = Quaternion.Euler(bodyRot);
                 // カメラの向きを変える              
                 playerCamera.RotY += bodyRot.y;
@@ -347,7 +373,7 @@ public class StageSetting : MonoBehaviour
             if (playerCamera != null)
             {
                 // 本体の向きを変える
-                Vector3 bodyRot = StagePosition.m_InitializeCharacterRot[savingparameter.nowField][m_settingPosition][partynumber];
+                Vector3 bodyRot = StagePosition.m_InitializeCharacterRot[savingparameter.nowField][SettingPosition][partynumber];
                 playerCharacter.transform.rotation = Quaternion.Euler(bodyRot);
                 // カメラの向きを変える              
                 playerCamera.RotY += bodyRot.y;

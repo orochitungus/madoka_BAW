@@ -173,7 +173,6 @@ public class BattleInterfaceController : MonoBehaviour
             // レベル表示
             PlayerLv.text = "LEVEL - " + NowPlayerLV.ToString();
 
-            // 
         });
 	}
 	

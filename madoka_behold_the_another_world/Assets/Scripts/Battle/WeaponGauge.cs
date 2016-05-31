@@ -74,7 +74,7 @@ public class WeaponGauge : MonoBehaviour
                 BulletNumber.color = new Color(1, 0, 0);
             }
             // 現在の弾数を表示
-            BulletNumber.text = NowBulletNumber.ToString("d" + Digits.ToString());
+            BulletNumber.text = NowBulletNumber.ToString(Digits.ToString());
             // リロード分を表示
             Reload.fillAmount = NowBulletNumber / MaxBulletNumber;
             // チャージを使う場合
