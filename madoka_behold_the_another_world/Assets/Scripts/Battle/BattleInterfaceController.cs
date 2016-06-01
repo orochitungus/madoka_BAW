@@ -151,7 +151,7 @@ public class BattleInterfaceController : MonoBehaviour
 			for (int i = 0; i<Playerbg.Length; i++)
 			{
 				// HP表示
-				PlayerHP[i].text = NowPlayerHP.ToString();
+				PlayerHP[i].text = NowPlayerHP[i].ToString();
 
 				// HPが1/4を割っていたら赤色
 				if (NowPlayerHP[i] < 0.25f * MaxPlayerHP[i])
@@ -166,12 +166,9 @@ public class BattleInterfaceController : MonoBehaviour
 				// それ以外なら黒
 				else
 				{
-					PlayerHP[i].color = new Color(1.0f, 1.0f, 1.0f);
+					PlayerHP[i].color = new Color(0.0f, 0.0f, 0.0f);
 				}
 			}
-
-            // レベル表示
-            PlayerLv.text = "LEVEL - " + NowPlayerLV.ToString();
 
         });
 	}

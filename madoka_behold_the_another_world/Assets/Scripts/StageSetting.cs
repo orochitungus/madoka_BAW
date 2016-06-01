@@ -123,6 +123,11 @@ public class StageSetting : MonoBehaviour
 						Battleinterfacecontroller.NowPlayerHP[i] = savingparameter.GetNowHP(savingparameter.GetNowParty(i));
 						// 最大HP
 						Battleinterfacecontroller.MaxPlayerHP[i] = savingparameter.GetMaxHP(savingparameter.GetNowParty(i));
+                        // 現在レベル
+
+                        // 
+
+                        // 最大覚醒ゲージ
                     }
                 }
                 // それ以外の場合

@@ -139,6 +139,21 @@ public class HomuraBowControl : CharacterControlBase
     public Animator AnimatorUnit;
 
     /// <summary>
+    /// 通常射撃のアイコン
+    /// </summary>
+    public Sprite ShotIcon;
+
+    /// <summary>
+    /// サブ射撃のアイコン
+    /// </summary>
+    public Sprite SubShotIcon;
+
+    /// <summary>
+    /// 特殊射撃のアイコン
+    /// </summary>
+    public Sprite ExShotIcon;
+
+    /// <summary>
     /// 各種アニメのハッシュID
     /// </summary>
     public int IDleID;
@@ -325,6 +340,8 @@ public class HomuraBowControl : CharacterControlBase
                 Battleinterfacecontroller.MaxPlayerHP[i] = savingparameter.GetMaxHP(savingparameter.GetNowParty(i));
             }
             // PCのみ
+            // 名前
+            Battleinterfacecontroller.CharacterName.text = "暁美　ほむら";
             // プレイヤーレベル
             Battleinterfacecontroller.PlayerLv.text = "Level - " +  savingparameter.GetNowLevel(savingparameter.GetNowParty(0)).ToString();
             // ブースト量
@@ -335,10 +352,47 @@ public class HomuraBowControl : CharacterControlBase
             Battleinterfacecontroller.NowArousal = Arousal;
             // 最大覚醒ゲージ量
             Battleinterfacecontroller.MaxArousal = ArousalLevel * ArousalGrowth;
-            // 武装ゲージ関連
+            // 装備アイテム
+            Battleinterfacecontroller.ItemName.text = savingparameter.GetNowEquipItemString();
+            // 装備アイテム個数
+            Battleinterfacecontroller.ItemNumber.text = savingparameter.GetItemNum(savingparameter.GetNowEquipItem()).ToString();
+            // 武装ゲージ(マミとさやかにモードチェンジに伴う武装ゲージ変化があるのでこっちに入れる）
+            // 4番目と5番目は消す
+            Battleinterfacecontroller.Weapon4.gameObject.SetActive(false);
+            Battleinterfacecontroller.Weapon5.gameObject.SetActive(false);
+            // 射撃
+            Battleinterfacecontroller.Weapon3.Kind.text = "Shot";
+            Battleinterfacecontroller.Weapon3.WeaponGraphic.sprite = ShotIcon;
+            Battleinterfacecontroller.Weapon3.NowBulletNumber = BulletNum[(int)ShotType.NORMAL_SHOT];
+            Battleinterfacecontroller.Weapon3.MaxBulletNumber = Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_OriginalBulletNum;
+            Battleinterfacecontroller.Weapon3.UseChargeGauge = true;
+            // 1発でも使えれば使用可能
+            if(BulletNum[(int)ShotType.NORMAL_SHOT] > 0)
+            {
+                Battleinterfacecontroller.Weapon3.Use = true;
+            }
+            else
+            {
+                Battleinterfacecontroller.Weapon3.Use = false;
+            }
+
+            // サブ射撃
+            Battleinterfacecontroller.Weapon2.Kind.text = "Sub Shot";
+            Battleinterfacecontroller.Weapon2.WeaponGraphic.sprite = SubShotIcon;
+            Battleinterfacecontroller.Weapon2.NowBulletNumber = BulletNum[(int)ShotType.SUB_SHOT];
+            Battleinterfacecontroller.Weapon2.MaxBulletNumber = Character_Spec.cs[(int)CharacterName][(int)ShotType.SUB_SHOT].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.SUB_SHOT].m_OriginalBulletNum;
+            Battleinterfacecontroller.Weapon2.UseChargeGauge = false;
+            // 1発でもありかつリロード中でなければ使用可能
 
 
-		});
+            // 特殊射撃
+            Battleinterfacecontroller.Weapon1.Kind.text = "EX Shot";
+            Battleinterfacecontroller.Weapon1.WeaponGraphic.sprite = ExShotIcon;
+            Battleinterfacecontroller.Weapon1.NowBulletNumber = BulletNum[(int)ShotType.EX_SHOT];
+            Battleinterfacecontroller.Weapon1.MaxBulletNumber = Character_Spec.cs[(int)CharacterName][(int)ShotType.EX_SHOT].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.EX_SHOT].m_OriginalBulletNum;
+            Battleinterfacecontroller.Weapon1.UseChargeGauge = false;
+
+        });
 
         
     }

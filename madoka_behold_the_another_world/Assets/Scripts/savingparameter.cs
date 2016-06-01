@@ -390,6 +390,15 @@ public static class savingparameter
         return m_nowequipItem;
     }
 
+    /// <summary>
+    /// 上記の名称表示版
+    /// </summary>
+    /// <returns></returns>
+    public static string GetNowEquipItemString()
+    {
+        return Item.itemspec[m_nowequipItem].Name();
+    }
+
     // アイテムを使用し、効果を出させる
     // itemkind         [in]:アイテムの種類
     // targetcharacter  [in]:アイテムの効果を出すキャラクター
