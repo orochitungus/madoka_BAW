@@ -156,7 +156,7 @@ public class HomuraBowControl : CharacterControlBase
     /// <summary>
     /// 各種アニメのハッシュID
     /// </summary>
-    public int IDleID;
+    public int IdleID;
     public int WalkID;
     public int JumpID;
     public int JumpingID;
@@ -214,14 +214,58 @@ public class HomuraBowControl : CharacterControlBase
 		{
 			Debug.LogError("Caution!! BattleInterfaceCanvas is Nothing!!");
 		}
-	}
+
+        // ハッシュID取得
+        IdleID = Animator.StringToHash("HomuraBowIdle");
+        WalkID = Animator.StringToHash("HomuraBowWalk");
+        JumpID = Animator.StringToHash("HomuraBowJump");
+        JumpingID = Animator.StringToHash("HomuraBowJumping");
+        FallID = Animator.StringToHash("HomuraBowFall");
+        LandingID = Animator.StringToHash("HomuraBowRun");
+        RunID = Animator.StringToHash("HomuraBowRun");
+        AirDashID = Animator.StringToHash("HomuraBowAirDash");
+        FrontStepID = Animator.StringToHash("HomuraBowFrontStep");
+        FrontStepBackID = Animator.StringToHash("HomurabowFrontStepBack");
+        LeftStepID = Animator.StringToHash("HomuraBowLeftStep");
+        LeftStepBackID = Animator.StringToHash("HomuraBowLeftStepBack");
+        RightStepID = Animator.StringToHash("HomuraBowRightStep");
+        RightStepBackID = Animator.StringToHash("HomuraBowRightStepBack");
+        BackStepID = Animator.StringToHash("HomuraBowBackStep");
+        BackStepBackID = Animator.StringToHash("HomuraBowBackStepBack");
+        ShotID = Animator.StringToHash("HomuraBowShot");
+        RunShotID = Animator.StringToHash("HomuraBowRunShot");
+        AirShotID = Animator.StringToHash("HomuraBowAirShot");
+        ChargeShotID = Animator.StringToHash("HomuraBowChargeShot");
+        SubShotID = Animator.StringToHash("HomuraBowSubShot");
+        EXShotID = Animator.StringToHash("HomuraBowEXShot");
+        FollowThrowShotID = Animator.StringToHash("HomuraBowShotForrowThrow");
+        FollowThrowRunShotID = Animator.StringToHash("HomuraBowRunShotForrowThrow");
+        FollowThrowAirShotID = Animator.StringToHash("HomuraBowAirShotForrowThrow");
+        FollowThrowChargeShotID = Animator.StringToHash("HowmuraBowChargeShotFollowThrow");
+        FollowThrowSubShotID = Animator.StringToHash("HomuraBowSubShotFollowThrow");
+        FollowThrowEXShotID = Animator.StringToHash("HomuraBowEXShotFollowThrow");
+        Wrestle1ID = Animator.StringToHash("HomuraBowWrestle1");
+        Wrestle2ID = Animator.StringToHash("HomuraBowWrestle2");
+        Wrestle3ID = Animator.StringToHash("HomuraBowWrestle3");
+        FrontWrestleID = Animator.StringToHash("HomuraBowFrontWrestle");
+        LeftWrestleID = Animator.StringToHash("HomuraBowLeftWrestle");
+        RightWrestleID = Animator.StringToHash("HomuraBowRightWrestle");
+        BackWrestleID = Animator.StringToHash("HomuraBowBackWrestle");
+        AirDashWrestleID = Animator.StringToHash("HomuraBowBDWrestle");
+        EXWrestleID = Animator.StringToHash("HomuraBowEXWrestle");
+        EXFrontWrestleID = Animator.StringToHash("HomuraBowFrontEXWrestle");
+        EXBackWrestleID = Animator.StringToHash("HomuraBowBackExWrestle");
+        ReversalID = Animator.StringToHash("HomuraBowReversal");
+        ArousalAttackID = Animator.StringToHash("HomuraBowArousalAttack");
+        DamageID = Animator.StringToHash("HomuraBowDamage");
+        DownID = Animator.StringToHash("HomurBowDown");
+        BlowID = Animator.StringToHash("HomuraBowBlow");
+        SpinDownID = Animator.StringToHash("HomuraBowSpindown");
+    }
 
 	// Use this for initialization
 	void Start () 
 	{
-        // TODO:ハッシュID取得
-
-
         // 誰であるかを定義(インスペクターで拾う)
         // レベル・攻撃力レベル・防御力レベル・残弾数レベル・ブースト量レベル・覚醒ゲージレベルを初期化
         SettingPleyerLevel();
@@ -280,7 +324,7 @@ public class HomuraBowControl : CharacterControlBase
         ExshotEndtime = 0.0f;
         
         // 共通ステートを初期化
-        FirstSetting(AnimatorUnit, IDleID);
+        FirstSetting(AnimatorUnit, IdleID);
 
         this.UpdateAsObservable().Where(_ => IsPlayer == CHARACTERCODE.PLAYER).Subscribe(_ => 
 		{
@@ -382,7 +426,15 @@ public class HomuraBowControl : CharacterControlBase
             Battleinterfacecontroller.Weapon2.NowBulletNumber = BulletNum[(int)ShotType.SUB_SHOT];
             Battleinterfacecontroller.Weapon2.MaxBulletNumber = Character_Spec.cs[(int)CharacterName][(int)ShotType.SUB_SHOT].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.SUB_SHOT].m_OriginalBulletNum;
             Battleinterfacecontroller.Weapon2.UseChargeGauge = false;
-            // 1発でもありかつリロード中でなければ使用可能
+            // 1発でも使えれば使用可能(リロード時は0になる)
+            if (BulletNum[(int)ShotType.SUB_SHOT] != 0)
+            {
+                Battleinterfacecontroller.Weapon2.Use = true;
+            }
+            else
+            {
+                Battleinterfacecontroller.Weapon2.Use = false;
+            }
 
 
             // 特殊射撃
@@ -391,6 +443,15 @@ public class HomuraBowControl : CharacterControlBase
             Battleinterfacecontroller.Weapon1.NowBulletNumber = BulletNum[(int)ShotType.EX_SHOT];
             Battleinterfacecontroller.Weapon1.MaxBulletNumber = Character_Spec.cs[(int)CharacterName][(int)ShotType.EX_SHOT].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.EX_SHOT].m_OriginalBulletNum;
             Battleinterfacecontroller.Weapon1.UseChargeGauge = false;
+            // 1発でも使えれば使用可能
+            if (BulletNum[(int)ShotType.EX_SHOT] > 0)
+            {
+                Battleinterfacecontroller.Weapon1.Use = true;
+            }
+            else
+            {
+                Battleinterfacecontroller.Weapon1.Use = false;
+            }
 
         });
 
@@ -400,7 +461,7 @@ public class HomuraBowControl : CharacterControlBase
 	// Update is called once per frame
 	void Update () 
 	{
-        if (AnimatorUnit.GetHashCode() == IDleID)
+        if (AnimatorUnit.GetHashCode() == IdleID)
         {
 
         }

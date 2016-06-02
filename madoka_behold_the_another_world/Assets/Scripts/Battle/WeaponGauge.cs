@@ -11,10 +11,15 @@ public class WeaponGauge : MonoBehaviour
 	/// </summary>
 	public Image WeaponGraphic;
 
+    /// <summary>
+    /// チャージゲージ本体
+    /// </summary>
+    public GameObject Charge;
+
 	/// <summary>
-	/// チャージゲージ
+	/// チャージゲージゲージ部分
 	/// </summary>
-	public Image Charge;
+	public Image ChargeGauge;
 
 	/// <summary>
 	/// チャージを使うか否か
@@ -80,13 +85,13 @@ public class WeaponGauge : MonoBehaviour
             // チャージを使う場合
             if (UseChargeGauge)
             {
-                Charge.gameObject.SetActive(true);
+                Charge.SetActive(true);
                 // 現在のチャージ量を表示
-                Charge.fillAmount = NowChargeValue;
+                ChargeGauge.fillAmount = NowChargeValue;
             }
             else
             {
-                Charge.gameObject.SetActive(false);
+                Charge.SetActive(false);
             }
         });
 	    
