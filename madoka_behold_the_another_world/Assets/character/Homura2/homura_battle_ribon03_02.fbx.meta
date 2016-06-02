@@ -205,7 +205,4424 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Homura_Final_Battle_Wrestle1
+      takeName: Homura_Final_Battle_Wrestle1
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: const_reg_L_
+        weight: 1
+      - path: const_reg_L_/const_foot_L_
+        weight: 1
+      - path: const_reg_R_
+        weight: 1
+      - path: const_reg_R_/const_foot_R_
+        weight: 1
+      - path: Mesh
+        weight: 1
+      - path: Mesh/body
+        weight: 1
+      - path: Mesh/homura_bow
+        weight: 1
+      - path: Mesh/homura_bowstring
+        weight: 1
+      - path: XSBone_000
+        weight: 1
+      - path: XSBone_000/brest
+        weight: 1
+      - path: XSBone_000/brest/kubi
+        weight: 1
+      - path: XSBone_000/brest/kubi/head
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_/backhairl2_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_/backhairr2_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiagel_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiager_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_/handfinger011_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_/handfinger021_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_/handfinger031_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_/handfinger041_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_/handfinger051_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow/string_top
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002/string_under
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_/handfinger011_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_/handfinger021_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_/handfinger031_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_/handfinger041_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_/handfinger051_R_
+        weight: 1
+      - path: XSBone_000/kosi
+        weight: 1
+      - path: XSBone_000/kosi/skirt5
+        weight: 1
+      - path: XSBone_000/kosi/skirt6
+        weight: 1
+      - path: XSBone_000/kosi/skirt7
+        weight: 1
+      - path: XSBone_000/kosi/skirt8
+        weight: 1
+      - path: XSBone_000/kosi/skirt_1
+        weight: 1
+      - path: XSBone_000/kosi/skirt_2
+        weight: 1
+      - path: XSBone_000/kosi/skirt_3
+        weight: 1
+      - path: XSBone_000/kosi/skirt_4
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_/foot_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_/foot_R_
+        weight: 1
+      - path: XSBone_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Homura_Final_Battle_Wrestle2
+      takeName: Homura_Final_Battle_Wrestle2
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: const_reg_L_
+        weight: 1
+      - path: const_reg_L_/const_foot_L_
+        weight: 1
+      - path: const_reg_R_
+        weight: 1
+      - path: const_reg_R_/const_foot_R_
+        weight: 1
+      - path: Mesh
+        weight: 1
+      - path: Mesh/body
+        weight: 1
+      - path: Mesh/homura_bow
+        weight: 1
+      - path: Mesh/homura_bowstring
+        weight: 1
+      - path: XSBone_000
+        weight: 1
+      - path: XSBone_000/brest
+        weight: 1
+      - path: XSBone_000/brest/kubi
+        weight: 1
+      - path: XSBone_000/brest/kubi/head
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_/backhairl2_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_/backhairr2_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiagel_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiager_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_/handfinger011_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_/handfinger021_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_/handfinger031_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_/handfinger041_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_/handfinger051_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow/string_top
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002/string_under
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_/handfinger011_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_/handfinger021_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_/handfinger031_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_/handfinger041_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_/handfinger051_R_
+        weight: 1
+      - path: XSBone_000/kosi
+        weight: 1
+      - path: XSBone_000/kosi/skirt5
+        weight: 1
+      - path: XSBone_000/kosi/skirt6
+        weight: 1
+      - path: XSBone_000/kosi/skirt7
+        weight: 1
+      - path: XSBone_000/kosi/skirt8
+        weight: 1
+      - path: XSBone_000/kosi/skirt_1
+        weight: 1
+      - path: XSBone_000/kosi/skirt_2
+        weight: 1
+      - path: XSBone_000/kosi/skirt_3
+        weight: 1
+      - path: XSBone_000/kosi/skirt_4
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_/foot_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_/foot_R_
+        weight: 1
+      - path: XSBone_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Homura_Final_Battle_Wrestle3
+      takeName: Homura_Final_Battle_Wrestle3
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: const_reg_L_
+        weight: 1
+      - path: const_reg_L_/const_foot_L_
+        weight: 1
+      - path: const_reg_R_
+        weight: 1
+      - path: const_reg_R_/const_foot_R_
+        weight: 1
+      - path: Mesh
+        weight: 1
+      - path: Mesh/body
+        weight: 1
+      - path: Mesh/homura_bow
+        weight: 1
+      - path: Mesh/homura_bowstring
+        weight: 1
+      - path: XSBone_000
+        weight: 1
+      - path: XSBone_000/brest
+        weight: 1
+      - path: XSBone_000/brest/kubi
+        weight: 1
+      - path: XSBone_000/brest/kubi/head
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_/backhairl2_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_/backhairr2_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiagel_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiager_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_/handfinger011_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_/handfinger021_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_/handfinger031_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_/handfinger041_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_/handfinger051_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow/string_top
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002/string_under
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_/handfinger011_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_/handfinger021_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_/handfinger031_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_/handfinger041_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_/handfinger051_R_
+        weight: 1
+      - path: XSBone_000/kosi
+        weight: 1
+      - path: XSBone_000/kosi/skirt5
+        weight: 1
+      - path: XSBone_000/kosi/skirt6
+        weight: 1
+      - path: XSBone_000/kosi/skirt7
+        weight: 1
+      - path: XSBone_000/kosi/skirt8
+        weight: 1
+      - path: XSBone_000/kosi/skirt_1
+        weight: 1
+      - path: XSBone_000/kosi/skirt_2
+        weight: 1
+      - path: XSBone_000/kosi/skirt_3
+        weight: 1
+      - path: XSBone_000/kosi/skirt_4
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_/foot_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_/foot_R_
+        weight: 1
+      - path: XSBone_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: homura_bow_spin_down
+      takeName: homura_bow_spin_down
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: const_reg_L_
+        weight: 1
+      - path: const_reg_L_/const_foot_L_
+        weight: 1
+      - path: const_reg_R_
+        weight: 1
+      - path: const_reg_R_/const_foot_R_
+        weight: 1
+      - path: Mesh
+        weight: 1
+      - path: Mesh/body
+        weight: 1
+      - path: Mesh/homura_bow
+        weight: 1
+      - path: Mesh/homura_bowstring
+        weight: 1
+      - path: XSBone_000
+        weight: 1
+      - path: XSBone_000/brest
+        weight: 1
+      - path: XSBone_000/brest/kubi
+        weight: 1
+      - path: XSBone_000/brest/kubi/head
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_/backhairl2_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_/backhairr2_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiagel_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiager_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_/handfinger011_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_/handfinger021_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_/handfinger031_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_/handfinger041_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_/handfinger051_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow/string_top
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002/string_under
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_/handfinger011_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_/handfinger021_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_/handfinger031_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_/handfinger041_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_/handfinger051_R_
+        weight: 1
+      - path: XSBone_000/kosi
+        weight: 1
+      - path: XSBone_000/kosi/skirt5
+        weight: 1
+      - path: XSBone_000/kosi/skirt6
+        weight: 1
+      - path: XSBone_000/kosi/skirt7
+        weight: 1
+      - path: XSBone_000/kosi/skirt8
+        weight: 1
+      - path: XSBone_000/kosi/skirt_1
+        weight: 1
+      - path: XSBone_000/kosi/skirt_2
+        weight: 1
+      - path: XSBone_000/kosi/skirt_3
+        weight: 1
+      - path: XSBone_000/kosi/skirt_4
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_/foot_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_/foot_R_
+        weight: 1
+      - path: XSBone_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: run(pentagram)
+      takeName: run(pentagram)
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: const_reg_L_
+        weight: 1
+      - path: const_reg_L_/const_foot_L_
+        weight: 1
+      - path: const_reg_R_
+        weight: 1
+      - path: const_reg_R_/const_foot_R_
+        weight: 1
+      - path: Mesh
+        weight: 1
+      - path: Mesh/body
+        weight: 1
+      - path: Mesh/homura_bow
+        weight: 1
+      - path: Mesh/homura_bowstring
+        weight: 1
+      - path: XSBone_000
+        weight: 1
+      - path: XSBone_000/brest
+        weight: 1
+      - path: XSBone_000/brest/kubi
+        weight: 1
+      - path: XSBone_000/brest/kubi/head
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_/backhairl2_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_/backhairr2_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiagel_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiager_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_/handfinger011_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_/handfinger021_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_/handfinger031_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_/handfinger041_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_/handfinger051_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow/string_top
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002/string_under
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_/handfinger011_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_/handfinger021_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_/handfinger031_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_/handfinger041_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_/handfinger051_R_
+        weight: 1
+      - path: XSBone_000/kosi
+        weight: 1
+      - path: XSBone_000/kosi/skirt5
+        weight: 1
+      - path: XSBone_000/kosi/skirt6
+        weight: 1
+      - path: XSBone_000/kosi/skirt7
+        weight: 1
+      - path: XSBone_000/kosi/skirt8
+        weight: 1
+      - path: XSBone_000/kosi/skirt_1
+        weight: 1
+      - path: XSBone_000/kosi/skirt_2
+        weight: 1
+      - path: XSBone_000/kosi/skirt_3
+        weight: 1
+      - path: XSBone_000/kosi/skirt_4
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_/foot_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_/foot_R_
+        weight: 1
+      - path: XSBone_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: run(pentagram)_under_only
+      takeName: run(pentagram)_under_only
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: const_reg_L_
+        weight: 1
+      - path: const_reg_L_/const_foot_L_
+        weight: 1
+      - path: const_reg_R_
+        weight: 1
+      - path: const_reg_R_/const_foot_R_
+        weight: 1
+      - path: Mesh
+        weight: 1
+      - path: Mesh/body
+        weight: 1
+      - path: Mesh/homura_bow
+        weight: 1
+      - path: Mesh/homura_bowstring
+        weight: 1
+      - path: XSBone_000
+        weight: 1
+      - path: XSBone_000/brest
+        weight: 1
+      - path: XSBone_000/brest/kubi
+        weight: 1
+      - path: XSBone_000/brest/kubi/head
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_/backhairl2_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_/backhairr2_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiagel_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiager_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_/handfinger011_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_/handfinger021_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_/handfinger031_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_/handfinger041_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_/handfinger051_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow/string_top
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002/string_under
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_/handfinger011_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_/handfinger021_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_/handfinger031_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_/handfinger041_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_/handfinger051_R_
+        weight: 1
+      - path: XSBone_000/kosi
+        weight: 1
+      - path: XSBone_000/kosi/skirt5
+        weight: 1
+      - path: XSBone_000/kosi/skirt6
+        weight: 1
+      - path: XSBone_000/kosi/skirt7
+        weight: 1
+      - path: XSBone_000/kosi/skirt8
+        weight: 1
+      - path: XSBone_000/kosi/skirt_1
+        weight: 1
+      - path: XSBone_000/kosi/skirt_2
+        weight: 1
+      - path: XSBone_000/kosi/skirt_3
+        weight: 1
+      - path: XSBone_000/kosi/skirt_4
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_/foot_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_/foot_R_
+        weight: 1
+      - path: XSBone_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: homura_bow_leftstep
+      takeName: homura_bow_leftstep
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: const_reg_L_
+        weight: 1
+      - path: const_reg_L_/const_foot_L_
+        weight: 1
+      - path: const_reg_R_
+        weight: 1
+      - path: const_reg_R_/const_foot_R_
+        weight: 1
+      - path: Mesh
+        weight: 1
+      - path: Mesh/body
+        weight: 1
+      - path: Mesh/homura_bow
+        weight: 1
+      - path: Mesh/homura_bowstring
+        weight: 1
+      - path: XSBone_000
+        weight: 1
+      - path: XSBone_000/brest
+        weight: 1
+      - path: XSBone_000/brest/kubi
+        weight: 1
+      - path: XSBone_000/brest/kubi/head
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_/backhairl2_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_/backhairr2_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiagel_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiager_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_/handfinger011_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_/handfinger021_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_/handfinger031_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_/handfinger041_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_/handfinger051_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow/string_top
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002/string_under
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_/handfinger011_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_/handfinger021_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_/handfinger031_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_/handfinger041_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_/handfinger051_R_
+        weight: 1
+      - path: XSBone_000/kosi
+        weight: 1
+      - path: XSBone_000/kosi/skirt5
+        weight: 1
+      - path: XSBone_000/kosi/skirt6
+        weight: 1
+      - path: XSBone_000/kosi/skirt7
+        weight: 1
+      - path: XSBone_000/kosi/skirt8
+        weight: 1
+      - path: XSBone_000/kosi/skirt_1
+        weight: 1
+      - path: XSBone_000/kosi/skirt_2
+        weight: 1
+      - path: XSBone_000/kosi/skirt_3
+        weight: 1
+      - path: XSBone_000/kosi/skirt_4
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_/foot_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_/foot_R_
+        weight: 1
+      - path: XSBone_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: homura_bow_leftstep_back
+      takeName: homura_bow_leftstep_back
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: const_reg_L_
+        weight: 1
+      - path: const_reg_L_/const_foot_L_
+        weight: 1
+      - path: const_reg_R_
+        weight: 1
+      - path: const_reg_R_/const_foot_R_
+        weight: 1
+      - path: Mesh
+        weight: 1
+      - path: Mesh/body
+        weight: 1
+      - path: Mesh/homura_bow
+        weight: 1
+      - path: Mesh/homura_bowstring
+        weight: 1
+      - path: XSBone_000
+        weight: 1
+      - path: XSBone_000/brest
+        weight: 1
+      - path: XSBone_000/brest/kubi
+        weight: 1
+      - path: XSBone_000/brest/kubi/head
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_/backhairl2_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_/backhairr2_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiagel_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiager_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_/handfinger011_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_/handfinger021_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_/handfinger031_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_/handfinger041_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_/handfinger051_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow/string_top
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002/string_under
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_/handfinger011_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_/handfinger021_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_/handfinger031_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_/handfinger041_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_/handfinger051_R_
+        weight: 1
+      - path: XSBone_000/kosi
+        weight: 1
+      - path: XSBone_000/kosi/skirt5
+        weight: 1
+      - path: XSBone_000/kosi/skirt6
+        weight: 1
+      - path: XSBone_000/kosi/skirt7
+        weight: 1
+      - path: XSBone_000/kosi/skirt8
+        weight: 1
+      - path: XSBone_000/kosi/skirt_1
+        weight: 1
+      - path: XSBone_000/kosi/skirt_2
+        weight: 1
+      - path: XSBone_000/kosi/skirt_3
+        weight: 1
+      - path: XSBone_000/kosi/skirt_4
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_/foot_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_/foot_R_
+        weight: 1
+      - path: XSBone_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: homura_bow_rightstep
+      takeName: homura_bow_rightstep
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: const_reg_L_
+        weight: 1
+      - path: const_reg_L_/const_foot_L_
+        weight: 1
+      - path: const_reg_R_
+        weight: 1
+      - path: const_reg_R_/const_foot_R_
+        weight: 1
+      - path: Mesh
+        weight: 1
+      - path: Mesh/body
+        weight: 1
+      - path: Mesh/homura_bow
+        weight: 1
+      - path: Mesh/homura_bowstring
+        weight: 1
+      - path: XSBone_000
+        weight: 1
+      - path: XSBone_000/brest
+        weight: 1
+      - path: XSBone_000/brest/kubi
+        weight: 1
+      - path: XSBone_000/brest/kubi/head
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_/backhairl2_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_/backhairr2_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiagel_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiager_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_/handfinger011_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_/handfinger021_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_/handfinger031_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_/handfinger041_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_/handfinger051_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow/string_top
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002/string_under
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_/handfinger011_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_/handfinger021_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_/handfinger031_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_/handfinger041_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_/handfinger051_R_
+        weight: 1
+      - path: XSBone_000/kosi
+        weight: 1
+      - path: XSBone_000/kosi/skirt5
+        weight: 1
+      - path: XSBone_000/kosi/skirt6
+        weight: 1
+      - path: XSBone_000/kosi/skirt7
+        weight: 1
+      - path: XSBone_000/kosi/skirt8
+        weight: 1
+      - path: XSBone_000/kosi/skirt_1
+        weight: 1
+      - path: XSBone_000/kosi/skirt_2
+        weight: 1
+      - path: XSBone_000/kosi/skirt_3
+        weight: 1
+      - path: XSBone_000/kosi/skirt_4
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_/foot_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_/foot_R_
+        weight: 1
+      - path: XSBone_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: homura_bow_rightstep_back
+      takeName: homura_bow_rightstep_back
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: const_reg_L_
+        weight: 1
+      - path: const_reg_L_/const_foot_L_
+        weight: 1
+      - path: const_reg_R_
+        weight: 1
+      - path: const_reg_R_/const_foot_R_
+        weight: 1
+      - path: Mesh
+        weight: 1
+      - path: Mesh/body
+        weight: 1
+      - path: Mesh/homura_bow
+        weight: 1
+      - path: Mesh/homura_bowstring
+        weight: 1
+      - path: XSBone_000
+        weight: 1
+      - path: XSBone_000/brest
+        weight: 1
+      - path: XSBone_000/brest/kubi
+        weight: 1
+      - path: XSBone_000/brest/kubi/head
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_/backhairl2_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_/backhairr2_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiagel_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiager_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_/handfinger011_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_/handfinger021_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_/handfinger031_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_/handfinger041_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_/handfinger051_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow/string_top
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002/string_under
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_/handfinger011_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_/handfinger021_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_/handfinger031_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_/handfinger041_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_/handfinger051_R_
+        weight: 1
+      - path: XSBone_000/kosi
+        weight: 1
+      - path: XSBone_000/kosi/skirt5
+        weight: 1
+      - path: XSBone_000/kosi/skirt6
+        weight: 1
+      - path: XSBone_000/kosi/skirt7
+        weight: 1
+      - path: XSBone_000/kosi/skirt8
+        weight: 1
+      - path: XSBone_000/kosi/skirt_1
+        weight: 1
+      - path: XSBone_000/kosi/skirt_2
+        weight: 1
+      - path: XSBone_000/kosi/skirt_3
+        weight: 1
+      - path: XSBone_000/kosi/skirt_4
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_/foot_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_/foot_R_
+        weight: 1
+      - path: XSBone_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: homura_bow_AirDash
+      takeName: homura_bow_AirDash
+      firstFrame: 0
+      lastFrame: 2
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves:
+      - name: Curve
+        curve:
+          serializedVersion: 2
+          curve:
+          - time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+          - time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 0
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: const_reg_L_
+        weight: 1
+      - path: const_reg_L_/const_foot_L_
+        weight: 1
+      - path: const_reg_R_
+        weight: 1
+      - path: const_reg_R_/const_foot_R_
+        weight: 1
+      - path: Mesh
+        weight: 1
+      - path: Mesh/body
+        weight: 1
+      - path: Mesh/homura_bow
+        weight: 1
+      - path: Mesh/homura_bowstring
+        weight: 1
+      - path: XSBone_000
+        weight: 1
+      - path: XSBone_000/brest
+        weight: 1
+      - path: XSBone_000/brest/kubi
+        weight: 1
+      - path: XSBone_000/brest/kubi/head
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_/backhairl2_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_/backhairr2_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiagel_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiager_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_/handfinger011_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_/handfinger021_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_/handfinger031_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_/handfinger041_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_/handfinger051_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow/string_top
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002/string_under
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_/handfinger011_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_/handfinger021_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_/handfinger031_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_/handfinger041_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_/handfinger051_R_
+        weight: 1
+      - path: XSBone_000/kosi
+        weight: 1
+      - path: XSBone_000/kosi/skirt5
+        weight: 1
+      - path: XSBone_000/kosi/skirt6
+        weight: 1
+      - path: XSBone_000/kosi/skirt7
+        weight: 1
+      - path: XSBone_000/kosi/skirt8
+        weight: 1
+      - path: XSBone_000/kosi/skirt_1
+        weight: 1
+      - path: XSBone_000/kosi/skirt_2
+        weight: 1
+      - path: XSBone_000/kosi/skirt_3
+        weight: 1
+      - path: XSBone_000/kosi/skirt_4
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_/foot_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_/foot_R_
+        weight: 1
+      - path: XSBone_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: homura_bow_fall
+      takeName: homura_bow_fall
+      firstFrame: 0
+      lastFrame: 4
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: const_reg_L_
+        weight: 1
+      - path: const_reg_L_/const_foot_L_
+        weight: 1
+      - path: const_reg_R_
+        weight: 1
+      - path: const_reg_R_/const_foot_R_
+        weight: 1
+      - path: Mesh
+        weight: 1
+      - path: Mesh/body
+        weight: 1
+      - path: Mesh/homura_bow
+        weight: 1
+      - path: Mesh/homura_bowstring
+        weight: 1
+      - path: XSBone_000
+        weight: 1
+      - path: XSBone_000/brest
+        weight: 1
+      - path: XSBone_000/brest/kubi
+        weight: 1
+      - path: XSBone_000/brest/kubi/head
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_/backhairl2_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_/backhairr2_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiagel_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiager_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_/handfinger011_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_/handfinger021_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_/handfinger031_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_/handfinger041_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_/handfinger051_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow/string_top
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002/string_under
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_/handfinger011_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_/handfinger021_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_/handfinger031_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_/handfinger041_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_/handfinger051_R_
+        weight: 1
+      - path: XSBone_000/kosi
+        weight: 1
+      - path: XSBone_000/kosi/skirt5
+        weight: 1
+      - path: XSBone_000/kosi/skirt6
+        weight: 1
+      - path: XSBone_000/kosi/skirt7
+        weight: 1
+      - path: XSBone_000/kosi/skirt8
+        weight: 1
+      - path: XSBone_000/kosi/skirt_1
+        weight: 1
+      - path: XSBone_000/kosi/skirt_2
+        weight: 1
+      - path: XSBone_000/kosi/skirt_3
+        weight: 1
+      - path: XSBone_000/kosi/skirt_4
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_/foot_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_/foot_R_
+        weight: 1
+      - path: XSBone_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Homura_Final_Battle_Wrestle3-2
+      takeName: Homura_Final_Battle_Wrestle3-2
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: const_reg_L_
+        weight: 1
+      - path: const_reg_L_/const_foot_L_
+        weight: 1
+      - path: const_reg_R_
+        weight: 1
+      - path: const_reg_R_/const_foot_R_
+        weight: 1
+      - path: Mesh
+        weight: 1
+      - path: Mesh/body
+        weight: 1
+      - path: Mesh/homura_bow
+        weight: 1
+      - path: Mesh/homura_bowstring
+        weight: 1
+      - path: XSBone_000
+        weight: 1
+      - path: XSBone_000/brest
+        weight: 1
+      - path: XSBone_000/brest/kubi
+        weight: 1
+      - path: XSBone_000/brest/kubi/head
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_/backhairl2_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_/backhairr2_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiagel_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiager_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_/handfinger011_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_/handfinger021_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_/handfinger031_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_/handfinger041_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_/handfinger051_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow/string_top
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002/string_under
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_/handfinger011_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_/handfinger021_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_/handfinger031_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_/handfinger041_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_/handfinger051_R_
+        weight: 1
+      - path: XSBone_000/kosi
+        weight: 1
+      - path: XSBone_000/kosi/skirt5
+        weight: 1
+      - path: XSBone_000/kosi/skirt6
+        weight: 1
+      - path: XSBone_000/kosi/skirt7
+        weight: 1
+      - path: XSBone_000/kosi/skirt8
+        weight: 1
+      - path: XSBone_000/kosi/skirt_1
+        weight: 1
+      - path: XSBone_000/kosi/skirt_2
+        weight: 1
+      - path: XSBone_000/kosi/skirt_3
+        weight: 1
+      - path: XSBone_000/kosi/skirt_4
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_/foot_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_/foot_R_
+        weight: 1
+      - path: XSBone_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Homura_Final_Battle_Wrestle1-2
+      takeName: Homura_Final_Battle_Wrestle1-2
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: const_reg_L_
+        weight: 1
+      - path: const_reg_L_/const_foot_L_
+        weight: 1
+      - path: const_reg_R_
+        weight: 1
+      - path: const_reg_R_/const_foot_R_
+        weight: 1
+      - path: Mesh
+        weight: 1
+      - path: Mesh/body
+        weight: 1
+      - path: Mesh/homura_bow
+        weight: 1
+      - path: Mesh/homura_bowstring
+        weight: 1
+      - path: XSBone_000
+        weight: 1
+      - path: XSBone_000/brest
+        weight: 1
+      - path: XSBone_000/brest/kubi
+        weight: 1
+      - path: XSBone_000/brest/kubi/head
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_/backhairl2_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_/backhairr2_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiagel_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiager_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_/handfinger011_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_/handfinger021_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_/handfinger031_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_/handfinger041_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_/handfinger051_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow/string_top
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002/string_under
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_/handfinger011_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_/handfinger021_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_/handfinger031_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_/handfinger041_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_/handfinger051_R_
+        weight: 1
+      - path: XSBone_000/kosi
+        weight: 1
+      - path: XSBone_000/kosi/skirt5
+        weight: 1
+      - path: XSBone_000/kosi/skirt6
+        weight: 1
+      - path: XSBone_000/kosi/skirt7
+        weight: 1
+      - path: XSBone_000/kosi/skirt8
+        weight: 1
+      - path: XSBone_000/kosi/skirt_1
+        weight: 1
+      - path: XSBone_000/kosi/skirt_2
+        weight: 1
+      - path: XSBone_000/kosi/skirt_3
+        weight: 1
+      - path: XSBone_000/kosi/skirt_4
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_/foot_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_/foot_R_
+        weight: 1
+      - path: XSBone_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Homura_Final_Battle_Wrestle2-2
+      takeName: Homura_Final_Battle_Wrestle2-2
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: const_reg_L_
+        weight: 1
+      - path: const_reg_L_/const_foot_L_
+        weight: 1
+      - path: const_reg_R_
+        weight: 1
+      - path: const_reg_R_/const_foot_R_
+        weight: 1
+      - path: Mesh
+        weight: 1
+      - path: Mesh/body
+        weight: 1
+      - path: Mesh/homura_bow
+        weight: 1
+      - path: Mesh/homura_bowstring
+        weight: 1
+      - path: XSBone_000
+        weight: 1
+      - path: XSBone_000/brest
+        weight: 1
+      - path: XSBone_000/brest/kubi
+        weight: 1
+      - path: XSBone_000/brest/kubi/head
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_/backhairl2_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_/backhairr2_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiagel_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiager_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_/handfinger011_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_/handfinger021_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_/handfinger031_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_/handfinger041_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_/handfinger051_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow/string_top
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002/string_under
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_/handfinger011_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_/handfinger021_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_/handfinger031_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_/handfinger041_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_/handfinger051_R_
+        weight: 1
+      - path: XSBone_000/kosi
+        weight: 1
+      - path: XSBone_000/kosi/skirt5
+        weight: 1
+      - path: XSBone_000/kosi/skirt6
+        weight: 1
+      - path: XSBone_000/kosi/skirt7
+        weight: 1
+      - path: XSBone_000/kosi/skirt8
+        weight: 1
+      - path: XSBone_000/kosi/skirt_1
+        weight: 1
+      - path: XSBone_000/kosi/skirt_2
+        weight: 1
+      - path: XSBone_000/kosi/skirt_3
+        weight: 1
+      - path: XSBone_000/kosi/skirt_4
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_/foot_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_/foot_R_
+        weight: 1
+      - path: XSBone_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: homura_bow_shot
+      takeName: homura_bow_shot
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: const_reg_L_
+        weight: 1
+      - path: const_reg_L_/const_foot_L_
+        weight: 1
+      - path: const_reg_R_
+        weight: 1
+      - path: const_reg_R_/const_foot_R_
+        weight: 1
+      - path: Mesh
+        weight: 1
+      - path: Mesh/body
+        weight: 1
+      - path: Mesh/homura_bow
+        weight: 1
+      - path: Mesh/homura_bowstring
+        weight: 1
+      - path: XSBone_000
+        weight: 1
+      - path: XSBone_000/brest
+        weight: 1
+      - path: XSBone_000/brest/kubi
+        weight: 1
+      - path: XSBone_000/brest/kubi/head
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_/backhairl2_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_/backhairr2_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiagel_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiager_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_/handfinger011_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_/handfinger021_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_/handfinger031_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_/handfinger041_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_/handfinger051_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow/string_top
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002/string_under
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_/handfinger011_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_/handfinger021_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_/handfinger031_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_/handfinger041_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_/handfinger051_R_
+        weight: 1
+      - path: XSBone_000/kosi
+        weight: 1
+      - path: XSBone_000/kosi/skirt5
+        weight: 1
+      - path: XSBone_000/kosi/skirt6
+        weight: 1
+      - path: XSBone_000/kosi/skirt7
+        weight: 1
+      - path: XSBone_000/kosi/skirt8
+        weight: 1
+      - path: XSBone_000/kosi/skirt_1
+        weight: 1
+      - path: XSBone_000/kosi/skirt_2
+        weight: 1
+      - path: XSBone_000/kosi/skirt_3
+        weight: 1
+      - path: XSBone_000/kosi/skirt_4
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_/foot_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_/foot_R_
+        weight: 1
+      - path: XSBone_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: homura_shot_followthrow
+      takeName: homura_shot_followthrow
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: const_reg_L_
+        weight: 1
+      - path: const_reg_L_/const_foot_L_
+        weight: 1
+      - path: const_reg_R_
+        weight: 1
+      - path: const_reg_R_/const_foot_R_
+        weight: 1
+      - path: Mesh
+        weight: 1
+      - path: Mesh/body
+        weight: 1
+      - path: Mesh/homura_bow
+        weight: 1
+      - path: Mesh/homura_bowstring
+        weight: 1
+      - path: XSBone_000
+        weight: 1
+      - path: XSBone_000/brest
+        weight: 1
+      - path: XSBone_000/brest/kubi
+        weight: 1
+      - path: XSBone_000/brest/kubi/head
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_/backhairl2_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_/backhairr2_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiagel_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiager_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_/handfinger011_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_/handfinger021_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_/handfinger031_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_/handfinger041_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_/handfinger051_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow/string_top
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002/string_under
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_/handfinger011_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_/handfinger021_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_/handfinger031_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_/handfinger041_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_/handfinger051_R_
+        weight: 1
+      - path: XSBone_000/kosi
+        weight: 1
+      - path: XSBone_000/kosi/skirt5
+        weight: 1
+      - path: XSBone_000/kosi/skirt6
+        weight: 1
+      - path: XSBone_000/kosi/skirt7
+        weight: 1
+      - path: XSBone_000/kosi/skirt8
+        weight: 1
+      - path: XSBone_000/kosi/skirt_1
+        weight: 1
+      - path: XSBone_000/kosi/skirt_2
+        weight: 1
+      - path: XSBone_000/kosi/skirt_3
+        weight: 1
+      - path: XSBone_000/kosi/skirt_4
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_/foot_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_/foot_R_
+        weight: 1
+      - path: XSBone_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: homura_shot_toponly
+      takeName: homura_shot_toponly
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: const_reg_L_
+        weight: 1
+      - path: const_reg_L_/const_foot_L_
+        weight: 1
+      - path: const_reg_R_
+        weight: 1
+      - path: const_reg_R_/const_foot_R_
+        weight: 1
+      - path: Mesh
+        weight: 1
+      - path: Mesh/body
+        weight: 1
+      - path: Mesh/homura_bow
+        weight: 1
+      - path: Mesh/homura_bowstring
+        weight: 1
+      - path: XSBone_000
+        weight: 1
+      - path: XSBone_000/brest
+        weight: 1
+      - path: XSBone_000/brest/kubi
+        weight: 1
+      - path: XSBone_000/brest/kubi/head
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_/backhairl2_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_/backhairr2_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiagel_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiager_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_/handfinger011_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_/handfinger021_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_/handfinger031_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_/handfinger041_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_/handfinger051_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow/string_top
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002/string_under
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_/handfinger011_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_/handfinger021_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_/handfinger031_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_/handfinger041_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_/handfinger051_R_
+        weight: 1
+      - path: XSBone_000/kosi
+        weight: 1
+      - path: XSBone_000/kosi/skirt5
+        weight: 1
+      - path: XSBone_000/kosi/skirt6
+        weight: 1
+      - path: XSBone_000/kosi/skirt7
+        weight: 1
+      - path: XSBone_000/kosi/skirt8
+        weight: 1
+      - path: XSBone_000/kosi/skirt_1
+        weight: 1
+      - path: XSBone_000/kosi/skirt_2
+        weight: 1
+      - path: XSBone_000/kosi/skirt_3
+        weight: 1
+      - path: XSBone_000/kosi/skirt_4
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_/foot_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_/foot_R_
+        weight: 1
+      - path: XSBone_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: homura_shot_toponly_followthrow
+      takeName: homura_shot_toponly_followthrow
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: const_reg_L_
+        weight: 1
+      - path: const_reg_L_/const_foot_L_
+        weight: 1
+      - path: const_reg_R_
+        weight: 1
+      - path: const_reg_R_/const_foot_R_
+        weight: 1
+      - path: Mesh
+        weight: 1
+      - path: Mesh/body
+        weight: 1
+      - path: Mesh/homura_bow
+        weight: 1
+      - path: Mesh/homura_bowstring
+        weight: 1
+      - path: XSBone_000
+        weight: 1
+      - path: XSBone_000/brest
+        weight: 1
+      - path: XSBone_000/brest/kubi
+        weight: 1
+      - path: XSBone_000/brest/kubi/head
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_/backhairl2_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_/backhairr2_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiagel_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiager_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_/handfinger011_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_/handfinger021_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_/handfinger031_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_/handfinger041_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_/handfinger051_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow/string_top
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002/string_under
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_/handfinger011_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_/handfinger021_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_/handfinger031_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_/handfinger041_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_/handfinger051_R_
+        weight: 1
+      - path: XSBone_000/kosi
+        weight: 1
+      - path: XSBone_000/kosi/skirt5
+        weight: 1
+      - path: XSBone_000/kosi/skirt6
+        weight: 1
+      - path: XSBone_000/kosi/skirt7
+        weight: 1
+      - path: XSBone_000/kosi/skirt8
+        weight: 1
+      - path: XSBone_000/kosi/skirt_1
+        weight: 1
+      - path: XSBone_000/kosi/skirt_2
+        weight: 1
+      - path: XSBone_000/kosi/skirt_3
+        weight: 1
+      - path: XSBone_000/kosi/skirt_4
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_/foot_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_/foot_R_
+        weight: 1
+      - path: XSBone_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: homura_bow_chargeshot
+      takeName: homura_bow_chargeshot
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: const_reg_L_
+        weight: 1
+      - path: const_reg_L_/const_foot_L_
+        weight: 1
+      - path: const_reg_R_
+        weight: 1
+      - path: const_reg_R_/const_foot_R_
+        weight: 1
+      - path: Mesh
+        weight: 1
+      - path: Mesh/body
+        weight: 1
+      - path: Mesh/homura_bow
+        weight: 1
+      - path: Mesh/homura_bowstring
+        weight: 1
+      - path: XSBone_000
+        weight: 1
+      - path: XSBone_000/brest
+        weight: 1
+      - path: XSBone_000/brest/kubi
+        weight: 1
+      - path: XSBone_000/brest/kubi/head
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_/backhairl2_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_/backhairr2_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiagel_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiager_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_/handfinger011_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_/handfinger021_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_/handfinger031_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_/handfinger041_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_/handfinger051_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow/string_top
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002/string_under
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_/handfinger011_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_/handfinger021_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_/handfinger031_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_/handfinger041_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_/handfinger051_R_
+        weight: 1
+      - path: XSBone_000/kosi
+        weight: 1
+      - path: XSBone_000/kosi/skirt5
+        weight: 1
+      - path: XSBone_000/kosi/skirt6
+        weight: 1
+      - path: XSBone_000/kosi/skirt7
+        weight: 1
+      - path: XSBone_000/kosi/skirt8
+        weight: 1
+      - path: XSBone_000/kosi/skirt_1
+        weight: 1
+      - path: XSBone_000/kosi/skirt_2
+        weight: 1
+      - path: XSBone_000/kosi/skirt_3
+        weight: 1
+      - path: XSBone_000/kosi/skirt_4
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_/foot_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_/foot_R_
+        weight: 1
+      - path: XSBone_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: homura_bow_chargeshot_followthrow
+      takeName: homura_bow_chargeshot_followthrow
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: const_reg_L_
+        weight: 1
+      - path: const_reg_L_/const_foot_L_
+        weight: 1
+      - path: const_reg_R_
+        weight: 1
+      - path: const_reg_R_/const_foot_R_
+        weight: 1
+      - path: Mesh
+        weight: 1
+      - path: Mesh/body
+        weight: 1
+      - path: Mesh/homura_bow
+        weight: 1
+      - path: Mesh/homura_bowstring
+        weight: 1
+      - path: XSBone_000
+        weight: 1
+      - path: XSBone_000/brest
+        weight: 1
+      - path: XSBone_000/brest/kubi
+        weight: 1
+      - path: XSBone_000/brest/kubi/head
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_/backhairl2_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_/backhairr2_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiagel_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiager_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_/handfinger011_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_/handfinger021_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_/handfinger031_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_/handfinger041_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_/handfinger051_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow/string_top
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002/string_under
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_/handfinger011_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_/handfinger021_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_/handfinger031_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_/handfinger041_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_/handfinger051_R_
+        weight: 1
+      - path: XSBone_000/kosi
+        weight: 1
+      - path: XSBone_000/kosi/skirt5
+        weight: 1
+      - path: XSBone_000/kosi/skirt6
+        weight: 1
+      - path: XSBone_000/kosi/skirt7
+        weight: 1
+      - path: XSBone_000/kosi/skirt8
+        weight: 1
+      - path: XSBone_000/kosi/skirt_1
+        weight: 1
+      - path: XSBone_000/kosi/skirt_2
+        weight: 1
+      - path: XSBone_000/kosi/skirt_3
+        weight: 1
+      - path: XSBone_000/kosi/skirt_4
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_/foot_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_/foot_R_
+        weight: 1
+      - path: XSBone_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: homura_bow_subshot
+      takeName: homura_bow_subshot
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: const_reg_L_
+        weight: 1
+      - path: const_reg_L_/const_foot_L_
+        weight: 1
+      - path: const_reg_R_
+        weight: 1
+      - path: const_reg_R_/const_foot_R_
+        weight: 1
+      - path: Mesh
+        weight: 1
+      - path: Mesh/body
+        weight: 1
+      - path: Mesh/homura_bow
+        weight: 1
+      - path: Mesh/homura_bowstring
+        weight: 1
+      - path: XSBone_000
+        weight: 1
+      - path: XSBone_000/brest
+        weight: 1
+      - path: XSBone_000/brest/kubi
+        weight: 1
+      - path: XSBone_000/brest/kubi/head
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_/backhairl2_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_/backhairr2_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiagel_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiager_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_/handfinger011_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_/handfinger021_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_/handfinger031_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_/handfinger041_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_/handfinger051_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow/string_top
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002/string_under
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_/handfinger011_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_/handfinger021_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_/handfinger031_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_/handfinger041_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_/handfinger051_R_
+        weight: 1
+      - path: XSBone_000/kosi
+        weight: 1
+      - path: XSBone_000/kosi/skirt5
+        weight: 1
+      - path: XSBone_000/kosi/skirt6
+        weight: 1
+      - path: XSBone_000/kosi/skirt7
+        weight: 1
+      - path: XSBone_000/kosi/skirt8
+        weight: 1
+      - path: XSBone_000/kosi/skirt_1
+        weight: 1
+      - path: XSBone_000/kosi/skirt_2
+        weight: 1
+      - path: XSBone_000/kosi/skirt_3
+        weight: 1
+      - path: XSBone_000/kosi/skirt_4
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_/foot_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_/foot_R_
+        weight: 1
+      - path: XSBone_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: homura_bow_subshot_followthrow
+      takeName: homura_bow_subshot_followthrow
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: const_reg_L_
+        weight: 1
+      - path: const_reg_L_/const_foot_L_
+        weight: 1
+      - path: const_reg_R_
+        weight: 1
+      - path: const_reg_R_/const_foot_R_
+        weight: 1
+      - path: Mesh
+        weight: 1
+      - path: Mesh/body
+        weight: 1
+      - path: Mesh/homura_bow
+        weight: 1
+      - path: Mesh/homura_bowstring
+        weight: 1
+      - path: XSBone_000
+        weight: 1
+      - path: XSBone_000/brest
+        weight: 1
+      - path: XSBone_000/brest/kubi
+        weight: 1
+      - path: XSBone_000/brest/kubi/head
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_/backhairl2_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_/backhairr2_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiagel_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiager_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_/handfinger011_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_/handfinger021_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_/handfinger031_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_/handfinger041_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_/handfinger051_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow/string_top
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002/string_under
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_/handfinger011_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_/handfinger021_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_/handfinger031_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_/handfinger041_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_/handfinger051_R_
+        weight: 1
+      - path: XSBone_000/kosi
+        weight: 1
+      - path: XSBone_000/kosi/skirt5
+        weight: 1
+      - path: XSBone_000/kosi/skirt6
+        weight: 1
+      - path: XSBone_000/kosi/skirt7
+        weight: 1
+      - path: XSBone_000/kosi/skirt8
+        weight: 1
+      - path: XSBone_000/kosi/skirt_1
+        weight: 1
+      - path: XSBone_000/kosi/skirt_2
+        weight: 1
+      - path: XSBone_000/kosi/skirt_3
+        weight: 1
+      - path: XSBone_000/kosi/skirt_4
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_/foot_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_/foot_R_
+        weight: 1
+      - path: XSBone_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: homura_bow_exshot
+      takeName: homura_bow_exshot
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: const_reg_L_
+        weight: 1
+      - path: const_reg_L_/const_foot_L_
+        weight: 1
+      - path: const_reg_R_
+        weight: 1
+      - path: const_reg_R_/const_foot_R_
+        weight: 1
+      - path: Mesh
+        weight: 1
+      - path: Mesh/body
+        weight: 1
+      - path: Mesh/homura_bow
+        weight: 1
+      - path: Mesh/homura_bowstring
+        weight: 1
+      - path: XSBone_000
+        weight: 1
+      - path: XSBone_000/brest
+        weight: 1
+      - path: XSBone_000/brest/kubi
+        weight: 1
+      - path: XSBone_000/brest/kubi/head
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_/backhairl2_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_/backhairr2_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiagel_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiager_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_/handfinger011_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_/handfinger021_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_/handfinger031_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_/handfinger041_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_/handfinger051_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow/string_top
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002/string_under
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_/handfinger011_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_/handfinger021_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_/handfinger031_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_/handfinger041_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_/handfinger051_R_
+        weight: 1
+      - path: XSBone_000/kosi
+        weight: 1
+      - path: XSBone_000/kosi/skirt5
+        weight: 1
+      - path: XSBone_000/kosi/skirt6
+        weight: 1
+      - path: XSBone_000/kosi/skirt7
+        weight: 1
+      - path: XSBone_000/kosi/skirt8
+        weight: 1
+      - path: XSBone_000/kosi/skirt_1
+        weight: 1
+      - path: XSBone_000/kosi/skirt_2
+        weight: 1
+      - path: XSBone_000/kosi/skirt_3
+        weight: 1
+      - path: XSBone_000/kosi/skirt_4
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_/foot_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_/foot_R_
+        weight: 1
+      - path: XSBone_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: homura_bow_exshot_followthrow
+      takeName: homura_bow_exshot_followthrow
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: const_reg_L_
+        weight: 1
+      - path: const_reg_L_/const_foot_L_
+        weight: 1
+      - path: const_reg_R_
+        weight: 1
+      - path: const_reg_R_/const_foot_R_
+        weight: 1
+      - path: Mesh
+        weight: 1
+      - path: Mesh/body
+        weight: 1
+      - path: Mesh/homura_bow
+        weight: 1
+      - path: Mesh/homura_bowstring
+        weight: 1
+      - path: XSBone_000
+        weight: 1
+      - path: XSBone_000/brest
+        weight: 1
+      - path: XSBone_000/brest/kubi
+        weight: 1
+      - path: XSBone_000/brest/kubi/head
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairl_L_/backhairl2_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/backhairr_R_/backhairr2_R_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiagel_L_
+        weight: 1
+      - path: XSBone_000/brest/kubi/head/momiager_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger012_L_/handfinger011_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger023_L_/handfinger022_L_/handfinger021_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger033_L_/handfinger032_L_/handfinger031_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger043_L_/handfinger042_L_/handfinger041_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/handfinger053_L_/handfinger052_L_/handfinger051_L_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/bow/string_top
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002
+        weight: 1
+      - path: XSBone_000/brest/shoulder_L_/arm_L_/hand_L_/root/XSBone_002/string_under
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger012_R_/handfinger011_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger023_R_/handfinger022_R_/handfinger021_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger033_R_/handfinger032_R_/handfinger031_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger043_R_/handfinger042_R_/handfinger041_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_
+        weight: 1
+      - path: XSBone_000/brest/shoulder_R_/arm_R_/hand_R_/handfinger053_R_/handfinger052_R_/handfinger051_R_
+        weight: 1
+      - path: XSBone_000/kosi
+        weight: 1
+      - path: XSBone_000/kosi/skirt5
+        weight: 1
+      - path: XSBone_000/kosi/skirt6
+        weight: 1
+      - path: XSBone_000/kosi/skirt7
+        weight: 1
+      - path: XSBone_000/kosi/skirt8
+        weight: 1
+      - path: XSBone_000/kosi/skirt_1
+        weight: 1
+      - path: XSBone_000/kosi/skirt_2
+        weight: 1
+      - path: XSBone_000/kosi/skirt_3
+        weight: 1
+      - path: XSBone_000/kosi/skirt_4
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_L_/reg_L_/foot_L_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_
+        weight: 1
+      - path: XSBone_000/kosi/thigh_R_/reg_R_/foot_R_
+        weight: 1
+      - path: XSBone_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
