@@ -457,185 +457,201 @@ public class HomuraBowControl : CharacterControlBase
 
         
     }
-	
+
 	// Update is called once per frame
-	void Update () 
+	void Update()
 	{
-        if (AnimatorUnit.GetHashCode() == IdleID)
-        {
+		// 共通アップデート処理(時間停止系の状態になると入力は禁止)
+		bool isspindown = false;
+		if(AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == SpinDownID)
+		{
+			isspindown = true;
+		}
+		if(Update_Core(isspindown, AnimatorUnit, DownID, AirDashID,AirShotID,JumpingID,FallID,IdleID,BlowID,RunID))
+		{
+			
+		}
+	}
 
-        }
-        else if (AnimatorUnit.GetHashCode() == WalkID)
-        {
+	void UpdateAnimation()
+	{
+		// 通常
+		if (AnimatorUnit.GetHashCode() == IdleID)
+		{
+			int[] stepanimations = { FrontStepID, LeftStepID, RightStepID, BackStepID };
+			Animation_Idle(AnimatorUnit, DownID, RunID,stepanimations,FallID);
+		}
+		else if (AnimatorUnit.GetHashCode() == WalkID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == JumpID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == JumpID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == JumpingID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == JumpingID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == FallID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == FallID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == LandingID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == LandingID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == RunID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == RunID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == AirDashID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == AirDashID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == FrontStepID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == FrontStepID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == LeftStepID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == LeftStepID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == RightStepID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == RightStepID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == BackStepID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == BackStepID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == FrontStepBackID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == FrontStepBackID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == LeftStepBackID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == LeftStepBackID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == RightStepBackID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == RightStepBackID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == ShotID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == ShotID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == RunShotID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == RunShotID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == AirShotID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == AirShotID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == ChargeShotID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == ChargeShotID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == SubShotID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == SubShotID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == EXShotID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == EXShotID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == FollowThrowShotID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == FollowThrowShotID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == FollowThrowRunShotID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == FollowThrowRunShotID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == FollowThrowAirShotID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == FollowThrowAirShotID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == FollowThrowChargeShotID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == FollowThrowChargeShotID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == FollowThrowSubShotID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == FollowThrowSubShotID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == FollowThrowEXShotID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == FollowThrowEXShotID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == Wrestle1ID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == Wrestle1ID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == Wrestle2ID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == Wrestle2ID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == Wrestle3ID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == Wrestle3ID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == FrontWrestleID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == FrontWrestleID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == LeftWrestleID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == LeftWrestleID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == RightWrestleID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == RightWrestleID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == BackWrestleID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == BackWrestleID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == AirDashWrestleID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == AirDashWrestleID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == EXWrestleID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == EXWrestleID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == EXFrontWrestleID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == EXFrontWrestleID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == EXBackWrestleID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == EXBackWrestleID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == ReversalID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == ReversalID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == ArousalAttackID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == ArousalAttackID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == DamageID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == DamageID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == DownID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == DownID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == BlowID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == BlowID)
+		{
 
-        }
-        else if (AnimatorUnit.GetHashCode() == SpinDownID)
-        {
+		}
+		else if (AnimatorUnit.GetHashCode() == SpinDownID)
+		{
 
-        }
-    }
+		}
+	}
 }

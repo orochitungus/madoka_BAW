@@ -525,10 +525,49 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 					else
 					{
 						GetKeyNotInput(i, k);
-					}
-					
+					}					
                 }
-            }			
+				// 方向キー・右スティック取得
+				// 5th
+				if (Input.GetAxisRaw("Vertical2") < -0.1f)
+				{
+					// 方向キーであった場合
+					if(PlayerPrefs.GetString("KeyDown").IndexOf("5th MINUS") > 0)
+					{
+						
+					}
+					else if(PlayerPrefs.GetString("KeyUP").IndexOf("5th MINUS") > 0)
+					{
+						
+					}
+					else if(PlayerPrefs.GetString("KeyLeft").IndexOf("5th MINUS") > 0)
+					{
+						
+					}
+					else if(PlayerPrefs.GetString("KeyRight").IndexOf("5th MINUS") > 0)
+					{
+
+					}
+					// 右スティックであった場合
+					if(PlayerPrefs.GetString("AzimuthLeft_Controller").IndexOf("5th MINUS") > 0)
+					{
+						
+					}
+					else if(PlayerPrefs.GetString("AzimuthRight_Controller").IndexOf("5th MINUS") > 0)
+					{
+
+					}
+					else if(PlayerPrefs.GetString("ElevationUpper_Controller").IndexOf("5th MINUS") > 0)
+					{
+
+					}
+					else if(PlayerPrefs.GetString("ElevationDown_Controller").IndexOf("5th MINUS") > 0)
+					{
+
+					}
+				}
+
+			}			
         });
 
 

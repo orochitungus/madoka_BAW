@@ -218,7 +218,14 @@ public class StageSetting : MonoBehaviour
             GameObject pauseManager = (GameObject)Instantiate(Resources.Load("PauseManager"));
             pauseManager.name = "PauseManager";
         }
-    }
+		// ControllerManagerがあるか判定
+		if (GameObject.Find("ControllerManager") == null)
+		{
+			// 無ければ作る
+			GameObject loadManager = (GameObject)Instantiate(Resources.Load("ControllerManager"));
+			loadManager.name = "ControllerManager";
+		}
+	}
 
 	/// <summary>
 	/// 戦闘用キャラクター（順番は下のCharacterFileNameに合わせること）

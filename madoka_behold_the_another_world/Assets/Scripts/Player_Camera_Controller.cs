@@ -121,7 +121,7 @@ public class Player_Camera_Controller : MonoBehaviour
     {
         // ロックオン（非ロックオン時）
         // このカメラが追跡しているオブジェクトの情報を拾う   
-        CharacterControl_Base target = Player.GetComponentInChildren<CharacterControl_Base>();
+        CharacterControlBase target = Player.GetComponentInChildren<CharacterControlBase>();
         var targetAI = Player.GetComponentInChildren<AIControl_Base>();
 
         // クエストパート時、使わないので抜ける
@@ -129,7 +129,7 @@ public class Player_Camera_Controller : MonoBehaviour
             return;
 
         // CPU時、CPUの情報を拾う
-        if (target.IsPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER)
+        if (target.IsPlayer != CharacterControlBase.CHARACTERCODE.PLAYER)
         {
             // ルーチンを拾う
             this.m_cpumode = targetAI.m_cpumode;
@@ -153,16 +153,16 @@ public class Player_Camera_Controller : MonoBehaviour
                 {
                     // PC側の場合、敵を検索する
                     // 自機
-                    case CharacterControl_Base.CHARACTERCODE.PLAYER:
+                    case CharacterControlBase.CHARACTERCODE.PLAYER:
                     // 僚機
-                    case CharacterControl_Base.CHARACTERCODE.PLAYER_ALLY:
+                    case CharacterControlBase.CHARACTERCODE.PLAYER_ALLY:
                         if (!OnPushSerchButton(true,false))
                         {
                             return;
                         }
                         break;
                     // 敵側の場合、PC側のタグを検索する
-                    case CharacterControl_Base.CHARACTERCODE.ENEMY:                   
+                    case CharacterControlBase.CHARACTERCODE.ENEMY:                   
                         switch (this.m_cpumode)
                         {
                             // 敵の哨戒モードの場合、起点か終点を検索する
@@ -206,7 +206,7 @@ public class Player_Camera_Controller : MonoBehaviour
             else
             {
                 // 敵もしくは僚機の哨戒状態で目的地にたどり着いたときにこの状態になる
-                if (target.IsPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER)
+                if (target.IsPlayer != CharacterControlBase.CHARACTERCODE.PLAYER)
                 {   // ここに指示が来る前に、cpumodeは切り替わっている
                     // 往路(終点をロックオン）
                     if (this.m_cpumode == AIControl.CPUMODE.OUTWARD_JOURNEY)
@@ -246,7 +246,7 @@ public class Player_Camera_Controller : MonoBehaviour
         // ロックオン対象が死んでいたら強制的にロックを解除する（CPUの哨戒モード時は除く）
         if (target.IsRockon && m_cpumode != AIControl.CPUMODE.OUTWARD_JOURNEY && m_cpumode != AIControl.CPUMODE.RETURN_PATH)
         {
-            var rockontarget = Enemy.GetComponentInChildren<CharacterControl_Base>();
+            var rockontarget = Enemy.GetComponentInChildren<CharacterControlBase>();
             if (rockontarget != null && rockontarget.NowHitpoint < 1)
             {
                 UnlockDone(target);
@@ -262,7 +262,7 @@ public class Player_Camera_Controller : MonoBehaviour
 	// exitdown				:ダウンしていたら強制的にfalseを返す
     public bool OnPushSerchButton(bool playerside,bool cpu,bool exitdown = false)
     {
-        CharacterControl_Base target = Player.GetComponentInChildren<CharacterControl_Base>();
+        CharacterControlBase target = Player.GetComponentInChildren<CharacterControlBase>();
         // Playerの座標を取得する
         Vector3 Player_Position = target.transform.position;
         // 検索
@@ -352,7 +352,7 @@ public class Player_Camera_Controller : MonoBehaviour
 	/// ロックオン対象が複数いるときの処理
 	/// </summary>
 	/// <param name="target">このカメラが追跡しているキャラクター</param>
-	public void RockOnSelecter(CharacterControl_Base target)
+	public void RockOnSelecter(CharacterControlBase target)
 	{
 		// 自分＋1の相手を選択する
 		int nexttarget = m_nowTarget + 1;
@@ -395,7 +395,7 @@ public class Player_Camera_Controller : MonoBehaviour
     // target   [in]:敵側をロックオンするかプレイヤー側をロックオンするか 
     public void InRangeTargetRockon(string targettype)
     {
-        var target = Player.GetComponentInChildren<CharacterControl_Base>();
+        var target = Player.GetComponentInChildren<CharacterControlBase>();
         // とりあえず画面上にいる敵を全員検索する
         GameObject[] RockonCandidate = GameObject.FindGameObjectsWithTag(targettype);
         for (int i = 0; i < RockonCandidate.Length; ++i)
@@ -415,7 +415,7 @@ public class Player_Camera_Controller : MonoBehaviour
 	/// </summary>
 	/// <param name="target">カメラの追跡対象</param>
 	/// <param name="nexttarget">ロックオン対象のインデックス</param>
-	private void RockDone(CharacterControl_Base target, int nexttarget)
+	private void RockDone(CharacterControlBase target, int nexttarget)
 	{
 		// フラグをロックオン状態に切り替える
 		IsRockOn = true;
@@ -431,7 +431,7 @@ public class Player_Camera_Controller : MonoBehaviour
     ///  ロックオンを解除した時フラグを折る
     ///  target(入力）：カメラの追跡対象
     /// </summary>
-    private void UnlockDone(CharacterControl_Base target)
+    private void UnlockDone(CharacterControlBase target)
     {
         IsRockOn = false;
         target.IsRockon = false;
@@ -458,24 +458,12 @@ public class Player_Camera_Controller : MonoBehaviour
 
             // キー入力により、Y軸中心に視点を回転
             //// デフォルトではマウス入力を取得する構造になっているため、Edit→ProjectSettings→InputでInputを作る          
-            if (Input.GetButton("Camera_L"))  // 左回転
+            if (ControllerManager.Instance.AzimuthLeft)  // 左回転
             {
                 this.RotY -= 50.0f * Time.deltaTime;
             }
-            else if (Input.GetButton("Camera_R"))  // 右回転
+            else if (ControllerManager.Instance.AzimuthRight)  // 右回転
             {
-                this.RotY += 50.0f * Time.deltaTime;
-            }
-            // 右スティックでカメラを回転させる
-			// 横回転
-            if (Input.GetAxisRaw("Horizontal3") < 0)
-            {
-                //左に傾いている
-                this.RotY -= 50.0f * Time.deltaTime;
-            }
-            else if (0 < Input.GetAxisRaw("Horizontal3"))
-            {
-                //右に傾いている
                 this.RotY += 50.0f * Time.deltaTime;
             }
 			// 縦回転

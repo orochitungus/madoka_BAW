@@ -48,7 +48,7 @@ public class PlayerBG : MonoBehaviour
 				BustupHomura.gameObject.SetActive(true);
 				break;
 			case BustupSelect.HOMURA_B:
-				BustupHomura.gameObject.SetActive(true);
+				BustupHomuraBow.gameObject.SetActive(true);
 				break;
 			case BustupSelect.MAMI:
 				BustupMami.gameObject.SetActive(true);
