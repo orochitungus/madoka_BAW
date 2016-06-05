@@ -216,10 +216,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 		}
 
 		DontDestroyOnLoad(this.gameObject);
-
-		
-
-		
+        		
 
 		// 右ジョイスティックからの入力を受け取る
 
@@ -527,47 +524,106 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 						GetKeyNotInput(i, k);
 					}					
                 }
-				// 方向キー・右スティック取得
-				// 5th
-				if (Input.GetAxisRaw("Vertical2") < -0.1f)
-				{
-					// 方向キーであった場合
-					if(PlayerPrefs.GetString("KeyDown").IndexOf("5th MINUS") > 0)
-					{
-						
-					}
-					else if(PlayerPrefs.GetString("KeyUP").IndexOf("5th MINUS") > 0)
-					{
-						
-					}
-					else if(PlayerPrefs.GetString("KeyLeft").IndexOf("5th MINUS") > 0)
-					{
-						
-					}
-					else if(PlayerPrefs.GetString("KeyRight").IndexOf("5th MINUS") > 0)
-					{
+                // 右スティック取得
+                // 右スティック設定取得
+                string up = PlayerPrefs.GetString("ElevationUpper_Controller");
+                string down = PlayerPrefs.GetString("ElevationDown_Controller");
+                string left = PlayerPrefs.GetString("AzimuthLeft_Controller");
+                string right = PlayerPrefs.GetString("AzimuthRight_Controller");
 
-					}
-					// 右スティックであった場合
-					if(PlayerPrefs.GetString("AzimuthLeft_Controller").IndexOf("5th MINUS") > 0)
-					{
-						
-					}
-					else if(PlayerPrefs.GetString("AzimuthRight_Controller").IndexOf("5th MINUS") > 0)
-					{
+                float rightVertical = 0.0f;
+                float rightHorizontal = 0.0f;
+                if (up.IndexOf("3rd") >= 0)
+                {
+                    rightVertical = Input.GetAxisRaw("Vertical2");
+                }
+                else if (up.IndexOf("4th") >= 0)
+                {
+                    rightVertical = Input.GetAxisRaw("Vertical3");
+                }
+                else if (up.IndexOf("5th") >= 0)
+                {
+                    rightVertical = Input.GetAxisRaw("Horizontal2");
+                }
+                else if (up.IndexOf("6th") >= 0)
+                {
+                    rightVertical = Input.GetAxisRaw("Horizontal3");
+                }
+                else if (up.IndexOf("7th") >= 0)
+                {
+                    rightVertical = Input.GetAxisRaw("Vertical4");
+                }
+                else if (up.IndexOf("8th") >= 0)
+                {
+                    rightVertical = Input.GetAxisRaw("Horizontal4");
+                }
 
-					}
-					else if(PlayerPrefs.GetString("ElevationUpper_Controller").IndexOf("5th MINUS") > 0)
-					{
+                if (right.IndexOf("3rd") >= 0)
+                {
+                    rightHorizontal = Input.GetAxisRaw("Vertical2");
+                }
+                else if (right.IndexOf("4th") >= 0)
+                {
+                    rightHorizontal = Input.GetAxisRaw("Vertical3");
+                }
+                else if (right.IndexOf("5th") >= 0)
+                {
+                    rightHorizontal = Input.GetAxisRaw("Horizontal2");
+                }
+                else if (right.IndexOf("6th") >= 0)
+                {
+                    rightHorizontal = Input.GetAxisRaw("Horizontal3");
+                }
+                else if (right.IndexOf("7th") >= 0)
+                {
+                    rightHorizontal = Input.GetAxisRaw("Vertical4");
+                }
+                else if (right.IndexOf("8th") >= 0)
+                {
+                    rightHorizontal = Input.GetAxisRaw("Horizontal4");
+                }
+                
 
-					}
-					else if(PlayerPrefs.GetString("ElevationDown_Controller").IndexOf("5th MINUS") > 0)
-					{
+                // 上
+                if (rightVertical > 0.0f && Math.Abs(rightHorizontal) < 0.1f)
+                {
+                    ElevationAngleUpper = true;
+                }
+                else
+                {
+                    ElevationAngleUpper = false;
+                }
 
-					}
-				}
+                // 下
+                if (rightVertical < 0.0f && Math.Abs(rightHorizontal) < 0.1f)
+                {
+                    ElevationAngleDown = true;
+                }
+                else
+                {
+                    ElevationAngleDown = false;
+                }
 
-			}			
+                // 左
+                if (rightHorizontal < 0.0f)
+                {
+                    AzimuthLeft = true;
+                }
+                else
+                {
+                    AzimuthLeft = false;
+                }
+
+                // 右
+                if (rightHorizontal > 0.0f)
+                {
+                    AzimuthRight = true;
+                }
+                else
+                {
+                    AzimuthRight = false;
+                }
+            }			
         });
 
 
@@ -999,5 +1055,6 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 			}
 		}
 	}
-    
+
+
 }

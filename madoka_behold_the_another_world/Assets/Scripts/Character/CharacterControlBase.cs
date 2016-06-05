@@ -638,7 +638,7 @@ public class CharacterControlBase : MonoBehaviour
 	/// </summary>
 	private int ChargeMax;
 
-	public int GetChargeMax()
+     public int GetChargeMax()
 	{
 		return ChargeMax;
 	}
@@ -4709,7 +4709,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <summary>
     /// Idle時共通操作
     /// </summary>
-    protected virtual void Animation_Idle(Animator animator, int downhashID, int runhashID, int[] stepanimations,int fallhashID)
+    protected virtual void Animation_Idle(Animator animator, int downID, int runID, int[] stepanimations,int fallID)
     {
         // 移行後復活
         //IsStep = false;
@@ -4718,14 +4718,14 @@ public class CharacterControlBase : MonoBehaviour
         // 死んでいたらダウン
         if (NowHitpoint <= 1)
         {
-            animator.Play(downhashID);
+            animator.SetInteger("NowState", downID);
         }
         // くっついているエフェクトの親元を消す
         BrokenEffect();
         RigidBody.constraints = RigidbodyConstraints.FreezeRotation;
         // ずれた本体角度を戻す(Yはそのまま）
         transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0));
-
+        RigidBody.constraints = RigidbodyConstraints.FreezeRotation;
         this.MoveDirection = Vector3.zero;      // 速度を0に
         this.BlowDirection = Vector3.zero;
         this.Rotatehold = false;                // 固定フラグは折る
@@ -4741,8 +4741,8 @@ public class CharacterControlBase : MonoBehaviour
         {
             // 方向キーで走行
             if (HasVHInput)
-            {
-                animator.Play(runhashID);
+            {                
+                animator.Play(runID);
             }
             // ジャンプでジャンプへ移行(GetButtonDownで押しっぱなしにはならない。GetButtonで押しっぱなしに対応）
             if (this.HasJumpInput && Boost > 0)
@@ -4807,7 +4807,7 @@ public class CharacterControlBase : MonoBehaviour
         else
         {
             _FallStartTime = Time.time;
-            animator.Play(fallhashID);
+            animator.Play(fallID);
         }
 
     }
@@ -4961,6 +4961,120 @@ public class CharacterControlBase : MonoBehaviour
             {
                 LandingDone(animator,landinghashID);
             }
+        }
+    }
+
+    protected virtual void Animation_Run(Animator animator, int fallhashID, int[] stepanimations,int idleID)
+    {
+        RigidBody.constraints = RigidbodyConstraints.FreezeRotation;
+        // ずれた本体角度を戻す(Yはそのまま）
+        this.transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0));
+
+        // 接地中かどうか
+        if (IsGrounded)
+        {
+            // 入力中はそちらへ進む
+            if (HasVHInput)
+            {
+                FootSteps();
+                UpdateRotation();
+                this.MoveDirection = transform.rotation * Vector3.forward;
+            }
+            // ステップの場合ステップ
+            // 前
+            else if(ControllerManager.Instance.FrontStep)
+            {
+                StepDone(1, new Vector2(0, 1), animator, stepanimations);
+            }
+            // 左前ステップ
+            else if(ControllerManager.Instance.LeftFrontStep)
+            {
+                StepDone(1, new Vector2(-1, 1), animator, stepanimations);
+            }
+            // 左
+            else if(ControllerManager.Instance.LeftStep)
+            {
+                StepDone(1, new Vector2(-1, 0), animator, stepanimations);
+            }
+            // 左後ステップ
+            else if (ControllerManager.Instance.LeftBackStep)
+            {
+                StepDone(1, new Vector2(-1, -1), animator, stepanimations);
+            }
+            // 後ステップ
+            else if (ControllerManager.Instance.BackStep)
+            {
+                StepDone(1, new Vector2(0, -1), animator, stepanimations);
+            }
+            // 右後ステップ
+            else if (ControllerManager.Instance.LeftBackStep)
+            {
+                StepDone(1, new Vector2(1, -1), animator, stepanimations);
+            }
+            // 右
+            else if (ControllerManager.Instance.RightStep)
+            {
+                StepDone(1, new Vector2(-1, 0), animator, stepanimations);
+            }
+            // 右前ステップ
+            else if (ControllerManager.Instance.RightFrontStep)
+            {
+                StepDone(1, new Vector2(-1, 0), animator, stepanimations);
+            }
+
+            // 入力が外れるとアイドル状態へ
+            else
+            {
+                animator.Play(idleID);
+            }
+
+            // ジャンプでジャンプへ移行(GetButtonDownで押しっぱなしにはならない。GetButtonで押しっぱなしに対応）
+            if (this.HasJumpInput && Boost > 0)
+            {
+                // 上昇制御をAddForceにするとやりにくい（特に慣性ジャンプ）
+                JumpDone();
+            }
+        }
+        else
+        {
+            animator.Play(fallhashID);
+        }
+    }
+
+    // 地上走行中は足音を鳴らす
+    private const float _WalkTime = 0.5f;
+    private float _WalkTimer;
+
+    private void FootSteps()
+    {
+        if (_WalkTimer > 0)
+        {
+            _WalkTimer -= Time.deltaTime;
+        }
+        if (_WalkTimer <= 0)
+        {
+            switch (_Foottype)
+            {
+                case StageSetting.FootType.FootType_Normal:
+                    AudioManager.Instance.PlaySE("ashioto_normal");
+                    break;
+                case StageSetting.FootType.FootType_Jari:
+                    AudioManager.Instance.PlaySE("ashioto_jari");
+                    break;
+                case StageSetting.FootType.FootType_Carpet:
+                    AudioManager.Instance.PlaySE("ashiot_carpet");
+                    break;
+                case StageSetting.FootType.FootType_Snow:
+                    AudioManager.Instance.PlaySE("ashioto_snow");
+                    break;
+                case StageSetting.FootType.FootType_Wood:
+                    AudioManager.Instance.PlaySE("ashioto_wood");
+                    break;
+                default:
+                    break;
+
+            }
+            _WalkTimer = _WalkTime;
         }
     }
 

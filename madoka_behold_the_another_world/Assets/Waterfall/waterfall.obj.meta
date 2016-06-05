@@ -1,16 +1,27 @@
 fileFormatVersion: 2
-guid: 5ec2ad06a1825e54eb06062a71c6a569
+guid: d1e7b9d4525fc74468eb854d5a661548
+timeCreated: 1455153893
+licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: road_turn_left
-    400000: //RootNode
-    400002: road_turn_left
-    2300000: road_turn_left
-    3300000: road_turn_left
-    4300000: road_turn_left
-    9500000: //RootNode
+    100000: water_layer1
+    100002: water_layer2
+    100004: water_layer3
+    100006: //RootNode
+    400000: water_layer1
+    400002: water_layer2
+    400004: water_layer3
+    400006: //RootNode
+    2300000: water_layer1
+    2300002: water_layer2
+    2300004: water_layer3
+    3300000: water_layer1
+    3300002: water_layer2
+    3300004: water_layer3
+    4300000: water_layer1
+    4300002: water_layer2
+    4300004: water_layer3
   materials:
     importMaterials: 1
     materialName: 0
@@ -49,11 +60,11 @@ ModelImporter:
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
-    useFileScale: 0
+    useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
-    tangentImportMode: 4
+    tangentImportMode: 3
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
@@ -69,7 +80,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

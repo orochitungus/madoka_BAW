@@ -1921,7 +1921,7 @@ public class KeyConfigController : MonoBehaviour
 		// キー設定
 		else
 		{
-			PlayerPrefs.SetString("AzimuthLeft_Controller", "Joystick1" + ElevationDownControllerText.text);
+			PlayerPrefs.SetString("AzimuthLeft_Controller", "Joystick1" + AzimuthLeftControllerText.text);
 		}
 
 		// 視点回転右

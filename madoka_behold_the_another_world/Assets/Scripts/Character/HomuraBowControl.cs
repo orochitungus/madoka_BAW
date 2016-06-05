@@ -154,53 +154,53 @@ public class HomuraBowControl : CharacterControlBase
     public Sprite ExShotIcon;
 
     /// <summary>
-    /// 各種アニメのハッシュID
+    /// 各種アニメのハッシュID.コメント内はAnimatorの管理用ID
     /// </summary>
-    public int IdleID;
-    public int WalkID;
-    public int JumpID;
-    public int JumpingID;
-    public int FallID;
-    public int LandingID;
-    public int RunID;
-    public int AirDashID;
-    public int FrontStepID;
-    public int LeftStepID;
-    public int RightStepID;
-    public int BackStepID;
-    public int FrontStepBackID;
-    public int LeftStepBackID;
-    public int RightStepBackID;
-    public int BackStepBackID;
-    public int ShotID;
-    public int RunShotID;
-    public int AirShotID;
-    public int ChargeShotID;
-    public int SubShotID;
-    public int EXShotID;
-    public int FollowThrowShotID;
-    public int FollowThrowRunShotID;
-    public int FollowThrowAirShotID;
-    public int FollowThrowChargeShotID;
-    public int FollowThrowSubShotID;
-    public int FollowThrowEXShotID;
-    public int Wrestle1ID;
-    public int Wrestle2ID;
-    public int Wrestle3ID;
-    public int FrontWrestleID;
-    public int LeftWrestleID;
-    public int RightWrestleID;
-    public int BackWrestleID;
-    public int AirDashWrestleID;
-    public int EXWrestleID;
-    public int EXFrontWrestleID;
-    public int EXBackWrestleID;
-    public int ReversalID;
-    public int ArousalAttackID;
-    public int DamageID;
-    public int DownID;
-    public int BlowID;
-    public int SpinDownID;
+    public int IdleID;                  // 0
+    public int WalkID;                  // 1
+    public int JumpID;                  // 2
+    public int JumpingID;               // 3
+    public int FallID;                  // 4
+    public int LandingID;               // 5
+    public int RunID;                   // 6
+    public int AirDashID;               // 7
+    public int FrontStepID;             // 8
+    public int LeftStepID;              // 9
+    public int RightStepID;             // 10
+    public int BackStepID;              // 11
+    public int FrontStepBackID;         // 12
+    public int LeftStepBackID;          // 13
+    public int RightStepBackID;         // 14
+    public int BackStepBackID;          // 15
+    public int ShotID;                  // 16
+    public int RunShotID;               // 17
+    public int AirShotID;               // 18
+    public int ChargeShotID;            // 19
+    public int SubShotID;               // 20
+    public int EXShotID;                // 21
+    public int FollowThrowShotID;       // 22
+    public int FollowThrowRunShotID;    // 23
+    public int FollowThrowAirShotID;    // 24
+    public int FollowThrowChargeShotID; // 25
+    public int FollowThrowSubShotID;    // 26
+    public int FollowThrowEXShotID;     // 27
+    public int Wrestle1ID;              // 28
+    public int Wrestle2ID;              // 29
+    public int Wrestle3ID;              // 30
+    public int FrontWrestleID;          // 31
+    public int LeftWrestleID;           // 32
+    public int RightWrestleID;          // 33
+    public int BackWrestleID;           // 34
+    public int AirDashWrestleID;        // 35
+    public int EXWrestleID;             // 36
+    public int EXFrontWrestleID;        // 37
+    public int EXBackWrestleID;         // 38
+    public int ReversalID;              // 39
+    public int ArousalAttackID;         // 40
+    public int DamageID;                // 41
+    public int DownID;                  // 42
+    public int BlowID;                  // 43
+    public int SpinDownID;              // 44
 
     void Awake()
 	{
@@ -216,51 +216,51 @@ public class HomuraBowControl : CharacterControlBase
 		}
 
         // ハッシュID取得
-        IdleID = Animator.StringToHash("HomuraBowIdle");
-        WalkID = Animator.StringToHash("HomuraBowWalk");
-        JumpID = Animator.StringToHash("HomuraBowJump");
-        JumpingID = Animator.StringToHash("HomuraBowJumping");
-        FallID = Animator.StringToHash("HomuraBowFall");
-        LandingID = Animator.StringToHash("HomuraBowRun");
-        RunID = Animator.StringToHash("HomuraBowRun");
-        AirDashID = Animator.StringToHash("HomuraBowAirDash");
-        FrontStepID = Animator.StringToHash("HomuraBowFrontStep");
-        FrontStepBackID = Animator.StringToHash("HomurabowFrontStepBack");
-        LeftStepID = Animator.StringToHash("HomuraBowLeftStep");
-        LeftStepBackID = Animator.StringToHash("HomuraBowLeftStepBack");
-        RightStepID = Animator.StringToHash("HomuraBowRightStep");
-        RightStepBackID = Animator.StringToHash("HomuraBowRightStepBack");
-        BackStepID = Animator.StringToHash("HomuraBowBackStep");
-        BackStepBackID = Animator.StringToHash("HomuraBowBackStepBack");
-        ShotID = Animator.StringToHash("HomuraBowShot");
-        RunShotID = Animator.StringToHash("HomuraBowRunShot");
-        AirShotID = Animator.StringToHash("HomuraBowAirShot");
-        ChargeShotID = Animator.StringToHash("HomuraBowChargeShot");
-        SubShotID = Animator.StringToHash("HomuraBowSubShot");
-        EXShotID = Animator.StringToHash("HomuraBowEXShot");
-        FollowThrowShotID = Animator.StringToHash("HomuraBowShotForrowThrow");
-        FollowThrowRunShotID = Animator.StringToHash("HomuraBowRunShotForrowThrow");
-        FollowThrowAirShotID = Animator.StringToHash("HomuraBowAirShotForrowThrow");
-        FollowThrowChargeShotID = Animator.StringToHash("HowmuraBowChargeShotFollowThrow");
-        FollowThrowSubShotID = Animator.StringToHash("HomuraBowSubShotFollowThrow");
-        FollowThrowEXShotID = Animator.StringToHash("HomuraBowEXShotFollowThrow");
-        Wrestle1ID = Animator.StringToHash("HomuraBowWrestle1");
-        Wrestle2ID = Animator.StringToHash("HomuraBowWrestle2");
-        Wrestle3ID = Animator.StringToHash("HomuraBowWrestle3");
-        FrontWrestleID = Animator.StringToHash("HomuraBowFrontWrestle");
-        LeftWrestleID = Animator.StringToHash("HomuraBowLeftWrestle");
+        IdleID = Animator.StringToHash("Base Layer.HomuraBowIdle");
+        WalkID = Animator.StringToHash("Base Layer.HomuraBowWalk");
+        JumpID = Animator.StringToHash("Base Layer.HomuraBowJump");
+        JumpingID = Animator.StringToHash("Base Layer.HomuraBowJumping");
+        FallID = Animator.StringToHash("Base Layer.HomuraBowFall");
+        LandingID = Animator.StringToHash("Base Layer.HomuraBowRun");
+        RunID = Animator.StringToHash("Base Layer.HomuraBowRun");
+        AirDashID = Animator.StringToHash("Base Layer.HomuraBowAirDash");
+        FrontStepID = Animator.StringToHash("Base Layer.HomuraBowFrontStep");
+        FrontStepBackID = Animator.StringToHash("Base Layer.HomurabowFrontStepBack");
+        LeftStepID = Animator.StringToHash("Base Layer.HomuraBowLeftStep");
+        LeftStepBackID = Animator.StringToHash("Base Layer.HomuraBowLeftStepBack");
+        RightStepID = Animator.StringToHash("Base Layer.HomuraBowRightStep");
+        RightStepBackID = Animator.StringToHash("Base Layer.HomuraBowRightStepBack");
+        BackStepID = Animator.StringToHash("Base Layer.HomuraBowBackStep");
+        BackStepBackID = Animator.StringToHash("Base Layer.HomuraBowBackStepBack");
+        ShotID = Animator.StringToHash("Base Layer.HomuraBowShot");
+        RunShotID = Animator.StringToHash("Base Layer.HomuraBowRunShot");
+        AirShotID = Animator.StringToHash("Base Layer.HomuraBowAirShot");
+        ChargeShotID = Animator.StringToHash("Base Layer.HomuraBowChargeShot");
+        SubShotID = Animator.StringToHash("Base Layer.HomuraBowSubShot");
+        EXShotID = Animator.StringToHash("Base Layer.HomuraBowEXShot");
+        FollowThrowShotID = Animator.StringToHash("Base Layer.HomuraBowShotForrowThrow");
+        FollowThrowRunShotID = Animator.StringToHash("Base Layer.HomuraBowRunShotForrowThrow");
+        FollowThrowAirShotID = Animator.StringToHash("Base Layer.HomuraBowAirShotForrowThrow");
+        FollowThrowChargeShotID = Animator.StringToHash("Base Layer.HowmuraBowChargeShotFollowThrow");
+        FollowThrowSubShotID = Animator.StringToHash("Base Layer.HomuraBowSubShotFollowThrow");
+        FollowThrowEXShotID = Animator.StringToHash("Base Layer.HomuraBowEXShotFollowThrow");
+        Wrestle1ID = Animator.StringToHash("Base Layer.HomuraBowWrestle1");
+        Wrestle2ID = Animator.StringToHash("Base Layer.HomuraBowWrestle2");
+        Wrestle3ID = Animator.StringToHash("Base Layer.HomuraBowWrestle3");
+        FrontWrestleID = Animator.StringToHash("Base Layer.HomuraBowFrontWrestle");
+        LeftWrestleID = Animator.StringToHash("Base Layer.HomuraBowLeftWrestle");
         RightWrestleID = Animator.StringToHash("HomuraBowRightWrestle");
-        BackWrestleID = Animator.StringToHash("HomuraBowBackWrestle");
-        AirDashWrestleID = Animator.StringToHash("HomuraBowBDWrestle");
-        EXWrestleID = Animator.StringToHash("HomuraBowEXWrestle");
-        EXFrontWrestleID = Animator.StringToHash("HomuraBowFrontEXWrestle");
-        EXBackWrestleID = Animator.StringToHash("HomuraBowBackExWrestle");
-        ReversalID = Animator.StringToHash("HomuraBowReversal");
-        ArousalAttackID = Animator.StringToHash("HomuraBowArousalAttack");
-        DamageID = Animator.StringToHash("HomuraBowDamage");
-        DownID = Animator.StringToHash("HomurBowDown");
-        BlowID = Animator.StringToHash("HomuraBowBlow");
-        SpinDownID = Animator.StringToHash("HomuraBowSpindown");
+        BackWrestleID = Animator.StringToHash("Base Layer.HomuraBowBackWrestle");
+        AirDashWrestleID = Animator.StringToHash("Base Layer.HomuraBowBDWrestle");
+        EXWrestleID = Animator.StringToHash("Base Layer.HomuraBowEXWrestle");
+        EXFrontWrestleID = Animator.StringToHash("Base Layer.HomuraBowFrontEXWrestle");
+        EXBackWrestleID = Animator.StringToHash("Base Layer.HomuraBowBackExWrestle");
+        ReversalID = Animator.StringToHash("Base Layer.HomuraBowReversal");
+        ArousalAttackID = Animator.StringToHash("Base Layer.HomuraBowArousalAttack");
+        DamageID = Animator.StringToHash("Base Layer.HomuraBowDamage");
+        DownID = Animator.StringToHash("Base Layer.HomurBowDown");
+        BlowID = Animator.StringToHash("Base Layer.HomuraBowBlow");
+        SpinDownID = Animator.StringToHash("Base Layer.HomuraBowSpindown");
     }
 
 	// Use this for initialization
@@ -469,14 +469,24 @@ public class HomuraBowControl : CharacterControlBase
 		}
 		if(Update_Core(isspindown, AnimatorUnit, DownID, AirDashID,AirShotID,JumpingID,FallID,IdleID,BlowID,RunID))
 		{
-			
-		}
+            UpdateAnimation();
+            // リロード実行           
+            // メイン射撃
+            ReloadSystem.OneByOne(ref BulletNum[(int)ShotType.NORMAL_SHOT], Time.time, Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_OriginalBulletNum,
+                Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_reloadtime, ref MainshotEndtime);
+            // サブ射撃
+            ReloadSystem.AllTogether(ref BulletNum[(int)ShotType.SUB_SHOT], Time.time, Character_Spec.cs[(int)CharacterName][(int)ShotType.SUB_SHOT].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.SUB_SHOT].m_OriginalBulletNum,
+                Character_Spec.cs[(int)CharacterName][(int)ShotType.SUB_SHOT].m_reloadtime, ref SubshotEndtime);
+            // 特殊射撃
+            ReloadSystem.OneByOne(ref BulletNum[(int)ShotType.EX_SHOT], Time.time, Character_Spec.cs[(int)CharacterName][(int)ShotType.EX_SHOT].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.EX_SHOT].m_OriginalBulletNum,
+                Character_Spec.cs[(int)CharacterName][(int)ShotType.EX_SHOT].m_reloadtime, ref ExshotEndtime);
+        }
 	}
 
 	void UpdateAnimation()
 	{
 		// 通常
-		if (AnimatorUnit.GetHashCode() == IdleID)
+		if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == IdleID)
 		{
 			int[] stepanimations = { FrontStepID, LeftStepID, RightStepID, BackStepID };
 			Animation_Idle(AnimatorUnit, DownID, RunID,stepanimations,FallID);
@@ -503,8 +513,9 @@ public class HomuraBowControl : CharacterControlBase
 		}
 		else if (AnimatorUnit.GetHashCode() == RunID)
 		{
-
-		}
+            int[] stepanimations = { FrontStepID, LeftStepID, RightStepID, BackStepID };
+            Animation_Run(AnimatorUnit, FallID, stepanimations, IdleID);
+        }
 		else if (AnimatorUnit.GetHashCode() == AirDashID)
 		{
 
