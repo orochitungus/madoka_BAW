@@ -400,45 +400,54 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 
 		});
         // ステップ入力検知
-        // 前ステップ
-        var frontstepstream = this.UpdateAsObservable().Where(_ => Top);
-        frontstepstream.Buffer(frontstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { FrontStep = true; });
-        frontstepstream.Buffer(frontstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { FrontStep = false; });
+		//// ニュートラル
+		//var neutralstrean = this.UpdateAsObservable().Where(_ => !Top && !Left && !Right && !Under);
+  //      // 前ステップ
+  //      var frontstepstream = this.UpdateAsObservable().Where(_ => Top);
+  //      frontstepstream.Buffer(frontstepstream.Throttle(TimeSpan.FromMilliseconds(100))).Where(x => x.Count >= 2).Subscribe(_ =>
+		//{
+		//	// この状態でニュートラルのバッファもとっている？
+		//	neutralstrean.Buffer(neutralstrean.Throttle(TimeSpan.FromMilliseconds(100))).Where(y => y.Count >= 2).Subscribe(__ =>
+		//	 { FrontStep = true; });
+			
+		//});
+		//neutralstrean.Buffer(neutralstrean.Throttle(TimeSpan.FromMilliseconds(100))).Where(y => y.Count >= 2).Subscribe(__ =>
+		//{ FrontStep = false; });
 
-        // 左前ステップ
-        var leftfrontstepstream = this.UpdateAsObservable().Where(_ => Top && Left);
-        leftfrontstepstream.Buffer(leftfrontstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { LeftFrontStep = true; });
-        leftfrontstepstream.Buffer(leftfrontstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { LeftFrontStep = false; });
+		//// 左前ステップ
+		//var leftfrontstepstream = this.UpdateAsObservable().Where(_ => Top && Left);
+  //      leftfrontstepstream.Buffer(leftfrontstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { LeftFrontStep = true; });
+  //      leftfrontstepstream.Buffer(leftfrontstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { LeftFrontStep = false; });
 
-        // 左ステップ
-        var leftstepstream = this.UpdateAsObservable().Where(_ => Left);
-        leftstepstream.Buffer(leftstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { LeftStep = true; });
-        leftstepstream.Buffer(leftstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { LeftStep = false; });
+  //      // 左ステップ
+  //      var leftstepstream = this.UpdateAsObservable().Where(_ => Left);
+  //      leftstepstream.Buffer(leftstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { LeftStep = true; });
+  //      leftstepstream.Buffer(leftstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { LeftStep = false; });
 
-        // 左後ステップ
-        var leftbackstepstream = this.UpdateAsObservable().Where(_ => Left && Under);
-        leftbackstepstream.Buffer(leftbackstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { LeftBackStep = true; });
-        leftbackstepstream.Buffer(leftbackstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { LeftBackStep = false; });
+  //      // 左後ステップ
+  //      var leftbackstepstream = this.UpdateAsObservable().Where(_ => Left && Under);
+  //      leftbackstepstream.Buffer(leftbackstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { LeftBackStep = true; });
+  //      leftbackstepstream.Buffer(leftbackstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { LeftBackStep = false; });
 
-        // 後ステップ
-        var backstepstream = this.UpdateAsObservable().Where(_ => Under);
-        backstepstream.Buffer(backstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { BackStep = true; });
-        backstepstream.Buffer(backstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { BackStep = false; });
+  //      // 後ステップ
+  //      var backstepstream = this.UpdateAsObservable().Where(_ => Under);
+  //      backstepstream.Buffer(backstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { BackStep = true; });
+  //      backstepstream.Buffer(backstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { BackStep = false; });
 
-        // 右後ステップ
-        var rightbackstepstream = this.UpdateAsObservable().Where(_ => Right && Under);
-        rightbackstepstream.Buffer(rightbackstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { RightBackStep = true; });
-        rightbackstepstream.Buffer(rightbackstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { RightBackStep = false; });
+  //      // 右後ステップ
+  //      var rightbackstepstream = this.UpdateAsObservable().Where(_ => Right && Under);
+  //      rightbackstepstream.Buffer(rightbackstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { RightBackStep = true; });
+  //      rightbackstepstream.Buffer(rightbackstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { RightBackStep = false; });
 
-		// 右ステップ
-		var rightstepstream = this.UpdateAsObservable().Where(_ => Right);
-		rightstepstream.Buffer(rightstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { RightStep = true; });
-		rightstepstream.Buffer(rightstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { RightStep = false; });
+		//// 右ステップ
+		//var rightstepstream = this.UpdateAsObservable().Where(_ => Right);
+		//rightstepstream.Buffer(rightstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { RightStep = true; });
+		//rightstepstream.Buffer(rightstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { RightStep = false; });
 
-		// 右前ステップ
-		var rightfrontstepstrem = this.UpdateAsObservable().Where(_ => Right && Top);
-		rightfrontstepstrem.Buffer(rightfrontstepstrem.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { RightFrontStep = true; });
-		rightfrontstepstrem.Buffer(rightfrontstepstrem.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { RightFrontStep = false; });
+		//// 右前ステップ
+		//var rightfrontstepstrem = this.UpdateAsObservable().Where(_ => Right && Top);
+		//rightfrontstepstrem.Buffer(rightfrontstepstrem.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { RightFrontStep = true; });
+		//rightfrontstepstrem.Buffer(rightfrontstepstrem.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { RightFrontStep = false; });
 
 		// http://www.slideshare.net/torisoup/unity-unirx
 		this.UpdateAsObservable().Subscribe(_ =>

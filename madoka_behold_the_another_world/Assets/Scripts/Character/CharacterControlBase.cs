@@ -2528,8 +2528,8 @@ public class CharacterControlBase : MonoBehaviour
 	/// 初期化
 	/// </summary>
 	/// <param name="animator"></param>
-	/// <param name="idlehash">アイドルモーションのhashID</param>
-	protected virtual void FirstSetting(Animator animator,int idlehash)
+	/// <param name="idleID">アイドルモーションのID</param>
+	protected virtual void FirstSetting(Animator animator,int idleID)
 	{
 		// CharacterControllerを取得
 		//this.m_charactercontroller = GetComponent<CharacterController>();
@@ -2570,7 +2570,7 @@ public class CharacterControlBase : MonoBehaviour
 		BlowDirection = Vector3.zero;
 
 		// 初期アニメIdleを再生する
-		animator.SetInteger("NowState",idlehash);
+		animator.SetInteger("NowState",idleID);
 
 		// ブースト量を初期化する
 		Boost = GetMaxBoost(this.BoostLevel);
@@ -2708,11 +2708,6 @@ public class CharacterControlBase : MonoBehaviour
 		// チャージ最大値
 		ChargeMax = 100;
 
-		// インターフェースの描画フラグ
-		if (IsPlayer == CHARACTERCODE.PLAYER)
-		{
-			// TODO:インターフェースに描画する 
-		}		
 		
 
 		// 壁面接触フラグ
