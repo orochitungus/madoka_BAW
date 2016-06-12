@@ -67,7 +67,49 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 	/// 方向キー右を長押した
 	/// </summary>
 	public bool RightLongPress;
+
+	/// <summary>
+	/// 左上を押した
+	/// </summary>
+	public bool LeftUpper;
+
+	/// <summary>
+	/// 左上を離した
+	/// </summary>
+	public bool LeftUpperUp;
+
+	/// <summary>
+	/// 左下を押した
+	/// </summary>
+	public bool LeftUnder;
+
+	/// <summary>
+	/// 左下を離した
+	/// </summary>
+	public bool LeftUnderUp;
+
+	/// <summary>
+	/// 右下を押した
+	/// </summary>
+	public bool RightUnder;
+
+	/// <summary>
+	/// 右下を離した
+	/// </summary>
+	public bool RightUnderUp;
+
+	/// <summary>
+	/// 右上を押した
+	/// </summary>
+	public bool RightUpper;
+
+	/// <summary>
+	/// 右上を押した
+	/// </summary>
+	public bool RightUpperUp;
+
 	
+
 	/// <summary>
 	/// 射撃・決定
 	/// </summary>
@@ -394,9 +436,45 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
                 Right = false;
             }
 
-			
-			
-			
+			// 左上
+			if((horizontal < -0.5f && vertical > 0.5f) || (horizontal2 < -0.5f && vertical2 > 0.5f))
+			{
+				LeftUpper = true;
+			}
+			else
+			{
+				LeftUpper = false;
+			}
+
+			// 左下
+			if ((horizontal < -0.5f && vertical < -0.5f) || (horizontal2 < -0.5f && vertical2 < -0.5f))
+			{
+				LeftUnder = true;
+			}
+			else
+			{
+				LeftUnder = false;
+			}
+
+			// 右下
+			if ((horizontal > 0.5f && vertical < -0.5f) || (horizontal2 > 0.5f && vertical2 < -0.5f))
+			{
+				RightUnder = true;
+			}
+			else
+			{
+				RightUnder = false;
+			}
+
+			// 右上
+			if ((horizontal > 0.5f && vertical > 0.5f) || (horizontal2 > 0.5f && vertical2 > 0.5f))
+			{
+				RightUpper = true;
+			}
+			else
+			{
+				RightUpper = false;
+			}						
 
 		});
         // ステップ入力検知
@@ -637,9 +715,12 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 
 
         // BD
-        var boostdashstream = this.UpdateAsObservable().Where(_ => Jump);
-        boostdashstream.Buffer(boostdashstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { BoostDash = true; });
-        boostdashstream.Buffer(boostdashstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { BoostDash = false; });
+        var boostdashstream = this.UpdateAsObservable().Where(_ => Jump).Do(_ => Debug.Log(Jump));
+        boostdashstream.Buffer(boostdashstream.Throttle(TimeSpan.FromMilliseconds(15))).Where(x => x.Count > 2).Do(x => Debug.Log(x.Count)).Subscribe(_ => 
+		{ 			
+			BoostDash = true; 
+		});
+        boostdashstream.Buffer(boostdashstream.Throttle(TimeSpan.FromMilliseconds(15))).Where(x => x.Count < 2).Subscribe(_ => { BoostDash = false; });
 
         // ロック外し
         var unlockstream = this.UpdateAsObservable().Where(_ => Search);
@@ -870,6 +951,11 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 		}
 	}
 
+	/// <summary>
+	/// 長押しを取得
+	/// </summary>
+	/// <param name="i"></param>
+	/// <param name="k"></param>
     public void GetKeyLongInput(int i, Array k)
     {
         // テンキーとマウス入力と画面クリック以外のキー入力を取得する
@@ -878,16 +964,19 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
             // 射撃チャージ取得
             if (k.GetValue(i).ToString() == shotcode_keyboard)
             {
+				Shot = false;
                 Shotting = true;
             }
             // 格闘チャージ取得
             if (k.GetValue(i).ToString() == wrestlecode_keyboard)
             {
+				Wrestle = false;
                 Wrestling = true;
             }
             // ジャンプ取得
             if (k.GetValue(i).ToString() == jump_keyboard)
             {
+				Jump = false;
                 Jumping = true;
             }
         }
@@ -897,16 +986,20 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
             // 射撃取得
             if (k.GetValue(i).ToString() == shotcode_controller)
             {
+				Shot = false;
                 Shotting = true;
             }
             // 格闘取得
             if (k.GetValue(i).ToString() == wrestlecode_controller)
             {
+				Wrestle = false;
                 Wrestling = true;
             }
             // ジャンプ取得
             if (k.GetValue(i).ToString() == jump_controller)
             {
+				// Jumpは折っておく
+				Jump = false;
                 Jumping = true;
             }
         }

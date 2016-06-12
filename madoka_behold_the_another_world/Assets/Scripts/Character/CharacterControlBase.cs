@@ -445,6 +445,11 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     protected bool HasJumpInput;
 
+	/// <summary>
+	/// ジャンプ長押入力があったか否か
+	/// </summary>
+	protected bool HasJumpingInput;
+
     /// <summary>
     /// ダッシュキャンセル入力があったか否か
     /// </summary>
@@ -986,7 +991,8 @@ public class CharacterControlBase : MonoBehaviour
         // PC時のみ。CPU時は何か別の関数を用意
         if (IsPlayer == CHARACTERCODE.PLAYER)
         {
-           if(ControllerManager.Instance.Top || ControllerManager.Instance.Left || ControllerManager.Instance.Right || ControllerManager.Instance.Under)
+           if(ControllerManager.Instance.Top || ControllerManager.Instance.Left || ControllerManager.Instance.Right || ControllerManager.Instance.Under || ControllerManager.Instance.LeftUpper
+		   || ControllerManager.Instance.LeftUnder || ControllerManager.Instance.RightUnder || ControllerManager.Instance.RightUpper)
            {
                return true;
            }
@@ -1160,7 +1166,7 @@ public class CharacterControlBase : MonoBehaviour
     /// ジャンプ長押し入力があったか否かをチェックする
     /// </summary>
     /// <returns></returns>
-    protected bool GetJumpintInput()
+    protected bool GetJumpingInput()
     {
         if (IsPlayer == CHARACTERCODE.PLAYER)
         {
@@ -1426,8 +1432,12 @@ public class CharacterControlBase : MonoBehaviour
 	/// ジャンプ時共通操作
 	/// この関数を各キャラで継承させ、そこでアニメーションの再生を行う
 	/// </summary>
-	protected virtual void JumpDone()
+	/// <param name="animator"></param>
+	/// <param name="jumpid">ジャンプのState番号</param>
+	protected virtual void JumpDone(Animator animator, int jumpid)
 	{
+		transform.Translate(new Vector3(0, 10, 0));	// 打ち上げる
+		animator.SetInteger("NowState", jumpid);
 		Boost = Boost - JumpUseBoost;
 	}
 
@@ -2175,7 +2185,7 @@ public class CharacterControlBase : MonoBehaviour
     /// 着地共通動作
     /// <param name="animator">本体のanimator</param>
     /// </summary>
-    protected void LandingDone(Animator animator, int landingHash)
+    protected void LandingDone(Animator animator, int landingID)
     {
         // 格闘判定削除
         DestroyWrestle();
@@ -2183,7 +2193,7 @@ public class CharacterControlBase : MonoBehaviour
         this.transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0));
         // 無効になっていたら重力を復活させる
         this.GetComponent<Rigidbody>().useGravity = true;
-        animator.SetInteger("NowState",landingHash);
+        animator.SetInteger("NowState",landingID);
         // 着地したので硬直を設定する
         LandingTime = Time.time;
     }
@@ -2193,7 +2203,7 @@ public class CharacterControlBase : MonoBehaviour
     /// 空中ダッシュ（キャンセルダッシュ）発動共通操作
     /// 弓ほむら・まどかのモーションキャンセルなどはこの前に行うこと
     /// </summary>
-    protected virtual void CancelDashDone(Animator animator, int airdashhash)
+    protected virtual void CancelDashDone(Animator animator, int airdashID)
     {
         if (this.Boost > 0)
         {
@@ -2207,7 +2217,7 @@ public class CharacterControlBase : MonoBehaviour
             BrestObject.transform.rotation = Quaternion.Euler(0, 0, 0);
             Rotatehold = false;
             this.Boost = Boost - DashCancelUseBoost;
-            animator.SetInteger("NowState",airdashhash);
+            animator.SetInteger("NowState",airdashID);
             // 移動方向取得
             //UpdateRotation();
             //this.m_MoveDirection = transform.rotation * Vector3.forward;
@@ -2268,13 +2278,13 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="RiseSpeed">落下速度</param>
     /// <param name="animator">本体のanimator</param>
-    /// <param name="fallhash">fall状態のハッシュコード</param>
-    protected void FallDone(Vector3 RiseSpeed,Animator animator, int fallhash)
+    /// <param name="fallID">fall状態のハッシュコード</param>
+    protected void FallDone(Vector3 RiseSpeed,Animator animator, int fallID)
     {
         IsStep = false;
         IsWrestle = false;
         this.GetComponent<Rigidbody>().useGravity = true;
-        animator.SetInteger("NowState",fallhash);
+        animator.SetInteger("NowState",fallID);
         RiseSpeed = new Vector3(0, -this.RiseSpeed, 0);
         _FallStartTime = Time.time;
     }
@@ -2338,6 +2348,14 @@ public class CharacterControlBase : MonoBehaviour
 		{
 			vertical = -1.0f;
 		}
+		else if(ControllerManager.Instance.LeftUpper || ControllerManager.Instance.RightUpper)
+		{
+			vertical = 0.6f;
+		}
+		else if(ControllerManager.Instance.LeftUnder || ControllerManager.Instance.RightUnder)
+		{
+			vertical = -0.6f;
+		}
 		
 		if(ControllerManager.Instance.Left)
 		{
@@ -2346,6 +2364,14 @@ public class CharacterControlBase : MonoBehaviour
 		else if(ControllerManager.Instance.Right)
 		{
 			horizontal = 1.0f;
+		}
+		else if(ControllerManager.Instance.LeftUpper || ControllerManager.Instance.LeftUnder)
+		{
+			horizontal = -0.6f;
+		}
+		else if(ControllerManager.Instance.RightUpper || ControllerManager.Instance.RightUnder)
+		{
+			horizontal = 0.6f;
 		}
 
         var toWorldVector = MainCamera.transform.rotation;
@@ -2803,6 +2829,8 @@ public class CharacterControlBase : MonoBehaviour
             HasShotInput = GetShotInput();
             // ジャンプ入力があったか否か
             HasJumpInput = GetJumpInput();
+			// ジャンプ長押し入力があったか否か
+			HasJumpingInput = GetJumpingInput();
             // ダッシュキャンセル入力があったか否か
             HasDashCancelInput = GetDashCancelInput();
             // サーチ入力があったか否か
@@ -3282,7 +3310,7 @@ public class CharacterControlBase : MonoBehaviour
     }
 
     // ステップ落下時のキャンセルダッシュ及び再ジャンプ受付
-    protected bool CancelCheck(Animator animator, int airdashhash)
+    protected bool CancelCheck(Animator animator, int airdashhash,int jumpID)
     {
         // ブーストが残っていればキャンセルダッシュは受け付ける（方向入力は受け付けない）
         if (this.Boost > 0)
@@ -3291,7 +3319,7 @@ public class CharacterControlBase : MonoBehaviour
             if (!HasVHInput && ControllerManager.Instance.Jump)
             {
                 // 上昇制御をAddForceにするとやりにくい（特に慣性ジャンプ）
-                JumpDone();
+                JumpDone(animator,jumpID);
                 return true;
             }
             // ジャンプ再入力で向いている方向へ空中ダッシュ(上昇は押しっぱなし)            
@@ -4704,7 +4732,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <summary>
     /// Idle時共通操作
     /// </summary>
-    protected virtual void Animation_Idle(Animator animator, int downID, int runID, int[] stepanimations,int fallID)
+    protected virtual void Animation_Idle(Animator animator, int downID, int runID, int[] stepanimations,int fallID, int jumpID)
     {
         // 移行後復活
         //IsStep = false;
@@ -4743,7 +4771,7 @@ public class CharacterControlBase : MonoBehaviour
             if (this.HasJumpInput && Boost > 0)
             {
                 // 上昇制御をAddForceにするとやりにくい（特に慣性ジャンプ）
-                JumpDone();
+                JumpDone(animator, jumpID);
             }
             // ステップの場合ステップ(非CPU時)
             if (IsPlayer == CHARACTERCODE.PLAYER)
@@ -4831,8 +4859,11 @@ public class CharacterControlBase : MonoBehaviour
     }
 
     // Jumping時共通動作
-    protected virtual void Animation_Jumping(Animator animator,int fallhashID, int[] stepanimations,int airdashhashID,int landinghashID)
+    protected virtual void Animation_Jumping(Animator animator,int fallID, int[] stepanimations,int airdashID,int landinghashID)
     {
+		// 遷移フラグを折っておく
+		animator.SetInteger("Nowstate", -1);
+
         Vector3 RiseSpeed = new Vector3(MoveDirection.x, this.RiseSpeed, MoveDirection.z);
         if (Time.time > JumpTime + JumpWaitTime)
         {
@@ -4841,19 +4872,19 @@ public class CharacterControlBase : MonoBehaviour
             if (this.Boost > 0)
             {
                 // ボタンを押し続ける限り上昇
-                if (HasJumpInput)
+                if (HasJumpingInput)
                 {
                     this.Boost = this.Boost - BoostLess;
                 }
                 // 離したら落下
-                else if (!HasJumpInput)
+                else if (!HasJumpingInput)
                 {
-                    FallDone(RiseSpeed,animator,fallhashID);
+                    FallDone(RiseSpeed,animator,fallID);
                 }
                 // ジャンプ再入力で向いている方向へ空中ダッシュ(上昇は押しっぱなし)
                 else if (HasDashCancelInput)
                 {
-                    CancelDashDone(animator,airdashhashID);
+                    CancelDashDone(animator,airdashID);
                 }
 
                 // ステップの場合ステップ
@@ -4927,7 +4958,7 @@ public class CharacterControlBase : MonoBehaviour
             // そして下降へ移行する
             else
             {
-                FallDone(RiseSpeed,animator,fallhashID);
+                FallDone(RiseSpeed,animator,fallID);
             }
 
         }
@@ -4939,9 +4970,9 @@ public class CharacterControlBase : MonoBehaviour
             UpdateRotation();
         }
         // ボタンを離したら下降へ移行
-        if (!this.HasJumpInput)
+        if (!HasJumpingInput)
         {
-            animator.SetInteger("NowState",fallhashID);
+            animator.SetInteger("NowState",fallID);
             _FallStartTime = Time.time;
             RiseSpeed = new Vector3(0, -this.RiseSpeed, 0);
         }
@@ -4958,8 +4989,17 @@ public class CharacterControlBase : MonoBehaviour
             }
         }
     }
+		
 
-    protected virtual void Animation_Run(Animator animator, int fallhashID, int[] stepanimations,int idleID)
+	/// <summary>
+	/// Run時共通動作
+	/// </summary>
+	/// <param name="animator"></param>
+	/// <param name="fallhashID"></param>
+	/// <param name="stepanimations"></param>
+	/// <param name="idleID"></param>
+	/// <param name="jumpID"></param>
+    protected virtual void Animation_Run(Animator animator, int fallhashID, int[] stepanimations,int idleID,int jumpID)
     {
         RigidBody.constraints = RigidbodyConstraints.FreezeRotation;
         // ずれた本体角度を戻す(Yはそのまま）
@@ -5027,7 +5067,7 @@ public class CharacterControlBase : MonoBehaviour
             if (this.HasJumpInput && Boost > 0)
             {
                 // 上昇制御をAddForceにするとやりにくい（特に慣性ジャンプ）
-                JumpDone();
+                JumpDone(animator,jumpID);
             }
         }
         else
@@ -5035,6 +5075,154 @@ public class CharacterControlBase : MonoBehaviour
             animator.SetInteger("NowState",fallhashID);
         }
     }
+
+	/// <summary>
+	/// Fall時共通動作
+	/// </summary>
+	/// <param name="animator"></param>
+	/// <param name="airdashID"></param>
+	/// <param name="jumpID"></param>
+	/// <param name="stepanimations"></param>
+	/// <param name="landingID"></param>
+	protected virtual void Animation_Fall(Animator animator, int airdashID,int jumpID,int[] stepanimations,int landingID)
+	{
+		// くっついているエフェクトを消す
+		BrokenEffect();
+		transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+		// ずれた本体角度を戻す(Yはそのまま）
+		transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0));
+		// ステップ時はm_MoveDirectionが消えたら困るので、一旦保持
+		Vector3 MoveDirection_OR = this.MoveDirection;
+
+		// 一応重力復活
+		this.GetComponent<Rigidbody>().useGravity = true;
+		// 飛び越えフラグをカット
+		Rotatehold = false;
+		// 追加入力の有無をカット
+		this.AddInput = false;
+		// ブーストがあれば慣性移動及び再上昇可。なければ不可
+		if (this.Boost > 0)
+		{
+			if (this.HasDashCancelInput)// ジャンプ再入力で向いている方向へ空中ダッシュ(上昇は押しっぱなし)           
+			{
+				CancelDashDone(animator, airdashID);
+			}
+			// ジャンプボタンで再ジャンプ
+			else if (this.HasJumpInput)
+			{
+				JumpDone(animator, jumpID);
+			}
+			// ステップの場合ステップ
+			// 前
+			if (ControllerManager.Instance.FrontStep)
+			{
+				// MoveDirectionを再生する
+				this.MoveDirection = MoveDirection_OR;
+				StepDone(1, new Vector2(0,1), animator,stepanimations);
+				return;
+			}
+			// 左前
+			else if(ControllerManager.Instance.LeftFrontStep)
+			{
+				this.MoveDirection = MoveDirection_OR;
+				StepDone(1, new Vector2(-1, 1), animator, stepanimations);
+				return;
+			}
+			// 左
+			else if(ControllerManager.Instance.LeftStep)
+			{
+				this.MoveDirection = MoveDirection_OR;
+				StepDone(1, new Vector2(-1, 0), animator, stepanimations);
+				return;
+			}
+			// 左後
+			else if(ControllerManager.Instance.LeftBackStep)
+			{
+				this.MoveDirection = MoveDirection_OR;
+				StepDone(1, new Vector2(-1, -1), animator, stepanimations);
+				return;
+			}
+			// 後
+			else if(ControllerManager.Instance.BackStep)
+			{
+				this.MoveDirection = MoveDirection_OR;
+				StepDone(1, new Vector2(0, -1), animator, stepanimations);
+				return;
+			}
+			// 右後
+			else if(ControllerManager.Instance.RightBackStep)
+			{
+				this.MoveDirection = MoveDirection_OR;
+				StepDone(1, new Vector2(1, -1), animator, stepanimations);
+				return;
+			}
+			// 右
+			else if(ControllerManager.Instance.Right)
+			{
+				this.MoveDirection = MoveDirection_OR;
+				StepDone(1, new Vector2(1, 0), animator, stepanimations);
+				return;
+			}
+			// 右前
+			else if(ControllerManager.Instance.RightFrontStep)
+			{
+				this.MoveDirection = MoveDirection_OR;
+				StepDone(1, new Vector2(1, 1), animator, stepanimations);
+				return;
+			}
+			// CPU時左ステップ
+			else if (HasLeftStepInput)
+			{
+				StepDone(1, new Vector2(-1, 0), animator, stepanimations);
+				HasLeftStepInput = false;
+			}
+			// CPU時右ステップ
+			else if (HasRightStepInput)
+			{
+				StepDone(1, new Vector2(1, 0),animator, stepanimations);
+				HasRightStepInput = false;
+			}
+		}
+		// 方向キー入力で慣性移動
+		if (HasVHInput)
+		{
+			UpdateRotation();
+			this.MoveDirection = transform.rotation * Vector3.forward;
+		}
+
+		// 落下速度調整
+		this.MoveDirection.y = MadokaDefine.FALLSPEED / 2;
+
+		// 着地時に着陸へ移行
+		if (IsGrounded)
+		{
+			MoveDirection = Vector3.zero;
+			LandingDone(animator, landingID);
+		}
+	}
+
+	/// <summary>
+	/// 着地時に実行
+	/// </summary>
+	/// <param name="animator"></param>
+	/// <param name="idleID"></param>
+	protected virtual void Animation_Landing(Animator animator, int idleID)
+	{
+		transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+		// ずれた本体角度を戻す(Yはそのまま）
+		transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0));		
+		Rotatehold = false;                // 固定フラグは折る
+		// 地響き防止
+		MoveDirection = transform.rotation * new Vector3(0, 0, 0);
+		// モーション終了時にアイドルへ移行
+		// 硬直時間が終わるとIdleへ戻る。オバヒ着地とかやりたいならBoost0でLandingTimeの値を変えるとか
+		if (Time.time > LandingTime + LandingWaitTime)
+		{
+			animator.SetInteger("NowState", 0);
+			// ブースト量を初期化する
+			Boost = GetMaxBoost(BoostLevel);
+		}
+	}
 
     // 地上走行中は足音を鳴らす
     private const float _WalkTime = 0.5f;

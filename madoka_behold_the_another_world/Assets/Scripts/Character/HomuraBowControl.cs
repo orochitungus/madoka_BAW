@@ -485,8 +485,11 @@ public class HomuraBowControl : CharacterControlBase
 
 	void LateUpdate()
 	{
-		// 遷移したトランジションを折っておく
-		AnimatorUnit.SetInteger("NowState", -1);
+		// 遷移したトランジションを折っておく(ジャンプ開始時は除く）
+		if (AnimatorUnit.GetInteger("NowState") != 3)
+		{
+			AnimatorUnit.SetInteger("NowState", -1);
+		}
 	}
 
 	void UpdateAnimation()
@@ -495,7 +498,7 @@ public class HomuraBowControl : CharacterControlBase
 		if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == IdleID)
 		{
 			int[] stepanimations = { FrontStepID, LeftStepID, RightStepID, BackStepID };
-			Animation_Idle(AnimatorUnit, 42, 6,stepanimations,4);
+			Animation_Idle(AnimatorUnit, 42, 6,stepanimations,4,2);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == WalkID)
 		{
@@ -503,24 +506,26 @@ public class HomuraBowControl : CharacterControlBase
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == JumpID)
 		{
-
+			Animation_Jump(AnimatorUnit, 2);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == JumpingID)
 		{
-
+			int[] stepanimations = { 8, 9, 10, 11 };
+			Animation_Jumping(AnimatorUnit, 4, stepanimations, 7, 5);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FallID)
 		{
-
+			int[] stepanimations = { 8, 9, 10, 11 };
+			Animation_Fall(AnimatorUnit, 7, 2, stepanimations, 5);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LandingID)
 		{
-
+			Animation_Landing(AnimatorUnit, 0);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RunID)
 		{
             int[] stepanimations = { 8, 9, 10, 11 };
-            Animation_Run(AnimatorUnit, 4, stepanimations, 0);
+            Animation_Run(AnimatorUnit, 4, stepanimations, 0, 2);
         }
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == AirDashID)
 		{
@@ -670,5 +675,13 @@ public class HomuraBowControl : CharacterControlBase
 		{
 
 		}
+	}
+
+	/// <summary>
+	/// Jumpingへ移行する（JumpのAnimationの最終フレームで実行する）
+	/// </summary>
+	public void JumpingMigration()
+	{
+		AnimatorUnit.SetInteger("NowState", 3);
 	}
 }
