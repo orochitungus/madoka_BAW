@@ -5224,6 +5224,20 @@ public class CharacterControlBase : MonoBehaviour
 		}
 	}
 
+	protected virtual void Animation_AirDash()
+	{
+		transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+		// ずれた本体角度を戻す(Yはそのまま） 
+		Vector3 RiseSpeed = new Vector3(0, 0, 0);
+		// 重力補正をカット
+		GetComponent<Rigidbody>().useGravity = false;
+		// ブーストがある限り飛行
+		if (Boost > 0)
+		{
+			
+		}
+	}
+
     // 地上走行中は足音を鳴らす
     private const float _WalkTime = 0.5f;
     private float _WalkTimer;
