@@ -245,11 +245,14 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
     /// </summary>
     public bool Unlock;
 
+    /// <summary>
+    /// 方向キーの入力ログ
+    /// </summary>
+    private InputDirection[] _Inputdirections = new InputDirection[60];
 
 
-
-	// Use this for initialization
-	void Start () 
+    // Use this for initialization
+    void Start () 
 	{
 		if (this != Instance)
 		{
@@ -395,10 +398,23 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 					horizontal2 = 0.0f;
 				}
 			}
+
+            // 入力ログを１F前に遷移させる
+            for(int i=1; i<_Inputdirections.Length; i++)
+            {
+                _Inputdirections[i - 1] = _Inputdirections[i];
+            }
+
+            // ニュートラル
+            if((Math.Abs(vertical) < 0.1f && Math.Abs(horizontal) < 0.1f) || (Math.Abs(vertical2) < 0.1f && Math.Abs(horizontal2) < 0.1f))
+            {
+                _Inputdirections[_Inputdirections.Length - 1] = InputDirection.NEUTRAL;
+            }
 			
 			// 上
 			if ((vertical > 0.0f && Math.Abs(horizontal) < 0.1f) || (vertical2 > 0.0f && Math.Abs(horizontal2) < 0.1f))
             {
+                _Inputdirections[_Inputdirections.Length - 1] = InputDirection.TOP;
                 Top = true;
             }
             else
@@ -409,7 +425,8 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
             // 下
             if ((vertical < 0.0f && Math.Abs(horizontal) < 0.1f) || (vertical2 < 0.0f && Math.Abs(horizontal2) < 0.1f))
             {
-				Under = true;
+                _Inputdirections[_Inputdirections.Length - 1] = InputDirection.UNDER;
+                Under = true;
             }
             else
             {
@@ -419,6 +436,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
             // 左
             if ((horizontal < 0.0f && Math.Abs(vertical) < 0.1f) || (horizontal2 < 0.0f && Math.Abs(vertical2) < 0.1f))
             {
+                _Inputdirections[_Inputdirections.Length - 1] = InputDirection.LEFT;
                 Left = true;
             }
             else
@@ -429,6 +447,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
             // 右
             if((horizontal > 0.0f && Math.Abs(vertical) < 0.1f) || (horizontal2 > 0.0f && Math.Abs(vertical2) < 0.1f))
 			{
+                _Inputdirections[_Inputdirections.Length - 1] = InputDirection.RIGHT;
                 Right = true;
             }
             else
@@ -439,7 +458,8 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 			// 左上
 			if((horizontal < -0.5f && vertical > 0.5f) || (horizontal2 < -0.5f && vertical2 > 0.5f))
 			{
-				LeftUpper = true;
+                _Inputdirections[_Inputdirections.Length - 1] = InputDirection.LEFTTOP;
+                LeftUpper = true;
 			}
 			else
 			{
@@ -449,7 +469,8 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 			// 左下
 			if ((horizontal < -0.5f && vertical < -0.5f) || (horizontal2 < -0.5f && vertical2 < -0.5f))
 			{
-				LeftUnder = true;
+                _Inputdirections[_Inputdirections.Length - 1] = InputDirection.LEFTUNDER;
+                LeftUnder = true;
 			}
 			else
 			{
@@ -459,7 +480,8 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 			// 右下
 			if ((horizontal > 0.5f && vertical < -0.5f) || (horizontal2 > 0.5f && vertical2 < -0.5f))
 			{
-				RightUnder = true;
+                _Inputdirections[_Inputdirections.Length - 1] = InputDirection.RIGHTUNDER;
+                RightUnder = true;
 			}
 			else
 			{
@@ -469,7 +491,8 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 			// 右上
 			if ((horizontal > 0.5f && vertical > 0.5f) || (horizontal2 > 0.5f && vertical2 > 0.5f))
 			{
-				RightUpper = true;
+                _Inputdirections[_Inputdirections.Length - 1] = InputDirection.RIGHTTOP;
+                RightUpper = true;
 			}
 			else
 			{
@@ -478,57 +501,88 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 
 		});
         // ステップ入力検知
-		//// ニュートラル
-		//var neutralstrean = this.UpdateAsObservable().Where(_ => !Top && !Left && !Right && !Under);
-  //      // 前ステップ
-  //      var frontstepstream = this.UpdateAsObservable().Where(_ => Top);
-  //      frontstepstream.Buffer(frontstepstream.Throttle(TimeSpan.FromMilliseconds(100))).Where(x => x.Count >= 2).Subscribe(_ =>
-		//{
-		//	// この状態でニュートラルのバッファもとっている？
-		//	neutralstrean.Buffer(neutralstrean.Throttle(TimeSpan.FromMilliseconds(100))).Where(y => y.Count >= 2).Subscribe(__ =>
-		//	 { FrontStep = true; });
-			
-		//});
-		//neutralstrean.Buffer(neutralstrean.Throttle(TimeSpan.FromMilliseconds(100))).Where(y => y.Count >= 2).Subscribe(__ =>
-		//{ FrontStep = false; });
+        // 前ステップ
+        if(GetStepInput(InputDirection.TOP))
+        {
+            FrontStep = true;
+        }
+        else
+        {
+            FrontStep = false;
+        }
 
-		//// 左前ステップ
-		//var leftfrontstepstream = this.UpdateAsObservable().Where(_ => Top && Left);
-  //      leftfrontstepstream.Buffer(leftfrontstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { LeftFrontStep = true; });
-  //      leftfrontstepstream.Buffer(leftfrontstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { LeftFrontStep = false; });
+        // 左前ステップ
+        if(GetStepInput(InputDirection.LEFTTOP))
+        {
+            LeftFrontStep = true;
+        }
+        else
+        {
+            LeftFrontStep = false;
+        }
 
-  //      // 左ステップ
-  //      var leftstepstream = this.UpdateAsObservable().Where(_ => Left);
-  //      leftstepstream.Buffer(leftstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { LeftStep = true; });
-  //      leftstepstream.Buffer(leftstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { LeftStep = false; });
+        // 左ステップ
+        if(GetStepInput(InputDirection.LEFT))
+        {
+            LeftStep = true;
+        }
+        else
+        {
+            LeftStep = false;
+        }
 
-  //      // 左後ステップ
-  //      var leftbackstepstream = this.UpdateAsObservable().Where(_ => Left && Under);
-  //      leftbackstepstream.Buffer(leftbackstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { LeftBackStep = true; });
-  //      leftbackstepstream.Buffer(leftbackstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { LeftBackStep = false; });
+        // 左後ステップ
+        if(GetStepInput(InputDirection.LEFTUNDER))
+        {
+            LeftBackStep = true;
+        }
+        else
+        {
+            LeftBackStep = false;
+        }
 
-  //      // 後ステップ
-  //      var backstepstream = this.UpdateAsObservable().Where(_ => Under);
-  //      backstepstream.Buffer(backstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { BackStep = true; });
-  //      backstepstream.Buffer(backstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { BackStep = false; });
+        // 後ステップ
+        if(GetStepInput(InputDirection.UNDER))
+        {
+            BackStep = true;
+        }
+        else
+        {
+            BackStep = false;
+        }
 
-  //      // 右後ステップ
-  //      var rightbackstepstream = this.UpdateAsObservable().Where(_ => Right && Under);
-  //      rightbackstepstream.Buffer(rightbackstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { RightBackStep = true; });
-  //      rightbackstepstream.Buffer(rightbackstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { RightBackStep = false; });
+        // 右後ステップ
+        if(GetStepInput(InputDirection.RIGHTUNDER))
+        {
+            RightBackStep = true;
+        }
+        else
+        {
+            RightBackStep = false;
+        }
 
-		//// 右ステップ
-		//var rightstepstream = this.UpdateAsObservable().Where(_ => Right);
-		//rightstepstream.Buffer(rightstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { RightStep = true; });
-		//rightstepstream.Buffer(rightstepstream.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { RightStep = false; });
+        // 右ステップ
+        if(GetStepInput(InputDirection.RIGHT))
+        {
+            RightStep = true;
+        }
+        else
+        {
+            RightStep = false;
+        }
 
-		//// 右前ステップ
-		//var rightfrontstepstrem = this.UpdateAsObservable().Where(_ => Right && Top);
-		//rightfrontstepstrem.Buffer(rightfrontstepstrem.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count >= 2).Subscribe(_ => { RightFrontStep = true; });
-		//rightfrontstepstrem.Buffer(rightfrontstepstrem.Throttle(TimeSpan.FromMilliseconds(200))).Where(x => x.Count < 2).Subscribe(_ => { RightFrontStep = false; });
+        // 右前ステップ
+        if(GetStepInput(InputDirection.RIGHTTOP))
+        {
+            RightStep = false;
+        }
+        else
+        {
+            RightStep = false;
+        }
 
-		// http://www.slideshare.net/torisoup/unity-unirx
-		this.UpdateAsObservable().Subscribe(_ =>
+        // http://www.slideshare.net/torisoup/unity-unirx
+        this.UpdateAsObservable().Subscribe(_ =>
 		{
 			// 射撃
 			shotcode_keyboard = PlayerPrefs.GetString("Shot_Keyboard");
@@ -546,8 +600,9 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 			search_keyboard = PlayerPrefs.GetString("Search_Keyboard");
 			search_controller = PlayerPrefs.GetString("Search_Controller");
 
-			// アイテム
-			
+            // アイテム
+            item_keyboard = PlayerPrefs.GetString("Item_Keyboard");
+            item_controller = PlayerPrefs.GetString("Item_Controller");
 
 			// サブ射撃
 			subshot_keyboard = PlayerPrefs.GetString("SubShot_Keyboard");
@@ -795,6 +850,8 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 	// 視点変更右
 	string viewchangeright_keyboard;
 	string viewchangeright_controller;
+
+   
 
 	/// <summary>
 	/// キー入力取得
@@ -1158,5 +1215,62 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 		}
 	}
 
+    /// <summary>
+    /// 引数で指定した方向へステップ入力が成功しているか否か判定する
+    /// </summary>
+    /// <param name="inputdirection"></param>
+    /// <returns></returns>
+    public bool GetStepInput(InputDirection inputdirection)
+    {
+        // ニュートラル→inputdirectionが_InputDicretcionsに存在する？
+        int appearindex = -1;
+        for(int i=0; i<_Inputdirections.Length - 1; i++)
+        {
+            if(_Inputdirections[i] == InputDirection.NEUTRAL && _Inputdirections[i + 1] == inputdirection)
+            {
+                appearindex = i + 1;
+                break;
+            }            
+        }
+        // さらにその先にニュートラル→inputdirectionが存在する？
+        if(appearindex != -1)
+        {
+            for(int i=appearindex; i<_Inputdirections.Length - 1; i++)
+            {
+                if (_Inputdirections[i] == InputDirection.NEUTRAL && _Inputdirections[i + 1] == inputdirection)
+                {
+                    InputDirectionFullClear();
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
+    /// <summary>
+    /// 入力ログをリセットする（連続ステップを防ぐ）
+    /// </summary>
+    public void InputDirectionFullClear()
+    {
+        for(int i=0; i<_Inputdirections.Length; i++)
+        {
+            _Inputdirections[i] = InputDirection.NEUTRAL;
+        }
+    }
+}
+
+/// <summary>
+/// 方向キーの入力方向
+/// </summary>
+public enum InputDirection
+{
+    NEUTRAL,
+    TOP,
+    LEFTTOP,
+    LEFT,
+    LEFTUNDER,
+    UNDER,
+    RIGHTUNDER,
+    RIGHT,
+    RIGHTTOP
 }
