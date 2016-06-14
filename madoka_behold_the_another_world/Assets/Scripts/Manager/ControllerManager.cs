@@ -771,11 +771,11 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 
         // BD
         var boostdashstream = this.UpdateAsObservable().Where(_ => Jump).Do(_ => Debug.Log(Jump));
-        boostdashstream.Buffer(boostdashstream.Throttle(TimeSpan.FromMilliseconds(15))).Where(x => x.Count > 2).Do(x => Debug.Log(x.Count)).Subscribe(_ => 
+        boostdashstream.Buffer(boostdashstream.Throttle(TimeSpan.FromMilliseconds(300))).Where(x => x.Count >= 2).Do(x => Debug.Log(x.Count)).Subscribe(_ => 
 		{ 			
 			BoostDash = true; 
 		});
-        boostdashstream.Buffer(boostdashstream.Throttle(TimeSpan.FromMilliseconds(15))).Where(x => x.Count < 2).Subscribe(_ => { BoostDash = false; });
+        boostdashstream.Buffer(boostdashstream.Throttle(TimeSpan.FromMilliseconds(300))).Where(x => x.Count < 2).Subscribe(_ => { BoostDash = false; });
 
         // ロック外し
         var unlockstream = this.UpdateAsObservable().Where(_ => Search);

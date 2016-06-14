@@ -3164,14 +3164,13 @@ public class CharacterControlBase : MonoBehaviour
         if (RigidBody != null)
         {
             // 速度ベクトルを作る
-            Vector3 velocity = this.MoveDirection * MoveSpeed;
+            Vector3 velocity = MoveDirection * MoveSpeed;
             // 走行中/アイドル中/吹き飛び中/ダウン中
             if (animator.GetHashCode() == runhash || animator.GetHashCode() == idlehash || animator.GetHashCode() == blowhash || animator.GetHashCode() == downhash)
             {
                 velocity.y = MadokaDefine.FALLSPEED;      // ある程度下方向へのベクトルをかけておかないと、スロープ中に落ちる
             }
             RigidBody.velocity = velocity;
-
         }
         // HP表示を増減させる(回復は一瞬で、被ダメージは徐々に減る）
         if (NowHitpoint < DrawHitpoint)
@@ -4862,7 +4861,7 @@ public class CharacterControlBase : MonoBehaviour
     protected virtual void Animation_Jumping(Animator animator,int fallID, int[] stepanimations,int airdashID,int landinghashID)
     {
 		// 遷移フラグを折っておく
-		animator.SetInteger("Nowstate", -1);
+		animator.SetInteger("NowState", -1);
 
         Vector3 RiseSpeed = new Vector3(MoveDirection.x, this.RiseSpeed, MoveDirection.z);
         if (Time.time > JumpTime + JumpWaitTime)
@@ -5092,7 +5091,7 @@ public class CharacterControlBase : MonoBehaviour
 		// ずれた本体角度を戻す(Yはそのまま）
 		transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0));
 		// ステップ時はm_MoveDirectionが消えたら困るので、一旦保持
-		Vector3 MoveDirection_OR = this.MoveDirection;
+		Vector3 MoveDirection_OR = MoveDirection;
 
 		// 一応重力復活
 		this.GetComponent<Rigidbody>().useGravity = true;
@@ -5230,7 +5229,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="animator"></param>
     /// <param name="jumpID"></param>
     /// <param name="fallID"></param>
-	protected virtual void Animation_AirDash(Animator animator, int jumpID,int fallID)
+	protected virtual void Animation_AirDash(Animator animator, int jumpID,int fallID,int landingID)
 	{
 		transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
 		// ずれた本体角度を戻す(Yはそのまま） 
@@ -5250,18 +5249,25 @@ public class CharacterControlBase : MonoBehaviour
                 }
                 this.MoveDirection = transform.rotation * Vector3.forward;
             }
-            // 方向キーなしで再度ジャンプを押した場合、慣性ジャンプ(硬直時間を超えていること)
-            else if (!HasVHInput && (Time.time > DashCancelTime + DashCancelWaittime) && HasJumpInput)
-            {
-                // 上昇制御をAddForceにするとやりにくい（特に慣性ジャンプ）
-                JumpDone(animator, jumpID);
-            }
             // ボタンを離すと下降
             else
             {
                 FallDone(RiseSpeed, animator, fallID);
             }
         }
+		// ブースト0で下降へ移行&重力復活（慣性移動も不可）
+		else
+		{
+			FallDone(RiseSpeed,animator, fallID);
+			this.MoveDirection = RiseSpeed;
+		}
+		// 着地で着地モーションへ
+		if (IsGrounded)
+		{
+			LandingDone(animator, landingID);
+		}
+		// 常時ブースト消費
+		this.Boost = this.Boost - this.BoostLess;
 	}
 
     // 地上走行中は足音を鳴らす
