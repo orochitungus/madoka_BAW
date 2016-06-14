@@ -529,7 +529,7 @@ public class HomuraBowControl : CharacterControlBase
         }
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == AirDashID)
 		{
-			
+            Animation_AirDash(AnimatorUnit, 2, 4);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontStepID)
 		{

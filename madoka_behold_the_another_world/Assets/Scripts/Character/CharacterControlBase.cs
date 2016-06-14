@@ -5224,7 +5224,13 @@ public class CharacterControlBase : MonoBehaviour
 		}
 	}
 
-	protected virtual void Animation_AirDash()
+    /// <summary>
+    /// ブーストダッシュ時に実行
+    /// </summary>
+    /// <param name="animator"></param>
+    /// <param name="jumpID"></param>
+    /// <param name="fallID"></param>
+	protected virtual void Animation_AirDash(Animator animator, int jumpID,int fallID)
 	{
 		transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
 		// ずれた本体角度を戻す(Yはそのまま） 
@@ -5234,8 +5240,28 @@ public class CharacterControlBase : MonoBehaviour
 		// ブーストがある限り飛行
 		if (Boost > 0)
 		{
-			
-		}
+            // 入力中はそちらへ進む
+            if (HasJumpingInput)
+            {
+                // ホールド中旋回禁止
+                if (!this.Rotatehold)
+                {
+                    UpdateRotation();
+                }
+                this.MoveDirection = transform.rotation * Vector3.forward;
+            }
+            // 方向キーなしで再度ジャンプを押した場合、慣性ジャンプ(硬直時間を超えていること)
+            else if (!HasVHInput && (Time.time > DashCancelTime + DashCancelWaittime) && HasJumpInput)
+            {
+                // 上昇制御をAddForceにするとやりにくい（特に慣性ジャンプ）
+                JumpDone(animator, jumpID);
+            }
+            // ボタンを離すと下降
+            else
+            {
+                FallDone(RiseSpeed, animator, fallID);
+            }
+        }
 	}
 
     // 地上走行中は足音を鳴らす
