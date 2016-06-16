@@ -1436,7 +1436,7 @@ public class CharacterControlBase : MonoBehaviour
 	/// <param name="jumpid">ジャンプのState番号</param>
 	protected virtual void JumpDone(Animator animator, int jumpid)
 	{
-		transform.Translate(new Vector3(0, 10, 0));	// 打ち上げる
+		transform.Translate(new Vector3(0, 1, 0));	// 打ち上げる
 		animator.SetInteger("NowState", jumpid);
 		Boost = Boost - JumpUseBoost;
 	}
@@ -3108,7 +3108,7 @@ public class CharacterControlBase : MonoBehaviour
 
 
         //m_nowDownRatioが0を超えていて、Damage_Initではなく（ダウン値加算前にリセットされる）m_DownRebirthTimeが規定時間を経過し、かつダウン値が閾値より小さければダウン値をリセットする
-        if (NowDownRatio > 0 && animator.GetHashCode() != downhash)
+        if (NowDownRatio > 0 && animator.GetCurrentAnimatorStateInfo(0).fullPathHash != downhash)
         {
             if ((Time.time > DownRebirthTime + DownRebirthWaitTime) && (this.NowDownRatio < this.DownRatioBias))
             {
@@ -3123,7 +3123,7 @@ public class CharacterControlBase : MonoBehaviour
         // 走行速度を変更する、アニメーションステートが Run だった場合 RunSpeed を使う。
         var MoveSpeed = RunSpeed;
         // 空中ダッシュ時/空中ダッシュ射撃時
-        if (animator.GetHashCode() == airdashhash || animator.GetHashCode() == airshothash)
+        if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == airdashhash || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == airshothash)
         {
             // rigidbodyにくっついている慣性が邪魔なので消す（勝手に落下開始する）
             GetComponent<Rigidbody>().velocity = Vector3.zero;
@@ -3131,7 +3131,7 @@ public class CharacterControlBase : MonoBehaviour
             MoveSpeed = AirDashSpeed;
         }
         // 空中慣性移動時
-        else if (animator.GetHashCode() == jumpinghash || animator.GetHashCode() == fallhash)
+        else if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == jumpinghash || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == fallhash)
         {
             MoveSpeed = AirMoveSpeed;
         }
@@ -3163,10 +3163,10 @@ public class CharacterControlBase : MonoBehaviour
         }
         if (RigidBody != null)
         {
-            // 速度ベクトルを作る
+			// 速度ベクトルを作る
             Vector3 velocity = MoveDirection * MoveSpeed;
             // 走行中/アイドル中/吹き飛び中/ダウン中
-            if (animator.GetHashCode() == runhash || animator.GetHashCode() == idlehash || animator.GetHashCode() == blowhash || animator.GetHashCode() == downhash)
+            if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == runhash || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == idlehash || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == blowhash || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == downhash)
             {
                 velocity.y = MadokaDefine.FALLSPEED;      // ある程度下方向へのベクトルをかけておかないと、スロープ中に落ちる
             }
@@ -4731,7 +4731,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <summary>
     /// Idle時共通操作
     /// </summary>
-    protected virtual void Animation_Idle(Animator animator, int downID, int runID, int[] stepanimations,int fallID, int jumpID)
+    protected virtual void Animation_Idle(Animator animator, int downID, int runID, int[] stepanimations,int fallID, int jumpID,int airdashID)
     {
         // 移行後復活
         //IsStep = false;
@@ -4771,9 +4771,9 @@ public class CharacterControlBase : MonoBehaviour
             {
                 // 上昇制御をAddForceにするとやりにくい（特に慣性ジャンプ）
                 JumpDone(animator, jumpID);
-            }
-            // ステップの場合ステップ(非CPU時)
-            if (IsPlayer == CHARACTERCODE.PLAYER)
+            }			
+			// ステップの場合ステップ(非CPU時)
+			if (IsPlayer == CHARACTERCODE.PLAYER)
             {
                 if (ControllerManager.Instance.FrontStep) 
                 {

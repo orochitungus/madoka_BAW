@@ -278,9 +278,9 @@ public class HomuraBowControl : CharacterControlBase
 
         WalkSpeed = 1.0f;                            // 移動速度（歩行の場合）
         RunSpeed = 15.0f;                            // 移動速度（走行の場合）
-        AirDashSpeed = 20.0f;                        // 移動速度（空中ダッシュの場合）
+        AirDashSpeed = 40.0f;                        // 移動速度（空中ダッシュの場合）
         AirMoveSpeed = 7.0f;                         // 移動速度（空中慣性移動の場合）
-        RiseSpeed = 5.0f;                            // 上昇速度
+        RiseSpeed = 2.0f;                            // 上昇速度
 
         // ブースト消費量
         JumpUseBoost = 10;       // ジャンプ時
@@ -498,7 +498,7 @@ public class HomuraBowControl : CharacterControlBase
 		if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == IdleID)
 		{
 			int[] stepanimations = { FrontStepID, LeftStepID, RightStepID, BackStepID };
-			Animation_Idle(AnimatorUnit, 42, 6,stepanimations,4,2);
+			Animation_Idle(AnimatorUnit, 42, 6,stepanimations,4,2,7);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == WalkID)
 		{
