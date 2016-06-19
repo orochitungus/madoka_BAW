@@ -2790,7 +2790,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="idlehash">アイドル時のハッシュID</param>
     /// <param name="runhash">走行時のハッシュID</param>
     /// <returns></returns>
-    protected bool Update_Core(bool isSpindown, Animator animator, int downhash,int airdashhash,int airshothash,int jumpinghash, int fallhash,int idlehash,int blowhash,int runhash)
+    protected bool Update_Core(bool isSpindown, Animator animator, int downhash,int airdashhash,int airshothash,int jumpinghash, int fallhash,int idlehash,int blowhash,int runhash,int frontstephash,int leftstephash,int rightstephash,int backstephash)
     {
         // 接地判定
         IsGrounded = onGround2(isSpindown);
@@ -3136,11 +3136,12 @@ public class CharacterControlBase : MonoBehaviour
             MoveSpeed = AirMoveSpeed;
         }
         // ステップ時(重力補正カット)
-        else if (IsStep)
+        else if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == frontstephash || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == leftstephash ||
+		animator.GetCurrentAnimatorStateInfo(0).fullPathHash == rightstephash || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == backstephash)
         {
-            this.GetComponent<Rigidbody>().useGravity = false;  // 重力無効
+            GetComponent<Rigidbody>().useGravity = false;  // 重力無効
             MoveSpeed = StepInitialVelocity;
-            this.MoveDirection.y = 0;         // Y移動無効            
+            MoveDirection.y = 0;         // Y移動無効            
         }
         // 格闘時(ガード含む）
         else if (IsWrestle)
@@ -3272,14 +3273,14 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="animator">本体のAnimator</param>
     /// <param name="frontstephash">フロントステップのハッシュID</param>
-    /// <param name="frontstepbackhash">フロントステップ戻りのハッシュID</param>
+    /// <param name="frontstepbackID">フロントステップ戻りのID</param>
     /// <param name="leftstephash">左ステップのハッシュID</param>
-    /// <param name="leftstepbackhash">左ステップ戻りのハッシュID</param>
+    /// <param name="leftstepbackID">左ステップ戻りのID</param>
     /// <param name="rightstephash">右ステップのハッシュID</param>
-    /// <param name="rightstepbackhash">右ステップ戻りのハッシュID</param>
+    /// <param name="rightstepbackID">右ステップ戻りのID</param>
     /// <param name="backstephash">バックステップのハッシュID</param>
-    /// <param name="backstepbackhash">バックステップ戻りのハッシュID</param>
-    protected void StepMove(Animator animator, int frontstephash,int frontstepbackhash, int leftstephash, int leftstepbackhash, int rightstephash, int rightstepbackhash, int backstephash,int backstepbackhash)
+    /// <param name="backstepbackID">バックステップ戻りのID</param>
+    protected void StepMove(Animator animator, int frontstephash,int frontstepbackID, int leftstephash, int leftstepbackID, int rightstephash, int rightstepbackID, int backstephash,int backstepbackID)
     {
         // 移動距離をインクリメントする（初期位置との差では壁に当たったときに無限に動き続ける）
         SteppingLength += StepMove1F;
@@ -3289,27 +3290,27 @@ public class CharacterControlBase : MonoBehaviour
         {
             //MoveDirection.y = -2;                
             this.MoveDirection = transform.rotation * Vector3.forward;
-            if( animator.GetHashCode() == frontstephash)
+            if( animator.GetCurrentAnimatorStateInfo(0).fullPathHash == frontstephash)
             {
-                animator.SetInteger("NowState",frontstepbackhash);
+                animator.SetInteger("NowState",frontstepbackID);
             }
-            else if(animator.GetHashCode() == leftstephash)
+            else if(animator.GetCurrentAnimatorStateInfo(0).fullPathHash  == leftstephash)
             {
-                animator.SetInteger("NowState",leftstepbackhash);
+                animator.SetInteger("NowState",leftstepbackID);
             }
-            else if(animator.GetHashCode() == rightstephash)
+            else if(animator.GetCurrentAnimatorStateInfo(0).fullPathHash  == rightstephash)
             {
-                animator.SetInteger("NowState",rightstepbackhash);
+                animator.SetInteger("NowState",rightstepbackID);
             }
-            else if(animator.GetHashCode() == backstephash)
+            else if(animator.GetCurrentAnimatorStateInfo(0).fullPathHash  == backstephash)
             {
-                animator.SetInteger("NowState",backstepbackhash);
+                animator.SetInteger("NowState",backstepbackID);
             }
         }
     }
 
     // ステップ落下時のキャンセルダッシュ及び再ジャンプ受付
-    protected bool CancelCheck(Animator animator, int airdashhash,int jumpID)
+    protected bool CancelCheck(Animator animator, int airdashID,int jumpID)
     {
         // ブーストが残っていればキャンセルダッシュは受け付ける（方向入力は受け付けない）
         if (this.Boost > 0)
@@ -3324,7 +3325,7 @@ public class CharacterControlBase : MonoBehaviour
             // ジャンプ再入力で向いている方向へ空中ダッシュ(上昇は押しっぱなし)            
             else if (ControllerManager.Instance.Jump)
             {
-                CancelDashDone(animator,airdashhash);
+                CancelDashDone(animator,airdashID);
                 return true;
             }
         }
@@ -5270,8 +5271,47 @@ public class CharacterControlBase : MonoBehaviour
 		this.Boost = this.Boost - this.BoostLess;
 	}
 
-    // 地上走行中は足音を鳴らす
-    private const float _WalkTime = 0.5f;
+	/// <summary>
+	/// ステップ実行時の処理
+	/// </summary>
+	/// <param name="animator"></param>
+	/// <param name="frontstephash"></param>
+	/// <param name="frontstepbackID"></param>
+	/// <param name="leftstephash"></param>
+	/// <param name="leftstepbackID"></param>
+	/// <param name="rightstephash"></param>
+	/// <param name="rightstepbackID"></param>
+	/// <param name="backstephash"></param>
+	/// <param name="backstepbackID"></param>
+	protected void Animation_StepDone(Animator animator,int frontstephash,int frontstepbackID,int leftstephash, int leftstepbackID,int rightstephash,int rightstepbackID,int backstephash,int backstepbackID,int airdashID,int jumpID)
+	{
+		StepMove(animator, frontstephash, frontstepbackID, leftstephash, leftstepbackID, rightstephash, rightstepbackID, backstephash, backstepbackID);
+		CancelCheck(animator,airdashID,jumpID);
+	}
+
+	/// <summary>
+	/// ステップ終了アニメ実行時の処理
+	/// </summary>
+	/// <param name="animator"></param>
+	/// <param name="idleID"></param>
+	protected void Animation_StepBack(Animator animator, int idleID)
+	{
+		// ステップ終了アニメの終了を取る
+		if(animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+		{
+			// 着地したので硬直を設定する
+			this.LandingTime = Time.time;
+			// 無効になっていたら重力を復活させる
+			this.GetComponent<Rigidbody>().useGravity = true;
+			// 動作を停止する
+			this.MoveDirection = new Vector3(0, 0, 0);
+			// アニメーションをIdleに戻す
+			animator.SetInteger("NowState", idleID);
+		}	
+	}
+
+	// 地上走行中は足音を鳴らす
+	private const float _WalkTime = 0.5f;
     private float _WalkTimer;
 
     private void FootSteps()

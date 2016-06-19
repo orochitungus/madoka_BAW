@@ -497,89 +497,90 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 			else
 			{
 				RightUpper = false;
-			}						
+			}
 
+			// ステップ入力検知
+			// 前ステップ
+			if (GetStepInput(InputDirection.TOP))
+			{
+				FrontStep = true;
+			}
+			else
+			{
+				FrontStep = false;
+			}
+
+			// 左前ステップ
+			if (GetStepInput(InputDirection.LEFTTOP))
+			{
+				LeftFrontStep = true;
+			}
+			else
+			{
+				LeftFrontStep = false;
+			}
+
+			// 左ステップ
+			if (GetStepInput(InputDirection.LEFT))
+			{
+				LeftStep = true;
+			}
+			else
+			{
+				LeftStep = false;
+			}
+
+			// 左後ステップ
+			if (GetStepInput(InputDirection.LEFTUNDER))
+			{
+				LeftBackStep = true;
+			}
+			else
+			{
+				LeftBackStep = false;
+			}
+
+			// 後ステップ
+			if (GetStepInput(InputDirection.UNDER))
+			{
+				BackStep = true;
+			}
+			else
+			{
+				BackStep = false;
+			}
+
+			// 右後ステップ
+			if (GetStepInput(InputDirection.RIGHTUNDER))
+			{
+				RightBackStep = true;
+			}
+			else
+			{
+				RightBackStep = false;
+			}
+
+			// 右ステップ
+			if (GetStepInput(InputDirection.RIGHT))
+			{
+				RightStep = true;
+			}
+			else
+			{
+				RightStep = false;
+			}
+
+			// 右前ステップ
+			if (GetStepInput(InputDirection.RIGHTTOP))
+			{
+				RightFrontStep = true;
+			}
+			else
+			{
+				RightFrontStep = false;
+			}
 		});
-        // ステップ入力検知
-        // 前ステップ
-        if(GetStepInput(InputDirection.TOP))
-        {
-            FrontStep = true;
-        }
-        else
-        {
-            FrontStep = false;
-        }
 
-        // 左前ステップ
-        if(GetStepInput(InputDirection.LEFTTOP))
-        {
-            LeftFrontStep = true;
-        }
-        else
-        {
-            LeftFrontStep = false;
-        }
-
-        // 左ステップ
-        if(GetStepInput(InputDirection.LEFT))
-        {
-            LeftStep = true;
-        }
-        else
-        {
-            LeftStep = false;
-        }
-
-        // 左後ステップ
-        if(GetStepInput(InputDirection.LEFTUNDER))
-        {
-            LeftBackStep = true;
-        }
-        else
-        {
-            LeftBackStep = false;
-        }
-
-        // 後ステップ
-        if(GetStepInput(InputDirection.UNDER))
-        {
-            BackStep = true;
-        }
-        else
-        {
-            BackStep = false;
-        }
-
-        // 右後ステップ
-        if(GetStepInput(InputDirection.RIGHTUNDER))
-        {
-            RightBackStep = true;
-        }
-        else
-        {
-            RightBackStep = false;
-        }
-
-        // 右ステップ
-        if(GetStepInput(InputDirection.RIGHT))
-        {
-            RightStep = true;
-        }
-        else
-        {
-            RightStep = false;
-        }
-
-        // 右前ステップ
-        if(GetStepInput(InputDirection.RIGHTTOP))
-        {
-            RightStep = false;
-        }
-        else
-        {
-            RightStep = false;
-        }
 
         // http://www.slideshare.net/torisoup/unity-unirx
         this.UpdateAsObservable().Subscribe(_ =>

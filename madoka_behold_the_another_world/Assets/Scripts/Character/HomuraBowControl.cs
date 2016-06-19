@@ -292,7 +292,7 @@ public class HomuraBowControl : CharacterControlBase
         StepMoveLength = 10.0f;
 
         // ステップ初速（X/Z軸）
-        StepInitialVelocity = 30.0f;
+        StepInitialVelocity = 100.0f;
         // ステップ時の１F当たりの移動量
         StepMove1F = 1.0f;
         // ステップ終了時硬直時間
@@ -467,7 +467,7 @@ public class HomuraBowControl : CharacterControlBase
 		{
 			isspindown = true;
 		}
-		if(Update_Core(isspindown, AnimatorUnit, DownID, AirDashID,AirShotID,JumpingID,FallID,IdleID,BlowID,RunID))
+		if(Update_Core(isspindown, AnimatorUnit, DownID, AirDashID,AirShotID,JumpingID,FallID,IdleID,BlowID,RunID,FrontStepID,LeftStepID,RightStepID,BackStepID))
 		{
             UpdateAnimation();
             // リロード実行           
@@ -497,7 +497,7 @@ public class HomuraBowControl : CharacterControlBase
 		// 通常
 		if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == IdleID)
 		{
-			int[] stepanimations = { FrontStepID, LeftStepID, RightStepID, BackStepID };
+			int[] stepanimations = { 8, 9, 10, 11 };
 			Animation_Idle(AnimatorUnit, 42, 6,stepanimations,4,2,7);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == WalkID)
@@ -533,31 +533,31 @@ public class HomuraBowControl : CharacterControlBase
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontStepID)
 		{
-
+			Animation_StepDone(AnimatorUnit, FrontStepID, 12, LeftStepID, 13, RightStepID, 14, BackStepID, 15,7,2);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LeftStepID)
 		{
-
+			Animation_StepDone(AnimatorUnit, FrontStepID, 12, LeftStepID, 13, RightStepID, 14, BackStepID, 15, 7, 2);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RightStepID)
 		{
-
+			Animation_StepDone(AnimatorUnit, FrontStepID, 12, LeftStepID, 13, RightStepID, 14, BackStepID, 15, 7, 2);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BackStepID)
 		{
-
+			Animation_StepDone(AnimatorUnit, FrontStepID, 12, LeftStepID, 13, RightStepID, 14, BackStepID, 15, 7, 2);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontStepBackID)
 		{
-
+			Animation_StepBack(AnimatorUnit, 0);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LeftStepBackID)
 		{
-
+			Animation_StepBack(AnimatorUnit, 0);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RightStepBackID)
 		{
-
+			Animation_StepBack(AnimatorUnit, 0);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == ShotID)
 		{
@@ -684,4 +684,6 @@ public class HomuraBowControl : CharacterControlBase
 	{
 		AnimatorUnit.SetInteger("NowState", 3);
 	}
+
+	
 }
