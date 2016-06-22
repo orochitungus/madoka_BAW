@@ -530,7 +530,7 @@ public class majyu_BattleControl : CharacterControl_Base
         // ビームの速度を設定する
         if (beam != null)
         {
-            beam.m_Speed = Character_Spec.cs[(int)CharacterName][0].m_Movespeed;
+            beam.ShotSpeed = Character_Spec.cs[(int)CharacterName][0].m_Movespeed;
             // ロックオン状態で歩き撃ちしているとき
             if (this.IsRockon && this.RunShotDone)
             {
@@ -549,7 +549,7 @@ public class majyu_BattleControl : CharacterControl_Base
                 // forwardをかけて本体と胸部の和を進行方向ベクトルへ変換                
                 Vector3 normalizeRot = (qua) * Vector3.forward;
                 // 移動ベクトルを確定する
-                beam.m_MoveDirection = Vector3.Normalize(normalizeRot);
+                beam.MoveDirection = Vector3.Normalize(normalizeRot);
             }
             // ロックオンしているとき
             else if (IsRockon)
@@ -563,7 +563,7 @@ public class majyu_BattleControl : CharacterControl_Base
                 // 正規化して代入する
                 Vector3 normalizeRot = mainrot * Vector3.forward;
                 // 移動ベクトルを確定する
-                beam.m_MoveDirection = Vector3.Normalize(normalizeRot);
+                beam.MoveDirection = Vector3.Normalize(normalizeRot);
             }
             // ロックオンしていないとき
             else
@@ -576,18 +576,18 @@ public class majyu_BattleControl : CharacterControl_Base
                     Vector3 rotateOR_E = rotateOR.eulerAngles;
                     rotateOR_E.x = 0;
                     rotateOR = Quaternion.Euler(rotateOR_E);
-                    beam.m_MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+                    beam.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
                 }
                 // それ以外は本体の角度を射出角にする
                 else
                 {
-                    beam.m_MoveDirection = Vector3.Normalize(this.transform.rotation * Vector3.forward);
+                    beam.MoveDirection = Vector3.Normalize(this.transform.rotation * Vector3.forward);
                 }
             }
             // 通常弾のフックの位置に弾の位置を代入する
             this.BulletPos = this.MainShotRoot.transform.position;
             // 同じく回転角を代入する
-            this.BulletMoveDirection = beam.m_MoveDirection;
+            this.BulletMoveDirection = beam.MoveDirection;
             // 攻撃力決定
             if (type == ShotType.NORMAL_SHOT)
             {

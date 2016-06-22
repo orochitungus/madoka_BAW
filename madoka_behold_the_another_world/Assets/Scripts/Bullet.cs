@@ -4,15 +4,24 @@ using System.Collections;
 // 飛び道具系の基底クラス
 public class Bullet : MonoBehaviour 
 {
-    // 射出元取得
-    public GameObject m_Obj_OR;
+    /// <summary>
+    /// 射出元のゲームオブジェクト
+    /// </summary>
+    public GameObject InjectionObject;
 
-    // 弾速
-    public float m_Speed;
+    /// <summary>
+    /// 弾速
+    /// </summary>
+    public float ShotSpeed;
 
-    public Vector3 m_MoveDirection;   // 移動方向
+    /// <summary>
+    /// 移動方向
+    /// </summary>
+    public Vector3 MoveDirection;
 
-    // 属性
+    /// <summary>
+    /// 属性
+    /// </summary>
     public enum BulletType
     {
         BEAM,       // ビーム（実弾貫通）
@@ -21,70 +30,112 @@ public class Bullet : MonoBehaviour
         BOMB,       // 爆風を撒き散らすボム
         LASER,      // レーザー（相殺なし）
     };
-    public BulletType m_Bullettype;
+    public BulletType Bullettype;
 
-    // 親のスクリプト名
-    public string m_ParentScript;
-    
-    // 維持時間
-    public float m_LifeTime;
+    /// <summary>
+    /// 親のスクリプト名
+    /// </summary>
+    public string ParentScriptName;
 
-    // 攻撃力
-    public int m_OffemsivePower;
+    /// <summary>
+    /// 維持時間
+    /// </summary>
+    public float LifeTime;
 
-    // ダウン値
-    public float m_DownRatio;
+    /// <summary>
+    /// 攻撃力
+    /// </summary>
+    public int OffemsivePower;
 
-    // 覚醒ゲージ増加量
-    public float m_ArousalRatio;
+    /// <summary>
+    /// ダウン値
+    /// </summary>
+    public float DownRatio;
 
-    // 着弾時のSE
-    public AudioClip m_Insp_HitSE;
+    /// <summary>
+    /// 覚醒ゲージ増加量
+    /// </summary>
+    public float ArousalRatio;
 
-    // 射出元のゲームオブジェクト
-    public GameObject m_InjectionObject;
+    /// <summary>
+    /// 着弾時のSE
+    /// </summary>
+    public AudioClip HitSE;
 
-    // 射出元のゲームオブジェクトの名前
-    public string m_InjectionObjectName;
+    /// <summary>
+    /// 射出元のゲームオブジェクトの名前
+    /// </summary>
+    public string InjectionObjectName;
 
-    // 射出元のキャラクターのインデックス
-    public int m_CharacterIndex;
+    /// <summary>
+    /// 射出元のキャラクターのインデックス
+    /// </summary>
+    public int InjectionCharacterIndex;
 
-    // 目標のゲームオブジェクト
-    public GameObject m_TargetObject;
+    /// <summary>
+    /// 目標のゲームオブジェクト
+    /// </summary>
+    public GameObject TargetObject;
 
-    // 接触したゲームオブジェクト
-    private GameObject m_HitTarget;
+    /// <summary>
+    /// 接触したゲームオブジェクト
+    /// </summary>
+    private GameObject HitTarget;
 
-    // ポーズ処理(時間のそれと同じ）
-    public CharacterControl_Base.TimeStopMode m_Timestopmode;
+    /// <summary>
+    /// ポーズ処理(時間のそれと同じ）
+    /// </summary>
+    public CharacterControlBase.TimeStopMode Timestopmode;
 
-    // バズーカタイプの時の衝撃波件エフェクト
-    public GameObject m_Insp_Bazooka_ShockWave;
+    /// <summary>
+    /// バズーカタイプの時の衝撃波件エフェクト
+    /// </summary>
+    public GameObject BazookaShockWave;
 
-    // 誘導カウント
-    public int m_InductionCounter;
+    /// <summary>
+    /// 誘導カウント
+    /// </summary>
+    public int InductionCounter;
 
-    // 誘導が続くフレーム数の閾値
-    public int m_InductionBias;
+    /// <summary>
+    /// 誘導が続くフレーム数の閾値
+    /// </summary>
+    public int InductionBias;
 
-    // ヒットタイプ(ダメージの種類.弓ほむらのみインスペクターで設定する。他のキャラは各弾丸クラスでCharacter_Specの値を引っ張る形で設定する）
-    protected CharacterSkill.HitType m_Hittype;
+    /// <summary>
+    /// ヒットタイプ(ダメージの種類.弓ほむらのみインスペクターで設定する。他のキャラは各弾丸クラスでCharacter_Specの値を引っ張る形で設定する）
+    /// </summary>
+    protected CharacterSkill.HitType Hittype;
 
-    // 親オブジェクトから切り離されて独立飛行しているか否か
-    public bool m_IsIndependence;
-    
-    // 射出後の角度変更を行ったか否か
-    public bool m_RotationControl = false;
+    /// <summary>
+    /// 親オブジェクトから切り離されて独立飛行しているか否か
+    /// </summary>
+    public bool IsIndependence;
 
-    // 弾丸の出現時間
-    protected float m_TimeNow = 0.0f;
+    /// <summary>
+    /// 射出後の角度変更を行ったか否か
+    /// </summary>
+    public bool RotationControl = false;
 
-    // BOMBの場合、アニメーション再生が始まっているか
-    protected bool m_startedAnimation;
+    /// <summary>
+    /// 弾丸の出現時間
+    /// </summary>
+    protected float TimeNow = 0.0f;
 
-    // BOMBのアニメーションの名前
-    public string m_BombAnimation_Name;
+    /// <summary>
+    /// BOMBの場合、アニメーション再生が始まっているか
+    /// </summary>
+    protected bool StartedBombAnimation;
+
+    /// <summary>
+    /// BOMBのアニメーションの名前
+    /// </summary>
+    public string BombAnimationName;
+
+    /// <summary>
+    /// 着弾時のヒットエフェクト
+    /// </summary>
+    public GameObject HitEffect;
  
     // Updateでの共通処理（継承用）
     protected void UpdateCore()
@@ -92,15 +143,13 @@ public class Bullet : MonoBehaviour
         
         // 飛行開始
         // キリカの時間遅延を受けているとき、1/4に
-        if (m_Timestopmode == CharacterControl_Base.TimeStopMode.TIME_DELAY)
+        if (Timestopmode == CharacterControlBase.TimeStopMode.TIME_DELAY)
         {
 
         }
         // ほむらの時間停止を受けているときなど、0に
-        else if (m_Timestopmode == CharacterControl_Base.TimeStopMode.TIME_STOP || m_Timestopmode == CharacterControl_Base.TimeStopMode.PAUSE || m_Timestopmode == CharacterControl_Base.TimeStopMode.AROUSAL)
+        else if (Timestopmode == CharacterControlBase.TimeStopMode.TIME_STOP || Timestopmode == CharacterControlBase.TimeStopMode.PAUSE || Timestopmode == CharacterControlBase.TimeStopMode.AROUSAL)
         {
-            // アニメを止めておく
-            //Time.timeScale = 0;
             return;
         }
 
@@ -108,55 +157,52 @@ public class Bullet : MonoBehaviour
         // (ほむの下にカメラがいるので、GetComponentChildlenで拾える）
         //var target = m_Obj_OR.GetComponentInChildren<Player_Camera_Controller>();
         // 敵の場合、弾丸があっても親が死んでいる可能性もあるので、その場合は強制抜け
-        if (m_Obj_OR == null)
+        if (InjectionObject == null)
         {
             BrokenMySelf();
             return;
         }
-        var target = m_Obj_OR.transform.GetComponentInChildren<Player_Camera_Controller>();
+        var target = InjectionObject.transform.GetComponentInChildren<Player_Camera_Controller>();
         // 親オブジェクトを拾う
-        this.m_InjectionObject = target.Player;
+        InjectionObject = target.Player;
         // ターゲットオブジェクトを拾う
-        this.m_TargetObject = target.Enemy;
+        this.TargetObject = target.Enemy;
         // 親オブジェクトから切り離されたときかつ非独立状態なら、親が保持している方向ベクトルを拾う
         // 非独立状態の判定をしないと、射出後も親に合わせて動いてしまう
         // 親オブジェクトを拾う
-        if (this.transform.parent != null && !m_IsIndependence)
+        if (transform.parent != null && !IsIndependence)
         {
             // 親のステートがSHOTになったら、親子関係を切り離す
-            if (m_Obj_OR != null && m_Obj_OR.GetComponent<CharacterControl_Base>().GetShotmode() == CharacterControl_Base.ShotMode.SHOT)
+            if (InjectionObject != null && InjectionObject.GetComponent<CharacterControlBase>().Shotmode == CharacterControlBase.ShotMode.SHOT)
             {
                 // その時の座標を保持する
-                this.GetComponent<Rigidbody>().position = m_Obj_OR.GetComponent<CharacterControl_Base>().MainShotRoot.GetComponent<Rigidbody>().position;
+                GetComponent<Rigidbody>().position = InjectionObject.GetComponent<CharacterControlBase>().MainShotRoot.GetComponent<Rigidbody>().position;
                 // 進行方向ベクトルを保持する
-                this.m_MoveDirection = m_Obj_OR.GetComponent<CharacterControl_Base>().BulletMoveDirection;
+                MoveDirection = InjectionObject.GetComponent<CharacterControlBase>().BulletMoveDirection;
                 // 攻撃力を保持する
-                this.m_OffemsivePower = m_Obj_OR.GetComponent<CharacterControl_Base>().OffensivePowerOfBullet;
+                OffemsivePower = InjectionObject.GetComponent<CharacterControlBase>().OffensivePowerOfBullet;
                 // ダウン値を保持する
-                this.m_DownRatio = m_Obj_OR.GetComponent<CharacterControl_Base>().DownratioPowerOfBullet;
+                DownRatio = InjectionObject.GetComponent<CharacterControlBase>().DownratioPowerOfBullet;
                 // 覚醒ゲージ増加量を保持する
-                this.m_ArousalRatio = m_Obj_OR.GetComponent<CharacterControl_Base>().ArousalRatioOfBullet;
+                ArousalRatio = InjectionObject.GetComponent<CharacterControlBase>().ArousalRatioOfBullet;
 
                 // 親のステートを発射完了へ切り替える
-                m_Obj_OR.GetComponent<CharacterControl_Base>().SetShotmode(CharacterControl_Base.ShotMode.
-                    SHOTDONE);
+                InjectionObject.GetComponent<CharacterControlBase>().Shotmode = CharacterControlBase.ShotMode.SHOTDONE;
                 // 切り離し
-                this.transform.parent = null;
+                transform.parent = null;
                 // 独立フラグを立てる
-                this.m_IsIndependence = true;
+                IsIndependence = true;
                 // IsKinematicを折る
-                this.transform.GetComponent<Rigidbody>().isKinematic = false;
-
-                                
+                transform.GetComponent<Rigidbody>().isKinematic = false;                                
                 {                    
                     {
-                        Vector3 Correction_Rot = new Vector3(this.transform.rotation.eulerAngles.x, this.transform.rotation.eulerAngles.y + 12.0f , this.transform.rotation.eulerAngles.z);
-                        this.transform.rotation = Quaternion.Euler(Correction_Rot);
+                        Vector3 Correction_Rot = new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + 12.0f , transform.rotation.eulerAngles.z);
+                        transform.rotation = Quaternion.Euler(Correction_Rot);
                     }
                     // 誘導がないなら進行方向は固定
-                    if (this.m_TargetObject == null)
+                    if (TargetObject == null)
                     {
-                        this.m_InductionCounter = this.m_InductionBias + 1; // 下でカウンターが閾値を超えたら固定されるので
+                        InductionCounter = this.InductionBias + 1; // 下でカウンターが閾値を超えたら固定されるので
                     }
                 }
             }
@@ -173,7 +219,7 @@ public class Bullet : MonoBehaviour
             var hittarget = hit.collider.gameObject.GetComponent<AIControl_Base>();
             var hittarget2 = hit.collider.gameObject.GetComponent<CharacterControl_Base>();
             // ガード姿勢を取らせる(自分の弾は除く)
-            if (hittarget != null && m_CharacterIndex != (int)hittarget2.CharacterName)
+            if (hittarget != null && InjectionCharacterIndex != (int)hittarget2.CharacterName)
             {
                 // 相手がNOMOVEの時にはガードは取らせない
                 if (hittarget.m_cpumode != AIControl_Base.CPUMODE.NOMOVE)
@@ -185,34 +231,34 @@ public class Bullet : MonoBehaviour
              
 
         BrokenMySelf();
-        m_TimeNow++;
+        TimeNow++;
     }
 
     // 規定フレーム間誘導する
     protected void InductionBullet()
     {
         // カメラから親と対象を拾う
-        var target = m_Obj_OR.transform.GetComponentInChildren<Player_Camera_Controller>();
+        var target = InjectionObject.transform.GetComponentInChildren<Player_Camera_Controller>();
         // 親オブジェクトを拾う
-        this.m_InjectionObject = target.Player;
+        InjectionObject = target.Player;
         // ターゲットオブジェクトを拾う
-        this.m_TargetObject = target.Enemy;
+        this.TargetObject = target.Enemy;
         // 移動＆回転補正
-        if (m_Timestopmode != CharacterControl_Base.TimeStopMode.TIME_STOP || m_Timestopmode != CharacterControl_Base.TimeStopMode.PAUSE || m_Timestopmode != CharacterControl_Base.TimeStopMode.AROUSAL)
+        if (Timestopmode != CharacterControlBase.TimeStopMode.TIME_STOP || Timestopmode != CharacterControlBase.TimeStopMode.PAUSE || Timestopmode != CharacterControlBase.TimeStopMode.AROUSAL)
         {
             // 独立状態になってから行う（射出前に回すとPCに突き刺さったりと変な形になるので）
-            if (this.m_IsIndependence)
+            if (IsIndependence)
             {
                 // 親のステートを拾う
-                var parent = target.Player.GetComponent<CharacterControl_Base>();
+                var parent = target.Player.GetComponent<CharacterControlBase>();
                 // ロックオン範囲にいて、かつカウンターが閾値を超えていない場合は誘導する
-                if (this.m_InductionCounter < this.m_InductionBias && this.m_TargetObject != null)
+                if (InductionCounter < InductionBias && TargetObject != null)
                 {
-                    if (Vector3.Distance(this.m_InjectionObject.transform.position, this.m_TargetObject.transform.position) <= parent.RockonRange)
+                    if (Vector3.Distance(InjectionObject.transform.position, TargetObject.transform.position) <= parent.RockonRange)
                     {
                         // 敵のカプセルコライダの高さ分オフセット（そうしないと下向きのベクトルになる）
                         // キャラクターコントローラーを拾う
-                        CapsuleCollider offset_OR = this.m_TargetObject.GetComponentInChildren<CapsuleCollider>(); //var offset_OR = this.m_TargetObject.GetComponentInChildren<CharacterController>();
+                        CapsuleCollider offset_OR = TargetObject.GetComponentInChildren<CapsuleCollider>();
                         if (offset_OR == null)
                         {
                             return;
@@ -220,44 +266,36 @@ public class Bullet : MonoBehaviour
                         // 高さを取得する
                         float offset = offset_OR.height;
                         // 対象の高さを変更する
-                        Vector3 Targetpos = this.m_TargetObject.transform.position;
+                        Vector3 Targetpos = TargetObject.transform.position;
                         Targetpos.y += offset;
                         // 変換したベクトルを正規化
-                        this.m_MoveDirection = Vector3.Normalize(Targetpos - this.GetComponent<Rigidbody>().transform.position);
+                        MoveDirection = Vector3.Normalize(Targetpos - this.GetComponent<Rigidbody>().transform.position);
                         // オブジェクトを相手の方向へ向ける
-                        Quaternion looklot = Quaternion.LookRotation(m_TargetObject.transform.position - this.transform.position);
+                        Quaternion looklot = Quaternion.LookRotation(TargetObject.transform.position - this.transform.position);
                         Vector3 looklotE = looklot.eulerAngles;
-                        // ほむらの時のみ90度補正
-                        if (parent.CharacterName == Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B)
-                        {
-                            looklot = Quaternion.Euler(looklotE.x, looklotE.y + 90.0f, looklotE.z);
-                        }
-                        else
-                        {
-                            looklot = Quaternion.Euler(looklotE.x, looklotE.y, looklotE.z);
-                        }
-                        this.transform.rotation = looklot;
+                        looklot = Quaternion.Euler(looklotE.x, looklotE.y, looklotE.z);                        
+                        transform.rotation = looklot;
                     }
                 }
-                GetComponent<Rigidbody>().position = GetComponent<Rigidbody>().position + this.m_MoveDirection * m_Speed * Time.deltaTime;
+                GetComponent<Rigidbody>().position = GetComponent<Rigidbody>().position + MoveDirection * ShotSpeed * Time.deltaTime;
             }
         }
         // 親が死んだ場合は自壊
-        if (m_InjectionObject == null)
+        if (InjectionObject == null)
         {
             Destroy(gameObject);
         }
 
         // カウンターを加算
-        if (this.m_IsIndependence)
+        if (IsIndependence)
         {
-            this.m_InductionCounter++;
+            InductionCounter++;
         }
 
         // 誘導しない場合は撃った後は方向は固定
-        if (this.m_InductionCounter >= this.m_InductionBias)
+        if (InductionCounter >= InductionBias)
         {
-            this.GetComponent<Rigidbody>().freezeRotation = true;
+            GetComponent<Rigidbody>().freezeRotation = true;
         }
     }
 
@@ -265,9 +303,9 @@ public class Bullet : MonoBehaviour
     protected void BrokenMySelf()
     {
         // とりあえず時間が通常のときだけ自壊させる（何かしらと接触すると壊す予定ではあるが・・・時間停止中どうするべきか・・・？）
-        if (this.m_Timestopmode == CharacterControl_Base.TimeStopMode.NORMAL || this.m_Timestopmode == CharacterControl_Base.TimeStopMode.TIME_DELAY)
+        if (Timestopmode == CharacterControlBase.TimeStopMode.NORMAL || Timestopmode == CharacterControlBase.TimeStopMode.TIME_DELAY)
         {
-            if (m_LifeTime*60 < m_TimeNow)
+            if (LifeTime*60 < TimeNow)
             {
                 Destroy(gameObject);
             }
@@ -282,7 +320,7 @@ public class Bullet : MonoBehaviour
 
         // 親オブジェクトを拾う
         // 自機がPLAYERかPLAYER_ALLYの場合
-        if (m_Obj_OR.GetComponent<CharacterControl_Base>().IsPlayer != CharacterControl_Base.CHARACTERCODE.ENEMY)
+        if (InjectionObject.GetComponent<CharacterControlBase>().IsPlayer != CharacterControlBase.CHARACTERCODE.ENEMY)
         {
             player = "Player";
             enemy = "Enemy";
@@ -294,26 +332,26 @@ public class Bullet : MonoBehaviour
             enemy = "Player";
         }
         // 接触対象を取得
-        var target = collision.gameObject.GetComponent<CharacterControl_Base>();
-        m_HitTarget = collision.gameObject;
+        var target = collision.gameObject.GetComponent<CharacterControlBase>();
+        HitTarget = collision.gameObject;
 
 		// ビーム属性同士の弾丸が干渉したときは自壊させない
 		var hittargetBullet = collision.gameObject.GetComponent<Bullet>();
 		if(hittargetBullet != null)
 		{
-			if (hittargetBullet.m_Bullettype == BulletType.BEAM && m_Bullettype == BulletType.BEAM)
+			if (hittargetBullet.Bullettype == BulletType.BEAM && Bullettype == BulletType.BEAM)
 			{
 				return;
 			}
 		}
 
         // ゼロ距離射撃したときは親を受け取る
-        if (m_InjectionObject == null)
+        if (InjectionObject == null)
         {
             // カメラから親と対象を拾う
-            var parent = m_Obj_OR.transform.GetComponentInChildren<Player_Camera_Controller>();
+            var parent = InjectionObject.transform.GetComponentInChildren<Player_Camera_Controller>();
             // 親オブジェクトを拾う
-            this.m_InjectionObject = parent.Player;
+            InjectionObject = parent.Player;
         }
 
         // 接触対象のルーチンをGUARDからNORMALへ戻してルーチンをNORMALに戻す
@@ -326,13 +364,11 @@ public class Bullet : MonoBehaviour
         }        
 
         // BEAM・BULLETの場合
-        if (m_Bullettype == BulletType.BEAM || m_Bullettype == BulletType.BULLET)
+        if (Bullettype == BulletType.BEAM || Bullettype == BulletType.BULLET)
         {
             // 着弾音を鳴らす
-            AudioSource.PlayClipAtPoint(m_Insp_HitSE, transform.position);
-            // 着弾した位置にヒットエフェクトを置く
-            UnityEngine.Object HitEffect = null;
-            HitEffect = Resources.Load("DamageEffect");
+            AudioSource.PlayClipAtPoint(HitSE, transform.position);
+            // 着弾した位置にヒットエフェクトを置く            
             Instantiate(HitEffect, transform.position, transform.rotation);
 
             // targetがCharacterControl_Baseクラスでなければ「自壊させて」強制抜け
@@ -351,8 +387,8 @@ public class Bullet : MonoBehaviour
             // 吹き飛びならBlowInit
             // 吹き飛びの場合、相手に方向ベクトルを与える
 
-            // ダウン中かダウン値MAXならダメージを与えない
-            if (target.m_AnimState[0] == CharacterControl_Base.AnimationState.Down || (target.DownRatio <= target.NowDownRatio))
+            // ダウン中かダウン値MAXかリバーサルならダメージを与えない
+            if (target.Invincible)
             {
                 // オブジェクトを自壊させる
                 Destroy(gameObject);
@@ -363,18 +399,18 @@ public class Bullet : MonoBehaviour
             {
                 HitDamage(player, enemy, collision);
             }
-            // ヒット時にダメージの種類をCharacterControl_Baseに与える
+            // ヒット時にダメージの種類をCharacterControlBaseに与える
             // ダウン値を超えていたら吹き飛びへ移行
             // Blow属性の攻撃を与えた場合も吹き飛びへ移行
-            if (target.NowDownRatio >= target.DownRatio || this.m_Hittype == CharacterSkill.HitType.BLOW)
+            if (target.NowDownRatio >= target.DownRatioBias || this.Hittype == CharacterSkill.HitType.BLOW)
             {   // 吹き飛びの場合、相手に方向ベクトルを与える            
                 // Y軸方向は少し上向き
                 target.MoveDirection.y += 10;
-                target.BlowDirection = this.m_MoveDirection;
+                target.BlowDirection = this.MoveDirection;
                 // 吹き飛びの場合、攻撃を当てた相手を浮かす（MadokaDefine.LAUNCHOFFSET)            
                 target.GetComponent<Rigidbody>().position = target.GetComponent<Rigidbody>().position + new Vector3(0, MadokaDefine.LAUNCHOFFSET, 0);
-                target.GetComponent<Rigidbody>().AddForce(this.m_MoveDirection.x * MadokaDefine.LAUNCHOFFSET, this.m_MoveDirection.y * MadokaDefine.LAUNCHOFFSET, this.m_MoveDirection.z * MadokaDefine.LAUNCHOFFSET);
-                target.m_AnimState[0] = CharacterControl_Base.AnimationState.BlowInit;
+                target.GetComponent<Rigidbody>().AddForce(this.MoveDirection.x * MadokaDefine.LAUNCHOFFSET, this.MoveDirection.y * MadokaDefine.LAUNCHOFFSET, this.MoveDirection.z * MadokaDefine.LAUNCHOFFSET);
+                target.DamageInit(target.AnimatorUnit, 41, true, 43, 44);
             }
             // それ以外はのけぞりへ
             else
@@ -382,7 +418,7 @@ public class Bullet : MonoBehaviour
                 // ただしアーマー時ならダウン値とダメージだけ加算する(Damageにしない）
                 if (!target.IsArmor)
                 {
-                    target.m_AnimState[0] = CharacterControl_Base.AnimationState.DamageInit;
+                    target.DamageInit(target.AnimatorUnit, 41, false, 43, 44); 
                 }
                 // アーマーなら以降の処理が関係ないのでオブジェクトを自壊させてサヨウナラ                
             }
@@ -390,11 +426,11 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject); 
         }
         // BAZOOKAの場合
-        else if (m_Bullettype == BulletType.BAZOOKA)
+        else if (Bullettype == BulletType.BAZOOKA)
         {
             // 爆発エフェクトを生成する(Bazooka_ShockWaveプレハブ作成)
             // このオブジェクトの子としてBazooka_ShockWaveを作成する
-            var bazooka_shockwave = (GameObject)Instantiate(m_Insp_Bazooka_ShockWave, transform.position, transform.rotation);
+            var bazooka_shockwave = (GameObject)Instantiate(BazookaShockWave, transform.position, transform.rotation);
             bazooka_shockwave.transform.parent = this.transform;
             // ダメージとダウン値を設定
             var shockwave_state = bazooka_shockwave.GetComponentInChildren<Bazooka_ShockWave>();
@@ -404,35 +440,35 @@ public class Bullet : MonoBehaviour
             {
                 // 覚醒補正
                 DamageCorrection();
-                shockwave_state.SetDamage(m_OffemsivePower);
-                shockwave_state.SetCharacter(m_CharacterIndex);
+                shockwave_state.SetDamage(OffemsivePower);
+                shockwave_state.SetCharacter(InjectionCharacterIndex);
             }
             // 味方に触れた場合
             else if (collision.gameObject.tag == player)
             {
                 // 覚醒補正
                 DamageCorrection();
-                shockwave_state.SetDamage((int)(m_OffemsivePower/MadokaDefine.FRENDLYFIRE_RATIO));
-                shockwave_state.SetCharacter(m_CharacterIndex);
+                shockwave_state.SetDamage((int)(OffemsivePower/MadokaDefine.FRENDLYFIRE_RATIO));
+                shockwave_state.SetCharacter(InjectionCharacterIndex);
             }
             // ダウン値
-            shockwave_state.SetDownratio(m_DownRatio);
+            shockwave_state.SetDownratio(DownRatio);
             // 覚醒ゲージ増加（覚醒時除く）
-            if (m_Obj_OR.GetComponent<CharacterControl_Base>().IsArousal == false)
+            if (InjectionObject.GetComponent<CharacterControl_Base>().IsArousal == false)
             {
                 // 攻撃を当てた側が味方側の場合
-                if (m_InjectionObject.GetComponent<CharacterControl_Base>().IsPlayer != CharacterControl_Base.CHARACTERCODE.ENEMY)
+                if (InjectionObject.GetComponent<CharacterControl_Base>().IsPlayer != CharacterControl_Base.CHARACTERCODE.ENEMY)
                 {
-                    savingparameter.AddArousal(m_CharacterIndex, m_ArousalRatio);
+                    savingparameter.AddArousal(InjectionCharacterIndex, ArousalRatio);
                 }
                 // 攻撃を当てた側が敵側の場合
                 else
                 {
-                    m_InjectionObject.GetComponent<CharacterControl_Base>().AddArousal(m_ArousalRatio);
+                    InjectionObject.GetComponent<CharacterControl_Base>().AddArousal(ArousalRatio);
                 }
             }
             // 攻撃を当てた相手の覚醒ゲージを増加
-            shockwave_state.SetArousal(m_ArousalRatio);
+            shockwave_state.SetArousal(ArousalRatio);
             // オブジェクトの自壊に巻き込まれないように切り離す
             shockwave_state.transform.parent = null;
 
@@ -440,13 +476,13 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject); 
         }
         // BOMBの場合
-        else if (m_Bullettype == BulletType.BOMB)
+        else if (Bullettype == BulletType.BOMB)
         {
             // アニメが起動していなかった場合、アニメを起動する
-            if (!m_startedAnimation)
+            if (!StartedBombAnimation)
             {
-                this.GetComponent<Animation>().Play(m_BombAnimation_Name);
-                m_startedAnimation = true;
+                this.GetComponent<Animation>().Play(BombAnimationName);
+                StartedBombAnimation = true;
             }
             // 敵にあたったわけでないなら強制抜け
             if (target == null)
@@ -454,7 +490,7 @@ public class Bullet : MonoBehaviour
                 return;
             }
             // ダウン中かダウン値MAXならダメージを与えない
-            if (target.m_AnimState[0] == CharacterControl_Base.AnimationState.Down || (target.DownRatio <= target.NowDownRatio))
+            if (target.Invincible)
             {
                 return;
             }
@@ -465,16 +501,15 @@ public class Bullet : MonoBehaviour
             // ヒット時にダメージの種類をCharacterControl_Baseに与える
             // ダウン値を超えていたら吹き飛びへ移行
             // Blow属性の攻撃を与えた場合も吹き飛びへ移行
-            if (target.NowDownRatio >= target.DownRatio || this.m_Hittype == CharacterSkill.HitType.BLOW)
+            if (target.NowDownRatio >= target.DownRatioBias || this.Hittype == CharacterSkill.HitType.BLOW)
             {   // 吹き飛びの場合、相手に方向ベクトルを与える            
                 // Y軸方向は少し上向き
                 target.MoveDirection.y += 10;
-                target.BlowDirection = this.m_MoveDirection;
+                target.BlowDirection = this.MoveDirection;
                 // 吹き飛びの場合、攻撃を当てた相手を浮かす（MadokaDefine.LAUNCHOFFSET)            
                 target.GetComponent<Rigidbody>().position = target.GetComponent<Rigidbody>().position + new Vector3(0, MadokaDefine.LAUNCHOFFSET, 0);
-                target.GetComponent<Rigidbody>().AddForce(this.m_MoveDirection.x * MadokaDefine.LAUNCHOFFSET, this.m_MoveDirection.y * MadokaDefine.LAUNCHOFFSET, this.m_MoveDirection.z * MadokaDefine.LAUNCHOFFSET);
-                //rigidbody.position = rigidbody.position + ;
-                target.m_AnimState[0] = CharacterControl_Base.AnimationState.BlowInit;
+                target.GetComponent<Rigidbody>().AddForce(this.MoveDirection.x * MadokaDefine.LAUNCHOFFSET, this.MoveDirection.y * MadokaDefine.LAUNCHOFFSET, this.MoveDirection.z * MadokaDefine.LAUNCHOFFSET);
+                target.DamageInit(target.AnimatorUnit, 41, true, 43, 44);
             }
             // それ以外はのけぞりへ
             else
@@ -482,7 +517,7 @@ public class Bullet : MonoBehaviour
                 // ただしアーマー時ならダウン値とダメージだけ加算する(Damageにしない）
                 if (!target.IsArmor)
                 {
-                    target.m_AnimState[0] = CharacterControl_Base.AnimationState.DamageInit;
+                    target.DamageInit(target.AnimatorUnit, 41, false, 43, 44);
                 }              
             }
         }           
@@ -500,7 +535,7 @@ public class Bullet : MonoBehaviour
             // 覚醒補正
             DamageCorrection();
             // ダメージ
-            collision.gameObject.GetComponent<CharacterControl_Base>().DamageHP(m_CharacterIndex, m_OffemsivePower);
+            collision.gameObject.GetComponent<CharacterControlBase>().DamageHP(InjectionCharacterIndex, OffemsivePower);
         }
         // 味方に触れた場合
         else if (collision.gameObject.tag == player)
@@ -508,28 +543,28 @@ public class Bullet : MonoBehaviour
             // 覚醒補正
             DamageCorrection();
             // ダメージ
-            collision.gameObject.GetComponent<CharacterControl_Base>().DamageHP(m_CharacterIndex, (int)((float)m_OffemsivePower / MadokaDefine.FRENDLYFIRE_RATIO));
+            collision.gameObject.GetComponent<CharacterControlBase>().DamageHP(InjectionCharacterIndex, (int)((float)OffemsivePower / MadokaDefine.FRENDLYFIRE_RATIO));
         }
         // ダウン値加算
-        collision.gameObject.SendMessage("DownRateInc", m_DownRatio);
+        collision.gameObject.SendMessage("DownRateInc", DownRatio);
         // 覚醒ゲージ加算（覚醒時除く）
-        if (m_Obj_OR.GetComponent<CharacterControl_Base>().IsArousal == false)
+        if (InjectionObject.GetComponent<CharacterControlBase>().IsArousal == false)
         {
             // 攻撃を当てた側が味方側の場合
-            if (m_InjectionObject.GetComponent<CharacterControl_Base>().IsPlayer != CharacterControl_Base.CHARACTERCODE.ENEMY)
+            if (InjectionObject.GetComponent<CharacterControlBase>().IsPlayer != CharacterControlBase.CHARACTERCODE.ENEMY)
             {
-                float nextArousal = m_ArousalRatio + savingparameter.GetNowArousal(m_CharacterIndex);
-                savingparameter.AddArousal(m_CharacterIndex, nextArousal);
+                float nextArousal = ArousalRatio + savingparameter.GetNowArousal(InjectionCharacterIndex);
+                savingparameter.AddArousal(InjectionCharacterIndex, nextArousal);
             }
             // 攻撃を当てた側が敵側の場合
             else
             {
-                m_InjectionObject.GetComponent<CharacterControl_Base>().AddArousal(m_ArousalRatio);
+                InjectionObject.GetComponent<CharacterControlBase>().AddArousal(ArousalRatio);
             }
 
         }
         // 敵に覚醒ゲージを加算
-        collision.gameObject.SendMessage("DamageArousal", m_ArousalRatio);
+        collision.gameObject.SendMessage("DamageArousal", ArousalRatio);
     }
     
 
@@ -537,21 +572,21 @@ public class Bullet : MonoBehaviour
     private void DamageCorrection()
     {
         // 攻撃側が覚醒中の場合
-        if (m_InjectionObject != null)
+        if (InjectionObject != null)
         {
-            bool injection = m_InjectionObject.GetComponent<CharacterControl_Base>().IsArousal;
+            bool injection = InjectionObject.GetComponent<CharacterControlBase>().IsArousal;
             if (injection)
             {
-                m_OffemsivePower = (int)(m_OffemsivePower * MadokaDefine.AROUSAL_OFFENCE_UPPER);
+                OffemsivePower = (int)(OffemsivePower * MadokaDefine.AROUSAL_OFFENCE_UPPER);
             }
         }
         // 防御側が覚醒中の場合
-        if (m_HitTarget != null)
+        if (HitTarget != null)
         {
-            bool target = m_HitTarget.GetComponent<CharacterControl_Base>().IsArousal;
+            bool target = HitTarget.GetComponent<CharacterControlBase>().IsArousal;
             if (target)
             {
-                m_OffemsivePower = (int)(m_OffemsivePower * MadokaDefine.AROUSAL_DEFFENSIVE_UPPER);
+                OffemsivePower = (int)(OffemsivePower * MadokaDefine.AROUSAL_DEFFENSIVE_UPPER);
             }
         }
     }

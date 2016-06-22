@@ -791,22 +791,22 @@ public class Homura_Final_BattleControl : CharacterControl_Base
             // チャージ射撃は若干速く
             if (type == ShotType.CHARGE_SHOT)
             {
-                arrow.m_Speed = Character_Spec.cs[(int)CharacterName][1].m_Movespeed;
+                arrow.ShotSpeed = Character_Spec.cs[(int)CharacterName][1].m_Movespeed;
             }
             else
             {
                 if (arrow != null)
                 {
-                    arrow.m_Speed = Character_Spec.cs[(int)CharacterName][0].m_Movespeed;
+                    arrow.ShotSpeed = Character_Spec.cs[(int)CharacterName][0].m_Movespeed;
                 }
                 // 特殊射撃の左右の2発
                 if (arrow_ex_L != null)
                 {
-                    arrow_ex_L.m_Speed = Character_Spec.cs[(int)CharacterName][3].m_Movespeed;
+                    arrow_ex_L.ShotSpeed = Character_Spec.cs[(int)CharacterName][3].m_Movespeed;
                 }
                 if (arrow_ex_R != null)
                 {
-                    arrow_ex_R.m_Speed = Character_Spec.cs[(int)CharacterName][3].m_Movespeed;
+                    arrow_ex_R.ShotSpeed = Character_Spec.cs[(int)CharacterName][3].m_Movespeed;
                 }
             }
             // 矢の方向を決定する(本体と同じ方向に向けて打ち出す。ただしノーロックで本体の向きが0のときはベクトルが0になるので、このときだけはカメラの方向に飛ばす）
@@ -829,7 +829,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                 // forwardをかけて本体と胸部の和を進行方向ベクトルへ変換                
                 Vector3 normalizeRot = (qua) * Vector3.forward;
                 // 移動ベクトルを確定する
-                arrow.m_MoveDirection = Vector3.Normalize(normalizeRot);
+                arrow.MoveDirection = Vector3.Normalize(normalizeRot);
             }
             // ロックオンしているとき
             else if (this.IsRockon)
@@ -845,17 +845,17 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                 // 特殊射撃左の時
                 if (arrow_ex_L != null)
                 {
-                    arrow_ex_L.m_MoveDirection = Vector3.Normalize(normalizeRot);
+                    arrow_ex_L.MoveDirection = Vector3.Normalize(normalizeRot);
                 }
                 // 特殊射撃右の時
                 if (arrow_ex_R != null)
                 {
-                    arrow_ex_R.m_MoveDirection = Vector3.Normalize(normalizeRot);
+                    arrow_ex_R.MoveDirection = Vector3.Normalize(normalizeRot);
                 }
                 // それ以外
                 if(arrow != null)
                 {                   
-                    arrow.m_MoveDirection = Vector3.Normalize(normalizeRot);
+                    arrow.MoveDirection = Vector3.Normalize(normalizeRot);
                 }
             }
             // ロックオンしていないとき
@@ -872,17 +872,17 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                     // 特殊射撃左の時
                     if (arrow_ex_L != null)
                     {
-                        arrow_ex_L.m_MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+                        arrow_ex_L.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
                     }
                     // 特殊射撃右の時
                     if (arrow_ex_R != null)
                     {
-                        arrow_ex_R.m_MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+                        arrow_ex_R.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
                     }
                     // 特殊射撃以外
                     if (arrow != null)
                     {
-                        arrow.m_MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+                        arrow.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
                     }
                 }
                 // それ以外は本体の角度を射出角にする
@@ -891,17 +891,17 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                     // 特殊射撃左の時
                     if (arrow_ex_L != null)
                     {
-                        arrow_ex_L.m_MoveDirection = Vector3.Normalize(this.transform.rotation * Vector3.forward);
+                        arrow_ex_L.MoveDirection = Vector3.Normalize(this.transform.rotation * Vector3.forward);
                     }
                     // 特殊射撃右の時
                     if (arrow_ex_R != null)
                     {
-                        arrow_ex_R.m_MoveDirection = Vector3.Normalize(this.transform.rotation * Vector3.forward);
+                        arrow_ex_R.MoveDirection = Vector3.Normalize(this.transform.rotation * Vector3.forward);
                     }
                     // 特殊射撃以外
                     if (arrow != null)
                     {
-                        arrow.m_MoveDirection = Vector3.Normalize(this.transform.rotation * Vector3.forward);
+                        arrow.MoveDirection = Vector3.Normalize(this.transform.rotation * Vector3.forward);
                     }
                 }
             }
@@ -911,7 +911,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
             // 同じく回転角を代入する
             if (arrow != null)
             {
-                this.BulletMoveDirection = arrow.m_MoveDirection;
+                this.BulletMoveDirection = arrow.MoveDirection;
             }
             if (type == ShotType.NORMAL_SHOT)
             {

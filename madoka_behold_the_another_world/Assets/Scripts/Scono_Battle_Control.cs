@@ -791,11 +791,11 @@ public class Scono_Battle_Control : CharacterControl_Base
             // 弾のスクリプトの速度を設定する
             if (type == ShotType.NORMAL_SHOT)
             {
-                arrow.m_Speed = Character_Spec.cs[(int)CharacterName][0].m_Movespeed;
+                arrow.ShotSpeed = Character_Spec.cs[(int)CharacterName][0].m_Movespeed;
             }
             else if (type == ShotType.SUB_SHOT)
             {
-                subshot.m_Speed = Character_Spec.cs[(int)CharacterName][1].m_Movespeed;
+                subshot.ShotSpeed = Character_Spec.cs[(int)CharacterName][1].m_Movespeed;
             }
             
             // 弾の方向を決定する(本体と同じ方向に向けて打ち出す。ただしノーロックで本体の向きが0のときはベクトルが0になるので、このときだけはカメラの方向に飛ばす）
@@ -821,12 +821,12 @@ public class Scono_Battle_Control : CharacterControl_Base
                 // 通常射撃
                 if (arrow != null)
                 {
-                    arrow.m_MoveDirection = Vector3.Normalize(normalizeRot);
+                    arrow.MoveDirection = Vector3.Normalize(normalizeRot);
                 }
                 // サブ射撃
                 if (subshot != null)
                 {
-                    subshot.m_MoveDirection = Vector3.Normalize(normalizeRot);
+                    subshot.MoveDirection = Vector3.Normalize(normalizeRot);
                 }
             }
             // ロックオンしているとき
@@ -844,12 +844,12 @@ public class Scono_Battle_Control : CharacterControl_Base
                 // 通常射撃
                 if (arrow != null)
                 {
-                    arrow.m_MoveDirection = Vector3.Normalize(normalizeRot);
+                    arrow.MoveDirection = Vector3.Normalize(normalizeRot);
                 }
                 // サブ射撃
                 if (subshot != null)
                 {
-                    subshot.m_MoveDirection = Vector3.Normalize(normalizeRot);
+                    subshot.MoveDirection = Vector3.Normalize(normalizeRot);
                 }
             }
             // ロックオンしていないとき
@@ -866,12 +866,12 @@ public class Scono_Battle_Control : CharacterControl_Base
                     // 通常射撃
                     if (arrow != null)
                     {
-                        arrow.m_MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+                        arrow.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
                     }
                     // サブ射撃
                     if (subshot != null)
                     {
-                        subshot.m_MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+                        subshot.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
                     }
                 }
                 // それ以外は本体の角度を射出角にする
@@ -879,11 +879,11 @@ public class Scono_Battle_Control : CharacterControl_Base
                 {                   
                     if (arrow != null)
                     {
-                        arrow.m_MoveDirection = Vector3.Normalize(this.transform.rotation * Vector3.forward);
+                        arrow.MoveDirection = Vector3.Normalize(this.transform.rotation * Vector3.forward);
                     }
                     if (subshot != null)
                     {
-                        subshot.m_MoveDirection = Vector3.Normalize(this.transform.rotation * Vector3.forward);
+                        subshot.MoveDirection = Vector3.Normalize(this.transform.rotation * Vector3.forward);
                     }
                 }
             }
@@ -893,12 +893,12 @@ public class Scono_Battle_Control : CharacterControl_Base
             {
                 this.BulletPos = this.MainShotRoot.transform.position;
                 // 同じく回転角を代入する
-                this.BulletMoveDirection = arrow.m_MoveDirection;
+                this.BulletMoveDirection = arrow.MoveDirection;
             }
             if (subshot != null)
             {
                 this.BulletPos = this.m_SubShotRoot.transform.position;
-                this.BulletMoveDirection = subshot.m_MoveDirection;
+                this.BulletMoveDirection = subshot.MoveDirection;
             }
             if (type == ShotType.NORMAL_SHOT)
             {

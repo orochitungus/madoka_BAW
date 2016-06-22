@@ -790,10 +790,12 @@ public class CharacterControlBase : MonoBehaviour
 	/// </summary>
 	public bool Invincible;
 
-	/// <summary>
-	/// プレイヤーのレベル設定を行う
-	/// </summary>
-	protected void SettingPleyerLevel()
+    public Animator AnimatorUnit;
+
+    /// <summary>
+    /// プレイヤーのレベル設定を行う
+    /// </summary>
+    protected void SettingPleyerLevel()
     {
         // 自機もしくは自機の僚機
         if (IsPlayer != CHARACTERCODE.ENEMY)
@@ -4417,12 +4419,12 @@ public class CharacterControlBase : MonoBehaviour
     /// 被弾時ステートを変える
     /// </summary>
     /// <param name="animator"></param>
-    /// <param name="damagehash"></param>
+    /// <param name="damageID"></param>
     /// <param name="blowinithash"></param>
-    /// <param name="blowhash"></param>
-    /// <param name="spindownhash"></param>
+    /// <param name="blowID"></param>
+    /// <param name="spindownID"></param>
 
-    public virtual void DamageInit(Animator animator, int damagehash,int blowinithash,int blowhash,int spindownhash)
+    public virtual void DamageInit(Animator animator, int damageID, bool isBlow,int blowID,int spindownID)
 	{
 		// くっついているエフェクトを消す
 		BrokenEffect();
@@ -4444,7 +4446,7 @@ public class CharacterControlBase : MonoBehaviour
 		// （UpdateCoreで入力をポーズ以外すべて禁止）
 		// ダメージアニメーションを再生
 		//Debug.Log(m_AnimationNames[(int)AnimationState.Damage]);
-		animator.SetInteger("NowState",damagehash);
+		animator.SetInteger("NowState",damageID);
 
 
 		// 動作及び慣性をカット
@@ -4475,20 +4477,19 @@ public class CharacterControlBase : MonoBehaviour
 				// 死亡爆発が起こったというフラグを立てる
 				this.Explode = true;
 			}
-			animator.SetInteger("NowState",blowinithash);
 			NowDownRatio = 5;
 		}
 
 
 		// 吹き飛び
-		if (animator.GetHashCode() == blowinithash)
+		if (isBlow)
 		{
-			BlowDone(animator,spindownhash,blowhash);
+			BlowDone(animator,spindownID,blowID);
 		}
 		// のけぞりならDamageInit→DamageDoneを呼ぶ
 		else
 		{
-			DamageDone(animator,damagehash);
+			DamageDone(animator,damageID);
 		}
 
 	}
@@ -4497,8 +4498,8 @@ public class CharacterControlBase : MonoBehaviour
     /// のけぞりダメージ時、ダメージの処理を行う
     /// </summary>
     /// <param name="animator"></param>
-    /// <param name="damagehash"></param>
-    public virtual void DamageDone(Animator animator, int damagehash)
+    /// <param name="damageID"></param>
+    public virtual void DamageDone(Animator animator, int damageID)
 	{
 		// 重力をカット
 		// ダメージ硬直の計算開始
@@ -4509,16 +4510,16 @@ public class CharacterControlBase : MonoBehaviour
 		// ダメージ硬直の計算開始
 		DamagedTime = Time.time;
 		// ステートをDamageに切り替える
-		animator.SetInteger("NowState",damagehash);
+		animator.SetInteger("NowState",damageID);
 	}
 
     /// <summary>
     /// 吹き飛びダメージ時、ダメージの処理を行う
     /// </summary>
     /// <param name="animator"></param>
-    /// <param name="spindownhash"></param>
-    /// <param name="blowhash"></param>
-    public virtual void BlowDone(Animator animator,int spindownhash,int blowhash)
+    /// <param name="spindownID"></param>
+    /// <param name="blowID"></param>
+    public virtual void BlowDone(Animator animator,int spindownID,int blowID)
 	{
 		// Rotateの固定を解除        
 		// 重力を復活
@@ -4537,7 +4538,7 @@ public class CharacterControlBase : MonoBehaviour
 		if (this.NowDownRatio >= this.DownRatioBias)
 		{
 			// 錐揉みダウンアニメを再生する
-			animator.SetInteger("NowState",spindownhash);
+			animator.SetInteger("NowState",spindownID);
 			// 無敵をONにする
 			Invincible = true;
 		}
@@ -4547,7 +4548,7 @@ public class CharacterControlBase : MonoBehaviour
 			// Rotateの固定を解除        
 			GetComponent<Rigidbody>().freezeRotation = false;
 			// ダウンアニメを再生する
-			animator.SetInteger("NowState",blowhash);
+			animator.SetInteger("NowState",blowID);
 		}
 		// 攻撃と同じベクトルを与える。ここの値はm_BlowDirectionに保存したものを使う
 		// TODO:Velocityで飛ばしてるのでMoveDirectionに変えてそれで飛ばす

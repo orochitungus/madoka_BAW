@@ -51,7 +51,7 @@ public class BulletChecker : MonoBehaviour
         if (targetBullet != null)
         {
             // 自分の放った弾丸であるか否か判定する
-            if (targetBullet.m_CharacterIndex != m_characterIndex)
+            if (targetBullet.InjectionCharacterIndex != m_characterIndex)
             {
                 m_bulletIn = true;
             }

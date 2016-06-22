@@ -136,7 +136,7 @@ public class HomuraBowControl : CharacterControlBase
 	/// </summary>
 	public BattleInterfaceController Battleinterfacecontroller;
 
-    public Animator AnimatorUnit;
+    
 
     /// <summary>
     /// 通常射撃のアイコン
@@ -154,7 +154,7 @@ public class HomuraBowControl : CharacterControlBase
     public Sprite ExShotIcon;
 
     /// <summary>
-    /// 各種アニメのハッシュID.コメント内はAnimatorの管理用ID
+    /// 各種アニメのハッシュID.コメント内はAnimatorの管理用ID.武装系以外は全員共通にすること
     /// </summary>
     public int IdleID;                  // 0
     public int WalkID;                  // 1
