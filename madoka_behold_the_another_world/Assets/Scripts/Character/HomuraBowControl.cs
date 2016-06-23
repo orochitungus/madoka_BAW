@@ -685,5 +685,140 @@ public class HomuraBowControl : CharacterControlBase
 		AnimatorUnit.SetInteger("NowState", 3);
 	}
 
+	/// <summary>
+	/// 攻撃行動全般(RunとAirDashは特殊なので使用しない）
+	/// </summary>
+	/// <param name="run"></param>
+	/// <param name="AirDash"></param>
+	public void AttackDone(bool run = false, bool AirDash = false)
+	{
+		// サブ射撃でサブ射撃へ移行
+		if (HasSubShotInput)
+		{
+			// 歩き撃ちはしないので、強制停止
+			if (run || AirDash)
+			{
+				// TODO:強制停止実行
+			}
+			// TODO:サブ射撃実行
+		}
+		// 特殊射撃で特殊射撃へ移行
+		else if (HasExShotInput)
+		{
+			// 歩き撃ちはしないので、強制停止
+			if (run || AirDash)
+			{
+				// TODO:強制停止実行
+			}
+			// TODO:特殊射撃実行
+		}
+		// 特殊格闘で特殊格闘へ移行
+		else if (HasExWrestleInput)
+		{
+			// 前特殊格闘
+			if (HasFrontInput)
+			{
+				// TODO:前特殊格闘実行
+			}
+			// 空中で後特殊格闘
+			else if (HasBackInput && !IsGrounded)
+			{
+				// TODO:後特殊格闘実行
+			}
+			// それ以外
+			else
+			{
+				// TODO:特殊格闘実行
+			}
+		}
+		// 射撃チャージでチャージ射撃へ移行
+		else if (HasShotChargeInput)
+		{
+			// 歩き撃ちはしないので、強制停止
+			if (run || AirDash)
+			{
+				// TODO:強制停止実行
+			}
+			// TODO:チャージショット実行
+		}
+		// 射撃で射撃へ移行
+		else if (HasShotInput)
+		{
+			if (run)
+			{
+				if (this.IsRockon)
+				{
+					// ①　transform.TransformDirection(Vector3.forward)でオブジェクトの正面の情報を得る
+					var forward = this.transform.TransformDirection(Vector3.forward);
+					// ②　自分の場所から対象との距離を引く
+					// カメラからEnemyを求める
+					var target = MainCamera.transform.GetComponentInChildren<Player_Camera_Controller>();
+					var targetDirection = target.Enemy.transform.position - transform.position;
+					// ③　①と②の角度をVector3.Angleで取る　			
+					float angle = Vector3.Angle(forward, targetDirection);
+					// 角度60度以内なら上体回しで撃つ（歩き撃ち限定で上記の矢の方向ベクトルを加算する）
+					if (angle < 60)
+					{
+						RunShotDone = true;
+						// TODO:走行射撃実行
+					}
+					// それ以外なら強制的に停止して（立ち撃ちにして）撃つ
+					else
+					{
+						// TODO:強制停止実行
+						// TODO:射撃実行
+					}
+				}
+				// 非ロック状態なら歩き撃ちフラグを立てる
+				else
+				{
+					RunShotDone = true;
+					// TODO:射撃実行
+				}
+			}
+			else
+			{
+				// TODO:射撃実行
+			}
+		}
+		// 格闘で格闘へ移行
+		else if (HasWrestleInput)
+		{
+			if (AirDash)
+			{
+				// TODO:空中ダッシュ格闘実行
+			}
+			else
+			{
+				// 前格闘と横格闘への分岐はここで（2段目・3段目の分岐はやっているときに）
+
+				// 前格闘で前格闘へ移行
+				if (HasFrontInput)
+				{
+					// TODO:前格闘実行
+				}
+				// 左格闘で左格闘へ移行
+				else if (HasLeftInput)
+				{
+					// TODO:左格闘実行
+				}
+				// 右格闘で右格闘へ移行
+				else if (HasRightInput)
+				{
+					// TODO:右格闘実行
+				}
+				// 後格闘で後格闘へ移行
+				else if (HasBackInput)
+				{
+					// TODO:後格闘実行（ガード）
+				}
+				else
+				{
+					// N格闘1段目  
+					// TODO:N格闘実行
+				}
+			}
+		}
+	}
 	
 }
