@@ -34,12 +34,12 @@ public class Homura_EX_ShotArrow_L : Bullet
     {
         // 飛行開始
         // キリカの時間遅延を受けているとき、1/4に
-        if (Timestopmode == CharacterControl_Base.TimeStopMode.TIME_DELAY)
+        if (Timestopmode == CharacterControlBase.TimeStopMode.TIME_DELAY)
         {
 
         }
         // ほむらの時間停止を受けているときなど、0に
-        else if (Timestopmode == CharacterControl_Base.TimeStopMode.TIME_STOP || Timestopmode == CharacterControl_Base.TimeStopMode.PAUSE || Timestopmode == CharacterControl_Base.TimeStopMode.AROUSAL)
+        else if (Timestopmode == CharacterControlBase.TimeStopMode.TIME_STOP || Timestopmode == CharacterControlBase.TimeStopMode.PAUSE || Timestopmode == CharacterControlBase.TimeStopMode.AROUSAL)
         {
             // アニメを止めておく
             //Time.timeScale = 0;
