@@ -5348,6 +5348,8 @@ public class CharacterControlBase : MonoBehaviour
         }
     }
 
+
+
     // Use this for initialization
     void Start ()
     {
@@ -5360,3 +5362,5 @@ public class CharacterControlBase : MonoBehaviour
 	
 	}
 }
+
+

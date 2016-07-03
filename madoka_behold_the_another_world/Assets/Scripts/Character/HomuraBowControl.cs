@@ -773,12 +773,14 @@ public class HomuraBowControl : CharacterControlBase
 				else
 				{
 					RunShotDone = true;
-					// TODO:射撃実行
+					// 射撃実行
+					ShotDone(true);
 				}
 			}
 			else
 			{
-				// TODO:射撃実行
+				// 射撃実行
+				ShotDone(false);
 			}
 		}
 		// 格闘で格闘へ移行
@@ -821,4 +823,29 @@ public class HomuraBowControl : CharacterControlBase
 		}
 	}
 	
+	/// <summary>
+	/// 射撃の装填開始
+	/// </summary>
+	/// <param name="ruhshot">走行射撃であるか否か</param>
+	public void ShotDone(bool runshot)
+	{
+		// 歩行時は上半身のみにして走行（下半身のみ）と合成
+		if(runshot)
+		{
+			// TODO:アニメーション合成処理＆再生
+		}
+		// 立ち射撃か空中射撃
+		else
+		{
+			AnimatorUnit.SetInteger("NowState", 16);
+		}
+		// 装填状態へ移行
+		Shotmode = ShotMode.RELORD;
+	}
+
+	protected override void Animation_Idle(Animator animator, int downID, int runID, int[] stepanimations, int fallID, int jumpID, int airdashID)
+	{
+		base.Animation_Idle(animator, downID, runID, stepanimations, fallID, jumpID, airdashID);
+
+	}
 }
