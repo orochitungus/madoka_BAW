@@ -136,7 +136,10 @@ public class HomuraBowControl : CharacterControlBase
 	/// </summary>
 	public BattleInterfaceController Battleinterfacecontroller;
 
-    
+    /// <summary>
+    /// 覚醒技の羽根のフック
+    /// </summary>
+    private GameObject WingHock;
 
     /// <summary>
     /// 通常射撃のアイコン
@@ -846,6 +849,58 @@ public class HomuraBowControl : CharacterControlBase
 	protected override void Animation_Idle(Animator animator, int downID, int runID, int[] stepanimations, int fallID, int jumpID, int airdashID)
 	{
 		base.Animation_Idle(animator, downID, runID, stepanimations, fallID, jumpID, airdashID);
+        // くっついている弾丸系のエフェクトを消す
+        DestroyArrow();
+        // 羽フックを壊す
+        Destroy(WingHock);
+        // 格闘の累積時間を初期化
+        Wrestletime = 0;
+        // 地上にいるか？(落下開始時は一応禁止）
+        if (IsGrounded)
+        {
+            AttackDone();
+        }
+    }
 
-	}
+    protected override void Animation_Jumping(Animator animator, int fallID, int[] stepanimations, int airdashID, int landinghashID)
+    {
+        base.Animation_Jumping(animator, fallID, stepanimations, airdashID, landinghashID);
+        AttackDone();
+    }
+
+    protected override void Animation_Fall(Animator animator, int airdashID, int jumpID, int[] stepanimations, int landingID)
+    {
+        base.Animation_Fall(animator, airdashID, jumpID, stepanimations, landingID);
+        AttackDone();
+    }
+
+    protected override void Animation_Run(Animator animator, int fallhashID, int[] stepanimations, int idleID, int jumpID)
+    {
+        base.Animation_Run(animator, fallhashID, stepanimations, idleID, jumpID);
+        AttackDone(true, false);
+    }
+
+    protected override void Animation_AirDash(Animator animator, int jumpID, int fallID, int landingID)
+    {
+        base.Animation_AirDash(animator, jumpID, fallID, landingID);
+        AttackDone(false, true);
+    }
+
+    protected override void Shot()
+    {       
+        // キャンセルダッシュ受付
+        if (HasDashCancelInput)
+        {
+            // 地上でキャンセルすると浮かないので浮かす
+            if (IsGrounded)
+            {
+                transform.Translate(new Vector3(0, 1, 0));
+            }
+            CancelDashDone(AnimatorUnit, 7);
+        }
+        base.Shot();
+    }
+
+
+    
 }
