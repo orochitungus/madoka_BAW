@@ -664,10 +664,10 @@ public class Homura_Final_BattleControl : CharacterControl_Base
     protected void Shoot(ShotType type)
     {       
         // 弾があるとき限定
-        if (this.BulletNum[(int)type] > 0)
+        if (BulletNum[(int)type] > 0)
         {
             // ロックオン時本体の方向を相手に向ける       
-            if (this.IsRockon)
+            if (IsRockon)
             {
                 RotateToTarget();
             }      
@@ -675,7 +675,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
             // チャージ射撃除く
             if (type != ShotType.CHARGE_SHOT)
             {
-                this.BulletNum[(int)type]--;
+				BulletNum[(int)type]--;
                 // 撃ち終わった時間を設定する                
                 // メイン（弾数がMax-1のとき）
                 if (type == ShotType.NORMAL_SHOT && BulletNum[(int)type] == Character_Spec.cs[(int)CharacterName][(int)type].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)type].m_OriginalBulletNum - 1)

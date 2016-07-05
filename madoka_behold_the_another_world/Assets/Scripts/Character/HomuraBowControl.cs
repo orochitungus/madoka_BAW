@@ -901,6 +901,59 @@ public class HomuraBowControl : CharacterControlBase
         base.Shot();
     }
 
-
+	/// <summary>
+	/// 装填を行う（アニメーションファイルにインポートする）
+	/// </summary>
+	/// <param name="type">射撃がどれであるか</param>
+	public void Shoot(ShotType type)
+	{
+		// 弾があるとき限定
+		if (BulletNum[(int)type] > 0)
+		{
+			// ロックオン時本体の方向を相手に向ける       
+			if (IsRockon)
+			{
+				RotateToTarget();
+			}
+			// 弾を消費する（サブ射撃なら1、特殊射撃なら2）
+			// チャージ射撃除く
+			if (type != ShotType.CHARGE_SHOT)
+			{
+				BulletNum[(int)type]--;
+				// 撃ち終わった時間を設定する                
+				// メイン（弾数がMax-1のとき）
+				if (type == ShotType.NORMAL_SHOT && BulletNum[(int)type] == Character_Spec.cs[(int)CharacterName][(int)type].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)type].m_OriginalBulletNum - 1)
+				{
+					MainshotEndtime = Time.time;
+				}
+				// サブ（弾数が0のとき）
+				else if (type == ShotType.SUB_SHOT&& BulletNum[(int)type] == 0)
+				{
+					SubshotEndtime = Time.time;
+				}
+				// 特殊（弾数がMax-1のとき）
+				else if (type == ShotType.EX_SHOT && BulletNum[(int)type] == Character_Spec.cs[(int)CharacterName][(int)type].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)type].m_OriginalBulletNum - 1)
+				{
+					ExshotEndtime = Time.time;
+				}
+			}
+			// 矢の出現ポジションをフックと一致させる
+			Vector3 pos = MainShotRoot.transform.position;
+			Quaternion rot = Quaternion.Euler(MainShotRoot.transform.rotation.eulerAngles.x, MainShotRoot.transform.rotation.eulerAngles.y, MainShotRoot.transform.rotation.eulerAngles.z);
+			// 矢を出現させる
+			// サブ射撃
+			if (type == ShotType.SUB_SHOT)
+			{
+				var obj = (GameObject)Instantiate(SubShotArrow, pos, rot);
+				// 親子関係を再設定する(=矢をフックの子にする）
+				if (obj.transform.parent == null)
+				{
+					obj.transform.parent = MainShotRoot.transform;
+					// 矢の親子関係を付けておく
+					obj.transform.GetComponent<Rigidbody>().isKinematic = true;
+				}
+			}
+		}
+	}
     
 }
