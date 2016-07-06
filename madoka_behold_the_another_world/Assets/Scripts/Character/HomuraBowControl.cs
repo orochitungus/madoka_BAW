@@ -902,10 +902,10 @@ public class HomuraBowControl : CharacterControlBase
     }
 
 	/// <summary>
-	/// 装填を行う（アニメーションファイルにインポートする）
+	/// 装填を行う（アニメーションファイルの装填フレームにインポートする）
 	/// </summary>
 	/// <param name="type">射撃がどれであるか</param>
-	public void Shoot(ShotType type)
+	public void Shootload(ShotType type)
 	{
 		// 弾があるとき限定
 		if (BulletNum[(int)type] > 0)
@@ -944,7 +944,17 @@ public class HomuraBowControl : CharacterControlBase
 			// サブ射撃
 			if (type == ShotType.SUB_SHOT)
 			{
-				var obj = (GameObject)Instantiate(SubShotArrow, pos, rot);
+				// TODO:サブ射撃の矢を作る処理
+			}
+			// 特殊射撃
+			else if (type == ShotType.EX_SHOT)
+			{
+				// TODO:特殊射撃の矢を作る処理
+			}
+			// 通常射撃
+			else if (type == ShotType.NORMAL_SHOT)
+			{
+				var obj = (GameObject)Instantiate(NormalArrow, pos, rot);
 				// 親子関係を再設定する(=矢をフックの子にする）
 				if (obj.transform.parent == null)
 				{
@@ -953,7 +963,34 @@ public class HomuraBowControl : CharacterControlBase
 					obj.transform.GetComponent<Rigidbody>().isKinematic = true;
 				}
 			}
+			// チャージ射撃
+			else if (type == ShotType.CHARGE_SHOT)
+			{
+				// TODO:チャージ射撃の矢を作る処理
+			}
 		}
 	}
-    
+
+	
+	/// <summary>
+	/// 射撃（射出）射撃のアニメーションファイルの射出フレームにインポートする
+	/// </summary>
+	/// <param name="type"></param>
+    public void Shooting(ShotType type)
+	{
+		// 通常射撃の矢
+		var arrow = GetComponentInChildren<HomuraBowNormalShot>();
+		// TODO:サブ射撃左右の矢を取得
+
+		if (arrow != null)
+		{
+			// 矢のスクリプトの速度を設定する
+			// チャージ射撃は若干速く
+			if (type == ShotType.CHARGE_SHOT)
+			{
+				arrow.ShotSpeed = Character_Spec.cs[(int)CharacterName][1].m_Movespeed;
+			}
+
+		}
+	}
 }
