@@ -812,7 +812,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
             // 矢の方向を決定する(本体と同じ方向に向けて打ち出す。ただしノーロックで本体の向きが0のときはベクトルが0になるので、このときだけはカメラの方向に飛ばす）
 
             // ロックオン状態で歩き撃ちをしているとき
-            if (this.IsRockon && this.RunShotDone)
+            if (IsRockon && RunShotDone)
             {
                 // ロックオン対象の座標を取得
                 var target = GetComponentInChildren<Player_Camera_Controller>();
@@ -832,7 +832,7 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                 arrow.MoveDirection = Vector3.Normalize(normalizeRot);
             }
             // ロックオンしているとき
-            else if (this.IsRockon)
+            else if (IsRockon)
             {
                 // ロックオン対象の座標を取得
                 var target = GetComponentInChildren<Player_Camera_Controller>();
@@ -906,13 +906,14 @@ public class Homura_Final_BattleControl : CharacterControl_Base
                 }
             }
 
-            // 矢のフックの位置に弾の位置を代入する
-            this.BulletPos = this.MainShotRoot.transform.position;
+			// 矢のフックの位置に弾の位置を代入する
+			BulletPos = this.MainShotRoot.transform.position;
             // 同じく回転角を代入する
             if (arrow != null)
             {
                 this.BulletMoveDirection = arrow.MoveDirection;
             }
+			// 攻撃力を代入する
             if (type == ShotType.NORMAL_SHOT)
             {
                 setOffensivePower(SkillType_Homura_B.SHOT);
@@ -931,13 +932,13 @@ public class Homura_Final_BattleControl : CharacterControl_Base
             }
             shotmode = ShotMode.SHOT;
 
-            // 固定状態を解除
-            // ずれた本体角度を戻す(Yはそのまま）
-            this.transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0)); 
-            this.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-            
-            // 硬直時間を設定
-            this.m_AttackTime = Time.time;
+			// 固定状態を解除
+			// ずれた本体角度を戻す(Yはそのまま）
+			transform.rotation = Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y, 0));
+			transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+
+			// 硬直時間を設定
+			m_AttackTime = Time.time;
             // 射出音を再生する
             AudioSource.PlayClipAtPoint(m_Insp_ShootSE, transform.position);
         }

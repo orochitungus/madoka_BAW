@@ -990,7 +990,139 @@ public class HomuraBowControl : CharacterControlBase
 			{
 				arrow.ShotSpeed = Character_Spec.cs[(int)CharacterName][1].m_Movespeed;
 			}
+			else
+			{
+				// メイン弾速設定
+				if (arrow != null)
+				{
+					arrow.ShotSpeed = Character_Spec.cs[(int)CharacterName][0].m_Movespeed;
+				}
+				// TODO:サブ射撃の左右の矢の弾速設定
+			}
+			// 矢の方向を決定する(本体と同じ方向に向けて打ち出す。ただしノーロックで本体の向きが0のときはベクトルが0になるので、このときだけはカメラの方向に飛ばす）
+			if (IsRockon && RunShotDone)
+			{
+				// ロックオン対象の座標を取得
+				var target = GetComponentInChildren<Player_Camera_Controller>();
+				// 対象の座標を取得
+				Vector3 targetpos = target.Enemy.transform.position;
+				// 補正値込みの胸部と本体の回転ベクトルを取得
+				// 本体
+				Quaternion mainrot = Quaternion.LookRotation(targetpos - this.transform.position);
+				// 胸部
+				Vector3 normalizeRot_OR = BrestObject.transform.rotation.eulerAngles;
+				// 本体と胸部と矢の補正値分回転角度を合成
+				Vector3 addrot = mainrot.eulerAngles + normalizeRot_OR - new Vector3(0, 74.0f, 0);
+				Quaternion qua = Quaternion.Euler(addrot);
+				// forwardをかけて本体と胸部の和を進行方向ベクトルへ変換                
+				Vector3 normalizeRot = (qua) * Vector3.forward;
+				// 移動ベクトルを確定する
+				arrow.MoveDirection = Vector3.Normalize(normalizeRot);
+			}
+			// ロックオンしているとき
+			else if (IsRockon)
+			{
+				// ロックオン対象の座標を取得
+				var target = GetComponentInChildren<Player_Camera_Controller>();
+				// 対象の座標を取得
+				Vector3 targetpos = target.Enemy.transform.position;
+				// 本体の回転角度を拾う
+				Quaternion mainrot = Quaternion.LookRotation(targetpos - this.transform.position);
+				// 正規化して代入する
+				Vector3 normalizeRot = mainrot * Vector3.forward;
+				// TODO:サブ射撃左右の矢
 
+				// それ以外
+				if (arrow != null)
+				{
+					arrow.MoveDirection = Vector3.Normalize(normalizeRot);
+				}
+			}
+			// ロックオンしていないとき
+			else
+			{
+				// 本体角度が0の場合カメラの方向を射出角とし、正規化して代入する
+				if (this.transform.rotation.eulerAngles == Vector3.zero)
+				{
+					// ただしそのままだとカメラが下を向いているため、一旦その分は補正する
+					Quaternion rotateOR = MainCamera.transform.rotation;
+					Vector3 rotateOR_E = rotateOR.eulerAngles;
+					rotateOR_E.x = 0;
+					rotateOR = Quaternion.Euler(rotateOR_E);
+					// TODO:サブ射撃左右の矢
+
+					// 特殊射撃以外
+					if (arrow != null)
+					{
+						arrow.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+					}
+				}
+				// それ以外は本体の角度を射出角にする
+				else
+				{
+					// TODO:サブ射撃左右の矢
+
+					// 特殊射撃以外
+					if (arrow != null)
+					{
+						arrow.MoveDirection = Vector3.Normalize(this.transform.rotation * Vector3.forward);
+					}
+				}
+			}
+			// 矢のフックの位置に弾の位置を代入する
+			BulletPos = this.MainShotRoot.transform.position;
+			// 同じく回転角を代入する
+			if (arrow != null)
+			{
+				this.BulletMoveDirection = arrow.MoveDirection;
+			}
+			// 攻撃力を代入する
+			if (type == ShotType.NORMAL_SHOT)
+			{
+				SetOffensivePower(SkillType_Homura_B.SHOT);
+			}
+			else if (type == ShotType.CHARGE_SHOT)
+			{
+				SetOffensivePower(SkillType_Homura_B.CHARGE_SHOT);
+			}
+			else if (type == ShotType.SUB_SHOT)
+			{
+				SetOffensivePower(SkillType_Homura_B.SUB_SHOT);
+			}
+			else if (type == ShotType.EX_SHOT)
+			{
+				SetOffensivePower(SkillType_Homura_B.EX_SHOT);
+			}
+			Shotmode = ShotMode.SHOT;
+
+			// 固定状態を解除
+			// ずれた本体角度を戻す(Yはそのまま）
+			transform.rotation = Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y, 0));
+			transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+
+			// 硬直時間を設定
+			AttackTime = Time.time;
+			// TODO:射出音を再生する
+			
 		}
+		// 弾がないときはとりあえずフラグだけは立てておく
+		else
+		{
+			// 硬直時間を設定
+			AttackTime = Time.time;
+			Shotmode = ShotMode.SHOTDONE;
+		}
+	}
+
+	// 射撃攻撃の攻撃力とダウン値を決定する
+	// kind[in]     :射撃の種類
+	private void SetOffensivePower(SkillType_Homura_B kind)
+	{
+		// 攻撃力を決定する(ここの2がスキルのインデックス。下も同様）
+		this.OffensivePowerOfBullet = Character_Spec.cs[(int)CharacterName][(int)kind].m_OriginalStr + Character_Spec.cs[(int)CharacterName][(int)kind].m_GrowthCoefficientStr * (this.StrLevel - 1);
+		// ダウン値を決定する
+		this.DownratioPowerOfBullet = Character_Spec.cs[(int)CharacterName][(int)kind].m_DownPoint;
+		// 覚醒ゲージ増加量を決定する
+		ArousalRatioOfBullet = Character_Spec.cs[(int)CharacterName][(int)kind].m_arousal;
 	}
 }
