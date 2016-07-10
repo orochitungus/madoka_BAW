@@ -1102,8 +1102,8 @@ public class HomuraBowControl : CharacterControlBase
 
 			// 硬直時間を設定
 			AttackTime = Time.time;
-			// TODO:射出音を再生する
-			
+			// 射出音を再生する
+			AudioManager.Instance.PlaySE("shot_hand_gun");
 		}
 		// 弾がないときはとりあえずフラグだけは立てておく
 		else
@@ -1112,6 +1112,41 @@ public class HomuraBowControl : CharacterControlBase
 			AttackTime = Time.time;
 			Shotmode = ShotMode.SHOTDONE;
 		}
+
+		// フォロースルーへ移行する
+		if(type == ShotType.NORMAL_SHOT)
+		{
+			// 走行時
+			if (RunShotDone)
+			{
+				
+			}
+			// 通常時
+			else
+			{
+				AnimatorUnit.SetInteger("NowState", 22);
+			}
+		}
+		else if(type == ShotType.CHARGE_SHOT)
+		{
+			AnimatorUnit.SetInteger("NowState", 25);
+		}
+		else if(type == ShotType.SUB_SHOT)
+		{
+			AnimatorUnit.SetInteger("NowState", 26);
+		}
+		else if(type == ShotType.EX_SHOT)
+		{
+			AnimatorUnit.SetInteger("NowState", 27);
+		}
+	}
+
+	/// <summary>
+	/// Idle状態に戻す
+	/// </summary>
+	public void ReturnToIdle()
+	{
+		AnimatorUnit.SetInteger("NowState", 0);
 	}
 
 	// 射撃攻撃の攻撃力とダウン値を決定する

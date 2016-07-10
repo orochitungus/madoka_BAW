@@ -3390,11 +3390,11 @@ public class CharacterControlBase : MonoBehaviour
         // 歩き撃ちができない場合もあるから基底にしてオーバーライドが妥当か？
 
         // 歩行時は上半身のみにして走行（下半身のみ）と合成(ブレンドツリーで合成し、上体を捻らせて銃口補正をかける)
-        if (animator.GetHashCode() == runhash)
+        if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == runhash)
         {
             animator.SetInteger("NowState",shotrunhash);
         }
-        else if (animator.GetHashCode() == airdashhash)
+        else if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == airdashhash)
         {
             animator.SetInteger("NowState",shotairdashhash); // 空中ダッシュ射撃へ移行
         }
@@ -3412,10 +3412,10 @@ public class CharacterControlBase : MonoBehaviour
     protected virtual void DestroyArrow()
     {
         // 弾があるなら消す(m_ArrowRootの下に何かあるなら全部消す）
-        int ChildCount = this.MainShotRoot.transform.childCount;
+        int ChildCount = MainShotRoot.transform.childCount;
         for (int i = 0; i < ChildCount; i++)
         {
-            Transform child = this.MainShotRoot.transform.GetChild(i);
+            Transform child = MainShotRoot.transform.GetChild(i);
             Destroy(child.gameObject);
         }
     }
