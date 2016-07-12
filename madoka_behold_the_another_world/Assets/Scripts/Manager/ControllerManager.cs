@@ -114,6 +114,8 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 	/// 射撃・決定
 	/// </summary>
 	public bool Shot;
+    public bool ShotKeyboad;
+    public bool ShotController;
 
     /// <summary>
     /// 射撃長押し
@@ -124,6 +126,8 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 	/// 格闘
 	/// </summary>
 	public bool Wrestle;
+    public bool WrestleKeyboard;
+    public bool WrestleController;
 
     /// <summary>
     /// 格闘長押し
@@ -134,6 +138,8 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 	/// ジャンプ・キャンセル
 	/// </summary>
 	public bool Jump;
+    public bool JumpKeyboard;
+    public bool JumpController;
 
     /// <summary>
     /// ジャンプ長押し
@@ -144,56 +150,78 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 	/// サーチ
 	/// </summary>
 	public bool Search;
+    public bool SearchKeyboard;
+    public bool SearchController;
 
 	/// <summary>
 	/// コマンド
 	/// </summary>
 	public bool Command;
+    public bool CommandKeyboard;
+    public bool CommandController;
 
 	/// <summary>
 	/// アイテム
 	/// </summary>
 	public bool Item;
+    public bool ItemKeyboard;
+    public bool ItemController;
 
 	/// <summary>
 	/// メニュー
 	/// </summary>
 	public bool Menu;
+    public bool MenuKeyboard;
+    public bool MenuController;
 
 	/// <summary>
 	/// サブ射撃
 	/// </summary>
 	public bool SubShot;
+    public bool SubShotKeyboard;
+    public bool SubShotController;
 
 	/// <summary>
 	/// 特殊射撃
 	/// </summary>
 	public bool EXShot;
+    public bool EXShotKeyboard;
+    public bool EXShotController;
 
 	/// <summary>
 	/// 特殊格闘
 	/// </summary>
 	public bool EXWrestle;
+    public bool EXWrestleKeyboard;
+    public bool EXWrestleController;
 
 	/// <summary>
 	/// 視点回転上(仰角）
 	/// </summary>
 	public bool ElevationAngleUpper;
+    public bool ElevationAngleUpperKeyboard;
+    public bool ElevationAngleUpperController;
 
 	/// <summary>
 	/// 視点回転下(仰角)
 	/// </summary>
 	public bool ElevationAngleDown;
+    public bool ElevationAngleDownKeyboard;
+    public bool ElevationAngleDownController;
 
 	/// <summary>
 	/// 視点回転左(方位角)
 	/// </summary>
 	public bool AzimuthLeft;
+    public bool AzimuthLeftKeyboard;
+    public bool AzimuthLeftController;
 
 	/// <summary>
 	/// 視点回転右(方位角)
 	/// </summary>
 	public bool AzimuthRight;
+    public bool AzimuthRightKeyboard;
+    public bool AzimuthRightController;
 
 	/// <summary>
 	/// ブーストダッシュ（ジャンプボタン２連打）検出
@@ -866,71 +894,85 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 			if (k.GetValue(i).ToString() == shotcode_keyboard)
 			{
 				Shot = true;
+                ShotKeyboad = true;
 			}
 			// 格闘取得
 			if (k.GetValue(i).ToString() == wrestlecode_keyboard)
 			{
 				Wrestle = true;
+                WrestleKeyboard = true;
 			}
 			// ジャンプ取得
 			if (k.GetValue(i).ToString() == jump_keyboard)
 			{
 				Jump = true;
+                JumpKeyboard = true;
 			}
 			// サーチ取得
 			if (k.GetValue(i).ToString() == search_keyboard)
 			{
 				Search = true;
+                SearchKeyboard = true;
 			}
 			// メニュー取得
 			if (k.GetValue(i).ToString() == menu_keyboard)
 			{
 				Menu = true;
+                MenuKeyboard = true;
 			}
 			// コマンド取得
 			if (k.GetValue(i).ToString() == command_keyboard)
 			{
 				Command = true;
+                CommandKeyboard = true;
 			}
 			// アイテム取得
 			if (k.GetValue(i).ToString() == item_keyboard)
 			{
 				Item = true;
+                ItemKeyboard = true;
 			}
 			// サブ射撃取得
 			if (k.GetValue(i).ToString() == subshot_keyboard)
 			{
 				SubShot = true;
+                SubShotKeyboard = true;
 			}
 			// 特殊射撃取得
 			if (k.GetValue(i).ToString() == exshot_keyboard)
 			{
 				EXShot = true;
+                EXShotKeyboard = true;
 			}
 			// 特殊格闘取得
 			if (k.GetValue(i).ToString() == exwrestle_keyboard)
 			{
 				EXWrestle = true;
+                EXWrestleKeyboard = true;
 			}
 			// 視点変更上取得
 			if (k.GetValue(i).ToString() == viewchangeupper_keyboard)
 			{
 				ElevationAngleUpper = true;
+                ElevationAngleUpperKeyboard = true;
 			}
 			// 視点変更下取得
 			if (k.GetValue(i).ToString() == viewchangedown_keyboard)
 			{
 				ElevationAngleDown = true;
+                ElevationAngleDownKeyboard = true;
 			}
 			// 視点変更左取得
 			if (k.GetValue(i).ToString() == viewchangeleft_keyboard)
 			{
 				AzimuthLeft = true;
+                AzimuthLeftKeyboard = true;
 			}
 			// 視点変更右取得
 			if (k.GetValue(i).ToString() == viewchangeright_keyboard)
 			{
 				AzimuthRight = true;
+                AzimuthRightKeyboard = true;
 			}
 		}
 		// キー入力取得（コントローラー）
@@ -940,71 +982,85 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 			if (k.GetValue(i).ToString() == shotcode_controller)
 			{
 				Shot = true;
+                ShotController = true;
 			}
 			// 格闘取得
 			if (k.GetValue(i).ToString() == wrestlecode_controller)
 			{
 				Wrestle = true;
+                WrestleController = true;
 			}
 			// ジャンプ取得
 			if (k.GetValue(i).ToString() == jump_controller)
 			{
 				Jump = true;
+                JumpController = true;
 			}
 			// サーチ取得
 			if (k.GetValue(i).ToString() == search_controller)
 			{
 				Search = true;
+                SearchController = true;
 			}
 			// メニュー取得
 			if (k.GetValue(i).ToString() == menu_controller)
 			{
 				Menu = true;
+                MenuController = true;
 			}
 			// コマンド取得
 			if (k.GetValue(i).ToString() == command_controller)
 			{
 				Command = true;
+                CommandController = true;
 			}
 			// アイテム取得
 			if (k.GetValue(i).ToString() == item_controller)
 			{
 				Item = true;
+                ItemController = true;
 			}
 			// サブ射撃取得
 			if (k.GetValue(i).ToString() == subshot_controller)
 			{
 				SubShot = true;
+                SubShotController = true;
 			}
 			// 特殊射撃取得
 			if (k.GetValue(i).ToString() == exshot_controller)
 			{
 				EXShot = true;
+                EXShotController = true;
 			}
 			// 特殊格闘取得
 			if (k.GetValue(i).ToString() == exwrestle_controller)
 			{
 				EXWrestle = true;
+                EXWrestleController = true;
 			}
 			// 視点変更上取得
 			if (k.GetValue(i).ToString() == viewchangeupper_controller)
 			{
 				ElevationAngleUpper = true;
+                ElevationAngleUpperController = true;
 			}
 			// 視点変更下取得
 			if (k.GetValue(i).ToString() == viewchangedown_controller)
 			{
 				ElevationAngleDown = true;
+                ElevationAngleDownController = true;
 			}
 			// 視点変更左取得
 			if (k.GetValue(i).ToString() == viewchangeleft_controller)
 			{
 				AzimuthLeft = true;
+                AzimuthLeftController = true;
 			}
 			// 視点変更右取得
 			if (k.GetValue(i).ToString() == viewchangeright_controller)
 			{
 				AzimuthRight = true;
+                AzimuthRightController = true;
 			}
 		}
 	}
@@ -1074,144 +1130,170 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 		if (k.GetValue(i).ToString().IndexOf("Arrow") < 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0 && k.GetValue(i).ToString().IndexOf("Joystick") < 0)
 		{
 			// 射撃取得
-			if (k.GetValue(i).ToString() == shotcode_keyboard)
+			if (k.GetValue(i).ToString() == shotcode_keyboard && ShotKeyboad)
 			{
 				Shot = false;
                 Shotting = false;
+                ShotKeyboad = false;
 			}
 			// 格闘取得
-			if (k.GetValue(i).ToString() == wrestlecode_keyboard)
+			if (k.GetValue(i).ToString() == wrestlecode_keyboard && WrestleKeyboard)
 			{
 				Wrestle = false;
                 Wrestling = false;
+                WrestleKeyboard = false;
 			}
 			// ジャンプ取得
-			if (k.GetValue(i).ToString() == jump_keyboard)
+			if (k.GetValue(i).ToString() == jump_keyboard && JumpKeyboard)
 			{
 				Jump = false;
                 Jumping = false;
+                JumpKeyboard = false;
 			}
 			// サーチ取得
-			if (k.GetValue(i).ToString() == search_keyboard)
+			if (k.GetValue(i).ToString() == search_keyboard && SearchKeyboard)
 			{
 				Search = false;
+                SearchKeyboard = false;
 			}
 			// メニュー取得
-			if (k.GetValue(i).ToString() == menu_keyboard)
+			if (k.GetValue(i).ToString() == menu_keyboard && MenuKeyboard)
 			{
 				Menu = false;
+                MenuKeyboard = false;
 			}
 			// コマンド取得
-			if (k.GetValue(i).ToString() == command_keyboard)
+			if (k.GetValue(i).ToString() == command_keyboard && CommandKeyboard)
 			{
 				Command = false;
+                CommandKeyboard = false;
 			}
 			// サブ射撃取得
-			if (k.GetValue(i).ToString() == subshot_keyboard)
+			if (k.GetValue(i).ToString() == subshot_keyboard && SubShotKeyboard)
 			{
 				SubShot = false;
+                SubShotKeyboard = false;
 			}
 			// 特殊射撃取得
-			if (k.GetValue(i).ToString() == exshot_keyboard)
+			if (k.GetValue(i).ToString() == exshot_keyboard && EXShotKeyboard)
 			{
 				EXShot = false;
+                EXShotKeyboard = false;
 			}
 			// 特殊格闘取得
-			if (k.GetValue(i).ToString() == exwrestle_keyboard)
+			if (k.GetValue(i).ToString() == exwrestle_keyboard && EXWrestleKeyboard)
 			{
 				EXWrestle = false;
+                EXWrestleKeyboard = false;
 			}
-			// 視点変更上取得
-			if (k.GetValue(i).ToString() == viewchangeupper_keyboard)
+            // 視点変更上取得
+            if (k.GetValue(i).ToString() == viewchangeupper_keyboard && ElevationAngleUpperKeyboard)
 			{
 				ElevationAngleUpper = false;
+                ElevationAngleUpperKeyboard = false;
 			}
 			// 視点変更下取得
-			if (k.GetValue(i).ToString() == viewchangedown_keyboard)
+			if (k.GetValue(i).ToString() == viewchangedown_keyboard && ElevationAngleDownKeyboard)
 			{
 				ElevationAngleDown = false;
+                ElevationAngleDownKeyboard = false;
 			}
 			// 視点変更左取得
-			if (k.GetValue(i).ToString() == viewchangeleft_keyboard)
+			if (k.GetValue(i).ToString() == viewchangeleft_keyboard && AzimuthLeftKeyboard)
 			{
 				AzimuthLeft = false;
+                AzimuthLeftKeyboard = false;
 			}
 			// 視点変更右取得
-			if (k.GetValue(i).ToString() == viewchangeright_keyboard)
+			if (k.GetValue(i).ToString() == viewchangeright_keyboard && AzimuthRightKeyboard)
 			{
 				AzimuthRight = false;
+                AzimuthRightKeyboard = false;
 			}
 		}
 		// キー入力取得（コントローラー）
 		if (k.GetValue(i).ToString().IndexOf("Joystick1") >= 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0)
 		{
 			// 射撃取得
-			if (k.GetValue(i).ToString() == shotcode_controller)
+			if (k.GetValue(i).ToString() == shotcode_controller && ShotController)
 			{
 				Shot = false;
                 Shotting = false;
+                ShotController = false;
 			}
 			// 格闘取得
-			if (k.GetValue(i).ToString() == wrestlecode_controller)
+			if (k.GetValue(i).ToString() == wrestlecode_controller && WrestleController)
 			{
 				Wrestle = false;
                 Wrestling = false;
+                WrestleController = false;
 			}
 			// ジャンプ取得
-			if (k.GetValue(i).ToString() == jump_controller)
+			if (k.GetValue(i).ToString() == jump_controller && JumpController)
 			{
 				Jump = false;
                 Jumping = false;
+                JumpController = false;
 			}
 			// サーチ取得
-			if (k.GetValue(i).ToString() == search_controller)
+			if (k.GetValue(i).ToString() == search_controller && SearchController)
 			{
 				Search = false;
+                SearchController = false;
 			}
 			// メニュー取得
-			if (k.GetValue(i).ToString() == menu_controller)
+			if (k.GetValue(i).ToString() == menu_controller && MenuController)
 			{
 				Menu = false;
+                MenuController = false;
 			}
 			// コマンド取得
-			if (k.GetValue(i).ToString() == command_controller)
+			if (k.GetValue(i).ToString() == command_controller && CommandController)
 			{
 				Command = false;
+                CommandController = false;
 			}
 			// サブ射撃取得
-			if (k.GetValue(i).ToString() == subshot_controller)
+			if (k.GetValue(i).ToString() == subshot_controller && SubShotController)
 			{
 				SubShot = false;
+                SubShotController = false;
 			}
 			// 特殊射撃取得
-			if (k.GetValue(i).ToString() == exshot_controller)
+			if (k.GetValue(i).ToString() == exshot_controller && EXShotController)
 			{
 				EXShot = false;
+                EXShotController = false;
 			}
 			// 特殊格闘取得
-			if (k.GetValue(i).ToString() == exwrestle_controller)
+			if (k.GetValue(i).ToString() == exwrestle_controller && EXWrestleController)
 			{
 				EXWrestle = false;
+                EXWrestleController = false;
 			}
-			// 視点変更上取得
-			if (k.GetValue(i).ToString() == viewchangeupper_controller)
+            // 視点変更上取得
+            if (k.GetValue(i).ToString() == viewchangeupper_controller && ElevationAngleUpperController)
 			{
 				ElevationAngleUpper = false;
+                ElevationAngleUpperController = false;
 			}
 			// 視点変更下取得
-			if (k.GetValue(i).ToString() == viewchangedown_controller)
+			if (k.GetValue(i).ToString() == viewchangedown_controller && ElevationAngleDownController)
 			{
 				ElevationAngleDown = false;
+                ElevationAngleDownController = false;
 			}
 			// 視点変更左取得
-			if (k.GetValue(i).ToString() == viewchangeleft_controller)
+			if (k.GetValue(i).ToString() == viewchangeleft_controller && AzimuthLeftController)
 			{
 				AzimuthLeft = false;
+                AzimuthLeftController = false;
 			}
 			// 視点変更右取得
-			if (k.GetValue(i).ToString() == viewchangeright_controller)
+			if (k.GetValue(i).ToString() == viewchangeright_controller && AzimuthRightController)
 			{
 				AzimuthRight = false;
+                AzimuthRightController = false;
 			}
 		}
 	}
