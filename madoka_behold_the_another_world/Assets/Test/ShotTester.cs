@@ -18,7 +18,8 @@ public class ShotTester : MonoBehaviour
 	{
 		if(Input.GetKeyDown(KeyCode.A))
 		{
-			AnimatorUnit.SetInteger("NowState", 1);
+            //AnimatorUnit.SetInteger("NowState", 1);
+            AnimatorUnit.SetTrigger("shoot");
 		}
 	}
 
@@ -29,11 +30,13 @@ public class ShotTester : MonoBehaviour
 
 	public void FollowThrowDone()
 	{
-		AnimatorUnit.SetInteger("NowStete", 2);
+        //AnimatorUnit.SetInteger("NowState", 2);
+        AnimatorUnit.SetTrigger("followthrow");
 	}
 
 	public void ReturnToIdle()
 	{
-		AnimatorUnit.SetInteger("NowState", 0);
+        //AnimatorUnit.SetInteger("NowState", 0);
+        AnimatorUnit.SetTrigger("Idle");
 	}
 }
