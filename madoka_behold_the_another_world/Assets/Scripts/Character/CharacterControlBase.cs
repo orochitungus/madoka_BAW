@@ -1436,10 +1436,10 @@ public class CharacterControlBase : MonoBehaviour
 	/// </summary>
 	/// <param name="animator"></param>
 	/// <param name="jumpid">ジャンプのState番号</param>
-	protected virtual void JumpDone(Animator animator, int jumpid)
+	protected virtual void JumpDone(Animator animator)
 	{
 		transform.Translate(new Vector3(0, 1, 0));	// 打ち上げる
-		animator.SetInteger("NowState", jumpid);
+        animator.SetTrigger("Jump");
 		Boost = Boost - JumpUseBoost;
 	}
 
@@ -1507,14 +1507,48 @@ public class CharacterControlBase : MonoBehaviour
                     Mine_VerturalPos.y = 0;
                     transform.rotation = Quaternion.LookRotation(Target_VertualPos - Mine_VerturalPos);
                     // アニメ再生
-                    animator.SetInteger("NowState",stepanimations[i]);
+                    // 前
+                    if (i == 0)
+                    {                        
+                        animator.SetTrigger("FrontStep");
+                    }
+                    // 右前
+                    else if(i == 1)
+                    {
+                        animator.SetTrigger("RightStep");
+                    }
+                    // 右
+                    else if (i == 2)
+                    {
+                        animator.SetTrigger("RightStep");
+                    }
+                    // 右後
+                    else if (i == 3)
+                    {
+                        animator.SetTrigger("RightStep");
+                    }
+                    // 後
+                    else if (i == 4)
+                    {
+                        animator.SetTrigger("BackStep");
+                    }
+                    // 左後
+                    else if (i == 5)
+                    {
+                        animator.SetTrigger("LeftStep");
+                    }
+                    // 左前
+                    else if (i == 6)
+                    {
+                        animator.SetTrigger("LeftStep");
+                    }
                     break;
                 }
                 // 非ロックオン時
                 else
                 {
                     // アニメ再生（強制的にフロントステップにする）
-                    animator.SetInteger("NowState",stepanimations[0]);
+                    animator.SetTrigger("FrontStep");
                     break;
                 }
             }
@@ -1535,13 +1569,13 @@ public class CharacterControlBase : MonoBehaviour
                 Mine_VerturalPos.y = 0;
                 this.transform.rotation = Quaternion.LookRotation(Target_VertualPos - Mine_VerturalPos);
                 // アニメ再生（左ステップ）
-                animator.SetInteger("NowState",stepanimations[3]);
+                animator.SetTrigger("LeftStep");
             }
             // 非ロックオン時
             else
             {
                 // アニメ再生（強制的にフロントステップにする）
-                animator.SetInteger("NowState",stepanimations[0]);
+                animator.SetTrigger("FrontStep");
             }
         }
         this.Boost = this.Boost - this.StepUseBoost;
@@ -1670,7 +1704,7 @@ public class CharacterControlBase : MonoBehaviour
                 FallDone(new Vector3(0, 0, 0),animator,fallhash);
             }
             // アニメーションを戻す
-            animator.SetInteger("NowState",idlehash);
+            animator.SetTrigger("Idle");
         }
     }
 
@@ -1704,7 +1738,7 @@ public class CharacterControlBase : MonoBehaviour
         // ブースト切れ時にFallDone、DestroyWrestleを実行する
         if (Boost <= 0)
         {
-            animator.SetInteger("NowState",fallhash);
+            animator.SetTrigger("Fall");
             DestroyWrestle();
             _FallStartTime = Time.time;
         }
@@ -1826,7 +1860,7 @@ public class CharacterControlBase : MonoBehaviour
                 stepinput.x = 0.5f;
                 stepinput.y = -0.5f;
             }
-            else if(ControllerManager.Instance.Right)
+            else if(ControllerManager.Instance.RightStep)
             {
                 stepinput.x = 1.0f;
                 stepinput.y = 0.0f;
@@ -1996,13 +2030,13 @@ public class CharacterControlBase : MonoBehaviour
         //2．ブーストゲージが0になると、強制的にIdleに戻す
         if (Boost <= 0)
         {
-            animator.SetInteger("NowState",idlehash);
+            animator.SetTrigger("Idle");
             DestroyWrestle();
         }
         //3．格闘ボタンか下入力を離すと、強制的にIdleに戻す
         if (!ControllerManager.Instance.Wrestle || ControllerManager.Instance.UnderUp)
         {
-            animator.SetInteger("NowState",idlehash);
+            animator.SetTrigger("Idle");
             DestroyWrestle();
         }
     }
@@ -2023,7 +2057,7 @@ public class CharacterControlBase : MonoBehaviour
         // ブースト切れ時にFallDone、DestroyWrestleを実行する
         if (Boost <= 0)
         {
-            animator.SetInteger("NowState",fallhash);
+            animator.SetTrigger("Fall");
             DestroyWrestle();
             _FallStartTime = Time.time;
         }
@@ -2066,7 +2100,7 @@ public class CharacterControlBase : MonoBehaviour
         {
             // 判定オブジェクトを破棄する.一応くっついているものはすべて削除
             DestroyWrestle();
-            animator.SetInteger("NowState",fallhash);
+            animator.SetTrigger("Fall");
             DestroyWrestle();
             _FallStartTime = Time.time;
         }
@@ -2155,7 +2189,7 @@ public class CharacterControlBase : MonoBehaviour
         {
             // 判定オブジェクトを破棄する.一応くっついているものはすべて削除
             DestroyWrestle();
-            animator.SetInteger("NowState",fallhash);
+            animator.SetTrigger("Fall");
             DestroyWrestle();
             _FallStartTime = Time.time;
         }
@@ -2195,7 +2229,7 @@ public class CharacterControlBase : MonoBehaviour
         this.transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0));
         // 無効になっていたら重力を復活させる
         this.GetComponent<Rigidbody>().useGravity = true;
-        animator.SetInteger("NowState",landingID);
+        animator.SetTrigger("Landing");
         // 着地したので硬直を設定する
         LandingTime = Time.time;
     }
@@ -2219,7 +2253,7 @@ public class CharacterControlBase : MonoBehaviour
             BrestObject.transform.rotation = Quaternion.Euler(0, 0, 0);
             Rotatehold = false;
             this.Boost = Boost - DashCancelUseBoost;
-            animator.SetInteger("NowState",airdashID);
+            animator.SetTrigger("AirDash");
             // 移動方向取得
             //UpdateRotation();
             //this.m_MoveDirection = transform.rotation * Vector3.forward;
@@ -2286,7 +2320,7 @@ public class CharacterControlBase : MonoBehaviour
         IsStep = false;
         IsWrestle = false;
         this.GetComponent<Rigidbody>().useGravity = true;
-        animator.SetInteger("NowState",fallID);
+        animator.SetTrigger("Fall");
         RiseSpeed = new Vector3(0, -this.RiseSpeed, 0);
         _FallStartTime = Time.time;
     }
@@ -2546,7 +2580,7 @@ public class CharacterControlBase : MonoBehaviour
         // 硬直時間が終わるとIdleへ戻る。オバヒ着地とかやりたいならBoost0でLandingTimeの値を変えるとか
         if (Time.time > LandingTime + LandingWaitTime)
         {
-            animator.SetInteger("NowState",landinghash);
+            animator.SetTrigger("Landing");
             // ブースト量を初期化する
             this.Boost = GetMaxBoost(this.BoostLevel);
         }
@@ -2598,7 +2632,7 @@ public class CharacterControlBase : MonoBehaviour
 		BlowDirection = Vector3.zero;
 
 		// 初期アニメIdleを再生する
-		animator.SetInteger("NowState",idleID);
+        animator.SetTrigger("Idle");
 
 		// ブースト量を初期化する
 		Boost = GetMaxBoost(this.BoostLevel);
@@ -3294,19 +3328,19 @@ public class CharacterControlBase : MonoBehaviour
             this.MoveDirection = transform.rotation * Vector3.forward;
             if( animator.GetCurrentAnimatorStateInfo(0).fullPathHash == frontstephash)
             {
-                animator.SetInteger("NowState",frontstepbackID);
+                animator.SetTrigger("FrontStepBack");
             }
             else if(animator.GetCurrentAnimatorStateInfo(0).fullPathHash  == leftstephash)
             {
-                animator.SetInteger("NowState",leftstepbackID);
+                animator.SetTrigger("LeftStepBack");
             }
             else if(animator.GetCurrentAnimatorStateInfo(0).fullPathHash  == rightstephash)
             {
-                animator.SetInteger("NowState",rightstepbackID);
+                animator.SetTrigger("RightStepBack");
             }
             else if(animator.GetCurrentAnimatorStateInfo(0).fullPathHash  == backstephash)
             {
-                animator.SetInteger("NowState",backstepbackID);
+                animator.SetTrigger("BackStepBack");
             }
         }
     }
@@ -3321,7 +3355,7 @@ public class CharacterControlBase : MonoBehaviour
             if (!HasVHInput && ControllerManager.Instance.Jump)
             {
                 // 上昇制御をAddForceにするとやりにくい（特に慣性ジャンプ）
-                JumpDone(animator,jumpID);
+                JumpDone(animator);
                 return true;
             }
             // ジャンプ再入力で向いている方向へ空中ダッシュ(上昇は押しっぱなし)            
@@ -3364,17 +3398,17 @@ public class CharacterControlBase : MonoBehaviour
         // 方向キー入力があった場合かつ地上にいた場合
         if (IsGrounded && HasVHInput)
         {
-            animator.SetInteger("NowState",runhash);
+            animator.SetTrigger("Run");
         }
         // 方向キー入力がなくかつ地上にいた場合
         else if (IsGrounded)
         {
-            animator.SetInteger("NowState",idlehash);
+            animator.SetTrigger("Idle");
         }
         // 空中にいた場合
         else
         {
-            animator.SetInteger("NowState",fallhash);
+            animator.SetTrigger("Fall");
             _FallStartTime = Time.time;
         }
         
@@ -3392,15 +3426,15 @@ public class CharacterControlBase : MonoBehaviour
         // 歩行時は上半身のみにして走行（下半身のみ）と合成(ブレンドツリーで合成し、上体を捻らせて銃口補正をかける)
         if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == runhash)
         {
-            animator.SetInteger("NowState",shotrunhash);
+            animator.SetTrigger("RunShot");
         }
         else if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == airdashhash)
         {
-            animator.SetInteger("NowState",shotairdashhash); // 空中ダッシュ射撃へ移行
+            animator.SetTrigger("AirShot");
         }
         else
         {
-            animator.SetInteger("NowState",shothash);       // 通常撃ちへ移行
+            animator.SetTrigger("Shot");
         }
 
         Shotmode = ShotMode.RELORD;        // 装填状態へ移行
@@ -3468,7 +3502,7 @@ public class CharacterControlBase : MonoBehaviour
         {
             if (run)
             {
-                animator.SetInteger("NowState",idlehash);
+                animator.SetTrigger("Idle");
             }
             this.MoveDirection = Vector3.zero;
         }
@@ -3604,7 +3638,7 @@ public class CharacterControlBase : MonoBehaviour
     protected void EmagencyStop(Animator animator, int idlehash)
     {
         this.MoveDirection = Vector3.zero;
-        animator.SetInteger("NowState",idlehash);
+        animator.SetTrigger("Idle");
     }
 
     /// <summary>
@@ -3747,7 +3781,7 @@ public class CharacterControlBase : MonoBehaviour
         float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
 
         // アニメーションを再生する
-        animator.SetInteger("NowState",wrestlehash);
+        animator.SetTrigger("Wrestle1");
                
         // アニメーションの速度を調整する
         animator.speed = speed;
@@ -3811,7 +3845,7 @@ public class CharacterControlBase : MonoBehaviour
         // アニメーション速度
         float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
         // アニメーションを再生する
-        animator.SetInteger("NowState",wrestlehash);
+        animator.SetTrigger("LeftWretle");
 
         // アニメーションの速度を調整する
         animator.speed = speed;
@@ -3876,7 +3910,7 @@ public class CharacterControlBase : MonoBehaviour
         // アニメーション速度
         float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
         // アニメーションを再生する
-        animator.SetInteger("NowState",wrestlehash);
+        animator.SetTrigger("RightWrestle");
 
         // アニメーションの速度を調整する
         animator.speed = speed;
@@ -3932,7 +3966,7 @@ public class CharacterControlBase : MonoBehaviour
         //3．アニメーション速度を設定する
         float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
         // アニメーションを再生する
-        animator.SetInteger("NowState",wrestlehash);
+        animator.SetTrigger("BackWrestle");
 
         // アニメーションの速度を調整する
         animator.speed = speed;
@@ -3985,7 +4019,7 @@ public class CharacterControlBase : MonoBehaviour
 		// アニメーション速度を設定する
 		float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
 		// AnimStateを変更する
-		animator.SetInteger("NowState",wrestlehash);
+        animator.SetTrigger("FrontEXWrestle");
 		// アニメーションの速度を調整する
 		animator.speed = speed;
 		// 移動速度を上にする
@@ -4038,7 +4072,7 @@ public class CharacterControlBase : MonoBehaviour
 		// アニメーション速度を設定する
 		float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
 		// AnimStateを変更する
-		animator.SetInteger("NowState",wrestlehash);
+        animator.SetTrigger("BackEXWrestle");
 		// アニメーションの速度を調整する
 		animator.speed = speed;
 		// 移動速度を設定する
@@ -4110,12 +4144,12 @@ public class CharacterControlBase : MonoBehaviour
 		{
 			if (this.IsGrounded)
 			{
-				animator.SetInteger("NowState",idlehash);
+                animator.SetTrigger("Idle");
 			}
 			else
 			{				
 				_FallStartTime = Time.time;
-				animator.SetInteger("NowState",fallhash);
+                animator.SetTrigger("Fall");
 			}
 		}
 	}
@@ -4445,9 +4479,8 @@ public class CharacterControlBase : MonoBehaviour
 		// （継承先で本体にくっついていたオブジェクトをカット）
 		// （UpdateCoreで入力をポーズ以外すべて禁止）
 		// ダメージアニメーションを再生
-		//Debug.Log(m_AnimationNames[(int)AnimationState.Damage]);
-		animator.SetInteger("NowState",damageID);
-
+		
+        animator.SetTrigger("Damage");
 
 		// 動作及び慣性をカット
 		this.MoveDirection = Vector3.zero;
@@ -4509,9 +4542,9 @@ public class CharacterControlBase : MonoBehaviour
 		this.GetComponent<Rigidbody>().useGravity = false;
 		// ダメージ硬直の計算開始
 		DamagedTime = Time.time;
-		// ステートをDamageに切り替える
-		animator.SetInteger("NowState",damageID);
-	}
+        // ステートをDamageに切り替える
+        animator.SetTrigger("Damage");
+    }
 
     /// <summary>
     /// 吹き飛びダメージ時、ダメージの処理を行う
@@ -4538,7 +4571,7 @@ public class CharacterControlBase : MonoBehaviour
 		if (this.NowDownRatio >= this.DownRatioBias)
 		{
 			// 錐揉みダウンアニメを再生する
-			animator.SetInteger("NowState",spindownID);
+			animator.SetTrigger("Spindown");
 			// 無敵をONにする
 			Invincible = true;
 		}
@@ -4547,8 +4580,8 @@ public class CharacterControlBase : MonoBehaviour
 		{
 			// Rotateの固定を解除        
 			GetComponent<Rigidbody>().freezeRotation = false;
-			// ダウンアニメを再生する
-			animator.SetInteger("NowState",blowID);
+            // ダウンアニメを再生する
+            animator.SetTrigger("Blow");
 		}
 		// 攻撃と同じベクトルを与える。ここの値はm_BlowDirectionに保存したものを使う
 		// TODO:Velocityで飛ばしてるのでMoveDirectionに変えてそれで飛ばす
@@ -4575,8 +4608,8 @@ public class CharacterControlBase : MonoBehaviour
 			{
 				// Rotateの固定を解除        
 				RigidBody.freezeRotation = false;
-				// ダウンアニメを再生する
-				animator.SetInteger("NowState",blowhash);
+                // ダウンアニメを再生する
+                animator.SetTrigger("Blow");
 				// 重力を復活
 				this.GetComponent<Rigidbody>().useGravity = true;				
 			}
@@ -4584,7 +4617,7 @@ public class CharacterControlBase : MonoBehaviour
 			else
 			{
 				RigidBody.useGravity = true;
-				animator.SetInteger("NowState",idlehash);
+                animator.SetTrigger("Idle");
 			}
 		}
 	}
@@ -4607,7 +4640,7 @@ public class CharacterControlBase : MonoBehaviour
 		// 接地までなにもせず、接地したらDownへ移行し、m_DownTimeを計算する
 		if (this.IsGrounded)
 		{
-			animator.SetInteger("NowState",downhash);
+            animator.SetTrigger("Down");
 			// downへ移行
 			this.DownTime = Time.time;
 			// 速度を0まで落とす（吹き飛び時のベクトルを消す）
@@ -4641,7 +4674,7 @@ public class CharacterControlBase : MonoBehaviour
 		if (IsGrounded)
 		{
 			// downへ移行
-			animator.SetInteger("NowState",downhash);
+            animator.SetTrigger("Down");
 			this.DownTime = Time.time;
 			// 速度を0まで落とす（吹き飛び時のベクトルを消す）
 			this.MoveDirection = Vector3.zero;
@@ -4700,8 +4733,8 @@ public class CharacterControlBase : MonoBehaviour
 		this.NowDownRatio = 0.0f;
 		// m_DownRebirthTimeを0にする
 		this.DownRebirthTime = 0;
-		// ステートをIdleに戻す
-		animator.SetInteger("NowState",idlehash);
+        // ステートをIdleに戻す
+        animator.SetTrigger("Idle");;
 		// m_DownTimeを0にする
 		this.DownTime = 0;
 		// 無敵時間を解除する
@@ -4740,9 +4773,9 @@ public class CharacterControlBase : MonoBehaviour
         //IsWrestle = false;
 
         // 死んでいたらダウン
-        if (NowHitpoint <= 1)
+        if (NowHitpoint < 1)
         {
-            animator.SetInteger("NowState", downID);
+            animator.SetTrigger("Down");
         }
         // くっついているエフェクトの親元を消す
         BrokenEffect();
@@ -4765,14 +4798,14 @@ public class CharacterControlBase : MonoBehaviour
         {
             // 方向キーで走行
             if (HasVHInput)
-            {                
-                animator.SetInteger("NowState",runID);
+            {
+                animator.SetTrigger("IDle");
             }
             // ジャンプでジャンプへ移行(GetButtonDownで押しっぱなしにはならない。GetButtonで押しっぱなしに対応）
             if (this.HasJumpInput && Boost > 0)
             {
                 // 上昇制御をAddForceにするとやりにくい（特に慣性ジャンプ）
-                JumpDone(animator, jumpID);
+                JumpDone(animator);
             }			
 			// ステップの場合ステップ(非CPU時)
 			if (IsPlayer == CHARACTERCODE.PLAYER)
@@ -4831,7 +4864,7 @@ public class CharacterControlBase : MonoBehaviour
         else
         {
             _FallStartTime = Time.time;
-            animator.SetInteger("NowState",fallID);
+            animator.SetTrigger("Fall");
         }
 
     }
@@ -4844,7 +4877,7 @@ public class CharacterControlBase : MonoBehaviour
         RigidBody.constraints = RigidbodyConstraints.FreezeRotation;
         // ずれた本体角度を戻す(Yはそのまま）
         transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0));
-        animator.SetInteger("NowState",walkhashID);
+        animator.SetTrigger("Walk");
     }
 
     /// <summary>
@@ -4862,9 +4895,6 @@ public class CharacterControlBase : MonoBehaviour
     // Jumping時共通動作
     protected virtual void Animation_Jumping(Animator animator,int fallID, int[] stepanimations,int airdashID,int landinghashID)
     {
-		// 遷移フラグを折っておく
-		animator.SetInteger("NowState", -1);
-
         Vector3 RiseSpeed = new Vector3(MoveDirection.x, this.RiseSpeed, MoveDirection.z);
         if (Time.time > JumpTime + JumpWaitTime)
         {
@@ -4973,7 +5003,7 @@ public class CharacterControlBase : MonoBehaviour
         // ボタンを離したら下降へ移行
         if (!HasJumpingInput)
         {
-            animator.SetInteger("NowState",fallID);
+            animator.SetTrigger("Fall");
             _FallStartTime = Time.time;
             RiseSpeed = new Vector3(0, -this.RiseSpeed, 0);
         }
@@ -5061,19 +5091,19 @@ public class CharacterControlBase : MonoBehaviour
             // 入力が外れるとアイドル状態へ
             else
             {
-                animator.SetInteger("NowState",idleID);
+                animator.SetTrigger("Idle");
             }
 
             // ジャンプでジャンプへ移行(GetButtonDownで押しっぱなしにはならない。GetButtonで押しっぱなしに対応）
             if (this.HasJumpInput && Boost > 0)
             {
                 // 上昇制御をAddForceにするとやりにくい（特に慣性ジャンプ）
-                JumpDone(animator,jumpID);
+                JumpDone(animator);
             }
         }
         else
         {
-            animator.SetInteger("NowState",fallhashID);
+            animator.SetTrigger("Fall");
         }
     }
 
@@ -5111,7 +5141,7 @@ public class CharacterControlBase : MonoBehaviour
 			// ジャンプボタンで再ジャンプ
 			else if (this.HasJumpInput)
 			{
-				JumpDone(animator, jumpID);
+				JumpDone(animator);
 			}
 			// ステップの場合ステップ
 			// 前
@@ -5219,7 +5249,7 @@ public class CharacterControlBase : MonoBehaviour
 		// 硬直時間が終わるとIdleへ戻る。オバヒ着地とかやりたいならBoost0でLandingTimeの値を変えるとか
 		if (Time.time > LandingTime + LandingWaitTime)
 		{
-			animator.SetInteger("NowState", 0);
+            animator.SetTrigger("Idle");
 			// ブースト量を初期化する
 			Boost = GetMaxBoost(BoostLevel);
 		}
@@ -5306,8 +5336,8 @@ public class CharacterControlBase : MonoBehaviour
 			this.GetComponent<Rigidbody>().useGravity = true;
 			// 動作を停止する
 			this.MoveDirection = new Vector3(0, 0, 0);
-			// アニメーションをIdleに戻す
-			animator.SetInteger("NowState", idleID);
+            // アニメーションをIdleに戻す
+            animator.SetTrigger("Idle");
 		}	
 	}
 

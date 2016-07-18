@@ -483,17 +483,12 @@ public class HomuraBowControl : CharacterControlBase
             // 特殊射撃
             ReloadSystem.OneByOne(ref BulletNum[(int)ShotType.EX_SHOT], Time.time, Character_Spec.cs[(int)CharacterName][(int)ShotType.EX_SHOT].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.EX_SHOT].m_OriginalBulletNum,
                 Character_Spec.cs[(int)CharacterName][(int)ShotType.EX_SHOT].m_reloadtime, ref ExshotEndtime);
-        }
-        Debug.Log(AnimatorUnit.GetInteger("NowState"));
+        }       
 	}
 
 	void LateUpdate()
 	{
-		// 遷移したトランジションを折っておく(ジャンプ開始時は除く）
-		if (AnimatorUnit.GetInteger("NowState") != 3)
-		{
-			AnimatorUnit.SetInteger("NowState", -1);
-		}
+		
 	}
 
 	void UpdateAnimation()
@@ -686,7 +681,7 @@ public class HomuraBowControl : CharacterControlBase
 	/// </summary>
 	public void JumpingMigration()
 	{
-		AnimatorUnit.SetInteger("NowState", 3);
+        AnimatorUnit.SetTrigger("Jumping");
 	}
 
 	/// <summary>
@@ -841,7 +836,7 @@ public class HomuraBowControl : CharacterControlBase
 		// 立ち射撃か空中射撃
 		else
 		{
-			AnimatorUnit.SetInteger("NowState", 16);
+            AnimatorUnit.SetTrigger("Shot");
 		}
 		// 装填状態へ移行
 		Shotmode = ShotMode.RELORD;
@@ -1125,20 +1120,20 @@ public class HomuraBowControl : CharacterControlBase
 			// 通常時
 			else
 			{
-				AnimatorUnit.SetInteger("NowState", 22);
+                AnimatorUnit.SetTrigger("FollowThrow");
 			}
 		}
 		else if(type == ShotType.CHARGE_SHOT)
 		{
-			AnimatorUnit.SetInteger("NowState", 25);
+            AnimatorUnit.SetTrigger("ChargerShotFollowThrow");
 		}
 		else if(type == ShotType.SUB_SHOT)
 		{
-			AnimatorUnit.SetInteger("NowState", 26);
+            AnimatorUnit.SetTrigger("SubShotFollowThrow");
 		}
 		else if(type == ShotType.EX_SHOT)
 		{
-			AnimatorUnit.SetInteger("NowState", 27);
+            AnimatorUnit.SetTrigger("EXShotFollowThrow");
 		}
 	}
 
@@ -1147,7 +1142,7 @@ public class HomuraBowControl : CharacterControlBase
 	/// </summary>
 	public void ReturnToIdle()
 	{
-		AnimatorUnit.SetInteger("NowState", 0);
+        AnimatorUnit.SetTrigger("Idle");
 	}
 
 	// 射撃攻撃の攻撃力とダウン値を決定する
