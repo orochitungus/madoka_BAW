@@ -799,8 +799,8 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 
 
         // BD
-        var boostdashstream = this.UpdateAsObservable().Where(_ => Jump).Do(_ => Debug.Log(Jump));
-        boostdashstream.Buffer(boostdashstream.Throttle(TimeSpan.FromMilliseconds(300))).Where(x => x.Count >= 2).Do(x => Debug.Log(x.Count)).Subscribe(_ => 
+        var boostdashstream = this.UpdateAsObservable().Where(_ => Jump);
+        boostdashstream.Buffer(boostdashstream.Throttle(TimeSpan.FromMilliseconds(300))).Where(x => x.Count >= 2).Subscribe(_ => 
 		{ 			
 			BoostDash = true; 
 		});

@@ -196,7 +196,7 @@ public class Bullet : MonoBehaviour
                 transform.GetComponent<Rigidbody>().isKinematic = false;                                
                 {                    
                     {
-                        Vector3 Correction_Rot = new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + 12.0f , transform.rotation.eulerAngles.z);
+                        Vector3 Correction_Rot = new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
                         transform.rotation = Quaternion.Euler(Correction_Rot);
                     }
                     // 誘導がないなら進行方向は固定

@@ -3387,7 +3387,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <summary>
     /// 歩き撃ちのアニメーションを戻す
     /// </summary>
-    protected virtual void ReturnMotion(Animator animator, int runhash, int idlehash, int fallhash)
+    protected virtual void ReturnMotion(Animator animator)
     {
         
         // 歩き撃ちフラグを折る
@@ -4799,7 +4799,7 @@ public class CharacterControlBase : MonoBehaviour
             // 方向キーで走行
             if (HasVHInput)
             {
-                animator.SetTrigger("IDle");
+                animator.SetTrigger("Run");
             }
             // ジャンプでジャンプへ移行(GetButtonDownで押しっぱなしにはならない。GetButtonで押しっぱなしに対応）
             if (this.HasJumpInput && Boost > 0)

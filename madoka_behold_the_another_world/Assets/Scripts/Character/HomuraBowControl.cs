@@ -831,8 +831,9 @@ public class HomuraBowControl : CharacterControlBase
 		// 歩行時は上半身のみにして走行（下半身のみ）と合成
 		if(runshot)
 		{
-			// TODO:アニメーション合成処理＆再生
-		}
+            // アニメーション合成処理＆再生
+            AnimatorUnit.SetTrigger("RunShot");
+        }
 		// 立ち射撃か空中射撃
 		else
 		{
@@ -1115,7 +1116,7 @@ public class HomuraBowControl : CharacterControlBase
 			// 走行時
 			if (RunShotDone)
 			{
-				
+                AnimatorUnit.SetTrigger("RunFollowThrow");
 			}
 			// 通常時
 			else
@@ -1142,7 +1143,7 @@ public class HomuraBowControl : CharacterControlBase
 	/// </summary>
 	public void ReturnToIdle()
 	{
-        AnimatorUnit.SetTrigger("Idle");
+        ReturnMotion(AnimatorUnit);
 	}
 
 	// 射撃攻撃の攻撃力とダウン値を決定する
