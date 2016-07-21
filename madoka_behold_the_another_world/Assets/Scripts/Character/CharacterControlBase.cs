@@ -1084,7 +1084,7 @@ public class CharacterControlBase : MonoBehaviour
         bool compleate = false;
         if (IsPlayer == CHARACTERCODE.PLAYER)
         {
-            // 入力中はm_ShotChargeを増加
+            // 入力中はShotChargeを増加
             if (ControllerManager.Instance.Shotting)
             {
                 if (ShotCharge < 0)
@@ -1103,7 +1103,7 @@ public class CharacterControlBase : MonoBehaviour
             }
         }
         // MAX状態で離されるとチャージ量を0にしてtrue
-        if (ShotCharge >= ChargeMax && (!ControllerManager.Instance.Shot))
+        if (ShotCharge >= ChargeMax && (!ControllerManager.Instance.Shotting))
         {
             ShotCharge = 0;
             compleate = true;

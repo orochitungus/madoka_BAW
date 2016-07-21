@@ -151,7 +151,7 @@ public class CharacterSkill
     // リロードタイプ
     public ReloadType m_reloadtype;
 
-    // リロード時間
+    // リロード時間（チャージショットは溜め時間）
     public float m_reloadtime;
 
     // アニメーション実行時間(これを過ぎたら該当の格闘動作を終了する）

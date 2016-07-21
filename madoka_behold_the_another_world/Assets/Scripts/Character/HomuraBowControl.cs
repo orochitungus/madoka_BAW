@@ -423,6 +423,9 @@ public class HomuraBowControl : CharacterControlBase
                 Battleinterfacecontroller.Weapon3.Use = false;
             }
 
+			// チャージ射撃
+			Battleinterfacecontroller.Weapon3.NowChargeValue = ShotCharge;
+
             // サブ射撃
             Battleinterfacecontroller.Weapon2.Kind.text = "Sub Shot";
             Battleinterfacecontroller.Weapon2.WeaponGraphic.sprite = SubShotIcon;
