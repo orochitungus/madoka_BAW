@@ -338,7 +338,7 @@ public static class Character_Spec
         {
             // 射撃
             new CharacterSkill(CharacterSkill.SkillType.SHOT,"マジカルアロー",40,5,6,1,2.0f,1,CharacterSkill.HitType.BEND_BACKWARD,0.3f,50.0f,CharacterSkill.ReloadType.ONE_BY_ONE, 3.5f,10),
-            new CharacterSkill(CharacterSkill.SkillType.CHARGE_SHOT,"アローレーザー",70,5,1,0,3.0f,1,CharacterSkill.HitType.BEND_BACKWARD,1.0f,10.0f,CharacterSkill.ReloadType.NOTHING,0.0f,30),
+            new CharacterSkill(CharacterSkill.SkillType.CHARGE_SHOT,"アローレーザー",70,5,1,0,1.0f,1,CharacterSkill.HitType.BEND_BACKWARD,1.0f,10.0f,CharacterSkill.ReloadType.NOTHING,2.0f,30),
             new CharacterSkill(CharacterSkill.SkillType.SUB_SHOT,"スプレッドアロー",60,5,2,1,3.0f,1,CharacterSkill.HitType.BLOW,1.0f,50.0f,CharacterSkill.ReloadType.IT_ALL_TOGETHER,9.0f,20),
             new CharacterSkill(CharacterSkill.SkillType.EX_SHOT,"アローレイン",50,5,2,1,2.0f,1,CharacterSkill.HitType.BEND_BACKWARD,1.0f,50.0f,CharacterSkill.ReloadType.ONE_BY_ONE,8.0f,20),
             // 格闘

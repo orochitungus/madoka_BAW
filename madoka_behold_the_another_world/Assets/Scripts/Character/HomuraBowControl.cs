@@ -273,8 +273,10 @@ public class HomuraBowControl : CharacterControlBase
         // レベル・攻撃力レベル・防御力レベル・残弾数レベル・ブースト量レベル・覚醒ゲージレベルを初期化
         SettingPleyerLevel();
 
-        // ジャンプ硬直
-        JumpWaitTime = 0.5f;
+		
+
+		// ジャンプ硬直
+		JumpWaitTime = 0.5f;
 
         //着地硬直
         LandingWaitTime = 1.0f;
@@ -329,7 +331,10 @@ public class HomuraBowControl : CharacterControlBase
         // 共通ステートを初期化
         FirstSetting(AnimatorUnit, 0);
 
-        this.UpdateAsObservable().Where(_ => IsPlayer == CHARACTERCODE.PLAYER).Subscribe(_ => 
+		// チャージショットチャージ時間
+		ChargeMax = (int)Character_Spec.cs[(int)CharacterName][(int)(int)ShotType.CHARGE_SHOT].m_reloadtime*60;
+
+		this.UpdateAsObservable().Where(_ => IsPlayer == CHARACTERCODE.PLAYER).Subscribe(_ => 
 		{
 			// インターフェース制御
             // PC/僚機共通
@@ -424,7 +429,7 @@ public class HomuraBowControl : CharacterControlBase
             }
 
 			// チャージ射撃
-			Battleinterfacecontroller.Weapon3.NowChargeValue = ShotCharge;
+			Battleinterfacecontroller.Weapon3.NowChargeValue = (float)(ShotCharge)/(float)(ChargeMax);
 
             // サブ射撃
             Battleinterfacecontroller.Weapon2.Kind.text = "Sub Shot";

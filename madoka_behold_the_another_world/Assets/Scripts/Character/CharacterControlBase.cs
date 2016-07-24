@@ -641,12 +641,8 @@ public class CharacterControlBase : MonoBehaviour
 	/// <summary>
 	/// チャージ最大値（固定。ここを超えたら発射）
 	/// </summary>
-	private int ChargeMax;
+	public int ChargeMax;
 
-     public int GetChargeMax()
-	{
-		return ChargeMax;
-	}
 
 	/// <summary>
 	/// モード状態（モードチェンジがないキャラは常時Normalのまま）
@@ -1093,7 +1089,7 @@ public class CharacterControlBase : MonoBehaviour
                 }
                 ShotCharge += ShotIncrease;
             }
-            // 解除するとm_ShotChargeを減衰
+            // 解除するとShotChargeを減衰
             else
             {
                 if (ShotCharge > 0)
@@ -1102,6 +1098,7 @@ public class CharacterControlBase : MonoBehaviour
                 }
             }
         }
+		
         // MAX状態で離されるとチャージ量を0にしてtrue
         if (ShotCharge >= ChargeMax && (!ControllerManager.Instance.Shotting))
         {
@@ -2759,18 +2756,16 @@ public class CharacterControlBase : MonoBehaviour
 		ReversalUseBoost = 20.0f;
 
 		// 1Fあたりの射撃チャージゲージ増加量
-		ShotIncrease = 2;
+		ShotIncrease = 1;
 		// 1Fあたりの格闘チャージゲージ増加量
-		WrestleIncrease = 2;
+		WrestleIncrease = 1;
 		// 1Fあたりの射撃チャージゲージ減衰量
-		ShotDecrease = 4;
+		ShotDecrease = 1;
 		// 1Fあたりの格闘チャージゲージ減衰量
-		WrestleDecrease = 4;
+		WrestleDecrease = 1;
 
 		// チャージ最大値
-		ChargeMax = 100;
 
-		
 
 		// 壁面接触フラグ
 		_Hitjumpover = false;
