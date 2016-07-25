@@ -912,8 +912,8 @@ public class HomuraBowControl : CharacterControlBase
 	/// <param name="type">射撃がどれであるか</param>
 	public void Shootload(ShotType type)
 	{
-		// 弾があるとき限定
-		if (BulletNum[(int)type] > 0)
+		// 弾があるとき限定（チャージショット除く）
+		if (BulletNum[(int)type] > 0 && type != ShotType.CHARGE_SHOT)
 		{
 			// ロックオン時本体の方向を相手に向ける       
 			if (IsRockon)
@@ -968,10 +968,18 @@ public class HomuraBowControl : CharacterControlBase
 					obj.transform.GetComponent<Rigidbody>().isKinematic = true;
 				}
 			}
-			// チャージ射撃
+			// チャージ射撃（これはBulletではなくLaserなので通常射撃・サブ射撃とは処理が異なり、この時点で発射される）
 			else if (type == ShotType.CHARGE_SHOT)
 			{
-				// TODO:チャージ射撃の矢を作る処理
+				// チャージ射撃の矢を作る処理
+				var obj = (GameObject)Instantiate(ChargeShotArrow, pos, rot);
+				// 親子関係を再設定する(=矢をフックの子にする)
+				if(obj.transform.parent == null)
+				{
+					obj.transform.parent = MainShotRoot.transform;
+					// 矢の親子関係をつけておく
+					obj.transform.GetComponent<Rigidbody>().isKinematic = true;
+				}
 			}
 		}
 	}
@@ -1134,7 +1142,7 @@ public class HomuraBowControl : CharacterControlBase
 		}
 		else if(type == ShotType.CHARGE_SHOT)
 		{
-            AnimatorUnit.SetTrigger("ChargerShotFollowThrow");
+			AnimatorUnit.SetTrigger("ChargerShotFollowThrow");	// この後フォロースルーで矢を消す
 		}
 		else if(type == ShotType.SUB_SHOT)
 		{

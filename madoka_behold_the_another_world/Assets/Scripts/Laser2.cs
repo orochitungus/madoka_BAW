@@ -138,7 +138,7 @@ public class Laser2 : MonoBehaviour
 
         // 親オブジェクトを拾う
         // 自機がPLAYERかPLAYER_ALLYの場合
-        if (m_Obj_OR.GetComponent<CharacterControl_Base>().IsPlayer != CharacterControl_Base.CHARACTERCODE.ENEMY)
+        if (m_Obj_OR.GetComponent<CharacterControlBase>().IsPlayer != CharacterControlBase.CHARACTERCODE.ENEMY)
         {
             player = "Player";
             enemy = "Enemy";
@@ -149,8 +149,8 @@ public class Laser2 : MonoBehaviour
             player = "Enemy";
             enemy = "Player";
         }
-        // 接触対象がCharacterControl_Baseを持っているか否か判定する
-        var target = collision.gameObject.GetComponent<CharacterControl_Base>();
+        // 接触対象がCharacterControlBaseを持っているか否か判定する
+        var target = collision.gameObject.GetComponent<CharacterControlBase>();
         // 接触対象を取得する
         m_HitTarget = collision.gameObject;
 
@@ -159,7 +159,7 @@ public class Laser2 : MonoBehaviour
             return;
 
         // ダウン中かダウン値MAXならダメージを与えない
-        if (target.m_AnimState[0] == CharacterControl_Base.AnimationState.Down || (target.DownRatio <= target.NowDownRatio))
+        if (target.Invincible)
         {
             return;
         }
@@ -172,7 +172,7 @@ public class Laser2 : MonoBehaviour
         // ヒット時にダメージの種類をCharacterControl_Baseに与える
         // ダウン値を超えていたら吹き飛びへ移行
         // Blow属性の攻撃を与えた場合も吹き飛びへ移行
-        if (target.NowDownRatio >= target.DownRatio || this.m_Hittype == CharacterSkill.HitType.BLOW)
+        if (target.NowDownRatio >= target.DownRatioBias || this.m_Hittype == CharacterSkill.HitType.BLOW)
         {   // 吹き飛びの場合、相手に方向ベクトルを与える            
             // Y軸方向は少し上向き
             target.MoveDirection.y += 10;
@@ -181,19 +181,18 @@ public class Laser2 : MonoBehaviour
             m_MoveDirection = Vector3.Normalize(blowDirection_OR);
             target.BlowDirection = this.m_MoveDirection;
             // 吹き飛びの場合、攻撃を当てた相手を浮かす（MadokaDefine.LAUNCHOFFSET)            
-            target.GetComponent<Rigidbody>().position = target.GetComponent<Rigidbody>().position + new Vector3(0, MadokaDefine.LAUNCHOFFSET, 0);
+            target.GetComponent<Rigidbody>().transform.Translate(new Vector3(0, MadokaDefine.LAUNCHOFFSET, 0));
             target.GetComponent<Rigidbody>().AddForce(this.m_MoveDirection.x * MadokaDefine.LAUNCHOFFSET, this.m_MoveDirection.y * MadokaDefine.LAUNCHOFFSET, this.m_MoveDirection.z * MadokaDefine.LAUNCHOFFSET);
-            //rigidbody.position = rigidbody.position + ;
-            target.m_AnimState[0] = CharacterControl_Base.AnimationState.BlowInit;
-        }
+			target.DamageInit(target.AnimatorUnit, 41, true, 43, 44);
+		}
         // それ以外はのけぞりへ
         else
         {
             // ただしアーマー時ならダウン値とダメージだけ加算する(Damageにしない）
             if (!target.IsArmor)
             {
-                target.m_AnimState[0] = CharacterControl_Base.AnimationState.DamageInit;
-            }                           
+				target.DamageInit(target.AnimatorUnit, 41, false, 43, 44);
+			}                           
         }
     }
 
