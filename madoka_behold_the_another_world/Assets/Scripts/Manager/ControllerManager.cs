@@ -800,14 +800,23 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 
         // BD
         var boostdashstream = this.UpdateAsObservable().Where(_ => Jump);
-        boostdashstream.Buffer(boostdashstream.Throttle(TimeSpan.FromMilliseconds(300))).Where(x => x.Count >= 2).Subscribe(_ => 
-		{ 			
+        boostdashstream.Buffer(boostdashstream.Throttle(TimeSpan.FromMilliseconds(300))).Where(x => x.Count >= 2 && Jumping).Subscribe(_ => 
+		{
+			Debug.Log("BoostDashInput");	
 			BoostDash = true; 
 		});
-        boostdashstream.Buffer(boostdashstream.Throttle(TimeSpan.FromMilliseconds(300))).Where(x => x.Count < 2).Subscribe(_ => { BoostDash = false; });
+		//      boostdashstream.Buffer(boostdashstream.Throttle(TimeSpan.FromMilliseconds(300))).Where(x => x.Count < 2 && !Jumping).Subscribe(_ =>
+		//{
+		//	BoostDash = false;
+		//});
+		// BD入力解除はfall移行で折る
+		this.UpdateAsObservable().Where(_ => BoostDash && !Jumping).Subscribe(_ =>
+		{
+			BoostDash = false;
+		});
 
-        // ロック外し
-        var unlockstream = this.UpdateAsObservable().Where(_ => Search);
+		// ロック外し
+		var unlockstream = this.UpdateAsObservable().Where(_ => Search);
         // ロック外しキャンセル
         var unlockcancelstream = this.UpdateAsObservable().Where(_ => !Search);
         // ロック外し実行（1秒以上長押しでロックが外れる）

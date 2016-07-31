@@ -23,9 +23,5 @@ public class HomuraBowChargeShot : Laser2
 		m_ArousalRatio = Character_Spec.cs[m_CharacterIndex][1].m_arousal;
 	}
 
-	// Update is called once per frame
-	void Update () 
-	{
 	
-	}
 }

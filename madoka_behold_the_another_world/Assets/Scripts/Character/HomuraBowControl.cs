@@ -744,9 +744,11 @@ public class HomuraBowControl : CharacterControlBase
 			// 歩き撃ちはしないので、強制停止
 			if (run || AirDash)
 			{
-				// TODO:強制停止実行
+				// 強制停止実行
+				EmagencyStop(AnimatorUnit);
 			}
-			// TODO:チャージショット実行
+			// チャージショット実行
+			ChagerShotDone();
 		}
 		// 射撃で射撃へ移行
 		else if (HasShotInput)
@@ -851,6 +853,11 @@ public class HomuraBowControl : CharacterControlBase
 		Shotmode = ShotMode.RELORD;
 	}
 
+	public void ChagerShotDone()
+	{
+		AnimatorUnit.SetTrigger("ChargeShot");
+	}
+
 	protected override void Animation_Idle(Animator animator, int downID, int runID, int[] stepanimations, int fallID, int jumpID, int airdashID)
 	{
 		base.Animation_Idle(animator, downID, runID, stepanimations, fallID, jumpID, airdashID);
@@ -865,7 +872,17 @@ public class HomuraBowControl : CharacterControlBase
         {
             AttackDone();
         }
-    }
+		// キャンセルダッシュ受付
+		if (HasDashCancelInput)
+		{
+			// 地上でキャンセルすると浮かないので浮かす
+			if (IsGrounded)
+			{
+				transform.Translate(new Vector3(0, 1, 0));
+			}
+			CancelDashDone(AnimatorUnit, 7);
+		}
+	}
 
     protected override void Animation_Jumping(Animator animator, int fallID, int[] stepanimations, int airdashID, int landinghashID)
     {
@@ -913,7 +930,7 @@ public class HomuraBowControl : CharacterControlBase
 	public void Shootload(ShotType type)
 	{
 		// 弾があるとき限定（チャージショット除く）
-		if (BulletNum[(int)type] > 0 && type != ShotType.CHARGE_SHOT)
+		if (BulletNum[(int)type] > 0 || type == ShotType.CHARGE_SHOT)
 		{
 			// ロックオン時本体の方向を相手に向ける       
 			if (IsRockon)
@@ -978,7 +995,7 @@ public class HomuraBowControl : CharacterControlBase
 				{
 					obj.transform.parent = MainShotRoot.transform;
 					// 矢の親子関係をつけておく
-					obj.transform.GetComponent<Rigidbody>().isKinematic = true;
+					//obj.transform.GetComponent<Rigidbody>().isKinematic = true;
 				}
 			}
 		}
@@ -1126,7 +1143,7 @@ public class HomuraBowControl : CharacterControlBase
 			Shotmode = ShotMode.SHOTDONE;
 		}
 
-		// フォロースルーへ移行する
+		// フォロースルーへ移行する(チャージショットの場合は別タイミング）
 		if(type == ShotType.NORMAL_SHOT)
 		{
 			// 走行時
@@ -1140,10 +1157,6 @@ public class HomuraBowControl : CharacterControlBase
                 AnimatorUnit.SetTrigger("FollowThrow");
 			}
 		}
-		else if(type == ShotType.CHARGE_SHOT)
-		{
-			AnimatorUnit.SetTrigger("ChargerShotFollowThrow");	// この後フォロースルーで矢を消す
-		}
 		else if(type == ShotType.SUB_SHOT)
 		{
             AnimatorUnit.SetTrigger("SubShotFollowThrow");
@@ -1154,6 +1167,14 @@ public class HomuraBowControl : CharacterControlBase
 		}
 	}
 
+	/// <summary>
+	/// チャージショットの場合フォロースルーに移行する
+	/// </summary>
+	public void ChargeShotFollowThrow()
+	{
+		AnimatorUnit.SetTrigger("ChargerShotFollowThrow");
+	}
+	
 	/// <summary>
 	/// Idle状態に戻す
 	/// </summary>

@@ -3630,7 +3630,7 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="animator"></param>
     /// <param name="idlehash"></param>
-    protected void EmagencyStop(Animator animator, int idlehash)
+    protected void EmagencyStop(Animator animator)
     {
         this.MoveDirection = Vector3.zero;
         animator.SetTrigger("Idle");
@@ -4897,8 +4897,14 @@ public class CharacterControlBase : MonoBehaviour
             // ジャンプ中にブーストがある限り上昇
             if (this.Boost > 0)
             {
-                // ボタンを押し続ける限り上昇
-                if (HasJumpingInput)
+				// BD入力でBDへ移行
+				if (this.HasDashCancelInput)           
+				{
+					CancelDashDone(animator, airdashID);
+					return;
+				}
+				// ボタンを押し続ける限り上昇
+				else if (HasJumpingInput)
                 {
                     this.Boost = this.Boost - BoostLess;
                 }
@@ -5132,11 +5138,13 @@ public class CharacterControlBase : MonoBehaviour
 			if (this.HasDashCancelInput)// ジャンプ再入力で向いている方向へ空中ダッシュ(上昇は押しっぱなし)           
 			{
 				CancelDashDone(animator, airdashID);
+				return;
 			}
 			// ジャンプボタンで再ジャンプ
 			else if (this.HasJumpInput)
 			{
 				JumpDone(animator);
+				return;
 			}
 			// ステップの場合ステップ
 			// 前
