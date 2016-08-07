@@ -966,7 +966,17 @@ public class HomuraBowControl : CharacterControlBase
 			// サブ射撃
 			if (type == ShotType.SUB_SHOT)
 			{
-				// TODO:サブ射撃の矢を作る処理
+				// 左の矢の角度
+				Vector3 posLArrow = SubShotRootL.transform.position;
+				Quaternion rotLArrow = Quaternion.Euler(SubShotRootL.transform.rotation.eulerAngles.x, SubShotRootL.transform.rotation.eulerAngles.y, SubShotRootL.transform.rotation.eulerAngles.z);
+				// 右の矢の角度
+				Vector3 posRArrow = SubShotRootR.transform.position;
+				Quaternion rotRArrow = Quaternion.Euler(SubShotRootR.transform.rotation.eulerAngles.x, SubShotRootR.transform.rotation.eulerAngles.y, SubShotRootR.transform.rotation.eulerAngles.z);
+				// 中央の矢を作る
+
+				// 左の矢を作る
+
+				// 右の矢を作る
 			}
 			// 特殊射撃
 			else if (type == ShotType.EX_SHOT)

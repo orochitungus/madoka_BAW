@@ -691,6 +691,16 @@ public class CharacterControlBase : MonoBehaviour
     /// 通常射撃用弾丸の配置用フック(他の専用武器は派生先で用意）
     /// </summary>
     public GameObject MainShotRoot;
+
+	/// <summary>
+	/// サブ射撃用弾丸の左フック
+	/// </summary>
+	public GameObject SubShotRootL;
+
+	/// <summary>
+	/// サブ射撃弾丸用の右フック
+	/// </summary>
+	public GameObject SubShotRootR;
     
     /// <summary>
     /// リロードクラス
@@ -3441,12 +3451,20 @@ public class CharacterControlBase : MonoBehaviour
     protected virtual void DestroyArrow()
     {
         // 弾があるなら消す(m_ArrowRootの下に何かあるなら全部消す）
-        int ChildCount = MainShotRoot.transform.childCount;
+        // メイン射撃など
+		int ChildCount = MainShotRoot.transform.childCount;
         for (int i = 0; i < ChildCount; i++)
         {
             Transform child = MainShotRoot.transform.GetChild(i);
             Destroy(child.gameObject);
         }
+		// サブ射撃Ｌ
+		Transform left = SubShotRootL.transform.GetChild(0);
+		Destroy(left.gameObject);
+		// サブ射撃Ｒ
+		Transform right = SubShotRootR.transform.GetChild(0);
+		Destroy(right.gameObject);
+
     }
 
     /// <summary>
@@ -3461,7 +3479,13 @@ public class CharacterControlBase : MonoBehaviour
             Transform child = root.transform.GetChild(i);
             Destroy(child.gameObject);
         }
-    }
+		// サブ射撃Ｌ
+		Transform left = SubShotRootL.transform.GetChild(0);
+		Destroy(left.gameObject);
+		// サブ射撃Ｒ
+		Transform right = SubShotRootR.transform.GetChild(0);
+		Destroy(right.gameObject);
+	}
 
 
     /// <summary>
