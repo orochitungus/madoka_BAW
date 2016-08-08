@@ -26,6 +26,16 @@ public class HomuraBowControl : CharacterControlBase
 	public GameObject SubShotArrow;
 
 	/// <summary>
+	/// サブ射撃用弾丸の左フック
+	/// </summary>
+	public GameObject SubShotRootL;
+
+	/// <summary>
+	/// サブ射撃弾丸用の右フック
+	/// </summary>
+	public GameObject SubShotRootR;
+
+	/// <summary>
 	/// メイン射撃撃ち終わり時間
 	/// </summary>
 	private float MainshotEndtime;
@@ -972,11 +982,27 @@ public class HomuraBowControl : CharacterControlBase
 				// 右の矢の角度
 				Vector3 posRArrow = SubShotRootR.transform.position;
 				Quaternion rotRArrow = Quaternion.Euler(SubShotRootR.transform.rotation.eulerAngles.x, SubShotRootR.transform.rotation.eulerAngles.y, SubShotRootR.transform.rotation.eulerAngles.z);
-				// 中央の矢を作る
-
+				// 中央の矢を作る(配置位置は通常射撃の場所と同じ）
+				var centerArrow = (GameObject)Instantiate(SubShotArrow, pos, rot);
+				if(centerArrow.transform.parent == null)
+				{
+					centerArrow.transform.parent = MainShotRoot.transform;
+					centerArrow.transform.GetComponent<Rigidbody>().isKinematic = true;
+				}
 				// 左の矢を作る
-
+				var leftArrow = (GameObject)Instantiate(SubShotArrow, posLArrow, rotLArrow);
+				if(leftArrow.transform.parent == null)
+				{
+					leftArrow.transform.parent = SubShotRootL.transform;
+					leftArrow.transform.GetComponent<Rigidbody>().isKinematic = true;
+				}
 				// 右の矢を作る
+				var rightArrow = (GameObject)Instantiate(SubShotArrow, posRArrow, rotRArrow);
+				if(rightArrow.transform.parent == null)
+				{
+					rightArrow.transform.parent = SubShotRootR.transform;
+					rightArrow.transform.GetComponent<Rigidbody>().isKinematic = true;
+				}
 			}
 			// 特殊射撃
 			else if (type == ShotType.EX_SHOT)
@@ -1204,4 +1230,20 @@ public class HomuraBowControl : CharacterControlBase
 		// 覚醒ゲージ増加量を決定する
 		ArousalRatioOfBullet = Character_Spec.cs[(int)CharacterName][(int)kind].m_arousal;
 	}
+
+	/// <summary>
+	/// キャンセルなどで本体に矢があった時消す
+	/// </summary>
+	protected override void DestroyArrow()
+	{
+		base.DestroyArrow();
+		// サブ射撃Ｌ
+		Transform left = SubShotRootL.transform.GetChild(0);
+		Destroy(left.gameObject);
+		// サブ射撃Ｒ
+		Transform right = SubShotRootR.transform.GetChild(0);
+		Destroy(right.gameObject);
+	}
+
+
 }

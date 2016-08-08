@@ -692,15 +692,7 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     public GameObject MainShotRoot;
 
-	/// <summary>
-	/// サブ射撃用弾丸の左フック
-	/// </summary>
-	public GameObject SubShotRootL;
-
-	/// <summary>
-	/// サブ射撃弾丸用の右フック
-	/// </summary>
-	public GameObject SubShotRootR;
+	
     
     /// <summary>
     /// リロードクラス
@@ -3458,14 +3450,7 @@ public class CharacterControlBase : MonoBehaviour
             Transform child = MainShotRoot.transform.GetChild(i);
             Destroy(child.gameObject);
         }
-		// サブ射撃Ｌ
-		Transform left = SubShotRootL.transform.GetChild(0);
-		Destroy(left.gameObject);
-		// サブ射撃Ｒ
-		Transform right = SubShotRootR.transform.GetChild(0);
-		Destroy(right.gameObject);
-
-    }
+	}
 
     /// <summary>
     /// 上記の任意のフック以下のオブジェクトを消す
@@ -3479,12 +3464,6 @@ public class CharacterControlBase : MonoBehaviour
             Transform child = root.transform.GetChild(i);
             Destroy(child.gameObject);
         }
-		// サブ射撃Ｌ
-		Transform left = SubShotRootL.transform.GetChild(0);
-		Destroy(left.gameObject);
-		// サブ射撃Ｒ
-		Transform right = SubShotRootR.transform.GetChild(0);
-		Destroy(right.gameObject);
 	}
 
 
