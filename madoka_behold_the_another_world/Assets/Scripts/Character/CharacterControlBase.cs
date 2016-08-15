@@ -1295,8 +1295,8 @@ public class CharacterControlBase : MonoBehaviour
 			{
 				return true;
 			}
-			// サブ射撃ボタン
-			else if (ControllerManager.Instance.SubShot)
+			// 特殊格闘ボタン
+			else if (ControllerManager.Instance.EXWrestle)
 			{
 				return true;
 			}

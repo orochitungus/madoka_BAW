@@ -715,9 +715,11 @@ public class HomuraBowControl : CharacterControlBase
 			// 歩き撃ちはしないので、強制停止
 			if (run || AirDash)
 			{
-				// TODO:強制停止実行
+				// 強制停止実行
+				EmagencyStop(AnimatorUnit);
 			}
-			// TODO:サブ射撃実行
+			// サブ射撃実行
+			SubShotDone();
 		}
 		// 特殊射撃で特殊射撃へ移行
 		else if (HasExShotInput)
@@ -868,6 +870,11 @@ public class HomuraBowControl : CharacterControlBase
 		AnimatorUnit.SetTrigger("ChargeShot");
 	}
 
+	public void SubShotDone()
+	{
+		AnimatorUnit.SetTrigger("SubShot");
+	}
+
 	protected override void Animation_Idle(Animator animator, int downID, int runID, int[] stepanimations, int fallID, int jumpID, int airdashID)
 	{
 		base.Animation_Idle(animator, downID, runID, stepanimations, fallID, jumpID, airdashID);
@@ -988,6 +995,7 @@ public class HomuraBowControl : CharacterControlBase
 				{
 					centerArrow.transform.parent = MainShotRoot.transform;
 					centerArrow.transform.GetComponent<Rigidbody>().isKinematic = true;
+					centerArrow.name = "SubShotCenter";
 				}
 				// 左の矢を作る
 				var leftArrow = (GameObject)Instantiate(SubShotArrow, posLArrow, rotLArrow);
@@ -995,6 +1003,7 @@ public class HomuraBowControl : CharacterControlBase
 				{
 					leftArrow.transform.parent = SubShotRootL.transform;
 					leftArrow.transform.GetComponent<Rigidbody>().isKinematic = true;
+					leftArrow.name = "SubShotLeft";
 				}
 				// 右の矢を作る
 				var rightArrow = (GameObject)Instantiate(SubShotArrow, posRArrow, rotRArrow);
@@ -1002,6 +1011,7 @@ public class HomuraBowControl : CharacterControlBase
 				{
 					rightArrow.transform.parent = SubShotRootR.transform;
 					rightArrow.transform.GetComponent<Rigidbody>().isKinematic = true;
+					rightArrow.name = "SubShotRight";
 				}
 			}
 			// 特殊射撃
@@ -1046,9 +1056,13 @@ public class HomuraBowControl : CharacterControlBase
 	{
 		// 通常射撃の矢
 		var arrow = GetComponentInChildren<HomuraBowNormalShot>();
-		// TODO:サブ射撃左右の矢を取得
+		// サブ射撃中央の矢
+		var subshotArrowCenter = MainShotRoot.GetComponentInChildren<HomuraBowSubShot>();
+		// サブ射撃左右の矢を取得
+		var subshotArrowLeft = SubShotRootL.GetComponentInChildren<HomuraBowSubShot>();
+		var subshotArrowRight = SubShotRootR.GetComponentInChildren<HomuraBowSubShot>();
 
-		if (arrow != null)
+		if (arrow != null || subshotArrowCenter != null)
 		{
 			// 矢のスクリプトの速度を設定する
 			// チャージ射撃は若干速く
@@ -1063,7 +1077,19 @@ public class HomuraBowControl : CharacterControlBase
 				{
 					arrow.ShotSpeed = Character_Spec.cs[(int)CharacterName][0].m_Movespeed;
 				}
-				// TODO:サブ射撃の左右の矢の弾速設定
+				// サブ射撃の矢の弾速設定
+				if(subshotArrowCenter != null)
+				{
+					subshotArrowCenter.ShotSpeed = Character_Spec.cs[(int)CharacterName][2].m_Movespeed;
+				}
+				if(subshotArrowLeft != null)
+				{
+					subshotArrowLeft.ShotSpeed = Character_Spec.cs[(int)CharacterName][2].m_Movespeed;
+				}
+				if(subshotArrowRight != null)
+				{
+					subshotArrowRight.ShotSpeed = Character_Spec.cs[(int)CharacterName][2].m_Movespeed;
+				}
 			}
 			// 矢の方向を決定する(本体と同じ方向に向けて打ち出す。ただしノーロックで本体の向きが0のときはベクトルが0になるので、このときだけはカメラの方向に飛ばす）
 			if (IsRockon && RunShotDone)
@@ -1096,12 +1122,34 @@ public class HomuraBowControl : CharacterControlBase
 				Quaternion mainrot = Quaternion.LookRotation(targetpos - this.transform.position);
 				// 正規化して代入する
 				Vector3 normalizeRot = mainrot * Vector3.forward;
-				// TODO:サブ射撃左右の矢
-
-				// それ以外
+				
+				// 通常射撃の矢
 				if (arrow != null)
 				{
 					arrow.MoveDirection = Vector3.Normalize(normalizeRot);
+				}
+				// サブ射撃の矢中央
+				if(subshotArrowCenter != null)
+				{
+					subshotArrowCenter.MoveDirection = Vector3.Normalize(normalizeRot);
+				}
+				// サブ射撃の矢左
+				if(subshotArrowLeft != null)
+				{
+					// 角度
+					Vector3 normalizeRotLOR = mainrot.eulerAngles;
+					// 角度再調整
+					Vector3 normalizeRotL = new Vector3(normalizeRotLOR.x - 20, normalizeRotLOR.y, normalizeRotLOR.z);
+					subshotArrowLeft.MoveDirection = Vector3.Normalize(normalizeRotL);
+				}
+				// サブ射撃の矢右
+				if(subshotArrowRight != null)
+				{
+					// 角度
+					Vector3 normalizeRotROR = mainrot.eulerAngles;
+					// 角度再調整
+					Vector3 normalizeRotR = new Vector3(normalizeRotROR.x + 20, normalizeRotROR.y, normalizeRotROR.z);
+					subshotArrowRight.MoveDirection = Vector3.Normalize(normalizeRotR);
 				}
 			}
 			// ロックオンしていないとき
@@ -1115,32 +1163,73 @@ public class HomuraBowControl : CharacterControlBase
 					Vector3 rotateOR_E = rotateOR.eulerAngles;
 					rotateOR_E.x = 0;
 					rotateOR = Quaternion.Euler(rotateOR_E);
-					// TODO:サブ射撃左右の矢
-
-					// 特殊射撃以外
+					
+					// 通常射撃の矢
 					if (arrow != null)
 					{
 						arrow.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+					}
+					// サブ射撃の矢中央
+					if (subshotArrowCenter != null)
+					{
+						subshotArrowCenter.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+					}
+					// サブ射撃の矢左
+					if (subshotArrowLeft != null)
+					{
+						// 角度再調整
+						Vector3 normalizeRotL = new Vector3(rotateOR.x - 20, rotateOR.y, rotateOR.z);
+						subshotArrowLeft.MoveDirection = Vector3.Normalize(Quaternion.Euler(normalizeRotL) * Vector3.forward);
+					}
+					// サブ射撃の矢右
+					if(subshotArrowRight != null)
+					{
+						// 角度再調整
+						Vector3 normalizeRotR = new Vector3(rotateOR.x + 20, rotateOR.y, rotateOR.z);
+						subshotArrowRight.MoveDirection = Vector3.Normalize(Quaternion.Euler(normalizeRotR) * Vector3.forward);
 					}
 				}
 				// それ以外は本体の角度を射出角にする
 				else
 				{
-					// TODO:サブ射撃左右の矢
-
-					// 特殊射撃以外
+					// 通常射撃の矢
 					if (arrow != null)
 					{
-						arrow.MoveDirection = Vector3.Normalize(this.transform.rotation * Vector3.forward);
+						arrow.MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
+					}
+					// サブ射撃の矢中央
+					if (subshotArrowCenter != null)
+					{
+						subshotArrowCenter.MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
+					}
+					// サブ射撃の矢左
+					if (subshotArrowLeft != null)
+					{
+						// 本体角度算出
+						Vector3 mainrotOR = transform.rotation.eulerAngles;
+						// 角度再調整
+						Vector3 normalizeRotL = new Vector3(mainrotOR.x - 20, mainrotOR.y, mainrotOR.z);
+						subshotArrowLeft.MoveDirection = Vector3.Normalize(Quaternion.Euler(normalizeRotL) * Vector3.forward);
+					}
+					// サブ射撃の矢右
+					if(subshotArrowRight != null)
+					{
+						// 本体角度算出
+						Vector3 mainrotOR = transform.rotation.eulerAngles;
+						// 角度再調整
+						Vector3 normalizeRotR = new Vector3(mainrotOR.x + 20, mainrotOR.y, mainrotOR.z);
+						subshotArrowRight.MoveDirection = Vector3.Normalize(Quaternion.Euler(normalizeRotR) * Vector3.forward);
 					}
 				}
 			}
 			// 矢のフックの位置に弾の位置を代入する
-			BulletPos = this.MainShotRoot.transform.position;
+			// メイン射撃位置・サブ射撃中央位置
+			BulletPos = MainShotRoot.transform.position;
+			
 			// 同じく回転角を代入する
 			if (arrow != null)
 			{
-				this.BulletMoveDirection = arrow.MoveDirection;
+				BulletMoveDirection = arrow.MoveDirection;
 			}
 			// 攻撃力を代入する
 			if (type == ShotType.NORMAL_SHOT)
@@ -1238,11 +1327,19 @@ public class HomuraBowControl : CharacterControlBase
 	{
 		base.DestroyArrow();
 		// サブ射撃Ｌ
-		Transform left = SubShotRootL.transform.GetChild(0);
-		Destroy(left.gameObject);
+		int ChildCountL = SubShotRootL.transform.childCount;
+		for (int i = 0; i<ChildCountL; i++)
+		{
+			Transform left = SubShotRootL.transform.GetChild(i);
+			Destroy(left.gameObject);
+		}
 		// サブ射撃Ｒ
-		Transform right = SubShotRootR.transform.GetChild(0);
-		Destroy(right.gameObject);
+		int ChildCountR = SubShotRootR.transform.childCount;
+		for (int i = 0; i<ChildCountR; i++)
+		{
+			Transform right = SubShotRootR.transform.GetChild(i);
+			Destroy(right.gameObject);
+		}
 	}
 
 
