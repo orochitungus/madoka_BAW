@@ -51,6 +51,16 @@ public class HomuraBowControl : CharacterControlBase
 	private float ExshotEndtime;
 
 	/// <summary>
+	///  射出する弾の方向ベクトル(サブ射撃左）
+	/// </summary>
+	public Vector3 BulletMoveDirectionL;
+
+	/// <summary>
+	///  射出する弾の方向ベクトル(サブ射撃右）
+	/// </summary>
+	public Vector3 BulletMoveDirectionR;
+
+	/// <summary>
 	/// 種類（キャラごとに技数は異なるので別々に作らないとアウト
 	/// </summary>
 	public enum SkillType_Homura_B
@@ -327,7 +337,7 @@ public class HomuraBowControl : CharacterControlBase
 
         // 弾のステート
         BulletMoveDirection = Vector3.zero;
-        BulletPos = Vector3.zero;
+        
 
         // HPを初期化
 
@@ -999,7 +1009,7 @@ public class HomuraBowControl : CharacterControlBase
 				}
 				// 左の矢を作る
 				var leftArrow = (GameObject)Instantiate(SubShotArrow, posLArrow, rotLArrow);
-				if(leftArrow.transform.parent == null)
+				if (leftArrow.transform.parent == null)
 				{
 					leftArrow.transform.parent = SubShotRootL.transform;
 					leftArrow.transform.GetComponent<Rigidbody>().isKinematic = true;
@@ -1007,7 +1017,7 @@ public class HomuraBowControl : CharacterControlBase
 				}
 				// 右の矢を作る
 				var rightArrow = (GameObject)Instantiate(SubShotArrow, posRArrow, rotRArrow);
-				if(rightArrow.transform.parent == null)
+				if (rightArrow.transform.parent == null)
 				{
 					rightArrow.transform.parent = SubShotRootR.transform;
 					rightArrow.transform.GetComponent<Rigidbody>().isKinematic = true;
@@ -1082,11 +1092,11 @@ public class HomuraBowControl : CharacterControlBase
 				{
 					subshotArrowCenter.ShotSpeed = Character_Spec.cs[(int)CharacterName][2].m_Movespeed;
 				}
-				if(subshotArrowLeft != null)
+				if (subshotArrowLeft != null)
 				{
 					subshotArrowLeft.ShotSpeed = Character_Spec.cs[(int)CharacterName][2].m_Movespeed;
 				}
-				if(subshotArrowRight != null)
+				if (subshotArrowRight != null)
 				{
 					subshotArrowRight.ShotSpeed = Character_Spec.cs[(int)CharacterName][2].m_Movespeed;
 				}
@@ -1134,7 +1144,7 @@ public class HomuraBowControl : CharacterControlBase
 					subshotArrowCenter.MoveDirection = Vector3.Normalize(normalizeRot);
 				}
 				// サブ射撃の矢左
-				if(subshotArrowLeft != null)
+				if (subshotArrowLeft != null)
 				{
 					// 角度
 					Vector3 normalizeRotLOR = mainrot.eulerAngles;
@@ -1143,7 +1153,7 @@ public class HomuraBowControl : CharacterControlBase
 					subshotArrowLeft.MoveDirection = Vector3.Normalize(normalizeRotL);
 				}
 				// サブ射撃の矢右
-				if(subshotArrowRight != null)
+				if (subshotArrowRight != null)
 				{
 					// 角度
 					Vector3 normalizeRotROR = mainrot.eulerAngles;
@@ -1182,7 +1192,7 @@ public class HomuraBowControl : CharacterControlBase
 						subshotArrowLeft.MoveDirection = Vector3.Normalize(Quaternion.Euler(normalizeRotL) * Vector3.forward);
 					}
 					// サブ射撃の矢右
-					if(subshotArrowRight != null)
+					if (subshotArrowRight != null)
 					{
 						// 角度再調整
 						Vector3 normalizeRotR = new Vector3(rotateOR.x + 20, rotateOR.y, rotateOR.z);
@@ -1212,7 +1222,7 @@ public class HomuraBowControl : CharacterControlBase
 						subshotArrowLeft.MoveDirection = Vector3.Normalize(Quaternion.Euler(normalizeRotL) * Vector3.forward);
 					}
 					// サブ射撃の矢右
-					if(subshotArrowRight != null)
+					if (subshotArrowRight != null)
 					{
 						// 本体角度算出
 						Vector3 mainrotOR = transform.rotation.eulerAngles;
@@ -1222,15 +1232,30 @@ public class HomuraBowControl : CharacterControlBase
 					}
 				}
 			}
-			// 矢のフックの位置に弾の位置を代入する
-			// メイン射撃位置・サブ射撃中央位置
-			BulletPos = MainShotRoot.transform.position;
-			
-			// 同じく回転角を代入する
+						
+			// 矢の移動ベクトルを代入する
+			// 通常射撃
 			if (arrow != null)
 			{
 				BulletMoveDirection = arrow.MoveDirection;
 			}
+			// サブ射撃中央
+			if(subshotArrowCenter != null)
+			{
+				BulletMoveDirection = subshotArrowCenter.MoveDirection;
+			}
+			// サブ射撃左
+			if(subshotArrowLeft != null)
+			{
+				BulletMoveDirection = subshotArrowLeft.MoveDirection;
+			}
+			// サブ射撃右
+			if (subshotArrowRight != null)
+			{
+				BulletMoveDirection = subshotArrowRight.MoveDirection;
+			}
+
+
 			// 攻撃力を代入する
 			if (type == ShotType.NORMAL_SHOT)
 			{

@@ -667,11 +667,7 @@ public class CharacterControlBase : MonoBehaviour
 	/// </summary>
 	public Vector3 BulletMoveDirection;
 
-	/// <summary>
-	/// 射出する弾の配置位置
-	/// </summary>
-	public Vector3 BulletPos;
-
+	
 	/// <summary>
 	/// 射出する弾の攻撃力
 	/// </summary>
