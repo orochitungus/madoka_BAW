@@ -136,22 +136,32 @@ public class Bullet : MonoBehaviour
     /// 着弾時のヒットエフェクト
     /// </summary>
     public GameObject HitEffect;
+
+	/// <summary>
+	/// 時間遅延が発動した時の弾速
+	/// </summary>
+	protected float DelayShotspeed;
  
     // Updateでの共通処理（継承用）
     protected void UpdateCore()
     {
-        
+		float shotspeed = 0.0f;
         // 飛行開始
         // キリカの時間遅延を受けているとき、1/4に
         if (Timestopmode == CharacterControlBase.TimeStopMode.TIME_DELAY)
         {
-
-        }
+			shotspeed = DelayShotspeed;
+		}
         // ほむらの時間停止を受けているときなど、0に
         else if (Timestopmode == CharacterControlBase.TimeStopMode.TIME_STOP || Timestopmode == CharacterControlBase.TimeStopMode.PAUSE || Timestopmode == CharacterControlBase.TimeStopMode.AROUSAL)
         {
             return;
         }
+		// 通常
+		else
+		{
+			shotspeed = ShotSpeed;
+		}
 
         // カメラから親と対象を拾う
         // (ほむの下にカメラがいるので、GetComponentChildlenで拾える）
@@ -208,7 +218,7 @@ public class Bullet : MonoBehaviour
             }
         }
         // 規定フレーム間誘導する
-        InductionBullet();
+        InductionBullet(shotspeed);
 
         // レイキャストで接触したオブジェクト
         RaycastHit hit;
@@ -235,7 +245,7 @@ public class Bullet : MonoBehaviour
     }
 
     // 規定フレーム間誘導する
-    protected void InductionBullet()
+    protected void InductionBullet(float shotspeed)
     {
         // カメラから親と対象を拾う
         var target = InjectionObject.transform.GetComponentInChildren<Player_Camera_Controller>();
@@ -277,7 +287,7 @@ public class Bullet : MonoBehaviour
                         transform.rotation = looklot;
                     }
                 }
-                GetComponent<Rigidbody>().position = GetComponent<Rigidbody>().position + MoveDirection * ShotSpeed * Time.deltaTime;
+                GetComponent<Rigidbody>().position = GetComponent<Rigidbody>().position + MoveDirection * shotspeed * Time.deltaTime;
             }
         }
         // 親が死んだ場合は自壊

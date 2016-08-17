@@ -32,73 +32,73 @@ public class Homura_EX_ShotArrow_L : Bullet
 	// Update is called once per frame
 	void Update () 
     {
-        // 飛行開始
-        // キリカの時間遅延を受けているとき、1/4に
-        if (Timestopmode == CharacterControlBase.TimeStopMode.TIME_DELAY)
-        {
+        //// 飛行開始
+        //// キリカの時間遅延を受けているとき、1/4に
+        //if (Timestopmode == CharacterControlBase.TimeStopMode.TIME_DELAY)
+        //{
 
-        }
-        // ほむらの時間停止を受けているときなど、0に
-        else if (Timestopmode == CharacterControlBase.TimeStopMode.TIME_STOP || Timestopmode == CharacterControlBase.TimeStopMode.PAUSE || Timestopmode == CharacterControlBase.TimeStopMode.AROUSAL)
-        {
-            // アニメを止めておく
-            //Time.timeScale = 0;
-            return;
-        }
+        //}
+        //// ほむらの時間停止を受けているときなど、0に
+        //else if (Timestopmode == CharacterControlBase.TimeStopMode.TIME_STOP || Timestopmode == CharacterControlBase.TimeStopMode.PAUSE || Timestopmode == CharacterControlBase.TimeStopMode.AROUSAL)
+        //{
+        //    // アニメを止めておく
+        //    //Time.timeScale = 0;
+        //    return;
+        //}
 
-        // カメラから親と対象を拾う
-        // (ほむの下にカメラがいるので、GetComponentChildlenで拾える）
-        //var target = m_Obj_OR.GetComponentInChildren<Player_Camera_Controller>();
-        var target = InjectionObject.transform.GetComponentInChildren<Player_Camera_Controller>();
-        // 親オブジェクトを拾う
-        InjectionObject = target.Player;
-        // ターゲットオブジェクトを拾う
-        this.TargetObject = target.Enemy;
-        // 親オブジェクトから切り離されたときかつ非独立状態なら、親が保持している方向ベクトルを拾う
-        // 非独立状態の判定をしないと、射出後も親に合わせて動いてしまう
-        // 親オブジェクトを拾う
-        if (this.transform.parent != null && !IsIndependence)
-        {
-            // 親のステートがSHOTDONEになったら、親子関係を切り離す(真ん中の1発でSHOTDONEに切り替わるので、こっちで拾う）
-            // 下記のHomura_Final_BattleControlをCharacterControl_Baseにすることで他のキャラでも応用可能
-            if (InjectionObject != null && InjectionObject.GetComponent<CharacterControl_Base>().GetShotmode() == CharacterControl_Base.ShotMode.SHOTDONE)
-            {
-                // その時の座標を保持する
-                this.GetComponent<Rigidbody>().position = InjectionObject.GetComponent<CharacterControl_Base>().MainShotRoot.GetComponent<Rigidbody>().position;
-                // 進行方向ベクトルを保持する
-                this.MoveDirection = InjectionObject.GetComponent<CharacterControl_Base>().BulletMoveDirection;
-                // 攻撃力を保持する
-                this.OffemsivePower = InjectionObject.GetComponent<CharacterControl_Base>().OffensivePowerOfBullet;
-                // ダウン値を保持する
-                this.DownRatio = InjectionObject.GetComponent<CharacterControl_Base>().DownratioPowerOfBullet;
-                // 覚醒ゲージ増加量を保持する
-                this.ArousalRatio = InjectionObject.GetComponent<CharacterControl_Base>().ArousalRatioOfBullet;
-                // 切り離し
-                this.transform.parent = null;
-                // 独立フラグを立てる
-                this.IsIndependence = true;
-                // IsKinematicを折る
-                this.transform.GetComponent<Rigidbody>().isKinematic = false;
+        //// カメラから親と対象を拾う
+        //// (ほむの下にカメラがいるので、GetComponentChildlenで拾える）
+        ////var target = m_Obj_OR.GetComponentInChildren<Player_Camera_Controller>();
+        //var target = InjectionObject.transform.GetComponentInChildren<Player_Camera_Controller>();
+        //// 親オブジェクトを拾う
+        //InjectionObject = target.Player;
+        //// ターゲットオブジェクトを拾う
+        //this.TargetObject = target.Enemy;
+        //// 親オブジェクトから切り離されたときかつ非独立状態なら、親が保持している方向ベクトルを拾う
+        //// 非独立状態の判定をしないと、射出後も親に合わせて動いてしまう
+        //// 親オブジェクトを拾う
+        //if (this.transform.parent != null && !IsIndependence)
+        //{
+        //    // 親のステートがSHOTDONEになったら、親子関係を切り離す(真ん中の1発でSHOTDONEに切り替わるので、こっちで拾う）
+        //    // 下記のHomura_Final_BattleControlをCharacterControl_Baseにすることで他のキャラでも応用可能
+        //    if (InjectionObject != null && InjectionObject.GetComponent<CharacterControl_Base>().GetShotmode() == CharacterControl_Base.ShotMode.SHOTDONE)
+        //    {
+        //        // その時の座標を保持する
+        //        this.GetComponent<Rigidbody>().position = InjectionObject.GetComponent<CharacterControl_Base>().MainShotRoot.GetComponent<Rigidbody>().position;
+        //        // 進行方向ベクトルを保持する
+        //        this.MoveDirection = InjectionObject.GetComponent<CharacterControl_Base>().BulletMoveDirection;
+        //        // 攻撃力を保持する
+        //        this.OffemsivePower = InjectionObject.GetComponent<CharacterControl_Base>().OffensivePowerOfBullet;
+        //        // ダウン値を保持する
+        //        this.DownRatio = InjectionObject.GetComponent<CharacterControl_Base>().DownratioPowerOfBullet;
+        //        // 覚醒ゲージ増加量を保持する
+        //        this.ArousalRatio = InjectionObject.GetComponent<CharacterControl_Base>().ArousalRatioOfBullet;
+        //        // 切り離し
+        //        this.transform.parent = null;
+        //        // 独立フラグを立てる
+        //        this.IsIndependence = true;
+        //        // IsKinematicを折る
+        //        this.transform.GetComponent<Rigidbody>().isKinematic = false;
 
-                Vector3 Correction_Rot = new Vector3(this.transform.rotation.eulerAngles.x, this.transform.rotation.eulerAngles.y + 12.0f, this.transform.rotation.eulerAngles.z);
-                this.transform.rotation = Quaternion.Euler(Correction_Rot);
+        //        Vector3 Correction_Rot = new Vector3(this.transform.rotation.eulerAngles.x, this.transform.rotation.eulerAngles.y + 12.0f, this.transform.rotation.eulerAngles.z);
+        //        this.transform.rotation = Quaternion.Euler(Correction_Rot);
                     
-                // 誘導がないなら進行方向は固定
-                if (this.TargetObject == null)
-                {
-                    this.InductionCounter = this.InductionBias + 1; // 下でカウンターが閾値を超えたら固定されるので
-                }
+        //        // 誘導がないなら進行方向は固定
+        //        if (this.TargetObject == null)
+        //        {
+        //            this.InductionCounter = this.InductionBias + 1; // 下でカウンターが閾値を超えたら固定されるので
+        //        }
                 
-            }
-        }
-        // 規定フレーム間誘導する
-        InductionBullet();
+        //    }
+        //}
+        //// 規定フレーム間誘導する
+        //InductionBullet();
 
 
-        // 時間停止を解除したら動き出す
-        //Time.timeScale = 1;        
+        //// 時間停止を解除したら動き出す
+        ////Time.timeScale = 1;        
 
-        BrokenMySelf();
-        TimeNow++; 
+        //BrokenMySelf();
+        //TimeNow++; 
 	}
 }
