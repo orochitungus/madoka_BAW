@@ -26,6 +26,16 @@ public class HomuraBowControl : CharacterControlBase
 	public GameObject SubShotArrow;
 
 	/// <summary>
+	/// サブ射撃用の矢左
+	/// </summary>
+	public GameObject SubShotArrowL;
+
+	/// <summary>
+	/// サブ射撃用の矢右
+	/// </summary>
+	public GameObject SubShotArrowR;
+
+	/// <summary>
 	/// サブ射撃用弾丸の左フック
 	/// </summary>
 	public GameObject SubShotRootL;
