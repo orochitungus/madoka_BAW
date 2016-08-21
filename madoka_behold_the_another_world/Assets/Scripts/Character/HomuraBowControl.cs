@@ -888,11 +888,17 @@ public class HomuraBowControl : CharacterControlBase
 	public void ChagerShotDone()
 	{
 		AnimatorUnit.SetTrigger("ChargeShot");
+		// 位置固定を行う
+		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
 	}
 
 	public void SubShotDone()
 	{
 		AnimatorUnit.SetTrigger("SubShot");
+		// 装填状態へ移行
+		Shotmode = ShotMode.RELORD;
+		// 位置固定を行う
+		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
 	}
 
 	protected override void Animation_Idle(Animator animator, int downID, int runID, int[] stepanimations, int fallID, int jumpID, int airdashID)
@@ -1018,7 +1024,7 @@ public class HomuraBowControl : CharacterControlBase
 					centerArrow.name = "SubShotCenter";
 				}
 				// 左の矢を作る
-				var leftArrow = (GameObject)Instantiate(SubShotArrow, posLArrow, rotLArrow);
+				var leftArrow = (GameObject)Instantiate(SubShotArrowL, posLArrow, rotLArrow);
 				if (leftArrow.transform.parent == null)
 				{
 					leftArrow.transform.parent = SubShotRootL.transform;
@@ -1026,7 +1032,7 @@ public class HomuraBowControl : CharacterControlBase
 					leftArrow.name = "SubShotLeft";
 				}
 				// 右の矢を作る
-				var rightArrow = (GameObject)Instantiate(SubShotArrow, posRArrow, rotRArrow);
+				var rightArrow = (GameObject)Instantiate(SubShotArrowR, posRArrow, rotRArrow);
 				if (rightArrow.transform.parent == null)
 				{
 					rightArrow.transform.parent = SubShotRootR.transform;
@@ -1067,6 +1073,10 @@ public class HomuraBowControl : CharacterControlBase
 		}
 	}
 
+	private IEnumerator Waiter()
+	{
+		yield return new WaitForEndOfFrame();
+	}
 	
 	/// <summary>
 	/// 射撃（射出）射撃のアニメーションファイルの射出フレームにインポートする
@@ -1078,9 +1088,9 @@ public class HomuraBowControl : CharacterControlBase
 		var arrow = GetComponentInChildren<HomuraBowNormalShot>();
 		// サブ射撃中央の矢
 		var subshotArrowCenter = MainShotRoot.GetComponentInChildren<HomuraBowSubShot>();
-		// サブ射撃左右の矢を取得
-		var subshotArrowLeft = SubShotRootL.GetComponentInChildren<HomuraBowSubShot>();
-		var subshotArrowRight = SubShotRootR.GetComponentInChildren<HomuraBowSubShot>();
+		
+		var subshotArrowLeft = SubShotRootL.GetComponentInChildren<HomuraBowSubShotL>();
+		var subshotArrowRight = SubShotRootR.GetComponentInChildren<HomuraBowSubShotR>();
 
 		if (arrow != null || subshotArrowCenter != null)
 		{
@@ -1159,7 +1169,7 @@ public class HomuraBowControl : CharacterControlBase
 					// 角度
 					Vector3 normalizeRotLOR = mainrot.eulerAngles;
 					// 角度再調整
-					Vector3 normalizeRotL = new Vector3(normalizeRotLOR.x - 20, normalizeRotLOR.y, normalizeRotLOR.z);
+					Vector3 normalizeRotL = new Vector3(normalizeRotLOR.x, normalizeRotLOR.y - 20, normalizeRotLOR.z);
 					subshotArrowLeft.MoveDirection = Vector3.Normalize(normalizeRotL);
 				}
 				// サブ射撃の矢右
@@ -1168,7 +1178,7 @@ public class HomuraBowControl : CharacterControlBase
 					// 角度
 					Vector3 normalizeRotROR = mainrot.eulerAngles;
 					// 角度再調整
-					Vector3 normalizeRotR = new Vector3(normalizeRotROR.x + 20, normalizeRotROR.y, normalizeRotROR.z);
+					Vector3 normalizeRotR = new Vector3(normalizeRotROR.x, normalizeRotROR.y + 20, normalizeRotROR.z);
 					subshotArrowRight.MoveDirection = Vector3.Normalize(normalizeRotR);
 				}
 			}
@@ -1198,14 +1208,14 @@ public class HomuraBowControl : CharacterControlBase
 					if (subshotArrowLeft != null)
 					{
 						// 角度再調整
-						Vector3 normalizeRotL = new Vector3(rotateOR.x - 20, rotateOR.y, rotateOR.z);
+						Vector3 normalizeRotL = new Vector3(rotateOR.x , rotateOR.y-20, rotateOR.z);
 						subshotArrowLeft.MoveDirection = Vector3.Normalize(Quaternion.Euler(normalizeRotL) * Vector3.forward);
 					}
 					// サブ射撃の矢右
 					if (subshotArrowRight != null)
 					{
 						// 角度再調整
-						Vector3 normalizeRotR = new Vector3(rotateOR.x + 20, rotateOR.y, rotateOR.z);
+						Vector3 normalizeRotR = new Vector3(rotateOR.x, rotateOR.y + 20, rotateOR.z);
 						subshotArrowRight.MoveDirection = Vector3.Normalize(Quaternion.Euler(normalizeRotR) * Vector3.forward);
 					}
 				}
@@ -1228,7 +1238,7 @@ public class HomuraBowControl : CharacterControlBase
 						// 本体角度算出
 						Vector3 mainrotOR = transform.rotation.eulerAngles;
 						// 角度再調整
-						Vector3 normalizeRotL = new Vector3(mainrotOR.x - 20, mainrotOR.y, mainrotOR.z);
+						Vector3 normalizeRotL = new Vector3(mainrotOR.x, mainrotOR.y - 20, mainrotOR.z);
 						subshotArrowLeft.MoveDirection = Vector3.Normalize(Quaternion.Euler(normalizeRotL) * Vector3.forward);
 					}
 					// サブ射撃の矢右
@@ -1237,7 +1247,7 @@ public class HomuraBowControl : CharacterControlBase
 						// 本体角度算出
 						Vector3 mainrotOR = transform.rotation.eulerAngles;
 						// 角度再調整
-						Vector3 normalizeRotR = new Vector3(mainrotOR.x + 20, mainrotOR.y, mainrotOR.z);
+						Vector3 normalizeRotR = new Vector3(mainrotOR.x, mainrotOR.y + 20, mainrotOR.z);
 						subshotArrowRight.MoveDirection = Vector3.Normalize(Quaternion.Euler(normalizeRotR) * Vector3.forward);
 					}
 				}
@@ -1257,12 +1267,12 @@ public class HomuraBowControl : CharacterControlBase
 			// サブ射撃左
 			if(subshotArrowLeft != null)
 			{
-				BulletMoveDirection = subshotArrowLeft.MoveDirection;
+				BulletMoveDirectionL = subshotArrowLeft.MoveDirection;
 			}
 			// サブ射撃右
 			if (subshotArrowRight != null)
 			{
-				BulletMoveDirection = subshotArrowRight.MoveDirection;
+				BulletMoveDirectionR = subshotArrowRight.MoveDirection;
 			}
 
 

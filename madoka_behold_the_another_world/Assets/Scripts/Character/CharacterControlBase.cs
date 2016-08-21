@@ -1449,7 +1449,9 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="rainbow">虹エフェクトにするか否か（通常はfalse)</param>
     protected virtual void StepDone(float Yforce, Vector2 inputVector, Animator animator, int[] stepanimations, bool rainbow = false)
 	{
-        IsStep = true;
+		// 固定があった場合解除
+		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+		IsStep = true;
         // エフェクトを生成
         UnityEngine.Object Effect;
         // 通常
@@ -2238,6 +2240,8 @@ public class CharacterControlBase : MonoBehaviour
     {
         if (this.Boost > 0)
         {
+			// 固定があった場合解除
+			GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             IsStep = false;
             IsWrestle = false;
             // 格闘判定削除
@@ -2312,7 +2316,9 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="fallID">fall状態のハッシュコード</param>
     protected void FallDone(Vector3 RiseSpeed,Animator animator, int fallID)
     {
-        IsStep = false;
+		// 固定があった場合解除
+		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+		IsStep = false;
         IsWrestle = false;
         this.GetComponent<Rigidbody>().useGravity = true;
         animator.SetTrigger("Fall");
@@ -4597,6 +4603,8 @@ public class CharacterControlBase : MonoBehaviour
 		// ダメージ硬直終了
 		if (Time.time > DamagedTime + DamagedWaitTime)
 		{
+			// 固定があった場合解除
+			GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 			// 空中にいた→ダウンアニメを再生する→Blowへ移行（飛ばされない）
 			if (!this.IsGrounded)
 			{
@@ -4762,12 +4770,13 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     protected virtual void Animation_Idle(Animator animator, int downID, int runID, int[] stepanimations,int fallID, int jumpID,int airdashID)
     {
-        // 移行後復活
-        //IsStep = false;
-        //IsWrestle = false;
-
-        // 死んでいたらダウン
-        if (NowHitpoint < 1)
+		// 移行後復活
+		//IsStep = false;
+		//IsWrestle = false;
+		// 固定があった場合解除
+		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+		// 死んでいたらダウン
+		if (NowHitpoint < 1)
         {
             animator.SetTrigger("Down");
         }

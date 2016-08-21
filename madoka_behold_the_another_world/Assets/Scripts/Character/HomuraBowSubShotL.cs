@@ -65,11 +65,11 @@ public class HomuraBowSubShotL : Bullet
 		// 親オブジェクトを拾う
 		if (transform.parent != null && !IsIndependence)
 		{
-			// 親のステートがSHOTになったら、親子関係を切り離す
-			if (InjectionObject != null && InjectionObject.GetComponent<CharacterControlBase>().Shotmode == CharacterControlBase.ShotMode.SHOT)
+			// 親のステートがSHOTになったら、親子関係を切り離す(先にセンターがSHOTになるのでSHOTDONEにしておく）
+			if (InjectionObject != null && InjectionObject.GetComponent<CharacterControlBase>().Shotmode == CharacterControlBase.ShotMode.SHOTDONE)
 			{
 				// その時の座標を保持する
-				GetComponent<Rigidbody>().position = InjectionObject.GetComponent<CharacterControlBase>().MainShotRoot.GetComponent<Rigidbody>().position;
+				GetComponent<Rigidbody>().position = InjectionObject.GetComponent<HomuraBowControl>().SubShotRootL.GetComponent<Rigidbody>().position;
 				// 進行方向ベクトルを保持する
 				MoveDirection = InjectionObject.GetComponent<HomuraBowControl>().BulletMoveDirectionL;
 				// 攻撃力を保持する
