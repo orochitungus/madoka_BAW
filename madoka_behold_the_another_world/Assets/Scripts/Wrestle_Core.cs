@@ -12,43 +12,43 @@ public class Wrestle_Core : MonoBehaviour
 {   
 
     // 攻撃力
-    protected int m_offemsivePower;
+    protected int OffemsivePower;
 
     // ダウン値
-    protected float m_downRatio;
+    protected float DownRatio;
 
     // 覚醒ゲージ増加量
-    protected float m_arousalRatio;
+    protected float ArousalRatio;
 
     // 動作元のゲームオブジェクト
-    protected GameObject m_Obj_OR;
+    protected GameObject Obj_OR;
 
     // ヒットタイプ
-    protected CharacterSkill.HitType m_Hittype;
+    protected CharacterSkill.HitType Hittype;
 
     // 吹き飛びになったときの打ち上げ量
-    protected float m_launchOffset;
+    protected float LaunchOffset;
 
     // 吹き飛びになったときの打ち上げる力
-    private float m_launchforce;
+    private float Launchforce;
 
     // ヒット時のSE
-    public AudioClip m_Insp_HitSE;
+    public AudioClip InspHitSE;
 
     // 接触したゲームオブジェクト
-    private GameObject m_HitTarget;
+    private GameObject HitTarget;
     
 	// 出現時の初期化.攻撃力やダウン値の設定はSetStatusでPCから呼ぶ
     // Startに書くとSetStatus（Awakeの直後？）より後に実行される
 	void Awake () 
     {
 	    // 各ステータスを初期化
-        m_offemsivePower = 0;
-        m_downRatio = 0;
-        m_arousalRatio = 0;
-        m_Obj_OR = null;
-        m_Hittype = CharacterSkill.HitType.BEND_BACKWARD;
-        m_launchOffset = 0.0f;       
+        OffemsivePower = 0;
+        DownRatio = 0;
+        ArousalRatio = 0;
+        Obj_OR = null;
+        Hittype = CharacterSkill.HitType.BEND_BACKWARD;
+        LaunchOffset = 0.0f;       
 	}
 
    
@@ -62,16 +62,16 @@ public class Wrestle_Core : MonoBehaviour
     public virtual void SetStatus(int offensive, float downR, float arousal, CharacterSkill.HitType hittype, float launch = 10.0f, float force = 5.0f)
     {
         // 親のオブジェクトを拾う
-        m_Obj_OR = transform.root.GetComponentInChildren<CharacterControl_Base>().gameObject;
+        Obj_OR = transform.root.GetComponentInChildren<CharacterControl_Base>().gameObject;
         // 自機をダメージ対象から除外する
-        Physics.IgnoreCollision(this.transform.GetComponent<Collider>(), m_Obj_OR.transform.GetComponent<Collider>()); 
+        Physics.IgnoreCollision(this.transform.GetComponent<Collider>(), Obj_OR.transform.GetComponent<Collider>()); 
         // 各ステートを設定
-        m_offemsivePower = offensive;
-        m_downRatio = downR;
-        m_arousalRatio = arousal;
-        m_Hittype = hittype;
-        m_launchOffset = launch;
-        m_launchforce = force;
+        OffemsivePower = offensive;
+        DownRatio = downR;
+        ArousalRatio = arousal;
+        Hittype = hittype;
+        LaunchOffset = launch;
+        Launchforce = force;
     }
 	
 	// Update is called once per frame
@@ -86,9 +86,9 @@ public class Wrestle_Core : MonoBehaviour
         string player;
         string enemy;
         // ヒットSEを鳴らす
-        if (m_Insp_HitSE != null)
+        if (InspHitSE != null)
         {
-            AudioSource.PlayClipAtPoint(m_Insp_HitSE, transform.position);
+            AudioSource.PlayClipAtPoint(InspHitSE, transform.position);
         }
         // 着弾した位置にヒットエフェクトを置く
         UnityEngine.Object HitEffect = null;
@@ -96,13 +96,13 @@ public class Wrestle_Core : MonoBehaviour
         Instantiate(HitEffect, transform.position, transform.rotation);
 
         // ガードされた場合は強制抜け（ガードオブジェクトはCharacterContorol_Baseを継承しない）
-        if (m_Obj_OR == null)
+        if (Obj_OR == null)
         {
             return;
         }
 
         // 親オブジェクトを拾う
-        var master = m_Obj_OR.GetComponent<CharacterControl_Base>();
+        var master = Obj_OR.GetComponent<CharacterControl_Base>();
        
         // 自機がPLAYERかPLAYER_ALLYの場合
         if (master.IsPlayer != CharacterControl_Base.CHARACTERCODE.ENEMY)
@@ -118,7 +118,7 @@ public class Wrestle_Core : MonoBehaviour
         }
         // 接触対象を取得
         var target = collision.gameObject.GetComponent<CharacterControl_Base>();
-        m_HitTarget = collision.gameObject;
+        HitTarget = collision.gameObject;
 
         // targetがCharacterControl_Baseクラスでなければ強制抜け
         if (target == null)
@@ -142,9 +142,9 @@ public class Wrestle_Core : MonoBehaviour
                 // 覚醒時ダメージ補正
                 DamageCorrection();
                 // 攻撃したキャラクター
-                int CharacterIndex = (int)(m_Obj_OR.GetComponent<CharacterControl_Base>().CharacterName);
+                int CharacterIndex = (int)(Obj_OR.GetComponent<CharacterControl_Base>().CharacterName);
                 // ダメージ
-                collision.gameObject.GetComponent<CharacterControl_Base>().DamageHP(CharacterIndex, m_offemsivePower);
+                collision.gameObject.GetComponent<CharacterControl_Base>().DamageHP(CharacterIndex, OffemsivePower);
             }
             // 味方に触れた場合
             else if (collision.gameObject.tag == player)
@@ -152,9 +152,9 @@ public class Wrestle_Core : MonoBehaviour
                 // 覚醒時ダメージ補正
                 DamageCorrection();
                 // 攻撃したキャラクター
-                int AttackedCharacter = (int)(m_Obj_OR.GetComponent<CharacterControl_Base>().CharacterName);
+                int AttackedCharacter = (int)(Obj_OR.GetComponent<CharacterControl_Base>().CharacterName);
                 // ダメージ量
-                int AttackedDamage = (int)((float)m_offemsivePower / MadokaDefine.FRENDLYFIRE_RATIO);
+                int AttackedDamage = (int)((float)OffemsivePower / MadokaDefine.FRENDLYFIRE_RATIO);
                 //var arr = new int[AttackedCharacter, AttackedDamage];
                 // ダメージ
                 //collision.gameObject.SendMessage("DamageHP", m_offemsivePower / 4.0f);
@@ -162,9 +162,9 @@ public class Wrestle_Core : MonoBehaviour
                 collision.gameObject.GetComponent<CharacterControl_Base>().DamageHP(AttackedCharacter, AttackedDamage);
             }
             // ダウン値加算
-            collision.gameObject.SendMessage("DownRateInc", m_downRatio);
+            collision.gameObject.SendMessage("DownRateInc", DownRatio);
             // 殴られた相手への覚醒ゲージ加算
-            collision.gameObject.SendMessage("DamageArousal", m_arousalRatio);
+            collision.gameObject.SendMessage("DamageArousal", ArousalRatio);
         }
 
         // 本体の覚醒ゲージを増やす(覚醒時除く）
@@ -173,28 +173,28 @@ public class Wrestle_Core : MonoBehaviour
             // プレイヤーの場合
             if (master.GetComponent<CharacterControl_Base>().IsPlayer != CharacterControl_Base.CHARACTERCODE.ENEMY)
             {
-                savingparameter.AddArousal((int)master.CharacterName, m_arousalRatio);
+                savingparameter.AddArousal((int)master.CharacterName, ArousalRatio);
             }
             // 敵の場合
             else
             {
-                master.Arousal += m_arousalRatio;
+                master.Arousal += ArousalRatio;
             }
         }
         
         // ヒット時にダメージの種類をCharacterControl_Baseに与える
         // ダウン値を超えていたら吹き飛びへ移行
         // Blow属性の攻撃を与えた場合も吹き飛びへ移行
-        if (target.NowDownRatio >= target.DownRatio || this.m_Hittype == CharacterSkill.HitType.BLOW)
+        if (target.NowDownRatio >= target.DownRatio || this.Hittype == CharacterSkill.HitType.BLOW)
         {
             // 吹き飛びの場合、相手に方向ベクトルを与える            
             // Y軸方向は少し上向き
             target.MoveDirection.y += 5;
 
-            target.BlowDirection = m_Obj_OR.GetComponent<CharacterControl_Base>().MoveDirection;
+            target.BlowDirection = Obj_OR.GetComponent<CharacterControl_Base>().MoveDirection;
             // 吹き飛びの場合、攻撃を当てた相手を浮かす（m_launchOffset)            
-            target.GetComponent<Rigidbody>().position = target.GetComponent<Rigidbody>().position + new Vector3(m_launchforce, this.m_launchOffset, m_launchforce);
-            target.GetComponent<Rigidbody>().AddForce(master.MoveDirection.x * m_launchOffset, master.MoveDirection.y * m_launchOffset, master.MoveDirection.z * m_launchOffset);
+            target.GetComponent<Rigidbody>().position = target.GetComponent<Rigidbody>().position + new Vector3(Launchforce, this.LaunchOffset, Launchforce);
+            target.GetComponent<Rigidbody>().AddForce(master.MoveDirection.x * LaunchOffset, master.MoveDirection.y * LaunchOffset, master.MoveDirection.z * LaunchOffset);
             target.m_AnimState[0] = CharacterControl_Base.AnimationState.BlowInit;
         }
         // それ以外は多段ヒットしない程度に飛ばす
@@ -217,14 +217,14 @@ public class Wrestle_Core : MonoBehaviour
     private void DamageCorrection()
     {
         // 攻撃側が覚醒中の場合
-        if (m_Obj_OR.GetComponent<CharacterControl_Base>().IsArousal)
+        if (Obj_OR.GetComponent<CharacterControl_Base>().IsArousal)
         {
-            m_offemsivePower = (int)(m_offemsivePower * MadokaDefine.AROUSAL_OFFENCE_UPPER);
+            OffemsivePower = (int)(OffemsivePower * MadokaDefine.AROUSAL_OFFENCE_UPPER);
         }
         // 防御側が覚醒中の場合
-        if (m_HitTarget.GetComponent<CharacterControl_Base>().IsArousal)
+        if (HitTarget.GetComponent<CharacterControl_Base>().IsArousal)
         {
-            m_offemsivePower = (int)(m_offemsivePower * MadokaDefine.AROUSAL_DEFFENSIVE_UPPER);
+            OffemsivePower = (int)(OffemsivePower * MadokaDefine.AROUSAL_DEFFENSIVE_UPPER);
         }
     }
 }
