@@ -62,7 +62,7 @@ public class Wrestle_Core : MonoBehaviour
     public virtual void SetStatus(int offensive, float downR, float arousal, CharacterSkill.HitType hittype, float launch = 10.0f, float force = 5.0f)
     {
         // 親のオブジェクトを拾う
-        Obj_OR = transform.root.GetComponentInChildren<CharacterControl_Base>().gameObject;
+        Obj_OR = transform.root.GetComponentInChildren<CharacterControlBase>().gameObject;
         // 自機をダメージ対象から除外する
         Physics.IgnoreCollision(this.transform.GetComponent<Collider>(), Obj_OR.transform.GetComponent<Collider>()); 
         // 各ステートを設定
@@ -102,10 +102,10 @@ public class Wrestle_Core : MonoBehaviour
         }
 
         // 親オブジェクトを拾う
-        var master = Obj_OR.GetComponent<CharacterControl_Base>();
+        var master = Obj_OR.GetComponent<CharacterControlBase>();
        
         // 自機がPLAYERかPLAYER_ALLYの場合
-        if (master.IsPlayer != CharacterControl_Base.CHARACTERCODE.ENEMY)
+        if (master.IsPlayer != CharacterControlBase.CHARACTERCODE.ENEMY)
         {
             player = "Player";
             enemy = "Enemy";
@@ -117,7 +117,7 @@ public class Wrestle_Core : MonoBehaviour
             enemy = "Player";
         }
         // 接触対象を取得
-        var target = collision.gameObject.GetComponent<CharacterControl_Base>();
+        var target = collision.gameObject.GetComponent<CharacterControlBase>();
         HitTarget = collision.gameObject;
 
         // targetがCharacterControl_Baseクラスでなければ強制抜け
@@ -127,7 +127,7 @@ public class Wrestle_Core : MonoBehaviour
         }
 
         // ダウン中かダウン値MAXならダメージを与えない
-        if (target.m_AnimState[0] == CharacterControl_Base.AnimationState.Down || (target.DownRatio <= target.NowDownRatio))
+        if (target.Invincible)
         {
             // オブジェクトを自壊させる
             Destroy(gameObject);
@@ -142,9 +142,9 @@ public class Wrestle_Core : MonoBehaviour
                 // 覚醒時ダメージ補正
                 DamageCorrection();
                 // 攻撃したキャラクター
-                int CharacterIndex = (int)(Obj_OR.GetComponent<CharacterControl_Base>().CharacterName);
+                int CharacterIndex = (int)(Obj_OR.GetComponent<CharacterControlBase>().CharacterName);
                 // ダメージ
-                collision.gameObject.GetComponent<CharacterControl_Base>().DamageHP(CharacterIndex, OffemsivePower);
+                collision.gameObject.GetComponent<CharacterControlBase>().DamageHP(CharacterIndex, OffemsivePower);
             }
             // 味方に触れた場合
             else if (collision.gameObject.tag == player)
@@ -152,14 +152,10 @@ public class Wrestle_Core : MonoBehaviour
                 // 覚醒時ダメージ補正
                 DamageCorrection();
                 // 攻撃したキャラクター
-                int AttackedCharacter = (int)(Obj_OR.GetComponent<CharacterControl_Base>().CharacterName);
+                int AttackedCharacter = (int)(Obj_OR.GetComponent<CharacterControlBase>().CharacterName);
                 // ダメージ量
                 int AttackedDamage = (int)((float)OffemsivePower / MadokaDefine.FRENDLYFIRE_RATIO);
-                //var arr = new int[AttackedCharacter, AttackedDamage];
-                // ダメージ
-                //collision.gameObject.SendMessage("DamageHP", m_offemsivePower / 4.0f);
-                //collision.gameObject.SendMessage("DamageHP", arr);
-                collision.gameObject.GetComponent<CharacterControl_Base>().DamageHP(AttackedCharacter, AttackedDamage);
+                collision.gameObject.GetComponent<CharacterControlBase>().DamageHP(AttackedCharacter, AttackedDamage);
             }
             // ダウン値加算
             collision.gameObject.SendMessage("DownRateInc", DownRatio);
@@ -171,7 +167,7 @@ public class Wrestle_Core : MonoBehaviour
         if (master.IsArousal == false)
         {
             // プレイヤーの場合
-            if (master.GetComponent<CharacterControl_Base>().IsPlayer != CharacterControl_Base.CHARACTERCODE.ENEMY)
+            if (master.GetComponent<CharacterControlBase>().IsPlayer != CharacterControlBase.CHARACTERCODE.ENEMY)
             {
                 savingparameter.AddArousal((int)master.CharacterName, ArousalRatio);
             }
@@ -185,26 +181,26 @@ public class Wrestle_Core : MonoBehaviour
         // ヒット時にダメージの種類をCharacterControl_Baseに与える
         // ダウン値を超えていたら吹き飛びへ移行
         // Blow属性の攻撃を与えた場合も吹き飛びへ移行
-        if (target.NowDownRatio >= target.DownRatio || this.Hittype == CharacterSkill.HitType.BLOW)
+        if (target.NowDownRatio >= target.DownRatioBias || this.Hittype == CharacterSkill.HitType.BLOW)
         {
             // 吹き飛びの場合、相手に方向ベクトルを与える            
             // Y軸方向は少し上向き
             target.MoveDirection.y += 5;
 
-            target.BlowDirection = Obj_OR.GetComponent<CharacterControl_Base>().MoveDirection;
+            target.BlowDirection = Obj_OR.GetComponent<CharacterControlBase>().MoveDirection;
             // 吹き飛びの場合、攻撃を当てた相手を浮かす（m_launchOffset)            
             target.GetComponent<Rigidbody>().position = target.GetComponent<Rigidbody>().position + new Vector3(Launchforce, this.LaunchOffset, Launchforce);
             target.GetComponent<Rigidbody>().AddForce(master.MoveDirection.x * LaunchOffset, master.MoveDirection.y * LaunchOffset, master.MoveDirection.z * LaunchOffset);
-            target.m_AnimState[0] = CharacterControl_Base.AnimationState.BlowInit;
-        }
+			target.DamageInit(target.AnimatorUnit, 41, true, 43, 44);
+		}
         // それ以外は多段ヒットしない程度に飛ばす
         else
         {
             // ただしアーマー時ならダウン値とダメージだけ加算する(Damageにしない）
             if (!target.IsArmor)
             {
-                target.m_AnimState[0] = CharacterControl_Base.AnimationState.DamageInit;
-            }
+				target.DamageInit(target.AnimatorUnit, 41, true, 43, 44);
+			}
             // アーマーなら以降の処理が関係ないのでオブジェクトを自壊させてサヨウナラ           
         }
         // オブジェクトを自壊させる
@@ -217,12 +213,12 @@ public class Wrestle_Core : MonoBehaviour
     private void DamageCorrection()
     {
         // 攻撃側が覚醒中の場合
-        if (Obj_OR.GetComponent<CharacterControl_Base>().IsArousal)
+        if (Obj_OR.GetComponent<CharacterControlBase>().IsArousal)
         {
             OffemsivePower = (int)(OffemsivePower * MadokaDefine.AROUSAL_OFFENCE_UPPER);
         }
         // 防御側が覚醒中の場合
-        if (HitTarget.GetComponent<CharacterControl_Base>().IsArousal)
+        if (HitTarget.GetComponent<CharacterControlBase>().IsArousal)
         {
             OffemsivePower = (int)(OffemsivePower * MadokaDefine.AROUSAL_DEFFENSIVE_UPPER);
         }
