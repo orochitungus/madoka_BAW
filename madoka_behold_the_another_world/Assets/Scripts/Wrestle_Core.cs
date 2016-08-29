@@ -37,9 +37,14 @@ public class Wrestle_Core : MonoBehaviour
 
     // 接触したゲームオブジェクト
     private GameObject HitTarget;
-    
+
+	/// <summary>
+	/// 着弾時のヒットエフェクト
+	/// </summary>
+	public GameObject HitEffect;
+
 	// 出現時の初期化.攻撃力やダウン値の設定はSetStatusでPCから呼ぶ
-    // Startに書くとSetStatus（Awakeの直後？）より後に実行される
+	// Startに書くとSetStatus（Awakeの直後？）より後に実行される
 	void Awake () 
     {
 	    // 各ステータスを初期化
@@ -90,10 +95,9 @@ public class Wrestle_Core : MonoBehaviour
         {
             AudioSource.PlayClipAtPoint(InspHitSE, transform.position);
         }
-        // 着弾した位置にヒットエフェクトを置く
-        UnityEngine.Object HitEffect = null;
-        HitEffect = Resources.Load("DamageEffect");
-        Instantiate(HitEffect, transform.position, transform.rotation);
+		// 着弾した位置にヒットエフェクトを置く           
+		GameObject hiteffect = (GameObject)Instantiate(HitEffect, transform.position, transform.rotation);
+		Instantiate(hiteffect, transform.position, transform.rotation);
 
         // ガードされた場合は強制抜け（ガードオブジェクトはCharacterContorol_Baseを継承しない）
         if (Obj_OR == null)
