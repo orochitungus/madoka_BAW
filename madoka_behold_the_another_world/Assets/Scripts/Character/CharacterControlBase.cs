@@ -751,6 +751,7 @@ public class CharacterControlBase : MonoBehaviour
         EX_RIGHT_WRESTLE_2,     // 右横特殊格闘2段目
         EX_RIGHT_WRESTLE_3,     // 右横特殊格闘3段目
         BACK_EX_WRESTLE,        // 後特殊格闘
+        NONE,                   // なし
         // キャラごとの特殊な処理はこの後に追加、さやかのスクワルタトーレのような連続で切りつける技など
 
         WRESTLE_TOTAL
@@ -1751,6 +1752,16 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     protected virtual void ChargeShot()
     {
+        // キャンセルダッシュ受付
+        if (HasDashCancelInput)
+        {
+            // 地上でキャンセルすると浮かないので浮かす
+            if (IsGrounded)
+            {
+                transform.Translate(new Vector3(0, 1, 0));
+            }
+            CancelDashDone(AnimatorUnit, 7);
+        }
     }
 
     /// <summary>
@@ -1758,6 +1769,16 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     protected virtual void SubShot()
     {
+        // キャンセルダッシュ受付
+        if (HasDashCancelInput)
+        {
+            // 地上でキャンセルすると浮かないので浮かす
+            if (IsGrounded)
+            {
+                transform.Translate(new Vector3(0, 1, 0));
+            }
+            CancelDashDone(AnimatorUnit, 7);
+        }
     }
 
     /// <summary>
@@ -1765,6 +1786,16 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     protected virtual void ExShot()
     {
+        // キャンセルダッシュ受付
+        if (HasDashCancelInput)
+        {
+            // 地上でキャンセルすると浮かないので浮かす
+            if (IsGrounded)
+            {
+                transform.Translate(new Vector3(0, 1, 0));
+            }
+            CancelDashDone(AnimatorUnit, 7);
+        }
     }
 
     /// <summary>
@@ -1774,11 +1805,11 @@ public class CharacterControlBase : MonoBehaviour
     /// <summary>
     /// N格1段目
     /// </summary>    
-    protected virtual void Wrestle1(Animator animator, int airdashhash, int[] stepanimations)
+    protected virtual void Wrestle1(Animator animator, int airdashID, int[] stepanimations)
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
-        StepCancel(animator,airdashhash,stepanimations);
+        StepCancel(animator,airdashID,stepanimations);
     }
 
     /// <summary>
@@ -3735,11 +3766,11 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="animator">格闘攻撃の種類</param>
     /// <param name="skilltype">スキルのインデックス(キャラごとに異なる)</param>
-    /// <param name="wrestlehash">使用する格闘のハッシュID</param>
-    protected virtual void WrestleDone(Animator animator, int skilltype,int wrestlehash)
+    /// <param name="triggername">使用する格闘のトリガーの名前</param>
+    protected virtual void WrestleDone(Animator animator, int skilltype,string triggername)
     {
         // 追加入力フラグをカット
-        this.AddInput = false;
+        AddInput = false;
         // ステートを設定する
         // skilltypeのインデックス(格闘系はSkillType.Wrestle1+Xなので、Xにwrestletypeを代入）
         int skillIndex = skilltype;
@@ -3781,7 +3812,7 @@ public class CharacterControlBase : MonoBehaviour
         float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
 
         // アニメーションを再生する
-        animator.SetTrigger("Wrestle1");
+        animator.SetTrigger(triggername);
                
         // アニメーションの速度を調整する
         animator.speed = speed;
@@ -4080,85 +4111,93 @@ public class CharacterControlBase : MonoBehaviour
 	}
 
 	/// <summary>
-	/// 格闘終了時に実行	
-	/// </summary>
-	/// <param name="animator"></param>
-	/// <param name="wrestletype">派生先の格闘の種類</param>
-	/// <param name="wrestlehash">派生先の格闘のハッシュID</param>
-	/// <param name="shothash">派生先が通常射撃の場合のハッシュＩＤ</param>
-	/// <param name="runshothash">派生先が走行射撃の場合のハッシュＩＤ</param>
-	/// <param name="airdashshothash">派生先が空中ダッシュ射撃の場合のハッシュＩＤ</param>
-	/// <param name="subshothash">派生先がサブ射撃の場合のハッシュＩＤ</param>
-	protected virtual void WrestleFinish(Animator animator,CharacterSkill.SkillType wrestletype, int wrestlehash,int shothash, int runshothash, int airdashshothash,int subshothash, int exshothash,int idlehash,int fallhash)
-	{
-		// 判定オブジェクトを破棄する.一応くっついているものはすべて削除
-		DestroyWrestle();
-		// 格闘の累積時間を初期化
-		Wrestletime = 0;
-		// 派生ありで入力を持っていたら、次のモーションを再生する
-		if (AddInput && wrestlehash != 0)
-		{
-			// スキルのインデックス
-			CharacterSkill.SkillType skill = CharacterSkill.SkillType.NONE;
-			if(wrestlehash == shothash || wrestlehash == runshothash || wrestlehash == airdashshothash)
-			{
-				if (Nowmode == ModeState.NORMAL)
-				{
-					skill = CharacterSkill.SkillType.SHOT;
-				}
-				else
-				{
-					skill = CharacterSkill.SkillType.SHOT_M2;
-				}
-			}
-			else if(wrestlehash == subshothash)
-			{
-				if (Nowmode == ModeState.NORMAL)
-				{
-					skill = CharacterSkill.SkillType.SUB_SHOT;
-				}
-				else
-				{
-					skill = CharacterSkill.SkillType.SUB_SHOT_M2;
-				}
-			}
-			else if(wrestlehash == exshothash)
-			{
-				if (Nowmode == ModeState.NORMAL)
-				{
-					skill = CharacterSkill.SkillType.EX_SHOT;
-				}
-				else
-				{
-					skill = CharacterSkill.SkillType.EX_SHOT_M2;
-				}
-			}
-			else
-			{	
-				skill = wrestletype;
-			}			
-			WrestleDone(animator,(int)skill,wrestlehash);
-		}
-		// 持っていなかったら、地上→Idleに戻る、空中→Fallに戻る（IdleとFallで追加入力フラグは強制カット）
-		else
-		{
-			if (this.IsGrounded)
-			{
-                animator.SetTrigger("Idle");
-			}
-			else
-			{				
-				_FallStartTime = Time.time;
-                animator.SetTrigger("Fall");
-			}
-		}
-	}
+	/// 格闘終了時に実行(モーションの最終フレームで実行）
+	/// </summary>	
+    protected virtual void WrestleFinish(WrestleType nextmotion)
+    {
+        // 判定オブジェクトを全て破棄
+        DestroyWrestle();
+        // 格闘の累積時間を初期化
+        Wrestletime = 0;
+        // 派生があった場合は次のモーションを再生する（ここから先はキャラごとに全部異なるので継承先で書く）
+    }
+    /// <param name="animator"></param>
+    /// <param name="wrestletype">派生先の格闘の種類</param>
+    /// <param name="wrestlehash">派生先の格闘のハッシュID</param>
+    /// <param name="shothash">派生先が通常射撃の場合のハッシュＩＤ</param>
+    /// <param name="runshothash">派生先が走行射撃の場合のハッシュＩＤ</param>
+    /// <param name="airdashshothash">派生先が空中ダッシュ射撃の場合のハッシュＩＤ</param>
+    /// <param name="subshothash">派生先がサブ射撃の場合のハッシュＩＤ</param>
+    //protected virtual void WrestleFinish(Animator animator,CharacterSkill.SkillType wrestletype, int wrestlehash,int shothash, int runshothash, int airdashshothash,int subshothash, int exshothash,int idlehash,int fallhash)
+    //{
+    //	// 判定オブジェクトを破棄する.一応くっついているものはすべて削除
+    //	DestroyWrestle();
+    //	// 格闘の累積時間を初期化
+    //	Wrestletime = 0;
+    //	// 派生ありで入力を持っていたら、次のモーションを再生する
+    //	if (AddInput && wrestlehash != 0)
+    //	{
+    //		// スキルのインデックス
+    //		CharacterSkill.SkillType skill = CharacterSkill.SkillType.NONE;
+    //		if(wrestlehash == shothash || wrestlehash == runshothash || wrestlehash == airdashshothash)
+    //		{
+    //			if (Nowmode == ModeState.NORMAL)
+    //			{
+    //				skill = CharacterSkill.SkillType.SHOT;
+    //			}
+    //			else
+    //			{
+    //				skill = CharacterSkill.SkillType.SHOT_M2;
+    //			}
+    //		}
+    //		else if(wrestlehash == subshothash)
+    //		{
+    //			if (Nowmode == ModeState.NORMAL)
+    //			{
+    //				skill = CharacterSkill.SkillType.SUB_SHOT;
+    //			}
+    //			else
+    //			{
+    //				skill = CharacterSkill.SkillType.SUB_SHOT_M2;
+    //			}
+    //		}
+    //		else if(wrestlehash == exshothash)
+    //		{
+    //			if (Nowmode == ModeState.NORMAL)
+    //			{
+    //				skill = CharacterSkill.SkillType.EX_SHOT;
+    //			}
+    //			else
+    //			{
+    //				skill = CharacterSkill.SkillType.EX_SHOT_M2;
+    //			}
+    //		}
+    //		else
+    //		{	
+    //			skill = wrestletype;
+    //		}			
+    //		WrestleDone(animator,(int)skill,wrestlehash);
+    //	}
+    //	// 持っていなかったら、地上→Idleに戻る、空中→Fallに戻る（IdleとFallで追加入力フラグは強制カット）
+    //	else
+    //	{
+    //		if (this.IsGrounded)
+    //		{
+    //               animator.SetTrigger("Idle");
+    //		}
+    //		else
+    //		{				
+    //			_FallStartTime = Time.time;
+    //               animator.SetTrigger("Fall");
+    //		}
+    //	}
+    //}
 
-	/// <summary>
-	/// 格闘判定出現時に実行（一応派生は認めておく。専用のはそっちで利用）
-	/// </summary>
-	/// <param name="wrestletype">格闘攻撃の種類</param>
-	protected virtual void WrestleStart(WrestleType wrestletype)
+    /// <summary>
+    /// 格闘判定出現時に実行（一応派生は認めておく。専用のはそっちで利用）
+    /// </summary>
+    /// <param name="wrestletype">格闘攻撃の種類</param>
+    protected virtual void WrestleStart(WrestleType wrestletype)
 	{
 		// 判定を生成し・フックと一致させる  
 		Vector3 pos = WrestleRoot[(int)wrestletype].transform.position;

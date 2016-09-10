@@ -602,60 +602,63 @@ public class HomuraBowControl : CharacterControlBase
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RunShotID)
 		{
-
-		}
+            Shot();
+        }
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == AirShotID)
 		{
 			Shot();
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == ChargeShotID)
 		{
-
+            ChargeShot();
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == SubShotID)
 		{
-
-		}
+            SubShot();
+        }
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXShotID)
 		{
 
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowShotID)
 		{
-
-		}
+            Shot();
+        }
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowRunShotID)
 		{
-
-		}
+            Shot();
+        }
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowAirShotID)
 		{
-
-		}
+            Shot();
+        }
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowChargeShotID)
 		{
-
-		}
+            ChargeShot();
+        }
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowSubShotID)
 		{
-
-		}
+            SubShot();
+        }
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowEXShotID)
 		{
 
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle1ID)
 		{
-
+            int[] stepanimations = { 8, 9, 10, 11 };
+            Wrestle1(AnimatorUnit, 7, stepanimations);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle2ID)
 		{
-
-		}
+            int[] stepanimations = { 8, 9, 10, 11 };
+            Wrestle2(AnimatorUnit, 7, stepanimations);
+        }
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle3ID)
 		{
-
-		}
+            int[] stepanimations = { 8, 9, 10, 11 };
+            Wrestle3(AnimatorUnit, 7, stepanimations);
+        }
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontWrestleID)
 		{
 
@@ -833,36 +836,31 @@ public class HomuraBowControl : CharacterControlBase
 			}
 			else
 			{
-				// 前格闘と横格闘への分岐はここで（2段目・3段目の分岐はやっているときに）
-
-				// 前格闘で前格闘へ移行
-				if (HasFrontInput)
-				{
-					// TODO:前格闘実行
-				}
-				// 左格闘で左格闘へ移行
-				else if (HasLeftInput)
-				{
-					// TODO:左格闘実行
-				}
-				// 右格闘で右格闘へ移行
-				else if (HasRightInput)
-				{
-					// TODO:右格闘実行
-				}
-				// 後格闘で後格闘へ移行
-				else if (HasBackInput)
-				{
-					// TODO:後格闘実行（ガード）
-				}
-				else
-				{
-					// N格闘1段目  
-					// TODO:N格闘実行
-				}
+                // それ以外ならN格闘実行(2段目と3段目の追加入力はWrestle1とWrestle2で行う
+                WrestleDone(AnimatorUnit, (int)CharacterSkill.SkillType.WRESTLE_1, "Wrestle1");			
 			}
 		}
-	}
+        // 前格闘で前格闘へ移行
+        else if (HasFrontInput)
+        {
+            // TODO:前格闘実行
+        }
+        // 左格闘で左格闘へ移行
+        else if (HasLeftInput)
+        {
+            // TODO:左格闘実行
+        }
+        // 右格闘で右格闘へ移行
+        else if (HasRightInput)
+        {
+            // TODO:右格闘実行
+        }
+        // 後格闘で後格闘へ移行
+        else if (HasBackInput)
+        {
+            // TODO:後格闘実行（ガード）
+        }
+    }
 	
 	/// <summary>
 	/// 射撃の装填開始
@@ -1387,5 +1385,59 @@ public class HomuraBowControl : CharacterControlBase
 		}
 	}
 
+    /// <summary>
+    /// 格闘攻撃終了後、派生を行う
+    /// </summary>
+    /// <param name="nextmotion"></param>
+    protected override void WrestleFinish(WrestleType nextmotion )
+    {
+        base.WrestleFinish(nextmotion);
+        // 派生入力があった場合は派生する
+        if (AddInput)
+        {
+            // N格闘２段目派生
+            if (nextmotion == WrestleType.WRESTLE_2)
+            {
+                WrestleDone(AnimatorUnit, (int)CharacterSkill.SkillType.WRESTLE_2, "Wrestle2");
+            }
+            // N格闘３段目派生
+            else if (nextmotion == WrestleType.WRESTLE_3)
+            {
+                WrestleDone(AnimatorUnit, (int)CharacterSkill.SkillType.WRESTLE_3, "Wrestle3");
+            }
+        }
+    }
+
+    /// <summary>
+    /// N格闘1段目実行時、キャンセルや派生の入力を受け取る
+    /// </summary>
+    /// <param name="animator"></param>
+    /// <param name="airdashID"></param>
+    /// <param name="stepanimations"></param>
+    protected override void Wrestle1(Animator animator, int airdashID, int[] stepanimations)
+    {
+        base.Wrestle1(animator, airdashID, stepanimations);
+        // 追加入力受け取り
+        if (HasWrestleInput)
+        {
+            AddInput = true;
+        }
+    }
+
+    /// <summary>
+    /// N格闘2段目実行時、キャンセルや派生の入力を受け取る
+    /// </summary>
+    /// <param name="animator"></param>
+    /// <param name="airdashhash"></param>
+    /// <param name="stepanimations"></param>
+    protected override void Wrestle2(Animator animator, int airdashhash, int[] stepanimations)
+    {
+        base.Wrestle2(animator, airdashhash, stepanimations);
+        // 追加入力受け取り
+        if (HasWrestleInput)
+        {
+            AddInput = true;
+        }
+    }
 
 }
