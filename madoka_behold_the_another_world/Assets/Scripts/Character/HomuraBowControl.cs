@@ -142,14 +142,19 @@ public class HomuraBowControl : CharacterControlBase
 	private const int _MaxboneNum = 17;
 
 	/// <summary>
-	/// 専用カメラ1個目
+	/// 覚醒技専用カメラ1個目
 	/// </summary>
 	public Camera ArousalAttackCamera1;
 
 	/// <summary>
-	/// 専用カメラ2個目
+	/// 覚醒技専用カメラ2個目
 	/// </summary>
 	public Camera ArousalAttackCamera2;
+
+	/// <summary>
+	/// Ｎ格闘３段目専用カメラ
+	/// </summary>
+	public Camera WrestleCamera;
 
 	/// <summary>
 	/// 総発動時間(秒）
@@ -241,6 +246,9 @@ public class HomuraBowControl : CharacterControlBase
 		ArousalAttackCamera1.enabled = false;
 		ArousalAttackCamera2.enabled = false;
 
+		// 格闘専用カメラをOFFにする
+		WrestleCamera.enabled = false;
+
 		// 戦闘用インターフェースを取得する
 		Battleinterfacecontroller = GameObject.Find("BattleInterfaceCanvas").GetComponent<BattleInterfaceController>();
 		if(Battleinterfacecontroller == null)
@@ -282,7 +290,7 @@ public class HomuraBowControl : CharacterControlBase
         Wrestle3ID = Animator.StringToHash("Base Layer.HomuraBowWrestle3");
         FrontWrestleID = Animator.StringToHash("Base Layer.HomuraBowFrontWrestle");
         LeftWrestleID = Animator.StringToHash("Base Layer.HomuraBowLeftWrestle");
-        RightWrestleID = Animator.StringToHash("HomuraBowRightWrestle");
+        RightWrestleID = Animator.StringToHash("Base Layer.HomuraBowRightWrestle");
         BackWrestleID = Animator.StringToHash("Base Layer.HomuraBowBackWrestle");
         AirDashWrestleID = Animator.StringToHash("Base Layer.HomuraBowBDWrestle");
         EXWrestleID = Animator.StringToHash("Base Layer.HomuraBowEXWrestle");
@@ -363,6 +371,19 @@ public class HomuraBowControl : CharacterControlBase
 
 		// チャージショットチャージ時間
 		ChargeMax = (int)Character_Spec.cs[(int)CharacterName][(int)(int)ShotType.CHARGE_SHOT].m_reloadtime*60;
+
+		// N格３段目時のみカメラ変更
+		this.UpdateAsObservable().Subscribe(_ =>
+		{
+			if(AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle3ID)
+			{
+				WrestleCamera.enabled = true;
+			}
+			else
+			{
+				WrestleCamera.enabled = false;
+			}
+		});
 
 		this.UpdateAsObservable().Where(_ => IsPlayer == CHARACTERCODE.PLAYER).Subscribe(_ => 
 		{
@@ -665,11 +686,13 @@ public class HomuraBowControl : CharacterControlBase
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LeftWrestleID)
 		{
-
+			int[] stepanimations = { 8, 9, 10, 11 };
+			LeftWrestle1(AnimatorUnit, 7, stepanimations);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RightWrestleID)
 		{
-
+			int[] stepanimations = { 8, 9, 10, 11 };
+			RightWrestle1(AnimatorUnit, 7, stepanimations);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BackWrestleID)
 		{
@@ -826,7 +849,7 @@ public class HomuraBowControl : CharacterControlBase
 				// 射撃実行
 				ShotDone(false);
 			}
-		}
+		}        
 		// 格闘で格闘へ移行
 		else if (HasWrestleInput)
 		{
@@ -834,33 +857,35 @@ public class HomuraBowControl : CharacterControlBase
 			{
 				// TODO:空中ダッシュ格闘実行
 			}
+			// 前格闘で前格闘へ移行
+			else if (HasFrontInput)
+			{
+				// TODO:前格闘実行
+			}
+			// 左格闘で左格闘へ移行
+			else if (HasLeftInput)
+			{
+				// 左格闘実行
+				WrestleDone(AnimatorUnit, (int)CharacterSkill.SkillType.LEFT_WRESTLE_1, "LeftWrestle");
+			}
+			// 右格闘で右格闘へ移行
+			else if (HasRightInput)
+			{
+				// 右格闘実行
+				WrestleDone(AnimatorUnit, (int)CharacterSkill.SkillType.RIGHT_WRESTLE_1, "RightWrestle");
+			}
+			// 後格闘で後格闘へ移行
+			else if (HasBackInput)
+			{
+				// TODO:後格闘実行（ガード）
+			}
 			else
 			{
-                // それ以外ならN格闘実行(2段目と3段目の追加入力はWrestle1とWrestle2で行う
-                WrestleDone(AnimatorUnit, (int)CharacterSkill.SkillType.WRESTLE_1, "Wrestle1");			
+				// それ以外ならN格闘実行(2段目と3段目の追加入力はWrestle1とWrestle2で行う
+				WrestleDone(AnimatorUnit, (int)CharacterSkill.SkillType.WRESTLE_1, "Wrestle1");
 			}
 		}
-        // 前格闘で前格闘へ移行
-        else if (HasFrontInput)
-        {
-            // TODO:前格闘実行
-        }
-        // 左格闘で左格闘へ移行
-        else if (HasLeftInput)
-        {
-            // TODO:左格闘実行
-        }
-        // 右格闘で右格闘へ移行
-        else if (HasRightInput)
-        {
-            // TODO:右格闘実行
-        }
-        // 後格闘で後格闘へ移行
-        else if (HasBackInput)
-        {
-            // TODO:後格闘実行（ガード）
-        }
-    }
+	}
 	
 	/// <summary>
 	/// 射撃の装填開始
@@ -1348,6 +1373,9 @@ public class HomuraBowControl : CharacterControlBase
 	/// </summary>
 	public void ReturnToIdle()
 	{
+		// 矢や格闘判定も消しておく
+		DestroyArrow();
+		DestroyWrestle();
         ReturnMotion(AnimatorUnit);
 	}
 
@@ -1389,11 +1417,14 @@ public class HomuraBowControl : CharacterControlBase
     /// 格闘攻撃終了後、派生を行う
     /// </summary>
     /// <param name="nextmotion"></param>
-    protected override void WrestleFinish(WrestleType nextmotion )
+    public void WrestleFinish(WrestleType nextmotion )
     {
-        base.WrestleFinish(nextmotion);
-        // 派生入力があった場合は派生する
-        if (AddInput)
+		// 判定オブジェクトを全て破棄
+		DestroyWrestle();
+		// 格闘の累積時間を初期化
+		Wrestletime = 0;
+		// 派生入力があった場合は派生する
+		if (AddInput)
         {
             // N格闘２段目派生
             if (nextmotion == WrestleType.WRESTLE_2)
@@ -1406,6 +1437,11 @@ public class HomuraBowControl : CharacterControlBase
                 WrestleDone(AnimatorUnit, (int)CharacterSkill.SkillType.WRESTLE_3, "Wrestle3");
             }
         }
+		// なかったら戻す
+		else
+		{
+			ReturnToIdle();
+		}
     }
 
     /// <summary>

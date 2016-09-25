@@ -2269,7 +2269,8 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     protected virtual void CancelDashDone(Animator animator, int airdashID)
     {
-        if (this.Boost > 0)
+		animator.speed = 1.0f;
+		if (this.Boost > 0)
         {
 			// 固定があった場合解除
 			GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
@@ -3419,7 +3420,7 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     protected virtual void ReturnMotion(Animator animator)
     {
-        
+		animator.speed = 1.0f;
         // 歩き撃ちフラグを折る
         RunShotDone = false;
         // 上体を戻す
@@ -4113,14 +4114,14 @@ public class CharacterControlBase : MonoBehaviour
 	/// <summary>
 	/// 格闘終了時に実行(モーションの最終フレームで実行）
 	/// </summary>	
-    protected virtual void WrestleFinish(WrestleType nextmotion)
-    {
-        // 判定オブジェクトを全て破棄
-        DestroyWrestle();
-        // 格闘の累積時間を初期化
-        Wrestletime = 0;
-        // 派生があった場合は次のモーションを再生する（ここから先はキャラごとに全部異なるので継承先で書く）
-    }
+    //public virtual void WrestleFinish(WrestleType nextmotion)
+    //{
+    //    // 判定オブジェクトを全て破棄
+    //    DestroyWrestle();
+    //    // 格闘の累積時間を初期化
+    //    Wrestletime = 0;
+    //    // 派生があった場合は次のモーションを再生する（ここから先はキャラごとに全部異なるので継承先で書く）
+    //}
     /// <param name="animator"></param>
     /// <param name="wrestletype">派生先の格闘の種類</param>
     /// <param name="wrestlehash">派生先の格闘のハッシュID</param>
@@ -4576,7 +4577,7 @@ public class CharacterControlBase : MonoBehaviour
 		// 重力をカット
 		// ダメージ硬直の計算開始
 		// ステートをDamageに切り替える
-
+		animator.speed = 1.0f;
 		// 重力をカット
 		this.GetComponent<Rigidbody>().useGravity = false;
 		// ダメージ硬直の計算開始
