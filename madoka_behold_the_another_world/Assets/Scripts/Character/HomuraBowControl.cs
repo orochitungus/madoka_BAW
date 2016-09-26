@@ -682,7 +682,8 @@ public class HomuraBowControl : CharacterControlBase
         }
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontWrestleID)
 		{
-
+			int[] stepanimations = { 8, 9, 10, 11 };
+			FrontWrestle1(AnimatorUnit, 7, stepanimations);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LeftWrestleID)
 		{
@@ -860,7 +861,8 @@ public class HomuraBowControl : CharacterControlBase
 			// 前格闘で前格闘へ移行
 			else if (HasFrontInput)
 			{
-				// TODO:前格闘実行
+				// 前格闘実行
+				WrestleDone(AnimatorUnit, (int)CharacterSkill.SkillType.FRONT_WRESTLE_1, "FrontWrestle");
 			}
 			// 左格闘で左格闘へ移行
 			else if (HasLeftInput)
