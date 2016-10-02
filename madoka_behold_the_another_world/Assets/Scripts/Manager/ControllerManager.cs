@@ -439,52 +439,137 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
                 _Inputdirections[_Inputdirections.Length - 1] = InputDirection.NEUTRAL;
             }
 			
-			// 上
+			// 上押した
 			if ((vertical > 0.0f && Math.Abs(horizontal) < 0.1f) || (vertical2 > 0.0f && Math.Abs(horizontal2) < 0.1f))
             {
                 _Inputdirections[_Inputdirections.Length - 1] = InputDirection.TOP;
                 Top = true;
+				TopUp = false;
+				UnderUp = false;
+				LeftUp = false;
+				RightUp = false;
             }
             else
             {
                 Top = false;
             }
 
-            // 下
-            if ((vertical < 0.0f && Math.Abs(horizontal) < 0.1f) || (vertical2 < 0.0f && Math.Abs(horizontal2) < 0.1f))
+			// 上離した
+			// ボタン
+			if (verticalVector == "Button")
+			{
+				if(Input.GetButtonUp(Upkey))
+				{
+					TopUp = true;
+				}
+			}
+			// 方向キー
+			// 前にフレームに上を押していて今がニュートラルなら離したを有効にする
+			if((_Inputdirections[_Inputdirections.Length - 2] == InputDirection.TOP || _Inputdirections[_Inputdirections.Length - 2] == InputDirection.LEFTTOP || _Inputdirections[_Inputdirections.Length - 2] == InputDirection.RIGHTTOP && 
+				 _Inputdirections[_Inputdirections.Length - 1] == InputDirection.NEUTRAL)
+			)
+			{
+				TopUp = true;
+			}
+
+			// 下押した
+			if ((vertical < 0.0f && Math.Abs(horizontal) < 0.1f) || (vertical2 < 0.0f && Math.Abs(horizontal2) < 0.1f))
             {
                 _Inputdirections[_Inputdirections.Length - 1] = InputDirection.UNDER;
                 Under = true;
-            }
+				TopUp = false;
+				UnderUp = false;
+				LeftUp = false;
+				RightUp = false;
+			}
             else
             {
                 Under = false;
             }
+			// 下離した
+			// ボタン
+			if(verticalVector == "Button")
+			{
+				if(Input.GetButtonUp(Downkey))
+				{
+					UnderUp = true;
+				}
+			}
+			// 方向キー
+			// 前フレームに下を押していて今がニュートラルなら離したを有効にする
+			if ((_Inputdirections[_Inputdirections.Length - 2] == InputDirection.UNDER || _Inputdirections[_Inputdirections.Length - 2] == InputDirection.LEFTUNDER || _Inputdirections[_Inputdirections.Length - 2] == InputDirection.RIGHTUNDER &&
+				 _Inputdirections[_Inputdirections.Length - 1] == InputDirection.NEUTRAL)
+			)
+			{
+				UnderUp = true;
+			}
 
-            // 左
-            if ((horizontal < 0.0f && Math.Abs(vertical) < 0.1f) || (horizontal2 < 0.0f && Math.Abs(vertical2) < 0.1f))
+			// 左押した
+			if ((horizontal < 0.0f && Math.Abs(vertical) < 0.1f) || (horizontal2 < 0.0f && Math.Abs(vertical2) < 0.1f))
             {
                 _Inputdirections[_Inputdirections.Length - 1] = InputDirection.LEFT;
                 Left = true;
-            }
+				TopUp = false;
+				UnderUp = false;
+				LeftUp = false;
+				RightUp = false;
+			}
             else
             {
                 Left = false;
             }
+			// 左離した
+			// ボタン
+			if (verticalVector == "Button")
+			{
+				if (Input.GetButtonUp(Leftkey))
+				{
+					LeftUp = true;
+				}
+			}
+			// 方向キー
+			// 前フレームに左を押していて今がニュートラルなら離したを有効にする
+			if ((_Inputdirections[_Inputdirections.Length - 2] == InputDirection.LEFT || _Inputdirections[_Inputdirections.Length - 2] == InputDirection.LEFTUNDER || _Inputdirections[_Inputdirections.Length - 2] == InputDirection.LEFTTOP &&
+				 _Inputdirections[_Inputdirections.Length - 1] == InputDirection.NEUTRAL)
+			)
+			{
+				LeftUp = true;
+			}
 
-            // 右
-            if((horizontal > 0.0f && Math.Abs(vertical) < 0.1f) || (horizontal2 > 0.0f && Math.Abs(vertical2) < 0.1f))
+			// 右押した
+			if ((horizontal > 0.0f && Math.Abs(vertical) < 0.1f) || (horizontal2 > 0.0f && Math.Abs(vertical2) < 0.1f))
 			{
                 _Inputdirections[_Inputdirections.Length - 1] = InputDirection.RIGHT;
                 Right = true;
-            }
+				TopUp = false;
+				UnderUp = false;
+				LeftUp = false;
+				RightUp = false;
+			}
             else
             {
                 Right = false;
             }
+			// 右離した
+			// ボタン
+			if (verticalVector == "Button")
+			{
+				if (Input.GetButtonUp(Rightkey))
+				{
+					RightUp = true;
+				}
+			}
+			// 方向キー
+			// 前フレームに右を押していて今がニュートラルなら離したを有効にする
+			if ((_Inputdirections[_Inputdirections.Length - 2] == InputDirection.RIGHT || _Inputdirections[_Inputdirections.Length - 2] == InputDirection.RIGHTUNDER || _Inputdirections[_Inputdirections.Length - 2] == InputDirection.RIGHTTOP &&
+				 _Inputdirections[_Inputdirections.Length - 1] == InputDirection.NEUTRAL)
+			)
+			{
+				RightUp = true;
+			}
 
-			// 左上
-			if((horizontal < -0.5f && vertical > 0.5f) || (horizontal2 < -0.5f && vertical2 > 0.5f))
+			// 左上押した
+			if ((horizontal < -0.5f && vertical > 0.5f) || (horizontal2 < -0.5f && vertical2 > 0.5f))
 			{
                 _Inputdirections[_Inputdirections.Length - 1] = InputDirection.LEFTTOP;
                 LeftUpper = true;
@@ -493,6 +578,10 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 			{
 				LeftUpper = false;
 			}
+			// 左上離した
+			// 方向キー
+
+
 
 			// 左下
 			if ((horizontal < -0.5f && vertical < -0.5f) || (horizontal2 < -0.5f && vertical2 < -0.5f))

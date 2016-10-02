@@ -723,34 +723,34 @@ public class CharacterControlBase : MonoBehaviour
 	/// </summary>
 	public enum WrestleType
     {
-        WRESTLE_1,              // N格1段目
-        WRESTLE_2,              // N格2段目
-        WRESTLE_3,              // N格3段目
-        CHARGE_WRESTLE,         // 格闘チャージ
-        FRONT_WRESTLE_1,        // 前格闘1段目
-        FRONT_WRESTLE_2,        // 前格闘2段目
-        FRONT_WRESTLE_3,        // 前格闘3段目
-        LEFT_WRESTLE_1,         // 左横格闘1段目
-        LEFT_WRESTLE_2,         // 左横格闘2段目
-        LEFT_WRESTLE_3,         // 左横格闘3段目
-        RIGHT_WRESTLE_1,        // 右横格闘1段目
-        RIGHT_WRESTLE_2,        // 右横格闘2段目
-        RIGHT_WRESTLE_3,        // 右横格闘3段目
-        BACK_WRESTLE,           // 後格闘（防御）
-        AIRDASH_WRESTLE,        // 空中ダッシュ格闘
-        EX_WRESTLE_1,           // 特殊格闘1段目
-        EX_WRESTLE_2,           // 特殊格闘2段目
-        EX_WRESTLE_3,           // 特殊格闘3段目
-        EX_FRONT_WRESTLE_1,     // 前特殊格闘1段目
-        EX_FRONT_WRESTLE_2,     // 前特殊格闘2段目
-        EX_FRONT_WRESTLE_3,     // 前特殊格闘3段目
-        EX_LEFT_WRESTLE_1,      // 左横特殊格闘1段目
-        EX_LEFT_WRESTLE_2,      // 左横特殊格闘2段目
-        EX_LEFT_WRESTLE_3,      // 左横特殊格闘3段目
-        EX_RIGHT_WRESTLE_1,     // 右横特殊格闘1段目
-        EX_RIGHT_WRESTLE_2,     // 右横特殊格闘2段目
-        EX_RIGHT_WRESTLE_3,     // 右横特殊格闘3段目
-        BACK_EX_WRESTLE,        // 後特殊格闘
+        WRESTLE_1,              // 0 N格1段目
+        WRESTLE_2,              // 1 N格2段目
+        WRESTLE_3,              // 2 N格3段目
+        CHARGE_WRESTLE,         // 3 格闘チャージ
+        FRONT_WRESTLE_1,        // 4 前格闘1段目
+        FRONT_WRESTLE_2,        // 5 前格闘2段目
+        FRONT_WRESTLE_3,        // 6 前格闘3段目
+        LEFT_WRESTLE_1,         // 7 左横格闘1段目
+        LEFT_WRESTLE_2,         // 8 左横格闘2段目
+        LEFT_WRESTLE_3,         // 9 左横格闘3段目
+        RIGHT_WRESTLE_1,        // 10 右横格闘1段目
+        RIGHT_WRESTLE_2,        // 11 右横格闘2段目
+        RIGHT_WRESTLE_3,        // 12 右横格闘3段目
+        BACK_WRESTLE,           // 13 後格闘（防御）
+        AIRDASH_WRESTLE,        // 14 空中ダッシュ格闘
+        EX_WRESTLE_1,           // 15 特殊格闘1段目
+        EX_WRESTLE_2,           // 16 特殊格闘2段目
+        EX_WRESTLE_3,           // 17 特殊格闘3段目
+        EX_FRONT_WRESTLE_1,     // 18 前特殊格闘1段目
+        EX_FRONT_WRESTLE_2,     // 19 前特殊格闘2段目
+        EX_FRONT_WRESTLE_3,     // 20 前特殊格闘3段目
+        EX_LEFT_WRESTLE_1,      // 21 左横特殊格闘1段目
+        EX_LEFT_WRESTLE_2,      // 22 左横特殊格闘2段目
+        EX_LEFT_WRESTLE_3,      // 23 左横特殊格闘3段目
+        EX_RIGHT_WRESTLE_1,     // 24 右横特殊格闘1段目
+        EX_RIGHT_WRESTLE_2,     // 25 右横特殊格闘2段目
+        EX_RIGHT_WRESTLE_3,     // 26 右横特殊格闘3段目
+        BACK_EX_WRESTLE,        // 27 後特殊格闘
         NONE,                   // なし
         // キャラごとの特殊な処理はこの後に追加、さやかのスクワルタトーレのような連続で切りつける技など
 
@@ -2049,8 +2049,7 @@ public class CharacterControlBase : MonoBehaviour
     /// 後格闘（防御）
     /// </summary>
     /// <param name="animator"></param>
-    /// <param name="idlehash">アイドル時のハッシュID</param>
-    protected virtual void BackWrestle(Animator animator, int idlehash)
+    protected virtual void BackWrestle(Animator animator)
     {
         IsWrestle = true;
         //1．ブーストゲージを減衰させる
@@ -2062,7 +2061,7 @@ public class CharacterControlBase : MonoBehaviour
             DestroyWrestle();
         }
         //3．格闘ボタンか下入力を離すと、強制的にIdleに戻す
-        if (!ControllerManager.Instance.Wrestle || ControllerManager.Instance.UnderUp)
+        if (!ControllerManager.Instance.Wrestle || !ControllerManager.Instance.Under)
         {
             animator.SetTrigger("Idle");
             DestroyWrestle();
@@ -3827,7 +3826,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="animator">格闘攻撃の種類</param>
     /// <param name="skilltype">スキルのインデックス(キャラごとに異なる)</param>
     /// <param name="wrestlehash">使用する格闘のハッシュID</param>
-    protected virtual void WrestleDone_GoAround_Left(Animator animator, int skilltype,int wrestlehash)
+    protected virtual void WrestleDone_GoAround_Left(Animator animator, int skilltype)
     {
         // 追加入力フラグをカット
         this.AddInput = false;
@@ -3877,7 +3876,7 @@ public class CharacterControlBase : MonoBehaviour
         // アニメーション速度
         float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
         // アニメーションを再生する
-        animator.SetTrigger("LeftWretle");
+        animator.SetTrigger("LeftWrestle");
 
         // アニメーションの速度を調整する
         animator.speed = speed;
@@ -3892,7 +3891,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="animator">制御対象のanimator</param>
     /// <param name="skilltype">スキルのインデックス/キャラごとに異なる</param>
     /// <param name="wrestlehash">使用する格闘のハッシュID</param>
-    protected virtual void WrestleDone_GoAround_Right(Animator animator, int skilltype, int wrestlehash)
+    protected virtual void WrestleDone_GoAround_Right(Animator animator, int skilltype)
     {
         // 追加入力フラグをカット
         this.AddInput = false;
@@ -3956,7 +3955,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="animator">制御対象のanimator</param>
     /// <param name="skilltype">スキルのインデックス/キャラごとに異なる</param>
     /// <param name="wrestlehash">使用する格闘のハッシュID</param>
-    protected virtual void GuardDone(Animator animator, int skilltype, int wrestlehash)
+    protected virtual void GuardDone(Animator animator, int skilltype)
     {
         //1．追加入力フラグをカット
         this.AddInput = false;
@@ -3977,7 +3976,7 @@ public class CharacterControlBase : MonoBehaviour
             MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
         }
         // 本体角度が0の場合カメラの方向を移動方向とし、正規化して代入する
-        else if (this.transform.rotation.eulerAngles.y == 0)
+        else if (IsRockon && this.transform.rotation.eulerAngles.y == 0)
         {
             // ただしそのままだとカメラが下を向いているため、一旦その分は補正する
             Quaternion rotateOR = MainCamera.transform.rotation;

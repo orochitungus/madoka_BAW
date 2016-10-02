@@ -697,7 +697,7 @@ public class HomuraBowControl : CharacterControlBase
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BackWrestleID)
 		{
-
+			BackWrestle(AnimatorUnit);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == AirDashWrestleID)
 		{
@@ -868,18 +868,19 @@ public class HomuraBowControl : CharacterControlBase
 			else if (HasLeftInput)
 			{
 				// 左格闘実行
-				WrestleDone(AnimatorUnit, (int)CharacterSkill.SkillType.LEFT_WRESTLE_1, "LeftWrestle");
+				WrestleDone_GoAround_Left(AnimatorUnit, (int)CharacterSkill.SkillType.LEFT_WRESTLE_1);
 			}
 			// 右格闘で右格闘へ移行
 			else if (HasRightInput)
 			{
 				// 右格闘実行
-				WrestleDone(AnimatorUnit, (int)CharacterSkill.SkillType.RIGHT_WRESTLE_1, "RightWrestle");
+				WrestleDone_GoAround_Right(AnimatorUnit, (int)CharacterSkill.SkillType.RIGHT_WRESTLE_1);
 			}
 			// 後格闘で後格闘へ移行
 			else if (HasBackInput)
 			{
-				// TODO:後格闘実行（ガード）
+				// 後格闘実行（ガード）
+				GuardDone(AnimatorUnit, (int)CharacterSkill.SkillType.BACK_WRESTLE);
 			}
 			else
 			{
