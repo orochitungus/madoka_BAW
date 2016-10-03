@@ -448,6 +448,10 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 				UnderUp = false;
 				LeftUp = false;
 				RightUp = false;
+                LeftUpperUp = false;
+                LeftUnderUp = false;
+                RightUpperUp = false;
+                RightUnderUp = false;
             }
             else
             {
@@ -481,7 +485,11 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 				UnderUp = false;
 				LeftUp = false;
 				RightUp = false;
-			}
+                LeftUpperUp = false;
+                LeftUnderUp = false;
+                RightUpperUp = false;
+                RightUnderUp = false;
+            }
             else
             {
                 Under = false;
@@ -513,7 +521,11 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 				UnderUp = false;
 				LeftUp = false;
 				RightUp = false;
-			}
+                LeftUpperUp = false;
+                LeftUnderUp = false;
+                RightUpperUp = false;
+                RightUnderUp = false;
+            }
             else
             {
                 Left = false;
@@ -545,7 +557,11 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 				UnderUp = false;
 				LeftUp = false;
 				RightUp = false;
-			}
+                LeftUpperUp = false;
+                LeftUnderUp = false;
+                RightUpperUp = false;
+                RightUnderUp = false;
+            }
             else
             {
                 Right = false;
@@ -573,48 +589,121 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 			{
                 _Inputdirections[_Inputdirections.Length - 1] = InputDirection.LEFTTOP;
                 LeftUpper = true;
-			}
+                TopUp = false;
+                UnderUp = false;
+                LeftUp = false;
+                RightUp = false;
+                LeftUpperUp = false;
+                LeftUnderUp = false;
+                RightUpperUp = false;
+                RightUnderUp = false;
+            }
 			else
 			{
 				LeftUpper = false;
 			}
 			// 左上離した
+            // ボタン
+            if(Input.GetButtonUp(Upkey) && Input.GetButtonUp(Leftkey))
+            {
+                LeftUpperUp = true;
+            }
 			// 方向キー
+            if(_Inputdirections[_Inputdirections.Length - 2] == InputDirection.LEFTTOP && _Inputdirections[_Inputdirections.Length - 1] == InputDirection.NEUTRAL)
+            {
+                LeftUpperUp = true;                
+            }
 
 
-
-			// 左下
+			// 左下押した
 			if ((horizontal < -0.5f && vertical < -0.5f) || (horizontal2 < -0.5f && vertical2 < -0.5f))
 			{
                 _Inputdirections[_Inputdirections.Length - 1] = InputDirection.LEFTUNDER;
                 LeftUnder = true;
-			}
+                TopUp = false;
+                UnderUp = false;
+                LeftUp = false;
+                RightUp = false;
+                LeftUpperUp = false;
+                LeftUnderUp = false;
+                RightUpperUp = false;
+                RightUnderUp = false;
+            }
 			else
 			{
 				LeftUnder = false;
 			}
+            // 左下離した
+            // ボタン
+            if(Input.GetButtonUp(Downkey) && Input.GetButtonUp(Leftkey))
+            {
+                LeftUnderUp = true;
+            }
+            // 方向キー
+            if(_Inputdirections[_Inputdirections.Length - 2] == InputDirection.LEFTUNDER && _Inputdirections[_Inputdirections.Length - 1] == InputDirection.NEUTRAL)
+            {
+                LeftUnderUp = true;
+            }
 
-			// 右下
+			// 右下押した
 			if ((horizontal > 0.5f && vertical < -0.5f) || (horizontal2 > 0.5f && vertical2 < -0.5f))
 			{
                 _Inputdirections[_Inputdirections.Length - 1] = InputDirection.RIGHTUNDER;
                 RightUnder = true;
-			}
+                TopUp = false;
+                UnderUp = false;
+                LeftUp = false;
+                RightUp = false;
+                LeftUpperUp = false;
+                LeftUnderUp = false;
+                RightUpperUp = false;
+                RightUnderUp = false;
+            }
 			else
 			{
 				RightUnder = false;
 			}
+            // 右下離した
+            // ボタン
+            if(Input.GetButtonUp(Rightkey) && Input.GetButtonUp(Downkey))
+            {
+                RightUnderUp = true;
+            }
+            // 方向キー
+            if(_Inputdirections[_Inputdirections.Length - 2] == InputDirection.RIGHTUNDER && _Inputdirections[_Inputdirections.Length - 1] == InputDirection.NEUTRAL)
+            {
+                RightUnderUp = true;
+            }
 
-			// 右上
+			// 右上押した
 			if ((horizontal > 0.5f && vertical > 0.5f) || (horizontal2 > 0.5f && vertical2 > 0.5f))
 			{
                 _Inputdirections[_Inputdirections.Length - 1] = InputDirection.RIGHTTOP;
                 RightUpper = true;
-			}
+                TopUp = false;
+                UnderUp = false;
+                LeftUp = false;
+                RightUp = false;
+                LeftUpperUp = false;
+                LeftUnderUp = false;
+                RightUpperUp = false;
+                RightUnderUp = false;
+            }
 			else
 			{
 				RightUpper = false;
 			}
+            // 右上離した
+            // ボタン
+            if(Input.GetButtonUp(Rightkey) && Input.GetButtonUp(Upkey))
+            {
+                RightUpperUp = true;
+            }
+            // 方向キー
+            if(_Inputdirections[_Inputdirections.Length - 2] == InputDirection.RIGHTTOP && _Inputdirections[_Inputdirections.Length - 1] == InputDirection.NEUTRAL)
+            {
+                RightUpperUp = true;
+            }
 
 			// ステップ入力検知
 			// 前ステップ

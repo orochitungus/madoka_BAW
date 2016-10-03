@@ -1,4 +1,6 @@
-﻿Shader "BMToon/BMT_Basic" {
+﻿// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+
+Shader "BMToon/BMT_Basic" {
 	Properties{
 		[Space]
 		[Toggle(USE_EDGE)] _UseEdge("Use Edge", Float) = 1
@@ -215,11 +217,11 @@
 		o.Eye = mul(rotation, ObjSpaceViewDir(v.vertex));
 		o.lightDir = mul(rotation, ObjSpaceLightDir(v.vertex));
 
-		float2 NormalWV = normalize(mul((fixed3x3)UNITY_MATRIX_V, mul(_Object2World, float4(v.normal.xyz, 0.0)).xyz));
+		float2 NormalWV = normalize(mul((fixed3x3)UNITY_MATRIX_V, mul(unity_ObjectToWorld, float4(v.normal.xyz, 0.0)).xyz));
 		o.sptex.x = NormalWV.x * 0.5f + 0.5f;
 		o.sptex.y = NormalWV.y * 0.5f + 0.5f;
 
-		float3 worldN = mul((float3x3)_Object2World, SCALED_NORMAL);
+		float3 worldN = mul((float3x3)unity_ObjectToWorld, SCALED_NORMAL);
 		#ifdef LIGHTMAP_OFF
 			float3 shlight = ShadeSH9(float4(worldN, 1.0));
 			o.vlight = shlight*2;
@@ -380,16 +382,16 @@
 		o.lightDir = mul(rotation, ObjSpaceLightDir(v.vertex));
 
 
-		float2 NormalWV = normalize(mul((fixed3x3)UNITY_MATRIX_V, mul(_Object2World, float4(v.normal.xyz, 0.0)).xyz));
+		float2 NormalWV = normalize(mul((fixed3x3)UNITY_MATRIX_V, mul(unity_ObjectToWorld, float4(v.normal.xyz, 0.0)).xyz));
 		o.sptex.x = NormalWV.x * 0.5f + 0.5f;
 		o.sptex.y = NormalWV.y * 0.5f + 0.5f;
 
-		float3 worldN = mul((float3x3)_Object2World, SCALED_NORMAL);
+		float3 worldN = mul((float3x3)unity_ObjectToWorld, SCALED_NORMAL);
 #ifdef LIGHTMAP_OFF
 		float3 shlight = ShadeSH9(float4(worldN, 1.0));
 		o.vlight = shlight * 2;
 #ifdef VERTEXLIGHT_ON
-		float3 worldPos = mul(_Object2World, v.vertex).xyz;
+		float3 worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
 		o.PoitLight = Shade4PointLights(
 			unity_4LightPosX0, unity_4LightPosY0, unity_4LightPosZ0,
 			unity_LightColor0, unity_LightColor1, unity_LightColor2, unity_LightColor3,
