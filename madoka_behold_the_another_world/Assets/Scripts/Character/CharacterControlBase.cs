@@ -2060,8 +2060,8 @@ public class CharacterControlBase : MonoBehaviour
             animator.SetTrigger("Idle");
             DestroyWrestle();
         }
-        //3．格闘ボタンか下入力を離すと、強制的にIdleに戻す
-        if (!ControllerManager.Instance.Wrestle || !ControllerManager.Instance.Under)
+        //3．下入力を離すと、強制的にIdleに戻す
+        if (ControllerManager.Instance.UnderUp)
         {
             animator.SetTrigger("Idle");
             DestroyWrestle();

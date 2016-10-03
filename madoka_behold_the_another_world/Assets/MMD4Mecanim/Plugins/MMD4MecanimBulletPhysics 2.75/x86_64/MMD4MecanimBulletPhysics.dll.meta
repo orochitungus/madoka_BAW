@@ -52,7 +52,7 @@ PluginImporter:
     Win64:
       enabled: 1
       settings:
-        CPU: x86_64
+        CPU: AnyCPU
     WindowsStoreApps:
       enabled: 0
       settings:

@@ -603,11 +603,14 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 				LeftUpper = false;
 			}
 			// 左上離した
-            // ボタン
-            if(Input.GetButtonUp(Upkey) && Input.GetButtonUp(Leftkey))
-            {
-                LeftUpperUp = true;
-            }
+			// ボタン
+			if (verticalVector == "Button")
+			{
+				if (Input.GetButtonUp(Upkey) && Input.GetButtonUp(Leftkey))
+				{
+					LeftUpperUp = true;
+				}
+			}
 			// 方向キー
             if(_Inputdirections[_Inputdirections.Length - 2] == InputDirection.LEFTTOP && _Inputdirections[_Inputdirections.Length - 1] == InputDirection.NEUTRAL)
             {
@@ -633,12 +636,15 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 			{
 				LeftUnder = false;
 			}
-            // 左下離した
-            // ボタン
-            if(Input.GetButtonUp(Downkey) && Input.GetButtonUp(Leftkey))
-            {
-                LeftUnderUp = true;
-            }
+			// 左下離した
+			// ボタン
+			if (verticalVector == "Button")
+			{
+				if (Input.GetButtonUp(Downkey) && Input.GetButtonUp(Leftkey))
+				{
+					LeftUnderUp = true;
+				}
+			}
             // 方向キー
             if(_Inputdirections[_Inputdirections.Length - 2] == InputDirection.LEFTUNDER && _Inputdirections[_Inputdirections.Length - 1] == InputDirection.NEUTRAL)
             {
@@ -663,12 +669,15 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 			{
 				RightUnder = false;
 			}
-            // 右下離した
-            // ボタン
-            if(Input.GetButtonUp(Rightkey) && Input.GetButtonUp(Downkey))
-            {
-                RightUnderUp = true;
-            }
+			// 右下離した
+			// ボタン
+			if (verticalVector == "Button")
+			{
+				if (Input.GetButtonUp(Rightkey) && Input.GetButtonUp(Downkey))
+				{
+					RightUnderUp = true;
+				}
+			}
             // 方向キー
             if(_Inputdirections[_Inputdirections.Length - 2] == InputDirection.RIGHTUNDER && _Inputdirections[_Inputdirections.Length - 1] == InputDirection.NEUTRAL)
             {
@@ -693,12 +702,15 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 			{
 				RightUpper = false;
 			}
-            // 右上離した
-            // ボタン
-            if(Input.GetButtonUp(Rightkey) && Input.GetButtonUp(Upkey))
-            {
-                RightUpperUp = true;
-            }
+			// 右上離した
+			// ボタン
+			if (verticalVector == "Button")
+			{
+				if (Input.GetButtonUp(Rightkey) && Input.GetButtonUp(Upkey))
+				{
+					RightUpperUp = true;
+				}
+			}
             // 方向キー
             if(_Inputdirections[_Inputdirections.Length - 2] == InputDirection.RIGHTTOP && _Inputdirections[_Inputdirections.Length - 1] == InputDirection.NEUTRAL)
             {
