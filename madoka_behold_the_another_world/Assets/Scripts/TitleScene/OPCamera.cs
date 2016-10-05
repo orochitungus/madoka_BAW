@@ -5,7 +5,6 @@ public class OPCamera : MonoBehaviour
 {
 	public TitleController Titlecontroller;
 
-	public ControllerManager Controllermanager;
 
 	/// <summary>
 	/// TitleCanvasにくっついているタイトル画面制御用のAnimator
@@ -26,9 +25,8 @@ public class OPCamera : MonoBehaviour
 
 	// Use this for initialization
 	void Start () 
-	{
-		
-	}
+	{        
+    }
 	
 
 	// Update is called once per frame
@@ -39,13 +37,9 @@ public class OPCamera : MonoBehaviour
 		{
 			AnimatorStateInfo state = Titlecontroller.TitleCanvas.GetComponent<TitleCanvas>().TitleCanvasAnimator.GetCurrentAnimatorStateInfo(0);
 
-			if (state.fullPathHash == stateCode[0])
-			{
-				Titlecontroller.TitleCanvas.gameObject.SetActive(true);
-				Titlecontroller.TitleCanvas.GetComponent<TitleCanvas>().AppearDone();
-			}
+			
 			// タイトル表示中にショットキーが押されたら、SEを鳴らしてメニュー画面へ移行する
-			else if(state.fullPathHash == stateCode[1])
+			if(state.fullPathHash == stateCode[1])
 			{
 				AudioManager.Instance.PlaySE("OK");	
 				Titlecontroller.TitleCanvas.GetComponent<TitleCanvas>().ModeSelectSetup();
@@ -57,7 +51,13 @@ public class OPCamera : MonoBehaviour
 			{
 				
 			}
-		}
+            // OPデモ中
+            else            
+            {
+                Titlecontroller.TitleCanvas.gameObject.SetActive(true);
+                Titlecontroller.TitleCanvas.GetComponent<TitleCanvas>().AppearDone();
+            }
+        }
 	}
 
 	/// <summary>
@@ -66,5 +66,6 @@ public class OPCamera : MonoBehaviour
 	public void TitleSetup()
 	{
 		Titlecontroller.TitleCanvas.gameObject.SetActive(true);
-	}
+        Titlecontroller.TitleCanvas.GetComponent<TitleCanvas>().AppearDone();
+    }
 }
