@@ -2059,14 +2059,18 @@ public class CharacterControlBase : MonoBehaviour
         {
             animator.SetTrigger("Idle");
             DestroyWrestle();
-        }
-        //3．下入力を離すと、強制的にIdleに戻す
-        if (ControllerManager.Instance.UnderUp)
-        {
-            animator.SetTrigger("Idle");
-            DestroyWrestle();
-        }
-    }
+			// 格闘フラグを破棄
+			IsWrestle = false;
+		}
+		//3．下入力を離すと、強制的にIdleに戻す
+		if (ControllerManager.Instance.UnderUp)
+		{
+			animator.SetTrigger("Idle");
+			DestroyWrestle();
+			// 格闘フラグを破棄
+			IsWrestle = false;
+		}
+	}
 
     /// <summary>
     /// 空中ダッシュ格闘
@@ -2074,17 +2078,19 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="animator">本体のAnimator</param>
     /// <param name="airdashhash">空中ダッシュのハッシュID</param>
     /// <param name="stepanimations">ステップのアニメーション</param>
-    /// <param name="fallhash">落下のハッシュID</param>
-    protected virtual void AirDashWrestle(Animator animator, int airdashhash, int[] stepanimations,int fallhash)
+    protected virtual void AirDashWrestle(Animator animator, int airdashhash, int[] stepanimations,int fallID)
     {
-        IsWrestle = true;
-        StepCancel(animator, airdashhash, stepanimations);
+		Vector3 RiseSpeed = new Vector3(MoveDirection.x, this.RiseSpeed, MoveDirection.z);
+		IsWrestle = true;
+		// 空中ダッシュ中はブーストダッシュキャンセル不可にしておく
+        //StepCancel(animator, airdashhash, stepanimations);
         // 発動中常時ブースト消費
         Boost = Boost - BoostLess;
-        // ブースト切れ時にFallDone、DestroyWrestleを実行する
-        if (Boost <= 0)
+        // ブースト切れ時か格闘ボタンを離すとにFallDone、DestroyWrestleを実行する
+        if (Boost <= 0 || ControllerManager.Instance.WrestleUp)
         {
-            animator.SetTrigger("Fall");
+			FallDone(RiseSpeed, animator, fallID);
+			animator.SetTrigger("Fall");
             DestroyWrestle();
             _FallStartTime = Time.time;
         }
@@ -2268,8 +2274,9 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     protected virtual void CancelDashDone(Animator animator, int airdashID)
     {
+		Debug.Log("CancelDashDone!");
 		animator.speed = 1.0f;
-		if (this.Boost > 0)
+		if (Boost > 0)
         {
 			// 固定があった場合解除
 			GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
@@ -2282,7 +2289,7 @@ public class CharacterControlBase : MonoBehaviour
             // 上体の角度を戻す
             BrestObject.transform.rotation = Quaternion.Euler(0, 0, 0);
             Rotatehold = false;
-            this.Boost = Boost - DashCancelUseBoost;
+            Boost = Boost - DashCancelUseBoost;
             animator.SetTrigger("AirDash");
             // 移動方向取得
             //UpdateRotation();
@@ -3213,7 +3220,7 @@ public class CharacterControlBase : MonoBehaviour
         else if (IsWrestle)
         {
             this.GetComponent<Rigidbody>().useGravity = false;  // 重力無効            
-            MoveSpeed = this.WrestlSpeed;
+            MoveSpeed = WrestlSpeed;
         }
 
 
@@ -3440,8 +3447,7 @@ public class CharacterControlBase : MonoBehaviour
         {
             animator.SetTrigger("Fall");
             _FallStartTime = Time.time;
-        }
-        
+        }        
     }
 
 
@@ -4108,6 +4114,60 @@ public class CharacterControlBase : MonoBehaviour
 		animator.speed = speed;
 		// 移動速度を設定する
 		WrestlSpeed = movespeed;
+	}
+
+	/// <summary>
+	/// 空中ダッシュ格闘を実行する
+	/// </summary>
+	/// <param name="Animator"></param>
+	/// <param name="WresltleSpeed">突進速度（一応空中ダッシュの速度と一致させる）</param>
+	/// <param name="skillindex"></param>
+	public virtual void AirDashWrestleDone(Animator Animator,float WresltleSpeed,int skillindex)
+	{
+		// 追加入力フラグをカット
+		AddInput = false;
+		// 移動方向
+		// ロックオン且つ本体角度が0でない時、相手の方向を移動方向とする
+		if (IsRockon && this.transform.rotation.eulerAngles.y != 0)
+		{
+			// ロックオン対象を取得
+			var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
+			// ロックオン対象の座標
+			Vector3 targetpos = target.transform.position;
+			// 上記の座標は足元を向いているので、自分の高さに補正する
+			targetpos.y = transform.position.y;
+			// 自機の座標
+			Vector3 mypos = transform.position;
+			// 自機をロックオン対象に向ける
+			transform.rotation = Quaternion.LookRotation(mypos - targetpos);
+			// 方向ベクトルを向けた方向に合わせる            
+			MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
+		}
+		// 本体角度が0の場合カメラの方向を移動方向とし、正規化して代入する
+		else if (this.transform.rotation.eulerAngles.y == 0)
+		{
+			// ただしそのままだとカメラが下を向いているため、一旦その分は補正する
+			Quaternion rotateOR = MainCamera.transform.rotation;
+			Vector3 rotateOR_E = rotateOR.eulerAngles;
+			rotateOR_E.x = 0;
+			rotateOR = Quaternion.Euler(rotateOR_E);
+			this.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+		}
+		// それ以外は本体の角度を移動方向にする
+		else
+		{
+			this.MoveDirection = Vector3.Normalize(this.transform.rotation * Vector3.forward);
+		}
+		// アニメーション速度
+		float speed = Character_Spec.cs[(int)CharacterName][skillindex].m_Animspeed;
+
+		// アニメーションを再生する
+		Animator.SetTrigger("BDWrestle");
+
+		// アニメーションの速度を調整する
+		Animator.speed = speed;
+		// 移動速度を調整する
+		this.WrestlSpeed = WresltleSpeed;
 	}
 
 	/// <summary>

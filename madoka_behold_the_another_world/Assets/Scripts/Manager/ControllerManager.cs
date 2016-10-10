@@ -116,6 +116,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 	public bool Shot;
     public bool ShotKeyboad;
     public bool ShotController;
+	public bool ShotUp;
 
     /// <summary>
     /// 射撃長押し
@@ -128,6 +129,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 	public bool Wrestle;
     public bool WrestleKeyboard;
     public bool WrestleController;
+	public bool WrestleUp;
 
     /// <summary>
     /// 格闘長押し
@@ -140,6 +142,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 	public bool Jump;
     public bool JumpKeyboard;
     public bool JumpController;
+	public bool JumpUp;
 
     /// <summary>
     /// ジャンプ長押し
@@ -152,6 +155,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 	public bool Search;
     public bool SearchKeyboard;
     public bool SearchController;
+	public bool SearchUp;
 
 	/// <summary>
 	/// コマンド
@@ -159,6 +163,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 	public bool Command;
     public bool CommandKeyboard;
     public bool CommandController;
+	public bool CommandUp;
 
 	/// <summary>
 	/// アイテム
@@ -166,6 +171,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 	public bool Item;
     public bool ItemKeyboard;
     public bool ItemController;
+	public bool ItemUp;
 
 	/// <summary>
 	/// メニュー
@@ -173,6 +179,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 	public bool Menu;
     public bool MenuKeyboard;
     public bool MenuController;
+	public bool MenuUp;
 
 	/// <summary>
 	/// サブ射撃
@@ -180,6 +187,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 	public bool SubShot;
     public bool SubShotKeyboard;
     public bool SubShotController;
+	public bool SubShotUp;
 
 	/// <summary>
 	/// 特殊射撃
@@ -187,6 +195,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 	public bool EXShot;
     public bool EXShotKeyboard;
     public bool EXShotController;
+	public bool EXShotUp;
 
 	/// <summary>
 	/// 特殊格闘
@@ -194,6 +203,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 	public bool EXWrestle;
     public bool EXWrestleKeyboard;
     public bool EXWrestleController;
+	public bool EXWrestleUp;
 
 	/// <summary>
 	/// 視点回転上(仰角）
@@ -201,6 +211,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 	public bool ElevationAngleUpper;
     public bool ElevationAngleUpperKeyboard;
     public bool ElevationAngleUpperController;
+	public bool ElevationAngleUpperUp;
 
 	/// <summary>
 	/// 視点回転下(仰角)
@@ -208,6 +219,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 	public bool ElevationAngleDown;
     public bool ElevationAngleDownKeyboard;
     public bool ElevationAngleDownController;
+	public bool ElevationAngleDownUp;
 
 	/// <summary>
 	/// 視点回転左(方位角)
@@ -215,6 +227,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 	public bool AzimuthLeft;
     public bool AzimuthLeftKeyboard;
     public bool AzimuthLeftController;
+	public bool AzimuthLeftUp;
 
 	/// <summary>
 	/// 視点回転右(方位角)
@@ -222,6 +235,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 	public bool AzimuthRight;
     public bool AzimuthRightKeyboard;
     public bool AzimuthRightController;
+	public bool AzimuthRightUp;
 
 	/// <summary>
 	/// ブーストダッシュ（ジャンプボタン２連打）検出
@@ -469,9 +483,14 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 			}
 			// 方向キー
 			// 前にフレームに上を押していて今がニュートラルなら離したを有効にする
-			if((_Inputdirections[_Inputdirections.Length - 2] == InputDirection.TOP || _Inputdirections[_Inputdirections.Length - 2] == InputDirection.LEFTTOP || _Inputdirections[_Inputdirections.Length - 2] == InputDirection.RIGHTTOP && 
-				 _Inputdirections[_Inputdirections.Length - 1] == InputDirection.NEUTRAL)
-			)
+			if((_Inputdirections[_Inputdirections.Length - 8] == InputDirection.TOP || _Inputdirections[_Inputdirections.Length - 8] == InputDirection.LEFTTOP || _Inputdirections[_Inputdirections.Length - 8] == InputDirection.RIGHTTOP) &&
+			   (_Inputdirections[_Inputdirections.Length - 7] == InputDirection.TOP || _Inputdirections[_Inputdirections.Length - 7] == InputDirection.LEFTTOP || _Inputdirections[_Inputdirections.Length - 7] == InputDirection.RIGHTTOP) &&
+			   (_Inputdirections[_Inputdirections.Length - 6] == InputDirection.TOP || _Inputdirections[_Inputdirections.Length - 6] == InputDirection.LEFTTOP || _Inputdirections[_Inputdirections.Length - 6] == InputDirection.RIGHTTOP) &&
+			   (_Inputdirections[_Inputdirections.Length - 5] == InputDirection.TOP || _Inputdirections[_Inputdirections.Length - 5] == InputDirection.LEFTTOP || _Inputdirections[_Inputdirections.Length - 5] == InputDirection.RIGHTTOP) &&
+			     _Inputdirections[_Inputdirections.Length - 4] == InputDirection.NEUTRAL &&
+				 _Inputdirections[_Inputdirections.Length - 3] == InputDirection.NEUTRAL &&
+				 _Inputdirections[_Inputdirections.Length - 2] == InputDirection.NEUTRAL &&
+				 _Inputdirections[_Inputdirections.Length - 1] == InputDirection.NEUTRAL)			
 			{
 				TopUp = true;
 			}
@@ -505,9 +524,14 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 			}
 			// 方向キー
 			// 前フレームに下を押していて今がニュートラルなら離したを有効にする
-			if ((_Inputdirections[_Inputdirections.Length - 2] == InputDirection.UNDER || _Inputdirections[_Inputdirections.Length - 2] == InputDirection.LEFTUNDER || _Inputdirections[_Inputdirections.Length - 2] == InputDirection.RIGHTUNDER &&
-				 _Inputdirections[_Inputdirections.Length - 1] == InputDirection.NEUTRAL)
-			)
+			if ((_Inputdirections[_Inputdirections.Length - 8] == InputDirection.UNDER || _Inputdirections[_Inputdirections.Length - 8] == InputDirection.LEFTUNDER || _Inputdirections[_Inputdirections.Length - 8] == InputDirection.RIGHTUNDER) &&
+				(_Inputdirections[_Inputdirections.Length - 7] == InputDirection.UNDER || _Inputdirections[_Inputdirections.Length - 7] == InputDirection.LEFTUNDER || _Inputdirections[_Inputdirections.Length - 7] == InputDirection.RIGHTUNDER) &&
+				(_Inputdirections[_Inputdirections.Length - 6] == InputDirection.UNDER || _Inputdirections[_Inputdirections.Length - 6] == InputDirection.LEFTUNDER || _Inputdirections[_Inputdirections.Length - 6] == InputDirection.RIGHTUNDER) &&
+				(_Inputdirections[_Inputdirections.Length - 5] == InputDirection.UNDER || _Inputdirections[_Inputdirections.Length - 5] == InputDirection.LEFTUNDER || _Inputdirections[_Inputdirections.Length - 5] == InputDirection.RIGHTUNDER) &&
+				 _Inputdirections[_Inputdirections.Length - 4] == InputDirection.NEUTRAL &&
+				 _Inputdirections[_Inputdirections.Length - 3] == InputDirection.NEUTRAL &&
+				 _Inputdirections[_Inputdirections.Length - 2] == InputDirection.NEUTRAL &&
+				 _Inputdirections[_Inputdirections.Length - 1] == InputDirection.NEUTRAL)			
 			{
 				UnderUp = true;
 			}
@@ -541,9 +565,14 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 			}
 			// 方向キー
 			// 前フレームに左を押していて今がニュートラルなら離したを有効にする
-			if ((_Inputdirections[_Inputdirections.Length - 2] == InputDirection.LEFT || _Inputdirections[_Inputdirections.Length - 2] == InputDirection.LEFTUNDER || _Inputdirections[_Inputdirections.Length - 2] == InputDirection.LEFTTOP &&
-				 _Inputdirections[_Inputdirections.Length - 1] == InputDirection.NEUTRAL)
-			)
+			if ((_Inputdirections[_Inputdirections.Length - 8] == InputDirection.LEFT || _Inputdirections[_Inputdirections.Length - 8] == InputDirection.LEFTUNDER || _Inputdirections[_Inputdirections.Length - 8] == InputDirection.LEFTTOP) &&
+				(_Inputdirections[_Inputdirections.Length - 7] == InputDirection.LEFT || _Inputdirections[_Inputdirections.Length - 7] == InputDirection.LEFTUNDER || _Inputdirections[_Inputdirections.Length - 7] == InputDirection.LEFTTOP) &&
+				(_Inputdirections[_Inputdirections.Length - 6] == InputDirection.LEFT || _Inputdirections[_Inputdirections.Length - 6] == InputDirection.LEFTUNDER || _Inputdirections[_Inputdirections.Length - 6] == InputDirection.LEFTTOP) &&
+				(_Inputdirections[_Inputdirections.Length - 5] == InputDirection.LEFT || _Inputdirections[_Inputdirections.Length - 5] == InputDirection.LEFTUNDER || _Inputdirections[_Inputdirections.Length - 5] == InputDirection.LEFTTOP) &&
+				_Inputdirections[_Inputdirections.Length - 4] == InputDirection.NEUTRAL &&
+				_Inputdirections[_Inputdirections.Length - 3] == InputDirection.NEUTRAL &&
+				_Inputdirections[_Inputdirections.Length - 2] == InputDirection.NEUTRAL &&
+				_Inputdirections[_Inputdirections.Length - 1] == InputDirection.NEUTRAL)
 			{
 				LeftUp = true;
 			}
@@ -577,9 +606,14 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 			}
 			// 方向キー
 			// 前フレームに右を押していて今がニュートラルなら離したを有効にする
-			if ((_Inputdirections[_Inputdirections.Length - 2] == InputDirection.RIGHT || _Inputdirections[_Inputdirections.Length - 2] == InputDirection.RIGHTUNDER || _Inputdirections[_Inputdirections.Length - 2] == InputDirection.RIGHTTOP &&
+			if ((_Inputdirections[_Inputdirections.Length - 8] == InputDirection.RIGHT || _Inputdirections[_Inputdirections.Length - 8] == InputDirection.RIGHTUNDER || _Inputdirections[_Inputdirections.Length - 8] == InputDirection.RIGHTTOP) &&
+				(_Inputdirections[_Inputdirections.Length - 7] == InputDirection.RIGHT || _Inputdirections[_Inputdirections.Length - 7] == InputDirection.RIGHTUNDER || _Inputdirections[_Inputdirections.Length - 7] == InputDirection.RIGHTTOP) &&
+				(_Inputdirections[_Inputdirections.Length - 6] == InputDirection.RIGHT || _Inputdirections[_Inputdirections.Length - 6] == InputDirection.RIGHTUNDER || _Inputdirections[_Inputdirections.Length - 6] == InputDirection.RIGHTTOP) &&
+				(_Inputdirections[_Inputdirections.Length - 5] == InputDirection.RIGHT || _Inputdirections[_Inputdirections.Length - 5] == InputDirection.RIGHTUNDER || _Inputdirections[_Inputdirections.Length - 5] == InputDirection.RIGHTTOP) &&
+				 _Inputdirections[_Inputdirections.Length - 4] == InputDirection.NEUTRAL &&
+				 _Inputdirections[_Inputdirections.Length - 3] == InputDirection.NEUTRAL &&
+				 _Inputdirections[_Inputdirections.Length - 2] == InputDirection.NEUTRAL &&
 				 _Inputdirections[_Inputdirections.Length - 1] == InputDirection.NEUTRAL)
-			)
 			{
 				RightUp = true;
 			}
@@ -612,7 +646,14 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 				}
 			}
 			// 方向キー
-            if(_Inputdirections[_Inputdirections.Length - 2] == InputDirection.LEFTTOP && _Inputdirections[_Inputdirections.Length - 1] == InputDirection.NEUTRAL)
+            if(_Inputdirections[_Inputdirections.Length - 8] == InputDirection.LEFTTOP &&
+			   _Inputdirections[_Inputdirections.Length - 7] == InputDirection.LEFTTOP &&
+			   _Inputdirections[_Inputdirections.Length - 6] == InputDirection.LEFTTOP &&
+			   _Inputdirections[_Inputdirections.Length - 5] == InputDirection.LEFTTOP &&
+			   _Inputdirections[_Inputdirections.Length - 4] == InputDirection.NEUTRAL &&
+			   _Inputdirections[_Inputdirections.Length - 3] == InputDirection.NEUTRAL &&
+			   _Inputdirections[_Inputdirections.Length - 2] == InputDirection.NEUTRAL &&
+			   _Inputdirections[_Inputdirections.Length - 1] == InputDirection.NEUTRAL)
             {
                 LeftUpperUp = true;                
             }
@@ -646,7 +687,14 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 				}
 			}
             // 方向キー
-            if(_Inputdirections[_Inputdirections.Length - 2] == InputDirection.LEFTUNDER && _Inputdirections[_Inputdirections.Length - 1] == InputDirection.NEUTRAL)
+            if(_Inputdirections[_Inputdirections.Length - 8] == InputDirection.LEFTUNDER &&
+			   _Inputdirections[_Inputdirections.Length - 7] == InputDirection.LEFTUNDER &&
+			   _Inputdirections[_Inputdirections.Length - 6] == InputDirection.LEFTUNDER &&
+			   _Inputdirections[_Inputdirections.Length - 5] == InputDirection.LEFTUNDER &&
+			   _Inputdirections[_Inputdirections.Length - 4] == InputDirection.NEUTRAL &&
+			   _Inputdirections[_Inputdirections.Length - 3] == InputDirection.NEUTRAL &&
+			   _Inputdirections[_Inputdirections.Length - 2] == InputDirection.NEUTRAL &&
+			   _Inputdirections[_Inputdirections.Length - 1] == InputDirection.NEUTRAL)
             {
                 LeftUnderUp = true;
             }
@@ -712,7 +760,14 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 				}
 			}
             // 方向キー
-            if(_Inputdirections[_Inputdirections.Length - 2] == InputDirection.RIGHTTOP && _Inputdirections[_Inputdirections.Length - 1] == InputDirection.NEUTRAL)
+            if(_Inputdirections[_Inputdirections.Length - 8] == InputDirection.RIGHTTOP &&
+			   _Inputdirections[_Inputdirections.Length - 7] == InputDirection.RIGHTTOP &&
+			   _Inputdirections[_Inputdirections.Length - 6] == InputDirection.RIGHTTOP &&
+			   _Inputdirections[_Inputdirections.Length - 5] == InputDirection.RIGHTTOP &&
+			   _Inputdirections[_Inputdirections.Length - 4] == InputDirection.NEUTRAL &&
+			   _Inputdirections[_Inputdirections.Length - 3] == InputDirection.NEUTRAL &&
+			   _Inputdirections[_Inputdirections.Length - 2] == InputDirection.NEUTRAL &&
+			   _Inputdirections[_Inputdirections.Length - 1] == InputDirection.NEUTRAL)
             {
                 RightUpperUp = true;
             }
@@ -879,6 +934,11 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
                     {
                         GetKeyLongInput(i, k);
                     }
+					// 離した瞬間取得
+					else if(Input.GetKeyUp((KeyCode)k.GetValue(i)))
+					{
+						GetKeyUp(i, k);
+					}
 					// 非入力時解除
 					else
 					{
@@ -1082,7 +1142,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
    
 
 	/// <summary>
-	/// キー入力取得
+	/// キー入力取得(離したの無効化もしておく）
 	/// </summary>
 	public void GetKeyInput(int i,Array k)
 	{
@@ -1094,84 +1154,100 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 			{
 				Shot = true;
                 ShotKeyboad = true;
+				ShotUp = false;
 			}
+			// 射撃アップ取得
+			
 			// 格闘取得
 			if (k.GetValue(i).ToString() == wrestlecode_keyboard)
 			{
 				Wrestle = true;
                 WrestleKeyboard = true;
+				WrestleUp = false;
 			}
 			// ジャンプ取得
 			if (k.GetValue(i).ToString() == jump_keyboard)
 			{
 				Jump = true;
                 JumpKeyboard = true;
+				JumpUp = false;
 			}
 			// サーチ取得
 			if (k.GetValue(i).ToString() == search_keyboard)
 			{
 				Search = true;
                 SearchKeyboard = true;
+				SearchUp = false;
 			}
 			// メニュー取得
 			if (k.GetValue(i).ToString() == menu_keyboard)
 			{
 				Menu = true;
                 MenuKeyboard = true;
+				MenuUp = false;
 			}
 			// コマンド取得
 			if (k.GetValue(i).ToString() == command_keyboard)
 			{
 				Command = true;
                 CommandKeyboard = true;
+				CommandUp = false;
 			}
 			// アイテム取得
 			if (k.GetValue(i).ToString() == item_keyboard)
 			{
 				Item = true;
                 ItemKeyboard = true;
+				ItemUp = false;
 			}
 			// サブ射撃取得
 			if (k.GetValue(i).ToString() == subshot_keyboard)
 			{
 				SubShot = true;
                 SubShotKeyboard = true;
+				SubShotUp = false;
 			}
 			// 特殊射撃取得
 			if (k.GetValue(i).ToString() == exshot_keyboard)
 			{
 				EXShot = true;
                 EXShotKeyboard = true;
+				EXShotUp = false;
 			}
 			// 特殊格闘取得
 			if (k.GetValue(i).ToString() == exwrestle_keyboard)
 			{
 				EXWrestle = true;
                 EXWrestleKeyboard = true;
+				EXWrestleUp = false;
 			}
 			// 視点変更上取得
 			if (k.GetValue(i).ToString() == viewchangeupper_keyboard)
 			{
 				ElevationAngleUpper = true;
                 ElevationAngleUpperKeyboard = true;
+				ElevationAngleUpperUp = false;
 			}
 			// 視点変更下取得
 			if (k.GetValue(i).ToString() == viewchangedown_keyboard)
 			{
 				ElevationAngleDown = true;
                 ElevationAngleDownKeyboard = true;
+				ElevationAngleDownUp = false;
 			}
 			// 視点変更左取得
 			if (k.GetValue(i).ToString() == viewchangeleft_keyboard)
 			{
 				AzimuthLeft = true;
                 AzimuthLeftKeyboard = true;
+				AzimuthLeftUp = false;
 			}
 			// 視点変更右取得
 			if (k.GetValue(i).ToString() == viewchangeright_keyboard)
 			{
 				AzimuthRight = true;
                 AzimuthRightKeyboard = true;
+				AzimuthRightUp = false;
 			}
 		}
 		// キー入力取得（コントローラー）
@@ -1182,84 +1258,98 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 			{
 				Shot = true;
                 ShotController = true;
+				ShotUp = false;
 			}
 			// 格闘取得
 			if (k.GetValue(i).ToString() == wrestlecode_controller)
 			{
 				Wrestle = true;
                 WrestleController = true;
+				WrestleUp = false;
 			}
 			// ジャンプ取得
 			if (k.GetValue(i).ToString() == jump_controller)
 			{
 				Jump = true;
                 JumpController = true;
+				JumpUp = false;
 			}
 			// サーチ取得
 			if (k.GetValue(i).ToString() == search_controller)
 			{
 				Search = true;
                 SearchController = true;
+				SearchUp = false;
 			}
 			// メニュー取得
 			if (k.GetValue(i).ToString() == menu_controller)
 			{
 				Menu = true;
                 MenuController = true;
+				MenuUp = false;
 			}
 			// コマンド取得
 			if (k.GetValue(i).ToString() == command_controller)
 			{
 				Command = true;
                 CommandController = true;
+				CommandUp = false;
 			}
 			// アイテム取得
 			if (k.GetValue(i).ToString() == item_controller)
 			{
 				Item = true;
                 ItemController = true;
+				ItemUp = false;
 			}
 			// サブ射撃取得
 			if (k.GetValue(i).ToString() == subshot_controller)
 			{
 				SubShot = true;
                 SubShotController = true;
+				SubShotUp = false;
 			}
 			// 特殊射撃取得
 			if (k.GetValue(i).ToString() == exshot_controller)
 			{
 				EXShot = true;
                 EXShotController = true;
+				EXShotUp = false;
 			}
 			// 特殊格闘取得
 			if (k.GetValue(i).ToString() == exwrestle_controller)
 			{
 				EXWrestle = true;
                 EXWrestleController = true;
+				EXWrestleUp = false;
 			}
 			// 視点変更上取得
 			if (k.GetValue(i).ToString() == viewchangeupper_controller)
 			{
 				ElevationAngleUpper = true;
                 ElevationAngleUpperController = true;
+				ElevationAngleUpperUp = false;
 			}
 			// 視点変更下取得
 			if (k.GetValue(i).ToString() == viewchangedown_controller)
 			{
 				ElevationAngleDown = true;
                 ElevationAngleDownController = true;
+				ElevationAngleDownUp = false;
 			}
 			// 視点変更左取得
 			if (k.GetValue(i).ToString() == viewchangeleft_controller)
 			{
 				AzimuthLeft = true;
                 AzimuthLeftController = true;
+				AzimuthLeftUp = false;
 			}
 			// 視点変更右取得
 			if (k.GetValue(i).ToString() == viewchangeright_controller)
 			{
 				AzimuthRight = true;
                 AzimuthRightController = true;
+				AzimuthRightUp = false;
 			}
 		}
 	}
@@ -1317,6 +1407,166 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
             }
         }
     }
+
+
+	/// <summary>
+	/// キー入力解除を取得（解除の瞬間を取得する）
+	/// </summary>
+	/// <param name="i"></param>
+	/// <param name="k"></param>
+	public void GetKeyUp(int i, Array k)
+	{
+		// テンキーとマウス入力と画面クリック以外のキー入力を取得する
+		if (k.GetValue(i).ToString().IndexOf("Arrow") < 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0 && k.GetValue(i).ToString().IndexOf("Joystick") < 0)
+		{
+			// 射撃取得
+			if (k.GetValue(i).ToString() == shotcode_keyboard)
+			{				
+				ShotUp = true;
+			}
+			// 射撃アップ取得
+
+			// 格闘取得
+			if (k.GetValue(i).ToString() == wrestlecode_keyboard)
+			{
+				WrestleUp = true;
+			}
+			// ジャンプ取得
+			if (k.GetValue(i).ToString() == jump_keyboard)
+			{			
+				JumpUp = true;
+			}
+			// サーチ取得
+			if (k.GetValue(i).ToString() == search_keyboard)
+			{
+				SearchUp = true;
+			}
+			// メニュー取得
+			if (k.GetValue(i).ToString() == menu_keyboard)
+			{
+				MenuUp = true;
+			}
+			// コマンド取得
+			if (k.GetValue(i).ToString() == command_keyboard)
+			{
+				CommandUp = true;
+			}
+			// アイテム取得
+			if (k.GetValue(i).ToString() == item_keyboard)
+			{				
+				ItemUp = true;
+			}
+			// サブ射撃取得
+			if (k.GetValue(i).ToString() == subshot_keyboard)
+			{
+				SubShotUp = true;
+			}
+			// 特殊射撃取得
+			if (k.GetValue(i).ToString() == exshot_keyboard)
+			{				
+				EXShotUp = true;
+			}
+			// 特殊格闘取得
+			if (k.GetValue(i).ToString() == exwrestle_keyboard)
+			{				
+				EXWrestleUp = true;
+			}
+			// 視点変更上取得
+			if (k.GetValue(i).ToString() == viewchangeupper_keyboard)
+			{				
+				ElevationAngleUpperUp = true;
+			}
+			// 視点変更下取得
+			if (k.GetValue(i).ToString() == viewchangedown_keyboard)
+			{
+				ElevationAngleDownUp = true;
+			}
+			// 視点変更左取得
+			if (k.GetValue(i).ToString() == viewchangeleft_keyboard)
+			{
+				AzimuthLeftUp = true;
+			}
+			// 視点変更右取得
+			if (k.GetValue(i).ToString() == viewchangeright_keyboard)
+			{
+				AzimuthRightUp = true;
+			}
+		}
+		// キー入力取得（コントローラー）
+		if (k.GetValue(i).ToString().IndexOf("Joystick1") >= 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0)
+		{
+			// 射撃取得
+			if (k.GetValue(i).ToString() == shotcode_controller)
+			{				
+				ShotUp = true;
+			}
+			// 格闘取得
+			if (k.GetValue(i).ToString() == wrestlecode_controller)
+			{
+				WrestleUp = true;
+			}
+			// ジャンプ取得
+			if (k.GetValue(i).ToString() == jump_controller)
+			{
+				JumpUp = true;
+			}
+			// サーチ取得
+			if (k.GetValue(i).ToString() == search_controller)
+			{;
+				SearchUp = true;
+			}
+			// メニュー取得
+			if (k.GetValue(i).ToString() == menu_controller)
+			{
+				MenuUp = true;
+			}
+			// コマンド取得
+			if (k.GetValue(i).ToString() == command_controller)
+			{				
+				CommandUp = true;
+			}
+			// アイテム取得
+			if (k.GetValue(i).ToString() == item_controller)
+			{
+				ItemUp = true;
+			}
+			// サブ射撃取得
+			if (k.GetValue(i).ToString() == subshot_controller)
+			{				
+				SubShotUp = true;
+			}
+			// 特殊射撃取得
+			if (k.GetValue(i).ToString() == exshot_controller)
+			{
+				EXShotUp = true;
+			}
+			// 特殊格闘取得
+			if (k.GetValue(i).ToString() == exwrestle_controller)
+			{				
+				EXWrestleUp = true;
+			}
+			// 視点変更上取得
+			if (k.GetValue(i).ToString() == viewchangeupper_controller)
+			{
+				ElevationAngleUpperUp = true;
+			}
+			// 視点変更下取得
+			if (k.GetValue(i).ToString() == viewchangedown_controller)
+			{				
+				ElevationAngleDownUp = true;
+			}
+			// 視点変更左取得
+			if (k.GetValue(i).ToString() == viewchangeleft_controller)
+			{				
+				AzimuthLeftUp = true;
+			}
+			// 視点変更右取得
+			if (k.GetValue(i).ToString() == viewchangeright_controller)
+			{
+				AzimuthRightUp = true;
+			}
+		}
+	}
 
 	/// <summary>
 	/// 入力解除されたキーのフラグを折る

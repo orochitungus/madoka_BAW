@@ -701,7 +701,8 @@ public class HomuraBowControl : CharacterControlBase
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == AirDashWrestleID)
 		{
-
+			int[] stepanimations = { 8, 9, 10, 11 };
+			AirDashWrestle(AnimatorUnit, 7, stepanimations, 4);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXWrestleID)
 		{
@@ -854,38 +855,40 @@ public class HomuraBowControl : CharacterControlBase
 		// 格闘で格闘へ移行
 		else if (HasWrestleInput)
 		{
+			// 空中ダッシュ中で空中ダッシュ格闘へ移行
 			if (AirDash)
 			{
-				// TODO:空中ダッシュ格闘実行
+				// 空中ダッシュ格闘実行
+				AirDashWrestleDone(AnimatorUnit, AirDashSpeed, 11);
 			}
 			// 前格闘で前格闘へ移行
 			else if (HasFrontInput)
 			{
-				// 前格闘実行
-				WrestleDone(AnimatorUnit, (int)CharacterSkill.SkillType.FRONT_WRESTLE_1, "FrontWrestle");
+				// 前格闘実行(Character_Spec.cs参照)
+				WrestleDone(AnimatorUnit, 7, "FrontWrestle");
 			}
 			// 左格闘で左格闘へ移行
 			else if (HasLeftInput)
 			{
-				// 左格闘実行
-				WrestleDone_GoAround_Left(AnimatorUnit, (int)CharacterSkill.SkillType.LEFT_WRESTLE_1);
+				// 左格闘実行(Character_Spec.cs参照)
+				WrestleDone_GoAround_Left(AnimatorUnit, 8);
 			}
 			// 右格闘で右格闘へ移行
 			else if (HasRightInput)
 			{
-				// 右格闘実行
-				WrestleDone_GoAround_Right(AnimatorUnit, (int)CharacterSkill.SkillType.RIGHT_WRESTLE_1);
+				// 右格闘実行(Character_Spec.cs参照)
+				WrestleDone_GoAround_Right(AnimatorUnit, 9);
 			}
 			// 後格闘で後格闘へ移行
 			else if (HasBackInput)
 			{
-				// 後格闘実行（ガード）
-				GuardDone(AnimatorUnit, (int)CharacterSkill.SkillType.BACK_WRESTLE);
+				// 後格闘実行（ガード）(Character_Spec.cs参照)
+				GuardDone(AnimatorUnit, 10);
 			}
 			else
 			{
 				// それ以外ならN格闘実行(2段目と3段目の追加入力はWrestle1とWrestle2で行う
-				WrestleDone(AnimatorUnit, (int)CharacterSkill.SkillType.WRESTLE_1, "Wrestle1");
+				WrestleDone(AnimatorUnit, 4, "Wrestle1");
 			}
 		}
 	}
@@ -1432,12 +1435,12 @@ public class HomuraBowControl : CharacterControlBase
             // N格闘２段目派生
             if (nextmotion == WrestleType.WRESTLE_2)
             {
-                WrestleDone(AnimatorUnit, (int)CharacterSkill.SkillType.WRESTLE_2, "Wrestle2");
+                WrestleDone(AnimatorUnit, 5, "Wrestle2");
             }
             // N格闘３段目派生
             else if (nextmotion == WrestleType.WRESTLE_3)
             {
-                WrestleDone(AnimatorUnit, (int)CharacterSkill.SkillType.WRESTLE_3, "Wrestle3");
+                WrestleDone(AnimatorUnit, 6, "Wrestle3");
             }
         }
 		// なかったら戻す

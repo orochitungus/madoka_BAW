@@ -343,9 +343,9 @@ public static class Character_Spec
             new CharacterSkill(CharacterSkill.SkillType.EX_SHOT,"アローレイン",50,5,2,1,2.0f,1,CharacterSkill.HitType.BEND_BACKWARD,1.0f,50.0f,CharacterSkill.ReloadType.ONE_BY_ONE,8.0f,20),
             // 格闘
             // N格闘
-            new CharacterSkill(CharacterSkill.SkillType.WRESTLE_1,"ほむパンチ",40,5,2.0f,1,CharacterSkill.HitType.BEND_BACKWARD,1.0f,12.0f,1.0f,10,3.0f),
-            new CharacterSkill(CharacterSkill.SkillType.WRESTLE_2,"ほむパンチ",40,5,2.0f,1,CharacterSkill.HitType.BEND_BACKWARD,1.0f,5.0f,1.0f,10,3.0f),
-            new CharacterSkill(CharacterSkill.SkillType.WRESTLE_3,"ほむキック",40,5,2.0f,1,CharacterSkill.HitType.BEND_BACKWARD,1.0f,20.0f,1.0f,10,3.0f),
+            new CharacterSkill(CharacterSkill.SkillType.WRESTLE_1,"マジカルCQC",40,5,2.0f,1,CharacterSkill.HitType.BEND_BACKWARD,1.0f,12.0f,1.0f,10,3.0f),
+            new CharacterSkill(CharacterSkill.SkillType.WRESTLE_2,"マジカルCQC",40,5,2.0f,1,CharacterSkill.HitType.BEND_BACKWARD,1.0f,5.0f,1.0f,10,3.0f),
+            new CharacterSkill(CharacterSkill.SkillType.WRESTLE_3,"マジカルCQC",40,5,2.0f,1,CharacterSkill.HitType.BEND_BACKWARD,1.0f,20.0f,1.0f,10,3.0f),
             // 前格闘
             new CharacterSkill(CharacterSkill.SkillType.FRONT_WRESTLE_1,"キック",50,5,2.0f,1,CharacterSkill.HitType.BLOW,1.0f,12.0f,1.0f,15,3.0f),
             // 左格闘
