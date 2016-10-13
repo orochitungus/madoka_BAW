@@ -706,7 +706,7 @@ public class HomuraBowControl : CharacterControlBase
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXWrestleID)
 		{
-
+			ExWrestle1();
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXFrontWrestleID)
 		{
@@ -795,7 +795,8 @@ public class HomuraBowControl : CharacterControlBase
 			// それ以外
 			else
 			{
-				// TODO:特殊格闘実行
+				// 特殊格闘実行
+				EXWrestleDone(AnimatorUnit, 12);
 			}
 		}
 		// 射撃チャージでチャージ射撃へ移行
@@ -1482,4 +1483,69 @@ public class HomuraBowControl : CharacterControlBase
         }
     }
 
+	/// <summary>
+	/// 特殊格闘
+	/// </summary>
+	protected override void ExWrestle1()
+	{
+		base.ExWrestle1();
+		Wrestletime += Time.deltaTime;
+		int[] stepanimations = { 8, 9, 10, 11 };
+		StepCancel(AnimatorUnit, 7, stepanimations);
+	}
+
+	/// <summary>
+	/// 特殊格闘を実行する
+	/// </summary>
+	/// <param name="Animator"></param>
+	/// <param name="skillindex"></param>
+	public void EXWrestleDone(Animator Animator, int skillindex)
+	{
+		// 追加入力フラグをカット
+		AddInput = false;
+		// 移動速度
+		float movespeed = Character_Spec.cs[(int)CharacterName][skillindex].m_Movespeed;
+		// 移動方向
+		// ロックオン且つ本体角度が0でない時、相手の方向を移動方向とする
+		if (IsRockon && this.transform.rotation.eulerAngles.y != 0)
+		{
+			// ロックオン対象を取得
+			var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
+			// ロックオン対象の座標
+			Vector3 targetpos = target.transform.position;
+			// 上記の座標は足元を向いているので、自分の高さに補正する
+			targetpos.y = transform.position.y;
+			// 自機の座標
+			Vector3 mypos = transform.position;
+			// 自機をロックオン対象に向ける
+			transform.rotation = Quaternion.LookRotation(mypos - targetpos);
+			// 方向ベクトルを向けた方向に合わせる            
+			MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
+		}
+		// 本体角度が0の場合カメラの方向を移動方向とし、正規化して代入する
+		else if (this.transform.rotation.eulerAngles.y == 0)
+		{
+			// ただしそのままだとカメラが下を向いているため、一旦その分は補正する
+			Quaternion rotateOR = MainCamera.transform.rotation;
+			Vector3 rotateOR_E = rotateOR.eulerAngles;
+			rotateOR_E.x = 0;
+			rotateOR = Quaternion.Euler(rotateOR_E);
+			this.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+		}
+		// それ以外は本体の角度を移動方向にする
+		else
+		{
+			this.MoveDirection = Vector3.Normalize(this.transform.rotation * Vector3.forward);
+		}
+		// アニメーション速度
+		float speed = Character_Spec.cs[(int)CharacterName][skillindex].m_Animspeed;
+
+		// アニメーションを再生する
+		Animator.SetTrigger("EXWrestle");
+
+		// アニメーションの速度を調整する
+		Animator.speed = speed;
+		// 移動速度を調整する
+		this.WrestlSpeed = movespeed;
+	}
 }
