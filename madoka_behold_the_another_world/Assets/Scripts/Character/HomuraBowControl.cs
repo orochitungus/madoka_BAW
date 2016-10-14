@@ -710,7 +710,8 @@ public class HomuraBowControl : CharacterControlBase
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXFrontWrestleID)
 		{
-
+            int[] stepanimations = { 8, 9, 10, 11 };
+            FrontExWrestle1(AnimatorUnit, 7, stepanimations, 4);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXBackWrestleID)
 		{
@@ -785,12 +786,14 @@ public class HomuraBowControl : CharacterControlBase
 			// 前特殊格闘
 			if (HasFrontInput)
 			{
-				// TODO:前特殊格闘実行
+                // 前特殊格闘実行
+                FrontEXWrestleDone(AnimatorUnit, 13);
 			}
 			// 空中で後特殊格闘
 			else if (HasBackInput && !IsGrounded)
 			{
-				// TODO:後特殊格闘実行
+                // 後特殊格闘実行
+                BackEXWrestleDone(AnimatorUnit, 14);
 			}
 			// それ以外
 			else
@@ -1494,12 +1497,48 @@ public class HomuraBowControl : CharacterControlBase
 		StepCancel(AnimatorUnit, 7, stepanimations);
 	}
 
-	/// <summary>
-	/// 特殊格闘を実行する
-	/// </summary>
-	/// <param name="Animator"></param>
-	/// <param name="skillindex"></param>
-	public void EXWrestleDone(Animator Animator, int skillindex)
+    /// <summary>
+    /// 前特殊格闘
+    /// </summary>
+    /// <param name="animator"></param>
+    /// <param name="airdashhash"></param>
+    /// <param name="stepanimations"></param>
+    /// <param name="fallid"></param>
+    protected override void FrontExWrestle1(Animator animator, int airdashhash, int[] stepanimations, int fallid)
+    {
+        base.FrontExWrestle1(animator, airdashhash, stepanimations, fallid);
+        Wrestletime += Time.deltaTime; 
+        // レバー入力カットか特殊格闘入力カットで落下に移行する
+        if(ControllerManager.Instance.TopUp || ControllerManager.Instance.EXWrestleUp)
+        {
+            FallDone(Vector3.zero, animator, fallid);
+        }       
+    }
+
+    /// <summary>
+    /// 後特殊格闘
+    /// </summary>
+    /// <param name="animator"></param>
+    /// <param name="airdashhash"></param>
+    /// <param name="stepanimations"></param>
+    /// <param name="fallid"></param>
+    /// <param name="landingid"></param>
+    protected override void BackExWrestle(Animator animator, int airdashhash, int[] stepanimations, int fallid, int landingid)
+    {
+        base.BackExWrestle(animator, airdashhash, stepanimations, fallid, landingid);
+        // レバー入力カットか特殊格闘入力カットで落下に移行する
+        if (ControllerManager.Instance.UnderUp || ControllerManager.Instance.EXWrestleUp)
+        {
+            FallDone(Vector3.zero, animator, fallid);
+        }
+    }
+
+    /// <summary>
+    /// 特殊格闘を実行する
+    /// </summary>
+    /// <param name="animator"></param>
+    /// <param name="skillindex"></param>
+    public void EXWrestleDone(Animator animator, int skillindex)
 	{
 		// 追加入力フラグをカット
 		AddInput = false;
@@ -1535,17 +1574,65 @@ public class HomuraBowControl : CharacterControlBase
 		// それ以外は本体の角度を移動方向にする
 		else
 		{
-			this.MoveDirection = Vector3.Normalize(this.transform.rotation * Vector3.forward);
+			MoveDirection = Vector3.Normalize(this.transform.rotation * Vector3.forward);
 		}
 		// アニメーション速度
 		float speed = Character_Spec.cs[(int)CharacterName][skillindex].m_Animspeed;
 
 		// アニメーションを再生する
-		Animator.SetTrigger("EXWrestle");
+		animator.SetTrigger("EXWrestle");
 
 		// アニメーションの速度を調整する
-		Animator.speed = speed;
+		animator.speed = speed;
 		// 移動速度を調整する
 		this.WrestlSpeed = movespeed;
 	}
+
+    /// <summary>
+    /// 前特殊格闘を実行する
+    /// </summary>
+    /// <param name="animator"></param>
+    /// <param name="skillindex"></param>
+    public void FrontEXWrestleDone(Animator animator, int skillindex)
+    {
+        // 追加入力フラグをカット
+        AddInput = false;
+        // 移動速度（上方向に垂直上昇する）
+        float movespeed = RiseSpeed * 2.0f;
+
+        // 移動方向（移動目的のため、とりあえず垂直上昇させる）
+        MoveDirection = Vector3.Normalize(new Vector3(0, 1, 0));
+
+        // アニメーション速度
+        float speed = Character_Spec.cs[(int)CharacterName][skillindex].m_Animspeed;
+
+        // アニメーションを再生する
+        animator.SetTrigger("FrontEXWrestle");
+        // 移動速度を調整する
+        WrestlSpeed = movespeed;
+    }
+
+    /// <summary>
+    /// 後特殊格闘を実行する
+    /// </summary>
+    /// <param name="animator"></param>
+    /// <param name="skillindex"></param>
+    public void BackEXWrestleDone(Animator animator, int skillindex)
+    {
+        // 追加入力フラグをカット
+        AddInput = false;
+        // 移動速度（真下に急降下する）
+        float movespeed = -RiseSpeed * 2.0f;
+
+        // 移動方向（移動目的のため、とりあえず垂直下降させる）
+        MoveDirection = Vector3.Normalize(new Vector3(0, -1, 0));
+
+        // アニメーション速度
+        float speed = Character_Spec.cs[(int)CharacterName][skillindex].m_Animspeed;
+
+        // アニメーションを再生する
+        animator.SetTrigger("BackEXWrestle");
+        // 移動速度を調整する
+        WrestlSpeed = movespeed;
+    }
 }
