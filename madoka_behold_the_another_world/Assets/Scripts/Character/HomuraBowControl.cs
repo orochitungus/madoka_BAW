@@ -715,7 +715,8 @@ public class HomuraBowControl : CharacterControlBase
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXBackWrestleID)
 		{
-
+			int[] stepanimations = { 8, 9, 10, 11 };
+			BackExWrestle(AnimatorUnit, 7, stepanimations, 4, 5);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == ReversalID)
 		{
@@ -758,6 +759,7 @@ public class HomuraBowControl : CharacterControlBase
 	/// <param name="AirDash"></param>
 	public void AttackDone(bool run = false, bool AirDash = false)
 	{
+		DestroyWrestle();
 		// サブ射撃でサブ射撃へ移行
 		if (HasSubShotInput)
 		{
@@ -783,17 +785,17 @@ public class HomuraBowControl : CharacterControlBase
 		// 特殊格闘で特殊格闘へ移行
 		else if (HasExWrestleInput)
 		{
-			// 前特殊格闘
-			if (HasFrontInput)
-			{
+			// 前特殊格闘(ブーストがないと実行不可)
+			if (HasFrontInput && Boost > 0)
+			{				
                 // 前特殊格闘実行
                 FrontEXWrestleDone(AnimatorUnit, 13);
 			}
-			// 空中で後特殊格闘
-			else if (HasBackInput && !IsGrounded)
+			// 空中で後特殊格闘(ブーストがないと実行不可）
+			else if (HasBackInput && !IsGrounded && Boost > 0)
 			{
-                // 後特殊格闘実行
-                BackEXWrestleDone(AnimatorUnit, 14);
+				// 後特殊格闘実行
+				BackEXWrestleDone(AnimatorUnit, 14);
 			}
 			// それ以外
 			else
@@ -1512,8 +1514,16 @@ public class HomuraBowControl : CharacterControlBase
         if(ControllerManager.Instance.TopUp || ControllerManager.Instance.EXWrestleUp)
         {
             FallDone(Vector3.zero, animator, fallid);
-        }       
-    }
+        }
+		// 移動速度（上方向に垂直上昇する）
+		float movespeed = 100.0f;
+
+		// 移動方向（移動目的のため、とりあえず垂直上昇させる）
+		MoveDirection = Vector3.Normalize(new Vector3(0, 1, 0));
+
+		// 移動速度を調整する
+		WrestlSpeed = movespeed;
+	}
 
     /// <summary>
     /// 後特殊格闘
@@ -1531,7 +1541,15 @@ public class HomuraBowControl : CharacterControlBase
         {
             FallDone(Vector3.zero, animator, fallid);
         }
-    }
+		// 移動速度（上方向に垂直上昇する）
+		float movespeed = 100.0f;
+
+		// 移動方向（移動目的のため、とりあえず垂直上昇させる）
+		MoveDirection = Vector3.Normalize(new Vector3(0, -1, 0));
+
+		// 移動速度を調整する
+		WrestlSpeed = movespeed;
+	}
 
     /// <summary>
     /// 特殊格闘を実行する
@@ -1598,18 +1616,13 @@ public class HomuraBowControl : CharacterControlBase
         // 追加入力フラグをカット
         AddInput = false;
         // 移動速度（上方向に垂直上昇する）
-        float movespeed = RiseSpeed * 2.0f;
-
-        // 移動方向（移動目的のため、とりあえず垂直上昇させる）
-        MoveDirection = Vector3.Normalize(new Vector3(0, 1, 0));
-
+       
         // アニメーション速度
-        float speed = Character_Spec.cs[(int)CharacterName][skillindex].m_Animspeed;
+        animator.speed = Character_Spec.cs[(int)CharacterName][skillindex].m_Animspeed;
 
         // アニメーションを再生する
         animator.SetTrigger("FrontEXWrestle");
-        // 移動速度を調整する
-        WrestlSpeed = movespeed;
+        
     }
 
     /// <summary>
@@ -1621,18 +1634,12 @@ public class HomuraBowControl : CharacterControlBase
     {
         // 追加入力フラグをカット
         AddInput = false;
-        // 移動速度（真下に急降下する）
-        float movespeed = -RiseSpeed * 2.0f;
 
-        // 移動方向（移動目的のため、とりあえず垂直下降させる）
-        MoveDirection = Vector3.Normalize(new Vector3(0, -1, 0));
-
-        // アニメーション速度
-        float speed = Character_Spec.cs[(int)CharacterName][skillindex].m_Animspeed;
+		// アニメーション速度
+		animator.speed = Character_Spec.cs[(int)CharacterName][skillindex].m_Animspeed;
 
         // アニメーションを再生する
         animator.SetTrigger("BackEXWrestle");
-        // 移動速度を調整する
-        WrestlSpeed = movespeed;
+        
     }
 }

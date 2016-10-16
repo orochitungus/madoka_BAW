@@ -29,6 +29,7 @@ public class Bullet : MonoBehaviour
         BAZOOKA,    // 着弾時拡散する実弾
         BOMB,       // 爆風を撒き散らすボム
         LASER,      // レーザー（相殺なし）
+		FUNNEL,		// ファンネル（銃弾を撃ち出す）
     };
     public BulletType Bullettype;
 

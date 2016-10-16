@@ -3237,6 +3237,8 @@ public class CharacterControlBase : MonoBehaviour
         }
         if (RigidBody != null)
         {
+			Debug.Log(MoveDirection);
+			Debug.Log(MoveSpeed);
 			// 速度ベクトルを作る
             Vector3 velocity = MoveDirection * MoveSpeed;
             // 走行中/アイドル中/吹き飛び中/ダウン中
