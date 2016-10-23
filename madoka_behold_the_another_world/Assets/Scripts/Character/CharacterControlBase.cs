@@ -4612,10 +4612,7 @@ public class CharacterControlBase : MonoBehaviour
     /// ダメージ(のけぞり）
     /// </summary>
     /// <param name="animator"></param>
-    /// <param name="damagehash"></param>
-    /// <param name="idlehash"></param>
-    /// <param name="blowhash"></param>
-    public virtual void Damage(Animator animator, int damagehash,int idlehash,int blowhash)
+    public virtual void Damage(Animator animator)
 	{
 		// TODO:移行後復活 
 		// IsStep = false;
@@ -4648,9 +4645,8 @@ public class CharacterControlBase : MonoBehaviour
     /// 吹き飛び
     /// </summary>
     /// <param name="animator"></param>
-    /// <param name="downhash"></param>
-    /// <param name="reversalhash"></param>
-    protected virtual void Blow(Animator animator,int downhash,int reversalhash)
+    /// <param name="reversalid"></param>
+    protected virtual void Blow(Animator animator,int reversalid)
 	{
 		// 接地までなにもせず、接地したらDownへ移行し、m_DownTimeを計算する
 		// ブースト入力があった場合、ダウン値がMAX未満でブーストゲージが一定量あれば、Reversalへ変更	
@@ -4678,7 +4674,7 @@ public class CharacterControlBase : MonoBehaviour
 			// ブースト量を減らす
 			this.Boost -= this.ReversalUseBoost;
 			// 復帰処理を行う
-			ReversalInit(animator,reversalhash);
+			ReversalInit(animator,reversalid);
 		}
 	}
 
@@ -4686,8 +4682,7 @@ public class CharacterControlBase : MonoBehaviour
     /// 錐揉みダウン
     /// </summary>
     /// <param name="animator"></param>
-    /// <param name="downhash"></param>
-    protected virtual void SpinDown(Animator animator,int downhash)
+    protected virtual void SpinDown(Animator animator)
 	{
 		// 落下に入ったら落下速度を調整する
 		MoveDirection.y = MadokaDefine.FALLSPEED;
@@ -4712,8 +4707,8 @@ public class CharacterControlBase : MonoBehaviour
     /// ダウン
     /// </summary>
     /// <param name="animator"></param>
-    /// <param name="reversalhash"></param>
-    protected virtual void Down(Animator animator,int reversalhash)
+    /// <param name="reversalID"></param>
+    protected virtual void Down(Animator animator,int reversalID)
 	{
 		// rotationの固定を復活させ、0,0,0にする
 		this.GetComponent<Rigidbody>().rotation = Quaternion.Euler(Vector3.zero);
@@ -4730,7 +4725,7 @@ public class CharacterControlBase : MonoBehaviour
 					return;
 				}
 			}
-			ReversalInit(animator,reversalhash);
+			ReversalInit(animator,reversalID);
 		}
 	}
 

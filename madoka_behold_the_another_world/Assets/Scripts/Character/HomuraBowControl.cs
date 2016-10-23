@@ -46,6 +46,11 @@ public class HomuraBowControl : CharacterControlBase
 	public GameObject SubShotRootR;
 
 	/// <summary>
+	/// 特殊射撃の矢
+	/// </summary>
+	public GameObject EXShotArrow;
+
+	/// <summary>
 	/// メイン射撃撃ち終わり時間
 	/// </summary>
 	private float MainshotEndtime;
@@ -639,7 +644,7 @@ public class HomuraBowControl : CharacterControlBase
         }
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXShotID)
 		{
-
+			ExShot();
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowShotID)
 		{
@@ -663,7 +668,7 @@ public class HomuraBowControl : CharacterControlBase
         }
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowEXShotID)
 		{
-
+			ExShot();
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle1ID)
 		{
@@ -720,7 +725,7 @@ public class HomuraBowControl : CharacterControlBase
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == ReversalID)
 		{
-
+			Reversal();
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == ArousalAttackID)
 		{
@@ -728,19 +733,19 @@ public class HomuraBowControl : CharacterControlBase
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == DamageID)
 		{
-
+			Damage(AnimatorUnit);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == DownID)
 		{
-
+			Down(AnimatorUnit, 39);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BlowID)
 		{
-
+			Blow(AnimatorUnit, 39);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == SpinDownID)
 		{
-
+			SpinDown(AnimatorUnit);
 		}
 	}
 
@@ -778,9 +783,11 @@ public class HomuraBowControl : CharacterControlBase
 			// 歩き撃ちはしないので、強制停止
 			if (run || AirDash)
 			{
-				// TODO:強制停止実行
+				// 強制停止実行
+				EmagencyStop(AnimatorUnit);
 			}
-			// TODO:特殊射撃実行
+			// 特殊射撃実行
+			EXShotDone();
 		}
 		// 特殊格闘で特殊格闘へ移行
 		else if (HasExWrestleInput)
@@ -834,14 +841,19 @@ public class HomuraBowControl : CharacterControlBase
 					// 角度60度以内なら上体回しで撃つ（歩き撃ち限定で上記の矢の方向ベクトルを加算する）
 					if (angle < 60)
 					{
+						// TODO:上体補正
+
 						RunShotDone = true;
-						// TODO:走行射撃実行
+						// 走行射撃実行
+						ShotDone(true);
 					}
 					// それ以外なら強制的に停止して（立ち撃ちにして）撃つ
 					else
 					{
-						// TODO:強制停止実行
-						// TODO:射撃実行
+						// 強制停止実行
+						EmagencyStop(AnimatorUnit);
+						// 射撃実行
+						ShotDone(false);
 					}
 				}
 				// 非ロック状態なら歩き撃ちフラグを立てる
@@ -930,6 +942,15 @@ public class HomuraBowControl : CharacterControlBase
 	public void SubShotDone()
 	{
 		AnimatorUnit.SetTrigger("SubShot");
+		// 装填状態へ移行
+		Shotmode = ShotMode.RELORD;
+		// 位置固定を行う
+		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+	}
+
+	public void EXShotDone()
+	{
+		AnimatorUnit.SetTrigger("EXShot");
 		// 装填状態へ移行
 		Shotmode = ShotMode.RELORD;
 		// 位置固定を行う
@@ -1078,7 +1099,15 @@ public class HomuraBowControl : CharacterControlBase
 			// 特殊射撃
 			else if (type == ShotType.EX_SHOT)
 			{
-				// TODO:特殊射撃の矢を作る処理
+				// 特殊射撃の矢を作る処理
+				var obj = (GameObject)Instantiate(EXShotArrow, pos, rot);
+				// 親子関係を再設定する
+				if (obj.transform.parent == null)
+				{
+					obj.transform.parent = MainShotRoot.transform;
+					// 矢の親子関係を付けておく
+					obj.transform.GetComponent<Rigidbody>().isKinematic = true;
+				}
 			}
 			// 通常射撃
 			else if (type == ShotType.NORMAL_SHOT)
@@ -1123,9 +1152,12 @@ public class HomuraBowControl : CharacterControlBase
 		var arrow = GetComponentInChildren<HomuraBowNormalShot>();
 		// サブ射撃中央の矢
 		var subshotArrowCenter = MainShotRoot.GetComponentInChildren<HomuraBowSubShot>();
-		
+		// サブ射撃左右の矢
 		var subshotArrowLeft = SubShotRootL.GetComponentInChildren<HomuraBowSubShotL>();
 		var subshotArrowRight = SubShotRootR.GetComponentInChildren<HomuraBowSubShotR>();
+		// 特殊射撃の矢
+		var exshotArrow = GetComponentInChildren<HomuraBowEXShot>();
+
 
 		if (arrow != null || subshotArrowCenter != null)
 		{

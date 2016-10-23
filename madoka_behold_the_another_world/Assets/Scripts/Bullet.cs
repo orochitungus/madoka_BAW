@@ -24,14 +24,34 @@ public class Bullet : MonoBehaviour
     /// </summary>
     public enum BulletType
     {
-        BEAM,       // ビーム（実弾貫通）
-        BULLET,     // 実弾
-        BAZOOKA,    // 着弾時拡散する実弾
-        BOMB,       // 爆風を撒き散らすボム
-        LASER,      // レーザー（相殺なし）
-		FUNNEL,		// ファンネル（銃弾を撃ち出す）
+        BEAM,			// ビーム（実弾貫通）
+        BULLET,			// 実弾
+        BAZOOKA,		// 着弾時拡散する実弾
+        BOMB,			// 爆風を撒き散らすボム
+        LASER,			// レーザー（相殺なし）
+		FUNNEL_LASER,	// ファンネル（レーザーを撃ち出す）
+		FUNNEL_SWORD,	// ファンネル（本体が特攻する）
     };
     public BulletType Bullettype;
+
+	/// <summary>
+	/// ファンネルである場合のステート
+	/// </summary>
+	public enum FunnelState
+	{
+		Injcection,		// 射出
+		Shoot,			// 目標地点で発射
+	}
+
+	/// <summary>
+	/// ファンネル時のステート
+	/// </summary>
+	public FunnelState Funnnelstate;
+
+	/// <summary>
+	/// ファンネル時の目標地点
+	/// </summary>
+	public Vector3 FunnelInjectionTargetPos;
 
     /// <summary>
     /// 親のスクリプト名
@@ -142,6 +162,11 @@ public class Bullet : MonoBehaviour
 	/// 時間遅延が発動した時の弾速
 	/// </summary>
 	protected float DelayShotspeed;
+
+	/// <summary>
+	/// ファンネルの攻撃判定
+	/// </summary>
+	public GameObject FunnelBeam;
  
     // Updateでの共通処理（継承用）
     protected void UpdateCore()
@@ -218,9 +243,16 @@ public class Bullet : MonoBehaviour
                 }
             }
         }
-        // 規定フレーム間誘導する
-        InductionBullet(shotspeed);
-
+		// 規定フレーム間誘導する(ファンネル射出中）
+		if ((Bullettype == BulletType.FUNNEL_LASER || Bullettype == BulletType.FUNNEL_SWORD) && Funnnelstate == FunnelState.Injcection)
+		{
+			InductionFunnel(shotspeed);		
+		}
+		// 規定フレーム間誘導する
+		else
+		{ 
+			InductionBullet(shotspeed);
+		}
         // レイキャストで接触したオブジェクト
         RaycastHit hit;
 
@@ -228,7 +260,7 @@ public class Bullet : MonoBehaviour
         if (Physics.Raycast(transform.position, Vector3.forward, out hit, 300.0f))
         {
             var hittarget = hit.collider.gameObject.GetComponent<AIControl_Base>();
-            var hittarget2 = hit.collider.gameObject.GetComponent<CharacterControl_Base>();
+            var hittarget2 = hit.collider.gameObject.GetComponent<CharacterControlBase>();
             // ガード姿勢を取らせる(自分の弾は除く)
             if (hittarget != null && InjectionCharacterIndex != (int)hittarget2.CharacterName)
             {
@@ -245,7 +277,7 @@ public class Bullet : MonoBehaviour
         TimeNow++;
     }
 
-    // 規定フレーム間誘導する
+    // 規定フレーム間誘導する（弾丸）
     protected void InductionBullet(float shotspeed)
     {
         // カメラから親と対象を拾う
@@ -253,7 +285,7 @@ public class Bullet : MonoBehaviour
         // 親オブジェクトを拾う
         InjectionObject = target.Player;
         // ターゲットオブジェクトを拾う
-        this.TargetObject = target.Enemy;
+        TargetObject = target.Enemy;
         // 移動＆回転補正
         if (Timestopmode != CharacterControlBase.TimeStopMode.TIME_STOP || Timestopmode != CharacterControlBase.TimeStopMode.PAUSE || Timestopmode != CharacterControlBase.TimeStopMode.AROUSAL)
         {
@@ -280,9 +312,9 @@ public class Bullet : MonoBehaviour
                         Vector3 Targetpos = TargetObject.transform.position;
                         Targetpos.y += offset;
                         // 変換したベクトルを正規化
-                        MoveDirection = Vector3.Normalize(Targetpos - this.GetComponent<Rigidbody>().transform.position);
+                        MoveDirection = Vector3.Normalize(Targetpos - GetComponent<Rigidbody>().transform.position);
                         // オブジェクトを相手の方向へ向ける
-                        Quaternion looklot = Quaternion.LookRotation(TargetObject.transform.position - this.transform.position);
+                        Quaternion looklot = Quaternion.LookRotation(TargetObject.transform.position - transform.position);
                         Vector3 looklotE = looklot.eulerAngles;
                         looklot = Quaternion.Euler(looklotE.x, looklotE.y, looklotE.z);                        
                         transform.rotation = looklot;
@@ -309,6 +341,62 @@ public class Bullet : MonoBehaviour
             GetComponent<Rigidbody>().freezeRotation = true;
         }
     }
+
+	/// <summary>
+	/// 規定位置まで移動する（ファンネル）
+	/// </summary>
+	/// <param name="movespeed"></param>
+	protected void InductionFunnel(float movespeed)
+	{
+		// カメラから親と対象を拾う
+		var target = InjectionObject.transform.GetComponentInChildren<Player_Camera_Controller>();
+		// 親オブジェクトを拾う
+		InjectionObject = target.Player;
+		// ターゲットオブジェクトを拾う
+		TargetObject = target.Enemy;
+		// 移動＆回転補正
+		if (Timestopmode != CharacterControlBase.TimeStopMode.TIME_STOP || Timestopmode != CharacterControlBase.TimeStopMode.PAUSE || Timestopmode != CharacterControlBase.TimeStopMode.AROUSAL)
+		{
+			// 独立状態になってから行う（射出前に回すとPCに突き刺さったりと変な形になるので）
+			if (IsIndependence)
+			{
+				// 目標地点に近接していたら展開する
+				if (Vector3.Distance(FunnelInjectionTargetPos, transform.position) < 1.0f)
+				{
+					Funnnelstate = FunnelState.Shoot;
+					FunnelBeam.SetActive(true);			// 攻撃判定をアクティブにする
+				}
+				else
+				{
+					// 移動先へのベクトルを作る
+					MoveDirection = Vector3.Normalize(FunnelInjectionTargetPos - GetComponent<Rigidbody>().transform.position);
+					// オブジェクトを移動先に向ける
+					Quaternion looklot = Quaternion.LookRotation(FunnelInjectionTargetPos - transform.position);
+					Vector3 looklotE = looklot.eulerAngles;
+					looklot = Quaternion.Euler(looklotE.x, looklotE.y, looklotE.z);
+					transform.rotation = looklot;
+					GetComponent<Rigidbody>().position = GetComponent<Rigidbody>().position + MoveDirection * movespeed * Time.deltaTime;
+				}
+			}
+		}
+		// 親が死んだ場合は自壊
+		if (InjectionObject == null)
+		{
+			Destroy(gameObject);
+		}
+
+		// カウンターを加算
+		if (IsIndependence)
+		{
+			InductionCounter++;
+		}
+
+		// 誘導しない場合は撃った後は方向は固定
+		if (InductionCounter >= InductionBias)
+		{
+			GetComponent<Rigidbody>().freezeRotation = true;
+		}
+	} 
 
     // 指定時間後自分を破棄する
     protected void BrokenMySelf()
@@ -531,7 +619,13 @@ public class Bullet : MonoBehaviour
                     target.DamageInit(target.AnimatorUnit, 41, false, 43, 44);
                 }              
             }
-        }           
+        }
+		// FUNNEL
+		else if(Bullettype == BulletType.FUNNEL_LASER)
+		{
+			Funnnelstate = FunnelState.Shoot;
+			FunnelBeam.SetActive(true);         // 攻撃判定をアクティブにする
+		}           
     }
 
     // BEAM/BOMB属性のときにダメージを有効化する
