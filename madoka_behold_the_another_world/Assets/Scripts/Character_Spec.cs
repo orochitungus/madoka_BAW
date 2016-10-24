@@ -214,8 +214,11 @@ public static class Character_Spec
         2,                   // 魔獣
     };
 
-    // スキル(第1次元がキャラで、第2次元がスキル
-    public static CharacterSkill[][] cs = new CharacterSkill[][]
+	/// <summary>
+	/// スキル(第1次元がキャラで、第2次元がスキル
+	/// ファンネル系の弾速は発射位置に移動するまでの飛行速度であり、射出時の弾速は各キャラで操作すること
+	/// </summary>
+	public static CharacterSkill[][] cs = new CharacterSkill[][]
     {
         // なし
         new CharacterSkill[]{},

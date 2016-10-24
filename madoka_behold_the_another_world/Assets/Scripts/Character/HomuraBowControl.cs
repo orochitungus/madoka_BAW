@@ -1187,6 +1187,11 @@ public class HomuraBowControl : CharacterControlBase
 				{
 					subshotArrowRight.ShotSpeed = Character_Spec.cs[(int)CharacterName][2].m_Movespeed;
 				}
+				// 特殊射撃の矢の弾速設定
+				if(exshotArrow != null)
+				{
+					exshotArrow.ShotSpeed = Character_Spec.cs[(int)CharacterName][3].m_Movespeed;
+				}
 			}
 			// 矢の方向を決定する(本体と同じ方向に向けて打ち出す。ただしノーロックで本体の向きが0のときはベクトルが0になるので、このときだけはカメラの方向に飛ばす）
 			if (IsRockon && RunShotDone)
@@ -1248,6 +1253,17 @@ public class HomuraBowControl : CharacterControlBase
 					Vector3 normalizeRotR = new Vector3(normalizeRotROR.x, normalizeRotROR.y + 20, normalizeRotROR.z);
 					subshotArrowRight.MoveDirection = Vector3.Normalize(normalizeRotR);
 				}
+				// 特殊射撃の矢
+				if(exshotArrow != null)
+				{
+					// 相手の頭上に向けて飛んでいく
+					Vector3 landingpos = new Vector3(targetpos.x, targetpos.y + 50, targetpos.z);
+					// 本体の回転角度を拾う
+					Quaternion mainrot2 = Quaternion.LookRotation(landingpos - transform.position);
+					// 正規化して代入する
+					Vector3 normalizerot2 = mainrot2 * Vector3.forward;
+					exshotArrow.MoveDirection = Vector3.Normalize(normalizerot2);		
+				}
 			}
 			// ロックオンしていないとき
 			else
@@ -1284,6 +1300,14 @@ public class HomuraBowControl : CharacterControlBase
 						// 角度再調整
 						Vector3 normalizeRotR = new Vector3(rotateOR.x, rotateOR.y + 20, rotateOR.z);
 						subshotArrowRight.MoveDirection = Vector3.Normalize(Quaternion.Euler(normalizeRotR) * Vector3.forward);
+					}
+					// 特殊射撃の矢
+					if(exshotArrow != null)
+					{
+						// 角度再調整
+						Vector3 exshotRot = new Vector3(rotateOR.x - 30, rotateOR.y, rotateOR.z);
+						// 到達位置は角度を抜いた直線距離が規定距離になったところになる（r*cos(30)=距離になった場所。rは射出点と現在の距離）						
+						// 射出ベクトル決定
 					}
 				}
 				// それ以外は本体の角度を射出角にする
