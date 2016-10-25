@@ -167,6 +167,7 @@ public class Bullet : MonoBehaviour
 	/// ファンネルの攻撃判定
 	/// </summary>
 	public GameObject FunnelBeam;
+
  
     // Updateでの共通処理（継承用）
     protected void UpdateCore()

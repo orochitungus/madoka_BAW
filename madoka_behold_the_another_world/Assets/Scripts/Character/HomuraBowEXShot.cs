@@ -13,6 +13,8 @@ public class HomuraBowEXShot : Bullet
 	/// </summary>
 	public ShotSpec Shotspec;
 
+    
+
 	// Use this for initialization
 	void Start () 
 	{
