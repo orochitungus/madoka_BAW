@@ -1309,9 +1309,9 @@ public class HomuraBowControl : CharacterControlBase
                         // 到達位置は角度を抜いた直線距離が規定距離になったところになる（r*cos(30)=距離になった場所。rは射出点と現在の距離）
                         // 到達位置は直線距離100の場所
                         // 到達位置算出
-                        float x = 100 * Mathf.Sin(60 * Mathf.Deg2Rad) * Mathf.Cos(rotateOR.y * Mathf.Deg2Rad);
-                        float y = 100 * Mathf.Sin(60 * Mathf.Deg2Rad) * Mathf.Sin(rotateOR.y * Mathf.Deg2Rad);
-                        float z = 100 * Mathf.Cos(60 * Mathf.Deg2Rad);
+                        float x = 100 * Mathf.Sin(30 * Mathf.Deg2Rad) * Mathf.Sin(rotateOR.y * Mathf.Deg2Rad);
+                        float y = 100 * Mathf.Cos(30 * Mathf.Deg2Rad);
+                        float z = 100 * Mathf.Sin(30 * Mathf.Deg2Rad) * Mathf.Cos(rotateOR.y * Mathf.Deg2Rad);
                         exshotArrow.FunnelInjectionTargetPos = new Vector3(x, y, z);
                         // 射出ベクトル決定
                         exshotArrow.MoveDirection = Vector3.Normalize(Quaternion.Euler(exshotRot) * Vector3.forward);
@@ -1355,11 +1355,11 @@ public class HomuraBowControl : CharacterControlBase
                         Vector3 mainrotOR = transform.rotation.eulerAngles;
                         // 角度再調整
                         Vector3 exshotRot = new Vector3(mainrotOR.x - 30, mainrotOR.y, mainrotOR.z);
-                        // 到達位置算出
-                        float x = 100 * Mathf.Sin(60 * Mathf.Deg2Rad) * Mathf.Cos(mainrotOR.y * Mathf.Deg2Rad);
-                        float y = 100 * Mathf.Sin(60 * Mathf.Deg2Rad) * Mathf.Sin(mainrotOR.y * Mathf.Deg2Rad);
-                        float z = 100 * Mathf.Cos(60 * Mathf.Deg2Rad);
-                        exshotArrow.FunnelInjectionTargetPos = new Vector3(x, y, z);
+						// 到達位置算出
+						float x = 100 * Mathf.Sin(30 * Mathf.Deg2Rad) * Mathf.Sin(mainrotOR.y * Mathf.Deg2Rad);
+						float y = 100 * Mathf.Cos(30 * Mathf.Deg2Rad);
+						float z = 100 * Mathf.Sin(30 * Mathf.Deg2Rad) * Mathf.Cos(mainrotOR.y * Mathf.Deg2Rad);
+						exshotArrow.FunnelInjectionTargetPos = new Vector3(x, y, z);
                         // 射出ベクトル決定
                         exshotArrow.MoveDirection = Vector3.Normalize(Quaternion.Euler(exshotRot) * Vector3.forward);
                     }
@@ -1408,7 +1408,19 @@ public class HomuraBowControl : CharacterControlBase
 			}
 			else if (type == ShotType.EX_SHOT)
 			{
-				SetOffensivePower(SkillType_Homura_B.EX_SHOT);
+				// 特殊射撃はShotSpecに入れるためSetOffensivePowerは使えない
+				// 覚醒ゲージ上昇量
+				exshotArrow.Shotspec.ArousalRatio = Character_Spec.cs[(int)CharacterName][3].m_arousal;
+				// 射出したのは誰であるか
+				exshotArrow.Shotspec.CharacterIndex = (int)CharacterName;
+				// ダウン値
+				exshotArrow.Shotspec.DownRatio = Character_Spec.cs[(int)CharacterName][3].m_DownPoint;
+				// ヒット時の挙動
+				exshotArrow.Shotspec.Hittype = Character_Spec.cs[(int)CharacterName][3].m_Hittype;
+				// 射出したのは誰であるか（ゲームオブジェクト）
+				exshotArrow.Shotspec.ObjOR = this.gameObject;
+				// 攻撃力
+				exshotArrow.Shotspec.OffensivePower = Character_Spec.cs[(int)CharacterName][3].m_OriginalStr + Character_Spec.cs[(int)CharacterName][3].m_GrowthCoefficientStr * (this.StrLevel - 1);
 			}
 
 			Shotmode = ShotMode.SHOT;
@@ -1474,7 +1486,7 @@ public class HomuraBowControl : CharacterControlBase
         ReturnMotion(AnimatorUnit);
 	}
 
-	// 射撃攻撃の攻撃力とダウン値を決定する
+	// 射撃攻撃の攻撃力とダウン値を決定する（特殊射撃除く）
 	// kind[in]     :射撃の種類
 	private void SetOffensivePower(SkillType_Homura_B kind)
 	{

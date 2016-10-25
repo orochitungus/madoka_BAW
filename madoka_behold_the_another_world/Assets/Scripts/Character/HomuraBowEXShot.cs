@@ -11,7 +11,7 @@ public class HomuraBowEXShot : Bullet
 	/// <summary>
 	/// レーザーのスペック
 	/// </summary>
-	public ShotSpec Shotspec;
+	public ShotSpec Shotspec = new ShotSpec();
 
     
 
