@@ -1,27 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PauseManager : SingletonMonoBehaviour<PauseManager>
-{
-    void Awake()
-    {
-        if (this != Instance)
-        {
-            Destroy(this);
-            return;
-        }
-        DontDestroyOnLoad(this.gameObject);
-    }
+//public class PauseManager : SingletonMonoBehaviour<PauseManager>
+//{
+//    void Awake()
+//    {
+//        if (this != Instance)
+//        {
+//            Destroy(this);
+//            return;
+//        }
+//        DontDestroyOnLoad(this.gameObject);
+//    }
 
-    // Use this for initialization
-    void Start ()
-    {
+//    // Use this for initialization
+//    void Start ()
+//    {
 	
-	}
+//	}
 	
-	// Update is called once per frame
-	void Update ()
-    {
+//	// Update is called once per frame
+//	void Update ()
+//    {
 	
-	}
-}
+//	}
+//}

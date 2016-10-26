@@ -1185,6 +1185,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 				Menu = true;
                 MenuKeyboard = true;
 				MenuUp = false;
+				StartCoroutine(MenuButtonStoper());
 			}
 			// コマンド取得
 			if (k.GetValue(i).ToString() == command_keyboard)
@@ -1287,6 +1288,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 				Menu = true;
                 MenuController = true;
 				MenuUp = false;
+				StartCoroutine(MenuButtonStoper());
 			}
 			// コマンド取得
 			if (k.GetValue(i).ToString() == command_controller)
@@ -1352,6 +1354,16 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 				AzimuthRightUp = false;
 			}
 		}
+	}
+
+	/// <summary>
+	/// フレーム終了時にメニューボタンのフラグを折る
+	/// </summary>
+	/// <returns></returns>
+	public IEnumerator MenuButtonStoper()
+	{
+		yield return new WaitForEndOfFrame();
+		Menu = false;
 	}
 
 	/// <summary>

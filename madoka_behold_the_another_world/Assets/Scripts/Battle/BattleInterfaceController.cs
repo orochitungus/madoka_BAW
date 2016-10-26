@@ -202,23 +202,23 @@ public class BattleInterfaceController : MonoBehaviour
                     pcid.pauseController.ActivatePauseProtocol();
                 }
             }
-            //// ポーズ時、ポーズ入力で解除
-            //else if(NowPlayerHP[0] > 0 && PauseBG.gameObject.activeSelf)
-            //{
-            //    if (ControllerManager.Instance.Menu)
-            //    {
-            //        // PauseControllerを取得
-            //        PauseControllerInputDetector pcid = Pausecontroller.GetComponent<PauseControllerInputDetector>();
-            //        // 時間を動かす
-            //        pcid.pauseController.DeactivatePauseProtocol();
-            //        // ポーズ画面をディアクティブにする
-            //        // ポーズ画面をアクティブにする
-            //        BattleInterfaceController bifc = GameObject.Find("BattleInterfaceCanvas").GetComponent<BattleInterfaceController>();
-            //        bifc.PauseBG.gameObject.SetActive(false);
-            //    }
-            //}
+			// ポーズ時、ポーズ入力で解除
+			else if (NowPlayerHP[0] > 0 && PauseBG.gameObject.activeSelf)
+			{
+				if (ControllerManager.Instance.Menu)
+				{
+					// PauseControllerを取得
+					PauseControllerInputDetector pcid = Pausecontroller.GetComponent<PauseControllerInputDetector>();
+					// 時間を動かす
+					pcid.pauseController.DeactivatePauseProtocol();
+					// ポーズ画面をディアクティブにする
+					// ポーズ画面をアクティブにする
+					BattleInterfaceController bifc = GameObject.Find("BattleInterfaceCanvas").GetComponent<BattleInterfaceController>();
+					bifc.PauseBG.gameObject.SetActive(false);
+				}
+			}
 
-        });
+		});
 	}
 	
 	// Update is called once per frame

@@ -12,7 +12,7 @@ public class AIControl_Base : MonoBehaviour
     // ロックオン対象
     public GameObject RockonTarget;
     // 制御対象がCPUであるか否か
-    protected CharacterControl_Base.CHARACTERCODE m_isPlayer;
+    protected CharacterControlBase.CHARACTERCODE m_isPlayer;
 
     // 操作の種類
     public enum CPUMODE
@@ -138,7 +138,7 @@ public class AIControl_Base : MonoBehaviour
     protected void Initialize()
     {
         // 対象がプレイヤーであるか否かのフラグを拾う
-        var target = ControlTarget.GetComponentInChildren<CharacterControl_Base>();
+        var target = ControlTarget.GetComponentInChildren<CharacterControlBase>();
 
         this.m_isPlayer = target.IsPlayer;
 
@@ -153,10 +153,10 @@ public class AIControl_Base : MonoBehaviour
     protected void UpdateCore()
     {
         // 自機の時は一応やらせない
-        if (this.m_isPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER)
+        if (this.m_isPlayer != CharacterControlBase.CHARACTERCODE.PLAYER)
         {
             // 自機の現在位置を取得
-            var target = ControlTarget.GetComponentInChildren<CharacterControl_Base>();
+            var target = ControlTarget.GetComponentInChildren<CharacterControlBase>();
             Vector3 nowpos = target.transform.position; // 本体の位置
             Vector3 targetpos;
             // ロックオン対象を取得
@@ -314,20 +314,20 @@ public class AIControl_Base : MonoBehaviour
     protected virtual void normal(ref TENKEY_OUTPUT tenkeyoutput, ref KEY_OUTPUT keyoutput)
     {
         // 制御対象
-        CharacterControl_Base target = ControlTarget.GetComponent<CharacterControl_Base>();
+        CharacterControlBase target = ControlTarget.GetComponent<CharacterControlBase>();
         // 一端ロックオンボタンを離す
         keyoutput = KEY_OUTPUT.NONE;
 
-        // 地上にいてダウンしていなくブーストゲージがあった場合、飛行させる（着地硬直中などは飛べない）
-        if (target.GetInGround() && target.m_AnimState[0] != CharacterControl_Base.AnimationState.Down && target.m_AnimState[0] != CharacterControl_Base.AnimationState.Reversal
-            && target.Boost > 0)
-        {
-            keyoutput = KEY_OUTPUT.JUMP;
-            m_cpumode = CPUMODE.NORMAL_RISE1;
-            tenkeyoutput = TENKEY_OUTPUT.TOP;
-            m_totalrisetime = Time.time;
-            return;
-        }
+        // TODO:地上にいてダウンしていなくブーストゲージがあった場合、飛行させる（着地硬直中などは飛べない）
+        //if (target.IsGrounded && target.AnimatorUnit && target.m_AnimState[0] != CharacterControl_Base.AnimationState.Reversal
+        //    && target.Boost > 0)
+        //{
+        //    keyoutput = KEY_OUTPUT.JUMP;
+        //    m_cpumode = CPUMODE.NORMAL_RISE1;
+        //    tenkeyoutput = TENKEY_OUTPUT.TOP;
+        //    m_totalrisetime = Time.time;
+        //    return;
+        //}
         // ロックオン状態で赤ロックになったら戦闘開始
         if (engauge(ref keyoutput))
         {
@@ -357,7 +357,7 @@ public class AIControl_Base : MonoBehaviour
 
     // 哨戒に戻る
     // target[in]   :制御対象
-    protected void ReturnPatrol(CharacterControl_Base target)
+    protected void ReturnPatrol(CharacterControlBase target)
     {
         // カメラに登録しておいたロックオンオブジェクトを破棄する
         Player_Camera_Controller pcc = ControlTarget_Camera.GetComponent<Player_Camera_Controller>();
@@ -385,17 +385,17 @@ public class AIControl_Base : MonoBehaviour
             return;
 
         // 制御対象
-        var target = ControlTarget.GetComponent<CharacterControl_Base>();
+        var target = ControlTarget.GetComponent<CharacterControlBase>();
 
         // 地上から離れて一定時間後ジャンプボタンを離す
-        if (Time.time > m_totalrisetime + m_risetime && !target.GetInGround())
+        if (Time.time > m_totalrisetime + m_risetime && !target.IsGrounded)
         {
             keyoutput = KEY_OUTPUT.NONE;
             m_cpumode = CPUMODE.NORMAL_RISE2;
             m_totalrisetime = Time.time;
         }
         // 地上から離れずに一定時間いるとNORMALへ戻って仕切り直す
-        if (Time.time > m_totalrisetime + m_risetime && target.GetInGround())
+        if (Time.time > m_totalrisetime + m_risetime && target.IsGrounded)
         {
             m_cpumode = CPUMODE.NORMAL;
         }
@@ -417,8 +417,8 @@ public class AIControl_Base : MonoBehaviour
         // カメラ
         Player_Camera_Controller pcc = ControlTarget_Camera.GetComponent<Player_Camera_Controller>();
         // 制御対象
-        CharacterControl_Base target = ControlTarget.GetComponent<CharacterControl_Base>();
-        if (pcc.Enemy == null || pcc.Enemy.GetComponent<CharacterControl_Base>() == null)
+        CharacterControlBase target = ControlTarget.GetComponent<CharacterControlBase>();
+        if (pcc.Enemy == null || pcc.Enemy.GetComponent<CharacterControlBase>() == null)
         {
             ReturnPatrol(target);
             return true;
@@ -438,7 +438,7 @@ public class AIControl_Base : MonoBehaviour
     protected virtual void normal_rise3(ref TENKEY_OUTPUT tenkeyoutput, ref KEY_OUTPUT keyoutput)
     {
         // 制御対象
-        var target = ControlTarget.GetComponent<CharacterControl_Base>();
+        var target = ControlTarget.GetComponent<CharacterControlBase>();
         // 壁に接触すると飛び上がる
         if (target.Gethitjumpover())
         {
@@ -446,7 +446,7 @@ public class AIControl_Base : MonoBehaviour
             m_cpumode = CPUMODE.NORMAL_RISE4;
         }
         // 地面にいる間は壁まで進む
-        else if (target.GetInGround() && !target.Gethitjumpover())
+        else if (target.IsGrounded && !target.Gethitjumpover())
         {
             tenkeyoutput = TENKEY_OUTPUT.TOP;
             keyoutput = KEY_OUTPUT.NONE;
@@ -456,7 +456,7 @@ public class AIControl_Base : MonoBehaviour
     protected virtual void normal_rise4(ref TENKEY_OUTPUT tenkeyoutput)
     {
         // 制御対象
-        var target = ControlTarget.GetComponent<CharacterControl_Base>();
+        var target = ControlTarget.GetComponent<CharacterControlBase>();
         if (!target.Gethitjumpover())
         {
             m_cpumode = CPUMODE.NORMAL_RISE1;
@@ -468,8 +468,8 @@ public class AIControl_Base : MonoBehaviour
     protected virtual void normal_fall()
     {
         // 制御対象
-        var target = ControlTarget.GetComponent<CharacterControl_Base>();
-        if (target.GetInGround())
+        var target = ControlTarget.GetComponent<CharacterControlBase>();
+        if (target.IsGrounded)
         {
             m_cpumode = CPUMODE.NORMAL_RISE3;   // 着陸したら次へ
         }
@@ -487,7 +487,7 @@ public class AIControl_Base : MonoBehaviour
     protected virtual void normal_flying(ref TENKEY_OUTPUT tenkeyoutput,ref KEY_OUTPUT keyoutput)
     {
         // 制御対象
-        var target = ControlTarget.GetComponent<CharacterControl_Base>();
+        var target = ControlTarget.GetComponent<CharacterControlBase>();
         keyoutput = KEY_OUTPUT.JUMP;
         tenkeyoutput = TENKEY_OUTPUT.TOP;
         // 飛び越えられる壁に接触した
@@ -522,7 +522,7 @@ public class AIControl_Base : MonoBehaviour
             return;
         }
         // なっていなくて着陸していればNORMALへ戻ってもう一度飛んでもらう
-        if (target.GetInGround())
+        if (target.IsGrounded)
         {
             m_cpumode = CPUMODE.NORMAL;
         }
@@ -531,10 +531,10 @@ public class AIControl_Base : MonoBehaviour
     protected virtual void firefight(ref TENKEY_OUTPUT tenkeyoutput, ref KEY_OUTPUT keyoutput)
     {
         // 制御対象
-        var target = ControlTarget.GetComponent<CharacterControl_Base>();
+        var target = ControlTarget.GetComponent<CharacterControlBase>();
         keyoutput = KEY_OUTPUT.NONE;
         // 地上にいた場合（→再度飛行）
-        if (target.GetInGround())
+        if (target.IsGrounded)
         {
             keyoutput = KEY_OUTPUT.JUMP;
             m_cpumode = CPUMODE.NORMAL_RISE1;
@@ -591,63 +591,63 @@ public class AIControl_Base : MonoBehaviour
             m_cpumode = CPUMODE.OUTWARD_JOURNEY;
             return;
         }
-        // 相手が格闘(N・前・左・右・特殊)を振っているか？
-        if (rockonTarget.m_AnimState[0] == CharacterControl_Base.AnimationState.Wrestle_1 || rockonTarget.m_AnimState[0] == CharacterControl_Base.AnimationState.Wrestle_2 ||
-            rockonTarget.m_AnimState[0] == CharacterControl_Base.AnimationState.Wrestle_3 || rockonTarget.m_AnimState[0] == CharacterControl_Base.AnimationState.Front_Wrestle_1 ||
-            rockonTarget.m_AnimState[0] == CharacterControl_Base.AnimationState.Front_Wrestle_2 || rockonTarget.m_AnimState[0] == CharacterControl_Base.AnimationState.Front_Wrestle_3 ||
-            rockonTarget.m_AnimState[0] == CharacterControl_Base.AnimationState.Left_Wrestle_1 || rockonTarget.m_AnimState[0] == CharacterControl_Base.AnimationState.Left_Wrestle_2 ||
-            rockonTarget.m_AnimState[0] == CharacterControl_Base.AnimationState.Left_Wrestle_3 || rockonTarget.m_AnimState[0] == CharacterControl_Base.AnimationState.Right_Wrestle_1 ||
-            rockonTarget.m_AnimState[0] == CharacterControl_Base.AnimationState.Right_Wrestle_2 || rockonTarget.m_AnimState[0] == CharacterControl_Base.AnimationState.Right_Wrestle_3 ||
-            rockonTarget.m_AnimState[0] == CharacterControl_Base.AnimationState.Ex_Wrestle_1 || rockonTarget.m_AnimState[0] == CharacterControl_Base.AnimationState.Ex_Wrestle_2 ||
-            rockonTarget.m_AnimState[0] == CharacterControl_Base.AnimationState.Ex_Wrestle_3)
-        {
-            // 左右どっちかにステップ(これでは両方立つ可能性がある。左選択→再度ここに来る→右選択
-            m_randnum = Random.value;
-            // 左
-            if (m_randnum >= 0.5)
-            {
-                m_tenkeyoutput = TENKEY_OUTPUT.LEFTSTEP;
-				m_cpumode = CPUMODE.DOGFIGHT_LEFT;
-            }
-            // 右
-            else
-            {
-                m_tenkeyoutput = TENKEY_OUTPUT.RIGHTSTEP;
-				m_cpumode = CPUMODE.DOGFIGHT_RIGHT;
-            }
-			keyoutput = KEY_OUTPUT.WRESTLE;
-        }
-        // そうでなければN格か前格を振る
-        else
-        {
-            // 乱数（20％の確率で前格闘を振る）
-            m_randnum = Random.value;
-            // m_randumが0.8以上なら前格闘
-            if (m_randnum >= 0.8)
-            {
-                tenkeyoutput = TENKEY_OUTPUT.TOP;
-				m_cpumode = CPUMODE.DOGFIGHT_FRONT;
-            }
-            else
-            {
-                m_tenkeyoutput = TENKEY_OUTPUT.NEUTRAL;
-				m_cpumode = CPUMODE.DOGFIGHT;
-            }
-            keyoutput = KEY_OUTPUT.WRESTLE;
+        // TODO:相手が格闘(N・前・左・右・特殊)を振っているか？
+   //     if (rockonTarget.m_AnimState[0] == CharacterControl_Base.AnimationState.Wrestle_1 || rockonTarget.m_AnimState[0] == CharacterControl_Base.AnimationState.Wrestle_2 ||
+   //         rockonTarget.m_AnimState[0] == CharacterControl_Base.AnimationState.Wrestle_3 || rockonTarget.m_AnimState[0] == CharacterControl_Base.AnimationState.Front_Wrestle_1 ||
+   //         rockonTarget.m_AnimState[0] == CharacterControl_Base.AnimationState.Front_Wrestle_2 || rockonTarget.m_AnimState[0] == CharacterControl_Base.AnimationState.Front_Wrestle_3 ||
+   //         rockonTarget.m_AnimState[0] == CharacterControl_Base.AnimationState.Left_Wrestle_1 || rockonTarget.m_AnimState[0] == CharacterControl_Base.AnimationState.Left_Wrestle_2 ||
+   //         rockonTarget.m_AnimState[0] == CharacterControl_Base.AnimationState.Left_Wrestle_3 || rockonTarget.m_AnimState[0] == CharacterControl_Base.AnimationState.Right_Wrestle_1 ||
+   //         rockonTarget.m_AnimState[0] == CharacterControl_Base.AnimationState.Right_Wrestle_2 || rockonTarget.m_AnimState[0] == CharacterControl_Base.AnimationState.Right_Wrestle_3 ||
+   //         rockonTarget.m_AnimState[0] == CharacterControl_Base.AnimationState.Ex_Wrestle_1 || rockonTarget.m_AnimState[0] == CharacterControl_Base.AnimationState.Ex_Wrestle_2 ||
+   //         rockonTarget.m_AnimState[0] == CharacterControl_Base.AnimationState.Ex_Wrestle_3)
+   //     {
+   //         // 左右どっちかにステップ(これでは両方立つ可能性がある。左選択→再度ここに来る→右選択
+   //         m_randnum = Random.value;
+   //         // 左
+   //         if (m_randnum >= 0.5)
+   //         {
+   //             m_tenkeyoutput = TENKEY_OUTPUT.LEFTSTEP;
+			//	m_cpumode = CPUMODE.DOGFIGHT_LEFT;
+   //         }
+   //         // 右
+   //         else
+   //         {
+   //             m_tenkeyoutput = TENKEY_OUTPUT.RIGHTSTEP;
+			//	m_cpumode = CPUMODE.DOGFIGHT_RIGHT;
+   //         }
+			//keyoutput = KEY_OUTPUT.WRESTLE;
+   //     }
+   //     // そうでなければN格か前格を振る
+   //     else
+   //     {
+   //         // 乱数（20％の確率で前格闘を振る）
+   //         m_randnum = Random.value;
+   //         // m_randumが0.8以上なら前格闘
+   //         if (m_randnum >= 0.8)
+   //         {
+   //             tenkeyoutput = TENKEY_OUTPUT.TOP;
+			//	m_cpumode = CPUMODE.DOGFIGHT_FRONT;
+   //         }
+   //         else
+   //         {
+   //             m_tenkeyoutput = TENKEY_OUTPUT.NEUTRAL;
+			//	m_cpumode = CPUMODE.DOGFIGHT;
+   //         }
+   //         keyoutput = KEY_OUTPUT.WRESTLE;
             
-        }
+   //     }
     }
     //DOGFIGHT,               // 格闘戦（地上準備）
     protected virtual void dogfight()
     {
         // 制御対象
-        var target = ControlTarget.GetComponent<CharacterControl_Base>();
-        // ステップか格闘を振り終わっていればNORMALへ戻る
-        if (target.m_AnimState[0] == CharacterControl_Base.AnimationState.Idle || target.m_AnimState[0] == CharacterControl_Base.AnimationState.Fall)
-        {
-            m_cpumode = CPUMODE.NORMAL;
-            target.StepStop();
-        }
+        var target = ControlTarget.GetComponent<CharacterControlBase>();
+        //// TODO:ステップか格闘を振り終わっていればNORMALへ戻る
+        //if (target.m_AnimState[0] == CharacterControl_Base.AnimationState.Idle || target.m_AnimState[0] == CharacterControl_Base.AnimationState.Fall)
+        //{
+        //    m_cpumode = CPUMODE.NORMAL;
+        //    target.StepStop();
+        //}
     }
     //DOGFIGHT_DONE,          // 格闘戦（地上）
     protected virtual void dogfight_done(ref TENKEY_OUTPUT tenkeyoutput, ref KEY_OUTPUT keyoutput)
@@ -657,11 +657,11 @@ public class AIControl_Base : MonoBehaviour
 		tenkeyoutput = TENKEY_OUTPUT.NEUTRAL;
         keyoutput = KEY_OUTPUT.WRESTLE;
         m_cpumode = CPUMODE.DOGFIGHT_DONE;
-        // 格闘を振り終わったらNORMALへ戻る
-        if (target.m_AnimState[0] == CharacterControl_Base.AnimationState.Idle || target.m_AnimState[0] == CharacterControl_Base.AnimationState.Fall)
-        {
-            m_cpumode = CPUMODE.NORMAL;
-        }
+        // TODO:格闘を振り終わったらNORMALへ戻る
+        //if (target.m_AnimState[0] == CharacterControl_Base.AnimationState.Idle || target.m_AnimState[0] == CharacterControl_Base.AnimationState.Fall)
+        //{
+        //    m_cpumode = CPUMODE.NORMAL;
+        //}
     }
 
 	/// <summary>
@@ -676,11 +676,11 @@ public class AIControl_Base : MonoBehaviour
 		tenkeyoutput = TENKEY_OUTPUT.TOP;
 		keyoutput = KEY_OUTPUT.WRESTLE;
 		m_cpumode = CPUMODE.DOGFIGHT_FRONT;
-		// 格闘を振り終わったらNORMALへ戻る
-		if (target.m_AnimState[0] == CharacterControl_Base.AnimationState.Idle || target.m_AnimState[0] == CharacterControl_Base.AnimationState.Fall)
-		{
-			m_cpumode = CPUMODE.NORMAL;
-		}
+		// TODO:格闘を振り終わったらNORMALへ戻る
+		//if (target.m_AnimState[0] == CharacterControl_Base.AnimationState.Idle || target.m_AnimState[0] == CharacterControl_Base.AnimationState.Fall)
+		//{
+		//	m_cpumode = CPUMODE.NORMAL;
+		//}
 	}
 	/// <summary>
 	/// 格闘戦(横格闘左）
@@ -694,11 +694,11 @@ public class AIControl_Base : MonoBehaviour
 		tenkeyoutput = TENKEY_OUTPUT.LEFT;
 		keyoutput = KEY_OUTPUT.WRESTLE;
 		m_cpumode = CPUMODE.DOGFIGHT_LEFT;
-		// 格闘を振り終わったらNORMALへ戻る
-		if (target.m_AnimState[0] == CharacterControl_Base.AnimationState.Idle || target.m_AnimState[0] == CharacterControl_Base.AnimationState.Fall)
-		{
-			m_cpumode = CPUMODE.NORMAL;
-		}
+		// TODO:格闘を振り終わったらNORMALへ戻る
+		//if (target.m_AnimState[0] == CharacterControl_Base.AnimationState.Idle || target.m_AnimState[0] == CharacterControl_Base.AnimationState.Fall)
+		//{
+		//	m_cpumode = CPUMODE.NORMAL;
+		//}
 	}
 
 	/// <summary>
@@ -713,11 +713,11 @@ public class AIControl_Base : MonoBehaviour
 		tenkeyoutput = TENKEY_OUTPUT.RIGHT;
 		keyoutput = KEY_OUTPUT.WRESTLE;
 		m_cpumode = CPUMODE.DOGFIGHT_RIGHT;
-		// 格闘を振り終わったらNORMALへ戻る
-		if (target.m_AnimState[0] == CharacterControl_Base.AnimationState.Idle || target.m_AnimState[0] == CharacterControl_Base.AnimationState.Fall)
-		{
-			m_cpumode = CPUMODE.NORMAL;
-		}
+		// TODO:格闘を振り終わったらNORMALへ戻る
+		//if (target.m_AnimState[0] == CharacterControl_Base.AnimationState.Idle || target.m_AnimState[0] == CharacterControl_Base.AnimationState.Fall)
+		//{
+		//	m_cpumode = CPUMODE.NORMAL;
+		//}
 	}
 
 	protected virtual void dogfight_ex(ref TENKEY_OUTPUT tenkeyoutput, ref KEY_OUTPUT keyoutput)
@@ -727,18 +727,18 @@ public class AIControl_Base : MonoBehaviour
 		tenkeyoutput = TENKEY_OUTPUT.NEUTRAL;
 		keyoutput = KEY_OUTPUT.EXWRESTLE;
 		m_cpumode = CPUMODE.DOGFIGHT_EX;
-		// 格闘を振り終わったらNORMALへ戻る
-		if (target.m_AnimState[0] == CharacterControl_Base.AnimationState.Idle || target.m_AnimState[0] == CharacterControl_Base.AnimationState.Fall)
-		{
-			m_cpumode = CPUMODE.NORMAL;
-		}
+		// TODO:格闘を振り終わったらNORMALへ戻る
+		//if (target.m_AnimState[0] == CharacterControl_Base.AnimationState.Idle || target.m_AnimState[0] == CharacterControl_Base.AnimationState.Fall)
+		//{
+		//	m_cpumode = CPUMODE.NORMAL;
+		//}
 	}
 
     //DOGFIGHT_UPPER,         // 格闘戦（上昇）
     protected virtual void dogfight_upper(ref TENKEY_OUTPUT tenkeyoutput,ref KEY_OUTPUT keyoutput)
     {
         // 制御対象
-        var target = ControlTarget.GetComponent<CharacterControl_Base>();
+        var target = ControlTarget.GetComponent<CharacterControlBase>();
         // ブーストがある限り上昇
         if (target.Boost > 0)
         {
@@ -757,9 +757,9 @@ public class AIControl_Base : MonoBehaviour
     protected virtual void dogfight_downer(ref TENKEY_OUTPUT tenkeyoutput, ref KEY_OUTPUT keyoutput)
     {
         // 制御対象
-        var target = ControlTarget.GetComponent<CharacterControl_Base>();
+        var target = ControlTarget.GetComponent<CharacterControlBase>();
         // 地上に落ちきるまで下降
-        if (!target.GetInGround())
+        if (!target.IsGrounded)
         {
             tenkeyoutput = TENKEY_OUTPUT.UNDER;
             keyoutput = KEY_OUTPUT.EXWRESTLE;
@@ -779,7 +779,7 @@ public class AIControl_Base : MonoBehaviour
         if (UnRockAndReturnPatrol())
             return;
         // 制御対象
-        var target = ControlTarget.GetComponent<CharacterControl_Base>();
+        var target = ControlTarget.GetComponent<CharacterControlBase>();
         // ブーストがある限りガード
         if (target.Boost > 0)
         {
@@ -857,7 +857,7 @@ public class AIControl_Base : MonoBehaviour
         float distance = Vector3.Distance(nowpos, targetpos);
 
         // ノーロック状態なら強制的にロックオンフラグ
-        var target = ControlTarget.GetComponentInChildren<CharacterControl_Base>();
+        var target = ControlTarget.GetComponentInChildren<CharacterControlBase>();
         if (target.IsRockon == false)
         {
             keyoutput = KEY_OUTPUT.SEARCH;
@@ -867,9 +867,9 @@ public class AIControl_Base : MonoBehaviour
         // このキャラのメインカメラを拾う
         GameObject maincamera = this.transform.FindChild("Main Camera").gameObject;
         // スタート地点
-        GameObject startpoint = ControlTarget.GetComponent<CharacterControl_Base>().StartingPoint;
+        GameObject startpoint = ControlTarget.GetComponent<CharacterControlBase>().StartingPoint;
         // エンド地点
-        GameObject endpoint = ControlTarget.GetComponent<CharacterControl_Base>().EndingPoint;
+        GameObject endpoint = ControlTarget.GetComponent<CharacterControlBase>().EndingPoint;
         if (distance > 10.0f)
         {
             output = TENKEY_OUTPUT.TOP; // 対象をロックオンしていること前提
@@ -902,7 +902,7 @@ public class AIControl_Base : MonoBehaviour
         // CPUMODEを保持
         m_pastCPUMODE = m_cpumode;
         // プレイヤーサイドの場合
-        if (m_isPlayer == CharacterControl_Base.CHARACTERCODE.PLAYER_ALLY)
+        if (m_isPlayer == CharacterControlBase.CHARACTERCODE.PLAYER_ALLY)
         {
             if (pcc.OnPushSerchButton(true,true,true))
             {
@@ -910,7 +910,7 @@ public class AIControl_Base : MonoBehaviour
             }
         }
         // エネミーサイドの場合
-        else if (m_isPlayer == CharacterControl_Base.CHARACTERCODE.ENEMY)
+        else if (m_isPlayer == CharacterControlBase.CHARACTERCODE.ENEMY)
         {
             if (pcc.OnPushSerchButton(false,true,true))
             {
