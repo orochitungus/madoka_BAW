@@ -3091,18 +3091,7 @@ public class CharacterControlBase : MonoBehaviour
 
 
 
-        // 時間停止中falseを強制返し
-        // 通常時、ポーズ入力で停止.ただし死んだら無効
-        if (Timestopmode != TimeStopMode.PAUSE)
-        {
-            if (HasMenuInput && NowHitpoint > 0)
-            {
-                this.TimeStopMaster = true;
-                Timestopmode = TimeStopMode.PAUSE;
-                // 動作を止める
-                FreezePositionAll();
-            }
-        }
+        
 
 
 

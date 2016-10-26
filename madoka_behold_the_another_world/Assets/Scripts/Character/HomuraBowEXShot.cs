@@ -13,7 +13,7 @@ public class HomuraBowEXShot : Bullet
 	/// </summary>
 	public ShotSpec Shotspec = new ShotSpec();
 
-    
+    public Rigidbody RigidBody;
 
 	// Use this for initialization
 	void Start () 
@@ -46,6 +46,11 @@ public class HomuraBowEXShot : Bullet
 		// 射出状態になったらステートを入れる
 		if(Funnnelstate == FunnelState.Shoot)
 		{
+            // 角度と位置を固定する
+            Vector3 nowrot = transform.eulerAngles;
+            transform.localRotation = Quaternion.Euler(new Vector3(0,nowrot.y,nowrot.z));
+            RigidBody.constraints = RigidbodyConstraints.FreezePosition;
+            RigidBody.constraints = RigidbodyConstraints.FreezeRotation;
 			for(int i=0; i<Lasers.Length; i++)
 			{
 				Lasers[i].m_Obj_OR = Shotspec.ObjOR;
