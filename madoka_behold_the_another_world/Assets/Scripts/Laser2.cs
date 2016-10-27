@@ -208,7 +208,7 @@ public class Laser2 : MonoBehaviour
             // 覚醒補正
             DamageCorrection();
             // ダメージ
-            collision.gameObject.GetComponent<CharacterControl_Base>().DamageHP(m_CharacterIndex, m_OffemsivePower);
+            collision.gameObject.GetComponent<CharacterControlBase>().DamageHP(m_CharacterIndex, m_OffemsivePower);
         }
         // 味方に触れた場合
         else if (collision.gameObject.tag == player)
@@ -216,15 +216,15 @@ public class Laser2 : MonoBehaviour
             // 覚醒補正
             DamageCorrection();
             // ダメージ
-            collision.gameObject.GetComponent<CharacterControl_Base>().DamageHP(m_CharacterIndex, (int)((float)m_OffemsivePower / MadokaDefine.FRENDLYFIRE_RATIO));
+            collision.gameObject.GetComponent<CharacterControlBase>().DamageHP(m_CharacterIndex, (int)((float)m_OffemsivePower / MadokaDefine.FRENDLYFIRE_RATIO));
         }
         // ダウン値加算
         collision.gameObject.SendMessage("DownRateInc", m_DownRatio);
         // 覚醒ゲージ加算（覚醒時除く）
-        if (m_Obj_OR.GetComponent<CharacterControl_Base>().IsArousal == false)
+        if (m_Obj_OR.GetComponent<CharacterControlBase>().IsArousal == false)
         {
             // 攻撃を当てた側が味方側の場合
-            if (m_Obj_OR.GetComponent<CharacterControl_Base>().IsPlayer != CharacterControl_Base.CHARACTERCODE.ENEMY)
+            if (m_Obj_OR.GetComponent<CharacterControlBase>().IsPlayer != CharacterControlBase.CHARACTERCODE.ENEMY)
             {
                 float nextArousal = m_ArousalRatio + savingparameter.GetNowArousal(m_CharacterIndex);
                 savingparameter.AddArousal(m_CharacterIndex, nextArousal);
@@ -232,7 +232,7 @@ public class Laser2 : MonoBehaviour
             // 攻撃を当てた側が敵側の場合
             else
             {
-                m_Obj_OR.GetComponent<CharacterControl_Base>().AddArousal(m_ArousalRatio);
+                m_Obj_OR.GetComponent<CharacterControlBase>().AddArousal(m_ArousalRatio);
             }
 
         }
@@ -246,7 +246,7 @@ public class Laser2 : MonoBehaviour
         // 攻撃側が覚醒中の場合
         if (m_Obj_OR != null)
         {
-            bool injection = m_Obj_OR.GetComponent<CharacterControl_Base>().IsArousal;
+            bool injection = m_Obj_OR.GetComponent<CharacterControlBase>().IsArousal;
             if (injection)
             {
                 m_OffemsivePower = (int)(m_OffemsivePower * MadokaDefine.AROUSAL_OFFENCE_UPPER);
@@ -255,7 +255,7 @@ public class Laser2 : MonoBehaviour
         // 防御側が覚醒中の場合
         if (m_HitTarget != null)
         {
-            bool target = m_HitTarget.GetComponent<CharacterControl_Base>().IsArousal;
+            bool target = m_HitTarget.GetComponent<CharacterControlBase>().IsArousal;
             if (target)
             {
                 m_OffemsivePower = (int)(m_OffemsivePower * MadokaDefine.AROUSAL_DEFFENSIVE_UPPER);

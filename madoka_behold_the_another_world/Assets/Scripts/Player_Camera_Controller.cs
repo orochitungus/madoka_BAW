@@ -84,12 +84,12 @@ public class Player_Camera_Controller : MonoBehaviour
         this.Distance_mine = 18.0f;
 
         //Application.targetFrameRate = 60;
-        var target = Player.GetComponentInChildren<CharacterControl_Base>();    // 戦闘用キャラの場合
+        var target = Player.GetComponentInChildren<CharacterControlBase>();    // 戦闘用キャラの場合
         var Camera = this.GetComponent<AudioListener>();
         // 戦闘用キャラ
         if (target != null)
         {
-            if (target.IsPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER)
+            if (target.IsPlayer != CharacterControlBase.CHARACTERCODE.PLAYER)
             {
                 // CPU時、AudioListenerを解除           
                 Camera.enabled = false;
@@ -330,8 +330,8 @@ public class Player_Camera_Controller : MonoBehaviour
 		// ダウンしていたら強制的にfalse
 		if(exitdown)
 		{
-			CharacterControl_Base rockontarget = RockOnTarget[most_near].GetComponent<CharacterControl_Base>();
-			if(rockontarget.NowDownRatio >= rockontarget.DownRatio)
+			CharacterControlBase rockontarget = RockOnTarget[most_near].GetComponent<CharacterControlBase>();
+			if(rockontarget.NowDownRatio >= rockontarget.DownRatioBias)
 			{
 				return false;
 			}
@@ -506,7 +506,7 @@ public class Player_Camera_Controller : MonoBehaviour
            
             
             // ロックオン対象を取得する
-            CharacterControl_Base rockontarget = this.Enemy.GetComponentInChildren<CharacterControl_Base>();
+            CharacterControlBase rockontarget = this.Enemy.GetComponentInChildren<CharacterControlBase>();
             //if (rockontarget == null)
             //{                
             //    return;
@@ -569,12 +569,12 @@ public class Player_Camera_Controller : MonoBehaviour
     public void OnGUI()
     {
         // このカメラが追跡しているオブジェクトの情報を拾う   
-        var target = Player.GetComponentInChildren<CharacterControl_Base>();                // 戦闘用.
+        var target = Player.GetComponentInChildren<CharacterControlBase>();                // 戦闘用.
         var target_quest = Player.GetComponentInChildren<CharacterControl_Base_Quest>();    // クエスト用.
         // このカメラが追跡している対象がCPUのときは書かない（多分無駄メモリ）
         if (target != null)
         {
-            if (target.IsPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER || !m_DrawInterface)
+            if (target.IsPlayer != CharacterControlBase.CHARACTERCODE.PLAYER || !m_DrawInterface)
             {
                 return;
             }
@@ -622,13 +622,13 @@ public class Player_Camera_Controller : MonoBehaviour
 
             
             // ダウン値を超えている（ダウンか強制ダウン吹き飛び中）か、ダウン値を超えていてもダウンしているなら黄色ロック
-            if (this.Enemy.GetComponentInChildren<CharacterControl_Base>().NowDownRatio >= this.Enemy.GetComponentInChildren<CharacterControl_Base>().DownRatio
-                || Enemy.GetComponentInChildren<CharacterControl_Base>().m_AnimState[0] == CharacterControl_Base.AnimationState.Down)
+            if (this.Enemy.GetComponentInChildren<CharacterControlBase>().NowDownRatio >= this.Enemy.GetComponentInChildren<CharacterControlBase>().DownRatioBias
+			                || Enemy.GetComponentInChildren<CharacterControlBase>().DownTime > 0)
             {
                 GUI.DrawTexture(new Rect(0.0f, 0.0f, 128.0f, 128.0f), m_RockonCursor_Yellow);
             }
             // 有効範囲にいたら赤ロック
-            else if (Vector3.Distance(nowpos, epos) <= this.Player.GetComponentInChildren<CharacterControl_Base>().RockonRange)
+            else if (Vector3.Distance(nowpos, epos) <= this.Player.GetComponentInChildren<CharacterControlBase>().RockonRange)
             {
                 GUI.DrawTexture(new Rect(0.0f, 0.0f, 128.0f, 128.0f), m_RockonCursor_Red);
             }

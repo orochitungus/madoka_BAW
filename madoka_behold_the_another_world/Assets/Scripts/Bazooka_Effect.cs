@@ -110,11 +110,11 @@ public class Bazooka_Effect : MonoBehaviour
     public void OnCollisionEnter(Collision collision)
     {          
         // 接触対象を取得
-        var target = collision.gameObject.GetComponent<CharacterControl_Base>();
+        var target = collision.gameObject.GetComponent<CharacterControlBase>();
 
         // targetがCharacterControl_Baseクラスでなければ「自壊させて」強制抜け
         // ほむらの「侵食する黒き翼」の時も自壊抜け
-        var targetEx = collision.gameObject.GetComponent<Homura_Final_BattleControl>();
+        var targetEx = collision.gameObject.GetComponent<HomuraBowControl>();
 
         if (target == null || (targetEx != null && m_HomuraWing))
         {
@@ -124,7 +124,7 @@ public class Bazooka_Effect : MonoBehaviour
         }
                 
         // ダウン中かダウン値MAXならダメージを与えない
-        if (target.m_AnimState[0] == CharacterControl_Base.AnimationState.Down || (target.DownRatio <= target.NowDownRatio))
+        if (target.DownTime > 0 || (target.DownRatioBias <= target.NowDownRatio))
         {
             // オブジェクトを自壊させる
             Destroy(gameObject);
@@ -143,13 +143,13 @@ public class Bazooka_Effect : MonoBehaviour
             }
             //collision.gameObject.SendMessage("DamageHP", m_damage);
             //collision.gameObject.SendMessage("DamageHP", arr);
-            collision.gameObject.GetComponent<CharacterControl_Base>().DamageHP(m_CharacterIndex,m_damage);
+            collision.gameObject.GetComponent<CharacterControlBase>().DamageHP(m_CharacterIndex,m_damage);
             // 覚醒ゲージを与える
             collision.gameObject.SendMessage("DamageArousal", m_Arousal);
             // ダウン値を与える
             collision.gameObject.SendMessage("DownRateInc", m_downratio);
             // 接触した相手を動作させる
-            if (target.NowDownRatio >= target.DownRatio || this.m_Hittype == CharacterSkill.HitType.BLOW)
+            if (target.NowDownRatio >= target.DownRatioBias || this.m_Hittype == CharacterSkill.HitType.BLOW)
             {   // 吹き飛びの場合、相手に方向ベクトルを与える            
                 // Y軸方向は少し上向き
                 target.MoveDirection.y += 10;
@@ -158,15 +158,15 @@ public class Bazooka_Effect : MonoBehaviour
                 target.GetComponent<Rigidbody>().position = target.GetComponent<Rigidbody>().position + new Vector3(0, MadokaDefine.LAUNCHOFFSET, 0);
                 target.GetComponent<Rigidbody>().AddForce(this.m_MoveDirection.x * MadokaDefine.LAUNCHOFFSET, this.m_MoveDirection.y * MadokaDefine.LAUNCHOFFSET, this.m_MoveDirection.z * MadokaDefine.LAUNCHOFFSET);
                 //rigidbody.position = rigidbody.position + ;
-                target.m_AnimState[0] = CharacterControl_Base.AnimationState.BlowInit;
+                // TODO:吹き飛びモーションにさせる
             }
             // それ以外はのけぞりへ
             else
             {
-                // ただしアーマー時ならダウン値とダメージだけ加算する(Damageにしない）
+                // TODO:ただしアーマー時ならダウン値とダメージだけ加算する(Damageにしない）
                 if (!target.IsArmor)
                 {
-                    target.m_AnimState[0] = CharacterControl_Base.AnimationState.DamageInit;
+                    //target.m_AnimState[0] = CharacterControl_Base.AnimationState.DamageInit;
                 }
                 // アーマーなら以降の処理が関係ないのでオブジェクトを自壊させてサヨウナラ           
             }

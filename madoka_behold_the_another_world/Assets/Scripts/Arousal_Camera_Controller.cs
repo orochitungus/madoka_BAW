@@ -67,29 +67,29 @@ public class Arousal_Camera_Controller : MonoBehaviour
         transform.localPosition = new Vector3(-0.976237f, 1.120372f, 4.067078f);
     }
 
-    // カットイン終了後の処理
+    // TODO:カットイン終了後の処理
     public void CutinEnd()
     {       
-        m_insp_Master.GetComponent<CharacterControl_Base>().ReleasePause();
-        // 時間を再度動かす
-        // ポーズコントローラーのインスタンスを取得
-        var m_pausecontroller2 = m_pausecontroller.GetComponent<PauseControllerInputDetector>();
-        m_pausecontroller2.pauseController.DeactivatePauseProtocol();
-        // 位置固定を解除する
-        m_insp_Master.GetComponent<CharacterControl_Base>().UnFreezePositionAll();
-        // 消していたインターフェースを復活させる
-        // CharacterControl_Base依存
-        m_insp_Master.GetComponent<CharacterControl_Base>().m_DrawInterface = true;
-        // Player_Camera_Controller依存
-        var master = m_insp_Master.GetComponent<CharacterControl_Base>();
-        master.MainCamera.GetComponent<Player_Camera_Controller>().m_DrawInterface = true;
-        master.Timestopmode = CharacterControl_Base.TimeStopMode.NORMAL;
-        // カメラを切っておく
-        Camera camera = GetComponentInChildren<Camera>();
-        camera.enabled = false;
-        // カットイン画像消去
-		m_CutinSystem.EraseCutin(m_CutinName);
-        // カメラの位置を戻しておく
-        transform.localPosition = new Vector3(-0.976237f, 1.120372f, 4.067078f);
+  //      m_insp_Master.GetComponent<CharacterControlBase>().ReleasePause();
+  //      // 時間を再度動かす
+  //      // ポーズコントローラーのインスタンスを取得
+  //      var m_pausecontroller2 = m_pausecontroller.GetComponent<PauseControllerInputDetector>();
+  //      m_pausecontroller2.pauseController.DeactivatePauseProtocol();
+  //      // 位置固定を解除する
+  //      m_insp_Master.GetComponent<CharacterControl_Base>().UnFreezePositionAll();
+  //      // 消していたインターフェースを復活させる
+  //      // CharacterControl_Base依存
+  //      m_insp_Master.GetComponent<CharacterControl_Base>().m_DrawInterface = true;
+  //      // Player_Camera_Controller依存
+  //      var master = m_insp_Master.GetComponent<CharacterControl_Base>();
+  //      master.MainCamera.GetComponent<Player_Camera_Controller>().m_DrawInterface = true;
+  //      master.Timestopmode = CharacterControl_Base.TimeStopMode.NORMAL;
+  //      // カメラを切っておく
+  //      Camera camera = GetComponentInChildren<Camera>();
+  //      camera.enabled = false;
+  //      // カットイン画像消去
+		//m_CutinSystem.EraseCutin(m_CutinName);
+  //      // カメラの位置を戻しておく
+  //      transform.localPosition = new Vector3(-0.976237f, 1.120372f, 4.067078f);
     }
 }

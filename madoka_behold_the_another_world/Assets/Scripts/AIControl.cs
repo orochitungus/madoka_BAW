@@ -26,7 +26,7 @@ public class AIControl : AIControl_Base
     protected override bool engauge(ref AIControl_Base.KEY_OUTPUT keyoutput)
     {
         // 制御対象
-        var target = ControlTarget.GetComponent<CharacterControl_Base>();
+        var target = ControlTarget.GetComponent<CharacterControlBase>();
         // ロックオン距離内にいる
         if (RockonTarget != null && Vector3.Distance(target.transform.position, RockonTarget.transform.position) <= target.RockonRange)
         {
@@ -67,7 +67,7 @@ public class AIControl : AIControl_Base
                 }
             }
             // そうでなければ空中におり、敵との間に遮蔽物がなければ射撃攻撃（現行、地上にいると射撃のループをしてしまう）
-            else if (!target.GetInGround())
+            else if (!target.IsGrounded)
             {
                 // 前面に向かってレイキャストする
                 RaycastHit hit;
@@ -88,20 +88,20 @@ public class AIControl : AIControl_Base
                         }
                     }
                 }
-                // 残弾数がなければなにもしない
-                var targetState = ControlTarget.GetComponent<majyu_BattleControl>();
-                if (targetState.BulletNum[0] > 0)
-                {
-                    m_cpumode = CPUMODE.FIREFIGHT;
-                    keyoutput = KEY_OUTPUT.SHOT;
-                    return true;
-                }
-                else
-                {
-                    m_cpumode = CPUMODE.NORMAL;
-                    keyoutput = KEY_OUTPUT.NONE;
-                    return false;
-                }
+                // TODO:残弾数がなければなにもしない
+                //var targetState = ControlTarget.GetComponent<majyu_BattleControl>();
+                //if (targetState.BulletNum[0] > 0)
+                //{
+                //    m_cpumode = CPUMODE.FIREFIGHT;
+                //    keyoutput = KEY_OUTPUT.SHOT;
+                //    return true;
+                //}
+                //else
+                //{
+                //    m_cpumode = CPUMODE.NORMAL;
+                //    keyoutput = KEY_OUTPUT.NONE;
+                //    return false;
+                //}
             }
         }
         return false;

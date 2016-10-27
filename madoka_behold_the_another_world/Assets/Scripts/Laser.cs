@@ -40,7 +40,7 @@ public class Laser : MonoBehaviour
 
         // 親オブジェクトを拾う
         // 自機がPLAYERかPLAYER_ALLYの場合
-        if (m_Obj_OR.GetComponent<CharacterControl_Base>().IsPlayer != CharacterControl_Base.CHARACTERCODE.ENEMY)
+        if (m_Obj_OR.GetComponent<CharacterControlBase>().IsPlayer != CharacterControlBase.CHARACTERCODE.ENEMY)
         {
             player = "Player";
             enemy = "Enemy";
@@ -53,7 +53,7 @@ public class Laser : MonoBehaviour
         }
 
         // 接触対象がCharacterControl_Baseを持っているか否か判定する
-        var target = collision.gameObject.GetComponent<CharacterControl_Base>();
+        var target = collision.gameObject.GetComponent<CharacterControlBase>();
         // 接触対象を取得する
         m_HitTarget = collision.gameObject;
 
@@ -62,7 +62,7 @@ public class Laser : MonoBehaviour
             return;
 
         // ダウン中かダウン値MAXならダメージを与えない
-        if (target.m_AnimState[0] == CharacterControl_Base.AnimationState.Down || (target.DownRatio <= target.NowDownRatio))
+        if (target.DownTime > 0 || (target.DownRatioBias <= target.NowDownRatio))
         {
             return;
         }
@@ -75,7 +75,7 @@ public class Laser : MonoBehaviour
         // ヒット時にダメージの種類をCharacterControl_Baseに与える
         // ダウン値を超えていたら吹き飛びへ移行
         // Blow属性の攻撃を与えた場合も吹き飛びへ移行
-        if (target.NowDownRatio >= target.DownRatio || this.m_Hittype == CharacterSkill.HitType.BLOW)
+        if (target.NowDownRatio >= target.DownRatioBias || this.m_Hittype == CharacterSkill.HitType.BLOW)
         {   // 吹き飛びの場合、相手に方向ベクトルを与える            
             // Y軸方向は少し上向き
             target.MoveDirection.y += 10;
@@ -87,7 +87,8 @@ public class Laser : MonoBehaviour
             target.GetComponent<Rigidbody>().position = target.GetComponent<Rigidbody>().position + new Vector3(0, MadokaDefine.LAUNCHOFFSET, 0);
             target.GetComponent<Rigidbody>().AddForce(this.m_MoveDirection.x * MadokaDefine.LAUNCHOFFSET, this.m_MoveDirection.y * MadokaDefine.LAUNCHOFFSET, this.m_MoveDirection.z * MadokaDefine.LAUNCHOFFSET);
             //rigidbody.position = rigidbody.position + ;
-            target.m_AnimState[0] = CharacterControl_Base.AnimationState.BlowInit;
+			// TODO：吹き飛びに移行する
+            //target.m_AnimState[0] = CharacterControl_Base.AnimationState.BlowInit;
         }
         // それ以外はのけぞりへ
         else
@@ -95,7 +96,7 @@ public class Laser : MonoBehaviour
             // ただしアーマー時ならダウン値とダメージだけ加算する(Damageにしない）
             if (!target.IsArmor)
             {
-                target.m_AnimState[0] = CharacterControl_Base.AnimationState.DamageInit;
+                //target.m_AnimState[0] = CharacterControl_Base.AnimationState.DamageInit;
             }
             // アーマーなら以降の処理が関係ないのでオブジェクトを自壊させてサヨウナラ                
         }
@@ -113,7 +114,7 @@ public class Laser : MonoBehaviour
             // 覚醒補正
             DamageCorrection();
             // ダメージ
-            collision.gameObject.GetComponent<CharacterControl_Base>().DamageHP(m_CharacterIndex, m_OffemsivePower);
+            collision.gameObject.GetComponent<CharacterControlBase>().DamageHP(m_CharacterIndex, m_OffemsivePower);
         }
         // 味方に触れた場合
         else if (collision.gameObject.tag == player)
@@ -121,15 +122,15 @@ public class Laser : MonoBehaviour
             // 覚醒補正
             DamageCorrection();
             // ダメージ
-            collision.gameObject.GetComponent<CharacterControl_Base>().DamageHP(m_CharacterIndex, (int)((float)m_OffemsivePower / MadokaDefine.FRENDLYFIRE_RATIO));
+            collision.gameObject.GetComponent<CharacterControlBase>().DamageHP(m_CharacterIndex, (int)((float)m_OffemsivePower / MadokaDefine.FRENDLYFIRE_RATIO));
         }
         // ダウン値加算
         collision.gameObject.SendMessage("DownRateInc", m_DownRatio);
         // 覚醒ゲージ加算（覚醒時除く）
-        if (m_Obj_OR.GetComponent<CharacterControl_Base>().IsArousal == false)
+        if (m_Obj_OR.GetComponent<CharacterControlBase>().IsArousal == false)
         {
             // 攻撃を当てた側が味方側の場合
-            if (m_Obj_OR.GetComponent<CharacterControl_Base>().IsPlayer != CharacterControl_Base.CHARACTERCODE.ENEMY)
+            if (m_Obj_OR.GetComponent<CharacterControlBase>().IsPlayer != CharacterControlBase.CHARACTERCODE.ENEMY)
             {
                 float nextArousal = m_ArousalRatio + savingparameter.GetNowArousal(m_CharacterIndex);
                 savingparameter.AddArousal(m_CharacterIndex, nextArousal);
@@ -137,7 +138,7 @@ public class Laser : MonoBehaviour
             // 攻撃を当てた側が敵側の場合
             else
             {
-                m_Obj_OR.GetComponent<CharacterControl_Base>().AddArousal(m_ArousalRatio);
+                m_Obj_OR.GetComponent<CharacterControlBase>().AddArousal(m_ArousalRatio);
             }
 
         }
@@ -151,7 +152,7 @@ public class Laser : MonoBehaviour
         // 攻撃側が覚醒中の場合
         if (m_Obj_OR != null)
         {
-            bool injection = m_Obj_OR.GetComponent<CharacterControl_Base>().IsArousal;
+            bool injection = m_Obj_OR.GetComponent<CharacterControlBase>().IsArousal;
             if (injection)
             {
                 m_OffemsivePower = (int)(m_OffemsivePower * MadokaDefine.AROUSAL_OFFENCE_UPPER);
@@ -160,7 +161,7 @@ public class Laser : MonoBehaviour
         // 防御側が覚醒中の場合
         if (m_HitTarget != null)
         {
-            bool target = m_HitTarget.GetComponent<CharacterControl_Base>().IsArousal;
+            bool target = m_HitTarget.GetComponent<CharacterControlBase>().IsArousal;
             if (target)
             {
                 m_OffemsivePower = (int)(m_OffemsivePower * MadokaDefine.AROUSAL_DEFFENSIVE_UPPER);

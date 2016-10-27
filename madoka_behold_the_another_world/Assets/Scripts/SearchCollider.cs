@@ -10,10 +10,10 @@ public class SearchCollider : MonoBehaviour
    
 
     // 自機がプレイヤー側か敵側か（開始時にAIControlからもらう）
-    private CharacterControl_Base.CHARACTERCODE m_isPlayer;
+    private CharacterControlBase.CHARACTERCODE m_isPlayer;
 
     // 上記変数のアクセサ
-    public void SetPC(CharacterControl_Base.CHARACTERCODE player)
+    public void SetPC(CharacterControlBase.CHARACTERCODE player)
     {
         m_isPlayer = player;
     }
@@ -50,9 +50,9 @@ public class SearchCollider : MonoBehaviour
     {
         // これだと「コライダの中心にいる」キャラも取ってしまう→勝手にm_isEncounterが折られる
         // 接触対象取得(キャラクターである必要があるため）
-        var hit = collision.gameObject.GetComponent<CharacterControl_Base>();
+        var hit = collision.gameObject.GetComponent<CharacterControlBase>();
         // コライダの中心にいるキャラを拾った場合は無意味なので強制抜け
-        var mastercheck = m_colliderMaster.gameObject.GetComponent<CharacterControl_Base>();
+        var mastercheck = m_colliderMaster.gameObject.GetComponent<CharacterControlBase>();
         m_hitCharacter = null;
         if (hit == mastercheck)
         {
@@ -62,17 +62,17 @@ public class SearchCollider : MonoBehaviour
         if (hit != null)
         {
             // 自機がプレイヤー側
-            if (m_isPlayer == CharacterControl_Base.CHARACTERCODE.PLAYER_ALLY || m_isPlayer == CharacterControl_Base.CHARACTERCODE.PLAYER)
+            if (m_isPlayer == CharacterControlBase.CHARACTERCODE.PLAYER_ALLY || m_isPlayer == CharacterControlBase.CHARACTERCODE.PLAYER)
             {
                 // 敵であればエンカウント
-                if (hit.IsPlayer == CharacterControl_Base.CHARACTERCODE.ENEMY)
+                if (hit.IsPlayer == CharacterControlBase.CHARACTERCODE.ENEMY)
                 {
                     m_isEncounter = true;
                     m_hitCharacter = collision.gameObject;
                     return;
                 }
                 // 味方であれば強制抜け（フラグを弄らせない）
-                else if (hit.IsPlayer == CharacterControl_Base.CHARACTERCODE.PLAYER_ALLY || m_isPlayer == CharacterControl_Base.CHARACTERCODE.PLAYER)
+                else if (hit.IsPlayer == CharacterControlBase.CHARACTERCODE.PLAYER_ALLY || m_isPlayer == CharacterControlBase.CHARACTERCODE.PLAYER)
                 {
                     m_isEncounter = false;
                     return;
@@ -82,14 +82,14 @@ public class SearchCollider : MonoBehaviour
             else
             {
                 // PCであればエンカウント
-                if (hit.IsPlayer == CharacterControl_Base.CHARACTERCODE.PLAYER || hit.IsPlayer == CharacterControl_Base.CHARACTERCODE.PLAYER_ALLY)
+                if (hit.IsPlayer == CharacterControlBase.CHARACTERCODE.PLAYER || hit.IsPlayer == CharacterControlBase.CHARACTERCODE.PLAYER_ALLY)
                 {
                     m_isEncounter = true;
                     m_hitCharacter = collision.gameObject;
                     return;
                 }
                 // 敵であれば強制抜け（フラグを弄らせない）
-                else if (hit.IsPlayer == CharacterControl_Base.CHARACTERCODE.ENEMY)
+                else if (hit.IsPlayer == CharacterControlBase.CHARACTERCODE.ENEMY)
                 {
                     m_isEncounter = false;
                     return;

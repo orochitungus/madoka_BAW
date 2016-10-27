@@ -554,17 +554,17 @@ public class Bullet : MonoBehaviour
             // ダウン値
             shockwave_state.SetDownratio(DownRatio);
             // 覚醒ゲージ増加（覚醒時除く）
-            if (InjectionObject.GetComponent<CharacterControl_Base>().IsArousal == false)
+            if (InjectionObject.GetComponent<CharacterControlBase>().IsArousal == false)
             {
                 // 攻撃を当てた側が味方側の場合
-                if (InjectionObject.GetComponent<CharacterControl_Base>().IsPlayer != CharacterControl_Base.CHARACTERCODE.ENEMY)
+                if (InjectionObject.GetComponent<CharacterControlBase>().IsPlayer != CharacterControlBase.CHARACTERCODE.ENEMY)
                 {
                     savingparameter.AddArousal(InjectionCharacterIndex, ArousalRatio);
                 }
                 // 攻撃を当てた側が敵側の場合
                 else
                 {
-                    InjectionObject.GetComponent<CharacterControl_Base>().AddArousal(ArousalRatio);
+                    InjectionObject.GetComponent<CharacterControlBase>().AddArousal(ArousalRatio);
                 }
             }
             // 攻撃を当てた相手の覚醒ゲージを増加

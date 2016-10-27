@@ -36,9 +36,9 @@ public class DrawBulletNum : MonoBehaviour
     // 描画
     public void OnGUI()
     {
-        var target = m_PlayerObject.GetComponentInChildren<CharacterControl_Base>();
+        var target = m_PlayerObject.GetComponentInChildren<CharacterControlBase>();
         // CPU制御の時は描かない
-        if (target.IsPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER)
+        if (target.IsPlayer != CharacterControlBase.CHARACTERCODE.PLAYER)
         {
             return;
         }
@@ -68,7 +68,7 @@ public class DrawBulletNum : MonoBehaviour
                     if (m_ChargeExist)
                     {
                         // 最大値を取得
-                        int max = target.GetChargeMax();
+                        int max = target.ChargeMax;
                         // 現在のチャージ量を取得
                         int nowcharge = 0;
                         if (m_chargemode == ChargeMode.SHOT)

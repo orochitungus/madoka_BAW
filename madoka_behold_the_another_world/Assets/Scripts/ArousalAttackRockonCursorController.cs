@@ -7,7 +7,7 @@ using System.Collections;
 public class ArousalAttackRockonCursorController : MonoBehaviour 
 {
 	// 覚醒技を発動しているキャラクター
-	public CharacterControl_Base MainCharacter;
+	public CharacterControlBase MainCharacter;
 		
 	// ロックオンカーソルを描画しているカメラ
 	public Player_Camera_Controller PlayerCameraController;

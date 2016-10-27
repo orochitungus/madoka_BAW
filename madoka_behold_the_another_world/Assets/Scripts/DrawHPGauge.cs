@@ -16,9 +16,9 @@ public class DrawHPGauge : MonoBehaviour
     // 描画
     public void OnGUI()
     {
-        var target = m_Player.GetComponentInChildren<CharacterControl_Base>();
+        var target = m_Player.GetComponentInChildren<CharacterControlBase>();
         // CPU制御の時は描かない
-        if (target.IsPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER)
+        if (target.IsPlayer != CharacterControlBase.CHARACTERCODE.PLAYER)
         {
             return;
         }
@@ -45,7 +45,7 @@ public class DrawHPGauge : MonoBehaviour
         HP_Position.x = 40;
         HP_Position.y = 195;
         // HP
-        int nowHP = target.m_DrawHitpoint;
+        int nowHP = target.DrawHitpoint;
         // 1000の位
         int nowHP_1000 = (int)(nowHP / 1000);
         // 100の位
@@ -82,51 +82,51 @@ public class DrawHPGauge : MonoBehaviour
             GUI.Label(new Rect(HP_Position.x, HP_Position.y, 1500.0f, 100.0f), "0", "HP");
         }
         
-        // SG汚染率をm_Playerから引き出して描画
-        // タイトル
-        SG_InfoPosition.x = 16;
-        SG_InfoPosition.y = 110;
-        GUI.Label(new Rect(SG_InfoPosition.x, SG_InfoPosition.y, 1500.0f, 100.0f), "Contamination rate", "SG_Info");        
-        // 小数点以下2桁まで描画するので、とりあえず100倍
-        int SG = (int)(target.m_GemContamination * 100);
-        int[] SG_Value = new int[5];
-        // 各桁の値を取得
-        for (int i = 4; i >= 0; i--)
-        {
-            // 10000(100の位）
-            if (i == 4)
-            {
-                SG_Value[4] = (int)(SG / 10000);
-            }
-            else
-            {
-                int more=SG;
-                // 自分より大きな桁の値を減算する
-                for(int j=4; j>i; j--)
-                {
-                    more = more - (int)(SG_Value[j] * Math.Pow(10.0,(double)j)); 
-                }
-                SG_Value[i] = (int)(more / (Math.Pow(10.0, (double)i)));
-            }
-        }
-        SG_Position.x = 100.0f;
-        SG_Position.y = 125.0f;
-        for (int i = 0; i < 5; i++)
-        {
-            if (i > 2)
-            {   // 上で100倍しているので帳尻を合わせないとならない
-                if (SG/100 >= Math.Pow(10.0, (i - 2)))
-                {
-                    GUI.Label(new Rect(SG_Position.x - 14.0f * i, SG_Position.y, 1500.0f, 100.0f), SG_Value[i].ToString(), "SG_dot");
-                }
-            }
-            else
-            {
-                GUI.Label(new Rect(SG_Position.x - 14.0f * i, SG_Position.y, 1500.0f, 100.0f), SG_Value[i].ToString(), "SG_dot");
-            }
-        }
-        GUI.Label(new Rect(SG_Position.x - 28.0f + 10, SG_Position.y, 1500.0f, 100.0f), ".", "SG_dot");
-        GUI.Label(new Rect(SG_Position.x + 14.0f, SG_Position.y, 1500.0f, 100.0f), "%", "SG_dot");
+        // SG汚染率をm_Playerから引き出して描画(SG汚染率の概念は消す。ＳＧはオートリレイズにルール変更）
+        //// タイトル
+        //SG_InfoPosition.x = 16;
+        //SG_InfoPosition.y = 110;
+        //GUI.Label(new Rect(SG_InfoPosition.x, SG_InfoPosition.y, 1500.0f, 100.0f), "Contamination rate", "SG_Info");        
+        //// 小数点以下2桁まで描画するので、とりあえず100倍
+        //int SG = (int)(target.m_GemContamination * 100);
+        //int[] SG_Value = new int[5];
+        //// 各桁の値を取得
+        //for (int i = 4; i >= 0; i--)
+        //{
+        //    // 10000(100の位）
+        //    if (i == 4)
+        //    {
+        //        SG_Value[4] = (int)(SG / 10000);
+        //    }
+        //    else
+        //    {
+        //        int more=SG;
+        //        // 自分より大きな桁の値を減算する
+        //        for(int j=4; j>i; j--)
+        //        {
+        //            more = more - (int)(SG_Value[j] * Math.Pow(10.0,(double)j)); 
+        //        }
+        //        SG_Value[i] = (int)(more / (Math.Pow(10.0, (double)i)));
+        //    }
+        //}
+        //SG_Position.x = 100.0f;
+        //SG_Position.y = 125.0f;
+        //for (int i = 0; i < 5; i++)
+        //{
+        //    if (i > 2)
+        //    {   // 上で100倍しているので帳尻を合わせないとならない
+        //        if (SG/100 >= Math.Pow(10.0, (i - 2)))
+        //        {
+        //            GUI.Label(new Rect(SG_Position.x - 14.0f * i, SG_Position.y, 1500.0f, 100.0f), SG_Value[i].ToString(), "SG_dot");
+        //        }
+        //    }
+        //    else
+        //    {
+        //        GUI.Label(new Rect(SG_Position.x - 14.0f * i, SG_Position.y, 1500.0f, 100.0f), SG_Value[i].ToString(), "SG_dot");
+        //    }
+        //}
+        //GUI.Label(new Rect(SG_Position.x - 28.0f + 10, SG_Position.y, 1500.0f, 100.0f), ".", "SG_dot");
+        //GUI.Label(new Rect(SG_Position.x + 14.0f, SG_Position.y, 1500.0f, 100.0f), "%", "SG_dot");
 
         // 対象の名前をm_Playerから引き出してCharacter_Specの配列から取得して描画
         string playername = Character_Spec.Name[(int)target.CharacterName];

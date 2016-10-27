@@ -41,7 +41,7 @@ public class AIControl_Majyu : AIControl_Base
 	protected override bool engauge(ref AIControl_Base.KEY_OUTPUT keyoutput)
 	{
 		// 制御対象
-		var target = ControlTarget.GetComponent<CharacterControl_Base>();
+		var target = ControlTarget.GetComponent<CharacterControlBase>();
 		// ロックオン距離内にいる
 		if (RockonTarget != null && Vector3.Distance(target.transform.position, RockonTarget.transform.position) <= target.RockonRange)
 		{
@@ -82,7 +82,7 @@ public class AIControl_Majyu : AIControl_Base
 				}
 			}
 			// そうでなければ空中におり、敵との間に遮蔽物がなければ射撃攻撃（現行、地上にいると射撃のループをしてしまう）
-			else if (!target.GetInGround())
+			else if (!target.IsGrounded)
 			{
 				// 前面に向かってレイキャストする
 				RaycastHit hit;
@@ -103,16 +103,16 @@ public class AIControl_Majyu : AIControl_Base
 						}
 					}
 				}
-				// 残弾数がなく、弾を撃ってから規定時間はなにもしない
-				var targetState = ControlTarget.GetComponent<majyu_BattleControl>();
-				if (targetState.BulletNum[0] > 0 && !Shoted)
-				{
-					m_cpumode = CPUMODE.FIREFIGHT;
-					keyoutput = KEY_OUTPUT.SHOT;
-					Shoted = true;
-					StartCoroutine(ShotInterval());
-					return true;
-				}
+				// TODO:残弾数がなく、弾を撃ってから規定時間はなにもしない
+				//var targetState = ControlTarget.GetComponent<majyu_BattleControl>();
+				//if (targetState.BulletNum[0] > 0 && !Shoted)
+				//{
+				//	m_cpumode = CPUMODE.FIREFIGHT;
+				//	keyoutput = KEY_OUTPUT.SHOT;
+				//	Shoted = true;
+				//	StartCoroutine(ShotInterval());
+				//	return true;
+				//}
 				//else
 				//{
 				//	m_cpumode = CPUMODE.NORMAL;
@@ -133,12 +133,12 @@ public class AIControl_Majyu : AIControl_Base
 	{
 		base.normal(ref tenkeyoutput, ref keyoutput);
 		// ロックオン対象情報を取得
-		CharacterControl_Base rockonTarget = RockonTarget.GetComponent<CharacterControl_Base>();
+		CharacterControlBase rockonTarget = RockonTarget.GetComponent<CharacterControlBase>();
 		// 制御対象
-		CharacterControl_Base target = ControlTarget.GetComponent<CharacterControl_Base>();
+		CharacterControlBase target = ControlTarget.GetComponent<CharacterControlBase>();
 
 		// 相手がダウンしていた場合(回復中含む)
-		if(rockonTarget != null && rockonTarget.NowDownRatio >= rockonTarget.DownRatio)
+		if(rockonTarget != null && rockonTarget.NowDownRatio >= rockonTarget.DownRatioBias)
 		{ 
 			// ロックオン対象が二人以上いた場合、ロックを切り替える
 			// ロックオン対象が誰もいなかった場合、哨戒に戻す
@@ -155,33 +155,34 @@ public class AIControl_Majyu : AIControl_Base
 
 	protected override void noraml_rise1(ref KEY_OUTPUT keyoutput)
 	{
-		// 何らかの理由で哨戒起点か終点をロックしたまま攻撃体制に入った場合は元に戻す
-		if (UnRockAndReturnPatrol())
-			return;
+		// TODO:魔獣のCPUルーチン作成時に戻す
+		//// 何らかの理由で哨戒起点か終点をロックしたまま攻撃体制に入った場合は元に戻す
+		//if (UnRockAndReturnPatrol())
+		//	return;
 
-		// 制御対象
-		var target = ControlTarget.GetComponent<majyu_BattleControl>();
-		RaycastHit hit;
-		Vector3 RayStartPosition = new Vector3(ControlTarget.transform.position.x, ControlTarget.transform.position.y + 1.5f, ControlTarget.transform.position.z);
-		// 地上から離れて一定時間たったか上昇限界高度を超えていると空中ダッシュ
-		if ((!Physics.Raycast(RayStartPosition, -transform.up, out hit, RiseLimit)))
-		{
-			keyoutput = KEY_OUTPUT.NONE;
-			m_cpumode = CPUMODE.NORMAL_RISE2;
-			m_totalrisetime = Time.time;
-		}
-		//// 地上から離れずに一定時間いるとNORMALへ戻って仕切り直す
-		//if (Time.time > m_totalrisetime + m_risetime && target.GetInGround())
+		//// 制御対象
+		//var target = ControlTarget.GetComponent<majyu_BattleControl>();
+		//RaycastHit hit;
+		//Vector3 RayStartPosition = new Vector3(ControlTarget.transform.position.x, ControlTarget.transform.position.y + 1.5f, ControlTarget.transform.position.z);
+		//// 地上から離れて一定時間たったか上昇限界高度を超えていると空中ダッシュ
+		//if ((!Physics.Raycast(RayStartPosition, -transform.up, out hit, RiseLimit)))
 		//{
-		//	m_cpumode = CPUMODE.NORMAL;
+		//	keyoutput = KEY_OUTPUT.NONE;
+		//	m_cpumode = CPUMODE.NORMAL_RISE2;
+		//	m_totalrisetime = Time.time;
 		//}
-		// 敵との距離が離れすぎるとロックオンを解除して哨戒に戻る
-		// カメラ
-		Player_Camera_Controller pcc = ControlTarget_Camera.GetComponent<Player_Camera_Controller>();
-		float distance = Vector3.Distance(pcc.Player.transform.position, pcc.Enemy.transform.position);
-		if ((int)m_latecpumode > (int)CPUMODE.RETURN_PATH && distance > target.RockonRangeLimit)
-		{
-			ReturnPatrol(target);
-		}
+		////// 地上から離れずに一定時間いるとNORMALへ戻って仕切り直す
+		////if (Time.time > m_totalrisetime + m_risetime && target.GetInGround())
+		////{
+		////	m_cpumode = CPUMODE.NORMAL;
+		////}
+		//// 敵との距離が離れすぎるとロックオンを解除して哨戒に戻る
+		//// カメラ
+		//Player_Camera_Controller pcc = ControlTarget_Camera.GetComponent<Player_Camera_Controller>();
+		//float distance = Vector3.Distance(pcc.Player.transform.position, pcc.Enemy.transform.position);
+		//if ((int)m_latecpumode > (int)CPUMODE.RETURN_PATH && distance > target.RockonRangeLimit)
+		//{
+		//	ReturnPatrol(target);
+		//}
 	}
 }

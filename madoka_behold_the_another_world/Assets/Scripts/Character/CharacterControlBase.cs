@@ -3674,8 +3674,8 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     public void FreezePositionAll()
     {
-        CharacterControl_Base[] Character = FindObjectsOfType(typeof(CharacterControl_Base)) as CharacterControl_Base[];
-        foreach (CharacterControl_Base i in Character)
+        CharacterControlBase[] Character = FindObjectsOfType(typeof(CharacterControlBase)) as CharacterControlBase[];
+        foreach (CharacterControlBase i in Character)
         {
             i.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
         }
@@ -3686,8 +3686,8 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     public void UnFreezePositionAll()
     {
-        CharacterControl_Base[] Character = FindObjectsOfType(typeof(CharacterControl_Base)) as CharacterControl_Base[];
-        foreach (CharacterControl_Base i in Character)
+        CharacterControlBase[] Character = FindObjectsOfType(typeof(CharacterControlBase)) as CharacterControlBase[];
+        foreach (CharacterControlBase i in Character)
         {
             i.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         }
@@ -3698,10 +3698,10 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     private void unuseArousal()
     {
-        // ポーズコントローラーのインスタンスを取得
-        var pausecontroller2 = Pausecontroller.GetComponent<PauseControllerInputDetector>();
-        // 時間を再度動かす
-        pausecontroller2.pauseController.DeactivatePauseProtocol();
+        // TODO:ポーズコントローラーのインスタンスを取得
+        //var pausecontroller2 = Pausecontroller.GetComponent<PauseControllerInputDetector>();
+        //// 時間を再度動かす
+        //pausecontroller2.pauseController.DeactivatePauseProtocol();
     }
 
     /// <summary>
@@ -3713,24 +3713,24 @@ public class CharacterControlBase : MonoBehaviour
         {
             return;
         }
-        // ポーズコントローラーのインスタンスを取得
-        var pausecontroller2 = Pausecontroller.GetComponent<PauseControllerInputDetector>();
-        // 時間を止める
-        pausecontroller2.pauseController.ActivatePauseProtocol();
-        // 覚醒前処理
-        ArousalInitialize();
-        // カットインカメラ有効化
-        // ArousalCameraを有効化
-        ArousalCamera.enabled = true;
-        // ポーズ実行
-        FreezePositionAll();
-        // カットインイベントを有効化
-        Arousal_Camera_Controller CutinEvent = ArousalCamera.GetComponentInChildren<Arousal_Camera_Controller>();
-        // カットインイベント発動
-        CutinEvent.UseAsousalCutinCamera();
-        // 時間停止
-        TimeStopMaster = true;
-        Timestopmode = TimeStopMode.AROUSAL;
+        // TODO:ポーズコントローラーのインスタンスを取得
+        //var pausecontroller2 = Pausecontroller.GetComponent<PauseControllerInputDetector>();
+        //// 時間を止める
+        //pausecontroller2.pauseController.ActivatePauseProtocol();
+        //// 覚醒前処理
+        //ArousalInitialize();
+        //// カットインカメラ有効化
+        //// ArousalCameraを有効化
+        //ArousalCamera.enabled = true;
+        //// ポーズ実行
+        //FreezePositionAll();
+        //// カットインイベントを有効化
+        //Arousal_Camera_Controller CutinEvent = ArousalCamera.GetComponentInChildren<Arousal_Camera_Controller>();
+        //// カットインイベント発動
+        //CutinEvent.UseAsousalCutinCamera();
+        //// 時間停止
+        //TimeStopMaster = true;
+        //Timestopmode = TimeStopMode.AROUSAL;
     }
 
     // 覚醒開始時の共通処理(残弾の回復はキャラごとに覚醒でも回復禁止のものがあるのでこの関数のオーバーライドで行うこと）

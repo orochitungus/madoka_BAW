@@ -110,7 +110,7 @@ public class HomuraBowSubShotL : Bullet
 		if (Physics.Raycast(transform.position, Vector3.forward, out hit, 300.0f))
 		{
 			var hittarget = hit.collider.gameObject.GetComponent<AIControl_Base>();
-			var hittarget2 = hit.collider.gameObject.GetComponent<CharacterControl_Base>();
+			var hittarget2 = hit.collider.gameObject.GetComponent<CharacterControlBase>();
 			// ガード姿勢を取らせる(自分の弾は除く)
 			if (hittarget != null && InjectionCharacterIndex != (int)hittarget2.CharacterName)
 			{

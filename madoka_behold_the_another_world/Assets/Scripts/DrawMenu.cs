@@ -190,17 +190,17 @@ public partial class DrawMenu : MonoBehaviour
 	void Update () 
     {
 	    // 対象を取得する.
-        var master = Player.GetComponentInChildren<CharacterControl_Base>();                // 戦闘用
+        var master = Player.GetComponentInChildren<CharacterControlBase>();                // 戦闘用
         var master_quest = Player.GetComponentInChildren<CharacterControl_Base_Quest>();    // クエストパート用
 
         // 戦闘用
         if (master != null)
         {
-            if (master.IsPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER)
+            if (master.IsPlayer != CharacterControlBase.CHARACTERCODE.PLAYER)
             {
                 return;
             }
-            if (master.Timestopmode == CharacterControl_Base.TimeStopMode.PAUSE)
+            if (master.Timestopmode == CharacterControlBase.TimeStopMode.PAUSE)
             {
                 // これをやっておかないとループする
                 if (!m_isDraw)
@@ -262,13 +262,13 @@ public partial class DrawMenu : MonoBehaviour
     // 基本やることはここでのみ
     void OnGUI()
     {
-        var master = Player.GetComponentInChildren<CharacterControl_Base>();
+        var master = Player.GetComponentInChildren<CharacterControlBase>();
         var master_quest = Player.GetComponentInChildren<CharacterControl_Base_Quest>();
 
         // 戦闘用
         if (master != null)
         {
-            if (master.IsPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER)
+            if (master.IsPlayer != CharacterControlBase.CHARACTERCODE.PLAYER)
             {
                 return;
             }
@@ -359,9 +359,9 @@ public partial class DrawMenu : MonoBehaviour
                         master.ReleasePause();
                     if (master_quest != null)
                         master_quest.ReleasePause();
-                    // 一時停止されている全てのポーズを解除する
-                    var pausecontroller2 = m_pausecontroller.GetComponent<PauseControllerInputDetector>();
-                    pausecontroller2.pauseController.DeactivatePauseProtocol();
+                    // TODO:一時停止されている全てのポーズを解除する
+                    //var pausecontroller2 = m_pausecontroller.GetComponent<PauseControllerInputDetector>();
+                    //pausecontroller2.pauseController.DeactivatePauseProtocol();
                     // 位置固定を解除する
                     if(master != null)
                         master.UnFreezePositionAll();

@@ -18,7 +18,7 @@ public class BulletChecker : MonoBehaviour
     {
         m_bulletIn = false;
         m_prebulletIn = false;
-        var character = m_Obj_OR.GetComponent<CharacterControl_Base>();
+        var character = m_Obj_OR.GetComponent<CharacterControlBase>();
         m_characterIndex = (int)character.CharacterName;
 	}
 	

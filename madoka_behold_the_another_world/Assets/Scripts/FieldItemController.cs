@@ -46,11 +46,11 @@ public class FieldItemController : MonoBehaviour
 	void OnCollisionEnter(Collision character)
 	{
 		// 接触したキャラクターがCharacterControl_BaseかCharacterControl_Base_Questであり、プレイヤーの場合のみ処理開始
-		CharacterControl_Base hitBattleCharacter = character.gameObject.GetComponent<CharacterControl_Base>();
+		CharacterControlBase hitBattleCharacter = character.gameObject.GetComponent<CharacterControlBase>();
 		CharacterControl_Base_Quest hitQuestCharacter = character.gameObject.GetComponent<CharacterControl_Base_Quest>();
 
 		// プレイヤーであれば処理開始
-		if((hitBattleCharacter != null && hitBattleCharacter.IsPlayer == CharacterControl_Base.CHARACTERCODE.PLAYER) || hitQuestCharacter != null)
+		if((hitBattleCharacter != null && hitBattleCharacter.IsPlayer == CharacterControlBase.CHARACTERCODE.PLAYER) || hitQuestCharacter != null)
 		{
 			// アイテム入手音を鳴らす
 			AudioSource.PlayClipAtPoint(ItemSE, transform.position);

@@ -29,9 +29,9 @@ public class DrawInformation : MonoBehaviour
      // 描画
     public void OnGUI()
     {
-        CharacterControl_Base target = m_Player.GetComponentInChildren<CharacterControl_Base>();
+        CharacterControlBase target = m_Player.GetComponentInChildren<CharacterControlBase>();
         // CPU制御の時は描かない
-        if (target != null && target.IsPlayer != CharacterControl_Base.CHARACTERCODE.PLAYER)
+        if (target != null && target.IsPlayer != CharacterControlBase.CHARACTERCODE.PLAYER)
         {
             return;
         }
@@ -164,7 +164,7 @@ public class DrawInformation : MonoBehaviour
         // ・カメラのステートを取得
 	    var Camera = m_Camera.GetComponentInChildren<Player_Camera_Controller>();
     	// 敵のステートを取得
-        var Enemy = Camera.Enemy.GetComponentInChildren<CharacterControl_Base>();
+        var Enemy = Camera.Enemy.GetComponentInChildren<CharacterControlBase>();
 	    // 敵のHPを取得
         int Enemy_HP = Enemy.NowHitpoint;
         
