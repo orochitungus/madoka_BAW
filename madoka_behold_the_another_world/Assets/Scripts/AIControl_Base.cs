@@ -585,7 +585,7 @@ public class AIControl_Base : MonoBehaviour
             return;
         }
         // ロックオン対象
-        var rockonTarget = RockonTarget.GetComponent<CharacterControl_Base>();
+        var rockonTarget = RockonTarget.GetComponent<CharacterControlBase>();
         if (rockonTarget == null)
         {
             m_cpumode = CPUMODE.OUTWARD_JOURNEY;
@@ -653,7 +653,7 @@ public class AIControl_Base : MonoBehaviour
     protected virtual void dogfight_done(ref TENKEY_OUTPUT tenkeyoutput, ref KEY_OUTPUT keyoutput)
     {
         // 制御対象
-        var target = ControlTarget.GetComponent<CharacterControl_Base>();
+        var target = ControlTarget.GetComponent<CharacterControlBase>();
 		tenkeyoutput = TENKEY_OUTPUT.NEUTRAL;
         keyoutput = KEY_OUTPUT.WRESTLE;
         m_cpumode = CPUMODE.DOGFIGHT_DONE;
@@ -672,7 +672,7 @@ public class AIControl_Base : MonoBehaviour
 	protected virtual void dogfight_front(ref TENKEY_OUTPUT tenkeyoutput, ref KEY_OUTPUT keyoutput)
 	{
 		// 制御対象
-		var target = ControlTarget.GetComponent<CharacterControl_Base>();
+		var target = ControlTarget.GetComponent<CharacterControlBase>();
 		tenkeyoutput = TENKEY_OUTPUT.TOP;
 		keyoutput = KEY_OUTPUT.WRESTLE;
 		m_cpumode = CPUMODE.DOGFIGHT_FRONT;
@@ -690,7 +690,7 @@ public class AIControl_Base : MonoBehaviour
 	protected virtual void dogfight_left(ref TENKEY_OUTPUT tenkeyoutput, ref KEY_OUTPUT keyoutput)
 	{
 		// 制御対象
-		var target = ControlTarget.GetComponent<CharacterControl_Base>();
+		var target = ControlTarget.GetComponent<CharacterControlBase>();
 		tenkeyoutput = TENKEY_OUTPUT.LEFT;
 		keyoutput = KEY_OUTPUT.WRESTLE;
 		m_cpumode = CPUMODE.DOGFIGHT_LEFT;
@@ -709,7 +709,7 @@ public class AIControl_Base : MonoBehaviour
 	protected virtual void dogfight_right(ref TENKEY_OUTPUT tenkeyoutput, ref KEY_OUTPUT keyoutput)
 	{
 		// 制御対象
-		var target = ControlTarget.GetComponent<CharacterControl_Base>();
+		var target = ControlTarget.GetComponent<CharacterControlBase>();
 		tenkeyoutput = TENKEY_OUTPUT.RIGHT;
 		keyoutput = KEY_OUTPUT.WRESTLE;
 		m_cpumode = CPUMODE.DOGFIGHT_RIGHT;
@@ -723,7 +723,7 @@ public class AIControl_Base : MonoBehaviour
 	protected virtual void dogfight_ex(ref TENKEY_OUTPUT tenkeyoutput, ref KEY_OUTPUT keyoutput)
 	{
 		// 制御対象
-		var target = ControlTarget.GetComponent<CharacterControl_Base>();
+		var target = ControlTarget.GetComponent<CharacterControlBase>();
 		tenkeyoutput = TENKEY_OUTPUT.NEUTRAL;
 		keyoutput = KEY_OUTPUT.EXWRESTLE;
 		m_cpumode = CPUMODE.DOGFIGHT_EX;

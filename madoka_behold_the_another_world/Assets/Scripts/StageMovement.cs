@@ -27,12 +27,12 @@ public class StageMovement : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         // 接触対象を取得
-        var target = collision.gameObject.GetComponent<CharacterControl_Base>();
+        var target = collision.gameObject.GetComponent<CharacterControlBase>();
         var target_quest = collision.gameObject.GetComponent<CharacterControl_Base_Quest>();
         // プレイヤーだった場合指定したシーンへ移動
         if(target != null)
         {
-            if(target.IsPlayer == CharacterControl_Base.CHARACTERCODE.PLAYER)
+            if(target.IsPlayer == CharacterControlBase.CHARACTERCODE.PLAYER)
             {
                 CheckStory();
             }

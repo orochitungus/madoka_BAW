@@ -19,8 +19,8 @@ public class Scono_SubShot : Bullet
         // 親スクリプトを初期化
         this.ParentScriptName = "Scono_Battle_Control";
         InjectionObjectName = "Scono_battle_use";
-        // 親オブジェクトを取得(rootでツリーの一番上から検索をかける）        
-        InjectionObject = transform.root.GetComponentInChildren<Scono_Battle_Control>().gameObject;
+        // TODO:親オブジェクトを取得(rootでツリーの一番上から検索をかける）        
+        //InjectionObject = transform.root.GetComponentInChildren<Scono_Battle_Control>().gameObject;
         // 接触対象に自分は除く（散弾や爆風は発生時に別のオブジェクトを呼ぶ）
         Physics.IgnoreCollision(this.transform.GetComponent<Collider>(), InjectionObject.transform.GetComponent<Collider>());
         // 撃ったキャラが誰であるか保持

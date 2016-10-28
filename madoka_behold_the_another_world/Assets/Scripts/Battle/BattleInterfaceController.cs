@@ -192,15 +192,14 @@ public class BattleInterfaceController : MonoBehaviour
             {
                 if (ControllerManager.Instance.Menu)
                 {
-					// TODO
-                    //// ポーズをかける
-                    //// PauseControllerを取得
-                    //PauseControllerInputDetector pcid = Pausecontroller.GetComponent<PauseControllerInputDetector>();
-                    //// ポーズ画面をアクティブにする
-                    //BattleInterfaceController bifc = GameObject.Find("BattleInterfaceCanvas").GetComponent<BattleInterfaceController>();
-                    //bifc.PauseBG.gameObject.SetActive(true);
-                    //// 時間を止める
-                    //pcid.pauseController.ActivatePauseProtocol();
+                    // ポーズをかける
+                    // PauseControllerを取得
+                    PauseControllerInputDetector pcid = Pausecontroller.GetComponent<PauseControllerInputDetector>();
+                    // ポーズ画面をアクティブにする
+                    BattleInterfaceController bifc = GameObject.Find("BattleInterfaceCanvas").GetComponent<BattleInterfaceController>();
+                    bifc.PauseBG.gameObject.SetActive(true);
+                    // 時間を止める
+                    pcid.ProcessButtonPress();
                 }
             }
 			// ポーズ時、ポーズ入力で解除
@@ -208,16 +207,15 @@ public class BattleInterfaceController : MonoBehaviour
 			{
 				if (ControllerManager.Instance.Menu)
 				{
-					// TODO:
-					//// PauseControllerを取得
-					//PauseControllerInputDetector pcid = Pausecontroller.GetComponent<PauseControllerInputDetector>();
-					//// 時間を動かす
-					//pcid.pauseController.DeactivatePauseProtocol();
-					//// ポーズ画面をディアクティブにする
-					//// ポーズ画面をアクティブにする
-					//BattleInterfaceController bifc = GameObject.Find("BattleInterfaceCanvas").GetComponent<BattleInterfaceController>();
-					//bifc.PauseBG.gameObject.SetActive(false);
-				}
+                    // PauseControllerを取得
+                    PauseControllerInputDetector pcid = Pausecontroller.GetComponent<PauseControllerInputDetector>();
+                    // 時間を動かす
+                    pcid.ProcessButtonPress();
+                    // ポーズ画面をディアクティブにする
+                    // ポーズ画面をアクティブにする
+                    BattleInterfaceController bifc = GameObject.Find("BattleInterfaceCanvas").GetComponent<BattleInterfaceController>();
+                    bifc.PauseBG.gameObject.SetActive(false);
+                }
 			}
 
 		});
