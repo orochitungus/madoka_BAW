@@ -9,8 +9,8 @@ public class Arousal_Camera_Controller : MonoBehaviour
     // 追跡するカメラターゲット
     public GameObject m_inspCameraTarget;
 
-    // ポーズコントローラー
-    private GameObject m_pausecontroller;
+    // ポーズマネージャー
+    private GameObject Pausemanager;
     // カットインカメラアニメーション
     public Animation m_CutinCameraAnimation;
 
@@ -19,7 +19,12 @@ public class Arousal_Camera_Controller : MonoBehaviour
 	// カットインで表示されるグラフィックの種類
 	public CutinSystem.CUTINNAME m_CutinName;
 
-    private float cutinXposint;
+	/// <summary>
+	/// インターフェース
+	/// </summary>
+	public BattleInterfaceController Battleinterfacecontroller;
+
+	private float cutinXposint;
     public AudioClip m_insp_ArousalSE;
 
     void Awake()
@@ -32,10 +37,12 @@ public class Arousal_Camera_Controller : MonoBehaviour
 	void Start () 
     {
         SetUpCutin();
-        // ポーズコントローラー取得
-        m_pausecontroller = GameObject.Find("Pause Controller");
+		// ポーズマネージャー取得
+		Pausemanager = GameObject.Find("PauseManager");
 		// カットインシステム取得
 		m_CutinSystem = GameObject.Find("CutinSystem").GetComponent<CutinSystem>();
+		// インターフェース取得
+		Battleinterfacecontroller = GameObject.Find("BattleInterfaceCanvas").GetComponent<BattleInterfaceController>();
 	}
 	
 	// Update is called once per frame
@@ -67,29 +74,33 @@ public class Arousal_Camera_Controller : MonoBehaviour
         transform.localPosition = new Vector3(-0.976237f, 1.120372f, 4.067078f);
     }
 
-    // TODO:カットイン終了後の処理
-    public void CutinEnd()
-    {       
-  //      m_insp_Master.GetComponent<CharacterControlBase>().ReleasePause();
-  //      // 時間を再度動かす
-  //      // ポーズコントローラーのインスタンスを取得
-  //      var m_pausecontroller2 = m_pausecontroller.GetComponent<PauseControllerInputDetector>();
-  //      m_pausecontroller2.pauseController.DeactivatePauseProtocol();
-  //      // 位置固定を解除する
-  //      m_insp_Master.GetComponent<CharacterControl_Base>().UnFreezePositionAll();
-  //      // 消していたインターフェースを復活させる
-  //      // CharacterControl_Base依存
-  //      m_insp_Master.GetComponent<CharacterControl_Base>().m_DrawInterface = true;
-  //      // Player_Camera_Controller依存
-  //      var master = m_insp_Master.GetComponent<CharacterControl_Base>();
-  //      master.MainCamera.GetComponent<Player_Camera_Controller>().m_DrawInterface = true;
-  //      master.Timestopmode = CharacterControl_Base.TimeStopMode.NORMAL;
-  //      // カメラを切っておく
-  //      Camera camera = GetComponentInChildren<Camera>();
-  //      camera.enabled = false;
-  //      // カットイン画像消去
-		//m_CutinSystem.EraseCutin(m_CutinName);
-  //      // カメラの位置を戻しておく
-  //      transform.localPosition = new Vector3(-0.976237f, 1.120372f, 4.067078f);
-    }
+	/// <summary>
+	/// カットイン終了後の処理
+	/// </summary>
+	public void CutinEnd()
+    {
+		// 時間を再度動かす
+		Pausemanager.GetComponent<PauseManager>().ArousalPauseController.ProcessButtonPress();
+        // 位置固定を解除する
+        m_insp_Master.GetComponent<CharacterControlBase>().UnFreezePositionAll();
+		// 消していたインターフェースを復活させる
+		Battleinterfacecontroller.DrawInterface();
+		m_insp_Master.GetComponent<CharacterControlBase>().Timestopmode = CharacterControlBase.TimeStopMode.NORMAL;
+		// カメラを切っておく
+		Camera camera = GetComponentInChildren<Camera>();
+		camera.enabled = false;
+		// カットイン画像消去
+		m_CutinSystem.EraseCutin(m_CutinName);
+		// カメラの位置を戻しておく
+		transform.localPosition = new Vector3(-0.976237f, 1.120372f, 4.067078f);
+		// 覚醒発動キャラの全武装をリロードする
+		switch (m_insp_Master.GetComponent<CharacterControlBase>().CharacterName)
+		{
+			// 弓ほむら
+			case Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B:
+				m_insp_Master.GetComponent<HomuraBowControl>().FullReload();
+				break;
+		}
+	}
+
 }

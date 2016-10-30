@@ -2816,7 +2816,7 @@ public class CharacterControlBase : MonoBehaviour
 		ReloadSystem = new Reload();
 
 		// ポーズコントローラー取得
-		Pausecontroller = GameObject.Find("Pause Controller");
+		Pausecontroller = GameObject.Find("PauseManager");
 
 		// 足音取得(StageSettingで決めているので、その値を拾う
 		GameObject stagesetting = GameObject.Find("StageSetting");
@@ -2854,16 +2854,17 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="isSpindown">錐揉みダウン状態</param>
     /// <param name="animator">このオブジェクトのアニメーター</param>
-    /// <param name="downhash">ダウン時のハッシュID</param>
-    /// <param name="airdashhash">空中ダッシュ時のハッシュID</param>
-    /// <param name="airshothash">空中射撃時のハッシュID</param>
-    /// <param name="fallhash">落下時のハッシュID</param>
-    /// <param name="jumpinghash">上昇中のハッシュID</param>
-    /// <param name="blowhash">吹き飛び時のハッシュID</param>
-    /// <param name="idlehash">アイドル時のハッシュID</param>
-    /// <param name="runhash">走行時のハッシュID</param>
+    /// <param name="downid">ダウン時のID</param>
+    /// <param name="airdashid">空中ダッシュ時のID</param>
+    /// <param name="airshotid">空中射撃時のID</param>
+    /// <param name="fallid">落下時のID</param>
+    /// <param name="jumpingid">上昇中のID</param>
+    /// <param name="blowid">吹き飛び時のID</param>
+    /// <param name="idleid">アイドル時のID</param>
+    /// <param name="runid">走行時のID</param>
+	/// <param name="damageid">ダメージのID</param>
     /// <returns></returns>
-    protected bool Update_Core(bool isSpindown, Animator animator, int downhash,int airdashhash,int airshothash,int jumpinghash, int fallhash,int idlehash,int blowhash,int runhash,int frontstephash,int leftstephash,int rightstephash,int backstephash)
+    protected bool Update_Core(bool isSpindown, Animator animator, int downid,int airdashid,int airshotid,int jumpingid, int fallid,int idleid,int blowid,int runid,int frontstepid,int leftstepid,int rightstepid,int backstepid,int damageid)
     {
         // 接地判定
         IsGrounded = onGround2(isSpindown);
@@ -3089,12 +3090,6 @@ public class CharacterControlBase : MonoBehaviour
             }
         }
 
-
-
-        
-
-
-
         // 時間停止中にやってほしくない処理はここ以降に記述すること
 
         // チャージショット関連の入力を取得(時間停止中に減衰されると困るので、ここで管理。また、通常の射撃や格闘より優先度は高くする
@@ -3138,7 +3133,7 @@ public class CharacterControlBase : MonoBehaviour
             else
             {
                 float OR_GemCont = savingparameter.GetGemContimination(character);                
-                arousalStart();
+                arousalStart(damageid, blowid);
             }
         }
         // 覚醒中は覚醒技を発動
@@ -3170,7 +3165,7 @@ public class CharacterControlBase : MonoBehaviour
 
 
         //m_nowDownRatioが0を超えていて、Damage_Initではなく（ダウン値加算前にリセットされる）m_DownRebirthTimeが規定時間を経過し、かつダウン値が閾値より小さければダウン値をリセットする
-        if (NowDownRatio > 0 && animator.GetCurrentAnimatorStateInfo(0).fullPathHash != downhash)
+        if (NowDownRatio > 0 && animator.GetCurrentAnimatorStateInfo(0).fullPathHash != downid)
         {
             if ((Time.time > DownRebirthTime + DownRebirthWaitTime) && (this.NowDownRatio < this.DownRatioBias))
             {
@@ -3185,7 +3180,7 @@ public class CharacterControlBase : MonoBehaviour
         // 走行速度を変更する、アニメーションステートが Run だった場合 RunSpeed を使う。
         var MoveSpeed = RunSpeed;
         // 空中ダッシュ時/空中ダッシュ射撃時
-        if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == airdashhash || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == airshothash)
+        if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == airdashid || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == airshotid)
         {
             // rigidbodyにくっついている慣性が邪魔なので消す（勝手に落下開始する）
             GetComponent<Rigidbody>().velocity = Vector3.zero;
@@ -3193,13 +3188,13 @@ public class CharacterControlBase : MonoBehaviour
             MoveSpeed = AirDashSpeed;
         }
         // 空中慣性移動時
-        else if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == jumpinghash || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == fallhash)
+        else if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == jumpingid || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == fallid)
         {
             MoveSpeed = AirMoveSpeed;
         }
         // ステップ時(重力補正カット)
-        else if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == frontstephash || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == leftstephash ||
-		animator.GetCurrentAnimatorStateInfo(0).fullPathHash == rightstephash || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == backstephash)
+        else if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == frontstepid || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == leftstepid ||
+		animator.GetCurrentAnimatorStateInfo(0).fullPathHash == rightstepid || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == backstepid)
         {
             GetComponent<Rigidbody>().useGravity = false;  // 重力無効
             MoveSpeed = StepInitialVelocity;
@@ -3226,12 +3221,10 @@ public class CharacterControlBase : MonoBehaviour
         }
         if (RigidBody != null)
         {
-			Debug.Log(MoveDirection);
-			Debug.Log(MoveSpeed);
 			// 速度ベクトルを作る
             Vector3 velocity = MoveDirection * MoveSpeed;
             // 走行中/アイドル中/吹き飛び中/ダウン中
-            if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == runhash || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == idlehash || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == blowhash || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == downhash)
+            if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == runid || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == idleid || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == blowid || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == downid)
             {
                 velocity.y = MadokaDefine.FALLSPEED;      // ある程度下方向へのベクトルをかけておかないと、スロープ中に落ちる
             }
@@ -3250,6 +3243,7 @@ public class CharacterControlBase : MonoBehaviour
         // 時間停止を解除したら動き出す
         return true;
     }
+
 
     /// <summary>
     /// 継承先のLateUpdateで実行すること
@@ -3295,7 +3289,6 @@ public class CharacterControlBase : MonoBehaviour
             if (HasMenuInput)
             {
                 Timestopmode = TimeStopMode.NORMAL;
-                //Time.timeScale = 1;
             }
         }
     }
@@ -3707,56 +3700,51 @@ public class CharacterControlBase : MonoBehaviour
     /// <summary>
     /// 覚醒開始処理
     /// </summary>
-    private void arousalStart()
+    protected virtual void arousalStart(int damageid, int blowid)
     {
         if (Pausecontroller == null)
         {
             return;
         }
-        // TODO:ポーズコントローラーのインスタンスを取得
-        //var pausecontroller2 = Pausecontroller.GetComponent<PauseControllerInputDetector>();
-        //// 時間を止める
-        //pausecontroller2.pauseController.ActivatePauseProtocol();
-        //// 覚醒前処理
-        //ArousalInitialize();
-        //// カットインカメラ有効化
-        //// ArousalCameraを有効化
-        //ArousalCamera.enabled = true;
-        //// ポーズ実行
-        //FreezePositionAll();
-        //// カットインイベントを有効化
-        //Arousal_Camera_Controller CutinEvent = ArousalCamera.GetComponentInChildren<Arousal_Camera_Controller>();
-        //// カットインイベント発動
-        //CutinEvent.UseAsousalCutinCamera();
-        //// 時間停止
-        //TimeStopMaster = true;
-        //Timestopmode = TimeStopMode.AROUSAL;
-    }
+        // ポーズコントローラーのインスタンスを取得
+        PauseControllerInputDetector pausecontroller2 = Pausecontroller.GetComponent<PauseManager>().ArousalPauseController;
+        // 覚醒関係以外の時間を止める
+        pausecontroller2.ProcessButtonPress();
+		// 覚醒前処理
+		ArousalInitialize(damageid, blowid);
+		// カットインカメラ有効化
+		// ArousalCameraを有効化
+		ArousalCamera.enabled = true;
+		// ポーズ実行
+		FreezePositionAll();
+		// カットインイベントを有効化
+		Arousal_Camera_Controller CutinEvent = ArousalCamera.GetComponentInChildren<Arousal_Camera_Controller>();
+		// カットインイベント発動
+		CutinEvent.UseAsousalCutinCamera();
+		// 時間停止
+		TimeStopMaster = true;
+		Timestopmode = TimeStopMode.AROUSAL;
+	}
 
-    // 覚醒開始時の共通処理(残弾の回復はキャラごとに覚醒でも回復禁止のものがあるのでこの関数のオーバーライドで行うこと）
-    protected virtual void ArousalInitialize()
-    {
-        // TODO:ダメージ中はreversalに変更する
-        
+    // 覚醒開始時の共通処理
+    protected virtual void ArousalInitialize(int damageid, int blowid)
+    {            
         // ブースト全回復
         Boost = GetMaxBoost(BoostLevel);
         // 覚醒モード移行
         IsArousal = true;
         // エフェクト出現（エフェクトはCharacerControl_Baseのpublicに入れておく）
         ArousalEffect.SetActive(true);
-        // エフェクトと本体の動きを同期させる
-        ArousalEffect.GetComponent<Rigidbody>().isKinematic = true;
-        ArousalEffect.transform.position = this.transform.position;
-        ArousalEffect.transform.parent = transform;
-
-        // 全ゲージ消去
-        // CharacterControl_Base依存
-        // TODO:インターフェースを消す
-
-        // Player_Camera_Controler依存
-        var camerastate = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
-        camerastate.m_DrawInterface = false;
-    }
+      
+		// ダメージ時はリバーサルにする
+		if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == damageid || AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == blowid)
+		{
+			AnimatorUnit.SetTrigger("Reversal");
+		}
+		// インターフェースを一時的に消す
+		BattleInterfaceController battleinterface = GameObject.Find("BattleInterfaceCanvas").GetComponent<BattleInterfaceController>();
+		battleinterface.UnDrawInterface();
+	}
 
     /// <summary>
     /// 格闘開始（一応派生は認めておく。専用のはそっちで利用）

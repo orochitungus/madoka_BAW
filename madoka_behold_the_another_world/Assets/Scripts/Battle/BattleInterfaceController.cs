@@ -138,6 +138,41 @@ public class BattleInterfaceController : MonoBehaviour
     /// </summary>
     private GameObject Pausecontroller;
 
+	/// <summary>
+	/// HP表示部ルート
+	/// </summary>
+	public GameObject HPBG;
+
+	/// <summary>
+	/// 名前表示部ルート
+	/// </summary>
+	public GameObject NameBG;
+		
+	/// <summary>
+	/// 覚醒ゲージ表示部ルート
+	/// </summary>
+	public GameObject Arousal;
+
+	/// <summary>
+	/// ブーストゲージ表示部ルート
+	/// </summary>
+	public GameObject Boost;
+
+	/// <summary>
+	/// インフォメーション表示部ルート
+	/// </summary>
+	public GameObject Information;
+
+	/// <summary>
+	/// アイテム表示部ルート
+	/// </summary>
+	public GameObject Item;
+
+	/// <summary>
+	/// レベル表示部ルート
+	/// </summary>
+	public GameObject LevelBG;
+
     // Use this for initialization
     void Start ()
     {
@@ -145,7 +180,7 @@ public class BattleInterfaceController : MonoBehaviour
         PauseBG.gameObject.SetActive(false);
 
         // ポーズコントローラー取得
-        Pausecontroller = GameObject.Find("Pause Controller");
+        Pausecontroller = GameObject.Find("PauseManager");
 
         this.UpdateAsObservable().Subscribe(_ => 
         {
@@ -192,9 +227,9 @@ public class BattleInterfaceController : MonoBehaviour
             {
                 if (ControllerManager.Instance.Menu)
                 {
-                    // ポーズをかける
-                    // PauseControllerを取得
-                    PauseControllerInputDetector pcid = Pausecontroller.GetComponent<PauseControllerInputDetector>();
+					// ポーズをかける
+					// PauseControllerを取得
+					PauseControllerInputDetector pcid = Pausecontroller.GetComponent<PauseManager>().GamePauseController;
                     // ポーズ画面をアクティブにする
                     BattleInterfaceController bifc = GameObject.Find("BattleInterfaceCanvas").GetComponent<BattleInterfaceController>();
                     bifc.PauseBG.gameObject.SetActive(true);
@@ -208,9 +243,9 @@ public class BattleInterfaceController : MonoBehaviour
 				if (ControllerManager.Instance.Menu)
 				{
                     // PauseControllerを取得
-                    PauseControllerInputDetector pcid = Pausecontroller.GetComponent<PauseControllerInputDetector>();
-                    // 時間を動かす
-                    pcid.ProcessButtonPress();
+                    PauseControllerInputDetector pcid = Pausecontroller.GetComponent<PauseManager>().GamePauseController;
+					// 時間を動かす
+					pcid.ProcessButtonPress();
                     // ポーズ画面をディアクティブにする
                     // ポーズ画面をアクティブにする
                     BattleInterfaceController bifc = GameObject.Find("BattleInterfaceCanvas").GetComponent<BattleInterfaceController>();
@@ -226,11 +261,44 @@ public class BattleInterfaceController : MonoBehaviour
     {
 	
 	}
+
+	/// <summary>
+	/// インターフェースを描画しない
+	/// </summary>
+	public void UnDrawInterface()
+	{
+		for (int i = 0; i<Playerbg.Length; i++)
+		{
+			Playerbg[i].gameObject.SetActive(false);
+		}
+		HPBG.SetActive(false);
+		NameBG.SetActive(false);
+		Arousal.SetActive(false);
+		Boost.SetActive(false);
+		Information.SetActive(false);
+		Item.SetActive(false);
+		LevelBG.SetActive(false);
+	}
+
+	/// <summary>
+	/// インターフェースを描画する
+	/// </summary>
+	public void DrawInterface()
+	{
+		for (int i = 0; i<Playerbg.Length; i++)
+		{
+			if ((Character_Spec.CHARACTER_NAME)savingparameter.GetNowParty(i) != Character_Spec.CHARACTER_NAME.MEMBER_NONE)
+			{
+				Playerbg[i].gameObject.SetActive(true);
+			}
+		}
+		HPBG.SetActive(true);
+		NameBG.SetActive(true);
+		Arousal.SetActive(true);
+		Boost.SetActive(true);
+		Information.SetActive(true);
+		Item.SetActive(true);
+		LevelBG.SetActive(true);
+	}
 }
 
-public enum PauseMode
-{
-    NORMAL,     // 通常状態
-    PAUSEINPUT, // ポーズボタンが押された状態
-
-}

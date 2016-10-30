@@ -197,7 +197,7 @@ public class HomuraBowControl : CharacterControlBase
     public Sprite ExShotIcon;
 
     /// <summary>
-    /// 各種アニメのハッシュID.コメント内はAnimatorの管理用ID.武装系以外は全員共通にすること
+    /// 各種アニメのID.コメント内はAnimatorの管理用ID.武装系以外は全員共通にすること
     /// </summary>
     public int IdleID;                  // 0
     public int WalkID;                  // 1
@@ -534,7 +534,7 @@ public class HomuraBowControl : CharacterControlBase
 		{
 			isspindown = true;
 		}
-		if(Update_Core(isspindown, AnimatorUnit, DownID, AirDashID,AirShotID,JumpingID,FallID,IdleID,BlowID,RunID,FrontStepID,LeftStepID,RightStepID,BackStepID))
+		if(Update_Core(isspindown, AnimatorUnit, DownID, AirDashID,AirShotID,JumpingID,FallID,IdleID,BlowID,RunID,FrontStepID,LeftStepID,RightStepID,BackStepID,DamageID))
 		{
             UpdateAnimation();
             // リロード実行           
@@ -1737,4 +1737,29 @@ public class HomuraBowControl : CharacterControlBase
         animator.SetTrigger("BackEXWrestle");
         
     }
+
+	
+
+	/// <summary>
+	/// 弾丸全回復処理
+	/// </summary>
+	public void FullReload()
+	{		
+		// 弾丸を回復させる
+		for (int i = 0; i < Character_Spec.cs[(int)CharacterName].Length; i++)
+		{
+			// 使用の可否を初期化
+			WeaponUseAble[i] = true;
+			// 弾があるものは残弾数を初期化
+			if (Character_Spec.cs[(int)CharacterName][i].m_OriginalBulletNum > 0)
+			{
+				BulletNum[i] = Character_Spec.cs[(int)CharacterName][i].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][i].m_OriginalBulletNum;
+			}
+			// 硬直時間があるものは硬直時間を初期化
+			if (Character_Spec.cs[(int)CharacterName][i].m_WaitTime > 0)
+			{
+				BulletWaitTime[i] = Character_Spec.cs[(int)CharacterName][i].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][i].m_WaitTime;
+			}
+		}
+	}
 }
