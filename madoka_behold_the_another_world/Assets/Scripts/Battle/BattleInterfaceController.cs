@@ -187,7 +187,7 @@ public class BattleInterfaceController : MonoBehaviour
             // 覚醒ゲージ表示
             ArousalGauge.fillAmount = NowArousal / MaxArousal;
             // 閾値を超えていたらOKを表示
-            if(NowArousal > BiasArousal)
+            if(NowArousal >= BiasArousal)
             {
                 OK.gameObject.SetActive(true);
             }

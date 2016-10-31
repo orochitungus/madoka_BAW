@@ -459,7 +459,9 @@ public class HomuraBowControl : CharacterControlBase
             // 覚醒ゲージ量
             Battleinterfacecontroller.NowArousal = Arousal;
             // 最大覚醒ゲージ量
-            Battleinterfacecontroller.MaxArousal = ArousalLevel * ArousalGrowth;
+            Battleinterfacecontroller.MaxArousal = (ArousalLevel - 1) * ArousalGrowth + Arousal_OR;
+			// 基本覚醒ゲージ量
+			Battleinterfacecontroller.BiasArousal = Arousal_OR;
             // 装備アイテム
             Battleinterfacecontroller.ItemName.text = savingparameter.GetNowEquipItemString();
             // 装備アイテム個数

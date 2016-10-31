@@ -101,6 +101,8 @@ public class Arousal_Camera_Controller : MonoBehaviour
 		transform.localPosition = new Vector3(-0.976237f, 1.120372f, 4.067078f);
         // アニメーションを巻き戻す
         m_CutinCameraAnimation.Rewind();
+		// アニメーションを止める
+		m_CutinCameraAnimation.Stop();
 		// 覚醒発動キャラの全武装をリロードする
 		switch (m_insp_Master.GetComponent<CharacterControlBase>().CharacterName)
 		{
