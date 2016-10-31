@@ -24,8 +24,12 @@ public class Arousal_Camera_Controller : MonoBehaviour
 	/// </summary>
 	public BattleInterfaceController Battleinterfacecontroller;
 
+    /// <summary>
+    /// オーディオマネージャー
+    /// </summary>
+    public AudioManager Audiomanager;
+
 	private float cutinXposint;
-    public AudioClip m_insp_ArousalSE;
 
     void Awake()
     {
@@ -43,6 +47,8 @@ public class Arousal_Camera_Controller : MonoBehaviour
 		m_CutinSystem = GameObject.Find("CutinSystem").GetComponent<CutinSystem>();
 		// インターフェース取得
 		Battleinterfacecontroller = GameObject.Find("BattleInterfaceCanvas").GetComponent<BattleInterfaceController>();
+        // オーディオマネージャー取得
+        Audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
 	}
 	
 	// Update is called once per frame
@@ -61,7 +67,7 @@ public class Arousal_Camera_Controller : MonoBehaviour
         // カメラを規定位置に配置
         SetUpCutin();
         // SE再生
-        AudioSource.PlayClipAtPoint(m_insp_ArousalSE, transform.position);
+        Audiomanager.PlaySE("Arousal");
         // カットイン画像表示
 		m_CutinSystem.ShowCutin(m_CutinName);
         // カットインカメラ再生
@@ -93,6 +99,8 @@ public class Arousal_Camera_Controller : MonoBehaviour
 		m_CutinSystem.EraseCutin(m_CutinName);
 		// カメラの位置を戻しておく
 		transform.localPosition = new Vector3(-0.976237f, 1.120372f, 4.067078f);
+        // アニメーションを巻き戻す
+        m_CutinCameraAnimation.Rewind();
 		// 覚醒発動キャラの全武装をリロードする
 		switch (m_insp_Master.GetComponent<CharacterControlBase>().CharacterName)
 		{
