@@ -179,7 +179,17 @@ public class HomuraBowControl : CharacterControlBase
     /// <summary>
     /// 覚醒技の羽根のフック
     /// </summary>
-    private GameObject WingHock;
+    public GameObject WingHock;
+
+	/// <summary>
+	/// 覚醒技の羽根エフェクト
+	/// </summary>
+	public GameObject WingEffect;
+
+	/// <summary>
+	/// 覚醒技の攻撃判定
+	/// </summary>
+	public GameObject WingAttecker;
 
     /// <summary>
     /// 通常射撃のアイコン
@@ -731,7 +741,7 @@ public class HomuraBowControl : CharacterControlBase
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == ArousalAttackID)
 		{
-
+			
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == DamageID)
 		{
