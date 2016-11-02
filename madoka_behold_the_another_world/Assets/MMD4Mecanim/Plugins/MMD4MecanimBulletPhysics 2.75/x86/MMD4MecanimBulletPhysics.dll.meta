@@ -52,7 +52,7 @@ PluginImporter:
     Win:
       enabled: 1
       settings:
-        CPU: AnyCPU
+        CPU: x86
     Win64:
       enabled: 0
       settings:

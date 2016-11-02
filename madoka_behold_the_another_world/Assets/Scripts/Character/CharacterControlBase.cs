@@ -4867,12 +4867,11 @@ public class CharacterControlBase : MonoBehaviour
     /// <summary>
     /// Walk時共通動作
     /// </summary>
-    protected virtual void Animation_Walk(Animator animator, int walkhashID)
+    protected virtual void Animation_Walk(Animator animator)
     {
         RigidBody.constraints = RigidbodyConstraints.FreezeRotation;
         // ずれた本体角度を戻す(Yはそのまま）
         transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0));
-        animator.SetTrigger("Walk");
     }
 
     /// <summary>

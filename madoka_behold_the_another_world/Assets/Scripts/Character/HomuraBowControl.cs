@@ -577,7 +577,7 @@ public class HomuraBowControl : CharacterControlBase
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == WalkID)
 		{
-
+			Animation_Walk(AnimatorUnit);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == JumpID)
 		{
@@ -974,8 +974,12 @@ public class HomuraBowControl : CharacterControlBase
 		base.Animation_Idle(animator, downID, runID, stepanimations, fallID, jumpID, airdashID);
         // くっついている弾丸系のエフェクトを消す
         DestroyArrow();
-        // 羽フックを壊す
-        Destroy(WingHock);
+		// 羽フックを壊す
+		GameObject wh = gameObject.transform.FindChild("WINGHOCK").gameObject;
+		if (wh != null)
+		{
+			Destroy(wh);
+		}
         // 格闘の累積時間を初期化
         Wrestletime = 0;
         // 地上にいるか？(落下開始時は一応禁止）
@@ -1774,4 +1778,89 @@ public class HomuraBowControl : CharacterControlBase
 			}
 		}
 	}
+
+	/// <summary>
+	/// 覚醒技中のステート定義
+	/// </summary>
+	private enum ArousalAttackState
+	{
+		INITIALIZE,     // モーションを歩行へ変更&重力無効化＆羽フックとりつけ
+		FEATHERSET,     // 移動しつつエフェクトと判定を順番に取り付け
+		ATTACK,         // （ロックオンしている相手に向けて）飛行
+		END             // 覚醒ゲージが空になると、Armorを戻してfallへ移行
+	};
+
+	/// <summary>
+	/// 覚醒技中のステート
+	/// </summary>
+	private ArousalAttackState Arousalattackstate;
+
+	/// <summary>
+	/// 覚醒技発動処理
+	/// </summary>
+	/// <param name="animator"></param>
+	protected override void Animation_Walk(Animator animator)
+	{
+		base.Animation_Walk(animator);
+		switch (Arousalattackstate)
+		{
+			case ArousalAttackState.INITIALIZE: // モーションを歩行に変更&重力を無効化する&本体に羽根フックを取り付ける
+				// 重力無効
+				RigidBody.useGravity = false;
+				// 羽フック取り付け
+				// フック取り付け位置
+				Vector3 hockpos = new Vector3(transform.position.x, transform.position.y + 1.0f, transform.position.z - 0.3f);
+				GameObject hock = (GameObject)Instantiate(WingHock, hockpos, Quaternion.identity);
+				hock.transform.parent = transform;
+				hock.name = "WINGHOCK";
+				Arousalattackstate = ArousalAttackState.FEATHERSET;
+				// 変数を初期化する
+				_WingAppearCounter = 0;
+				_WingboneCounter = 1;
+				_LeftwingSet = false;
+				ArousalAttackTime = 0;
+				// 専用カメラをONにする
+				ArousalAttackCamera1.enabled = true;
+				// 覚醒技演出フラグをONにする
+				ArousalAttackProduction = true;
+				break;
+			case ArousalAttackState.FEATHERSET: // 羽根フックに一定周期でエフェクトと攻撃判定を取り付けかつ前進させる
+				// 前方向に向けて歩き出す
+				// ロックオン時は強制的に相手の方向を向く
+				if (IsRockon)
+				{
+					// 敵（ロックオン対象）の座標を取得
+					var targetspec = GetComponentInChildren<Player_Camera_Controller>();
+					Vector3 targetpos = targetspec.Enemy.transform.position;
+					targetpos = new Vector3(targetpos.x, 0, targetpos.z);
+					// 自分の座標を取得
+					Vector3 myPos = this.transform.position;
+					myPos = new Vector3(myPos.x, 0, myPos.z);
+					transform.rotation = Quaternion.LookRotation(targetpos - myPos);
+				}
+				MoveDirection = transform.rotation * Vector3.forward;
+				RigidBody.position = GetComponent<Rigidbody>().position + MoveDirection * WalkSpeed * Time.deltaTime;
+				// エフェクト/判定取り付け開始(どのフックに取り付けるか）
+				// 一応左→右の順で取り付けていく
+				// フックの名前(左）
+				
+				break;			
+		}
+	}
+
+	/// <summary>
+	/// 覚醒技処理
+	/// </summary>
+	protected override void ArousalAttack()
+	{
+		base.ArousalAttack();
+		switch (Arousalattackstate)
+		{			
+			case ArousalAttackState.ATTACK: // （ロックオンしている相手に向けて）飛行開始
+				break;
+			case ArousalAttackState.END:    // 覚醒ゲージが空になったので、Armorを戻してfallへ移行
+				break;
+		}
+	}
+
 }
