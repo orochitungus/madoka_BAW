@@ -109,7 +109,7 @@ public class HomuraBowControl : CharacterControlBase
 	/// <summary>
 	/// 覚醒技基礎攻撃力
 	/// </summary>
-	private const int _BasisOffensive = 270;
+	private const int _BasisOffensive = 370;
 
 	/// <summary>
 	/// 覚醒技攻撃力成長係数
@@ -1843,8 +1843,70 @@ public class HomuraBowControl : CharacterControlBase
 				// エフェクト/判定取り付け開始(どのフックに取り付けるか）
 				// 一応左→右の順で取り付けていく
 				// フックの名前(左）
-				
+				string hockname_L = "WINGHOCK/wing_bornl" + _WingboneCounter.ToString();
+				// フックの名前(右)
+				string hockname_R = "WINGHOCK/wing_bornr" + _WingboneCounter.ToString();
+				// m_wingappearTime経過して、左の羽根をつけていないなら左の羽根と判定をつける
+				if (_WingAppearCounter > _WingappearTime && !_LeftwingSet)
+				{
+					_LeftwingSet = true;
+					SetWing(hockname_L);
+				}
+				// さらにm_wingapperTime経過したら右の羽根と判定をつけてリセット
+				else if (_WingAppearCounter > _WingappearTime * 2)
+				{
+					SetWing(hockname_R);
+					_WingAppearCounter = 0;
+					_LeftwingSet = false;
+					_WingboneCounter++;
+					// 半分出したらカメラを横に
+					if (_WingboneCounter > 9)
+					{
+						ArousalAttackCamera1.enabled = false;
+						ArousalAttackCamera2.enabled = true;
+					}
+					// 全部出したらカメラを戻して飛行ポーズにして次へ行く
+					if (_WingboneCounter > _MaxboneNum)
+					{
+						ArousalAttackCamera2.enabled = false;
+						AnimatorUnit.SetTrigger("ArousalAttack");
+						Arousalattackstate = ArousalAttackState.ATTACK;
+						// 演出フラグを折る
+						ArousalAttackProduction = false;
+					}
+				}
+				_WingAppearCounter += Time.deltaTime;
 				break;			
+		}
+	}
+
+	// 羽根エフェクトと攻撃判定を取り付ける
+	// hockname [in]:設置位置のフックの名前
+	private void SetWing(string hockname)
+	{
+		// 親取得
+		GameObject parenthock = transform.FindChild(hockname).gameObject;
+		// エフェクト設置
+		GameObject wing = (GameObject)Instantiate(WingEffect, parenthock.transform.position, transform.rotation);
+		wing.transform.parent = parenthock.transform;
+		// 判定設置
+		GameObject decision = (GameObject)Instantiate(WingAttecker, parenthock.transform.position, transform.rotation);
+		decision.transform.parent = parenthock.transform;
+		// 判定に攻撃力を設定する
+		int offensive = _GrowthcOffecientStr * (Level - 1) + _BasisOffensive;
+		var decision_instance = decision.GetComponentInChildren<Bazooka_ShockWave>();
+		decision_instance.SetDamage(offensive);
+		decision_instance.SetCharacter((int)Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B);
+		// 判定に吹き飛び判定を設定する
+		decision_instance.SetDownratio(_DownratioArousal);
+		// 判定に自分が敵か味方かを教える
+		if (IsPlayer == CHARACTERCODE.PLAYER || IsPlayer == CHARACTERCODE.PLAYER_ALLY)
+		{
+			decision_instance.m_IsPlayer = true;
+		}
+		else
+		{
+			decision_instance.m_IsPlayer = false;
 		}
 	}
 
