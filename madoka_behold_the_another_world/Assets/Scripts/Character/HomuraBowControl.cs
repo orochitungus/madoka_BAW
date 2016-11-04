@@ -741,7 +741,7 @@ public class HomuraBowControl : CharacterControlBase
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == ArousalAttackID)
 		{
-			
+			ArousalAttack();
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == DamageID)
 		{
@@ -1919,8 +1919,24 @@ public class HomuraBowControl : CharacterControlBase
 		switch (Arousalattackstate)
 		{			
 			case ArousalAttackState.ATTACK: // （ロックオンしている相手に向けて）飛行開始
+				// 前方向に向けて飛行開始
+				RigidBody.position = RigidBody.position + MoveDirection * AirDashSpeed * Time.deltaTime;
+				ArousalAttackTime += Time.deltaTime;
+				// 飛行時間を終えたらENDへ移行
+				if (ArousalAttackTime > ArousalAttackTotal)
+				{
+					GameObject wh = gameObject.transform.FindChild("WINGHOCK").gameObject;
+					if (wh != null)
+					{
+						Destroy(wh);
+						Arousalattackstate = ArousalAttackState.END;
+					}
+				}
 				break;
-			case ArousalAttackState.END:    // 覚醒ゲージが空になったので、Armorを戻してfallへ移行
+			case ArousalAttackState.END:    // 覚醒ゲージが空になったので、Armorを戻してIdleへ移行
+				// アーマーフラグ解除
+				IsArmor = false;
+				AnimatorUnit.SetTrigger("Idle");
 				break;
 		}
 	}
