@@ -970,9 +970,9 @@ public class CharacterControlBase : MonoBehaviour
                 }
             }
         }
-        // 1つでもヒットしたら接地とする
-        if (hitcount > 0)
-        {
+        // 1つでもヒットしたら接地とする.但しブーストダッシュの離陸時は例外
+        if (hitcount > 0 && !ControllerManager.Instance.BoostDash)
+        {                            
             return true;
         }
 
@@ -3136,15 +3136,6 @@ public class CharacterControlBase : MonoBehaviour
                 arousalStart(damageid, blowid);
             }
         }
-        // 覚醒中は覚醒技を発動
-        else if (HasArousalAttackInput && IsArousal)
-        {
-            // アーマーをONにする
-            IsArmor = true;
-            
-            // 覚醒前処理を未実行に変更
-            InitializeArousal = false;
-        }
 
         // 覚醒時、覚醒ゲージ減少
         if (IsArousal)
@@ -4797,7 +4788,7 @@ public class CharacterControlBase : MonoBehaviour
                 animator.SetTrigger("Run");
             }
             // ジャンプでジャンプへ移行(GetButtonDownで押しっぱなしにはならない。GetButtonで押しっぱなしに対応）
-            if (this.HasJumpInput && Boost > 0)
+            if (HasJumpInput && Boost > 0)
             {
                 // 上昇制御をAddForceにするとやりにくい（特に慣性ジャンプ）
                 JumpDone(animator);
@@ -4877,13 +4868,22 @@ public class CharacterControlBase : MonoBehaviour
     /// <summary>
     /// Jump時共通動作
     /// </summary>    
-    protected virtual void Animation_Jump(Animator animator, int jumphashid)
+    protected virtual void Animation_Jump(Animator animator, int jumphashid, int airdashID)
     {
-        this.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-        // ずれた本体角度を戻す(Yはそのまま）
-        this.transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0));        
-        // ジャンプしたので硬直を設定する
-        this.JumpTime = Time.time;
+        if (HasDashCancelInput)
+        {
+            transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            JumpTime = 0;
+            CancelDashDone(animator, airdashID);
+        }
+        else
+        {
+            transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+            // ずれた本体角度を戻す(Yはそのまま）
+            transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0));
+            // ジャンプしたので硬直を設定する
+            JumpTime = Time.time;
+        }
     }
 
     // Jumping時共通動作
@@ -5140,7 +5140,7 @@ public class CharacterControlBase : MonoBehaviour
 				return;
 			}
 			// ジャンプボタンで再ジャンプ
-			else if (this.HasJumpInput)
+			else if (HasJumpInput)
 			{
 				JumpDone(animator);
 				return;

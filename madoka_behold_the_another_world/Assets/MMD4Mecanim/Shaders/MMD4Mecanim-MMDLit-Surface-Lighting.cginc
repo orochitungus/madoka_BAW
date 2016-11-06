@@ -1,6 +1,9 @@
-// - Don't upload model data, motion data, this code in github or public space without permission.
-// - Don't modify this code without permission.
+// Not for redistribution without the author's express written permission
+#ifndef MMDLIT_SURFACE_LIGHTING_INCLUDED
+#define MMDLIT_SURFACE_LIGHTING_INCLUDED
 //#include "MMD4Mecanim-MMDLit-Lighting.cginc"
+
+#include "MMD4Mecanim-MMDLit-Surface-Tessellation.cginc"
 
 #ifndef MMD4MECANIM_STANDARD
 half4 _Color;
@@ -18,6 +21,8 @@ sampler2D _ToonTex;
 
 half _AddLightToonCen;
 half _AddLightToonMin;
+
+half4 _ToonTone;
 
 half4 _Emissive;
 
@@ -88,7 +93,12 @@ inline half4 MMDLit_GetAlbedo(float2 uv_MainTex)
 
 inline half MMDLit_GetToolRefl(half NdotL)
 {
-	return NdotL * 0.5 + 0.5;
+	return NdotL * _ToonTone.y + _ToonTone.z; // Necesally saturate.
+}
+
+inline half MMDLit_GetShadowAttenToToon(half shadowAtten)
+{
+	return ((shadowAtten - 0.5) * _ToonTone.x) + _ToonTone.z; // Necesally saturate.
 }
 
 inline half MMDLit_GetToonShadow(half toonRefl)
@@ -106,11 +116,8 @@ inline half MMDLit_GetForwardAddStr(half toonRefl)
 // for ForwardBase
 inline half3 MMDLit_GetRamp(half NdotL, half shadowAtten)
 {
-#if 0 // Legacy: In somecase, there are atrifacts at light / shadow align. (Like as juggy)
-	half refl = MMDLit_GetToolRefl(NdotL) * shadowAtten;
-#else // Fixed: Prevent artifacts.
-	half refl = min(MMDLit_GetToolRefl(NdotL), shadowAtten);
-#endif
+	half refl = saturate(min(MMDLit_GetToolRefl(NdotL), MMDLit_GetShadowAttenToToon(shadowAtten)));
+
 	half toonRefl = refl;
 
 	#ifdef SELFSHADOW_ON
@@ -131,7 +138,7 @@ inline half3 MMDLit_GetRamp(half NdotL, half shadowAtten)
 // for ForwardAdd
 inline half3 MMDLit_GetRamp_Add(half toonRefl, half toonShadow)
 {
-	half refl = toonRefl;
+	half refl = saturate(toonRefl);
 	
 	#ifdef SELFSHADOW_ON
 	refl = 0;
@@ -213,3 +220,5 @@ inline half MMDLit_MulAtten(half atten, half shadowAtten)
 {
 	return atten * shadowAtten;
 }
+
+#endif // MMDLIT_SURFACE_LIGHTING_INCLUDED

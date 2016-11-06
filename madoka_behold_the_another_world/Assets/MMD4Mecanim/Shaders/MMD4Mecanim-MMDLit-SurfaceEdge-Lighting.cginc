@@ -1,5 +1,8 @@
-// - Don't upload model data, motion data, this code in github or public space without permission.
-// - Don't modify this code without permission.
+// Not for redistribution without the author's express written permission
+#ifndef MMDLIT_SURFACEEDGE_LIGHTING_INCLUDED
+#define MMDLIT_SURFACEEDGE_LIGHTING_INCLUDED
+
+#include "MMD4Mecanim-MMDLit-Surface-Tessellation.cginc"
 
 half _AmbientToDiffuse;
 half4 _EdgeColor;
@@ -58,3 +61,5 @@ inline half3 MMDLit_Lighting(half3 albedo, half atten, half3 globalAmbient)
 	color *= albedo;
 	return color;
 }
+
+#endif // MMDLIT_SURFACEEDGE_LIGHTING_INCLUDED

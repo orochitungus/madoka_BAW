@@ -1,5 +1,4 @@
-// - Don't upload model data, motion data, this code in github or public space without permission.
-// - Don't modify this code without permission.
+// Not for redistribution without the author's express written permission
 Shader "MMD4Mecanim/MMDLit-Transparent"
 {
 	Properties
@@ -23,6 +22,14 @@ Shader "MMD4Mecanim/MMDLit-Transparent"
 
 		_AddLightToonCen("AddLightToonCen", Float) = -0.1
 		_AddLightToonMin("AddLightToonMin", Float) = 0.5
+
+		_ToonTone("ToonTone", Vector) = (1.0, 0.5, 0.5, 0.0) // ToonTone, ToonTone / 2, ToonToneAdd, Unused
+
+		_NoShadowCasting("__NoShadowCasting", Float) = 0.0
+
+		_TessEdgeLength("Tess Edge length", Range(2,50)) = 5
+		_TessPhongStrength("Tess Phong Strengh", Range(0,1)) = 0.5
+		_TessExtrusionAmount("TessExtrusionAmount", Float) = 0.0
 
 		_Revision("Revision",Float) = -1.0 // Memo: Shader setting trigger.(Reset to 0<=)
 	}

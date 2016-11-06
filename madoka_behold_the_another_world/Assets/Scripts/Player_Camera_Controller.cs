@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using UniRx;
+using UniRx.Triggers;
 
 public class Player_Camera_Controller : MonoBehaviour 
 {
@@ -56,32 +58,46 @@ public class Player_Camera_Controller : MonoBehaviour
     // ルーチンを拾う
     AIControl.CPUMODE m_cpumode;
     // 入力を拾う
-    AIControl.KEY_OUTPUT m_key; 
+    AIControl.KEY_OUTPUT m_key;
+
+    public MainCameraMode Maincameramode;
 
     void Awake()
     {
         Application.targetFrameRate = 60;
+        Maincameramode = MainCameraMode.NORMAL;
     }
 
 	// Use this for initialization
 	void Start () 
-    { 
+    {
         // フィールド変数を初期化する
-        this.Distance = 20.0f;
-        this.SensitivityX = 50.0f;
-        this.SensitivityY = 50.0f;
-        this.RotX = 0.0f;
-        this.RotY = 0.0f;
-        this.height = 4.0f;
-        this.gaze_offset = 5.5f;
-        this.rockon_height = 0.0f;
+        this.UpdateAsObservable().Subscribe(_ =>
+        {
+            if (Maincameramode == MainCameraMode.HOMURABOWAROUSAL)
+            {
+                Distance = 40.0f;
+            }
+            else
+            {
+                Distance = 20.0f;
+            }
+        });
+        Distance = 20.0f;
+        SensitivityX = 50.0f;
+        SensitivityY = 50.0f;
+        RotX = 0.0f;
+        RotY = 0.0f;
+        height = 4.0f;
+        gaze_offset = 5.5f;
+        rockon_height = 0.0f;
         // ロックオンの有無
         IsRockOn = false;
 		// 覚醒技演出中の有無
 		IsArousalAttack = false;
-        this.m_isRockonRange = false;
-        this.m_enemy_offset_height = 0.0f;
-        this.Distance_mine = 18.0f;
+        m_isRockonRange = false;
+        m_enemy_offset_height = 0.0f;
+        Distance_mine = 18.0f;
 
         //Application.targetFrameRate = 60;
         var target = Player.GetComponentInChildren<CharacterControlBase>();    // 戦闘用キャラの場合
@@ -642,3 +658,13 @@ public class Player_Camera_Controller : MonoBehaviour
 
     }
 }
+
+/// <summary>
+/// カメラの特殊状態を定義
+/// </summary>
+public enum MainCameraMode
+{
+    NORMAL,                 // 通常
+    HOMURABOWAROUSAL,       // 弓ほむら覚醒突進
+}
+

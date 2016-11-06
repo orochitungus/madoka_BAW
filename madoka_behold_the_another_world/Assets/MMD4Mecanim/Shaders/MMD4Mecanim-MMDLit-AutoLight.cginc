@@ -1,5 +1,4 @@
-// - Don't upload model data, motion data, this code in github or public space without permission.
-// - Don't modify this code without permission.
+// Not for redistribution without the author's express written permission
 // UNITY_SHADER_NO_UPGRADE
 #include "AutoLight.cginc"
 

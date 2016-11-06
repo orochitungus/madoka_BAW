@@ -1,5 +1,4 @@
-// - Don't upload model data, motion data, this code in github or public space without permission.
-// - Don't modify this code without permission.
+// Not for redistribution without the author's express written permission
 #include "HLSLSupport.cginc"
 #include "UnityShaderVariables.cginc"
 #define UNITY_PASS_FORWARDBASE
@@ -44,3 +43,18 @@ fixed4 frag_surf (v2f_surf IN) : MMDLIT_SV_TARGET
 	c = MMDLit_Lighting(albedo, atten, IN.vlight);
 	return fixed4(c, alpha);
 }
+
+#ifdef TESSELLATION_ON
+#ifdef UNITY_CAN_COMPILE_TESSELLATION
+
+// tessellation domain shader
+[UNITY_domain("tri")]
+v2f_surf ds_surf(UnityTessellationFactors tessFactors, const OutputPatch<InternalTessInterp_appdata_full, 3> vi, float3 bary : SV_DomainLocation)
+{
+	appdata_full v = _ds_appdata_full(tessFactors, vi, bary);
+	v2f_surf o = vert_surf(v);
+	return o;
+}
+
+#endif // UNITY_CAN_COMPILE_TESSELLATION
+#endif // TESSELLATION_ON

@@ -292,6 +292,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
     /// </summary>
     private InputDirection[] _Inputdirections = new InputDirection[60];
 
+    private bool[] Jumpdirections = new bool[60];
 
     // Use this for initialization
     void Start () 
@@ -852,6 +853,9 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 			{
 				RightFrontStep = false;
 			}
+
+            // ブースト
+
 		});
 
 
@@ -1050,11 +1054,11 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 
         // BD
         var boostdashstream = this.UpdateAsObservable().Where(_ => Jump);
-        boostdashstream.Buffer(boostdashstream.Throttle(TimeSpan.FromMilliseconds(300))).Where(x => x.Count >= 2 && Jumping).Subscribe(_ => 
+        boostdashstream.Buffer(boostdashstream.Throttle(TimeSpan.FromMilliseconds(300))).Where(x => x.Count >= 2).Subscribe(_ => 
 		{
-			Debug.Log("BoostDashInput");	
-			BoostDash = true; 
-		});
+            Debug.Log("BoostDashInput");
+            BoostDash = true;
+        });
 		//      boostdashstream.Buffer(boostdashstream.Throttle(TimeSpan.FromMilliseconds(300))).Where(x => x.Count < 2 && !Jumping).Subscribe(_ =>
 		//{
 		//	BoostDash = false;
@@ -1062,6 +1066,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 		// BD入力解除はfall移行で折る
 		this.UpdateAsObservable().Where(_ => BoostDash && !Jumping).Subscribe(_ =>
 		{
+            Debug.Log("BoostDashCancelDone!");
 			BoostDash = false;
 		});
 
@@ -1080,8 +1085,44 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 	// Update is called once per frame
 	void Update () 
 	{
-	
-	}
+        //// ジャンプ入力履歴回し
+        //for (int i = 0; i < Jumpdirections.Length - 1; i++)
+        //{
+        //    Jumpdirections[i] = Jumpdirections[i + 1];
+        //}
+        //if (Jump)
+        //{
+        //    Jumpdirections[Jumpdirections.Length - 1] = true;
+        //}
+        //else
+        //{
+        //    Jumpdirections[Jumpdirections.Length - 1] = false;
+        //}
+        //// ブーストダッシュ入力スキャン
+        //for (int i = 0; i < Jumpdirections.Length - 1; i++)
+        //{
+        //    // ボタン押していた？
+        //    if (Jumpdirections[i])
+        //    {
+        //        // その次に押していない瞬間があった？
+        //        for (int j = i; j < Jumpdirections.Length - 1; j++)
+        //        {
+        //            if (!Jumpdirections[j])
+        //            {
+        //                // 更にその先に押している瞬間があった？
+        //                for (int k = j; k < Jumpdirections.Length - 1; k++)
+        //                {
+        //                    if (Jumpdirections[k])
+        //                    {
+        //                        Debug.Log("BoostDashInput");
+        //                        BoostDash = true;
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
+    }
 
 	// 射撃
 	string shotcode_keyboard;
@@ -1185,7 +1226,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 				Menu = true;
                 MenuKeyboard = true;
 				MenuUp = false;
-				StartCoroutine(MenuButtonStoper());
+				StartCoroutine(MenuButtonStopper());
 			}
 			// コマンド取得
 			if (k.GetValue(i).ToString() == command_keyboard)
@@ -1288,7 +1329,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 				Menu = true;
                 MenuController = true;
 				MenuUp = false;
-				StartCoroutine(MenuButtonStoper());
+				StartCoroutine(MenuButtonStopper());
 			}
 			// コマンド取得
 			if (k.GetValue(i).ToString() == command_controller)
@@ -1360,11 +1401,17 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 	/// フレーム終了時にメニューボタンのフラグを折る
 	/// </summary>
 	/// <returns></returns>
-	public IEnumerator MenuButtonStoper()
+	public IEnumerator MenuButtonStopper()
 	{
 		yield return new WaitForEndOfFrame();
 		Menu = false;
 	}
+
+    public IEnumerator JumpButtonStopper()
+    {
+        yield return new WaitForEndOfFrame();
+        Jump = false;
+    }
 
 	/// <summary>
 	/// 長押しを取得
