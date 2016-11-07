@@ -40,10 +40,56 @@ public class MajyuControl : MonoBehaviour
         NONE
     }
 
+	/// <summary>
+	/// 戦闘用インターフェース
+	/// </summary>
+	public BattleInterfaceController Battleinterfacecontroller;
 
+	public int IdleID;                  // 0
+	public int WalkID;                  // 1
+	public int JumpID;                  // 2
+	public int JumpingID;               // 3
+	public int FallID;                  // 4
+	public int LandingID;               // 5
+	public int RunID;                   // 6
+	public int AirDashID;               // 7
+	public int FrontStepID;             // 8
+	public int LeftStepID;              // 9
+	public int RightStepID;             // 10
+	public int BackStepID;              // 11
+	public int FrontStepBackID;         // 12
+	public int LeftStepBackID;          // 13
+	public int RightStepBackID;         // 14
+	public int BackStepBackID;          // 15
+	public int ShotID;                  // 16
+	public int RunShotID;               // 17
+	public int AirShotID;               // 18
+	public int FollowThrowShotID;       // 19
+	public int FollowThrowRunShotID;    // 20
+	public int FollowThrowAirShotID;    // 21
+	public int Wrestle1ID;              // 22
+	public int Wrestle2ID;              // 23
+	public int Wrestle3ID;              // 24
+	public int BackWrestleID;           // 25
+	public int AirDashWrestleID;        // 26
+	public int ReversalID;              // 27
+	public int DamageID;                // 28
+	public int DownID;                  // 29
+	public int BlowID;                  // 30
+	public int SpinDownID;              // 31
 
-    // Use this for initialization
-    void Start ()
+	void Awake()
+	{
+		// 戦闘用インターフェースを取得する
+		Battleinterfacecontroller = GameObject.Find("BattleInterfaceCanvas").GetComponent<BattleInterfaceController>();
+		if (Battleinterfacecontroller == null)
+		{
+			Debug.LogError("Caution!! BattleInterfaceCanvas is Nothing!!");
+		}
+	}
+
+	// Use this for initialization
+	void Start ()
     {
 	
 	}
