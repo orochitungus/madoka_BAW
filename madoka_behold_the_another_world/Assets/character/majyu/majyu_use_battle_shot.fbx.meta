@@ -1,0 +1,184 @@
+fileFormatVersion: 2
+guid: 0a7a608042710ef42a5a1bebab2e4fe2
+timeCreated: 1479138277
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: body
+    100002: brest
+    100004: const_foot_L_
+    100006: const_foot_R_
+    100008: const_reg_L_
+    100010: const_reg_R_
+    100012: foot_L_
+    100014: foot_R_
+    100016: front_arm_L_
+    100018: front_arm_R_
+    100020: hand_L_
+    100022: hand_R_
+    100024: handfinger011_L_
+    100026: handfinger011_R_
+    100028: handfinger012_L_
+    100030: handfinger012_R_
+    100032: handfinger021_L_
+    100034: handfinger021_R_
+    100036: handfinger022_L_
+    100038: handfinger022_R_
+    100040: handfinger023_L_
+    100042: handfinger023_R_
+    100044: handfinger031_L_
+    100046: handfinger031_R_
+    100048: handfinger032_L_
+    100050: handfinger032_R_
+    100052: handfinger033_L_
+    100054: handfinger033_R_
+    100056: handfinger041_L_
+    100058: handfinger041_R_
+    100060: handfinger042_L_
+    100062: handfinger042_R_
+    100064: handfinger043_L_
+    100066: handfinger043_R_
+    100068: handfinger051_L_
+    100070: handfinger051_R_
+    100072: handfinger052_L_
+    100074: handfinger052_R_
+    100076: handfinger053_L_
+    100078: handfinger053_R_
+    100080: head
+    100082: kosi
+    100084: kubi
+    100086: //RootNode
+    100088: Mesh
+    100090: reg_L_
+    100092: reg_R_
+    100094: root
+    100096: shoulder_L_
+    100098: shoulder_R_
+    100100: thigh_L_
+    100102: thigh_R_
+    100104: XSBone_000
+    400000: body
+    400002: brest
+    400004: const_foot_L_
+    400006: const_foot_R_
+    400008: const_reg_L_
+    400010: const_reg_R_
+    400012: foot_L_
+    400014: foot_R_
+    400016: front_arm_L_
+    400018: front_arm_R_
+    400020: hand_L_
+    400022: hand_R_
+    400024: handfinger011_L_
+    400026: handfinger011_R_
+    400028: handfinger012_L_
+    400030: handfinger012_R_
+    400032: handfinger021_L_
+    400034: handfinger021_R_
+    400036: handfinger022_L_
+    400038: handfinger022_R_
+    400040: handfinger023_L_
+    400042: handfinger023_R_
+    400044: handfinger031_L_
+    400046: handfinger031_R_
+    400048: handfinger032_L_
+    400050: handfinger032_R_
+    400052: handfinger033_L_
+    400054: handfinger033_R_
+    400056: handfinger041_L_
+    400058: handfinger041_R_
+    400060: handfinger042_L_
+    400062: handfinger042_R_
+    400064: handfinger043_L_
+    400066: handfinger043_R_
+    400068: handfinger051_L_
+    400070: handfinger051_R_
+    400072: handfinger052_L_
+    400074: handfinger052_R_
+    400076: handfinger053_L_
+    400078: handfinger053_R_
+    400080: head
+    400082: kosi
+    400084: kubi
+    400086: //RootNode
+    400088: Mesh
+    400090: reg_L_
+    400092: reg_R_
+    400094: root
+    400096: shoulder_L_
+    400098: shoulder_R_
+    400100: thigh_L_
+    400102: thigh_R_
+    400104: XSBone_000
+    4300000: body
+    7400000: majyu_b_shot
+    7400002: majyu_b_shot_followthrow
+    7400004: majyu_b_shot_toponly
+    7400006: majyu_b_shot_toponly_followthrow
+    9500000: //RootNode
+    13700000: body
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
