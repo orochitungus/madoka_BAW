@@ -86,6 +86,39 @@ public class MajyuControl : MonoBehaviour
 		{
 			Debug.LogError("Caution!! BattleInterfaceCanvas is Nothing!!");
 		}
+		// ハッシュID取得
+		IdleID = Animator.StringToHash("Base Layer.MajyuIdle");		
+		WalkID = Animator.StringToHash("Base Layer.MajyuWalk");
+		JumpID = Animator.StringToHash("Base Layer.MajyuJump");		
+		JumpingID = Animator.StringToHash("Base Layer.MajyuJumping");
+		FallID = Animator.StringToHash("Base Layer.MajyuFall");
+		LandingID = Animator.StringToHash("Base Layer.MajyuLanding");
+		RunID = Animator.StringToHash("Base Layer.MajyuRun");
+		AirDashID = Animator.StringToHash("Base Layer.MajyuAirDash");
+		FrontStepID = Animator.StringToHash("Base Layer.MajyuFrontStep");
+		LeftStepID = Animator.StringToHash("Base Layer.MajyuLeftStep");
+		RightStepID = Animator.StringToHash("Base Layer.MajyuRightStep");
+		BackStepID = Animator.StringToHash("Base Layer.MajyuBackStep");
+		FrontStepBackID = Animator.StringToHash("Base Layer.MajyuFrontStepBack");
+		LeftStepBackID = Animator.StringToHash("Base Layer.MajyuLeftStepBack");
+		RightStepBackID = Animator.StringToHash("Base Layer.MajyuRightStepBack");
+		BackStepBackID = Animator.StringToHash("Base Layer.MajyuBackStepBack");
+		ShotID = Animator.StringToHash("Base Layer.MajyuShot");
+		RunShotID = Animator.StringToHash("Base Layer.MajyuRunShot");
+		AirShotID = Animator.StringToHash("Base Layer.MajyuAirShot");
+		FollowThrowShotID = Animator.StringToHash("Base Layer.MajyuFollowThrowShot");
+		FollowThrowRunShotID = Animator.StringToHash("Base Layer.MajyuFollowThrowRunShot");
+		FollowThrowAirShotID = Animator.StringToHash("Base Layer.MajyuFollowThrowAirShot");
+		Wrestle1ID = Animator.StringToHash("Base Layer.MajyuWrestle1");
+		Wrestle2ID = Animator.StringToHash("Base Layer.MajyuWrestle2");
+		Wrestle3ID = Animator.StringToHash("Base Layer.MajyuWrestle3");
+		BackWrestleID = Animator.StringToHash("Base Layer.MajyuBackWrestle");
+		AirDashWrestleID = Animator.StringToHash("Base Layer.MajyuAirDashWrestle");
+		ReversalID = Animator.StringToHash("Base Layer.MajyuReversal");
+		DamageID = Animator.StringToHash("Base Layer.MajyuDamage");
+		DownID = Animator.StringToHash("Base Layer.MajyuDown");
+		BlowID = Animator.StringToHash("Base Layer.MajyuBlow");
+		SpinDownID = Animator.StringToHash("Base Layer.MajyuSpinDown");
 	}
 
 	// Use this for initialization
