@@ -329,7 +329,19 @@ public class MajyuControl : CharacterControlBase
 		// 上昇
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == JumpingID)
 		{
-			
+			int[] stepanimations = { 8, 9, 10, 11 };
+			Animation_Jumping(AnimatorUnit, 4, stepanimations, 7, 5);
+		}
+		// 落下
+		else if(AnimatorUnit.GetAnimatorTransitionInfo(0).fullPathHash == FallID)
+		{
+			int[] stepanimations = { 8, 9, 10, 11 };
+			Animation_Fall(AnimatorUnit, 7, 2, stepanimations, 5);
+		}
+		// 着地
+		else if(AnimatorUnit.GetAnimatorTransitionInfo(0).fullPathHash == LandingID)
+		{
+			Animation_Landing(AnimatorUnit, 0);
 		}
 	}
 
@@ -603,5 +615,31 @@ public class MajyuControl : CharacterControlBase
 		WrestlSpeed = movespeed;
 	}
 
+	/// <summary>
+	/// 上昇中モーション
+	/// </summary>
+	/// <param name="animator"></param>
+	/// <param name="fallID"></param>
+	/// <param name="stepanimations"></param>
+	/// <param name="airdashID"></param>
+	/// <param name="landinghashID"></param>
+	protected override void Animation_Jumping(Animator animator, int fallID, int[] stepanimations, int airdashID, int landinghashID)
+	{
+		base.Animation_Jumping(animator, fallID, stepanimations, airdashID, landinghashID);
+		AttackDone();
+	}
 
+	/// <summary>
+	/// 落下モーション
+	/// </summary>
+	/// <param name="animator"></param>
+	/// <param name="airdashID"></param>
+	/// <param name="jumpID"></param>
+	/// <param name="stepanimations"></param>
+	/// <param name="landingID"></param>
+	protected override void Animation_Fall(Animator animator, int airdashID, int jumpID, int[] stepanimations, int landingID)
+	{
+		base.Animation_Fall(animator, airdashID, jumpID, stepanimations, landingID);
+		AttackDone();
+	}
 }
