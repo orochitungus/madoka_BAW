@@ -1750,7 +1750,7 @@ public class HomuraBowControl : CharacterControlBase
 		// アニメーションの速度を調整する
 		animator.speed = speed;
 		// 移動速度を調整する
-		this.WrestlSpeed = movespeed;
+		WrestlSpeed = movespeed;
 	}
 
     /// <summary>
