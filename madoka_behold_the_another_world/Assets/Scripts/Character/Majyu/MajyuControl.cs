@@ -20,7 +20,12 @@ public class MajyuControl : CharacterControlBase
 	/// </summary>
 	private float MainshotEndtime;
 
-    /// <summary>
+	/// <summary>
+	/// 通常射撃用弾丸の配置用フック(他の専用武器は派生先で用意）
+	/// </summary>
+	public GameObject MainShotRoot;
+
+	/// <summary>
 	/// 種類（キャラごとに技数は異なるので別々に作らないとアウト
 	/// </summary>
 	public enum SkillType_Majyu
@@ -77,8 +82,8 @@ public class MajyuControl : CharacterControlBase
 	public int DownID;                  // 29
 	public int BlowID;                  // 30
 	public int SpinDownID;              // 31
-	public int FrontExWrestleID;        // 32
-	public int BackExWrestleID;         // 33
+	public int EXFrontWrestleID;        // 32
+	public int EXBackWrestleID;         // 33
 	public int FrontWrestleID;			// 34
 
 	void Awake()
@@ -122,8 +127,8 @@ public class MajyuControl : CharacterControlBase
 		DownID = Animator.StringToHash("Base Layer.MajyuDown");
 		BlowID = Animator.StringToHash("Base Layer.MajyuBlow");
 		SpinDownID = Animator.StringToHash("Base Layer.MajyuSpinDown");
-		FrontExWrestleID = Animator.StringToHash("Base Layer.MajyuFrontExWrestle");
-		BackExWrestleID = Animator.StringToHash("Base Layer.MajyuBackExWrestle");
+		EXFrontWrestleID = Animator.StringToHash("Base Layer.MajyuFrontExWrestle");
+		EXBackWrestleID = Animator.StringToHash("Base Layer.MajyuBackExWrestle");
 		FrontWrestleID = Animator.StringToHash("Base Layer.MajyuFrontWrestle");
 	}
 
@@ -343,7 +348,170 @@ public class MajyuControl : CharacterControlBase
 		{
 			Animation_Landing(AnimatorUnit, 0);
 		}
+		// 走行
+		else if(AnimatorUnit.GetAnimatorTransitionInfo(0).fullPathHash == RunID)
+		{
+			int[] stepanimations = { 8, 9, 10, 11 };
+			Animation_Run(AnimatorUnit, 4, stepanimations, 0, 2);
+		}
+		// 空中ダッシュ
+		else if(AnimatorUnit.GetAnimatorTransitionInfo(0).fullPathHash == AirDashID)
+		{
+			Animation_AirDash(AnimatorUnit, 2, 4, 5);
+		}
+		// 前ステップ
+		else if(AnimatorUnit.GetAnimatorTransitionInfo(0).fullPathHash == FrontStepID)
+		{
+			Animation_StepDone(AnimatorUnit, FrontStepID, 12, LeftStepID, 13, RightStepID, 14, BackStepID, 15, 7, 2);
+		}
+		// 左ステップ
+		else if(AnimatorUnit.GetAnimatorTransitionInfo(0).fullPathHash == LeftStepID)
+		{
+			Animation_StepDone(AnimatorUnit, FrontStepID, 12, LeftStepID, 13, RightStepID, 14, BackStepID, 15, 7, 2);
+		}
+		// 右ステップ
+		else if (AnimatorUnit.GetAnimatorTransitionInfo(0).fullPathHash == RightStepID)
+		{
+			Animation_StepDone(AnimatorUnit, FrontStepID, 12, LeftStepID, 13, RightStepID, 14, BackStepID, 15, 7, 2);
+		}
+		// 後ステップ
+		else if (AnimatorUnit.GetAnimatorTransitionInfo(0).fullPathHash == BackStepID)
+		{
+			Animation_StepDone(AnimatorUnit, FrontStepID, 12, LeftStepID, 13, RightStepID, 14, BackStepID, 15, 7, 2);
+		}
+		// 前ステップ終了
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontStepBackID)
+		{
+			Animation_StepBack(AnimatorUnit, 0);
+		}
+		// 左ステップ終了
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LeftStepBackID)
+		{
+			Animation_StepBack(AnimatorUnit, 0);
+		}
+		// 右ステップ終了
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RightStepBackID)
+		{
+			Animation_StepBack(AnimatorUnit, 0);
+		}
+		// 後ステップ終了
+		else if (AnimatorUnit.GetAnimatorTransitionInfo(0).fullPathHash == BackStepBackID)
+		{
+			Animation_StepBack(AnimatorUnit, 0);
+		}
+		// 射撃
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == ShotID)
+		{
+			Shot();
+		}
+		// 走行射撃
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RunShotID)
+		{
+			Shot();
+		}
+		// 空中射撃
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == AirShotID)
+		{
+			Shot();
+		}
+		// 射撃フォロースルー
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowShotID)
+		{
+			Shot();
+		}
+		// 走行射撃フォロースルー
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowRunShotID)
+		{
+			Shot();
+		}
+		// 空中射撃フォロースルー
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowAirShotID)
+		{
+			Shot();
+		}
+		// N格闘1段目
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle1ID)
+		{
+			int[] stepanimations = { 8, 9, 10, 11 };
+			Wrestle1(AnimatorUnit, 7, stepanimations);
+		}
+		// N格闘2段目
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle2ID)
+		{
+			int[] stepanimations = { 8, 9, 10, 11 };
+			Wrestle2(AnimatorUnit, 7, stepanimations);
+		}
+		// N格闘3段目
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle3ID)
+		{
+			int[] stepanimations = { 8, 9, 10, 11 };
+			Wrestle3(AnimatorUnit, 7, stepanimations);
+		}
+		// 前格闘
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontWrestleID)
+		{
+			int[] stepanimations = { 8, 9, 10, 11 };
+			FrontWrestle1(AnimatorUnit, 7, stepanimations);
+		}
+		// 後格闘（ガード）
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BackWrestleID)
+		{
+			BackWrestle(AnimatorUnit);
+		}
+		// 空中ダッシュ格闘
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == AirDashWrestleID)
+		{
+			int[] stepanimations = { 8, 9, 10, 11 };
+			AirDashWrestle(AnimatorUnit, 7, stepanimations, 4);
+		}
+		// 前特殊格闘
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXFrontWrestleID)
+		{
+			int[] stepanimations = { 8, 9, 10, 11 };
+			FrontExWrestle1(AnimatorUnit, 7, stepanimations, 4);
+		}
+		// 後特殊格闘
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXBackWrestleID)
+		{
+			int[] stepanimations = { 8, 9, 10, 11 };
+			BackExWrestle(AnimatorUnit, 7, stepanimations, 4, 5);
+		}
+		// 起き上がり
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == ReversalID)
+		{
+			Reversal();
+		}
+		// ダメージ（のけぞり）
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == DamageID)
+		{
+			Damage(AnimatorUnit);
+		}
+		// ダウン
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == DownID)
+		{
+			Down(AnimatorUnit, 27);
+		}
+		// ダメージ（吹き飛び）
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BlowID)
+		{
+			Blow(AnimatorUnit, 27);
+		}
+		// きりもみダウン
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == SpinDownID)
+		{
+			SpinDown(AnimatorUnit);
+		}
 	}
+
+	/// <summary>
+	/// Jumpingへ移行する（JumpのAnimationの最終フレームで実行する/地上からダッシュに移行するにはJumpを削除してこれを直接実行のほうがいいかもしれない）
+	/// </summary>
+	public void JumpingMigration()
+	{
+		AnimatorUnit.SetTrigger("Jumping");
+	}
+
+
 
 	/// <summary>
 	/// アイドル時のアニメーションを制御
@@ -538,7 +706,7 @@ public class MajyuControl : CharacterControlBase
 		animator.speed = Character_Spec.cs[(int)CharacterName][skillindex].m_Animspeed;
 
 		// アニメーションを再生する
-		animator.SetTrigger("FrontEXWrestle");
+		animator.SetTrigger("FrontExWrestle");
 
 	}
 
@@ -556,7 +724,7 @@ public class MajyuControl : CharacterControlBase
 		animator.speed = Character_Spec.cs[(int)CharacterName][skillindex].m_Animspeed;
 
 		// アニメーションを再生する
-		animator.SetTrigger("BackEXWrestle");
+		animator.SetTrigger("BackExWrestle");
 
 	}
 
@@ -641,5 +809,187 @@ public class MajyuControl : CharacterControlBase
 	{
 		base.Animation_Fall(animator, airdashID, jumpID, stepanimations, landingID);
 		AttackDone();
+	}
+
+	/// <summary>
+	/// 走行モーション
+	/// </summary>
+	/// <param name="animator"></param>
+	/// <param name="fallhashID"></param>
+	/// <param name="stepanimations"></param>
+	/// <param name="idleID"></param>
+	/// <param name="jumpID"></param>
+	protected override void Animation_Run(Animator animator, int fallhashID, int[] stepanimations, int idleID, int jumpID)
+	{
+		base.Animation_Run(animator, fallhashID, stepanimations, idleID, jumpID);
+		AttackDone(true, false);
+	}
+
+	/// <summary>
+	/// 空中ダッシュモーション
+	/// </summary>
+	/// <param name="animator"></param>
+	/// <param name="jumpID"></param>
+	/// <param name="fallID"></param>
+	/// <param name="landingID"></param>
+	protected override void Animation_AirDash(Animator animator, int jumpID, int fallID, int landingID)
+	{
+		base.Animation_AirDash(animator, jumpID, fallID, landingID);
+		AttackDone(false, true);
+	}
+
+	/// <summary>
+	/// 通常射撃モーション
+	/// </summary>
+	protected override void Shot()
+	{
+		// キャンセルダッシュ受付
+		if (HasDashCancelInput)
+		{
+			// 地上でキャンセルすると浮かないので浮かす
+			if (IsGrounded)
+			{
+				transform.Translate(new Vector3(0, 1, 0));
+			}
+			CancelDashDone(AnimatorUnit, 7);
+		}
+		base.Shot();
+	}
+
+	/// <summary>
+	/// N格闘1段目実行時、キャンセルや派生の入力を受け取る
+	/// </summary>
+	/// <param name="animator"></param>
+	/// <param name="airdashID"></param>
+	/// <param name="stepanimations"></param>
+	protected override void Wrestle1(Animator animator, int airdashID, int[] stepanimations)
+	{
+		base.Wrestle1(animator, airdashID, stepanimations);
+		// 追加入力受け取り
+		if (HasWrestleInput)
+		{
+			AddInput = true;
+		}
+	}
+
+	/// <summary>
+	/// N格闘2段目実行時、キャンセルや派生の入力を受け取る
+	/// </summary>
+	/// <param name="animator"></param>
+	/// <param name="airdashhash"></param>
+	/// <param name="stepanimations"></param>
+	protected override void Wrestle2(Animator animator, int airdashhash, int[] stepanimations)
+	{
+		base.Wrestle2(animator, airdashhash, stepanimations);
+		// 追加入力受け取り
+		if (HasWrestleInput)
+		{
+			AddInput = true;
+		}
+	}
+
+	/// <summary>
+	/// 前特殊格闘
+	/// </summary>
+	/// <param name="animator"></param>
+	/// <param name="airdashhash"></param>
+	/// <param name="stepanimations"></param>
+	/// <param name="fallid"></param>
+	protected override void FrontExWrestle1(Animator animator, int airdashhash, int[] stepanimations, int fallid)
+	{
+		base.FrontExWrestle1(animator, airdashhash, stepanimations, fallid);
+		Wrestletime += Time.deltaTime;
+		// レバー入力カットか特殊格闘入力カットで落下に移行する
+		if (ControllerManager.Instance.TopUp || ControllerManager.Instance.EXWrestleUp)
+		{
+			FallDone(Vector3.zero, animator, fallid);
+		}
+		// 移動速度（上方向に垂直上昇する）
+		float movespeed = 100.0f;
+
+		// 移動方向（移動目的のため、とりあえず垂直上昇させる）
+		MoveDirection = Vector3.Normalize(new Vector3(0, 1, 0));
+
+		// 移動速度を調整する
+		WrestlSpeed = movespeed;
+	}
+
+	/// <summary>
+	/// 後特殊格闘
+	/// </summary>
+	/// <param name="animator"></param>
+	/// <param name="airdashhash"></param>
+	/// <param name="stepanimations"></param>
+	/// <param name="fallid"></param>
+	/// <param name="landingid"></param>
+	protected override void BackExWrestle(Animator animator, int airdashhash, int[] stepanimations, int fallid, int landingid)
+	{
+		base.BackExWrestle(animator, airdashhash, stepanimations, fallid, landingid);
+		// レバー入力カットか特殊格闘入力カットで落下に移行する
+		if (ControllerManager.Instance.UnderUp || ControllerManager.Instance.EXWrestleUp)
+		{
+			FallDone(Vector3.zero, animator, fallid);
+		}
+		// 移動速度（上方向に垂直上昇する）
+		float movespeed = 100.0f;
+
+		// 移動方向（移動目的のため、とりあえず垂直上昇させる）
+		MoveDirection = Vector3.Normalize(new Vector3(0, -1, 0));
+
+		// 移動速度を調整する
+		WrestlSpeed = movespeed;
+	}
+
+	/// <summary>
+	/// 装填を行う（アニメーションファイルの装填フレームにインポートする）
+	/// </summary>
+	/// <param name="type">射撃がどれであるか</param>
+	public void Shootload(ShotType type)
+	{
+		// 弾があるとき限定（チャージショット除く）
+		if (BulletNum[(int)type] > 0 || type == ShotType.CHARGE_SHOT)
+		{
+			// ロックオン時本体の方向を相手に向ける       
+			if (IsRockon)
+			{
+				RotateToTarget();
+			}
+			// 弾を消費する
+			// チャージ射撃除く
+			if (type != ShotType.CHARGE_SHOT)
+			{
+				BulletNum[(int)type]--;
+				// 撃ち終わった時間を設定する                
+				// メイン（弾数がMax-1のとき）
+				if (type == ShotType.NORMAL_SHOT && BulletNum[(int)type] == Character_Spec.cs[(int)CharacterName][(int)type].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)type].m_OriginalBulletNum - 1)
+				{
+					MainshotEndtime = Time.time;
+				}
+			}
+			// 弾丸の出現ポジションをフックと一致させる
+			Vector3 pos = MainShotRoot.transform.position;
+			Quaternion rot = Quaternion.Euler(MainShotRoot.transform.rotation.eulerAngles.x, MainShotRoot.transform.rotation.eulerAngles.y, MainShotRoot.transform.rotation.eulerAngles.z);
+			// 弾丸を出現させる
+			if (type == ShotType.NORMAL_SHOT)
+			{
+				var obj = (GameObject)Instantiate(NormalShot, pos, rot);
+				// 親子関係を再設定する(=矢をフックの子にする）
+				if (obj.transform.parent == null)
+				{
+					obj.transform.parent = MainShotRoot.transform;
+					// 矢の親子関係を付けておく
+					obj.transform.GetComponent<Rigidbody>().isKinematic = true;
+				}
+			}
+		}
+	}
+
+	/// <summary>
+	/// 射撃（射出）射撃のアニメーションファイルの射出フレームにインポートする
+	/// </summary>
+	/// <param name="type"></param>
+	public void Shooting(ShotType type)
+	{
+		
 	}
 }

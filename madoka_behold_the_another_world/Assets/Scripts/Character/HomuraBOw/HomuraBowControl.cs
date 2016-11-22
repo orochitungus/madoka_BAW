@@ -644,6 +644,10 @@ public class HomuraBowControl : CharacterControlBase
 		{
 			Animation_StepBack(AnimatorUnit, 0);
 		}
+		else if(AnimatorUnit.GetAnimatorTransitionInfo(0).fullPathHash == BackStepBackID)
+		{
+			Animation_StepBack(AnimatorUnit, 0);
+		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == ShotID)
 		{
 			Shot();
@@ -1189,10 +1193,7 @@ public class HomuraBowControl : CharacterControlBase
 		}
 	}
 
-	private IEnumerator Waiter()
-	{
-		yield return new WaitForEndOfFrame();
-	}
+	
 	
 	/// <summary>
 	/// 射撃（射出）射撃のアニメーションファイルの射出フレームにインポートする
