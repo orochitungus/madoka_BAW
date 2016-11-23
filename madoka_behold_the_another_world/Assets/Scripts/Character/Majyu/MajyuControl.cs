@@ -20,11 +20,7 @@ public class MajyuControl : CharacterControlBase
 	/// </summary>
 	private float MainshotEndtime;
 
-	/// <summary>
-	/// 通常射撃用弾丸の配置用フック(他の専用武器は派生先で用意）
-	/// </summary>
-	public GameObject MainShotRoot;
-
+	
 	/// <summary>
 	/// 種類（キャラごとに技数は異なるので別々に作らないとアウト
 	/// </summary>
@@ -990,6 +986,191 @@ public class MajyuControl : CharacterControlBase
 	/// <param name="type"></param>
 	public void Shooting(ShotType type)
 	{
-		
+		// 通常射撃の矢
+		var arrow = GetComponentInChildren<MajyuNormalShot>();
+		if (arrow != null)
+		{
+			// メイン弾速設定
+			arrow.ShotSpeed = Character_Spec.cs[(int)CharacterName][0].m_Movespeed;
+			// 矢の方向を決定する(本体と同じ方向に向けて打ち出す。ただしノーロックで本体の向きが0のときはベクトルが0になるので、このときだけはカメラの方向に飛ばす）
+			if (IsRockon && RunShotDone)
+			{
+				// ロックオン対象の座標を取得
+				var target = GetComponentInChildren<Player_Camera_Controller>();
+				// 対象の座標を取得
+				Vector3 targetpos = target.Enemy.transform.position;
+				// 補正値込みの胸部と本体の回転ベクトルを取得
+				// 本体
+				Quaternion mainrot = Quaternion.LookRotation(targetpos - this.transform.position);
+				// 胸部
+				Vector3 normalizeRot_OR = BrestObject.transform.rotation.eulerAngles;
+				// 本体と胸部と矢の補正値分回転角度を合成
+				Vector3 addrot = mainrot.eulerAngles + normalizeRot_OR - new Vector3(0, 74.0f, 0);
+				Quaternion qua = Quaternion.Euler(addrot);
+				// forwardをかけて本体と胸部の和を進行方向ベクトルへ変換                
+				Vector3 normalizeRot = (qua) * Vector3.forward;
+				// 移動ベクトルを確定する
+				arrow.MoveDirection = Vector3.Normalize(normalizeRot);
+			}
+			// ロックオンしているとき
+			else if (IsRockon)
+			{
+				// ロックオン対象の座標を取得
+				var target = GetComponentInChildren<Player_Camera_Controller>();
+				// 対象の座標を取得
+				Vector3 targetpos = target.Enemy.transform.position;
+				// 本体の回転角度を拾う
+				Quaternion mainrot = Quaternion.LookRotation(targetpos - this.transform.position);
+				// 正規化して代入する
+				Vector3 normalizeRot = mainrot * Vector3.forward;
+
+				// 通常射撃の矢
+				if (arrow != null)
+				{
+					arrow.MoveDirection = Vector3.Normalize(normalizeRot);
+				}
+			}
+			// ロックオンしていないとき
+			else
+			{
+				// 本体角度が0の場合カメラの方向を射出角とし、正規化して代入する
+				if (this.transform.rotation.eulerAngles == Vector3.zero)
+				{
+					// ただしそのままだとカメラが下を向いているため、一旦その分は補正する
+					Quaternion rotateOR = MainCamera.transform.rotation;
+					Vector3 rotateOR_E = rotateOR.eulerAngles;
+					rotateOR_E.x = 0;
+					rotateOR = Quaternion.Euler(rotateOR_E);
+
+					// 通常射撃の矢
+					if (arrow != null)
+					{
+						arrow.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+					}
+					// それ以外は本体の角度を射出角にする
+					else
+					{
+						// 通常射撃の矢
+						if (arrow != null)
+						{
+							arrow.MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
+						}
+					}
+				}
+				// 矢の移動ベクトルを代入する
+				// 通常射撃
+				if (arrow != null)
+				{
+					BulletMoveDirection = arrow.MoveDirection;
+				}
+				// 攻撃力を代入する
+				if (type == ShotType.NORMAL_SHOT)
+				{
+					// 攻撃力を決定する
+					OffensivePowerOfBullet = Character_Spec.cs[(int)CharacterName][0].m_OriginalStr + Character_Spec.cs[(int)CharacterName][0].m_GrowthCoefficientStr * (this.StrLevel - 1);
+					// ダウン値を決定する
+					DownratioPowerOfBullet = Character_Spec.cs[(int)CharacterName][0].m_DownPoint;
+					// 覚醒ゲージ増加量を決定する（覚醒はさせないので0)
+					ArousalRatioOfBullet = 0;
+				}
+				Shotmode = ShotMode.SHOT;
+				// 固定状態を解除
+				// ずれた本体角度を戻す(Yはそのまま）
+				transform.rotation = Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y, 0));
+				transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+
+				// 硬直時間を設定
+				AttackTime = Time.time;
+				// 射出音を再生する
+				AudioManager.Instance.PlaySE("shot_hand_gun");
+			}
+		}
+		// 弾がないときはとりあえずフラグだけは立てておく
+		else
+		{
+			// 硬直時間を設定
+			AttackTime = Time.time;
+			Shotmode = ShotMode.SHOTDONE;
+		}
+
+		// フォロースルーへ移行する(チャージショットの場合は別タイミング）
+		if (type == ShotType.NORMAL_SHOT)
+		{
+			// 走行時
+			if (RunShotDone)
+			{
+				AnimatorUnit.SetTrigger("RunFollowThrow");
+			}
+			// 通常時
+			else
+			{
+				AnimatorUnit.SetTrigger("FollowThrow");
+			}
+		}
+	}
+
+	/// <summary>
+	/// Idle状態に戻す
+	/// </summary>
+	public void ReturnToIdle()
+	{
+		// 矢や格闘判定も消しておく
+		DestroyArrow();
+		DestroyWrestle();
+		ReturnMotion(AnimatorUnit);
+	}
+
+	/// <summary>
+	/// 格闘攻撃終了後、派生を行う
+	/// </summary>
+	/// <param name="nextmotion"></param>
+	public void WrestleFinish(WrestleType nextmotion)
+	{
+		// 判定オブジェクトを全て破棄
+		DestroyWrestle();
+		// 格闘の累積時間を初期化
+		Wrestletime = 0;
+		// 派生入力があった場合は派生する
+		if (AddInput)
+		{
+			// N格闘２段目派生
+			if (nextmotion == WrestleType.WRESTLE_2)
+			{
+				WrestleDone(AnimatorUnit, 5, "Wrestle2");
+			}
+			// N格闘３段目派生
+			else if (nextmotion == WrestleType.WRESTLE_3)
+			{
+				WrestleDone(AnimatorUnit, 6, "Wrestle3");
+			}
+		}
+		// なかったら戻す
+		else
+		{
+			ReturnToIdle();
+		}
+	}
+
+	/// <summary>
+	/// 弾丸全回復処理
+	/// </summary>
+	public void FullReload()
+	{
+		// 弾丸を回復させる
+		for (int i = 0; i < Character_Spec.cs[(int)CharacterName].Length; i++)
+		{
+			// 使用の可否を初期化
+			WeaponUseAble[i] = true;
+			// 弾があるものは残弾数を初期化
+			if (Character_Spec.cs[(int)CharacterName][i].m_OriginalBulletNum > 0)
+			{
+				BulletNum[i] = Character_Spec.cs[(int)CharacterName][i].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][i].m_OriginalBulletNum;
+			}
+			// 硬直時間があるものは硬直時間を初期化
+			if (Character_Spec.cs[(int)CharacterName][i].m_WaitTime > 0)
+			{
+				BulletWaitTime[i] = Character_Spec.cs[(int)CharacterName][i].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][i].m_WaitTime;
+			}
+		}
 	}
 }
