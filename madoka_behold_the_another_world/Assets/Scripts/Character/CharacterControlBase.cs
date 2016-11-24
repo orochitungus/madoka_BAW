@@ -131,12 +131,6 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     public AIControl_Base.KEY_OUTPUT CPUKey;
 
-    /// <summary>
-    /// AnimationState を 2 つ用意し交互に切り替えて昔の状態を参照できるようにする。
-    /// AnimatorのHash番号を保持する
-    /// Animatorの構造はキャラごとに異なるので、保持は継承先で行う
-    /// </summary>
-    public int[] AnimState = new int[2];
 
     // 時間停止時の処理    
     // 時間停止系のENUM
@@ -4025,7 +4019,7 @@ public class CharacterControlBase : MonoBehaviour
 		}
 		// アニメーション速度を設定する
 		float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
-		// AnimStateを変更する
+		// アニメーションを変更する
         animator.SetTrigger("FrontEXWrestle");
 		// アニメーションの速度を調整する
 		animator.speed = speed;
@@ -4078,7 +4072,7 @@ public class CharacterControlBase : MonoBehaviour
 		}
 		// アニメーション速度を設定する
 		float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
-		// AnimStateを変更する
+		// アニメーションを変更する
         animator.SetTrigger("BackEXWrestle");
 		// アニメーションの速度を調整する
 		animator.speed = speed;
