@@ -252,6 +252,7 @@ public class StageSetting : MonoBehaviour
         "Sconosciuto_Battle_Use",   // 9  スコノシュート（PC)
         "HomuraBowBattleUse",		// 10 暁美ほむら（弓）
         "",                         // 11 アルティメットまどか（まどかの覚醒とは一応別扱い）
+		"majyu_use_battle",			// 12 魔獣
     };
 
     // ロードするキャラクターのファイル名(ルート・クエストパート用）
@@ -269,14 +270,14 @@ public class StageSetting : MonoBehaviour
         "Scono_battle_use",                 // スコノシュート（PC)
         "Homura_Quest_Use",                 // 暁美ほむら（弓）
         "",                                 // アルティメットまどか（まどかの覚醒とは一応別扱い）
+		"majyu_use_battle",
     };
    
     
 
 	// Use this for initialization
 	void Start () 
-    {
-		
+    {		
         m_setting = false;
 	}
 	

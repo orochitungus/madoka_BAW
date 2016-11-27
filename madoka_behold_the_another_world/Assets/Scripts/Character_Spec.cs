@@ -21,7 +21,6 @@ public static class Character_Spec
         MEMBER_SCHONO,      // スコノシュート（PC)
         MEMBER_HOMURA_B,    // 暁美ほむら（弓）
         MEMBER_UL_MADOKA,   // アルティメットまどか（まどかの覚醒とは一応別扱い）
-        PLAYER_NUM,         // PC総数
         // 敵キャラ(NPC)
         ENEMY_MAJYU,        // 魔獣
 
@@ -45,7 +44,6 @@ public static class Character_Spec
         "sconosciuto",    
         "暁美 ほむら",       //（弓）
         "アルティメットまどか",//（まどかの覚醒とは一応別扱い）
-        "",
         "魔獣"
     };
 
@@ -64,7 +62,6 @@ public static class Character_Spec
         230,                // スコノシュート
         170,                // 暁美ほむら（弓）
         250,                // アルティメットまどか（まどかの覚醒とは一応別扱い）
-        0,                  // 味方の最大数
         100,                // 魔獣
 
     };
@@ -83,7 +80,6 @@ public static class Character_Spec
         25,                 // スコノシュート
         20,                 // 暁美ほむら（弓）
         30,                 // アルティメットまどか（まどかの覚醒とは一応別扱い）
-        0,
         20                  // 魔獣
     };
     // 防御力
@@ -101,7 +97,6 @@ public static class Character_Spec
         15,                 // スコノシュート
         10,                 // 暁美ほむら（弓）
         20,                 // アルティメットまどか（まどかの覚醒とは一応別扱い）
-        0,
         7,                  // 魔獣
     };
     // 防御力成長係数
@@ -119,7 +114,6 @@ public static class Character_Spec
         4,                  // スコノシュート
         2,                  // 暁美ほむら（弓）
         4,                  // アルティメットまどか（まどかの覚醒とは一応別扱い）
-        0,
         2                   // 魔獣
     };
     // ブースト量初期値(Lv1の時の値）
@@ -137,7 +131,6 @@ public static class Character_Spec
         200,                // スコノシュート
         170,                // 暁美ほむら（弓）
         280,                // アルティメットまどか（まどかの覚醒とは一応別扱い）
-        0,
         120,                // 魔獣            
     };
     // ブースト量成長係数
@@ -155,7 +148,6 @@ public static class Character_Spec
         3,                  // スコノシュート
         5,                  // 暁美ほむら（弓）
         8,                  // アルティメットまどか（まどかの覚醒とは一応別扱い）
-        0,
         5,                  // 魔獣
     };
     
@@ -174,7 +166,6 @@ public static class Character_Spec
         170,                // スコノシュート
         170,                // 暁美ほむら（弓）
         200,                // アルティメットまどか（まどかの覚醒とは一応別扱い）
-        0,
         120,                // 魔獣
     };
     // 覚醒ゲージ量成長係数
@@ -192,7 +183,6 @@ public static class Character_Spec
         4,                  // スコノシュート
         4,                  // 暁美ほむら（弓）
         8,                  // アルティメットまどか（まどかの覚醒とは一応別扱い）
-        0,
         4,                  // 魔獣
     };
     // 撃破時の取得経験値
@@ -210,7 +200,6 @@ public static class Character_Spec
         600,                 // スコノシュート
         300,                 // 暁美ほむら（弓）
         400,                 // アルティメットまどか（まどかの覚醒とは一応別扱い）
-        0,
         2,                   // 魔獣
     };
 
@@ -371,8 +360,6 @@ public static class Character_Spec
             new CharacterSkill(CharacterSkill.SkillType.DISABLE_DESTRUCTION_MAGIC,"魔力コントロール",1),
         },
         // アルティメットまどか（まどかの覚醒とは一応別扱い）
-        new CharacterSkill[]{},
-        // 味方の最大数
         new CharacterSkill[]{},
         // 魔獣
         new CharacterSkill[]
