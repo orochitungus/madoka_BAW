@@ -334,44 +334,44 @@ public class MajyuControl : CharacterControlBase
 			Animation_Jumping(AnimatorUnit, 4, stepanimations, 7, 5);
 		}
 		// 落下
-		else if(AnimatorUnit.GetAnimatorTransitionInfo(0).fullPathHash == FallID)
+		else if(AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FallID)
 		{
 			int[] stepanimations = { 8, 9, 10, 11 };
 			Animation_Fall(AnimatorUnit, 7, 2, stepanimations, 5);
 		}
 		// 着地
-		else if(AnimatorUnit.GetAnimatorTransitionInfo(0).fullPathHash == LandingID)
+		else if(AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LandingID)
 		{
 			Animation_Landing(AnimatorUnit, 0);
 		}
 		// 走行
-		else if(AnimatorUnit.GetAnimatorTransitionInfo(0).fullPathHash == RunID)
+		else if(AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RunID)
 		{
 			int[] stepanimations = { 8, 9, 10, 11 };
 			Animation_Run(AnimatorUnit, 4, stepanimations, 0, 2);
 		}
 		// 空中ダッシュ
-		else if(AnimatorUnit.GetAnimatorTransitionInfo(0).fullPathHash == AirDashID)
+		else if(AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == AirDashID)
 		{
 			Animation_AirDash(AnimatorUnit, 2, 4, 5);
 		}
 		// 前ステップ
-		else if(AnimatorUnit.GetAnimatorTransitionInfo(0).fullPathHash == FrontStepID)
+		else if(AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontStepID)
 		{
 			Animation_StepDone(AnimatorUnit, FrontStepID, 12, LeftStepID, 13, RightStepID, 14, BackStepID, 15, 7, 2);
 		}
 		// 左ステップ
-		else if(AnimatorUnit.GetAnimatorTransitionInfo(0).fullPathHash == LeftStepID)
+		else if(AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LeftStepID)
 		{
 			Animation_StepDone(AnimatorUnit, FrontStepID, 12, LeftStepID, 13, RightStepID, 14, BackStepID, 15, 7, 2);
 		}
 		// 右ステップ
-		else if (AnimatorUnit.GetAnimatorTransitionInfo(0).fullPathHash == RightStepID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RightStepID)
 		{
 			Animation_StepDone(AnimatorUnit, FrontStepID, 12, LeftStepID, 13, RightStepID, 14, BackStepID, 15, 7, 2);
 		}
 		// 後ステップ
-		else if (AnimatorUnit.GetAnimatorTransitionInfo(0).fullPathHash == BackStepID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BackStepID)
 		{
 			Animation_StepDone(AnimatorUnit, FrontStepID, 12, LeftStepID, 13, RightStepID, 14, BackStepID, 15, 7, 2);
 		}
@@ -391,7 +391,7 @@ public class MajyuControl : CharacterControlBase
 			Animation_StepBack(AnimatorUnit, 0);
 		}
 		// 後ステップ終了
-		else if (AnimatorUnit.GetAnimatorTransitionInfo(0).fullPathHash == BackStepBackID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BackStepBackID)
 		{
 			Animation_StepBack(AnimatorUnit, 0);
 		}
@@ -760,7 +760,7 @@ public class MajyuControl : CharacterControlBase
 			Vector3 rotateOR_E = rotateOR.eulerAngles;
 			rotateOR_E.x = 0;
 			rotateOR = Quaternion.Euler(rotateOR_E);
-			this.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+			MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
 		}
 		// それ以外は本体の角度を移動方向にする
 		else

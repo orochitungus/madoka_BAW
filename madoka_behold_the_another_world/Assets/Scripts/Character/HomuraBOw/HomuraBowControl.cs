@@ -1735,7 +1735,7 @@ public class HomuraBowControl : CharacterControlBase
 			Vector3 rotateOR_E = rotateOR.eulerAngles;
 			rotateOR_E.x = 0;
 			rotateOR = Quaternion.Euler(rotateOR_E);
-			this.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+			MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
 		}
 		// それ以外は本体の角度を移動方向にする
 		else

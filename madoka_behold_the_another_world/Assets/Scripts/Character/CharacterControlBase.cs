@@ -3206,6 +3206,8 @@ public class CharacterControlBase : MonoBehaviour
         }
         if (RigidBody != null)
         {
+			Debug.Log("MoveDirection:" + MoveDirection);
+			Debug.Log("MoveSpeed:" + MoveSpeed);
 			// 速度ベクトルを作る
             Vector3 velocity = MoveDirection * MoveSpeed;
             // 走行中/アイドル中/吹き飛び中/ダウン中
@@ -5027,8 +5029,8 @@ public class CharacterControlBase : MonoBehaviour
     protected virtual void Animation_Run(Animator animator, int fallhashID, int[] stepanimations,int idleID,int jumpID)
     {
         RigidBody.constraints = RigidbodyConstraints.FreezeRotation;
-        // ずれた本体角度を戻す(Yはそのまま）
-        this.transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0));
+		// ずれた本体角度を戻す(Yはそのまま）
+		transform.rotation = Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y, 0));
 
         // 接地中かどうか
         if (IsGrounded)
@@ -5038,7 +5040,7 @@ public class CharacterControlBase : MonoBehaviour
             {
                 FootSteps();
                 UpdateRotation();
-                this.MoveDirection = transform.rotation * Vector3.forward;
+				MoveDirection = transform.rotation * Vector3.forward;
             }
             // ステップの場合ステップ
             // 前
