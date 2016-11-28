@@ -315,7 +315,7 @@ public class MajyuControl : CharacterControlBase
 		if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == IdleID)
 		{
 			int[] stepanimations = { 8, 9, 10, 11 };
-			//Animation_Idle(AnimatorUnit, 29, 6, stepanimations, 4, 2, 7);
+			Animation_Idle(AnimatorUnit, 29, 6, stepanimations, 4, 2, 7);
 		}
 		// 歩行
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == WalkID)
@@ -525,7 +525,7 @@ public class MajyuControl : CharacterControlBase
 		bool attack = false;
 		// くっついている弾丸系のエフェクトを消す
 		DestroyArrow();
-		
+
 		// 格闘の累積時間を初期化
 		Wrestletime = 0;
 		// 地上にいるか？(落下開始時は一応禁止）
