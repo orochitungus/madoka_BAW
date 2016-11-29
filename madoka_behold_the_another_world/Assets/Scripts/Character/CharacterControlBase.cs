@@ -781,6 +781,11 @@ public class CharacterControlBase : MonoBehaviour
 
     public Animator AnimatorUnit;
 
+	/// <summary>
+	/// 空中ダッシュのＩＤ
+	/// </summary>
+	protected int CancelDashID;
+
     /// <summary>
     /// プレイヤーのレベル設定を行う
     /// </summary>
@@ -1428,8 +1433,8 @@ public class CharacterControlBase : MonoBehaviour
 	/// <param name="jumpid">ジャンプのState番号</param>
 	protected virtual void JumpDone(Animator animator)
 	{
-		transform.Translate(new Vector3(0, 1, 0));	// 打ち上げる
-        animator.SetTrigger("Jump");
+		transform.Translate(new Vector3(0, 1, 0));  // 打ち上げる
+		animator.SetTrigger("Jump");
 		Boost = Boost - JumpUseBoost;
 	}
 
@@ -4765,16 +4770,16 @@ public class CharacterControlBase : MonoBehaviour
         // ずれた本体角度を戻す(Yはそのまま）
         transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0));
         RigidBody.constraints = RigidbodyConstraints.FreezeRotation;
-        this.MoveDirection = Vector3.zero;      // 速度を0に
-        this.BlowDirection = Vector3.zero;
-        this.Rotatehold = false;                // 固定フラグは折る
+        MoveDirection = Vector3.zero;      // 速度を0に
+        BlowDirection = Vector3.zero;
+        Rotatehold = false;                // 固定フラグは折る
         // 慣性を殺す
-        this.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        this.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-        this.AddInput = false;
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        AddInput = false;
         GetComponent<Rigidbody>().useGravity = true;
         // ブーストを回復させる
-        this.Boost = GetMaxBoost(this.BoostLevel);
+        Boost = GetMaxBoost(BoostLevel);
         // 地上にいるか？
         if (IsGrounded)
         {
@@ -4783,8 +4788,13 @@ public class CharacterControlBase : MonoBehaviour
             {
                 animator.SetTrigger("Run");
             }
+			// ジャンプ２回でキャンセルダッシュへ移行
+			if(HasDashCancelInput && Boost > 0)
+			{
+				CancelDashDone(animator, CancelDashID);
+			}
             // ジャンプでジャンプへ移行(GetButtonDownで押しっぱなしにはならない。GetButtonで押しっぱなしに対応）
-            if (HasJumpInput && Boost > 0)
+            else if (HasJumpInput && Boost > 0)
             {
                 // 上昇制御をAddForceにするとやりにくい（特に慣性ジャンプ）
                 JumpDone(animator);

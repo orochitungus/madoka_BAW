@@ -257,6 +257,8 @@ public class HomuraBowControl : CharacterControlBase
 
     void Awake()
 	{
+		// 空中ダッシュＩＤを保持（CharacterControlBaseで使う)
+		CancelDashID = 7;
 		// 覚醒技専用カメラをOFFにする
 		ArousalAttackCamera1.enabled = false;
 		ArousalAttackCamera2.enabled = false;

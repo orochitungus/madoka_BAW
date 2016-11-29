@@ -81,9 +81,11 @@ public class MajyuControl : CharacterControlBase
 	public int EXFrontWrestleID;        // 32
 	public int EXBackWrestleID;         // 33
 	public int FrontWrestleID;			// 34
-
+		
 	void Awake()
 	{
+		// 空中ダッシュＩＤを保持（CharacterControlBaseで使う)
+		CancelDashID = 7;
 		// 戦闘用インターフェースを取得する
 		Battleinterfacecontroller = GameObject.Find("BattleInterfaceCanvas").GetComponent<BattleInterfaceController>();
 		if (Battleinterfacecontroller == null)
