@@ -278,11 +278,11 @@ public class MajyuControl : CharacterControlBase
 			// 1発でも使えれば使用可能
 			if (BulletNum[(int)ShotType.NORMAL_SHOT] > 0)
 			{
-				Battleinterfacecontroller.Weapon3.Use = true;
+				Battleinterfacecontroller.Weapon1.Use = true;
 			}
 			else
 			{
-				Battleinterfacecontroller.Weapon3.Use = false;
+				Battleinterfacecontroller.Weapon1.Use = false;
 			}
 		});
 	}

@@ -28,6 +28,6 @@ public class MajyuNormalShot : Bullet
 	// Update is called once per frame
 	void Update () 
 	{
-	
+		UpdateCore();
 	}
 }

@@ -1188,8 +1188,6 @@ public class HomuraBowControl : CharacterControlBase
 				if(obj.transform.parent == null)
 				{
 					obj.transform.parent = MainShotRoot.transform;
-					// 矢の親子関係をつけておく
-					//obj.transform.GetComponent<Rigidbody>().isKinematic = true;
 				}
 			}
 		}
