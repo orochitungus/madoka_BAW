@@ -30,37 +30,28 @@ public class Player_Camera_Controller : MonoBehaviour
 	/// </summary>
 	public bool IsArousalAttack;
 
-    public Vector3      m_rockoncursorpos;          // ロックオンカーソルの配置位置
-
-    public Camera       m_perspectiveCamera;
 
     // ロックオン対象(何個あるかわからないので)
     public List<GameObject> RockOnTarget;
-    public int          m_nowTarget;                // 現在ロックオンしている相手
-
-    // ロックオンカーソル用テクスチャ
-    // 射程距離内（赤）
-    public Texture2D m_RockonCursor_Red;
-
-    // 射程距離外（緑）
-    public Texture2D m_RockonCurosor_Green;
-
-    // 攻撃不可（黄色）
-    public Texture2D m_RockonCursor_Yellow;
-
-
-    public GUISkin   m_guiskin;
+    public int          NowTarget;                // 現在ロックオンしている相手
 
     // 有効範囲か否か
-    public bool m_isRockonRange;
+    public bool IsRockonRange;
 
     // CPU
     // ルーチンを拾う
-    AIControl.CPUMODE m_cpumode;
+    AIControl.CPUMODE CPUmode;
     // 入力を拾う
-    AIControl.KEY_OUTPUT m_key;
+    AIControl.KEY_OUTPUT CPUKeyInput;
 
     public MainCameraMode Maincameramode;
+
+	/// <summary>
+	/// ロックオンカーソル制御
+	/// </summary>
+	public RockOnCursorControl Rockoncursorcontrol;
+
+
 
     void Awake()
     {
@@ -95,7 +86,7 @@ public class Player_Camera_Controller : MonoBehaviour
         IsRockOn = false;
 		// 覚醒技演出中の有無
 		IsArousalAttack = false;
-        m_isRockonRange = false;
+        IsRockonRange = false;
         m_enemy_offset_height = 0.0f;
         Distance_mine = 18.0f;
 
@@ -107,14 +98,10 @@ public class Player_Camera_Controller : MonoBehaviour
         {
             if (target.IsPlayer != CharacterControlBase.CHARACTERCODE.PLAYER)
             {
-                // CPU時、AudioListenerを解除           
-                Camera.enabled = false;
                 m_DrawInterface = false;
             }
             else
             {
-                // プレイヤー時、AudioListenerを有効化
-                Camera.enabled = true;
                 // FPSを固定しておく
                 Application.targetFrameRate = 60;
                 // インターフェースを有効化しておく
@@ -148,9 +135,10 @@ public class Player_Camera_Controller : MonoBehaviour
         if (target.IsPlayer != CharacterControlBase.CHARACTERCODE.PLAYER)
         {
             // ルーチンを拾う
-            this.m_cpumode = targetAI.m_cpumode;
+            // TODO:CPU作るまで一旦カット
+			// m_cpumode = targetAI.m_cpumode;
             // 入力を拾う
-            this.m_key = targetAI.m_keyoutput; 
+            //m_key = targetAI.m_keyoutput; 
         }
 
         // 解除入力が行われた
@@ -159,7 +147,7 @@ public class Player_Camera_Controller : MonoBehaviour
             UnlockDone(target);
         }
         // ロックオンボタンが押された（この判定はCharacterControl_Baseの派生側で拾う）
-        else if (target.GetSearchInput() || this.m_key == AIControl.KEY_OUTPUT.SEARCH)
+        else if (target.GetSearchInput() || this.CPUKeyInput == AIControl.KEY_OUTPUT.SEARCH)
         {
             // ロックオンしていなかった
             if (!target.IsRockon)
@@ -178,66 +166,69 @@ public class Player_Camera_Controller : MonoBehaviour
                         }
                         break;
                     // 敵側の場合、PC側のタグを検索する
-                    case CharacterControlBase.CHARACTERCODE.ENEMY:                   
-                        switch (this.m_cpumode)
-                        {
-                            // 敵の哨戒モードの場合、起点か終点を検索する
-                            // 終点へ向けて移動中
-                            case AIControl.CPUMODE.OUTWARD_JOURNEY:
-                                // 終点をロックオンする                                                             
-                                if (target.EndingPoint == null)
-                                {
-                                    Debug.Log("EndingPoint isn't setting");
-                                }
-                                Enemy = target.EndingPoint;
-                                IsRockOn = true;
-                                target.IsRockon = true;                                
-                                break;
-                            // 起点へ向けて移動中
-                            case AIControl.CPUMODE.RETURN_PATH:
-                                // 起点をロックオンする
-                                if (target.StartingPoint == null)
-                                {
-                                    Debug.Log("StartingPoint isn't setting");
-                                }
-                                Enemy = target.StartingPoint;
-                                IsRockOn = true;
-                                target.IsRockon = true;                                
-                                break;                            
-                            default:
-                                // 外れたら哨戒に戻る
-                                if (!OnPushSerchButton(false,false))
-                                {
-                                    this.m_cpumode = AIControl.CPUMODE.OUTWARD_JOURNEY;
-                                    IsRockOn = false;
-                                    target.IsRockon = false;
-                                }
-                                break;
-                        }
-                        break;
+                    case CharacterControlBase.CHARACTERCODE.ENEMY:
+						// TODO:CPU作るまで一旦カット               
+						//switch (m_cpumode)
+						//{
+						//    // 敵の哨戒モードの場合、起点か終点を検索する
+						//    // 終点へ向けて移動中
+						//    case AIControl.CPUMODE.OUTWARD_JOURNEY:
+						//        // 終点をロックオンする                                                             
+						//        if (target.EndingPoint == null)
+						//        {
+						//            Debug.Log("EndingPoint isn't setting");
+						//        }
+						//        Enemy = target.EndingPoint;
+						//        IsRockOn = true;
+						//        target.IsRockon = true;                                
+						//        break;
+						//    // 起点へ向けて移動中
+						//    case AIControl.CPUMODE.RETURN_PATH:
+						//        // 起点をロックオンする
+						//        if (target.StartingPoint == null)
+						//        {
+						//            Debug.Log("StartingPoint isn't setting");
+						//        }
+						//        Enemy = target.StartingPoint;
+						//        IsRockOn = true;
+						//        target.IsRockon = true;                                
+						//        break;                            
+						//    default:
+						//        // 外れたら哨戒に戻る
+						//        if (!OnPushSerchButton(false,false))
+						//        {
+						//            this.m_cpumode = AIControl.CPUMODE.OUTWARD_JOURNEY;
+						//            IsRockOn = false;
+						//            target.IsRockon = false;
+						//        }
+						//        break;
+						//}
+						break;
                 }
                 
             }
             // ロックオンしていた
             else
             {
-                // 敵もしくは僚機の哨戒状態で目的地にたどり着いたときにこの状態になる
-                if (target.IsPlayer != CharacterControlBase.CHARACTERCODE.PLAYER)
-                {   // ここに指示が来る前に、cpumodeは切り替わっている
-                    // 往路(終点をロックオン）
-                    if (this.m_cpumode == AIControl.CPUMODE.OUTWARD_JOURNEY)
-                    {
-                        this.Enemy = target.EndingPoint;
-                    }
-                    // 復路（起点をロックオン）
-                    else if(this.m_cpumode == AIControl.CPUMODE.RETURN_PATH)
-                    {
-                        this.Enemy = target.StartingPoint;
-                    }
-                }
+				// TODO:CPU作るまで一旦カット
+				// 敵もしくは僚機の哨戒状態で目的地にたどり着いたときにこの状態になる
+				//           if (target.IsPlayer != CharacterControlBase.CHARACTERCODE.PLAYER)
+				//           {   
+				//// ここに指示が来る前に、cpumodeは切り替わっている
+				//               // 往路(終点をロックオン）
+				//               if (m_cpumode == AIControl.CPUMODE.OUTWARD_JOURNEY)
+				//               {
+				//                   Enemy = target.EndingPoint;
+				//               }
+				//               // 復路（起点をロックオン）
+				//               else if(m_cpumode == AIControl.CPUMODE.RETURN_PATH)
+				//               {
+				//                   Enemy = target.StartingPoint;
+				//               }
+				//           }
 
-                // 別の相手にロックオン対象を切り替える(2体以上候補が居る場合）
-                if (RockOnTarget.Count > 1)
+				// 別の相手にロックオン対象を切り替える(2体以上候補が居る場合）
+				if (RockOnTarget.Count > 1)
                 {
 					RockOnSelecter(target);
                 }
@@ -259,15 +250,16 @@ public class Player_Camera_Controller : MonoBehaviour
             }
         }
 
-        // ロックオン対象が死んでいたら強制的にロックを解除する（CPUの哨戒モード時は除く）
-        if (target.IsRockon && m_cpumode != AIControl.CPUMODE.OUTWARD_JOURNEY && m_cpumode != AIControl.CPUMODE.RETURN_PATH)
-        {
-            var rockontarget = Enemy.GetComponentInChildren<CharacterControlBase>();
-            if (rockontarget != null && rockontarget.NowHitpoint < 1)
-            {
-                UnlockDone(target);
-            }
-        }
+		// ロックオン対象が死んでいたら強制的にロックを解除する（CPUの哨戒モード時は除く）
+		// TODO:CPU作るまで一旦カット
+		//if (target.IsRockon && m_cpumode != AIControl.CPUMODE.OUTWARD_JOURNEY && m_cpumode != AIControl.CPUMODE.RETURN_PATH)
+  //      {
+  //          var rockontarget = Enemy.GetComponentInChildren<CharacterControlBase>();
+  //          if (rockontarget != null && rockontarget.NowHitpoint < 1)
+  //          {
+  //              UnlockDone(target);
+  //          }
+  //      }
 
 	}
 
@@ -358,7 +350,7 @@ public class Player_Camera_Controller : MonoBehaviour
         // 対象をmost_nearとする
         Enemy = RockOnTarget[most_near];
         // 対象のインデックスを保持する
-        m_nowTarget = most_near;
+        NowTarget = most_near;
         // PC側のロックオンフラグを立てる
         target.IsRockon = true;
         return true;
@@ -371,7 +363,7 @@ public class Player_Camera_Controller : MonoBehaviour
 	public void RockOnSelecter(CharacterControlBase target)
 	{
 		// 自分＋1の相手を選択する
-		int nexttarget = m_nowTarget + 1;
+		int nexttarget = NowTarget + 1;
 		// 認識している相手の中で、ロックオンできる相手を探す
 		while (true)
 		{
@@ -396,7 +388,7 @@ public class Player_Camera_Controller : MonoBehaviour
 			{
 				nexttarget++;
 				// もしnowtargetと同じ値なら残り1体なのでロックオン解除
-				if (m_nowTarget == nexttarget)
+				if (NowTarget == nexttarget)
 				{
 					IsRockOn = false;
 					target.IsRockon = false;
@@ -438,7 +430,7 @@ public class Player_Camera_Controller : MonoBehaviour
 		// 対象をmost_nearとする
 		Enemy = RockOnTarget[nexttarget];
 		// 対象のインデックスを保持する
-		m_nowTarget = nexttarget;
+		NowTarget = nexttarget;
 		// PC側のロックオンフラグを立てる
 		target.IsRockon = true;
 	}
@@ -523,11 +515,7 @@ public class Player_Camera_Controller : MonoBehaviour
             
             // ロックオン対象を取得する
             CharacterControlBase rockontarget = this.Enemy.GetComponentInChildren<CharacterControlBase>();
-            //if (rockontarget == null)
-            //{                
-            //    return;
-            //}
-           
+                      
             
             // 敵機と自機の位置関係を正規化する（＝敵機と自機の相対位置関係が分かる）
             Vector3 positional_relationship = Vector3.Normalize(nowpos - epos);
@@ -540,27 +528,14 @@ public class Player_Camera_Controller : MonoBehaviour
             transform.position = new Vector3(nowpos.x + positional_relationship.x * Distance_mine, nowpos.y + positional_relationship.y * Distance_mine, nowpos.z + positional_relationship.z * Distance_mine);
             // カメラの方向を変更(LookRotationメソッドで、常に第1引数？側の方向を向く
             transform.rotation = Quaternion.LookRotation(epos - transform.position);
-            // ロックオン対象の画面上での位置を取得する            
-            // スクリーン上での座標を取得する
             
-            if (rockontarget != null)
-            {
-                // Enemyは敵全体なので、rootを取ってみる
-                GameObject enemyroot = rockontarget.gameObject.transform.FindChild("Mesh").gameObject;
-                m_rockoncursorpos = m_perspectiveCamera.WorldToScreenPoint(enemyroot.transform.position);
-            }
-            // CPUの哨戒モード時のターゲットの時は考えない.
-            else
-            {
-                m_rockoncursorpos = m_perspectiveCamera.WorldToScreenPoint(epos);
-            }
         }
         // 非ロックオン時のみ障害物を避ける（障害物の手前にカメラを持ってくる）
         // ロックオンしていない場合
         if (!IsRockOn)
         {
             RaycastHit hitInfo;
-            CapsuleCollider pc = Player.GetComponent<CapsuleCollider>(); //CharacterController pc = Player.GetComponent<CharacterController>();
+            CapsuleCollider pc = Player.GetComponent<CapsuleCollider>(); 
             Vector3 playerPosition = Player.transform.position;
             playerPosition.y += pc.height;        // transform.positionは足元をとるので、コライダの高さ分上方向に補正する
             if (Physics.Linecast(playerPosition, transform.position, out hitInfo, 1 << LayerMask.NameToLayer("ground")))
@@ -577,86 +552,9 @@ public class Player_Camera_Controller : MonoBehaviour
         }
     }
 
-    
-    
+      
 
-    // 描画用関数
-    // ロックオンカーソルを描画
-    public void OnGUI()
-    {
-        // このカメラが追跡しているオブジェクトの情報を拾う   
-        var target = Player.GetComponentInChildren<CharacterControlBase>();                // 戦闘用.
-        var target_quest = Player.GetComponentInChildren<CharacterControl_Base_Quest>();    // クエスト用.
-        // このカメラが追跡している対象がCPUのときは書かない（多分無駄メモリ）
-        if (target != null)
-        {
-            if (target.IsPlayer != CharacterControlBase.CHARACTERCODE.PLAYER || !m_DrawInterface)
-            {
-                return;
-            }
-        }
-        if (target_quest != null)
-        {
-            if (target_quest.m_isPlayer != CharacterControl_Base_Quest.CHARACTERCODE.PLAYER || !m_DrawInterface)
-            {
-                return;
-            }
-        }
-
-        // GUIスキンを設定
-        if (m_guiskin)
-        {
-            GUI.skin = m_guiskin;
-        }
-        else
-        {
-            Debug.Log("No GUI skin has been set!");
-        }
-       
-        // ロックオン状態になったら敵位置にカーソルを描画する（覚醒技演出中を除く）
-        if (IsRockOn && !IsArousalAttack)
-        {
-            // 配置位置（自機）
-            Vector3 nowpos = this.Player.transform.position;
-            // 配置位置（敵機）
-            Vector3 epos = this.Enemy.transform.position;
-            
-            Vector3 scale = new Vector3(Screen.width / MadokaDefine.SCREENWIDTH, Screen.height / MadokaDefine.SCREENHIGET, 1);
-
-            // GUIが解像度に合うように変換行列を設定（計算で描画位置を出す場合Scaleを定義しておかないと解像度によって表示位置がずれる点に注意）
-            GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, scale);
-            
-            // 大型キャラの場合はカーソルのY軸補正位置を関数化する（そうしないと上下にずれる）。なお、ここでの大型キャラとは人間以上のサイズを持つキャラのこと。
-            // 計算はロックオン距離が100程度なので、とりあえずそれに合わせる
-            // カーソルX軸位置オフセット値
-            float cursorXoffset = -510.971f * (Screen.width/MadokaDefine.SCREENWIDTH) + 446.2571f;
-            // カーソルY軸位置オフセット値
-            float cursorYoffset = -269.714f * (Screen.height/MadokaDefine.SCREENHIGET) + 172.5714f;
-
-            Vector3 position = new Vector3(m_rockoncursorpos.x + cursorXoffset, m_rockoncursorpos.y + cursorYoffset, m_rockoncursorpos.z);
-            GUI.BeginGroup(new Rect(position.x, position.y, 256.0f, 256.0f));
-
-            
-            // ダウン値を超えている（ダウンか強制ダウン吹き飛び中）か、ダウン値を超えていてもダウンしているなら黄色ロック
-            if (this.Enemy.GetComponentInChildren<CharacterControlBase>().NowDownRatio >= this.Enemy.GetComponentInChildren<CharacterControlBase>().DownRatioBias
-			                || Enemy.GetComponentInChildren<CharacterControlBase>().DownTime > 0)
-            {
-                GUI.DrawTexture(new Rect(0.0f, 0.0f, 128.0f, 128.0f), m_RockonCursor_Yellow);
-            }
-            // 有効範囲にいたら赤ロック
-            else if (Vector3.Distance(nowpos, epos) <= this.Player.GetComponentInChildren<CharacterControlBase>().RockonRange)
-            {
-                GUI.DrawTexture(new Rect(0.0f, 0.0f, 128.0f, 128.0f), m_RockonCursor_Red);
-            }
-            // そうでなければ緑ロック
-            else
-            {
-                GUI.DrawTexture(new Rect(0.0f, 0.0f, 128.0f, 128.0f), m_RockonCurosor_Green);
-            }
-            GUI.EndGroup();
-        }
-
-    }
+   
 }
 
 /// <summary>

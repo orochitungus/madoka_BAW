@@ -1059,10 +1059,6 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
             Debug.Log("BoostDashInput");
             BoostDash = true;
         });
-		//      boostdashstream.Buffer(boostdashstream.Throttle(TimeSpan.FromMilliseconds(300))).Where(x => x.Count < 2 && !Jumping).Subscribe(_ =>
-		//{
-		//	BoostDash = false;
-		//});
 		// BD入力解除はfall移行で折る
 		this.UpdateAsObservable().Where(_ => BoostDash && !Jumping).Subscribe(_ =>
 		{
@@ -1085,43 +1081,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 	// Update is called once per frame
 	void Update () 
 	{
-        //// ジャンプ入力履歴回し
-        //for (int i = 0; i < Jumpdirections.Length - 1; i++)
-        //{
-        //    Jumpdirections[i] = Jumpdirections[i + 1];
-        //}
-        //if (Jump)
-        //{
-        //    Jumpdirections[Jumpdirections.Length - 1] = true;
-        //}
-        //else
-        //{
-        //    Jumpdirections[Jumpdirections.Length - 1] = false;
-        //}
-        //// ブーストダッシュ入力スキャン
-        //for (int i = 0; i < Jumpdirections.Length - 1; i++)
-        //{
-        //    // ボタン押していた？
-        //    if (Jumpdirections[i])
-        //    {
-        //        // その次に押していない瞬間があった？
-        //        for (int j = i; j < Jumpdirections.Length - 1; j++)
-        //        {
-        //            if (!Jumpdirections[j])
-        //            {
-        //                // 更にその先に押している瞬間があった？
-        //                for (int k = j; k < Jumpdirections.Length - 1; k++)
-        //                {
-        //                    if (Jumpdirections[k])
-        //                    {
-        //                        Debug.Log("BoostDashInput");
-        //                        BoostDash = true;
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
+        
     }
 
 	// 射撃

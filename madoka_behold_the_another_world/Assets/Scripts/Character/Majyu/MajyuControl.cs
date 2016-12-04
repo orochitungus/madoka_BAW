@@ -1049,43 +1049,44 @@ public class MajyuControl : CharacterControlBase
 					{
 						arrow.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
 					}
-					// それ以外は本体の角度を射出角にする
-					else
+					
+				}
+				// それ以外は本体の角度を射出角にする
+				else
+				{
+					// 通常射撃の矢
+					if (arrow != null)
 					{
-						// 通常射撃の矢
-						if (arrow != null)
-						{
-							arrow.MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
-						}
+						arrow.MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
 					}
-				}
-				// 矢の移動ベクトルを代入する
-				// 通常射撃
-				if (arrow != null)
-				{
-					BulletMoveDirection = arrow.MoveDirection;
-				}
-				// 攻撃力を代入する
-				if (type == ShotType.NORMAL_SHOT)
-				{
-					// 攻撃力を決定する
-					OffensivePowerOfBullet = Character_Spec.cs[(int)CharacterName][0].m_OriginalStr + Character_Spec.cs[(int)CharacterName][0].m_GrowthCoefficientStr * (this.StrLevel - 1);
-					// ダウン値を決定する
-					DownratioPowerOfBullet = Character_Spec.cs[(int)CharacterName][0].m_DownPoint;
-					// 覚醒ゲージ増加量を決定する（覚醒はさせないので0)
-					ArousalRatioOfBullet = 0;
-				}
-				Shotmode = ShotMode.SHOT;
-				// 固定状態を解除
-				// ずれた本体角度を戻す(Yはそのまま）
-				transform.rotation = Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y, 0));
-				transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-
-				// 硬直時間を設定
-				AttackTime = Time.time;
-				// 射出音を再生する
-				AudioManager.Instance.PlaySE("shot_hand_gun");
+				}				
 			}
+			// 矢の移動ベクトルを代入する
+			// 通常射撃
+			if (arrow != null)
+			{
+				BulletMoveDirection = arrow.MoveDirection;
+			}
+			// 攻撃力を代入する
+			if (type == ShotType.NORMAL_SHOT)
+			{
+				// 攻撃力を決定する
+				OffensivePowerOfBullet = Character_Spec.cs[(int)CharacterName][0].m_OriginalStr + Character_Spec.cs[(int)CharacterName][0].m_GrowthCoefficientStr * (this.StrLevel - 1);
+				// ダウン値を決定する
+				DownratioPowerOfBullet = Character_Spec.cs[(int)CharacterName][0].m_DownPoint;
+				// 覚醒ゲージ増加量を決定する（覚醒はさせないので0)
+				ArousalRatioOfBullet = 0;
+			}
+			Shotmode = ShotMode.SHOT;
+			// 固定状態を解除
+			// ずれた本体角度を戻す(Yはそのまま）
+			transform.rotation = Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y, 0));
+			transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+
+			// 硬直時間を設定
+			AttackTime = Time.time;
+			// 射出音を再生する
+			AudioManager.Instance.PlaySE("shot_hand_gun");
 		}
 		// 弾がないときはとりあえずフラグだけは立てておく
 		else
@@ -1101,7 +1102,7 @@ public class MajyuControl : CharacterControlBase
 			// 走行時
 			if (RunShotDone)
 			{
-				AnimatorUnit.SetTrigger("RunFollowThrow");
+				AnimatorUnit.SetTrigger("RunShotFollowThrow");
 			}
 			// 通常時
 			else

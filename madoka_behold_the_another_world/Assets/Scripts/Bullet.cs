@@ -475,7 +475,7 @@ public class Bullet : MonoBehaviour
             if (target == null)
             {
                 // オブジェクトを自壊させる
-                //Destroy(gameObject);
+                Destroy(gameObject);
                 return;
             }
             // ダウン中かダウン値MAXならダメージを与えない

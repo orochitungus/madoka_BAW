@@ -2943,141 +2943,142 @@ public class CharacterControlBase : MonoBehaviour
         // CPU操作の場合（ステップのフラグもここで拾う）
         else
         {
-            // CPU情報
-            var CPU = this.GetComponentInChildren<AIControl_Base>();
-            // CPUのキー入力を拾う
-            AIControl_Base.KEY_OUTPUT key = CPU.m_keyoutput;
-            // CPUのテンキー入力を拾う
-            AIControl_Base.TENKEY_OUTPUT tenkey = CPU.m_tenkeyoutput;
-            // テンキー入力に応じてフラグを立てる
-            // 前
-            if (tenkey == AIControl_Base.TENKEY_OUTPUT.TOP)
-            {
-                HasFrontInput = true;
-            }
-            // 後
-            else if (tenkey == AIControl_Base.TENKEY_OUTPUT.UNDER)
-            {
-                HasBackInput = true;
-            }
-            // 左
-            else if (tenkey == AIControl_Base.TENKEY_OUTPUT.LEFT)
-            {
-                HasLeftInput = true;
-            }
-            // 右
-            else if (tenkey == AIControl_Base.TENKEY_OUTPUT.RIGHT)
-            {
-                HasRightInput = true;
-            }
-            // 左ステップ
-            else if (tenkey == AIControl_Base.TENKEY_OUTPUT.LEFTSTEP)
-            {
-                HasLeftStepInput = true;
-            }
-            // 右ステップ
-            else if (tenkey == AIControl_Base.TENKEY_OUTPUT.RIGHTSTEP)
-            {
-                HasRightStepInput = true;
-            }
-            // 入力を受けたキーごとにフラグを立てる
-            // CPUは同時押し判定を出さないので、1個ずつ来ると考えてOK
-            switch (key)
-            {
-                case AIControl_Base.KEY_OUTPUT.SHOT:
-                    HasShotInput = true;
-                    break;
-                case AIControl_Base.KEY_OUTPUT.JUMP:
-                    HasJumpInput = true;
-                    break;
-                case AIControl_Base.KEY_OUTPUT.DASHCANCEL:
-                    HasDashCancelInput = true;
-                    break;
-                case AIControl_Base.KEY_OUTPUT.AIRDASH:
-                    HasAirDashInput = true;
-                    break;
-                case AIControl_Base.KEY_OUTPUT.SEARCH:
-                    HasSearchInput = true;
-                    break;
-                case AIControl_Base.KEY_OUTPUT.SEACHCANCEL:
-                    HasSearchCancelInput = true;
-                    break;
-                case AIControl_Base.KEY_OUTPUT.WRESTLE:
-                    HasWrestleInput = true;
-                    break;
-                case AIControl_Base.KEY_OUTPUT.SUBSHOT:
-                    HasSubShotInput = true;
-                    break;
-                case AIControl_Base.KEY_OUTPUT.EXSHOT:
-                    HasExShotInput = true;
-                    break;
-                case AIControl_Base.KEY_OUTPUT.EXWRESTLE:
-                    HasExWrestleInput = true;
-                    break;
-                case AIControl_Base.KEY_OUTPUT.ITEM:
-                    HasItemInput = true;
-                    break;               
-                case AIControl_Base.KEY_OUTPUT.AROUSAL:
-                    HasArousalInput = true;
-                    break;
-                case AIControl_Base.KEY_OUTPUT.AROUSALATTACK:
-                    HasArousalAttackInput = true;
-                    break;
-                case AIControl_Base.KEY_OUTPUT.CHARGESHOT:
-                    HasShotChargeInput = true;
-                    break;
-                case AIControl_Base.KEY_OUTPUT.CHARGEWRESTE:
-                    HasWrestleChargeInput = true;
-                    break;
-                default:
-                    // ショット入力があったか否か
-                    HasShotInput = false;
-                    // ジャンプ入力があったか否か
-                    HasJumpInput = false;
-                    // ダッシュキャンセル入力があったか否か
-                    HasDashCancelInput = false;
-                    // サーチ入力があったか否か
-                    HasSearchInput = false;
-                    // サーチキャンセル入力があったか否か
-                    HasSearchCancelInput = false;
-                    // 格闘入力があったか否か
-                    HasWrestleInput = false;
-                    // サブ射撃入力があったか否か
-                    HasSubShotInput = false;
-                    // 特殊射撃入力があったか否か
-                    HasExShotInput = false;
-                    // 特殊格闘入力があったか否か
-                    HasExWrestleInput = false;
-                    // アイテム入力があったか否か
-                    HasItemInput = false;                    
-                    // 覚醒入力があったか否か
-                    HasArousalInput = false;
-                    // 覚醒技入力があったか否か
-                    HasArousalAttackInput = false;
-                    // 射撃チャージ入力があったか否か
-                    HasShotChargeInput = false;
-                    // 格闘チャージ入力があったか否か
-                    HasWrestleChargeInput = false;
-                    // 前入力があったか否か
-                    HasFrontInput = false;
-                    // 左入力があったか否か
-                    HasLeftInput = false;
-                    // 右入力があったか否か
-                    HasRightInput = false;
-                    // 後入力があったか否か
-                    HasBackInput = false;
-                    // ソウルバースト入力があったか否か
-                    break;
-            }
-            // 入力を受けたテンキーに応じてフラグを立てる（この時点ではありなしさえ拾えばいい。実際の値を使うのはUpdateRotationなので、入力の有無さえ拾えればいい）
-            if (tenkey != AIControl_Base.TENKEY_OUTPUT.NEUTRAL)
-            {
-                this.HasVHInput = true;
-            }
-            else
-            {
-                this.HasVHInput = false;
-            }
+			// TODO:CPU作るまで一旦カット
+			//// CPU情報
+			//var CPU = this.GetComponentInChildren<AIControl_Base>();
+   //         // CPUのキー入力を拾う
+   //         AIControl_Base.KEY_OUTPUT key = CPU.m_keyoutput;
+   //         // CPUのテンキー入力を拾う
+   //         AIControl_Base.TENKEY_OUTPUT tenkey = CPU.m_tenkeyoutput;
+   //         // テンキー入力に応じてフラグを立てる
+   //         // 前
+   //         if (tenkey == AIControl_Base.TENKEY_OUTPUT.TOP)
+   //         {
+   //             HasFrontInput = true;
+   //         }
+   //         // 後
+   //         else if (tenkey == AIControl_Base.TENKEY_OUTPUT.UNDER)
+   //         {
+   //             HasBackInput = true;
+   //         }
+   //         // 左
+   //         else if (tenkey == AIControl_Base.TENKEY_OUTPUT.LEFT)
+   //         {
+   //             HasLeftInput = true;
+   //         }
+   //         // 右
+   //         else if (tenkey == AIControl_Base.TENKEY_OUTPUT.RIGHT)
+   //         {
+   //             HasRightInput = true;
+   //         }
+   //         // 左ステップ
+   //         else if (tenkey == AIControl_Base.TENKEY_OUTPUT.LEFTSTEP)
+   //         {
+   //             HasLeftStepInput = true;
+   //         }
+   //         // 右ステップ
+   //         else if (tenkey == AIControl_Base.TENKEY_OUTPUT.RIGHTSTEP)
+   //         {
+   //             HasRightStepInput = true;
+   //         }
+   //         // 入力を受けたキーごとにフラグを立てる
+   //         // CPUは同時押し判定を出さないので、1個ずつ来ると考えてOK
+   //         switch (key)
+   //         {
+   //             case AIControl_Base.KEY_OUTPUT.SHOT:
+   //                 HasShotInput = true;
+   //                 break;
+   //             case AIControl_Base.KEY_OUTPUT.JUMP:
+   //                 HasJumpInput = true;
+   //                 break;
+   //             case AIControl_Base.KEY_OUTPUT.DASHCANCEL:
+   //                 HasDashCancelInput = true;
+   //                 break;
+   //             case AIControl_Base.KEY_OUTPUT.AIRDASH:
+   //                 HasAirDashInput = true;
+   //                 break;
+   //             case AIControl_Base.KEY_OUTPUT.SEARCH:
+   //                 HasSearchInput = true;
+   //                 break;
+   //             case AIControl_Base.KEY_OUTPUT.SEACHCANCEL:
+   //                 HasSearchCancelInput = true;
+   //                 break;
+   //             case AIControl_Base.KEY_OUTPUT.WRESTLE:
+   //                 HasWrestleInput = true;
+   //                 break;
+   //             case AIControl_Base.KEY_OUTPUT.SUBSHOT:
+   //                 HasSubShotInput = true;
+   //                 break;
+   //             case AIControl_Base.KEY_OUTPUT.EXSHOT:
+   //                 HasExShotInput = true;
+   //                 break;
+   //             case AIControl_Base.KEY_OUTPUT.EXWRESTLE:
+   //                 HasExWrestleInput = true;
+   //                 break;
+   //             case AIControl_Base.KEY_OUTPUT.ITEM:
+   //                 HasItemInput = true;
+   //                 break;               
+   //             case AIControl_Base.KEY_OUTPUT.AROUSAL:
+   //                 HasArousalInput = true;
+   //                 break;
+   //             case AIControl_Base.KEY_OUTPUT.AROUSALATTACK:
+   //                 HasArousalAttackInput = true;
+   //                 break;
+   //             case AIControl_Base.KEY_OUTPUT.CHARGESHOT:
+   //                 HasShotChargeInput = true;
+   //                 break;
+   //             case AIControl_Base.KEY_OUTPUT.CHARGEWRESTE:
+   //                 HasWrestleChargeInput = true;
+   //                 break;
+   //             default:
+   //                 // ショット入力があったか否か
+   //                 HasShotInput = false;
+   //                 // ジャンプ入力があったか否か
+   //                 HasJumpInput = false;
+   //                 // ダッシュキャンセル入力があったか否か
+   //                 HasDashCancelInput = false;
+   //                 // サーチ入力があったか否か
+   //                 HasSearchInput = false;
+   //                 // サーチキャンセル入力があったか否か
+   //                 HasSearchCancelInput = false;
+   //                 // 格闘入力があったか否か
+   //                 HasWrestleInput = false;
+   //                 // サブ射撃入力があったか否か
+   //                 HasSubShotInput = false;
+   //                 // 特殊射撃入力があったか否か
+   //                 HasExShotInput = false;
+   //                 // 特殊格闘入力があったか否か
+   //                 HasExWrestleInput = false;
+   //                 // アイテム入力があったか否か
+   //                 HasItemInput = false;                    
+   //                 // 覚醒入力があったか否か
+   //                 HasArousalInput = false;
+   //                 // 覚醒技入力があったか否か
+   //                 HasArousalAttackInput = false;
+   //                 // 射撃チャージ入力があったか否か
+   //                 HasShotChargeInput = false;
+   //                 // 格闘チャージ入力があったか否か
+   //                 HasWrestleChargeInput = false;
+   //                 // 前入力があったか否か
+   //                 HasFrontInput = false;
+   //                 // 左入力があったか否か
+   //                 HasLeftInput = false;
+   //                 // 右入力があったか否か
+   //                 HasRightInput = false;
+   //                 // 後入力があったか否か
+   //                 HasBackInput = false;
+   //                 // ソウルバースト入力があったか否か
+   //                 break;
+   //         }
+   //         // 入力を受けたテンキーに応じてフラグを立てる（この時点ではありなしさえ拾えばいい。実際の値を使うのはUpdateRotationなので、入力の有無さえ拾えればいい）
+   //         if (tenkey != AIControl_Base.TENKEY_OUTPUT.NEUTRAL)
+   //         {
+   //             this.HasVHInput = true;
+   //         }
+   //         else
+   //         {
+   //             this.HasVHInput = false;
+   //         }
         }
 
         // 死亡時、エフェクトが消滅したら自壊させる
@@ -3101,22 +3102,23 @@ public class CharacterControlBase : MonoBehaviour
         }
         else
         {
-            // CPU情報
-            var CPU = this.GetComponentInChildren<AIControl_Base>();
-            // CPUのキー入力を拾う
-            AIControl_Base.KEY_OUTPUT key = CPU.m_keyoutput;
-            // CPUのテンキー入力を拾う
-            AIControl_Base.TENKEY_OUTPUT tenkey = CPU.m_tenkeyoutput;
-            // キー入力を拾う
-            key = CPU.m_keyoutput;
+			// TODO:CPU作るまで一旦カット
+			//// CPU情報
+			//var CPU = this.GetComponentInChildren<AIControl_Base>();
+   //         // CPUのキー入力を拾う
+   //         AIControl_Base.KEY_OUTPUT key = CPU.m_keyoutput;
+   //         // CPUのテンキー入力を拾う
+   //         AIControl_Base.TENKEY_OUTPUT tenkey = CPU.m_tenkeyoutput;
+   //         // キー入力を拾う
+   //         key = CPU.m_keyoutput;
 
-            // 入力を受けたキーごとにフラグを立てる
-            // CPUは同時押し判定を出さないので、1個ずつ来ると考えてOK
-            switch (key)
-            {
-                default:
-                    break;
-            }
+   //         // 入力を受けたキーごとにフラグを立てる
+   //         // CPUは同時押し判定を出さないので、1個ずつ来ると考えてOK
+   //         switch (key)
+   //         {
+   //             default:
+   //                 break;
+   //         }
         }
 
         // キャラを取得
@@ -3211,8 +3213,6 @@ public class CharacterControlBase : MonoBehaviour
         }
         if (RigidBody != null)
         {
-			Debug.Log("MoveDirection:" + MoveDirection);
-			Debug.Log("MoveSpeed:" + MoveSpeed);
 			// 速度ベクトルを作る
             Vector3 velocity = MoveDirection * MoveSpeed;
             // 走行中/アイドル中/吹き飛び中/ダウン中
@@ -3979,7 +3979,7 @@ public class CharacterControlBase : MonoBehaviour
         // アニメーションの速度を調整する
         animator.speed = speed;
         //7．移動速度を0にする
-        this.WrestlSpeed = 0;
+        WrestlSpeed = 0;
     }
 
 	/// <summary>

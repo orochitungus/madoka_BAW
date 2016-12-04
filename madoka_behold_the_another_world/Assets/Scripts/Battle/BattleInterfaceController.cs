@@ -173,6 +173,26 @@ public class BattleInterfaceController : MonoBehaviour
 	/// </summary>
 	public GameObject LevelBG;
 
+	/// <summary>
+	/// ロックオンカーソルルート
+	/// </summary>
+	public GameObject RockOnCursorRoot;
+
+	/// <summary>
+	/// ロックオンカーソル赤
+	/// </summary>
+	public Image RockOnCursorRed;
+
+	/// <summary>
+	/// ロックオンカーソル緑
+	/// </summary>
+	public Image RockOnCursorGreen;
+
+	/// <summary>
+	/// ロックオンカーソル黄
+	/// </summary>
+	public Image RockOnCursorYellow;
+
     // Use this for initialization
     void Start ()
     {

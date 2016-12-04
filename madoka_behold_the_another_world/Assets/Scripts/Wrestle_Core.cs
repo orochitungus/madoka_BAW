@@ -43,6 +43,11 @@ public class Wrestle_Core : MonoBehaviour
 	/// </summary>
 	public GameObject HitEffect;
 
+	/// <summary>
+	/// ガードオブジェクトの場合はこのフラグをＯＮにすること
+	/// </summary>
+	public bool IsShield;
+
 	// 出現時の初期化.攻撃力やダウン値の設定はSetStatusでPCから呼ぶ
 	// Startに書くとSetStatus（Awakeの直後？）より後に実行される
 	void Awake () 
@@ -88,6 +93,11 @@ public class Wrestle_Core : MonoBehaviour
     // 当たったらその相手にダメージを与える.破壊は親元で行う
     public void OnCollisionEnter(Collision collision)
     {
+		// シールド時は何もしない
+		if(IsShield)
+		{
+			return;
+		}
         string player;
         string enemy;
         // ヒットSEを鳴らす
