@@ -51,7 +51,10 @@ public class Player_Camera_Controller : MonoBehaviour
 	/// </summary>
 	public RockOnCursorControl Rockoncursorcontrol;
 
-
+	/// <summary>
+	/// インターフェース
+	/// </summary>
+	public BattleInterfaceController Battleinterfacecontroller;
 
     void Awake()
     {
@@ -90,9 +93,14 @@ public class Player_Camera_Controller : MonoBehaviour
         m_enemy_offset_height = 0.0f;
         Distance_mine = 18.0f;
 
-        //Application.targetFrameRate = 60;
+		// インターフェースを拾う
+		Battleinterfacecontroller = GameObject.Find("BattleInterfaceCanvas").GetComponent<BattleInterfaceController>();
+		if(Battleinterfacecontroller == null)
+		{
+			Debug.LogError("BattleInterfaceCanvas is Nothing!!");
+		}
+		
         var target = Player.GetComponentInChildren<CharacterControlBase>();    // 戦闘用キャラの場合
-        var Camera = this.GetComponent<AudioListener>();
         // 戦闘用キャラ
         if (target != null)
         {
@@ -111,12 +119,28 @@ public class Player_Camera_Controller : MonoBehaviour
         // クエストパート用キャラ
         else
         {
-            Camera.enabled = true;
             Application.targetFrameRate = 60;
             m_DrawInterface = false;
         }
 		// 視点を初期化
-		this.RotX = Mathf.Asin(this.height / this.Distance) * Mathf.Rad2Deg;
+		RotX = Mathf.Asin(height / Distance) * Mathf.Rad2Deg;
+
+		// ロックオンカーソル制御(PC時のみ)
+		this.UpdateAsObservable().Where(_ => target.IsPlayer == CharacterControlBase.CHARACTERCODE.PLAYER).Subscribe(_ => 
+		{
+			if (IsRockOn)
+			{
+				// このカメラが追跡しているオブジェクトを拾う
+
+			}
+			else
+			{
+				// ロックオンカーソルを消す
+				Battleinterfacecontroller.RockOnCursorGreen.gameObject.SetActive(false);
+				Battleinterfacecontroller.RockOnCursorRed.gameObject.SetActive(false);
+				Battleinterfacecontroller.RockOnCursorYellow.gameObject.SetActive(false);
+			}
+		});
 	}
 	
 	// Update is called once per frame
