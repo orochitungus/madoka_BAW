@@ -125,12 +125,22 @@ public class Player_Camera_Controller : MonoBehaviour
 		// 視点を初期化
 		RotX = Mathf.Asin(height / Distance) * Mathf.Rad2Deg;
 
+		// ロックオンカーソル制御用クラスにBattleInterfaceControllerを与える(PC時のみ)
+		if (target.IsPlayer == CharacterControlBase.CHARACTERCODE.PLAYER)
+		{
+			Rockoncursorcontrol.parentRectTrans = Battleinterfacecontroller.GetComponent<RectTransform>();
+		}
+
 		// ロックオンカーソル制御(PC時のみ)
 		this.UpdateAsObservable().Where(_ => target.IsPlayer == CharacterControlBase.CHARACTERCODE.PLAYER).Subscribe(_ => 
 		{
-			if (IsRockOn)
+			if (IsRockOn && !IsArousalAttack)
 			{
-				// このカメラが追跡しているオブジェクトを拾う
+				// 敵の位置をRockoncursorcontrolに教える
+				Rockoncursorcontrol.targetTrans = Enemy.transform;
+				// ロックオンカーソルの位置を計算
+				Vector2 rockoncursorpos = Rockoncursorcontrol.RockonCursorPos;
+				// BattleInterfaceControllerのロックオンカーソルの位置を決定する
 
 			}
 			else

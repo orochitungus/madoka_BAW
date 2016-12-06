@@ -10,9 +10,9 @@ public class RockOnCursorControl : MonoBehaviour
     public Vector3 offset = Vector3.zero;
 	
 	/// <summary>
-	/// 表示するグラフィック
+	/// 表示するグラフィックの位置
 	/// </summary>
-	public RectTransform myRectTrans;
+	public Vector2 RockonCursorPos;
 
 	/// <summary>
 	/// 表示するグラフィックの親オブジェクト
@@ -34,7 +34,7 @@ public class RockOnCursorControl : MonoBehaviour
 
 	void Update()
 	{
-		if (targetTrans != null && myRectTrans != null && parentRectTrans != null && uiCamera != null)
+		if (targetTrans != null && parentRectTrans != null && uiCamera != null)
 		{
 			UpdateUiLocalPosFromTargetPos();
 		}
@@ -50,6 +50,6 @@ public class RockOnCursorControl : MonoBehaviour
 		var localPos = Vector2.zero;
 		// 表示したいUI（この場合ロックカーソルなど）の表示したいUIの親RectTransform配下のローカルポジションを取得する
 		RectTransformUtility.ScreenPointToLocalPointInRectangle(parentRectTrans, screenPos, uiCamera, out localPos);
-		myRectTrans.localPosition = localPos;
+		RockonCursorPos = localPos;
 	}
 }
