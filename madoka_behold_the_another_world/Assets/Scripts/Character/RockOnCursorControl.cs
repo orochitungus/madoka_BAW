@@ -7,7 +7,7 @@ public class RockOnCursorControl : MonoBehaviour
 	/// ロックオンする相手の座標
 	/// </summary>
 	public Transform targetTrans; 
-    public Vector3 offset = Vector3.zero;
+    public Vector3 offset = new Vector3(0,1,0);
 	
 	/// <summary>
 	/// 表示するグラフィックの位置
@@ -44,12 +44,7 @@ public class RockOnCursorControl : MonoBehaviour
 	/// 指定した画像の位置を決める
 	/// </summary>
 	public void UpdateUiLocalPosFromTargetPos()
-	{
-		// メインカメラのスクリーンポジションを取得
-		var screenPos = Camera.main.WorldToScreenPoint(targetTrans.position + offset);
-		var localPos = Vector2.zero;
-		// 表示したいUI（この場合ロックカーソルなど）の表示したいUIの親RectTransform配下のローカルポジションを取得する
-		RectTransformUtility.ScreenPointToLocalPointInRectangle(parentRectTrans, screenPos, uiCamera, out localPos);
-		RockonCursorPos = localPos;
+	{		
+		RockonCursorPos = transform.InverseTransformPoint(uiCamera.transform.position);
 	}
 }

@@ -54,6 +54,11 @@ public class CharacterControlBase : MonoBehaviour
 	/// </summary>
 	public bool ArousalAttackProduction;
 
+	/// <summary>
+	/// ロックオンカーソルの表示中心
+	/// </summary>
+	public GameObject RockonCursorPosition;
+
     /// <summary>
     /// プレイヤーであるか否か（これがfalseであると描画系の関数全カット）
     /// それぞれの意味は以下の通り
@@ -1197,7 +1202,7 @@ public class CharacterControlBase : MonoBehaviour
     {
         if (IsPlayer == CHARACTERCODE.PLAYER)
         {
-            if (ControllerManager.Instance.Search)
+            if (ControllerManager.Instance.Search && !ControllerManager.Instance.Unlock)
             {
                 return true;
             }

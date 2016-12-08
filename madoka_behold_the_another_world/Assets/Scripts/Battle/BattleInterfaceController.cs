@@ -193,6 +193,8 @@ public class BattleInterfaceController : MonoBehaviour
 	/// </summary>
 	public Image RockOnCursorYellow;
 
+	
+
     // Use this for initialization
     void Start ()
     {

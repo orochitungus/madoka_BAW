@@ -135,13 +135,35 @@ public class Player_Camera_Controller : MonoBehaviour
 		this.UpdateAsObservable().Where(_ => target.IsPlayer == CharacterControlBase.CHARACTERCODE.PLAYER).Subscribe(_ => 
 		{
 			if (IsRockOn && !IsArousalAttack)
-			{
-				// 敵の位置をRockoncursorcontrolに教える
-				Rockoncursorcontrol.targetTrans = Enemy.transform;
+			{				
 				// ロックオンカーソルの位置を計算
 				Vector2 rockoncursorpos = Rockoncursorcontrol.RockonCursorPos;
 				// BattleInterfaceControllerのロックオンカーソルの位置を決定する
-
+				Battleinterfacecontroller.RockOnCursorGreen.transform.localPosition = rockoncursorpos;
+				Battleinterfacecontroller.RockOnCursorRed.transform.localPosition = rockoncursorpos;
+				Battleinterfacecontroller.RockOnCursorYellow.transform.localPosition = rockoncursorpos;
+				// ダウン値を超えているorダウンしているなら黄色ロック
+				if (Enemy.GetComponentInChildren<CharacterControlBase>().NowDownRatio >= Enemy.GetComponentInChildren<CharacterControlBase>().DownRatioBias 
+					|| Enemy.GetComponentInChildren<CharacterControlBase>().DownTime > 0)
+				{
+					Battleinterfacecontroller.RockOnCursorGreen.gameObject.SetActive(false);
+					Battleinterfacecontroller.RockOnCursorRed.gameObject.SetActive(false);
+					Battleinterfacecontroller.RockOnCursorYellow.gameObject.SetActive(true);
+				}
+				// ロックオンして有効射程内にいるなら赤ロック
+				else if ( Vector3.Distance(Player.transform.position, Enemy.transform.position) <= Player.GetComponentInChildren<CharacterControlBase>().RockonRange)
+				{
+					Battleinterfacecontroller.RockOnCursorGreen.gameObject.SetActive(false);
+					Battleinterfacecontroller.RockOnCursorRed.gameObject.SetActive(true);
+					Battleinterfacecontroller.RockOnCursorYellow.gameObject.SetActive(false);
+				}
+				// いずれでもないなら緑ロック
+				else
+				{
+					Battleinterfacecontroller.RockOnCursorGreen.gameObject.SetActive(true);
+					Battleinterfacecontroller.RockOnCursorRed.gameObject.SetActive(false);
+					Battleinterfacecontroller.RockOnCursorYellow.gameObject.SetActive(false);
+				}
 			}
 			else
 			{
@@ -477,16 +499,16 @@ public class Player_Camera_Controller : MonoBehaviour
     {
         IsRockOn = false;
         target.IsRockon = false;
-        this.Enemy = null;
+        Enemy = null;
         RockOnTarget.Clear();
 		// カメラを戻す
-		this.RotX = Mathf.Asin(this.height / this.Distance) * Mathf.Rad2Deg;
+		RotX = Mathf.Asin(this.height / this.Distance) * Mathf.Rad2Deg;
     }
 
     public void LateUpdate()
     {
         // 敵が死んだら強制ロック解除
-        if (this.Enemy == null)
+        if (Enemy == null)
         {
             IsRockOn = false;
         }
@@ -530,7 +552,7 @@ public class Player_Camera_Controller : MonoBehaviour
             target_pos.y = target_pos.y + this.gaze_offset;
 
 
-            transform.position = target_pos - q * (Vector3.forward * this.Distance);
+            transform.position = target_pos - q * (Vector3.forward * Distance);
             // クォータニオンを角度へ
             transform.rotation = q;
 
@@ -541,7 +563,7 @@ public class Player_Camera_Controller : MonoBehaviour
             // 配置位置（自機）
             Vector3 nowpos = this.Player.transform.position;
             // 配置位置（敵機）
-            Vector3 epos = this.Enemy.transform.position;
+            Vector3 epos = this.Enemy.GetComponentInChildren<CharacterControlBase>().RockonCursorPosition.transform.position;
 
             // 敵のコライダの位置を拾う
             //CapsuleCollider ecapsule = this.Enemy.GetComponentInChildren<CapsuleCollider>();
@@ -549,7 +571,7 @@ public class Player_Camera_Controller : MonoBehaviour
             
             // ロックオン対象を取得する
             CharacterControlBase rockontarget = this.Enemy.GetComponentInChildren<CharacterControlBase>();
-                      
+                     
             
             // 敵機と自機の位置関係を正規化する（＝敵機と自機の相対位置関係が分かる）
             Vector3 positional_relationship = Vector3.Normalize(nowpos - epos);
