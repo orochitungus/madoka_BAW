@@ -164,6 +164,13 @@ public class Player_Camera_Controller : MonoBehaviour
 					Battleinterfacecontroller.RockOnCursorRed.gameObject.SetActive(false);
 					Battleinterfacecontroller.RockOnCursorYellow.gameObject.SetActive(false);
 				}
+				// 敵HP情報を表示
+				Battleinterfacecontroller.EnemyHPGauge.SetActive(true);
+				string enemyName = Character_Spec.Name[(int)Enemy.GetComponent<CharacterControlBase>().CharacterName];
+				int nowHP = Enemy.GetComponent<CharacterControlBase>().NowHitpoint;
+				int maxHP = Enemy.GetComponent<CharacterControlBase>().GetMaxHitpoint(Enemy.GetComponent<CharacterControlBase>().Level);
+				bool istarget = Enemy.GetComponent<CharacterControlBase>().IsTarget;
+				Battleinterfacecontroller.EnemyHPGauge.GetComponent<EnemyHPGauge>().HPGaugeUpudate(nowHP, maxHP, enemyName, istarget);
 			}
 			else
 			{
@@ -171,6 +178,7 @@ public class Player_Camera_Controller : MonoBehaviour
 				Battleinterfacecontroller.RockOnCursorGreen.gameObject.SetActive(false);
 				Battleinterfacecontroller.RockOnCursorRed.gameObject.SetActive(false);
 				Battleinterfacecontroller.RockOnCursorYellow.gameObject.SetActive(false);
+				Battleinterfacecontroller.EnemyHPGauge.SetActive(false);
 			}
 		});
 	}

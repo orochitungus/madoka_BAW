@@ -193,7 +193,10 @@ public class BattleInterfaceController : MonoBehaviour
 	/// </summary>
 	public Image RockOnCursorYellow;
 
-	
+	/// <summary>
+	/// 敵HPゲージ
+	/// </summary>
+	public GameObject EnemyHPGauge;
 
     // Use this for initialization
     void Start ()

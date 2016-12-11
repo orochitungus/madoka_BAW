@@ -898,6 +898,11 @@ public class CharacterControlBase : MonoBehaviour
     bool Hitcounterdone;
     const int HitcounterBias = 20;
 
+	/// <summary>
+	/// 撃破目標であるか否か
+	/// </summary>
+	public bool IsTarget;
+
     // 接地判定を行う。足元に5本(中心と前後左右)レイを落とし、そのいずれかが接触していれば接地。全部外れていれば落下
     protected bool onGround()
     {
