@@ -1485,10 +1485,34 @@ public class CharacterControlBase : MonoBehaviour
         var obj = (GameObject)Instantiate(Effect, setpos, transform.rotation);
         // 親子関係を再設定する
         obj.transform.parent = this.transform;
-        // 入力の方向ごとに切り分け
+		// 入力の方向ごとに切り分け
+		StepInput stepinput = StepInput.NONE;
+
+		// 前を取得した場合
+		if(inputVector.x > -0.5f && inputVector.x < 0.5f && inputVector.y > 0.5f)
+		{
+			stepinput = StepInput.FRONT;
+		}
+		// 左を取得した場合
+		else if(inputVector.x <= -0.5f && inputVector.y <= 0.5f && inputVector.y >= -0.5f)
+		{
+			stepinput = StepInput.LEFT;
+		}
+		// 右を取得した場合
+		else if(inputVector.x >= 0.5f && inputVector.y <= 0.5f && inputVector.y >= -0.5f)
+		{
+			stepinput = StepInput.RIGHT;
+		}
+		// 後を取得した場合
+		else if(inputVector.x > -0.5f && inputVector.x < 0.5f && inputVector.y < -0.5f)
+		{
+			stepinput = StepInput.BACK;
+		}
+
+
         // 左右どっちかが入っていると左右ステップ
         // ベクトルを角度に変換する(degへ)
-        float nowrot = Mathf.Atan2(inputVector.y, inputVector.x) * Mathf.Rad2Deg;
+        float nowrot = Mathf.Atan2(inputVector.y, inputVector.x) * Mathf.Rad2Deg - 90;
 
         // 角度演算用の配列
         // 角度1
@@ -1502,7 +1526,7 @@ public class CharacterControlBase : MonoBehaviour
             if (nowrot >= rot1[i] && nowrot < rot2[i])
             {
                 // ロックオン時は相手の方向を見てステップする
-                if (this.IsRockon)
+                if (IsRockon)
                 {
                     // 対象の座標を取得（カメラ(m_MainCamera)→Enemy)
                     var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
@@ -1510,7 +1534,7 @@ public class CharacterControlBase : MonoBehaviour
                     // このため、高低差がないとみなす
                     Vector3 Target_VertualPos = target.Enemy.transform.position;
                     Target_VertualPos.y = 0;
-                    Vector3 Mine_VerturalPos = this.transform.position;
+                    Vector3 Mine_VerturalPos = transform.position;
                     Mine_VerturalPos.y = 0;
                     transform.rotation = Quaternion.LookRotation(Target_VertualPos - Mine_VerturalPos);
                     // アニメ再生
@@ -1684,6 +1708,15 @@ public class CharacterControlBase : MonoBehaviour
         }
         _StepStartTime = Time.time;
     }
+
+	public enum StepInput
+	{
+		NONE,
+		FRONT,
+		LEFT,
+		RIGHT,
+		BACK
+	}
 
     /// <summary>
     /// ステップ終了時処理
@@ -3339,7 +3372,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="rightstepbackID">右ステップ戻りのID</param>
     /// <param name="backstephash">バックステップのハッシュID</param>
     /// <param name="backstepbackID">バックステップ戻りのID</param>
-    protected void StepMove(Animator animator, int frontstephash,int frontstepbackID, int leftstephash, int leftstepbackID, int rightstephash, int rightstepbackID, int backstephash,int backstepbackID)
+    protected void StepMove(Animator animator, int frontstephash,int leftstephash, int rightstephash, int backstephash)
     {
         // 移動距離をインクリメントする（初期位置との差では壁に当たったときに無限に動き続ける）
         SteppingLength += StepMove1F;
@@ -3348,7 +3381,7 @@ public class CharacterControlBase : MonoBehaviour
         if (SteppingLength > StepMoveLength)
         {
             //MoveDirection.y = -2;                
-            this.MoveDirection = transform.rotation * Vector3.forward;
+            MoveDirection = transform.rotation * Vector3.forward;
             if( animator.GetCurrentAnimatorStateInfo(0).fullPathHash == frontstephash)
             {
                 animator.SetTrigger("FrontStepBack");
@@ -5334,7 +5367,7 @@ public class CharacterControlBase : MonoBehaviour
 	/// <param name="backstepbackID"></param>
 	protected void Animation_StepDone(Animator animator,int frontstephash,int frontstepbackID,int leftstephash, int leftstepbackID,int rightstephash,int rightstepbackID,int backstephash,int backstepbackID,int airdashID,int jumpID)
 	{
-		StepMove(animator, frontstephash, frontstepbackID, leftstephash, leftstepbackID, rightstephash, rightstepbackID, backstephash, backstepbackID);
+		StepMove(animator, frontstephash, leftstephash, rightstephash, backstephash);
 		CancelCheck(animator,airdashID,jumpID);
 	}
 
