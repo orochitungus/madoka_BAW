@@ -17,6 +17,8 @@ BGMとSEはサウンドマネージャー依存にする(随時差し替え）
 スコノCPUを作る
 
 プロローグをプレイできるようにする						→
+(http://madnesslabo.net/utage/?page_id=8530)
+(https://dl.dropboxusercontent. com/u/16976971/Utage/tmp/Utage 3.0.0b1.unitypackage)
 
 メニューを作る											→
 
