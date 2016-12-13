@@ -1509,203 +1509,246 @@ public class CharacterControlBase : MonoBehaviour
 			stepinput = StepInput.BACK;
 		}
 
+		// ロックオン時は相手の方向を見てステップする
+		if(IsRockon)
+		{
+			// 対象の座標を取得（カメラ(m_MainCamera)→Enemy)
+			var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
+			// 角度を逆算(ステップ時常時相手の方向を向かせる.ただしWY回転のみ）
+			// このため、高低差がないとみなす
+			Vector3 Target_VertualPos = target.Enemy.transform.position;
+			Target_VertualPos.y = 0;
+			Vector3 Mine_VerturalPos = transform.position;
+			Mine_VerturalPos.y = 0;
+			transform.rotation = Quaternion.LookRotation(Target_VertualPos - Mine_VerturalPos);
+			// 前
+			if(stepinput == StepInput.FRONT)
+			{
+				animator.SetTrigger("FrontStep");
+				MoveDirection = transform.rotation * Vector3.forward;
+			}
+			// 左
+			else if(stepinput == StepInput.LEFT)
+			{
+				animator.SetTrigger("LeftStep");
+				MoveDirection = transform.rotation * new Vector3(-0.5f, 0, 0.5f);
+			}
+			// 右
+			else if(stepinput == StepInput.RIGHT)
+			{
+				animator.SetTrigger("RightStep");
+				MoveDirection = transform.rotation * new Vector3(0.5f, 0, 0.5f);
+			}
+			// 後
+			else if(stepinput == StepInput.BACK)
+			{
+				animator.SetTrigger("BackStep");
+				MoveDirection = transform.rotation * new Vector3(0, 0, -1);
+			}
+		}
+		// 非ロック時は強制的に前ステップする
+		else
+		{
+			animator.SetTrigger("FrontStep");
+			MoveDirection = transform.rotation * Vector3.forward;
+		}
 
-        // 左右どっちかが入っていると左右ステップ
-        // ベクトルを角度に変換する(degへ)
-        float nowrot = Mathf.Atan2(inputVector.y, inputVector.x) * Mathf.Rad2Deg - 90;
+        //// 左右どっちかが入っていると左右ステップ
+        //// ベクトルを角度に変換する(degへ)
+        //float nowrot = Mathf.Atan2(inputVector.y, inputVector.x) * Mathf.Rad2Deg - 90;
 
-        // 角度演算用の配列
-        // 角度1
-        float[] rot1 = { -22.5f, 22.5f, 67.5f, 112.5f, -157.5f, -112.5f, -67.5f };
-        // 角度2
-        float[] rot2 = { 22.5f, 67.5f, 112.5f, 157.5f, -112.5f, -67.5f, -22.5f };
+        //// 角度演算用の配列
+        //// 角度1
+        //float[] rot1 = { -22.5f, 22.5f, 67.5f, 112.5f, -157.5f, -112.5f, -67.5f };
+        //// 角度2
+        //float[] rot2 = { 22.5f, 67.5f, 112.5f, 157.5f, -112.5f, -67.5f, -22.5f };
 
-        // 左以外
-        for (int i = 0; i < 7; i++)
-        {
-            if (nowrot >= rot1[i] && nowrot < rot2[i])
-            {
-                // ロックオン時は相手の方向を見てステップする
-                if (IsRockon)
-                {
-                    // 対象の座標を取得（カメラ(m_MainCamera)→Enemy)
-                    var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
-                    // 角度を逆算(ステップ時常時相手の方向を向かせる.ただしWY回転のみ）
-                    // このため、高低差がないとみなす
-                    Vector3 Target_VertualPos = target.Enemy.transform.position;
-                    Target_VertualPos.y = 0;
-                    Vector3 Mine_VerturalPos = transform.position;
-                    Mine_VerturalPos.y = 0;
-                    transform.rotation = Quaternion.LookRotation(Target_VertualPos - Mine_VerturalPos);
-                    // アニメ再生
-                    // 前
-                    if (i == 0)
-                    {                        
-                        animator.SetTrigger("FrontStep");
-                    }
-                    // 右前
-                    else if(i == 1)
-                    {
-                        animator.SetTrigger("RightStep");
-                    }
-                    // 右
-                    else if (i == 2)
-                    {
-                        animator.SetTrigger("RightStep");
-                    }
-                    // 右後
-                    else if (i == 3)
-                    {
-                        animator.SetTrigger("RightStep");
-                    }
-                    // 後
-                    else if (i == 4)
-                    {
-                        animator.SetTrigger("BackStep");
-                    }
-                    // 左後
-                    else if (i == 5)
-                    {
-                        animator.SetTrigger("LeftStep");
-                    }
-                    // 左前
-                    else if (i == 6)
-                    {
-                        animator.SetTrigger("LeftStep");
-                    }
-                    break;
-                }
-                // 非ロックオン時
-                else
-                {
-                    // アニメ再生（強制的にフロントステップにする）
-                    animator.SetTrigger("FrontStep");
-                    break;
-                }
-            }
-        }
+        //// 左以外
+        //for (int i = 0; i < 7; i++)
+        //{
+        //    if (nowrot >= rot1[i] && nowrot < rot2[i])
+        //    {
+        //        // ロックオン時は相手の方向を見てステップする
+        //        if (IsRockon)
+        //        {
+        //            // 対象の座標を取得（カメラ(m_MainCamera)→Enemy)
+        //            var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
+        //            // 角度を逆算(ステップ時常時相手の方向を向かせる.ただしWY回転のみ）
+        //            // このため、高低差がないとみなす
+        //            Vector3 Target_VertualPos = target.Enemy.transform.position;
+        //            Target_VertualPos.y = 0;
+        //            Vector3 Mine_VerturalPos = transform.position;
+        //            Mine_VerturalPos.y = 0;
+        //            transform.rotation = Quaternion.LookRotation(Target_VertualPos - Mine_VerturalPos);
+        //            // アニメ再生
+        //            // 前
+        //            if (i == 0)
+        //            {                        
+        //                animator.SetTrigger("FrontStep");
+        //            }
+        //            // 右前
+        //            else if(i == 1)
+        //            {
+        //                animator.SetTrigger("RightStep");
+        //            }
+        //            // 右
+        //            else if (i == 2)
+        //            {
+        //                animator.SetTrigger("RightStep");
+        //            }
+        //            // 右後
+        //            else if (i == 3)
+        //            {
+        //                animator.SetTrigger("RightStep");
+        //            }
+        //            // 後
+        //            else if (i == 4)
+        //            {
+        //                animator.SetTrigger("BackStep");
+        //            }
+        //            // 左後
+        //            else if (i == 5)
+        //            {
+        //                animator.SetTrigger("LeftStep");
+        //            }
+        //            // 左前
+        //            else if (i == 6)
+        //            {
+        //                animator.SetTrigger("LeftStep");
+        //            }
+        //            break;
+        //        }
+        //        // 非ロックオン時
+        //        else
+        //        {
+        //            // アニメ再生（強制的にフロントステップにする）
+        //            animator.SetTrigger("FrontStep");
+        //            break;
+        //        }
+        //    }
+        //}
 
-        // 左(Unityは±180までしか取れんのよ・・・）
-        if (nowrot >= 157.5 || nowrot < -157.5f)
-        {
-            if (this.IsRockon)
-            {
-                // 対象の座標を取得（カメラ(m_MainCamera)→Enemy)
-                var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
-                // 角度を逆算(ステップ時常時相手の方向を向かせる.ただしWY回転のみ）
-                // このため、高低差がないとみなす
-                Vector3 Target_VertualPos = target.Enemy.transform.position;
-                Target_VertualPos.y = 0;
-                Vector3 Mine_VerturalPos = this.transform.position;
-                Mine_VerturalPos.y = 0;
-                this.transform.rotation = Quaternion.LookRotation(Target_VertualPos - Mine_VerturalPos);
-                // アニメ再生（左ステップ）
-                animator.SetTrigger("LeftStep");
-            }
-            // 非ロックオン時
-            else
-            {
-                // アニメ再生（強制的にフロントステップにする）
-                animator.SetTrigger("FrontStep");
-            }
-        }
-        this.Boost = this.Boost - this.StepUseBoost;
+        //// 左(Unityは±180までしか取れんのよ・・・）
+        //if (nowrot >= 157.5 || nowrot < -157.5f)
+        //{
+        //    if (this.IsRockon)
+        //    {
+        //        // 対象の座標を取得（カメラ(m_MainCamera)→Enemy)
+        //        var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
+        //        // 角度を逆算(ステップ時常時相手の方向を向かせる.ただしWY回転のみ）
+        //        // このため、高低差がないとみなす
+        //        Vector3 Target_VertualPos = target.Enemy.transform.position;
+        //        Target_VertualPos.y = 0;
+        //        Vector3 Mine_VerturalPos = this.transform.position;
+        //        Mine_VerturalPos.y = 0;
+        //        this.transform.rotation = Quaternion.LookRotation(Target_VertualPos - Mine_VerturalPos);
+        //        // アニメ再生（左ステップ）
+        //        animator.SetTrigger("LeftStep");
+        //    }
+        //    // 非ロックオン時
+        //    else
+        //    {
+        //        // アニメ再生（強制的にフロントステップにする）
+        //        animator.SetTrigger("FrontStep");
+        //    }
+        //}
+        Boost = Boost - StepUseBoost;
         // ステップ累積距離を0に初期化
-        this.SteppingLength = 0.0f;
+        SteppingLength = 0.0f;
 
         // 空中ステップのために重力無効
-        this.GetComponent<Rigidbody>().useGravity = false;
+        GetComponent<Rigidbody>().useGravity = false;
 
         // 移動方向取得
         UpdateRotation_step();
 
-        // 何らかの理由でm_MoveDirectionが0になったとき、強制的に入れる（射撃直後にステップを入れると高確率でこの現象が起こる）
-        if (MoveDirection == Vector3.zero)
-        {
-            // キーの入力方向を取る（ステップすべき方向を取る）
-            int inputrot = 0;
-            // 上
-            if (inputVector.x == 0 && inputVector.y > 0)
-            {
-                inputrot = 1;
-            }
-            // 左上
-            else if (inputVector.x < 0 && inputVector.y > 0)
-            {
-                inputrot = 2;
-            }
-            // 左
-            else if (inputVector.x < 0 && inputVector.y == 0)
-            {
-                inputrot = 3;
-            }
-            // 左下
-            else if (inputVector.x < 0 && inputVector.y < 0)
-            {
-                inputrot = 4;
-            }
-            // 下
-            else if (inputVector.x == 0 && inputVector.y < 0)
-            {
-                inputrot = 5;
-            }
-            // 右下
-            else if (inputVector.x > 0 && inputVector.y < 0)
-            {
-                inputrot = 6;
-            }
-            // 右
-            else if (inputVector.x > 0 && inputVector.y == 0)
-            {
-                inputrot = 7;
-            }
-            // 右上
-            else
-            {
-                inputrot = 8;
-            }
-            // 上に進む場合
-            if (inputrot == 1)
-            {
-                MoveDirection = transform.rotation * Vector3.forward;
-            }
-            // 下に進む場合
-            else if (inputrot == 5)
-            {
-                // 方向算出(現在の方向の後ろ側）
-                float nowrotY = transform.rotation.eulerAngles.y + 180;
-                Quaternion rot = Quaternion.Euler(new Vector3(0, nowrotY, 0));
-                MoveDirection = rot * Vector3.forward;
-            }
-            // 左上・左・左下へ進む場合
-            else if (2 <= inputrot && inputrot <= 4)
-            {
-                // 進行方向(rad)
-                double nowrotY = transform.rotation.eulerAngles.y * Mathf.PI / 180;
-                // 方向ベクトル算出：X
-                float x = (float)Mathf.Sin((float)nowrotY - Mathf.PI / 2);
-                // 方向ベクトル算出：Z
-                float z = (float)Mathf.Sin((float)nowrotY);
-                MoveDirection = new Vector3(x, 0, z);
-            }
-            // 右上・右・右下へ進む場合
-            else
-            {
-                // 進行方向(rad)
-                double nowrotY = transform.rotation.eulerAngles.y * Mathf.PI / 180;
-                // 方向ベクトル算出：X
-                float x = (float)Mathf.Cos((float)nowrotY);
-                // 方向ベクトル算出：Z
-                float z = (float)Mathf.Sin((float)nowrotY - Mathf.PI);
-                MoveDirection = new Vector3(x, 0, z);
-            }
-        }
+        //// 何らかの理由でm_MoveDirectionが0になったとき、強制的に入れる（射撃直後にステップを入れると高確率でこの現象が起こる）
+        //if (MoveDirection == Vector3.zero)
+        //{
+        //    // キーの入力方向を取る（ステップすべき方向を取る）
+        //    int inputrot = 0;
+        //    // 上
+        //    if (inputVector.x == 0 && inputVector.y > 0)
+        //    {
+        //        inputrot = 1;
+        //    }
+        //    // 左上
+        //    else if (inputVector.x < 0 && inputVector.y > 0)
+        //    {
+        //        inputrot = 2;
+        //    }
+        //    // 左
+        //    else if (inputVector.x < 0 && inputVector.y == 0)
+        //    {
+        //        inputrot = 3;
+        //    }
+        //    // 左下
+        //    else if (inputVector.x < 0 && inputVector.y < 0)
+        //    {
+        //        inputrot = 4;
+        //    }
+        //    // 下
+        //    else if (inputVector.x == 0 && inputVector.y < 0)
+        //    {
+        //        inputrot = 5;
+        //    }
+        //    // 右下
+        //    else if (inputVector.x > 0 && inputVector.y < 0)
+        //    {
+        //        inputrot = 6;
+        //    }
+        //    // 右
+        //    else if (inputVector.x > 0 && inputVector.y == 0)
+        //    {
+        //        inputrot = 7;
+        //    }
+        //    // 右上
+        //    else
+        //    {
+        //        inputrot = 8;
+        //    }
+        //    // 上に進む場合
+        //    if (inputrot == 1)
+        //    {
+        //        MoveDirection = transform.rotation * Vector3.forward;
+        //    }
+        //    // 下に進む場合
+        //    else if (inputrot == 5)
+        //    {
+        //        // 方向算出(現在の方向の後ろ側）
+        //        float nowrotY = transform.rotation.eulerAngles.y + 180;
+        //        Quaternion rot = Quaternion.Euler(new Vector3(0, nowrotY, 0));
+        //        MoveDirection = rot * Vector3.forward;
+        //    }
+        //    // 左上・左・左下へ進む場合
+        //    else if (2 <= inputrot && inputrot <= 4)
+        //    {
+        //        // 進行方向(rad)
+        //        double nowrotY = transform.rotation.eulerAngles.y * Mathf.PI / 180;
+        //        // 方向ベクトル算出：X
+        //        float x = (float)Mathf.Sin((float)nowrotY - Mathf.PI / 2);
+        //        // 方向ベクトル算出：Z
+        //        float z = (float)Mathf.Sin((float)nowrotY);
+        //        MoveDirection = new Vector3(x, 0, z);
+        //    }
+        //    // 右上・右・右下へ進む場合
+        //    else
+        //    {
+        //        // 進行方向(rad)
+        //        double nowrotY = transform.rotation.eulerAngles.y * Mathf.PI / 180;
+        //        // 方向ベクトル算出：X
+        //        float x = (float)Mathf.Cos((float)nowrotY);
+        //        // 方向ベクトル算出：Z
+        //        float z = (float)Mathf.Sin((float)nowrotY - Mathf.PI);
+        //        MoveDirection = new Vector3(x, 0, z);
+        //    }
+        //}
 
-        // 格闘キャンセルステップは入力の関係でMoveDirectinが相手の方向を向いているため、MoveDirectionを再設定する
-        if (rainbow)
-        {
-            this.MoveDirection = this.StepRotation * Vector3.forward;
-        }
+        //// 格闘キャンセルステップは入力の関係でMoveDirectinが相手の方向を向いているため、MoveDirectionを再設定する
+        //if (rainbow)
+        //{
+        //    this.MoveDirection = this.StepRotation * Vector3.forward;
+        //}
         _StepStartTime = Time.time;
     }
 
@@ -3256,6 +3299,7 @@ public class CharacterControlBase : MonoBehaviour
         }
         if (RigidBody != null)
         {
+			Debug.Log(MoveDirection);
 			// 速度ベクトルを作る
             Vector3 velocity = MoveDirection * MoveSpeed;
             // 走行中/アイドル中/吹き飛び中/ダウン中
@@ -3374,6 +3418,22 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="backstepbackID">バックステップ戻りのID</param>
     protected void StepMove(Animator animator, int frontstephash,int leftstephash, int rightstephash, int backstephash)
     {
+		// ロック時は常時ロック相手の方向を見続ける
+		if(IsRockon)
+		{
+			// 対象の座標を取得（カメラ(m_MainCamera)→Enemy)
+			var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
+			// 角度を逆算(ステップ時常時相手の方向を向かせる.ただしWY回転のみ）
+			// このため、高低差がないとみなす
+			Vector3 Target_VertualPos = target.Enemy.transform.position;
+			Target_VertualPos.y = 0;
+			Vector3 Mine_VerturalPos = transform.position;
+			Mine_VerturalPos.y = 0;
+			transform.rotation = Quaternion.LookRotation(Target_VertualPos - Mine_VerturalPos);
+		}
+		
+
+
         // 移動距離をインクリメントする（初期位置との差では壁に当たったときに無限に動き続ける）
         SteppingLength += StepMove1F;
 
@@ -3381,7 +3441,7 @@ public class CharacterControlBase : MonoBehaviour
         if (SteppingLength > StepMoveLength)
         {
             //MoveDirection.y = -2;                
-            MoveDirection = transform.rotation * Vector3.forward;
+            //MoveDirection = transform.rotation * Vector3.forward;
             if( animator.GetCurrentAnimatorStateInfo(0).fullPathHash == frontstephash)
             {
                 animator.SetTrigger("FrontStepBack");
@@ -3534,7 +3594,7 @@ public class CharacterControlBase : MonoBehaviour
     protected virtual void Moveshot(bool run, Animator animator, int idlehash)
     {
         // ロックオン中かつshotmode=RELOADの時は全体を相手の方へ向ける
-        if (this.IsRockon && Shotmode != ShotMode.NORMAL && Shotmode != ShotMode.SHOTDONE)
+        if (IsRockon && Shotmode != ShotMode.NORMAL && Shotmode != ShotMode.SHOTDONE)
         {
             RotateToTarget();
         }
@@ -3542,15 +3602,15 @@ public class CharacterControlBase : MonoBehaviour
         if (HasVHInput)
         {
             // ロック時に矢を撃つときは本体が相手の方向を向いているため、専用の処理が要る
-            if (this.IsRockon && Shotmode != ShotMode.NORMAL)
+            if (IsRockon && Shotmode != ShotMode.NORMAL)
             {
                 UpdateRotation_step();      // steprotは相手の方向を向いたまま動くので、こっちを使う
-                this.MoveDirection = this.StepRotation * Vector3.forward;
+                MoveDirection = StepRotation * Vector3.forward;
             }
             else
             {
                 UpdateRotation();
-                this.MoveDirection = this.transform.rotation * Vector3.forward;
+                MoveDirection = transform.rotation * Vector3.forward;
             }
         }
         // 入力が外れると、落下する
@@ -3560,7 +3620,7 @@ public class CharacterControlBase : MonoBehaviour
             {
                 animator.SetTrigger("Idle");
             }
-            this.MoveDirection = Vector3.zero;
+            MoveDirection = Vector3.zero;
         }
     }
 
@@ -5326,11 +5386,11 @@ public class CharacterControlBase : MonoBehaviour
             if (HasJumpingInput)
             {
                 // ホールド中旋回禁止
-                if (!this.Rotatehold)
+                if (!Rotatehold)
                 {
                     UpdateRotation();
                 }
-                this.MoveDirection = transform.rotation * Vector3.forward;
+                MoveDirection = transform.rotation * Vector3.forward;
             }
             // ボタンを離すと下降
             else
@@ -5342,7 +5402,7 @@ public class CharacterControlBase : MonoBehaviour
 		else
 		{
 			FallDone(RiseSpeed,animator, fallID);
-			this.MoveDirection = RiseSpeed;
+			MoveDirection = RiseSpeed;
 		}
 		// 着地で着地モーションへ
 		if (IsGrounded)
@@ -5350,7 +5410,7 @@ public class CharacterControlBase : MonoBehaviour
 			LandingDone(animator, landingID);
 		}
 		// 常時ブースト消費
-		this.Boost = this.Boost - this.BoostLess;
+		Boost = Boost - BoostLess;
 	}
 
 	/// <summary>
@@ -5378,15 +5438,28 @@ public class CharacterControlBase : MonoBehaviour
 	/// <param name="idleID"></param>
 	protected void Animation_StepBack(Animator animator, int idleID)
 	{
+		// ロック中は相手の方向を見る
+		if(IsRockon)
+		{
+			// 対象の座標を取得（カメラ(m_MainCamera)→Enemy)
+			var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
+			// 角度を逆算(ステップ時常時相手の方向を向かせる.ただしWY回転のみ）
+			// このため、高低差がないとみなす
+			Vector3 Target_VertualPos = target.Enemy.transform.position;
+			Target_VertualPos.y = 0;
+			Vector3 Mine_VerturalPos = transform.position;
+			Mine_VerturalPos.y = 0;
+			transform.rotation = Quaternion.LookRotation(Target_VertualPos - Mine_VerturalPos);
+		}
 		// ステップ終了アニメの終了を取る
 		if(animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
 		{
 			// 着地したので硬直を設定する
-			this.LandingTime = Time.time;
+			LandingTime = Time.time;
 			// 無効になっていたら重力を復活させる
-			this.GetComponent<Rigidbody>().useGravity = true;
+			GetComponent<Rigidbody>().useGravity = true;
 			// 動作を停止する
-			this.MoveDirection = new Vector3(0, 0, 0);
+			MoveDirection = new Vector3(0, 0, 0);
             // アニメーションをIdleに戻す
             animator.SetTrigger("Idle");
 		}	
