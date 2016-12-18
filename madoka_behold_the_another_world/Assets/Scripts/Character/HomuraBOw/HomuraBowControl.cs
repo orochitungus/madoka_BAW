@@ -1311,6 +1311,8 @@ public class HomuraBowControl : CharacterControlBase
 				{
 					// 相手の頭上に向けて飛んでいく
 					Vector3 landingpos = new Vector3(targetpos.x, targetpos.y + 50, targetpos.z);
+					// 到達座標を代入する
+					exshotArrow.FunnelInjectionTargetPos = landingpos;
 					// 本体の回転角度を拾う
 					Quaternion mainrot2 = Quaternion.LookRotation(landingpos - transform.position);
 					// 正規化して代入する

@@ -461,70 +461,73 @@ public class Bullet : MonoBehaviour
             targetAI.m_cpumode = AIControl_Base.CPUMODE.GUARDEND;
             Destroy(gameObject);
             return;
-        }        
+        }
+
+		// 当てた側の覚醒ゲージを増やす
+
 
         // BEAM・BULLETの場合
         if (Bullettype == BulletType.BEAM || Bullettype == BulletType.BULLET)
         {
-            // 着弾音を鳴らす
-            AudioSource.PlayClipAtPoint(HitSE, transform.position);
-            // 着弾した位置にヒットエフェクトを置く            
-            GameObject hiteffect = (GameObject)Instantiate(HitEffect, transform.position, transform.rotation);
-			
-            // targetがCharacterControl_Baseクラスでなければ「自壊させて」強制抜け
-            if (target == null)
-            {
-                // オブジェクトを自壊させる
-                Destroy(gameObject);
-                return;
-            }
-            // ダウン中かダウン値MAXならダメージを与えない
-            // そうでないならダメージとダウン値加算を確定
-            // ヒット時にダメージの種類をCharacterControl_Baseに与える
-            // ただしアーマー時ならダウン値とダメージだけ加算する
-            // Blow属性の攻撃を与えた場合も吹き飛びへ移行
-            // のけぞりならDamageInit
-            // 吹き飛びならBlowInit
-            // 吹き飛びの場合、相手に方向ベクトルを与える
+			// 着弾音を鳴らす
+			AudioSource.PlayClipAtPoint(HitSE, transform.position);
+			// 着弾した位置にヒットエフェクトを置く            
+			GameObject hiteffect = Instantiate(HitEffect, transform.position, transform.rotation);
 
-            // ダウン中かダウン値MAXかリバーサルならダメージを与えない
-            if (target.Invincible)
-            {
-                // オブジェクトを自壊させる
-                Destroy(gameObject);
-                return;
-            }
-            // そうでないならダメージとダウン値加算と覚醒ゲージ増加を確定
-            else
-            {
-                HitDamage(player, enemy, collision);
-            }
-            // ヒット時にダメージの種類をCharacterControlBaseに与える
-            // ダウン値を超えていたら吹き飛びへ移行
-            // Blow属性の攻撃を与えた場合も吹き飛びへ移行
-            if (target.NowDownRatio >= target.DownRatioBias || this.Hittype == CharacterSkill.HitType.BLOW)
-            {   // 吹き飛びの場合、相手に方向ベクトルを与える            
-                // Y軸方向は少し上向き
-                target.MoveDirection.y += 10;
-                target.BlowDirection = this.MoveDirection;
-                // 吹き飛びの場合、攻撃を当てた相手を浮かす（MadokaDefine.LAUNCHOFFSET)            
-                target.GetComponent<Rigidbody>().position = target.GetComponent<Rigidbody>().position + new Vector3(0, MadokaDefine.LAUNCHOFFSET, 0);
-                target.GetComponent<Rigidbody>().AddForce(this.MoveDirection.x * MadokaDefine.LAUNCHOFFSET, this.MoveDirection.y * MadokaDefine.LAUNCHOFFSET, this.MoveDirection.z * MadokaDefine.LAUNCHOFFSET);
-                target.DamageInit(target.AnimatorUnit, 41, true, 43, 44);
-            }
-            // それ以外はのけぞりへ
-            else
-            {
-                // ただしアーマー時ならダウン値とダメージだけ加算する(Damageにしない）
-                if (!target.IsArmor)
-                {
-                    target.DamageInit(target.AnimatorUnit, 41, false, 43, 44); 
-                }
-                // アーマーなら以降の処理が関係ないのでオブジェクトを自壊させてサヨウナラ                
-            }
-            // オブジェクトを自壊させる
-            Destroy(gameObject); 
-        }
+			// targetがCharacterControl_Baseクラスでなければ「自壊させて」強制抜け
+			if (target == null)
+			{
+				// オブジェクトを自壊させる
+				Destroy(gameObject);
+				return;
+			}
+			// ダウン中かダウン値MAXならダメージを与えない
+			// そうでないならダメージとダウン値加算を確定
+			// ヒット時にダメージの種類をCharacterControl_Baseに与える
+			// ただしアーマー時ならダウン値とダメージだけ加算する
+			// Blow属性の攻撃を与えた場合も吹き飛びへ移行
+			// のけぞりならDamageInit
+			// 吹き飛びならBlowInit
+			// 吹き飛びの場合、相手に方向ベクトルを与える
+
+			// ダウン中かダウン値MAXかリバーサルならダメージを与えない
+			if (target.Invincible)
+			{
+				// オブジェクトを自壊させる
+				Destroy(gameObject);
+				return;
+			}
+			// そうでないならダメージとダウン値加算と覚醒ゲージ増加を確定
+			else
+			{
+				HitDamage(player, enemy, collision);
+			}
+			// ヒット時にダメージの種類をCharacterControlBaseに与える
+			// ダウン値を超えていたら吹き飛びへ移行
+			// Blow属性の攻撃を与えた場合も吹き飛びへ移行
+			if (target.NowDownRatio >= target.DownRatioBias || this.Hittype == CharacterSkill.HitType.BLOW)
+			{   // 吹き飛びの場合、相手に方向ベクトルを与える            
+				// Y軸方向は少し上向き
+				target.MoveDirection.y += 10;
+				target.BlowDirection = this.MoveDirection;
+				// 吹き飛びの場合、攻撃を当てた相手を浮かす（MadokaDefine.LAUNCHOFFSET)            
+				target.GetComponent<Rigidbody>().position = target.GetComponent<Rigidbody>().position + new Vector3(0, MadokaDefine.LAUNCHOFFSET, 0);
+				target.GetComponent<Rigidbody>().AddForce(this.MoveDirection.x * MadokaDefine.LAUNCHOFFSET, this.MoveDirection.y * MadokaDefine.LAUNCHOFFSET, this.MoveDirection.z * MadokaDefine.LAUNCHOFFSET);
+				target.DamageInit(target.AnimatorUnit, 41, true, 43, 44);
+			}
+			// それ以外はのけぞりへ
+			else
+			{
+				// ただしアーマー時ならダウン値とダメージだけ加算する(Damageにしない）
+				if (!target.IsArmor)
+				{
+					target.DamageInit(target.AnimatorUnit, 41, false, 43, 44);
+				}
+				// アーマーなら以降の処理が関係ないのでオブジェクトを自壊させてサヨウナラ                
+			}
+			// オブジェクトを自壊させる
+			Destroy(gameObject);
+		}
         // BAZOOKAの場合
         else if (Bullettype == BulletType.BAZOOKA)
         {
@@ -560,6 +563,7 @@ public class Bullet : MonoBehaviour
                 if (InjectionObject.GetComponent<CharacterControlBase>().IsPlayer != CharacterControlBase.CHARACTERCODE.ENEMY)
                 {
                     savingparameter.AddArousal(InjectionCharacterIndex, ArousalRatio);
+					InjectionObject.GetComponent<CharacterControlBase>().AddArousal(ArousalRatio);
                 }
                 // 攻撃を当てた側が敵側の場合
                 else
@@ -659,8 +663,9 @@ public class Bullet : MonoBehaviour
             // 攻撃を当てた側が味方側の場合
             if (InjectionObject.GetComponent<CharacterControlBase>().IsPlayer != CharacterControlBase.CHARACTERCODE.ENEMY)
             {
-                float nextArousal = ArousalRatio + savingparameter.GetNowArousal(InjectionCharacterIndex);
+                float nextArousal = ArousalRatio;
                 savingparameter.AddArousal(InjectionCharacterIndex, nextArousal);
+				InjectionObject.GetComponent<CharacterControlBase>().AddArousal(ArousalRatio);
             }
             // 攻撃を当てた側が敵側の場合
             else

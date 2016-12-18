@@ -1553,13 +1553,13 @@ public class CharacterControlBase : MonoBehaviour
 			else if(stepinput == StepInput.LEFT)
 			{
 				animator.SetTrigger("LeftStep");
-				SideStep(90);
+				SideStep(180);
 			}
 			// 右
 			else if(stepinput == StepInput.RIGHT)
 			{
 				animator.SetTrigger("RightStep");
-				SideStep(-90);
+				SideStep(-180);
 			}
 			// 後
 			else if(stepinput == StepInput.BACK)
@@ -3169,7 +3169,6 @@ public class CharacterControlBase : MonoBehaviour
         }
         if (RigidBody != null)
         {
-			Debug.Log(MoveDirection);
 			// 速度ベクトルを作る
             Vector3 velocity = MoveDirection * MoveSpeed;
             // 走行中/アイドル中/吹き飛び中/ダウン中
@@ -4462,23 +4461,23 @@ public class CharacterControlBase : MonoBehaviour
         animator.SetTrigger("Damage");
 
 		// 動作及び慣性をカット
-		this.MoveDirection = Vector3.zero;
+		MoveDirection = Vector3.zero;
 		// 飛び越えフラグをカット	
-		this.Rotatehold = false;
+		Rotatehold = false;
 
 		// 固定状態をカット
-		this.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+		transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 		// ずれた本体角度を戻す(Yはそのまま）
-		this.transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0));
-		this.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+		transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0));
+		transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
 
 
 
 		// 死亡時は強制吹き飛び属性
-		if (this.NowHitpoint < 1)
+		if (NowHitpoint < 1)
 		{
 			// 属性がEnemyなら爆発エフェクトを貼り付ける
-			if (this.IsPlayer == CHARACTERCODE.ENEMY)
+			if (IsPlayer == CHARACTERCODE.ENEMY)
 			{
 				// エフェクトをロードする
 				Object Explosion = Resources.Load("Explosion_death");
@@ -4487,7 +4486,7 @@ public class CharacterControlBase : MonoBehaviour
 				// 親子関係を再設定する
 				obj.transform.parent = this.transform;
 				// 死亡爆発が起こったというフラグを立てる
-				this.Explode = true;
+				Explode = true;
 			}
 			NowDownRatio = 5;
 		}
@@ -4518,11 +4517,9 @@ public class CharacterControlBase : MonoBehaviour
 		// ステートをDamageに切り替える
 		animator.speed = 1.0f;
 		// 重力をカット
-		this.GetComponent<Rigidbody>().useGravity = false;
+		GetComponent<Rigidbody>().useGravity = false;
 		// ダメージ硬直の計算開始
 		DamagedTime = Time.time;
-        // ステートをDamageに切り替える
-        animator.SetTrigger("Damage");
     }
 
     /// <summary>
@@ -4573,23 +4570,21 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="animator"></param>
     public virtual void Damage(Animator animator)
 	{
-		// TODO:移行後復活 
-		// IsStep = false;
-		// IsWrestle = false;
+		// 移行後復活 
 		// ダメージ硬直終了
 		if (Time.time > DamagedTime + DamagedWaitTime)
 		{
 			// 固定があった場合解除
 			GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 			// 空中にいた→ダウンアニメを再生する→Blowへ移行（飛ばされない）
-			if (!this.IsGrounded)
+			if (!IsGrounded)
 			{
 				// Rotateの固定を解除        
 				RigidBody.freezeRotation = false;
                 // ダウンアニメを再生する
                 animator.SetTrigger("Blow");
 				// 重力を復活
-				this.GetComponent<Rigidbody>().useGravity = true;				
+				GetComponent<Rigidbody>().useGravity = true;				
 			}
 			// 地上にいた→Idleへ移行し、Rotateをすべて0にして固定する
 			else
@@ -4631,9 +4626,9 @@ public class CharacterControlBase : MonoBehaviour
 		else if (this.NowDownRatio <= DownRatioBias &&  this.HasJumpInput && Boost >= ReversalUseBoost)
 		{
 			// ブースト量を減らす
-			this.Boost -= this.ReversalUseBoost;
+			Boost -= ReversalUseBoost;
 			// 復帰処理を行う
-			ReversalInit(animator,reversalid);
+			ReversalInit(animator);
 		}
 	}
 
@@ -4684,7 +4679,11 @@ public class CharacterControlBase : MonoBehaviour
 					return;
 				}
 			}
-			ReversalInit(animator,reversalID);
+			// 生きていれば起き上がる
+			if (NowHitpoint > 1)
+			{
+				ReversalInit(animator);
+			}
 		}
 	}
 
@@ -4700,19 +4699,15 @@ public class CharacterControlBase : MonoBehaviour
     /// <summary>
     /// ダウン復帰後処理（ダウン復帰アニメの最終フレームに実装）
     /// </summary>
-    /// <param name="animator"></param>
-    /// <param name="idlehash"></param>
-    protected virtual void ReversalComplete(Animator animator, int idlehash)
+    protected virtual void ReversalComplete()
 	{
 		// 復帰アニメが終わると、Idleにする
 		// ダウン値を0に戻す
-		this.NowDownRatio = 0.0f;
+		NowDownRatio = 0.0f;
 		// m_DownRebirthTimeを0にする
-		this.DownRebirthTime = 0;
-        // ステートをIdleに戻す
-        animator.SetTrigger("Idle");;
+		DownRebirthTime = 0;
 		// m_DownTimeを0にする
-		this.DownTime = 0;
+		DownTime = 0;
 		// 無敵時間を解除する
 		StartCoroutine(InvincibleCut());
 	}
@@ -4729,14 +4724,14 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="animator"></param>
     /// <param name="reversalhash"></param>
-    protected void ReversalInit(Animator animator,int reversalhash)
+    protected void ReversalInit(Animator animator)
 	{
 		// rotationの固定を復活させ、0,0,0にする
-		this.GetComponent<Rigidbody>().rotation = Quaternion.Euler(Vector3.zero);
+		GetComponent<Rigidbody>().rotation = Quaternion.Euler(Vector3.zero);
 		// 再固定する
-		this.GetComponent<Rigidbody>().freezeRotation = true;
+		GetComponent<Rigidbody>().freezeRotation = true;
 		// ステートを復帰にする
-		animator.SetInteger("NowState",reversalhash);
+		animator.SetTrigger("Reversal");
 	}
 
     /// <summary>

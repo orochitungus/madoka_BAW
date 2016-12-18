@@ -53,7 +53,7 @@ public class HomuraBowEXShot : Bullet
             RigidBody.constraints = RigidbodyConstraints.FreezeRotation;
 			for(int i=0; i<Lasers.Length; i++)
 			{
-				Lasers[i].m_Obj_OR = Shotspec.ObjOR;
+				Lasers[i].m_Obj_OR = InjectionObject;
 				Lasers[i].m_CharacterIndex = Shotspec.CharacterIndex;
 				Lasers[i].m_Hittype = Shotspec.Hittype;
 				Lasers[i].m_DownRatio = Shotspec.DownRatio;

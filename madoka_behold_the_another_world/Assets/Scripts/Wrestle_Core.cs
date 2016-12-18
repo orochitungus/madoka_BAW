@@ -184,6 +184,7 @@ public class Wrestle_Core : MonoBehaviour
             if (master.GetComponent<CharacterControlBase>().IsPlayer != CharacterControlBase.CHARACTERCODE.ENEMY)
             {
                 savingparameter.AddArousal((int)master.CharacterName, ArousalRatio);
+				master.Arousal += ArousalRatio;
             }
             // 敵の場合
             else

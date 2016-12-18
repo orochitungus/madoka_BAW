@@ -132,9 +132,9 @@ public class Laser : MonoBehaviour
             // 攻撃を当てた側が味方側の場合
             if (m_Obj_OR.GetComponent<CharacterControlBase>().IsPlayer != CharacterControlBase.CHARACTERCODE.ENEMY)
             {
-                float nextArousal = m_ArousalRatio + savingparameter.GetNowArousal(m_CharacterIndex);
-                savingparameter.AddArousal(m_CharacterIndex, nextArousal);
-            }
+                savingparameter.AddArousal(m_CharacterIndex, m_ArousalRatio);
+				m_Obj_OR.GetComponent<CharacterControlBase>().AddArousal(m_ArousalRatio);
+			}
             // 攻撃を当てた側が敵側の場合
             else
             {

@@ -92,6 +92,8 @@
     <Compile Include="Assets\Plugins\UniRx\Examples\Sample12_ReactiveProperty.cs" />
     <Compile Include="Assets\Plugins\UniRx\Examples\Sample13_ToDoApp.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Asynchronous\WebRequestExtensions.cs" />
+    <Compile Include="Assets\Plugins\UniRx\Scripts\ColliderTest\Floor.cs" />
+    <Compile Include="Assets\Plugins\UniRx\Scripts\ColliderTest\Sphere.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Disposables\BooleanDisposable.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Disposables\CancellationDisposable.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Disposables\CompositeDisposable.cs" />
