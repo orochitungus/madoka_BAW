@@ -1926,10 +1926,10 @@ public class HomuraBowControl : CharacterControlBase
 		// 親取得
 		GameObject parenthock = transform.FindChild(hockname).gameObject;
 		// エフェクト設置
-		GameObject wing = (GameObject)Instantiate(WingEffect, parenthock.transform.position, transform.rotation);
+		GameObject wing = Instantiate(WingEffect, parenthock.transform.position, transform.rotation);
 		wing.transform.parent = parenthock.transform;
 		// 判定設置
-		GameObject decision = (GameObject)Instantiate(WingAttecker, parenthock.transform.position, transform.rotation);
+		GameObject decision = Instantiate(WingAttecker, parenthock.transform.position, transform.rotation);
 		decision.transform.parent = parenthock.transform;
 		// 判定に攻撃力を設定する
 		int offensive = _GrowthcOffecientStr * (Level - 1) + _BasisOffensive;
