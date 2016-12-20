@@ -111,6 +111,7 @@ public class Wrestle_Core : MonoBehaviour
 		{
 			return;
 		}
+		
 
 		// シールド時は何もしない
 		if(IsShield)

@@ -1932,6 +1932,7 @@ public class HomuraBowControl : CharacterControlBase
 		// 判定設置
 		GameObject decision = Instantiate(WingAttecker, parenthock.transform.position, transform.rotation);
 		decision.transform.parent = parenthock.transform;
+		decision.transform.localPosition = Vector3.zero;
 		// 判定に攻撃力を設定する
 		int offensive = _GrowthcOffecientStr * (Level - 1) + _BasisOffensive;
 		var decision_instance = decision.GetComponentInChildren<Wrestle_Core>();
