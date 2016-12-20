@@ -44,6 +44,11 @@ public class Wrestle_Core : MonoBehaviour
 	public GameObject HitEffect;
 
 	/// <summary>
+	/// 除外対象
+	/// </summary>
+	public string Exclusion;
+
+	/// <summary>
 	/// ガードオブジェクトの場合はこのフラグをＯＮにすること
 	/// </summary>
 	public bool IsShield;
@@ -93,6 +98,20 @@ public class Wrestle_Core : MonoBehaviour
     // 当たったらその相手にダメージを与える.破壊は親元で行う
     public void OnCollisionEnter(Collision collision)
     {
+		// 除外対象がある場合、除外対象に当たったら何もしない
+		if(Exclusion != "")
+		{
+			if(collision.gameObject.name == Exclusion)
+			{
+				return;
+			}
+		}
+		// 地面に当たった場合は何もしない
+		if(collision.gameObject.layer == LayerMask.NameToLayer("ground"))
+		{
+			return;
+		}
+
 		// シールド時は何もしない
 		if(IsShield)
 		{

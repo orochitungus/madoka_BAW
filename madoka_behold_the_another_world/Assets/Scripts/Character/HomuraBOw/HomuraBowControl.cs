@@ -144,7 +144,7 @@ public class HomuraBowControl : CharacterControlBase
 	/// <summary>
 	/// ボーンの最大数
 	/// </summary>
-	private const int _MaxboneNum = 17;
+	private const int _MaxboneNum = 34;
 
 	/// <summary>
 	/// 覚醒技専用カメラ1個目
@@ -1886,9 +1886,10 @@ public class HomuraBowControl : CharacterControlBase
 				// フックの名前(右)
 				string hockname_R = "WINGHOCK/wing_bornr" + _WingboneCounter.ToString();
 				// m_wingappearTime経過して、左の羽根をつけていないなら左の羽根と判定をつける
-				if (_WingAppearCounter > _WingappearTime && !_LeftwingSet)
+				if (_WingAppearCounter < 18 && !_LeftwingSet)
 				{
 					_LeftwingSet = true;
+					Debug.Log(hockname_L);
 					SetWing(hockname_L);
 				}
 				// さらにm_wingapperTime経過したら右の羽根と判定をつけてリセット
@@ -1905,7 +1906,7 @@ public class HomuraBowControl : CharacterControlBase
 						ArousalAttackCamera2.enabled = true;
 					}
 					// 全部出したらカメラを戻して飛行ポーズにして次へ行く
-					if (_WingboneCounter > _MaxboneNum)
+					if (_WingboneCounter > 17)
 					{
 						ArousalAttackCamera2.enabled = false;
 						AnimatorUnit.SetTrigger("ArousalAttack");
