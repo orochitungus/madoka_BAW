@@ -1,17 +1,22 @@
 fileFormatVersion: 2
-guid: 319e04bb1d24d3e4bb10b3518d4af224
-timeCreated: 1465226011
-licenseType: Free
+guid: 6e8744bcf8294a64e8bcc2dfa7f31c4c
+timeCreated: 1482381733
+licenseType: Pro
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
-    100002: road_turn_right
+    100002: HomuraWingL
+    100004: HomuraWingR
     400000: //RootNode
-    400002: road_turn_right
-    2300000: road_turn_right
-    3300000: road_turn_right
-    4300000: road_turn_right
+    400002: HomuraWingL
+    400004: HomuraWingR
+    2300000: HomuraWingL
+    2300002: HomuraWingR
+    3300000: HomuraWingL
+    3300002: HomuraWingR
+    4300000: HomuraWingL
+    4300002: HomuraWingR
   materials:
     importMaterials: 1
     materialName: 0
@@ -72,7 +77,7 @@ ModelImporter:
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
-    skeletonHasParents: 0
+    skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 0
   humanoidOversampling: 1
