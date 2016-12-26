@@ -2,6 +2,9 @@ Time Control and Pause Kit(キリカのマジカル無の境地で使えるかも？）
 
 BGMとSEはサウンドマネージャー依存にする(随時差し替え）
 
+C91info
+http://www.pixiv.net/member_illust.php?mode=manga&illust_id=45025868
+
 動作テストほむら
 	覚醒技の攻撃判定が出てない
 	終わった時に羽のフックまで消してしまう
