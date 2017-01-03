@@ -176,20 +176,20 @@ public class HomuraBowControl : CharacterControlBase
 	/// </summary>
 	public BattleInterfaceController Battleinterfacecontroller;
 
-    /// <summary>
-    /// 覚醒技の羽根のフック
-    /// </summary>
-    public GameObject WingHock;
+	/// <summary>
+	/// 覚醒技の羽
+	/// </summary>
+	public GameObject ArousalAttackWing;
 
 	/// <summary>
-	/// 覚醒技の羽根エフェクト
+	/// 覚醒技の判定フック
 	/// </summary>
-	public GameObject WingEffect;
+	public GameObject ArousalAttackHock;
 
 	/// <summary>
 	/// 覚醒技の攻撃判定
 	/// </summary>
-	public GameObject WingAttecker;
+	public HomuraBowArousalAttack ArousalAttackObject;
 
     /// <summary>
     /// 通常射撃のアイコン
@@ -265,6 +265,9 @@ public class HomuraBowControl : CharacterControlBase
 
 		// 格闘専用カメラをOFFにする
 		WrestleCamera.enabled = false;
+
+		// 羽をディアクティブにする
+		ArousalAttackWing.SetActive(false);
 
 		// 戦闘用インターフェースを取得する
 		Battleinterfacecontroller = GameObject.Find("BattleInterfaceCanvas").GetComponent<BattleInterfaceController>();
@@ -1843,15 +1846,11 @@ public class HomuraBowControl : CharacterControlBase
 		base.Animation_Walk(animator);
 		switch (Arousalattackstate)
 		{
-			case ArousalAttackState.INITIALIZE: // モーションを歩行に変更&重力を無効化する&本体に羽根フックを取り付ける
+			case ArousalAttackState.INITIALIZE: // 重力を無効化する&本体の羽をアクティブにする&&威力を初期化する
 				// 重力無効
 				RigidBody.useGravity = false;
-				// 羽フック取り付け
-				// フック取り付け位置
-				Vector3 hockpos = new Vector3(transform.position.x, transform.position.y + 1.0f, transform.position.z - 0.3f);
-				GameObject hock = (GameObject)Instantiate(WingHock, hockpos, Quaternion.identity);
-				hock.transform.parent = transform;
-				hock.name = "WINGHOCK";
+				// 羽をアクティブにする
+				ArousalAttackWing.SetActive(true);
 				Arousalattackstate = ArousalAttackState.FEATHERSET;
 				// 変数を初期化する
 				_WingAppearCounter = 0;
@@ -1862,8 +1861,12 @@ public class HomuraBowControl : CharacterControlBase
 				ArousalAttackCamera1.enabled = true;
 				// 覚醒技演出フラグをONにする
 				ArousalAttackProduction = true;
+				// 火力設定
+				int offensive = 300 + StrLevel * 30;
+				// 威力を初期化する
+				ArousalAttackObject.SetStatus(offensive, 5, CharacterSkill.HitType.BEND_BACKWARD);
 				break;
-			case ArousalAttackState.FEATHERSET: // 羽根フックに一定周期でエフェクトと攻撃判定を取り付けかつ前進させる
+			case ArousalAttackState.FEATHERSET: // カメラを切り替えつつ前進させる
 				// 前方向に向けて歩き出す
 				// ロックオン時は強制的に相手の方向を向く
 				if (IsRockon)
@@ -1879,23 +1882,15 @@ public class HomuraBowControl : CharacterControlBase
 				}
 				MoveDirection = transform.rotation * Vector3.forward;
 				RigidBody.position = GetComponent<Rigidbody>().position + MoveDirection * WalkSpeed * Time.deltaTime;
-				// エフェクト/判定取り付け開始(どのフックに取り付けるか）
-				// 一応左→右の順で取り付けていく
-				// フックの名前(左）
-				string hockname_L = "WINGHOCK/wing_bornl" + _WingboneCounter.ToString();
-				// フックの名前(右)
-				string hockname_R = "WINGHOCK/wing_bornr" + _WingboneCounter.ToString();
+			
 				// m_wingappearTime経過して、左の羽根をつけていないなら左の羽根と判定をつける
-				if (_WingAppearCounter < 18 && !_LeftwingSet)
+				if (_WingAppearCounter < 11 && !_LeftwingSet)
 				{
 					_LeftwingSet = true;
-					Debug.Log(hockname_L);
-					SetWing(hockname_L);
 				}
 				// さらにm_wingapperTime経過したら右の羽根と判定をつけてリセット
 				else if (_WingAppearCounter > _WingappearTime * 2)
 				{
-					SetWing(hockname_R);
 					_WingAppearCounter = 0;
 					_LeftwingSet = false;
 					_WingboneCounter++;
@@ -1920,26 +1915,7 @@ public class HomuraBowControl : CharacterControlBase
 		}
 	}
 
-	// 羽根エフェクトと攻撃判定を取り付ける
-	// hockname [in]:設置位置のフックの名前
-	private void SetWing(string hockname)
-	{
-		// 親取得
-		GameObject parenthock = transform.FindChild(hockname).gameObject;
-		// エフェクト設置
-		GameObject wing = Instantiate(WingEffect, parenthock.transform.position, transform.rotation);
-		wing.transform.parent = parenthock.transform;
-		// 判定設置
-		GameObject decision = Instantiate(WingAttecker, parenthock.transform.position, transform.rotation);
-		decision.transform.parent = parenthock.transform;
-		decision.transform.localPosition = Vector3.zero;
-		// 判定に攻撃力を設定する
-		int offensive = _GrowthcOffecientStr * (Level - 1) + _BasisOffensive;
-		var decision_instance = decision.GetComponentInChildren<Wrestle_Core>();
-        decision_instance.SetStatus(offensive, 5, 0, CharacterSkill.HitType.BLOW);
-		
-	}
-
+	
 	/// <summary>
 	/// 覚醒技処理
 	/// </summary>
@@ -1955,12 +1931,8 @@ public class HomuraBowControl : CharacterControlBase
 				// 飛行時間を終えたらENDへ移行
 				if (ArousalAttackTime > ArousalAttackTotal)
 				{
-					GameObject wh = gameObject.transform.FindChild("WINGHOCK").gameObject;
-					if (wh != null)
-					{
-						Destroy(wh);
-						Arousalattackstate = ArousalAttackState.END;
-					}
+					ArousalAttackWing.SetActive(false);
+					Arousalattackstate = ArousalAttackState.END;
 				}
 				break;
 			case ArousalAttackState.END:    // 覚醒ゲージが空になったので、Armorを戻してIdleへ移行
@@ -1969,6 +1941,14 @@ public class HomuraBowControl : CharacterControlBase
 				AnimatorUnit.SetTrigger("Idle");
 				break;
 		}
+	}
+
+	protected override void Down(Animator animator, int reversalID)
+	{
+		// 死んだ時は羽を消しておく
+		ArousalAttackWing.SetActive(false);
+		base.Down(animator, reversalID);
+
 	}
 
 }
