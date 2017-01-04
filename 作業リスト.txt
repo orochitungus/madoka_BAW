@@ -1,5 +1,11 @@
 Time Control and Pause Kit(キリカのマジカル無の境地で使えるかも？）
 
+以下のような感じでInspectorに見出しをつけられる
+// 何もなし
+[HeaderAttribute ("各シーンの Prefab")]
+// 特定変数の上
+[SerializeField, TooltipAttribute("スプラッシュ Prefab")]
+
 BGMとSEはサウンドマネージャー依存にする(随時差し替え）
 
 動作テストほむら
