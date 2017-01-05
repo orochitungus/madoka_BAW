@@ -1614,12 +1614,12 @@ public class CharacterControlBase : MonoBehaviour
         if (Time.time > _StepStartTime + 1.35f/*this.m_LandingTime*/)
         {
             // 無効になっていたら重力を復活させる
-            this.GetComponent<Rigidbody>().useGravity = true;
+            GetComponent<Rigidbody>().useGravity = true;
             // 地上にいたら着地
             if (IsGrounded)
             {
                 // ブースト量を初期化する
-                this.Boost = GetMaxBoost(this.BoostLevel);
+                Boost = GetMaxBoost(BoostLevel);
             }
             // 空中にいたら角度を戻して落下
             else
@@ -2199,7 +2199,6 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     protected virtual void CancelDashDone(Animator animator, int airdashID)
     {
-		Debug.Log("CancelDashDone!");
 		animator.speed = 1.0f;
 		if (Boost > 0)
         {
@@ -2262,9 +2261,9 @@ public class CharacterControlBase : MonoBehaviour
             }
 
             // 上方向への慣性を切る
-            this.MoveDirection.y = 0;
+            MoveDirection.y = 0;
             // 発動中重力無効
-            this.GetComponent<Rigidbody>().useGravity = false;
+            GetComponent<Rigidbody>().useGravity = false;
             // その方向へ移動
             GetComponent<Rigidbody>().AddForce(this.MoveDirection.x, 10, this.MoveDirection.z);
         }
@@ -3169,14 +3168,18 @@ public class CharacterControlBase : MonoBehaviour
         }
         if (RigidBody != null)
         {
-			// 速度ベクトルを作る
-            Vector3 velocity = MoveDirection * MoveSpeed;
+			Vector3 velocity = MoveDirection * MoveSpeed;			
             // 走行中/アイドル中/吹き飛び中/ダウン中
             if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == runid || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == idleid || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == blowid || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == downid)
             {
                 velocity.y = MadokaDefine.FALLSPEED;      // ある程度下方向へのベクトルをかけておかないと、スロープ中に落ちる
             }
+			else
+			{
+				velocity.y = 0;
+			}
             RigidBody.velocity = velocity;
+			Debug.Log(RigidBody.velocity);
         }
         // HP表示を増減させる(回復は一瞬で、被ダメージは徐々に減る）
         if (NowHitpoint < DrawHitpoint)
@@ -3783,7 +3786,7 @@ public class CharacterControlBase : MonoBehaviour
         // アニメーションの速度を調整する
         animator.speed = speed;
         // 移動速度を調整する
-        this.WrestlSpeed = movespeed;
+        WrestlSpeed = movespeed;
     }
 
     /// <summary>
@@ -4116,7 +4119,7 @@ public class CharacterControlBase : MonoBehaviour
 		// それ以外は本体の角度を移動方向にする
 		else
 		{
-			this.MoveDirection = Vector3.Normalize(this.transform.rotation * Vector3.forward);
+			MoveDirection = Vector3.Normalize(this.transform.rotation * Vector3.forward);
 		}
 		// アニメーション速度
 		float speed = Character_Spec.cs[(int)CharacterName][skillindex].m_Animspeed;
@@ -4127,7 +4130,7 @@ public class CharacterControlBase : MonoBehaviour
 		// アニメーションの速度を調整する
 		Animator.speed = speed;
 		// 移動速度を調整する
-		this.WrestlSpeed = WresltleSpeed;
+		WrestlSpeed = WresltleSpeed;
 	}
 
 	
@@ -4885,10 +4888,10 @@ public class CharacterControlBase : MonoBehaviour
         {
             // ジャンプ後の硬直終了時の処理はここに入れる
             // ジャンプ中にブーストがある限り上昇
-            if (this.Boost > 0)
+            if (Boost > 0)
             {
 				// BD入力でBDへ移行
-				if (this.HasDashCancelInput)           
+				if (HasDashCancelInput)           
 				{
 					CancelDashDone(animator, airdashID);
 					return;
@@ -4896,7 +4899,7 @@ public class CharacterControlBase : MonoBehaviour
 				// ボタンを押し続ける限り上昇
 				else if (HasJumpingInput)
                 {
-                    this.Boost = this.Boost - BoostLess;
+                    Boost = Boost - BoostLess;
                 }
                 // 離したら落下
                 else if (!HasJumpingInput)
@@ -4987,7 +4990,7 @@ public class CharacterControlBase : MonoBehaviour
         // 硬直時間中は上昇してもらう
         else
         {
-            RiseSpeed = new Vector3(this.MoveDirection.x, this.RiseSpeed, this.MoveDirection.z);
+            RiseSpeed = new Vector3(MoveDirection.x, this.RiseSpeed, MoveDirection.z);
             // 上昇算演
             UpdateRotation();
         }
@@ -5000,7 +5003,7 @@ public class CharacterControlBase : MonoBehaviour
         }
 
         // 上昇算演
-        this.MoveDirection = RiseSpeed;
+        MoveDirection = RiseSpeed;
 
         // 上昇中にオブジェクトに触れた場合は着地モーションへ移行(暴走防止のために、硬直中は判定禁止)
         if (Time.time > this.JumpTime + this.JumpWaitTime)
@@ -5211,11 +5214,11 @@ public class CharacterControlBase : MonoBehaviour
 		if (HasVHInput)
 		{
 			UpdateRotation();
-			this.MoveDirection = transform.rotation * Vector3.forward;
+			MoveDirection = transform.rotation * Vector3.forward;
 		}
 
 		// 落下速度調整
-		this.MoveDirection.y = MadokaDefine.FALLSPEED / 2;
+		MoveDirection.y = MadokaDefine.FALLSPEED / 2;
 
 		// 着地時に着陸へ移行
 		if (IsGrounded)
