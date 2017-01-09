@@ -3166,21 +3166,28 @@ public class CharacterControlBase : MonoBehaviour
             MoveSpeed = 0;
             return false;
         }
+
         if (RigidBody != null)
-        {
+        {			
 			Vector3 velocity = MoveDirection * MoveSpeed;			
-            // 走行中/アイドル中/吹き飛び中/ダウン中
-            if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == runid || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == idleid || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == blowid || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == downid)
+            // 走行中/吹き飛び中/ダウン中
+            if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == runid || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == blowid || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == downid)
             {
                 velocity.y = MadokaDefine.FALLSPEED;      // ある程度下方向へのベクトルをかけておかないと、スロープ中に落ちる
             }
-			else
+			// アイドル時は下方向ベクトル止める
+			else if(animator.GetCurrentAnimatorStateInfo(0).fullPathHash == idleid)
 			{
 				velocity.y = 0;
 			}
             RigidBody.velocity = velocity;
-			Debug.Log(RigidBody.velocity);
-        }
+			if (!IsGrounded)
+			{
+				Debug.Log(MoveSpeed);
+				Debug.Log(MoveDirection);
+				Debug.Log(RigidBody.velocity);
+			}
+		}
         // HP表示を増減させる(回復は一瞬で、被ダメージは徐々に減る）
         if (NowHitpoint < DrawHitpoint)
         {

@@ -66,7 +66,7 @@ public class Laser2 : MonoBehaviour
         LaserUpdate();	    
 	}
 
-    protected void LaserUpdate()
+    protected virtual void LaserUpdate()
     {
         // Laserの上下左右からレイキャストする
         int layermask = 1 << 8;   //groundに引っかける
@@ -109,9 +109,10 @@ public class Laser2 : MonoBehaviour
             // オブジェクトをリサイズする
             // 元サイズ(X,Yは変化させず）
             Vector3 scale = this.transform.localScale;
-            // リサイズ後のサイズ
-            float resizeObject = LaserEnlargementFactor * RH.distance;
-			if(resizeObject <= 0.0f)
+			// リサイズ後のサイズ
+			float resizeObject = LaserEnlargementFactor * RH.distance;
+			
+			if (resizeObject <= 0.0f)
 			{
 				resizeObject = 1.0f;
 			}
