@@ -1367,9 +1367,9 @@ public class HomuraBowControl : CharacterControlBase
                         // 到達位置は角度を抜いた直線距離が規定距離になったところになる（r*cos(30)=距離になった場所。rは射出点と現在の距離）
                         // 到達位置は直線距離100の場所
                         // 到達位置算出
-                        float x = 100 * Mathf.Sin(30 * Mathf.Deg2Rad) * Mathf.Sin(rotateOR.y * Mathf.Deg2Rad);
-                        float y = 100 * Mathf.Cos(30 * Mathf.Deg2Rad);
-                        float z = 100 * Mathf.Sin(30 * Mathf.Deg2Rad) * Mathf.Cos(rotateOR.y * Mathf.Deg2Rad);
+                        float x = 100 * Mathf.Sin(30 * Mathf.Deg2Rad) * Mathf.Sin(rotateOR.y * Mathf.Deg2Rad) + transform.position.x;
+                        float y = 100 * Mathf.Cos(30 * Mathf.Deg2Rad) + transform.position.y;
+                        float z = 100 * Mathf.Sin(30 * Mathf.Deg2Rad) * Mathf.Cos(rotateOR.y * Mathf.Deg2Rad) + transform.position.z;
                         exshotArrow.FunnelInjectionTargetPos = new Vector3(x, y, z);
                         // 射出ベクトル決定
                         exshotArrow.MoveDirection = Vector3.Normalize(Quaternion.Euler(exshotRot) * Vector3.forward);

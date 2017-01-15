@@ -123,7 +123,8 @@ public class Wrestle_Core : MonoBehaviour
         // ヒットSEを鳴らす
         if (InspHitSE != null)
         {
-            AudioSource.PlayClipAtPoint(InspHitSE, transform.position);
+			//AudioSource.PlayClipAtPoint(InspHitSE, transform.position);
+			AudioManager.Instance.PlaySE("sen_ge_panchi10");
         }
 		// 着弾した位置にヒットエフェクトを置く           
 		GameObject hiteffect = (GameObject)Instantiate(HitEffect, transform.position, transform.rotation);

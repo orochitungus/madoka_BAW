@@ -30,64 +30,71 @@ public class DrawRadar : MonoBehaviour
 
 	void Start () 
     {
-        // 属性「自機」以外は描画せず、カメラも無効
-        var target = m_Player.GetComponentInChildren<CharacterControlBase>();
-
-        // マーカーのテクスチャを張り替え
-        // 僚機
-        if (target.IsPlayer == CharacterControlBase.CHARACTERCODE.PLAYER_ALLY)
-        {
-            m_MarkerObject.GetComponent<Renderer>().material.mainTexture = (Texture)Instantiate(m_MarkerAlly);
-        }
-        // 敵機
-        else if (target.IsPlayer == CharacterControlBase.CHARACTERCODE.ENEMY)
-        {
-            m_MarkerObject.GetComponent<Renderer>().material.mainTexture = (Texture)Instantiate(m_MarkerEnemy);
-        }
-        // カメラの元角度を取得
-        m_rotate_OR = m_PerspectiveCamera.transform.rotation.eulerAngles;
-
-        // カメラの元の位置を取得(本体との相対位置）
-        m_position_OR = m_PerspectiveCamera.transform.localPosition;
-
-        // BlackBoardの元の角度を取得
-        var BB = m_Player.GetComponentInChildren<BlackBoard>();
-        m_blackBoardRot_OR = BB.transform.rotation.eulerAngles;
-        // 元の位置を取得(元位置のオフセットなので、相対）
-        m_blackBoardPos_OR = BB.transform.localPosition;
-
-        // Plateの元の位置を取得
-        var Pl = m_Player.GetComponentInChildren<Marker>();
-        // 元の位置を取得(元位置のオフセットなので、相対）
-        m_platePos_OR = Pl.transform.localPosition;
-
-        if (target.IsPlayer != CharacterControlBase.CHARACTERCODE.PLAYER)
-        {
-            // プレイヤーキャラを取得する
-            // 全オブジェクトを検索
-            GameObject[] kouho = FindObjectsOfType(typeof(GameObject)) as GameObject[];
-            foreach (GameObject go in kouho)
-            {
-                // CharacterControl_Baseを持たないものも検索されるので、そういうのは除外
-                if (go.GetComponentInChildren<CharacterControlBase>() == null)
-                {
-                    continue;
-                }
-                if (go.GetComponentInChildren<CharacterControlBase>().IsPlayer == CharacterControlBase.CHARACTERCODE.PLAYER)
-                {
-                    m_playerObject = go;
-                    break;
-                }
-            }
-            m_PerspectiveCamera.enabled = false;
-            return;
-        }   
-        
+		MarkerSetUpDone();
 	}   
+
+	public void MarkerSetUpDone()
+	{
+		// 属性「自機」以外は描画せず、カメラも無効
+		var target = m_Player.GetComponentInChildren<CharacterControlBase>();
+
+		// マーカーのテクスチャを張り替え
+		// 僚機
+		if (target.IsPlayer == CharacterControlBase.CHARACTERCODE.PLAYER_ALLY)
+		{
+			m_MarkerObject.GetComponent<Renderer>().material.mainTexture = (Texture)Instantiate(m_MarkerAlly);
+		}
+		// 敵機
+		else if (target.IsPlayer == CharacterControlBase.CHARACTERCODE.ENEMY)
+		{
+			m_MarkerObject.GetComponent<Renderer>().material.mainTexture = (Texture)Instantiate(m_MarkerEnemy);
+		}
+		// カメラの元角度を取得
+		m_rotate_OR = m_PerspectiveCamera.transform.rotation.eulerAngles;
+
+		// カメラの元の位置を取得(本体との相対位置）
+		m_position_OR = m_PerspectiveCamera.transform.localPosition;
+
+		// BlackBoardの元の角度を取得
+		var BB = m_Player.GetComponentInChildren<BlackBoard>();
+		m_blackBoardRot_OR = BB.transform.rotation.eulerAngles;
+		// 元の位置を取得(元位置のオフセットなので、相対）
+		m_blackBoardPos_OR = BB.transform.localPosition;
+
+		// Plateの元の位置を取得
+		var Pl = m_Player.GetComponentInChildren<Marker>();
+		// 元の位置を取得(元位置のオフセットなので、相対）
+		m_platePos_OR = Pl.transform.localPosition;
+
+		if (target.IsPlayer != CharacterControlBase.CHARACTERCODE.PLAYER)
+		{
+			// プレイヤーキャラを取得する
+			// 全オブジェクトを検索
+			GameObject[] kouho = FindObjectsOfType(typeof(GameObject)) as GameObject[];
+			foreach (GameObject go in kouho)
+			{
+				// CharacterControl_Baseを持たないものも検索されるので、そういうのは除外
+				if (go.GetComponentInChildren<CharacterControlBase>() == null)
+				{
+					continue;
+				}
+				if (go.GetComponentInChildren<CharacterControlBase>().IsPlayer == CharacterControlBase.CHARACTERCODE.PLAYER)
+				{
+					m_playerObject = go;
+					break;
+				}
+			}
+			m_PerspectiveCamera.enabled = false;
+			return;
+		}
+	}
+
 
     // Update is called once per frame
     void Update() 
     {
+		// 敵キャラを使う場合、処理順の関係で間に合わない場合があるので、一応ここで処理
+		
         // 自身の高さを取得する
         Vector3 nowpos = m_Player.transform.position;
         // 敵機または僚機だった場合、マーカーの位置をPCの高さと同じにする

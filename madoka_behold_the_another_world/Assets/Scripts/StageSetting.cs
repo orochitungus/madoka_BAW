@@ -118,11 +118,11 @@ public class StageSetting : MonoBehaviour
 					// バトルパート
                     else
                     {
-                        Instantiate(BattleCharacter[savingparameter.GetNowParty(i)], SetPosPlayer, Quaternion.Euler(SetRotPlayer));
+                        GameObject player = Instantiate(BattleCharacter[savingparameter.GetNowParty(i)], SetPosPlayer, Quaternion.Euler(SetRotPlayer));
 						// 現在HP
 						Battleinterfacecontroller.NowPlayerHP[i] = savingparameter.GetNowHP(savingparameter.GetNowParty(i));
 						// 最大HP
-						Battleinterfacecontroller.MaxPlayerHP[i] = savingparameter.GetMaxHP(savingparameter.GetNowParty(i));                        
+						Battleinterfacecontroller.MaxPlayerHP[i] = savingparameter.GetMaxHP(savingparameter.GetNowParty(i));
                     }
                 }
                 // それ以外の場合
@@ -349,11 +349,17 @@ public class StageSetting : MonoBehaviour
             if (partynumber == 0)
             {
                 playerCharacter.IsPlayer = CharacterControlBase.CHARACTERCODE.PLAYER;
-            }
+				// 処理順の関係でカメラONOFFはここでやる
+				var target = playerCharacter.MainCamera.GetComponentInChildren<Player_Camera_Controller>();
+				target.GetComponent<Camera>().enabled = true;
+			}
             else
             {
                 playerCharacter.IsPlayer = CharacterControlBase.CHARACTERCODE.PLAYER_ALLY;
-            }
+				// 処理順の関係でカメラONOFFはここでやる
+				var target = playerCharacter.MainCamera.GetComponentInChildren<Player_Camera_Controller>();
+				target.GetComponent<Camera>().enabled = false;
+			}
             // キャラクターの向きを決める
             // カメラ
             Player_Camera_Controller playerCamera = PlayerCharacter.GetComponentInChildren<Player_Camera_Controller>();

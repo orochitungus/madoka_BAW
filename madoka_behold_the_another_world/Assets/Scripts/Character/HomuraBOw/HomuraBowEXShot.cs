@@ -6,7 +6,7 @@ public class HomuraBowEXShot : Bullet
 	/// <summary>
 	/// 魔法陣から照射されるレーザー
 	/// </summary>
-	public Laser2 []Lasers;
+	public LaserVertical []Lasers;
 
 	/// <summary>
 	/// レーザーのスペック

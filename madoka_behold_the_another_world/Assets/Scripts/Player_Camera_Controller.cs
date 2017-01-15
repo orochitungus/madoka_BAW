@@ -133,9 +133,9 @@ public class Player_Camera_Controller : MonoBehaviour
 
 		// ロックオンカーソル制御(PC時のみ)
 		this.UpdateAsObservable().Where(_ => target.IsPlayer == CharacterControlBase.CHARACTERCODE.PLAYER).Subscribe(_ => 
-		{
+		{			
 			if (IsRockOn && !IsArousalAttack)
-			{				
+			{
 				// ロックオンカーソルの位置を計算
 				Vector2 rockoncursorpos = Rockoncursorcontrol.RockonCursorPos;
 				// BattleInterfaceControllerのロックオンカーソルの位置を決定する
