@@ -9,7 +9,7 @@ Time Control and Pause Kit(キリカのマジカル無の境地で使えるかも？）
 BGMとSEはサウンドマネージャー依存にする(随時差し替え）
 
 魔獣CPUを作る
-(http://qiita.com/UnagiHuman/items/7281b00c9ae00e558929)
+(http://qiita.com/UnagiHuman/items/7281b00c9ae00e558929)→BehaviorTreeのインスタンスを作り、モードがCPUのときはControllerManagerでなくBehaviorTreeから受け取るようにする
 
 ラウンドコールを追加する								→
 
