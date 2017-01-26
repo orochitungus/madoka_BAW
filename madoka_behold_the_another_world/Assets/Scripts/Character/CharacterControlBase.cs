@@ -18,6 +18,11 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     public Camera ArousalCamera;
 
+	/// <summary>
+	/// CPU時の入力受け取りクラス
+	/// </summary>
+	public CPUController Cpucontroller;
+
     /// <summary>
     /// 地面設置確認用のレイの発射位置(コライダの中心とオブジェクトの中心)
     /// </summary>
@@ -1017,19 +1022,27 @@ public class CharacterControlBase : MonoBehaviour
     /// <returns></returns>
     protected bool GetVHInput()
     {
-        // PC時のみ。CPU時は何か別の関数を用意
-        if (IsPlayer == CHARACTERCODE.PLAYER)
-        {
-           if(ControllerManager.Instance.Top || ControllerManager.Instance.Left || ControllerManager.Instance.Right || ControllerManager.Instance.Under || ControllerManager.Instance.LeftUpper
-		   || ControllerManager.Instance.LeftUnder || ControllerManager.Instance.RightUnder || ControllerManager.Instance.RightUpper)
-           {
-               return true;
-           }
-           else
-           {
-               return false;
-           }
-        }
+		// PC時のみ。CPU時は何か別の関数を用意
+		if (IsPlayer == CHARACTERCODE.PLAYER)
+		{
+			if (ControllerManager.Instance.Top || ControllerManager.Instance.Left || ControllerManager.Instance.Right || ControllerManager.Instance.Under || ControllerManager.Instance.LeftUpper
+			|| ControllerManager.Instance.LeftUnder || ControllerManager.Instance.RightUnder || ControllerManager.Instance.RightUpper)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		// CPU時
+		else
+		{
+			if (Cpucontroller.Top || Cpucontroller.Left || Cpucontroller.Right || Cpucontroller.Under || Cpucontroller.LeftUpper || Cpucontroller.LeftUnder || Cpucontroller.RightUnder || Cpucontroller.RightUpper)
+			{
+				return true;
+			}
+		}
         return false;
         
     }
@@ -1040,10 +1053,20 @@ public class CharacterControlBase : MonoBehaviour
     /// <returns></returns>
     protected bool GetFrontInput()
     {
-        if (ControllerManager.Instance.Top)
-        {
-            return true;
-        }
+		if (IsPlayer == CHARACTERCODE.PLAYER)
+		{
+			if (ControllerManager.Instance.Top)
+			{
+				return true;
+			}
+		}
+		else
+		{
+			if (Cpucontroller.Top)
+			{
+				return true;
+			}
+		}
         return false;
     }
 
@@ -1053,10 +1076,20 @@ public class CharacterControlBase : MonoBehaviour
     /// <returns></returns>
     protected bool GetBackInput()
     {
-        if (ControllerManager.Instance.Under)
-        {
-            return true;
-        }
+		if (IsPlayer == CHARACTERCODE.PLAYER)
+		{
+			if (ControllerManager.Instance.Under)
+			{
+				return true;
+			}
+		}
+		else
+		{
+			if (Cpucontroller.Under)
+			{
+				return true;
+			}
+		}
         return false;
     }
 
@@ -1066,10 +1099,20 @@ public class CharacterControlBase : MonoBehaviour
     /// <returns></returns>
     protected bool GetLeftInput()
     {
-        if (ControllerManager.Instance.Left)
-        {
-            return true;
-        }
+		if (IsPlayer == CHARACTERCODE.PLAYER)
+		{
+			if (ControllerManager.Instance.Left)
+			{
+				return true;
+			}
+		}
+		else
+		{
+			if (Cpucontroller.Left)
+			{
+				return true;
+			}
+		}
         return false;
     }
 
@@ -1079,10 +1122,20 @@ public class CharacterControlBase : MonoBehaviour
     /// <returns></returns>
     protected bool GetRightInput()
     {
-        if (ControllerManager.Instance.Right)
-        {
-            return true;
-        }
+		if (IsPlayer == CHARACTERCODE.PLAYER)
+		{
+			if (ControllerManager.Instance.Right)
+			{
+				return true;
+			}
+		}
+		else
+		{
+			if (Cpucontroller.Right)
+			{
+				return true;
+			}
+		}
         return false;
     }
 
@@ -1092,13 +1145,20 @@ public class CharacterControlBase : MonoBehaviour
     /// <returns></returns>
     protected bool GetShotInput()
     {
-        if (IsPlayer == CHARACTERCODE.PLAYER)
-        {
-            if(ControllerManager.Instance.Shot)
-            {
-                return true;
-            }
-        }
+		if (IsPlayer == CHARACTERCODE.PLAYER)
+		{
+			if (ControllerManager.Instance.Shot)
+			{
+				return true;
+			}
+		}
+		else
+		{
+			if (Cpucontroller.Shot)
+			{
+				return true;
+			}
+		}
         return false;
     }
 
@@ -1129,6 +1189,24 @@ public class CharacterControlBase : MonoBehaviour
                 }
             }
         }
+		else
+		{
+			if(Cpucontroller.Shotting)
+			{
+				if (ShotCharge < 0)
+				{
+					ShotCharge = 0;
+				}
+				ShotCharge += ShotIncrease;
+			}
+			else
+			{
+				if (ShotCharge > 0)
+				{
+					ShotCharge -= ShotDecrease;
+				}
+			}
+		}
 		
         // MAX状態で離されるとチャージ量を0にしてtrue
         if (ShotCharge >= ChargeMax && (!ControllerManager.Instance.Shotting))
@@ -1136,6 +1214,7 @@ public class CharacterControlBase : MonoBehaviour
             ShotCharge = 0;
             compleate = true;
         }
+				
         return compleate;
     }
     
@@ -1166,6 +1245,24 @@ public class CharacterControlBase : MonoBehaviour
                 }
             }
         }
+		else
+		{
+			if(Cpucontroller.Wrestling)
+			{
+				if (WrestleCharge < 0)
+				{
+					WrestleCharge = 0;
+				}
+				WrestleCharge += WrestleIncrease;
+			}
+			else
+			{
+				if (WrestleCharge > 0)
+				{
+					WrestleCharge -= WrestleDecrease;
+				}
+			}
+		}
         // MAX状態で離されるとチャージ量を0にしてtrue
         if (WrestleCharge >= ChargeMax && (!ControllerManager.Instance.Wrestle))
         {
@@ -1181,14 +1278,20 @@ public class CharacterControlBase : MonoBehaviour
     /// <returns></returns>
     protected bool GetJumpInput()
     {
-        if (IsPlayer == CHARACTERCODE.PLAYER)
-        {
-            if (ControllerManager.Instance.Jump)
-            {
-                return true;
-            }
-        }
-
+		if (IsPlayer == CHARACTERCODE.PLAYER)
+		{
+			if (ControllerManager.Instance.Jump)
+			{
+				return true;
+			}
+		}
+		else
+		{
+			if (Cpucontroller.Jump)
+			{
+				return true;
+			}
+		}
         return false;
     }
 
@@ -1198,13 +1301,20 @@ public class CharacterControlBase : MonoBehaviour
     /// <returns></returns>
     protected bool GetJumpingInput()
     {
-        if (IsPlayer == CHARACTERCODE.PLAYER)
-        {
-            if (ControllerManager.Instance.Jumping)
-            {
-                return true;
-            }
-        }
+		if (IsPlayer == CHARACTERCODE.PLAYER)
+		{
+			if (ControllerManager.Instance.Jumping)
+			{
+				return true;
+			}
+		}
+		else
+		{
+			if (Cpucontroller.Jumping)
+			{
+				return true;
+			}
+		}
         return false;
     }
 
@@ -1214,13 +1324,20 @@ public class CharacterControlBase : MonoBehaviour
     /// <returns></returns>
     protected bool GetDashCancelInput()
     {
-        if (IsPlayer == CHARACTERCODE.PLAYER)
-        {
-            if (ControllerManager.Instance.BoostDash)
-            {
-                return true;
-            }
-        }
+		if (IsPlayer == CHARACTERCODE.PLAYER)
+		{
+			if (ControllerManager.Instance.BoostDash)
+			{
+				return true;
+			}
+		}
+		else
+		{
+			if (Cpucontroller.BoostDash)
+			{
+				return true;
+			}
+		}
         return false;
     }
 
@@ -1235,6 +1352,13 @@ public class CharacterControlBase : MonoBehaviour
                 return true;
             }
         }
+		else
+		{
+			if(Cpucontroller.Search && !Cpucontroller.Unlock)
+			{
+				return true;
+			}
+		}
         return false;
     }
 
@@ -1244,6 +1368,13 @@ public class CharacterControlBase : MonoBehaviour
 		if (IsPlayer == CHARACTERCODE.PLAYER)
 		{
 			if(ControllerManager.Instance.Unlock)
+			{
+				return true;
+			}
+		}
+		else
+		{
+			if(Cpucontroller.Unlock)
 			{
 				return true;
 			}
@@ -1260,6 +1391,13 @@ public class CharacterControlBase : MonoBehaviour
 		if (IsPlayer == CHARACTERCODE.PLAYER)
 		{
 			if (ControllerManager.Instance.Wrestle)
+			{
+				return true;
+			}
+		}
+		else
+		{
+			if(Cpucontroller.Wrestle)
 			{
 				return true;
 			}
@@ -1286,6 +1424,14 @@ public class CharacterControlBase : MonoBehaviour
 				return true;
 			}
 		}
+		// CPU側は直接指定で
+		else
+		{
+			if(Cpucontroller.SubShot)
+			{
+				return true;
+			}
+		}
 		return false;
 	}
 
@@ -1308,6 +1454,14 @@ public class CharacterControlBase : MonoBehaviour
 				return true;
 			}
 		}
+		// CPU側
+		else 
+		{
+			if(Cpucontroller.EXShot)
+			{
+				return true;
+			}
+		}
 		return false;
 	}
 
@@ -1326,6 +1480,13 @@ public class CharacterControlBase : MonoBehaviour
 			}
 			// 特殊格闘ボタン
 			else if (ControllerManager.Instance.EXWrestle)
+			{
+				return true;
+			}
+		}
+		else
+		{
+			if(Cpucontroller.EXWrestle)
 			{
 				return true;
 			}
@@ -1450,6 +1611,13 @@ public class CharacterControlBase : MonoBehaviour
 			}
 			// 特殊格闘＋射撃
 			else if (ControllerManager.Instance.EXWrestle && ControllerManager.Instance.Shot)
+			{
+				return true;
+			}
+		}
+		else
+		{
+			if(Cpucontroller.Shot && Cpucontroller.Wrestle && Cpucontroller.Jump)
 			{
 				return true;
 			}
@@ -1829,7 +1997,7 @@ public class CharacterControlBase : MonoBehaviour
             StepDone(1, stepinput,animator, stepanimations, true);
         }
         // CPU時左ステップ
-        else if (HasLeftStepInput)
+        else if (Cpucontroller.LeftStep)
         {
             // くっついている格闘判定を捨てる
             DestroyWrestle();
@@ -1837,7 +2005,7 @@ public class CharacterControlBase : MonoBehaviour
             HasLeftStepInput = false;
         }
         // CPU時右ステップ
-        else if (HasRightStepInput)
+        else if (Cpucontroller.RightStep)
         {
             // くっついている格闘判定を捨てる
             DestroyWrestle();
@@ -1988,12 +2156,25 @@ public class CharacterControlBase : MonoBehaviour
 			IsWrestle = false;
 		}
 		//3．下入力を離すと、強制的にIdleに戻す
-		if (ControllerManager.Instance.UnderUp)
+		if (IsPlayer == CHARACTERCODE.PLAYER)
 		{
-			animator.SetTrigger("Idle");
-			DestroyWrestle();
-			// 格闘フラグを破棄
-			IsWrestle = false;
+			if (ControllerManager.Instance.UnderUp)
+			{
+				animator.SetTrigger("Idle");
+				DestroyWrestle();
+				// 格闘フラグを破棄
+				IsWrestle = false;
+			}
+		}
+		else
+		{
+			if(!Cpucontroller.Under)
+			{
+				animator.SetTrigger("Idle");
+				DestroyWrestle();
+				// 格闘フラグを破棄
+				IsWrestle = false;
+			}
 		}
 	}
 
@@ -2011,14 +2192,27 @@ public class CharacterControlBase : MonoBehaviour
         //StepCancel(animator, airdashhash, stepanimations);
         // 発動中常時ブースト消費
         Boost = Boost - BoostLess;
-        // ブースト切れ時か格闘ボタンを離すとにFallDone、DestroyWrestleを実行する
-        if (Boost <= 0 || ControllerManager.Instance.WrestleUp)
-        {
-			FallDone(RiseSpeed, animator, fallID);
-			animator.SetTrigger("Fall");
-            DestroyWrestle();
-            _FallStartTime = Time.time;
-        }
+		// ブースト切れ時か格闘ボタンを離すとにFallDone、DestroyWrestleを実行する
+		if (IsPlayer == CHARACTERCODE.PLAYER)
+		{
+			if (Boost <= 0 || ControllerManager.Instance.WrestleUp)
+			{
+				FallDone(RiseSpeed, animator, fallID);
+				animator.SetTrigger("Fall");
+				DestroyWrestle();
+				_FallStartTime = Time.time;
+			}
+		}
+		else
+		{
+			if (Boost <= 0 || !Cpucontroller.Wrestle)
+			{
+				FallDone(RiseSpeed, animator, fallID);
+				animator.SetTrigger("Fall");
+				DestroyWrestle();
+				_FallStartTime = Time.time;
+			}
+		}
     }
 
     // 特殊格闘1段目（特殊格闘はキャラによっては射撃や回復だったりするのでStepCancelは継承先につけること
@@ -2184,9 +2378,9 @@ public class CharacterControlBase : MonoBehaviour
         // 格闘判定削除
         DestroyWrestle();
         // ずれた本体角度を戻す(Yはそのまま）
-        this.transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0));
+        transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0));
         // 無効になっていたら重力を復活させる
-        this.GetComponent<Rigidbody>().useGravity = true;
+        GetComponent<Rigidbody>().useGravity = true;
         animator.SetTrigger("Landing");
         // 着地したので硬直を設定する
         LandingTime = Time.time;
@@ -2339,38 +2533,79 @@ public class CharacterControlBase : MonoBehaviour
         var finalRot = transform.rotation;
         float horizontal = 0;        // 横入力を検出
 		float vertical = 0;            // 縦入力を検出
-		if (ControllerManager.Instance.Top)
+									   // プレイヤー時
+		if (IsPlayer == CHARACTERCODE.PLAYER)
 		{
-			vertical = 1.0f;
+			if (ControllerManager.Instance.Top)
+			{
+				vertical = 1.0f;
+			}
+			else if (ControllerManager.Instance.Under)
+			{
+				vertical = -1.0f;
+			}
+			else if (ControllerManager.Instance.LeftUpper || ControllerManager.Instance.RightUpper)
+			{
+				vertical = 0.6f;
+			}
+			else if (ControllerManager.Instance.LeftUnder || ControllerManager.Instance.RightUnder)
+			{
+				vertical = -0.6f;
+			}
+
+			if (ControllerManager.Instance.Left)
+			{
+				horizontal = -1.0f;
+			}
+			else if (ControllerManager.Instance.Right)
+			{
+				horizontal = 1.0f;
+			}
+			else if (ControllerManager.Instance.LeftUpper || ControllerManager.Instance.LeftUnder)
+			{
+				horizontal = -0.6f;
+			}
+			else if (ControllerManager.Instance.RightUpper || ControllerManager.Instance.RightUnder)
+			{
+				horizontal = 0.6f;
+			}
 		}
-		else if(ControllerManager.Instance.Under)
+		// CPU時
+		else
 		{
-			vertical = -1.0f;
-		}
-		else if(ControllerManager.Instance.LeftUpper || ControllerManager.Instance.RightUpper)
-		{
-			vertical = 0.6f;
-		}
-		else if(ControllerManager.Instance.LeftUnder || ControllerManager.Instance.RightUnder)
-		{
-			vertical = -0.6f;
-		}
-		
-		if(ControllerManager.Instance.Left)
-		{
-			horizontal = -1.0f;
-		}
-		else if(ControllerManager.Instance.Right)
-		{
-			horizontal = 1.0f;
-		}
-		else if(ControllerManager.Instance.LeftUpper || ControllerManager.Instance.LeftUnder)
-		{
-			horizontal = -0.6f;
-		}
-		else if(ControllerManager.Instance.RightUpper || ControllerManager.Instance.RightUnder)
-		{
-			horizontal = 0.6f;
+			if(Cpucontroller.Top)
+			{
+				vertical = 1.0f;
+			}
+			else if(Cpucontroller.Under)
+			{
+				vertical = -1.0f;
+			}
+			else if (Cpucontroller.LeftUpper || Cpucontroller.RightUpper)
+			{
+				vertical = 0.6f;
+			}
+			else if (Cpucontroller.LeftUnder || Cpucontroller.RightUnder)
+			{
+				vertical = -0.6f;
+			}
+
+			if (Cpucontroller.Left)
+			{
+				horizontal = -1.0f;
+			}
+			else if (Cpucontroller.Right)
+			{
+				horizontal = 1.0f;
+			}
+			else if (Cpucontroller.LeftUpper || Cpucontroller.LeftUnder)
+			{
+				horizontal = -0.6f;
+			}
+			else if (Cpucontroller.RightUpper || Cpucontroller.RightUnder)
+			{
+				horizontal = 0.6f;
+			}
 		}
 
         var toWorldVector = MainCamera.transform.rotation;
@@ -2378,17 +2613,17 @@ public class CharacterControlBase : MonoBehaviour
         // スケールの影響は受けるがここでは無視する。
 
         // CPU時、ここで入力を取得
-        if (this.IsPlayer != CHARACTERCODE.PLAYER)
-        {
-            // CPU情報
-            var CPU = this.GetComponentInChildren<AIControl_Base>();
-            // テンキーの種類からhorizontalとverticalを取得
-            if ((int)CPU.m_tenkeyoutput <= 8)
-            {
-                horizontal = CPU.m_lever[(int)CPU.m_tenkeyoutput].x;
-                vertical = CPU.m_lever[(int)CPU.m_tenkeyoutput].y;
-            }
-        }
+        //if (this.IsPlayer != CHARACTERCODE.PLAYER)
+        //{
+        //    // CPU情報
+        //    var CPU = this.GetComponentInChildren<AIControl_Base>();
+        //    // テンキーの種類からhorizontalとverticalを取得
+        //    if ((int)CPU.m_tenkeyoutput <= 8)
+        //    {
+        //        horizontal = CPU.m_lever[(int)CPU.m_tenkeyoutput].x;
+        //        vertical = CPU.m_lever[(int)CPU.m_tenkeyoutput].y;
+        //    }
+        //}
 
         // ロックオン時特殊処理
         // 案1：敵と重なるような状態になったら一時的に移動方向を固定する(角度が特異姿勢になるので、暴走する）
@@ -2817,194 +3052,56 @@ public class CharacterControlBase : MonoBehaviour
             }
         }
 
+		// 入力取得
+		// 方向キー取得
+		HasVHInput = GetVHInput();
+		// ショット入力があったか否か
+		HasShotInput = GetShotInput();
+		// ジャンプ入力があったか否か
+		HasJumpInput = GetJumpInput();
+		// ジャンプ長押し入力があったか否か
+		HasJumpingInput = GetJumpingInput();
+		// ダッシュキャンセル入力があったか否か
+		HasDashCancelInput = GetDashCancelInput();
+		// サーチ入力があったか否か
+		HasSearchInput = GetSearchInput();
+		// サーチキャンセル入力があったか否か
+		HasSearchCancelInput = GetUnSerchInput();
+		// 格闘入力があったか否か
+		HasWrestleInput = GetWrestleInput();
+		// サブ射撃入力があったか否か
+		HasSubShotInput = GetSubShotInput();
+		// 特殊射撃入力があったか否か
+		HasExShotInput = GetExShotInput();
+		// 特殊格闘入力があったか否か
+		HasExWrestleInput = GetExWrestleInput();
+		// アイテム入力があったか否か
+		HasItemInput = GetItemInput();
+		// メニュー入力があったか否か
+		HasMenuInput = GetMenuInput();
+		// 覚醒入力があったか否か
+		HasArousalInput = GetArousalInput();
+		// 覚醒技入力があったか否か
+		HasArousalAttackInput = GetArousalInput();
+		// 前入力があったか否か
+		HasFrontInput = GetFrontInput();
+		// 左入力があったか否か
+		HasLeftInput = GetLeftInput();
+		// 右入力があったか否か
+		HasRightInput = GetRightInput();
+		// 後入力があったか否か
+		HasBackInput = GetBackInput();
 
-        // プレイヤー操作の場合（CPU操作の場合はまた別に）
-        if (IsPlayer == CHARACTERCODE.PLAYER)
-        {
-            // 方向キー取得
-            HasVHInput = GetVHInput();
-            // ショット入力があったか否か
-            HasShotInput = GetShotInput();
-            // ジャンプ入力があったか否か
-            HasJumpInput = GetJumpInput();
-			// ジャンプ長押し入力があったか否か
-			HasJumpingInput = GetJumpingInput();
-            // ダッシュキャンセル入力があったか否か
-            HasDashCancelInput = GetDashCancelInput();
-            // サーチ入力があったか否か
-            HasSearchInput = GetSearchInput();
-            // サーチキャンセル入力があったか否か
-            HasSearchCancelInput = GetUnSerchInput();
-            // 格闘入力があったか否か
-            HasWrestleInput = GetWrestleInput();
-            // サブ射撃入力があったか否か
-            HasSubShotInput = GetSubShotInput();
-            // 特殊射撃入力があったか否か
-            HasExShotInput = GetExShotInput();
-            // 特殊格闘入力があったか否か
-            HasExWrestleInput = GetExWrestleInput();
-            // アイテム入力があったか否か
-            HasItemInput = GetItemInput();
-            // メニュー入力があったか否か
-            HasMenuInput = GetMenuInput();
-            // 覚醒入力があったか否か
-            HasArousalInput = GetArousalInput();
-            // 覚醒技入力があったか否か
-            HasArousalAttackInput = GetArousalInput();
-            // 前入力があったか否か
-            HasFrontInput = GetFrontInput();
-            // 左入力があったか否か
-            HasLeftInput = GetLeftInput();
-            // 右入力があったか否か
-            HasRightInput = GetRightInput();
-            // 後入力があったか否か
-            HasBackInput = GetBackInput();
-            
+		// プレイヤー操作の場合（CPU操作の場合はまた別に）
+		if (IsPlayer == CHARACTERCODE.PLAYER)
+        {   
             // 位置を保持
             savingparameter.nowposition = this.transform.position;
             // 角度を保持
             savingparameter.nowrotation = new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
         }
-        // CPU操作の場合（ステップのフラグもここで拾う）
-        else
-        {
-			// TODO:CPU作るまで一旦カット
-			//// CPU情報
-			//var CPU = this.GetComponentInChildren<AIControl_Base>();
-   //         // CPUのキー入力を拾う
-   //         AIControl_Base.KEY_OUTPUT key = CPU.m_keyoutput;
-   //         // CPUのテンキー入力を拾う
-   //         AIControl_Base.TENKEY_OUTPUT tenkey = CPU.m_tenkeyoutput;
-   //         // テンキー入力に応じてフラグを立てる
-   //         // 前
-   //         if (tenkey == AIControl_Base.TENKEY_OUTPUT.TOP)
-   //         {
-   //             HasFrontInput = true;
-   //         }
-   //         // 後
-   //         else if (tenkey == AIControl_Base.TENKEY_OUTPUT.UNDER)
-   //         {
-   //             HasBackInput = true;
-   //         }
-   //         // 左
-   //         else if (tenkey == AIControl_Base.TENKEY_OUTPUT.LEFT)
-   //         {
-   //             HasLeftInput = true;
-   //         }
-   //         // 右
-   //         else if (tenkey == AIControl_Base.TENKEY_OUTPUT.RIGHT)
-   //         {
-   //             HasRightInput = true;
-   //         }
-   //         // 左ステップ
-   //         else if (tenkey == AIControl_Base.TENKEY_OUTPUT.LEFTSTEP)
-   //         {
-   //             HasLeftStepInput = true;
-   //         }
-   //         // 右ステップ
-   //         else if (tenkey == AIControl_Base.TENKEY_OUTPUT.RIGHTSTEP)
-   //         {
-   //             HasRightStepInput = true;
-   //         }
-   //         // 入力を受けたキーごとにフラグを立てる
-   //         // CPUは同時押し判定を出さないので、1個ずつ来ると考えてOK
-   //         switch (key)
-   //         {
-   //             case AIControl_Base.KEY_OUTPUT.SHOT:
-   //                 HasShotInput = true;
-   //                 break;
-   //             case AIControl_Base.KEY_OUTPUT.JUMP:
-   //                 HasJumpInput = true;
-   //                 break;
-   //             case AIControl_Base.KEY_OUTPUT.DASHCANCEL:
-   //                 HasDashCancelInput = true;
-   //                 break;
-   //             case AIControl_Base.KEY_OUTPUT.AIRDASH:
-   //                 HasAirDashInput = true;
-   //                 break;
-   //             case AIControl_Base.KEY_OUTPUT.SEARCH:
-   //                 HasSearchInput = true;
-   //                 break;
-   //             case AIControl_Base.KEY_OUTPUT.SEACHCANCEL:
-   //                 HasSearchCancelInput = true;
-   //                 break;
-   //             case AIControl_Base.KEY_OUTPUT.WRESTLE:
-   //                 HasWrestleInput = true;
-   //                 break;
-   //             case AIControl_Base.KEY_OUTPUT.SUBSHOT:
-   //                 HasSubShotInput = true;
-   //                 break;
-   //             case AIControl_Base.KEY_OUTPUT.EXSHOT:
-   //                 HasExShotInput = true;
-   //                 break;
-   //             case AIControl_Base.KEY_OUTPUT.EXWRESTLE:
-   //                 HasExWrestleInput = true;
-   //                 break;
-   //             case AIControl_Base.KEY_OUTPUT.ITEM:
-   //                 HasItemInput = true;
-   //                 break;               
-   //             case AIControl_Base.KEY_OUTPUT.AROUSAL:
-   //                 HasArousalInput = true;
-   //                 break;
-   //             case AIControl_Base.KEY_OUTPUT.AROUSALATTACK:
-   //                 HasArousalAttackInput = true;
-   //                 break;
-   //             case AIControl_Base.KEY_OUTPUT.CHARGESHOT:
-   //                 HasShotChargeInput = true;
-   //                 break;
-   //             case AIControl_Base.KEY_OUTPUT.CHARGEWRESTE:
-   //                 HasWrestleChargeInput = true;
-   //                 break;
-   //             default:
-   //                 // ショット入力があったか否か
-   //                 HasShotInput = false;
-   //                 // ジャンプ入力があったか否か
-   //                 HasJumpInput = false;
-   //                 // ダッシュキャンセル入力があったか否か
-   //                 HasDashCancelInput = false;
-   //                 // サーチ入力があったか否か
-   //                 HasSearchInput = false;
-   //                 // サーチキャンセル入力があったか否か
-   //                 HasSearchCancelInput = false;
-   //                 // 格闘入力があったか否か
-   //                 HasWrestleInput = false;
-   //                 // サブ射撃入力があったか否か
-   //                 HasSubShotInput = false;
-   //                 // 特殊射撃入力があったか否か
-   //                 HasExShotInput = false;
-   //                 // 特殊格闘入力があったか否か
-   //                 HasExWrestleInput = false;
-   //                 // アイテム入力があったか否か
-   //                 HasItemInput = false;                    
-   //                 // 覚醒入力があったか否か
-   //                 HasArousalInput = false;
-   //                 // 覚醒技入力があったか否か
-   //                 HasArousalAttackInput = false;
-   //                 // 射撃チャージ入力があったか否か
-   //                 HasShotChargeInput = false;
-   //                 // 格闘チャージ入力があったか否か
-   //                 HasWrestleChargeInput = false;
-   //                 // 前入力があったか否か
-   //                 HasFrontInput = false;
-   //                 // 左入力があったか否か
-   //                 HasLeftInput = false;
-   //                 // 右入力があったか否か
-   //                 HasRightInput = false;
-   //                 // 後入力があったか否か
-   //                 HasBackInput = false;
-   //                 // ソウルバースト入力があったか否か
-   //                 break;
-   //         }
-   //         // 入力を受けたテンキーに応じてフラグを立てる（この時点ではありなしさえ拾えばいい。実際の値を使うのはUpdateRotationなので、入力の有無さえ拾えればいい）
-   //         if (tenkey != AIControl_Base.TENKEY_OUTPUT.NEUTRAL)
-   //         {
-   //             this.HasVHInput = true;
-   //         }
-   //         else
-   //         {
-   //             this.HasVHInput = false;
-   //         }
-        }
+        
+       
 
         // 死亡時、エフェクトが消滅したら自壊させる
         if (Explode)

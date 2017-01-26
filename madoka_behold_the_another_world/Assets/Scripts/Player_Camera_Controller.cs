@@ -60,11 +60,11 @@ public class Player_Camera_Controller : MonoBehaviour
     {
         Application.targetFrameRate = 60;
         Maincameramode = MainCameraMode.NORMAL;
-    }
+ //   }
 
-	// Use this for initialization
-	void Start () 
-    {
+	//// Use this for initialization
+	//void Start () 
+ //   {
         // フィールド変数を初期化する
         this.UpdateAsObservable().Subscribe(_ =>
         {
@@ -514,13 +514,7 @@ public class Player_Camera_Controller : MonoBehaviour
     }
 
     public void LateUpdate()
-    {
-        // 敵が死んだら強制ロック解除
-        if (Enemy == null)
-        {
-            IsRockOn = false;
-        }
-
+    {  
         // ロックオンしていない場合
         if (!IsRockOn)
         {
@@ -568,31 +562,39 @@ public class Player_Camera_Controller : MonoBehaviour
         // ロックオンしている場合（ガンダムやバーチャロン同様常時自機の背後にカメラが移動するようになる）
         else if(IsRockOn)
         {
-            // 配置位置（自機）
-            Vector3 nowpos = this.Player.transform.position;
-            // 配置位置（敵機）
-            Vector3 epos = this.Enemy.GetComponentInChildren<CharacterControlBase>().RockonCursorPosition.transform.position;
+			// 敵が死んだら強制ロック解除
+			if (Enemy == null)
+			{
+				IsRockOn = false;
+			}
+			else
+			{
+				// 配置位置（自機）
+				Vector3 nowpos = Player.transform.position;
+				// 配置位置（敵機）
+				Vector3 epos;
+				// ロック対象が動く敵の場合
+				if (Enemy.GetComponentInChildren<CharacterControlBase>() != null)
+				{
+					epos = Enemy.GetComponentInChildren<CharacterControlBase>().RockonCursorPosition.transform.position;
+				}
+				// ロック対象が目標地点の場合
+				else
+				{
+					epos = Enemy.transform.position;
+				}
+				// 敵機と自機の位置関係を正規化する（＝敵機と自機の相対位置関係が分かる）
+				Vector3 positional_relationship = Vector3.Normalize(nowpos - epos);
 
-            // 敵のコライダの位置を拾う
-            //CapsuleCollider ecapsule = this.Enemy.GetComponentInChildren<CapsuleCollider>();
-           
-            
-            // ロックオン対象を取得する
-            CharacterControlBase rockontarget = this.Enemy.GetComponentInChildren<CharacterControlBase>();
-                     
-            
-            // 敵機と自機の位置関係を正規化する（＝敵機と自機の相対位置関係が分かる）
-            Vector3 positional_relationship = Vector3.Normalize(nowpos - epos);
 
-
-            // 配置位置を自機より少し上にして、正規化分×距離を足す
-            // 視点を少し上にずらす
-            nowpos.y = nowpos.y + this.gaze_offset + 2.5f;
-            // カメラの位置を変更
-            transform.position = new Vector3(nowpos.x + positional_relationship.x * Distance_mine, nowpos.y + positional_relationship.y * Distance_mine, nowpos.z + positional_relationship.z * Distance_mine);
-            // カメラの方向を変更(LookRotationメソッドで、常に第1引数？側の方向を向く
-            transform.rotation = Quaternion.LookRotation(epos - transform.position);
-            
+				// 配置位置を自機より少し上にして、正規化分×距離を足す
+				// 視点を少し上にずらす
+				nowpos.y = nowpos.y + gaze_offset + 2.5f;
+				// カメラの位置を変更
+				transform.position = new Vector3(nowpos.x + positional_relationship.x * Distance_mine, nowpos.y + positional_relationship.y * Distance_mine, nowpos.z + positional_relationship.z * Distance_mine);
+				// カメラの方向を変更(LookRotationメソッドで、常に第1引数？側の方向を向く
+				transform.rotation = Quaternion.LookRotation(epos - transform.position);
+			}
         }
         // 非ロックオン時のみ障害物を避ける（障害物の手前にカメラを持ってくる）
         // ロックオンしていない場合
