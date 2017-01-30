@@ -81,10 +81,35 @@ namespace BehaviourTrees
 		/// <returns></returns>
 		private ExecutionResult IsEnemyExist(BehaviourTreeInstance instance)
 		{
-			if(EnemyExist)
+			// 半径を決めて、その中に敵がいるか判定する
+			Collider[] targets = Physics.OverlapSphere(transform.position, 50.0f);
+			// 自分は敵側味方側どちら？
+			CharacterControlBase.CHARACTERCODE isplayer = ControlTarget.IsPlayer;
+
+			for(int i=0; i<targets.Length; i++)
 			{
-				Debug.Log("敵がいる。ロックして攻撃");
-				return new ExecutionResult(true);
+				// 入ってきたものがキャラだった場合のみカウントする
+				if (targets[i].GetComponent<CharacterControlBase>() != null)
+				{
+					// 自分が敵側の場合、PlayerかPlayerAllyを見つけたらロックする
+					if (isplayer == CharacterControlBase.CHARACTERCODE.ENEMY)
+					{
+						if(targets[i].GetComponent<CharacterControlBase>().IsPlayer == CharacterControlBase.CHARACTERCODE.PLAYER || targets[i].GetComponent<CharacterControlBase>().IsPlayer == CharacterControlBase.CHARACTERCODE.PLAYER_ALLY)
+						{
+							Debug.Log("敵がいる。ロックして攻撃");
+							return new ExecutionResult(true);
+						}
+					}
+					// 自分が味方側の場合、Enemyを見つけたらロックする
+					else
+					{
+						if(targets[i].GetComponent<CharacterControlBase>().IsPlayer == CharacterControlBase.CHARACTERCODE.ENEMY)
+						{
+							Debug.Log("敵がいる。ロックして攻撃");
+							return new ExecutionResult(true);
+						}
+					}
+				}	
 			}
 			Debug.Log("敵はいない。哨戒を続ける");
 			return new ExecutionResult(false);
@@ -109,7 +134,7 @@ namespace BehaviourTrees
 		private ExecutionResult GotoReturnPoint(BehaviourTreeInstance instance)
 		{
 			// 折り返し地点に近接していたらfalseを返す
-			if (Vector3.Distance(transform.position, ControlTarget.EndingPoint.transform.position) < 1.0f)
+			if (Vector3.Distance(transform.position, ControlTarget.EndingPoint.transform.position) < 3.0f)
 			{
 				Debug.Log("折り返し地点に到達");
 				// スタート地点をロックする
@@ -126,6 +151,7 @@ namespace BehaviourTrees
 				// ロックしていない場合はロックする
 				if(Playercameracontroller.RockOnTarget.Count == 0)
 				{
+					Playercameracontroller.RockOnTarget.Clear();
 					Playercameracontroller.RockOnTarget.Add(ControlTarget.StartingPoint);
 					ControlTarget.IsRockon = true;
 					Playercameracontroller.Enemy = ControlTarget.StartingPoint;
@@ -140,7 +166,7 @@ namespace BehaviourTrees
 		private ExecutionResult GotoStartPoint(BehaviourTreeInstance instance)
 		{
 			// スタート地点に近接していたらfalseを返す
-			if (Vector3.Distance(transform.position, ControlTarget.StartingPoint.transform.position) < 1.0f)
+			if (Vector3.Distance(transform.position, ControlTarget.StartingPoint.transform.position) < 3.0f)
 			{
 				Debug.Log("スタート地点に到達");
 				// 折り返し地点をロックする
@@ -157,6 +183,7 @@ namespace BehaviourTrees
 				// ロックしていない場合はロックする
 				if(Playercameracontroller.RockOnTarget.Count == 0)
 				{
+					Playercameracontroller.RockOnTarget.Clear();
 					Playercameracontroller.RockOnTarget.Add(ControlTarget.EndingPoint);
 					ControlTarget.IsRockon = true;
 					Playercameracontroller.Enemy = ControlTarget.EndingPoint;
@@ -179,7 +206,7 @@ namespace BehaviourTrees
 		/// <returns></returns>
 		IEnumerator WaitCoroutine()
 		{
-			yield return new WaitForSeconds(1.0f);
+			yield return new WaitForSeconds(2.0f);
 			node.Reset();
 		}
 

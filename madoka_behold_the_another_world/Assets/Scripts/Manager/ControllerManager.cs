@@ -303,7 +303,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 			return;
 		}
 
-		DontDestroyOnLoad(this.gameObject);
+		DontDestroyOnLoad(gameObject);
         		
 
 		// 右ジョイスティックからの入力を受け取る
