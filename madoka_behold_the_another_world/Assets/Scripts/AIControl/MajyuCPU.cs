@@ -163,6 +163,11 @@ namespace BehaviourTrees
 			}
 		}
 
+        /// <summary>
+        /// スタート地点へ移動する
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <returns></returns>
 		private ExecutionResult GotoStartPoint(BehaviourTreeInstance instance)
 		{
 			// スタート地点に近接していたらfalseを返す

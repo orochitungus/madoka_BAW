@@ -1,36 +1,20 @@
 fileFormatVersion: 2
-guid: ff20cb0c4159fee4db73032b8eba93f5
-labels:
-- Bush
-- Foliage
-- Nature
-- Plant
-- Vegetation
+guid: c507b9537964cba44a5534f0f470de49
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: bush_05
-    100002: //RootNode
-    100004: Bush_05
-    100006: Bush_05_collider
-    400000: bush_05
-    400002: //RootNode
-    400004: Bush_05
-    400006: Bush_05_collider
-    2300000: bush_05
-    2300002: Bush_05
-    2300004: Bush_05_collider
-    3300000: bush_05
-    3300002: Bush_05
-    3300004: Bush_05_collider
-    4300000: bush_05
-    4300002: Bush_05
-    4300004: Bush_05_collider
+    100000: //RootNode
+    100002: cross
+    400000: //RootNode
+    400002: cross
+    2300000: cross
+    3300000: cross
+    4300000: cross
     9500000: //RootNode
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
-    materialSearch: 0
+    materialSearch: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -51,7 +35,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.1
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
@@ -89,7 +73,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
