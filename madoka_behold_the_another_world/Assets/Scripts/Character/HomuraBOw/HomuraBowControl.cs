@@ -322,6 +322,10 @@ public class HomuraBowControl : CharacterControlBase
         DownID = Animator.StringToHash("Base Layer.HomurBowDown");
         BlowID = Animator.StringToHash("Base Layer.HomuraBowBlow");
         SpinDownID = Animator.StringToHash("Base Layer.HomuraBowSpindown");
+
+		// リバーサルとダウンのIDを取得
+		ReversalHash = ReversalID;
+		DownHash = DownID;
     }
 
 	// Use this for initialization

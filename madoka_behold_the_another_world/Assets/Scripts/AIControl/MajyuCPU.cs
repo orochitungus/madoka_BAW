@@ -5,215 +5,188 @@ using System.Linq;
 using UniRx;
 
 namespace BehaviourTrees
-{
-	/// <summary>
-	/// CPU操作基本
-	/// XXCPUにBehaviourTreeで作った基本ルーチンを入れる
-	/// ルーチンに応じてそのルーチンを実行するためのコマンドをCPUControllerに入れる
-	/// CPUControllerのフラグが立ちキャラクターが動く
-	/// </summary>
-	public class MajyuCPU : MonoBehaviour
+{	
+	
+	public class MajyuCPU : AIControlBase
 	{
-		BehaviourTreeInstance node;
+		// 飛び道具発射フラグ（魔獣は1発撃ったら終了でズンダさせない）
+		private bool Shoted;
+		// 飛び道具発射インターバル時間
+		private float ShotIntervalTime = 5.0f;
+		// 上昇限界高度
+		private float RiseLimit = 10.0f;
 
-		/// <summary>
-		/// コントローラー制御
-		/// </summary>
-		public CPUController Cpucontroller;
-
-		/// <summary>
-		/// 制御対象
-		/// </summary>
-		public CharacterControlBase ControlTarget;
-
-		/// <summary>
-		/// 制御対象のカメラ
-		/// </summary>
-		public Player_Camera_Controller Playercameracontroller;
-
-		/// <summary>
-		/// 敵がレンジ内にいるか否か
-		/// </summary>
-		public bool EnemyExist;
-
-		
-		public CPUNowMode Cpunowmode;
-		
 		// Use this for initialization
 		void Start()
 		{
-			if (Cpunowmode == CPUNowMode.CPU)
-			{
-				// 哨戒時の索敵判定
-				var lockonnode = new DecoratorNode(IsEnemyExist, new ActionNode(EnemyRock));
-				// 哨戒時の移動判定
-				var returnchecknode = new SequencerNode(new BehaviourTreeBase[]
-				{
-					new ActionNode(GotoReturnPoint),
-					new ActionNode(GotoStartPoint)
-				});
-
-				// 最初の判定
-				var rootnode = new SelectorNode(new BehaviourTreeBase[]
-				{
-					lockonnode,
-					returnchecknode
-				});
-
-				// 最初の判定を定義する
-				node = new BehaviourTreeInstance(rootnode);
-				// 全部の判定を終えたらリセットする
-				node.finishRP.Where(p => p != BehaviourTreeInstance.NodeState.READY).Subscribe(p => ResetCoroutineStart());
-				node.Excute();
-			}
+			Initialize();
+			// 上昇する時間
+			Risetime = 0.1f;
+			// 近接レンジ
+			FightRange = 5.0f;
+			// 近接レンジ（前後特殊格闘を使って上下するか）
+			FightRangeY = 2.5f;
+			// 飛び道具発射フラグ
+			Shoted = false;
 		}
 
 		// Update is called once per frame
 		void Update()
 		{
-
+			UpdateCore();
 		}
 
 		/// <summary>
-		/// （SelectorNode）敵がレンジ内にいるか否か判定する
+		/// 接触したときの行動
 		/// </summary>
-		/// <param name="instance"></param>
+		/// <param name="keyoutput"></param>
 		/// <returns></returns>
-		private ExecutionResult IsEnemyExist(BehaviourTreeInstance instance)
+		protected override bool Engauge(ref KEY_OUTPUT keyoutput)
 		{
-			// 半径を決めて、その中に敵がいるか判定する
-			Collider[] targets = Physics.OverlapSphere(transform.position, 50.0f);
-			// 自分は敵側味方側どちら？
-			CharacterControlBase.CHARACTERCODE isplayer = ControlTarget.IsPlayer;
-
-			for(int i=0; i<targets.Length; i++)
+			// 制御対象
+			var target = ControlTarget.GetComponent<CharacterControlBase>();
+			// ロックオン距離内にいる
+			// 
+			if (RockonTarget != null && Vector3.Distance(target.transform.position, RockonTarget.transform.position) <= target.RockonRange)
 			{
-				// 入ってきたものがキャラだった場合のみカウントする
-				if (targets[i].GetComponent<CharacterControlBase>() != null)
+				// 頭上をとったか取られたかした場合、前後特殊格闘（DOGFIGHT_AIR）を行ってもらう
+				// 自機のXZ座標
+				Vector2 nowposXZ = new Vector2(target.transform.position.x, target.transform.position.z);
+				// ロックオン対象のXZ座標
+				Vector2 RockonXZ = new Vector2(RockonTarget.transform.position.x, RockonTarget.transform.position.z);
+				// XZ距離算出
+				float DistanceXZ = Vector2.Distance(nowposXZ, RockonXZ);
+				// 高低差算出
+				float DistanceY = target.transform.position.y - RockonTarget.transform.position.y;
+				// 格闘レンジに入ったか
+				if (DistanceXZ <= FightRange)
 				{
-					// 自分が敵側の場合、PlayerかPlayerAllyを見つけたらロックする
-					if (isplayer == CharacterControlBase.CHARACTERCODE.ENEMY)
+					keyoutput = KEY_OUTPUT.NONE;
+					// 高低差が一定以上か
+					if (FightRangeY <= DistanceY)
 					{
-						if(targets[i].GetComponent<CharacterControlBase>().IsPlayer == CharacterControlBase.CHARACTERCODE.PLAYER || targets[i].GetComponent<CharacterControlBase>().IsPlayer == CharacterControlBase.CHARACTERCODE.PLAYER_ALLY)
+						// 自分が高ければ後特殊格闘(降下攻撃）
+						if (target.transform.position.y >= RockonTarget.transform.position.y)
 						{
-							Debug.Log("敵がいる。ロックして攻撃");
-							return new ExecutionResult(true);
+							Cpumode = CPUMODE.DOGFIGHT_DOWNER;
+							return true;
+						}
+						// 自分が低ければ前特殊格闘（上昇攻撃）
+						else
+						{
+							Cpumode = CPUMODE.DOGFIGHT_UPPER;
+							return true;
 						}
 					}
-					// 自分が味方側の場合、Enemyを見つけたらロックする
+					// 高低差がないならば通常格闘へ移行
 					else
 					{
-						if(targets[i].GetComponent<CharacterControlBase>().IsPlayer == CharacterControlBase.CHARACTERCODE.ENEMY)
+						Cpumode = CPUMODE.DOGFIGHT_STANDBY;
+						return true;
+					}
+				}
+				// そうでなければ空中におり、敵との間に遮蔽物がなければ射撃攻撃（現行、地上にいると射撃のループをしてしまう）
+				else if (!target.IsGrounded)
+				{
+					// 前面に向かってレイキャストする
+					RaycastHit hit;
+					Vector3 RayStartPosition = new Vector3(target.transform.position.x, target.transform.position.y + 1.5f, target.transform.position.z);
+					if (Physics.Raycast(RayStartPosition, transform.forward, out hit, 230.0f))
+					{
+						// 衝突した「何か」が障害物であったら測距する
+						if (hit.transform.gameObject.layer == LayerMask.NameToLayer("ground"))
 						{
-							Debug.Log("敵がいる。ロックして攻撃");
-							return new ExecutionResult(true);
+							// 障害物との距離が敵との距離より近ければ、falseを返す
+							// 敵との距離
+							float EnemyDistance = Vector3.Distance(target.transform.position, RockonTarget.transform.position);
+							// 障害物との距離
+							float hitDistance = Vector3.Distance(target.transform.position, hit.transform.position);
+							if (hitDistance < EnemyDistance)
+							{
+								return false;
+							}
 						}
 					}
-				}	
-			}
-			Debug.Log("敵はいない。哨戒を続ける");
-			return new ExecutionResult(false);
-		}
-
-		/// <summary>
-		/// 敵をロックする
-		/// </summary>
-		/// <param name="instance"></param>
-		/// <returns></returns>
-		private ExecutionResult EnemyRock(BehaviourTreeInstance instance)
-		{
-			Debug.Log("敵をロックする");
-			return new ExecutionResult(true);
-		}
-
-		/// <summary>
-		/// 折り返し地点へ移動する
-		/// </summary>
-		/// <param name="instance"></param>
-		/// <returns></returns>
-		private ExecutionResult GotoReturnPoint(BehaviourTreeInstance instance)
-		{
-			// 折り返し地点に近接していたらfalseを返す
-			if (Vector3.Distance(transform.position, ControlTarget.EndingPoint.transform.position) < 3.0f)
-			{
-				Debug.Log("折り返し地点に到達");
-				// スタート地点をロックする
-				Playercameracontroller.RockOnTarget.Clear();
-				Playercameracontroller.RockOnTarget.Add(ControlTarget.StartingPoint);
-				ControlTarget.IsRockon = true;
-				Playercameracontroller.Enemy = ControlTarget.StartingPoint;
-				Playercameracontroller.IsRockOn = true;
-				Cpucontroller.Top = true;
-				return new ExecutionResult(false);
-			}
-			else
-			{
-				// ロックしていない場合はロックする
-				if(Playercameracontroller.RockOnTarget.Count == 0)
-				{
-					Playercameracontroller.RockOnTarget.Clear();
-					Playercameracontroller.RockOnTarget.Add(ControlTarget.StartingPoint);
-					ControlTarget.IsRockon = true;
-					Playercameracontroller.Enemy = ControlTarget.StartingPoint;
-					Playercameracontroller.IsRockOn = true;
+					// TODO:残弾数がなく、弾を撃ってから規定時間はなにもしない
+					var targetState = ControlTarget.GetComponent<MajyuControl>();
+					if (targetState.BulletNum[0] > 0 && !Shoted)
+					{
+						Cpumode = CPUMODE.FIREFIGHT;
+						keyoutput = KEY_OUTPUT.SHOT;
+						Shoted = true;
+						StartCoroutine(ShotInterval());
+						return true;
+					}
+					else
+					{
+						Cpumode = CPUMODE.NORMAL;
+						keyoutput = KEY_OUTPUT.NONE;
+						return false;
+					}
 				}
-				Debug.Log("折り返し地点へ移動");
-				Cpucontroller.Top = true;
-				return new ExecutionResult(true);
 			}
-		}
-
-        /// <summary>
-        /// スタート地点へ移動する
-        /// </summary>
-        /// <param name="instance"></param>
-        /// <returns></returns>
-		private ExecutionResult GotoStartPoint(BehaviourTreeInstance instance)
-		{
-			// スタート地点に近接していたらfalseを返す
-			if (Vector3.Distance(transform.position, ControlTarget.StartingPoint.transform.position) < 3.0f)
-			{
-				Debug.Log("スタート地点に到達");
-				// 折り返し地点をロックする
-				Playercameracontroller.RockOnTarget.Clear();
-				Playercameracontroller.RockOnTarget.Add(ControlTarget.EndingPoint);
-				ControlTarget.IsRockon = true;
-				Playercameracontroller.Enemy = ControlTarget.EndingPoint;
-				Playercameracontroller.IsRockOn = true;
-				Cpucontroller.Top = true;
-				return new ExecutionResult(false);
-			}
-			else
-			{
-				// ロックしていない場合はロックする
-				if(Playercameracontroller.RockOnTarget.Count == 0)
-				{
-					Playercameracontroller.RockOnTarget.Clear();
-					Playercameracontroller.RockOnTarget.Add(ControlTarget.EndingPoint);
-					ControlTarget.IsRockon = true;
-					Playercameracontroller.Enemy = ControlTarget.EndingPoint;
-					Playercameracontroller.IsRockOn = true;
-				}
-				Debug.Log("スタート地点へ移動");
-				Cpucontroller.Top = true;
-				return new ExecutionResult(true);
-			}
-		}
-
-		private void ResetCoroutineStart()
-		{
-			StartCoroutine(WaitCoroutine());
+			return false;
 		}
 
 		/// <summary>
-		/// 次の思考に至るまでの時間
+		/// 通常状態になったときの処理
 		/// </summary>
-		/// <returns></returns>
-		IEnumerator WaitCoroutine()
+		/// <param name="tenkeyoutput"></param>
+		/// <param name="keyoutput"></param>
+		protected override void Normal(ref TENKEY_OUTPUT tenkeyoutput, ref KEY_OUTPUT keyoutput)
 		{
-			yield return new WaitForSeconds(2.0f);
-			node.Reset();
+			base.Normal(ref tenkeyoutput, ref keyoutput);
+			// ロックオン対象情報を取得
+			CharacterControlBase rockonTarget = RockonTarget.GetComponent<CharacterControlBase>();
+			// 制御対象
+			CharacterControlBase target = ControlTarget.GetComponent<CharacterControlBase>();
+
+			// 相手がダウンしていた場合(回復中含む)
+			if (rockonTarget != null && rockonTarget.NowDownRatio >= rockonTarget.DownRatioBias)
+			{
+				// ロックオン対象が二人以上いた場合、ロックを切り替える
+				// ロックオン対象が誰もいなかった場合、哨戒に戻す
+				keyoutput = KEY_OUTPUT.SEARCH;
+				ReturnPatrol(target);
+			}
 		}
 
+		private IEnumerator ShotInterval()
+		{
+			yield return new WaitForSeconds(ShotIntervalTime);
+			Shoted = false;
+		}
+
+		protected override void Noraml_rise1(ref KEY_OUTPUT keyoutput)
+		{
+			// 何らかの理由で哨戒起点か終点をロックしたまま攻撃体制に入った場合は元に戻す
+			if (UnRockAndReturnPatrol())
+				return;
+
+			// 制御対象
+			var target = ControlTarget.GetComponent<MajyuControl>();
+			RaycastHit hit;
+			Vector3 RayStartPosition = new Vector3(ControlTarget.transform.position.x, ControlTarget.transform.position.y + 1.5f, ControlTarget.transform.position.z);
+			// 地上から離れて一定時間たったか上昇限界高度を超えていると空中ダッシュ
+			if ((!Physics.Raycast(RayStartPosition, -transform.up, out hit, RiseLimit)))
+			{
+				keyoutput = KEY_OUTPUT.NONE;
+				Cpumode = CPUMODE.NORMAL_RISE2;
+				Totalrisetime = Time.time;
+			}
+			// 地上から離れずに一定時間いるとNORMALへ戻って仕切り直す
+			if (Time.time > Totalrisetime + Risetime && target.IsGrounded)
+			{
+				Cpumode = CPUMODE.NORMAL;
+			}
+			// 敵との距離が離れすぎるとロックオンを解除して哨戒に戻る
+			// カメラ
+			Player_Camera_Controller pcc = ControlTarget_Camera.GetComponent<Player_Camera_Controller>();
+			float distance = Vector3.Distance(pcc.Player.transform.position, pcc.Enemy.transform.position);
+			if ((int)Latecpumode > (int)CPUMODE.RETURN_PATH && distance > target.RockonRangeLimit)
+			{
+				ReturnPatrol(target);
+			}
+		}
 	}
 }

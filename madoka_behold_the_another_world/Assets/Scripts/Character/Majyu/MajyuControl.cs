@@ -128,6 +128,10 @@ public class MajyuControl : CharacterControlBase
 		EXFrontWrestleID = Animator.StringToHash("Base Layer.MajyuFrontExWrestle");
 		EXBackWrestleID = Animator.StringToHash("Base Layer.MajyuBackExWrestle");
 		FrontWrestleID = Animator.StringToHash("Base Layer.MajyuFrontWrestle");
+
+		// リバーサルとダウンのIDを取得
+		ReversalHash = ReversalID;
+		DownHash = DownID;
 	}
 
 	// Use this for initialization

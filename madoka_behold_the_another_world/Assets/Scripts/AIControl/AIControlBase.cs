@@ -21,6 +21,11 @@ public class AIControlBase : MonoBehaviour
     /// </summary>
     public GameObject RockonTarget;
 
+	/// <summary>
+	/// CPU操作フラグ
+	/// </summary>
+	public CPUController Cpucontroller;
+
     // 制御対象がCPUであるか否か
     protected CharacterControlBase.CHARACTERCODE IsPlayer;
 
@@ -94,21 +99,21 @@ public class AIControlBase : MonoBehaviour
         RIGHTSTEP,              // 右ステップ
     };
 
-    /// <summary>
-    /// 方向キー出力のVECTOR2版
-    /// </summary>
-    public Vector2[] Lever = new Vector2[]
-    {
-        new Vector2(0,0),
-        new Vector2(0,1),       //TOP,                    // 上
-        new Vector2(-1,1),      //TOPLEFT,                // 左上
-        new Vector2(1,1),       //TOPRIGHT,               // 右上
-        new Vector2(-1,0),      //LEFT,                   // 左
-        new Vector2(1,0),       //RIGHT,                  // 右
-        new Vector2(0,-1),      //UNDER,                  // 下
-        new Vector2(-1,-1),     //UNDERLEFT,              // 左下
-        new Vector2(1,-1)       //UNDERRIGHT,             // 右下
-    };
+    ///// <summary>
+    ///// 方向キー出力のVECTOR2版
+    ///// </summary>
+    //public Vector2[] Lever = new Vector2[]
+    //{
+    //    new Vector2(0,0),
+    //    new Vector2(0,1),       //TOP,                    // 上
+    //    new Vector2(-1,1),      //TOPLEFT,                // 左上
+    //    new Vector2(1,1),       //TOPRIGHT,               // 右上
+    //    new Vector2(-1,0),      //LEFT,                   // 左
+    //    new Vector2(1,0),       //RIGHT,                  // 右
+    //    new Vector2(0,-1),      //UNDER,                  // 下
+    //    new Vector2(-1,-1),     //UNDERLEFT,              // 左下
+    //    new Vector2(1,-1)       //UNDERRIGHT,             // 右下
+    //};
 
     /// <summary>
     /// ボタンの出力
@@ -220,6 +225,17 @@ public class AIControlBase : MonoBehaviour
             {
                 Control(nowpos, Vector3.zero, ref Tenkeyoutput, ref Keyoutput);
             }
+			// 操作を反映させる
+			// 方向キー
+			if(Tenkeyoutput == TENKEY_OUTPUT.NEUTRAL)
+			{
+				Cpucontroller.Top = false;
+				Cpucontroller.LeftUpper = false;
+				Cpucontroller.Left = false;
+				Cpucontroller.LeftUnder = false;
+				Cpucontroller.Under = false;
+			}
+			// ボタン			
         }
     }
 
@@ -254,7 +270,7 @@ public class AIControlBase : MonoBehaviour
                 Noraml_rise1(ref keyoutput);
                 break;
             case CPUMODE.NORMAL_RISE2:
-                normal_rise2(ref tenkeyoutput, ref keyoutput);
+                Normal_rise2(ref tenkeyoutput, ref keyoutput);
                 break;
             case CPUMODE.NORMAL_RISE3:          // 再上昇準備
                 Normal_rise3(ref tenkeyoutput, ref keyoutput);
@@ -296,31 +312,31 @@ public class AIControlBase : MonoBehaviour
                 Dogfight_upper(ref tenkeyoutput, ref keyoutput);
                 break;
             case CPUMODE.DOGFIGHT_DOWNER:        // 格闘戦（下降）
-                dogfight_downer(ref tenkeyoutput, ref keyoutput);
+                Dogfight_downer(ref tenkeyoutput, ref keyoutput);
                 break;
             case CPUMODE.GUARD:                  // 防御
-                guard(ref tenkeyoutput, ref keyoutput);
+                Guard(ref tenkeyoutput, ref keyoutput);
                 break;
             case CPUMODE.GUARDEND:               // 防御終了
-                guardend(ref tenkeyoutput, ref keyoutput);
+                Guardend(ref tenkeyoutput, ref keyoutput);
                 break;
             case CPUMODE.AROUSAL:                // 覚醒
-                arousal(ref tenkeyoutput, ref keyoutput);
+                Arousal(ref tenkeyoutput, ref keyoutput);
                 break;
             case CPUMODE.AROUSAL_END:            // 覚醒終了
-                arousal_end(ref tenkeyoutput, ref keyoutput);
+                Arousalend(ref tenkeyoutput, ref keyoutput);
                 break;
             case CPUMODE.VARIANCE:               // 分散
-                variance();
+                Variance();
                 break;
             case CPUMODE.CROSSFIRE:              // 集中
-                crossfire();
+                Crossfire();
                 break;
             case CPUMODE.ASSAULT:                // 突撃
-                assault();
+                Assault();
                 break;
             case CPUMODE.AVOIDANCE:              // 回避
-                avoidance();
+                Avoidance();
                 break;
             default:
                 break;
@@ -339,7 +355,7 @@ public class AIControlBase : MonoBehaviour
     protected virtual void Outward_journey(Vector3 nowpos, Vector3 targetpos, ref TENKEY_OUTPUT tenkeyoutput, ref KEY_OUTPUT keyoutput)
     {
         PatrolTenkey(nowpos, targetpos, ref tenkeyoutput, ref keyoutput);
-        rockonCheck();
+        RockonCheck();
     }
 
     /// <summary>
@@ -352,7 +368,7 @@ public class AIControlBase : MonoBehaviour
     protected virtual void Return_path(Vector3 nowpos, Vector3 targetpos, ref TENKEY_OUTPUT tenkeyoutput, ref KEY_OUTPUT keyoutput)
     {
         PatrolTenkey(nowpos, targetpos, ref tenkeyoutput, ref keyoutput);
-        rockonCheck();
+        RockonCheck();
     }
     
     /// <summary>
@@ -387,18 +403,19 @@ public class AIControlBase : MonoBehaviour
         // 一端ロックオンボタンを離す
         keyoutput = KEY_OUTPUT.NONE;
 
-        // TODO:地上にいてダウンしていなくブーストゲージがあった場合、飛行させる（着地硬直中などは飛べない）
-        //if (target.IsGrounded && target.AnimatorUnit && target.m_AnimState[0] != CharacterControl_Base.AnimationState.Reversal
-        //    && target.Boost > 0)
-        //{
-        //    keyoutput = KEY_OUTPUT.JUMP;
-        //    m_cpumode = CPUMODE.NORMAL_RISE1;
-        //    tenkeyoutput = TENKEY_OUTPUT.TOP;
-        //    m_totalrisetime = Time.time;
-        //    return;
-        //}
-        // ロックオン状態で赤ロックになったら戦闘開始
-        if (engauge(ref keyoutput))
+		// TODO:地上にいてダウンしていなくブーストゲージがあった場合、飛行させる（着地硬直中などは飛べない）
+		if (target.IsGrounded && target.AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash != target.DownHash 
+			&& target.AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash != target.ReversalHash
+			&& target.Boost > 0)
+		{
+			keyoutput = KEY_OUTPUT.JUMP;
+			Cpumode = CPUMODE.NORMAL_RISE1;
+			tenkeyoutput = TENKEY_OUTPUT.TOP;
+			Totalrisetime = Time.time;
+			return;
+		}
+		// ロックオン状態で赤ロックになったら戦闘開始
+		if (Engauge(ref keyoutput))
         {
             return;
         }
@@ -424,11 +441,33 @@ public class AIControlBase : MonoBehaviour
             return;
     }
 
-    /// <summary>
-    /// 通常で上昇(飛び上がる）
-    /// </summary>
-    /// <param name="keyoutput"></param>
-    protected virtual void Noraml_rise1(ref KEY_OUTPUT keyoutput)
+	// 哨戒に戻る
+	// target[in]   :制御対象
+	protected void ReturnPatrol(CharacterControlBase target)
+	{
+		// カメラに登録しておいたロックオンオブジェクトを破棄する
+		Player_Camera_Controller pcc = ControlTarget_Camera.GetComponent<Player_Camera_Controller>();
+		pcc.RockOnTarget.Clear();
+		Cpumode = PastCPUMODE;
+		// ここでロックオン対象をスタートかゴールにする(AIControl_Base,カメラ双方）
+		if (Cpumode == CPUMODE.OUTWARD_JOURNEY)
+		{
+			RockonTarget = target.EndingPoint;
+			pcc.Enemy = target.EndingPoint;
+		}
+		else
+		{
+			Cpumode = CPUMODE.RETURN_PATH;
+			pcc.Enemy = target.EndingPoint;
+			RockonTarget = target.StartingPoint;
+		}
+	}
+
+	/// <summary>
+	/// 通常で上昇(飛び上がる）
+	/// </summary>
+	/// <param name="keyoutput"></param>
+	protected virtual void Noraml_rise1(ref KEY_OUTPUT keyoutput)
     {
         // 何らかの理由で哨戒起点か終点をロックしたまま攻撃体制に入った場合は元に戻す
         if (UnRockAndReturnPatrol())
@@ -585,7 +624,7 @@ public class AIControlBase : MonoBehaviour
             }
         }
         // ロックオン状態で赤ロックになったら戦闘開始
-        if (engauge(ref keyoutput))
+        if (Engauge(ref keyoutput))
         {
             return;
         }
@@ -817,6 +856,181 @@ public class AIControlBase : MonoBehaviour
             Cpumode = CPUMODE.NORMAL;
         }
     }
+       
+	/// <summary>
+	/// // 格闘戦（下降）
+	/// </summary>
+	/// <param name="tenkeyoutput"></param>
+	/// <param name="keyoutput"></param>
+	protected virtual void Dogfight_downer(ref TENKEY_OUTPUT tenkeyoutput, ref KEY_OUTPUT keyoutput)
+	{
+		// 制御対象
+		var target = ControlTarget.GetComponent<CharacterControlBase>();
+		// 地上に落ちきるまで下降
+		if (!target.IsGrounded)
+		{
+			tenkeyoutput = TENKEY_OUTPUT.UNDER;
+			keyoutput = KEY_OUTPUT.EXWRESTLE;
+		}
+		// 着地したらNORMALへ
+		else
+		{
+			tenkeyoutput = TENKEY_OUTPUT.NEUTRAL;
+			keyoutput = KEY_OUTPUT.NONE;
+			Cpumode = CPUMODE.NORMAL;
+		}
+	}
 
 
+	/// <summary>
+	/// 防御
+	/// </summary>
+	/// <param name="tenkeyoutput"></param>
+	/// <param name="keyoutput"></param>
+	protected virtual void Guard(ref TENKEY_OUTPUT tenkeyoutput, ref KEY_OUTPUT keyoutput)
+	{
+		// 何らかの理由で哨戒起点か終点をロックしたまま攻撃体制に入った場合は元に戻す
+		if (UnRockAndReturnPatrol())
+			return;
+		// 制御対象
+		var target = ControlTarget.GetComponent<CharacterControlBase>();
+		// ブーストがある限りガード
+		if (target.Boost > 0)
+		{
+			tenkeyoutput = TENKEY_OUTPUT.UNDER;
+			keyoutput = KEY_OUTPUT.WRESTLE;
+		}
+		// ブースト切れならNORMALへ
+		else
+		{
+			tenkeyoutput = TENKEY_OUTPUT.NEUTRAL;
+			keyoutput = KEY_OUTPUT.NONE;
+			Cpumode = CPUMODE.NORMAL;
+		}
+	}
+
+	/// <summary>
+	/// 防御終了
+	/// </summary>
+	/// <param name="tenkeyoutput"></param>
+	/// <param name="keyoutput"></param>
+	protected virtual void Guardend(ref TENKEY_OUTPUT tenkeyoutput, ref KEY_OUTPUT keyoutput)
+	{
+		tenkeyoutput = TENKEY_OUTPUT.NEUTRAL;
+		keyoutput = KEY_OUTPUT.NONE;
+		Cpumode = CPUMODE.NORMAL;
+	}
+
+	//AROUSAL               　// 覚醒
+	protected virtual void Arousal(ref TENKEY_OUTPUT tenkeyoutput, ref KEY_OUTPUT keyoutput)
+	{
+		tenkeyoutput = TENKEY_OUTPUT.NEUTRAL;
+		keyoutput = KEY_OUTPUT.AROUSAL;
+		Cpumode = CPUMODE.AROUSAL_END;
+	}
+
+	//AROUSAL_END             // 覚醒終了
+	protected virtual void Arousalend(ref TENKEY_OUTPUT tenkeyoutput, ref KEY_OUTPUT keyoutput)
+	{
+		tenkeyoutput = TENKEY_OUTPUT.NEUTRAL;
+		keyoutput = KEY_OUTPUT.NONE;
+		Cpumode = CPUMODE.NORMAL;
+	}
+
+	//VARIANCE,               // 分散
+	protected virtual void Variance()
+	{
+	}
+	//CROSSFIRE,              // 集中
+	protected virtual void Crossfire()
+	{
+	}
+	//ASSAULT,                // 突撃
+	protected virtual void Assault()
+	{
+	}
+	//AVOIDANCE,              // 回避  
+	protected virtual void Avoidance()
+	{
+	}
+
+	// 攻撃開始
+	// ret      :攻撃開始した
+	protected virtual bool Engauge(ref KEY_OUTPUT keyoutput)
+	{
+		return false;
+	}
+
+	// 規定位置を哨戒する(哨戒時のロックオンはカメラ側で.飛び越えるために追加の参照でブーストボタンを出すのもありか）
+	// nowpos(入力）            ：現在の位置
+	// targetpos(入力）         ：哨戒時の目標点
+	// output(参照返し）　　　　：方向キー
+	// keyoutput(参照返し）     ：ボタン
+	private void PatrolTenkey(Vector3 nowpos, Vector3 targetpos, ref TENKEY_OUTPUT output, ref KEY_OUTPUT keyoutput)
+	{
+		// 距離が一定になるまでは移動(完全に一致だと面倒なので閾値として5くらい）
+		float distance = Vector3.Distance(nowpos, targetpos);
+
+		// ノーロック状態なら強制的にロックオンフラグ
+		var target = ControlTarget.GetComponentInChildren<CharacterControlBase>();
+		if (target.IsRockon == false)
+		{
+			keyoutput = KEY_OUTPUT.SEARCH;
+			return;
+		}
+
+		// このキャラのメインカメラを拾う
+		GameObject maincamera = this.transform.FindChild("Main Camera").gameObject;
+		// スタート地点
+		GameObject startpoint = ControlTarget.GetComponent<CharacterControlBase>().StartingPoint;
+		// エンド地点
+		GameObject endpoint = ControlTarget.GetComponent<CharacterControlBase>().EndingPoint;
+		if (distance > 10.0f)
+		{
+			output = TENKEY_OUTPUT.TOP; // 対象をロックオンしていること前提
+			keyoutput = KEY_OUTPUT.NONE;
+		}
+		// 距離が5以下になると、ロックオン対象を切り替え、往路復路を切り替える(startとendを逆にする）
+		else
+		{
+			//keyoutput = KEY_OUTPUT.SEARCH;
+			// 往路から復路へ
+			if (Cpumode == CPUMODE.OUTWARD_JOURNEY)
+			{
+				maincamera.GetComponent<Player_Camera_Controller>().Enemy = startpoint;
+				Cpumode = CPUMODE.RETURN_PATH;
+			}
+			// 復路から往路へ
+			else
+			{
+				maincamera.GetComponent<Player_Camera_Controller>().Enemy = endpoint;
+				Cpumode = CPUMODE.OUTWARD_JOURNEY;
+			}
+		}
+	}
+
+	// 哨戒中の範囲内に敵が入ってきたら、ロックオンして通常へ移行
+	protected virtual void RockonCheck()
+	{
+		// 敵が入ってきたか判定
+		Player_Camera_Controller pcc = ControlTarget_Camera.GetComponent<Player_Camera_Controller>();
+		// CPUMODEを保持
+		PastCPUMODE = Cpumode;
+		// プレイヤーサイドの場合
+		if (IsPlayer == CharacterControlBase.CHARACTERCODE.PLAYER_ALLY)
+		{
+			if (pcc.OnPushSerchButton(true, true, true))
+			{
+				Cpumode = CPUMODE.NORMAL;
+			}
+		}
+		// エネミーサイドの場合
+		else if (IsPlayer == CharacterControlBase.CHARACTERCODE.ENEMY)
+		{
+			if (pcc.OnPushSerchButton(false, true, true))
+			{
+				Cpumode = CPUMODE.NORMAL;
+			}
+		}
+	}
 }

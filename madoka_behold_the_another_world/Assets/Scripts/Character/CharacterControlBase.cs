@@ -796,6 +796,16 @@ public class CharacterControlBase : MonoBehaviour
 	/// </summary>
 	protected int CancelDashID;
 
+	/// <summary>
+	/// ダウン時のAnimatorHash
+	/// </summary>
+	public int DownHash;
+
+	/// <summary>
+	/// リバーサル時のAnimatorHash
+	/// </summary>
+	public int ReversalHash;
+
 	// ステップ関係
 	/// <summary>
 	/// 回転用の角度を保存する
