@@ -234,6 +234,46 @@ public class AIControlBase : MonoBehaviour
 				Cpucontroller.Left = false;
 				Cpucontroller.LeftUnder = false;
 				Cpucontroller.Under = false;
+				Cpucontroller.RightUnder = false;
+				Cpucontroller.Right = false;
+				Cpucontroller.RightUpper = false;
+			}
+			else if (Tenkeyoutput == TENKEY_OUTPUT.TOP)
+			{
+				Cpucontroller.Top = true;
+				Cpucontroller.LeftUpper = false;
+				Cpucontroller.Left = false;
+				Cpucontroller.LeftUnder = false;
+				Cpucontroller.Under = false;
+				Cpucontroller.RightUnder = false;
+				Cpucontroller.Right = false;
+				Cpucontroller.RightUpper = false;
+			}
+			else if(Tenkeyoutput == TENKEY_OUTPUT.TOPLEFT)
+			{
+				Cpucontroller.Top = false;
+				Cpucontroller.LeftUpper = true;
+				Cpucontroller.Left = false;
+				Cpucontroller.LeftUnder = false;
+				Cpucontroller.Under = false;
+				Cpucontroller.RightUnder = false;
+				Cpucontroller.Right = false;
+				Cpucontroller.RightUpper = false;
+			}
+			else if(Tenkeyoutput == TENKEY_OUTPUT.LEFT)
+			{
+				Cpucontroller.Top = false;
+				Cpucontroller.LeftUpper = false;
+				Cpucontroller.Left = true;
+				Cpucontroller.LeftUnder = false;
+				Cpucontroller.Under = false;
+				Cpucontroller.RightUnder = false;
+				Cpucontroller.Right = false;
+				Cpucontroller.RightUpper = false;
+			}
+			else if(Tenkeyoutput == TENKEY_OUTPUT.UNDERLEFT)
+			{
+				
 			}
 			// ボタン			
         }
