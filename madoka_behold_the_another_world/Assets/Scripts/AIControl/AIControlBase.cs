@@ -95,8 +95,10 @@ public class AIControlBase : MonoBehaviour
         UNDER,                  // 下
         UNDERLEFT,              // 左下
         UNDERRIGHT,             // 右下
+		FRONTSTEP,				// 前ステップ
         LEFTSTEP,               // 左ステップ
         RIGHTSTEP,              // 右ステップ
+		BACKSTEP,				// 後ろステップ
     };
 
     ///// <summary>
@@ -226,8 +228,8 @@ public class AIControlBase : MonoBehaviour
                 Control(nowpos, Vector3.zero, ref Tenkeyoutput, ref Keyoutput);
             }
 			// 操作を反映させる
-			// 方向キー
-			if(Tenkeyoutput == TENKEY_OUTPUT.NEUTRAL)
+			// 方向キー(ステップ含む）
+			if (Tenkeyoutput == TENKEY_OUTPUT.NEUTRAL)
 			{
 				Cpucontroller.Top = false;
 				Cpucontroller.LeftUpper = false;
@@ -237,6 +239,10 @@ public class AIControlBase : MonoBehaviour
 				Cpucontroller.RightUnder = false;
 				Cpucontroller.Right = false;
 				Cpucontroller.RightUpper = false;
+				Cpucontroller.FrontStep = false;
+				Cpucontroller.LeftStep = false;
+				Cpucontroller.BackStep = false;
+				Cpucontroller.RightStep = false;
 			}
 			else if (Tenkeyoutput == TENKEY_OUTPUT.TOP)
 			{
@@ -248,8 +254,12 @@ public class AIControlBase : MonoBehaviour
 				Cpucontroller.RightUnder = false;
 				Cpucontroller.Right = false;
 				Cpucontroller.RightUpper = false;
+				Cpucontroller.FrontStep = false;
+				Cpucontroller.LeftStep = false;
+				Cpucontroller.BackStep = false;
+				Cpucontroller.RightStep = false;
 			}
-			else if(Tenkeyoutput == TENKEY_OUTPUT.TOPLEFT)
+			else if (Tenkeyoutput == TENKEY_OUTPUT.TOPLEFT)
 			{
 				Cpucontroller.Top = false;
 				Cpucontroller.LeftUpper = true;
@@ -259,8 +269,12 @@ public class AIControlBase : MonoBehaviour
 				Cpucontroller.RightUnder = false;
 				Cpucontroller.Right = false;
 				Cpucontroller.RightUpper = false;
+				Cpucontroller.FrontStep = false;
+				Cpucontroller.LeftStep = false;
+				Cpucontroller.BackStep = false;
+				Cpucontroller.RightStep = false;
 			}
-			else if(Tenkeyoutput == TENKEY_OUTPUT.LEFT)
+			else if (Tenkeyoutput == TENKEY_OUTPUT.LEFT)
 			{
 				Cpucontroller.Top = false;
 				Cpucontroller.LeftUpper = false;
@@ -270,12 +284,151 @@ public class AIControlBase : MonoBehaviour
 				Cpucontroller.RightUnder = false;
 				Cpucontroller.Right = false;
 				Cpucontroller.RightUpper = false;
+				Cpucontroller.FrontStep = false;
+				Cpucontroller.LeftStep = false;
+				Cpucontroller.BackStep = false;
+				Cpucontroller.RightStep = false;
 			}
-			else if(Tenkeyoutput == TENKEY_OUTPUT.UNDERLEFT)
+			else if (Tenkeyoutput == TENKEY_OUTPUT.UNDERLEFT)
+			{
+				Cpucontroller.Top = false;
+				Cpucontroller.LeftUpper = false;
+				Cpucontroller.Left = false;
+				Cpucontroller.LeftUnder = true;
+				Cpucontroller.Under = false;
+				Cpucontroller.RightUnder = false;
+				Cpucontroller.Right = false;
+				Cpucontroller.RightUpper = false;
+				Cpucontroller.FrontStep = false;
+				Cpucontroller.LeftStep = false;
+				Cpucontroller.BackStep = false;
+				Cpucontroller.RightStep = false;
+			}
+			else if (Tenkeyoutput == TENKEY_OUTPUT.UNDER)
+			{
+				Cpucontroller.Top = false;
+				Cpucontroller.LeftUpper = false;
+				Cpucontroller.Left = false;
+				Cpucontroller.LeftUnder = false;
+				Cpucontroller.Under = true;
+				Cpucontroller.RightUnder = false;
+				Cpucontroller.Right = false;
+				Cpucontroller.RightUpper = false;
+				Cpucontroller.FrontStep = false;
+				Cpucontroller.LeftStep = false;
+				Cpucontroller.BackStep = false;
+				Cpucontroller.RightStep = false;
+			}
+			else if(Tenkeyoutput == TENKEY_OUTPUT.UNDERRIGHT)
+			{
+				Cpucontroller.Top = false;
+				Cpucontroller.LeftUpper = false;
+				Cpucontroller.Left = false;
+				Cpucontroller.LeftUnder = false;
+				Cpucontroller.Under = false;
+				Cpucontroller.RightUnder = true;
+				Cpucontroller.Right = false;
+				Cpucontroller.RightUpper = false;
+				Cpucontroller.FrontStep = false;
+				Cpucontroller.LeftStep = false;
+				Cpucontroller.BackStep = false;
+				Cpucontroller.RightStep = false;
+			}
+			else if(Tenkeyoutput == TENKEY_OUTPUT.RIGHT)
+			{
+				Cpucontroller.Top = false;
+				Cpucontroller.LeftUpper = false;
+				Cpucontroller.Left = false;
+				Cpucontroller.LeftUnder = false;
+				Cpucontroller.Under = false;
+				Cpucontroller.RightUnder = false;
+				Cpucontroller.Right = true;
+				Cpucontroller.RightUpper = false;
+				Cpucontroller.FrontStep = false;
+				Cpucontroller.LeftStep = false;
+				Cpucontroller.BackStep = false;
+				Cpucontroller.RightStep = false;
+			}
+			else if(Tenkeyoutput == TENKEY_OUTPUT.TOPRIGHT)
+			{
+				Cpucontroller.Top = false;
+				Cpucontroller.LeftUpper = false;
+				Cpucontroller.Left = false;
+				Cpucontroller.LeftUnder = false;
+				Cpucontroller.Under = false;
+				Cpucontroller.RightUnder = false;
+				Cpucontroller.Right = false;
+				Cpucontroller.RightUpper = true;
+				Cpucontroller.FrontStep = false;
+				Cpucontroller.LeftStep = false;
+				Cpucontroller.BackStep = false;
+				Cpucontroller.RightStep = false;
+			}
+			else if(Tenkeyoutput == TENKEY_OUTPUT.FRONTSTEP)
+			{
+				Cpucontroller.Top = false;
+				Cpucontroller.LeftUpper = false;
+				Cpucontroller.Left = false;
+				Cpucontroller.LeftUnder = false;
+				Cpucontroller.Under = false;
+				Cpucontroller.RightUnder = false;
+				Cpucontroller.Right = false;
+				Cpucontroller.RightUpper = false;
+				Cpucontroller.FrontStep = true;
+				Cpucontroller.LeftStep = false;
+				Cpucontroller.BackStep = false;
+				Cpucontroller.RightStep = false;
+			}
+			else if(Tenkeyoutput == TENKEY_OUTPUT.LEFTSTEP)
+			{
+				Cpucontroller.Top = false;
+				Cpucontroller.LeftUpper = false;
+				Cpucontroller.Left = false;
+				Cpucontroller.LeftUnder = false;
+				Cpucontroller.Under = false;
+				Cpucontroller.RightUnder = false;
+				Cpucontroller.Right = false;
+				Cpucontroller.RightUpper = false;
+				Cpucontroller.FrontStep = false;
+				Cpucontroller.LeftStep = true;
+				Cpucontroller.BackStep = false;
+				Cpucontroller.RightStep = false;
+			}
+			else if(Tenkeyoutput == TENKEY_OUTPUT.RIGHTSTEP)
+			{
+				Cpucontroller.Top = false;
+				Cpucontroller.LeftUpper = false;
+				Cpucontroller.Left = false;
+				Cpucontroller.LeftUnder = false;
+				Cpucontroller.Under = false;
+				Cpucontroller.RightUnder = false;
+				Cpucontroller.Right = false;
+				Cpucontroller.RightUpper = false;
+				Cpucontroller.FrontStep = false;
+				Cpucontroller.LeftStep = false;
+				Cpucontroller.BackStep = false;
+				Cpucontroller.RightStep = true;
+			}
+			else if(Tenkeyoutput == TENKEY_OUTPUT.BACKSTEP)
+			{
+				Cpucontroller.Top = false;
+				Cpucontroller.LeftUpper = false;
+				Cpucontroller.Left = false;
+				Cpucontroller.LeftUnder = false;
+				Cpucontroller.Under = false;
+				Cpucontroller.RightUnder = false;
+				Cpucontroller.Right = false;
+				Cpucontroller.RightUpper = false;
+				Cpucontroller.FrontStep = false;
+				Cpucontroller.LeftStep = false;
+				Cpucontroller.BackStep = true;
+				Cpucontroller.RightStep = false;
+			}
+			// ボタン
+			if(Keyoutput == KEY_OUTPUT.SHOT)
 			{
 				
 			}
-			// ボタン			
         }
     }
 

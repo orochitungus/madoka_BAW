@@ -109,7 +109,7 @@ public class CPUController : MonoBehaviour
 	/// </summary>
 	public bool RightUpperUp;
 
-
+	
 
 	/// <summary>
 	/// 射撃・決定
