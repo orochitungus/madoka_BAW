@@ -100,22 +100,7 @@ public class AIControlBase : MonoBehaviour
         RIGHTSTEP,              // 右ステップ
 		BACKSTEP,				// 後ろステップ
     };
-
-    ///// <summary>
-    ///// 方向キー出力のVECTOR2版
-    ///// </summary>
-    //public Vector2[] Lever = new Vector2[]
-    //{
-    //    new Vector2(0,0),
-    //    new Vector2(0,1),       //TOP,                    // 上
-    //    new Vector2(-1,1),      //TOPLEFT,                // 左上
-    //    new Vector2(1,1),       //TOPRIGHT,               // 右上
-    //    new Vector2(-1,0),      //LEFT,                   // 左
-    //    new Vector2(1,0),       //RIGHT,                  // 右
-    //    new Vector2(0,-1),      //UNDER,                  // 下
-    //    new Vector2(-1,-1),     //UNDERLEFT,              // 左下
-    //    new Vector2(1,-1)       //UNDERRIGHT,             // 右下
-    //};
+	    
 
     /// <summary>
     /// ボタンの出力
@@ -425,9 +410,209 @@ public class AIControlBase : MonoBehaviour
 				Cpucontroller.RightStep = false;
 			}
 			// ボタン
-			if(Keyoutput == KEY_OUTPUT.SHOT)
+			if (Keyoutput == KEY_OUTPUT.SHOT)
 			{
-				
+				Cpucontroller.Shot = true;
+				Cpucontroller.Shotting = false;
+				Cpucontroller.Wrestle = false;
+				Cpucontroller.Wrestling = false;
+				Cpucontroller.Jump = false;
+				Cpucontroller.Jumping = false;
+				Cpucontroller.Search = false;
+				Cpucontroller.Command = false;
+				Cpucontroller.Item = false;
+				Cpucontroller.Menu = false;
+				Cpucontroller.SubShot = false;
+				Cpucontroller.EXShot = false;
+				Cpucontroller.EXWrestle = false;
+				Cpucontroller.BoostDash = false;
+			}
+			else if (Keyoutput == KEY_OUTPUT.CHARGESHOT)
+			{
+				Cpucontroller.Shot = false;
+				Cpucontroller.Shotting = true;
+				Cpucontroller.Wrestle = false;
+				Cpucontroller.Wrestling = false;
+				Cpucontroller.Jump = false;
+				Cpucontroller.Jumping = false;
+				Cpucontroller.Search = false;
+				Cpucontroller.Command = false;
+				Cpucontroller.Item = false;
+				Cpucontroller.Menu = false;
+				Cpucontroller.SubShot = false;
+				Cpucontroller.EXShot = false;
+				Cpucontroller.EXWrestle = false;
+				Cpucontroller.BoostDash = false;
+			}
+			else if(Keyoutput == KEY_OUTPUT.WRESTLE)
+			{
+				Cpucontroller.Shot = false;
+				Cpucontroller.Shotting = false;
+				Cpucontroller.Wrestle = true;
+				Cpucontroller.Wrestling = false;
+				Cpucontroller.Jump = false;
+				Cpucontroller.Jumping = false;
+				Cpucontroller.Search = false;
+				Cpucontroller.Command = false;
+				Cpucontroller.Item = false;
+				Cpucontroller.Menu = false;
+				Cpucontroller.SubShot = false;
+				Cpucontroller.EXShot = false;
+				Cpucontroller.EXWrestle = false;
+				Cpucontroller.BoostDash = false;
+			}
+			else if(Keyoutput == KEY_OUTPUT.CHARGEWRESTE)
+			{
+				Cpucontroller.Shot = false;
+				Cpucontroller.Shotting = false;
+				Cpucontroller.Wrestle = false;
+				Cpucontroller.Wrestling = true;
+				Cpucontroller.Jump = false;
+				Cpucontroller.Jumping = false;
+				Cpucontroller.Search = false;
+				Cpucontroller.Command = false;
+				Cpucontroller.Item = false;
+				Cpucontroller.Menu = false;
+				Cpucontroller.SubShot = false;
+				Cpucontroller.EXShot = false;
+				Cpucontroller.EXWrestle = false;
+				Cpucontroller.BoostDash = false;
+			}
+			else if(Keyoutput == KEY_OUTPUT.JUMP)
+			{
+				Cpucontroller.Shot = false;
+				Cpucontroller.Shotting = false;
+				Cpucontroller.Wrestle = false;
+				Cpucontroller.Wrestling = false;
+				Cpucontroller.Jump = true;
+				Cpucontroller.Jumping = false;
+				Cpucontroller.Search = false;
+				Cpucontroller.Command = false;
+				Cpucontroller.Item = false;
+				Cpucontroller.Menu = false;
+				Cpucontroller.SubShot = false;
+				Cpucontroller.EXShot = false;
+				Cpucontroller.EXWrestle = false;
+				Cpucontroller.BoostDash = false;
+			}
+			else if(Keyoutput == KEY_OUTPUT.SEARCH)
+			{
+				Cpucontroller.Shot = false;
+				Cpucontroller.Shotting = false;
+				Cpucontroller.Wrestle = false;
+				Cpucontroller.Wrestling = false;
+				Cpucontroller.Jump = false;
+				Cpucontroller.Jumping = false;
+				Cpucontroller.Search = true;
+				Cpucontroller.Command = false;
+				Cpucontroller.Item = false;
+				Cpucontroller.Menu = false;
+				Cpucontroller.SubShot = false;
+				Cpucontroller.EXShot = false;
+				Cpucontroller.EXWrestle = false;
+				Cpucontroller.BoostDash = false;
+			}
+			else if(Keyoutput == KEY_OUTPUT.ITEM)
+			{
+				Cpucontroller.Shot = false;
+				Cpucontroller.Shotting = false;
+				Cpucontroller.Wrestle = false;
+				Cpucontroller.Wrestling = false;
+				Cpucontroller.Jump = false;
+				Cpucontroller.Jumping = false;
+				Cpucontroller.Search = false;
+				Cpucontroller.Command = false;
+				Cpucontroller.Item = true;
+				Cpucontroller.Menu = false;
+				Cpucontroller.SubShot = false;
+				Cpucontroller.EXShot = false;
+				Cpucontroller.EXWrestle = false;
+				Cpucontroller.BoostDash = false;
+			}
+			else if(Keyoutput == KEY_OUTPUT.SUBSHOT)
+			{
+				Cpucontroller.Shot = false;
+				Cpucontroller.Shotting = false;
+				Cpucontroller.Wrestle = false;
+				Cpucontroller.Wrestling = false;
+				Cpucontroller.Jump = false;
+				Cpucontroller.Jumping = false;
+				Cpucontroller.Search = false;
+				Cpucontroller.Command = false;
+				Cpucontroller.Item = false;
+				Cpucontroller.Menu = false;
+				Cpucontroller.SubShot = true;
+				Cpucontroller.EXShot = false;
+				Cpucontroller.EXWrestle = false;
+				Cpucontroller.BoostDash = false;
+			}
+			else if(Keyoutput == KEY_OUTPUT.EXSHOT)
+			{
+				Cpucontroller.Shot = false;
+				Cpucontroller.Shotting = false;
+				Cpucontroller.Wrestle = false;
+				Cpucontroller.Wrestling = false;
+				Cpucontroller.Jump = false;
+				Cpucontroller.Jumping = false;
+				Cpucontroller.Search = false;
+				Cpucontroller.Command = false;
+				Cpucontroller.Item = false;
+				Cpucontroller.Menu = false;
+				Cpucontroller.SubShot = false;
+				Cpucontroller.EXShot = true;
+				Cpucontroller.EXWrestle = false;
+				Cpucontroller.BoostDash = false;
+			}
+			else if(Keyoutput == KEY_OUTPUT.EXWRESTLE)
+			{
+				Cpucontroller.Shot = false;
+				Cpucontroller.Shotting = false;
+				Cpucontroller.Wrestle = false;
+				Cpucontroller.Wrestling = false;
+				Cpucontroller.Jump = false;
+				Cpucontroller.Jumping = false;
+				Cpucontroller.Search = false;
+				Cpucontroller.Command = false;
+				Cpucontroller.Item = false;
+				Cpucontroller.Menu = false;
+				Cpucontroller.SubShot = false;
+				Cpucontroller.EXShot = false;
+				Cpucontroller.EXWrestle = true;
+				Cpucontroller.BoostDash = false;
+			}
+			else if(Keyoutput == KEY_OUTPUT.AIRDASH)
+			{
+				Cpucontroller.Shot = false;
+				Cpucontroller.Shotting = false;
+				Cpucontroller.Wrestle = false;
+				Cpucontroller.Wrestling = false;
+				Cpucontroller.Jump = false;
+				Cpucontroller.Jumping = false;
+				Cpucontroller.Search = false;
+				Cpucontroller.Command = false;
+				Cpucontroller.Item = false;
+				Cpucontroller.Menu = false;
+				Cpucontroller.SubShot = false;
+				Cpucontroller.EXShot = false;
+				Cpucontroller.EXWrestle = false;
+				Cpucontroller.BoostDash = true;
+			}
+			else if(Keyoutput == KEY_OUTPUT.NONE)
+			{
+				Cpucontroller.Shot = false;
+				Cpucontroller.Shotting = false;
+				Cpucontroller.Wrestle = false;
+				Cpucontroller.Wrestling = false;
+				Cpucontroller.Jump = false;
+				Cpucontroller.Jumping = false;
+				Cpucontroller.Search = false;
+				Cpucontroller.Command = false;
+				Cpucontroller.Item = false;
+				Cpucontroller.Menu = false;
+				Cpucontroller.SubShot = false;
+				Cpucontroller.EXShot = false;
+				Cpucontroller.EXWrestle = false;
+				Cpucontroller.BoostDash = false;
 			}
         }
     }
