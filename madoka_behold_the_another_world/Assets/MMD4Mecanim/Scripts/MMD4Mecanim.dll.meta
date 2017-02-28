@@ -8,7 +8,6 @@ PluginImporter:
   executionOrder:
     MMD4MecanimBulletPhysics: 10001
   isPreloaded: 0
-  isOverridable: 0
   platformData:
     Android:
       enabled: 1
