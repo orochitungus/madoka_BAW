@@ -573,8 +573,8 @@ public class Player_Camera_Controller : MonoBehaviour
 				Vector3 nowpos = Player.transform.position;
 				// 配置位置（敵機）
 				Vector3 epos;
-				// ロック対象が動く敵の場合
-				if (Enemy.GetComponentInChildren<CharacterControlBase>() != null)
+				// ロック対象が動く敵の場合(CPU操作時除く）
+				if (Enemy.GetComponentInChildren<CharacterControlBase>() != null && Player.GetComponentInChildren<CharacterControlBase>().IsPlayer == CharacterControlBase.CHARACTERCODE.PLAYER)
 				{
 					epos = Enemy.GetComponentInChildren<CharacterControlBase>().RockonCursorPosition.transform.position;
 				}
