@@ -231,42 +231,41 @@ public class Player_Camera_Controller : MonoBehaviour
                         break;
                     // 敵側の場合、PC側のタグを検索する
                     case CharacterControlBase.CHARACTERCODE.ENEMY:
-						// TODO:CPU作るまで一旦カット               
-						//switch (m_cpumode)
-						//{
-						//    // 敵の哨戒モードの場合、起点か終点を検索する
-						//    // 終点へ向けて移動中
-						//    case AIControl.CPUMODE.OUTWARD_JOURNEY:
-						//        // 終点をロックオンする                                                             
-						//        if (target.EndingPoint == null)
-						//        {
-						//            Debug.Log("EndingPoint isn't setting");
-						//        }
-						//        Enemy = target.EndingPoint;
-						//        IsRockOn = true;
-						//        target.IsRockon = true;                                
-						//        break;
-						//    // 起点へ向けて移動中
-						//    case AIControl.CPUMODE.RETURN_PATH:
-						//        // 起点をロックオンする
-						//        if (target.StartingPoint == null)
-						//        {
-						//            Debug.Log("StartingPoint isn't setting");
-						//        }
-						//        Enemy = target.StartingPoint;
-						//        IsRockOn = true;
-						//        target.IsRockon = true;                                
-						//        break;                            
-						//    default:
-						//        // 外れたら哨戒に戻る
-						//        if (!OnPushSerchButton(false,false))
-						//        {
-						//            this.m_cpumode = AIControl.CPUMODE.OUTWARD_JOURNEY;
-						//            IsRockOn = false;
-						//            target.IsRockon = false;
-						//        }
-						//        break;
-						//}
+						switch (CPUmode)
+						{
+							// 敵の哨戒モードの場合、起点か終点を検索する
+							// 終点へ向けて移動中
+							case AIControl.CPUMODE.OUTWARD_JOURNEY:
+								// 終点をロックオンする                                                             
+								if (target.EndingPoint == null)
+								{
+									Debug.Log("EndingPoint isn't setting");
+								}
+								Enemy = target.EndingPoint;
+								IsRockOn = true;
+								target.IsRockon = true;
+								break;
+							// 起点へ向けて移動中
+							case AIControl.CPUMODE.RETURN_PATH:
+								// 起点をロックオンする
+								if (target.StartingPoint == null)
+								{
+									Debug.Log("StartingPoint isn't setting");
+								}
+								Enemy = target.StartingPoint;
+								IsRockOn = true;
+								target.IsRockon = true;
+								break;
+							default:
+								// 外れたら哨戒に戻る
+								if (!OnPushSerchButton(false, false))
+								{
+									CPUmode = AIControl.CPUMODE.OUTWARD_JOURNEY;
+									IsRockOn = false;
+									target.IsRockon = false;
+								}
+								break;
+						}
 						break;
                 }
                 
