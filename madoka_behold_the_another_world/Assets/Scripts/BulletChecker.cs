@@ -25,15 +25,15 @@ public class BulletChecker : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
     {
-        var characterAI = m_Obj_OR.GetComponent<AIControl_Base>();
+        var characterAI = m_Obj_OR.GetComponent<AIControlBase>();
         if (m_bulletIn)
         {            
-            characterAI.m_cpumode = AIControl_Base.CPUMODE.GUARD;
+            characterAI.Cpumode = AIControlBase.CPUMODE.GUARD;
         }
         // 過去フレームでガード状態で、弾丸が消失するなどしてガードする必要がなくなった場合はNORMALにする
         if (m_prebulletIn && !m_bulletIn)
         {
-            characterAI.m_cpumode = AIControl_Base.CPUMODE.NORMAL;            
+            characterAI.Cpumode = AIControlBase.CPUMODE.NORMAL;            
         }
         m_prebulletIn = m_bulletIn;
 	}

@@ -176,7 +176,7 @@ public class MajyuControl : CharacterControlBase
 		RockonRange = 100.0f;
 
 		// ロックオン限界距離
-		RockonRangeLimit = 200.0f;
+		RockonRangeLimit = 150.0f;
 
 		// ショットのステート
 		Shotmode = ShotMode.NORMAL;

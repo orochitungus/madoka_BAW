@@ -21,7 +21,7 @@ namespace BehaviourTrees
 		{
 			Initialize();
 			// 上昇する時間
-			Risetime = 0.1f;
+			Risetime = 1.0f;
 			// 近接レンジ
 			FightRange = 5.0f;
 			// 近接レンジ（前後特殊格闘を使って上下するか）
@@ -157,7 +157,7 @@ namespace BehaviourTrees
 			Shoted = false;
 		}
 
-		protected override void Noraml_rise1(ref KEY_OUTPUT keyoutput)
+		protected override void Normal_rise1(ref KEY_OUTPUT keyoutput)
 		{
 			// 何らかの理由で哨戒起点か終点をロックしたまま攻撃体制に入った場合は元に戻す
 			if (UnRockAndReturnPatrol())
@@ -168,11 +168,17 @@ namespace BehaviourTrees
 			RaycastHit hit;
 			Vector3 RayStartPosition = new Vector3(ControlTarget.transform.position.x, ControlTarget.transform.position.y + 1.5f, ControlTarget.transform.position.z);
 			// 地上から離れて一定時間たったか上昇限界高度を超えていると空中ダッシュ
-			if ((!Physics.Raycast(RayStartPosition, -transform.up, out hit, RiseLimit)))
+			//if ((!Physics.Raycast(RayStartPosition, -transform.up, out hit, RiseLimit)))
+			// 地上から離れて一定時間後ジャンプボタンを離す
+			if (Time.time > Totalrisetime + Risetime && !target.IsGrounded)
 			{
 				keyoutput = KEY_OUTPUT.NONE;
 				Cpumode = CPUMODE.NORMAL_RISE2;
 				Totalrisetime = Time.time;
+			}
+			else
+			{
+				keyoutput = KEY_OUTPUT.JUMPING;
 			}
 			// 地上から離れずに一定時間いるとNORMALへ戻って仕切り直す
 			if (Time.time > Totalrisetime + Risetime && target.IsGrounded)

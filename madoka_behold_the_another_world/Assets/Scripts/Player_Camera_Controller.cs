@@ -40,9 +40,9 @@ public class Player_Camera_Controller : MonoBehaviour
 
     // CPU
     // ルーチンを拾う
-    AIControl.CPUMODE CPUmode;
+    AIControlBase.CPUMODE CPUmode;
     // 入力を拾う
-    AIControl.KEY_OUTPUT CPUKeyInput;
+    AIControlBase.KEY_OUTPUT CPUKeyInput;
 
     public MainCameraMode Maincameramode;
 
@@ -189,7 +189,7 @@ public class Player_Camera_Controller : MonoBehaviour
         // ロックオン（非ロックオン時）
         // このカメラが追跡しているオブジェクトの情報を拾う   
         CharacterControlBase target = Player.GetComponentInChildren<CharacterControlBase>();
-        var targetAI = Player.GetComponentInChildren<AIControl_Base>();
+        var targetAI = Player.GetComponentInChildren<AIControlBase>();
 
         // クエストパート時、使わないので抜ける
         if (target == null)
@@ -198,12 +198,9 @@ public class Player_Camera_Controller : MonoBehaviour
         // CPU時、CPUの情報を拾う
         if (target.IsPlayer != CharacterControlBase.CHARACTERCODE.PLAYER)
         {
-            // ルーチンを拾う
-            // TODO:CPU作るまで一旦カット
-			// m_cpumode = targetAI.m_cpumode;
-            // 入力を拾う
-            //m_key = targetAI.m_keyoutput; 
-        }
+			// ルーチンを拾う
+			CPUmode = targetAI.Cpumode;			
+		}
 
         // 解除入力が行われた
         if (target.IsRockon && target.HasSearchCancelInput)
@@ -211,7 +208,7 @@ public class Player_Camera_Controller : MonoBehaviour
             UnlockDone(target);
         }
         // ロックオンボタンが押された（この判定はCharacterControl_Baseの派生側で拾う）
-        else if (target.GetSearchInput() || this.CPUKeyInput == AIControl.KEY_OUTPUT.SEARCH)
+        else if (target.GetSearchInput() || CPUKeyInput == AIControlBase.KEY_OUTPUT.SEARCH)
         {
             // ロックオンしていなかった
             if (!target.IsRockon)
@@ -235,7 +232,7 @@ public class Player_Camera_Controller : MonoBehaviour
 						{
 							// 敵の哨戒モードの場合、起点か終点を検索する
 							// 終点へ向けて移動中
-							case AIControl.CPUMODE.OUTWARD_JOURNEY:
+							case AIControlBase.CPUMODE.OUTWARD_JOURNEY:
 								// 終点をロックオンする                                                             
 								if (target.EndingPoint == null)
 								{
@@ -246,7 +243,7 @@ public class Player_Camera_Controller : MonoBehaviour
 								target.IsRockon = true;
 								break;
 							// 起点へ向けて移動中
-							case AIControl.CPUMODE.RETURN_PATH:
+							case AIControlBase.CPUMODE.RETURN_PATH:
 								// 起点をロックオンする
 								if (target.StartingPoint == null)
 								{
@@ -260,7 +257,7 @@ public class Player_Camera_Controller : MonoBehaviour
 								// 外れたら哨戒に戻る
 								if (!OnPushSerchButton(false, false))
 								{
-									CPUmode = AIControl.CPUMODE.OUTWARD_JOURNEY;
+									CPUmode = AIControlBase.CPUMODE.OUTWARD_JOURNEY;
 									IsRockOn = false;
 									target.IsRockon = false;
 								}
@@ -273,22 +270,22 @@ public class Player_Camera_Controller : MonoBehaviour
             // ロックオンしていた
             else
             {
-				// TODO:CPU作るまで一旦カット
+
 				// 敵もしくは僚機の哨戒状態で目的地にたどり着いたときにこの状態になる
-				//           if (target.IsPlayer != CharacterControlBase.CHARACTERCODE.PLAYER)
-				//           {   
-				//// ここに指示が来る前に、cpumodeは切り替わっている
-				//               // 往路(終点をロックオン）
-				//               if (m_cpumode == AIControl.CPUMODE.OUTWARD_JOURNEY)
-				//               {
-				//                   Enemy = target.EndingPoint;
-				//               }
-				//               // 復路（起点をロックオン）
-				//               else if(m_cpumode == AIControl.CPUMODE.RETURN_PATH)
-				//               {
-				//                   Enemy = target.StartingPoint;
-				//               }
-				//           }
+				if (target.IsPlayer != CharacterControlBase.CHARACTERCODE.PLAYER)
+				{
+					// ここに指示が来る前に、cpumodeは切り替わっている
+					// 往路(終点をロックオン）
+					if (CPUmode == AIControlBase.CPUMODE.OUTWARD_JOURNEY)
+					{
+						Enemy = target.EndingPoint;
+					}
+					// 復路（起点をロックオン）
+					else if (CPUmode == AIControlBase.CPUMODE.RETURN_PATH)
+					{
+						Enemy = target.StartingPoint;
+					}
+				}
 
 				// 別の相手にロックオン対象を切り替える(2体以上候補が居る場合）
 				if (RockOnTarget.Count > 1)
@@ -314,15 +311,14 @@ public class Player_Camera_Controller : MonoBehaviour
         }
 
 		// ロックオン対象が死んでいたら強制的にロックを解除する（CPUの哨戒モード時は除く）
-		// TODO:CPU作るまで一旦カット
-		//if (target.IsRockon && m_cpumode != AIControl.CPUMODE.OUTWARD_JOURNEY && m_cpumode != AIControl.CPUMODE.RETURN_PATH)
-  //      {
-  //          var rockontarget = Enemy.GetComponentInChildren<CharacterControlBase>();
-  //          if (rockontarget != null && rockontarget.NowHitpoint < 1)
-  //          {
-  //              UnlockDone(target);
-  //          }
-  //      }
+		if (target.IsRockon && CPUmode != AIControlBase.CPUMODE.OUTWARD_JOURNEY && CPUmode != AIControlBase.CPUMODE.RETURN_PATH)
+		{
+			var rockontarget = Enemy.GetComponentInChildren<CharacterControlBase>();
+			if (rockontarget != null && rockontarget.NowHitpoint < 1)
+			{
+				UnlockDone(target);
+			}
+		}
 
 	}
 

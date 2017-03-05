@@ -129,17 +129,17 @@ public class CharacterControlBase : MonoBehaviour
     /// <summary>
     /// ルーチンを拾う
     /// </summary>
-    public AIControl_Base.CPUMODE CPUMode;
+    public AIControlBase.CPUMODE CPUMode;
 
     /// <summary>
     /// テンキー入力を拾う
     /// </summary>
-    public AIControl_Base.TENKEY_OUTPUT CPUTenkey;
+    public AIControlBase.TENKEY_OUTPUT CPUTenkey;
 
     /// <summary>
     /// キー入力を拾う
     /// </summary>
-    public AIControl_Base.KEY_OUTPUT CPUKey;
+    public AIControlBase.KEY_OUTPUT CPUKey;
 
 
     // 時間停止時の処理    

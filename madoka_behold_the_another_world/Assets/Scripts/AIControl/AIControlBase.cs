@@ -110,8 +110,8 @@ public class AIControlBase : MonoBehaviour
         NONE,
         SHOT,                   // 射撃
         JUMP,                   // ジャンプ（一応ダッシュキャンセルとは別扱い）
-        DASHCANCEL,             // ダッシュキャンセル
-        AIRDASH,                // 空中ダッシュ
+		JUMPING,				// ジャンプ長押し
+        BOOSTDASH,              // 空中ダッシュ
         SEARCH,                 // サーチ
         SEACHCANCEL,            // サーチキャンセル（現在未使用）
         WRESTLE,                // 格闘
@@ -198,12 +198,23 @@ public class AIControlBase : MonoBehaviour
             // 往路時
             if (Cpumode == CPUMODE.OUTWARD_JOURNEY)
             {
+				// AIとカメラのロック対象をEndingPointにする
+				// AI
+				RockonTarget = target.EndingPoint;
+				// カメラ
+				Enemy.Enemy = target.EndingPoint;
+
                 targetpos = target.EndingPoint.transform.position;
                 Control(nowpos, targetpos, ref Tenkeyoutput, ref Keyoutput);
             }
             // 復路時
             else if (Cpumode == CPUMODE.RETURN_PATH)
             {
+				// AIとカメラのロック対象をStartingPointにする
+				// AI
+				RockonTarget = target.StartingPoint;
+				// カメラ
+				Enemy.Enemy = target.StartingPoint;
                 targetpos = target.StartingPoint.transform.position;
                 Control(nowpos, targetpos, ref Tenkeyoutput, ref Keyoutput);
             }
@@ -580,7 +591,7 @@ public class AIControlBase : MonoBehaviour
 				Cpucontroller.EXWrestle = true;
 				Cpucontroller.BoostDash = false;
 			}
-			else if(Keyoutput == KEY_OUTPUT.AIRDASH)
+			else if(Keyoutput == KEY_OUTPUT.BOOSTDASH)
 			{
 				Cpucontroller.Shot = false;
 				Cpucontroller.Shotting = false;
@@ -596,6 +607,23 @@ public class AIControlBase : MonoBehaviour
 				Cpucontroller.EXShot = false;
 				Cpucontroller.EXWrestle = false;
 				Cpucontroller.BoostDash = true;
+			}
+			else if(Keyoutput == KEY_OUTPUT.JUMPING)
+			{
+				Cpucontroller.Shot = false;
+				Cpucontroller.Shotting = false;
+				Cpucontroller.Wrestle = false;
+				Cpucontroller.Wrestling = false;
+				Cpucontroller.Jump = false;
+				Cpucontroller.Jumping = true;
+				Cpucontroller.Search = false;
+				Cpucontroller.Command = false;
+				Cpucontroller.Item = false;
+				Cpucontroller.Menu = false;
+				Cpucontroller.SubShot = false;
+				Cpucontroller.EXShot = false;
+				Cpucontroller.EXWrestle = false;
+				Cpucontroller.BoostDash = false;
 			}
 			else if(Keyoutput == KEY_OUTPUT.NONE)
 			{
@@ -645,7 +673,7 @@ public class AIControlBase : MonoBehaviour
                 Normal(ref tenkeyoutput, ref keyoutput);
                 break;
             case CPUMODE.NORMAL_RISE1:           // 上昇中
-                Noraml_rise1(ref keyoutput);
+                Normal_rise1(ref keyoutput);
                 break;
             case CPUMODE.NORMAL_RISE2:
                 Normal_rise2(ref tenkeyoutput, ref keyoutput);
@@ -827,7 +855,7 @@ public class AIControlBase : MonoBehaviour
 		Player_Camera_Controller pcc = ControlTarget_Camera.GetComponent<Player_Camera_Controller>();
 		pcc.RockOnTarget.Clear();
 		Cpumode = PastCPUMODE;
-		// ここでロックオン対象をスタートかゴールにする(AIControl_Base,カメラ双方）
+		// ここでロックオン対象をスタートかゴールにする(AIControlBase,カメラ双方）
 		if (Cpumode == CPUMODE.OUTWARD_JOURNEY)
 		{
 			RockonTarget = target.EndingPoint;
@@ -845,7 +873,7 @@ public class AIControlBase : MonoBehaviour
 	/// 通常で上昇(飛び上がる）
 	/// </summary>
 	/// <param name="keyoutput"></param>
-	protected virtual void Noraml_rise1(ref KEY_OUTPUT keyoutput)
+	protected virtual void Normal_rise1(ref KEY_OUTPUT keyoutput)
     {
         // 何らかの理由で哨戒起点か終点をロックしたまま攻撃体制に入った場合は元に戻す
         if (UnRockAndReturnPatrol())
@@ -861,6 +889,10 @@ public class AIControlBase : MonoBehaviour
             Cpumode = CPUMODE.NORMAL_RISE2;
             Totalrisetime = Time.time;
         }
+		else
+		{
+			keyoutput = KEY_OUTPUT.JUMPING;
+		}
         // 地上から離れずに一定時間いるとNORMALへ戻って仕切り直す
         if (Time.time > Totalrisetime + Risetime && target.IsGrounded)
         {
@@ -903,7 +935,7 @@ public class AIControlBase : MonoBehaviour
     {
         // 空中ダッシュ入力を行う
         tenkeyoutput = TENKEY_OUTPUT.TOP;
-        keyoutput = KEY_OUTPUT.DASHCANCEL;
+        keyoutput = KEY_OUTPUT.BOOSTDASH;
         Cpumode = CPUMODE.NORMAL_FLYING;
     }
    
@@ -1062,7 +1094,7 @@ public class AIControlBase : MonoBehaviour
         else
         {
             tenkeyoutput = TENKEY_OUTPUT.TOP;
-            keyoutput = KEY_OUTPUT.AIRDASH;
+            keyoutput = KEY_OUTPUT.BOOSTDASH;
             Cpumode = CPUMODE.NORMAL_FLYING;
         }
     }
