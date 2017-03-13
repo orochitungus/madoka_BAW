@@ -45,7 +45,7 @@ public class AIControlBase : MonoBehaviour
         NORMAL_RISE3,           // 壁の側まで歩いて行く
         NORMAL_RISE4,           // 通常で上昇（壁がなくなるまで上昇する)
         NORMAL_FALL,            // 落下中
-        NORMAL_FLYING,          // 通常で飛行
+        BOOSTDASH,				// 空中ダッシュ
         FIREFIGHT,              // 射撃戦
         DOGFIGHT_STANDBY,       // 格闘戦準備
         DOGFIGHT,               // 格闘戦（地上準備）
@@ -687,8 +687,8 @@ public class AIControlBase : MonoBehaviour
             case CPUMODE.NORMAL_RISE4:           // 壁に接触している間は上昇し、登り切ったら空中ダッシュへ
                 Normal_rise4(ref tenkeyoutput);
                 break;
-            case CPUMODE.NORMAL_FLYING:          // 飛行中
-                Normal_flying(ref tenkeyoutput, ref keyoutput);
+            case CPUMODE.BOOSTDASH:          // 飛行中
+                BoostDash(ref tenkeyoutput, ref keyoutput);
                 break;
             case CPUMODE.FIREFIGHT:              // 射撃戦
                 Firefight(ref tenkeyoutput, ref keyoutput);
@@ -936,7 +936,7 @@ public class AIControlBase : MonoBehaviour
         // 空中ダッシュ入力を行う
         tenkeyoutput = TENKEY_OUTPUT.TOP;
         keyoutput = KEY_OUTPUT.BOOSTDASH;
-        Cpumode = CPUMODE.NORMAL_FLYING;
+        Cpumode = CPUMODE.BOOSTDASH;
     }
    
     /// <summary>
@@ -1001,11 +1001,11 @@ public class AIControlBase : MonoBehaviour
     }
 
     //NORMAL_FLYING,          // 通常で飛行
-    protected virtual void Normal_flying(ref TENKEY_OUTPUT tenkeyoutput, ref KEY_OUTPUT keyoutput)
+    protected virtual void BoostDash(ref TENKEY_OUTPUT tenkeyoutput, ref KEY_OUTPUT keyoutput)
     {
         // 制御対象
         var target = ControlTarget.GetComponent<CharacterControlBase>();
-        keyoutput = KEY_OUTPUT.JUMP;
+        keyoutput = KEY_OUTPUT.BOOSTDASH;
         tenkeyoutput = TENKEY_OUTPUT.TOP;
         // 飛び越えられる壁に接触した
         if (target.Gethitjumpover())
@@ -1052,51 +1052,7 @@ public class AIControlBase : MonoBehaviour
     /// <param name="keyoutput"></param>
     protected virtual void Firefight(ref TENKEY_OUTPUT tenkeyoutput, ref KEY_OUTPUT keyoutput)
     {
-        // 制御対象
-        var target = ControlTarget.GetComponent<CharacterControlBase>();
-        keyoutput = KEY_OUTPUT.NONE;
-        // 地上にいた場合（→再度飛行）
-        if (target.IsGrounded)
-        {
-            keyoutput = KEY_OUTPUT.JUMP;
-            Cpumode = CPUMODE.NORMAL_RISE1;
-            tenkeyoutput = TENKEY_OUTPUT.TOP;
-            Totalrisetime = Time.time;
-        }
-        // 飛び越えられる壁に接触していた場合（→NORMAL_RISE3へ）
-        else if (target.Gethitjumpover())
-        {
-            // 一旦ジャンプボタンとテンキーを放す
-            tenkeyoutput = TENKEY_OUTPUT.NEUTRAL;
-            keyoutput = KEY_OUTPUT.NONE;
-            Cpumode = CPUMODE.NORMAL_FALL;
-        }
-        // 飛び越えられない壁に接触していた場合（→
-        // 空中にいた場合（→再度ダッシュしてビームずんだ）
-        else if (target.Gethitunjumpover())
-        {
-            // レーダー左とロックオン対象の距離を求める
-            float distL = Vector3.Distance(SearcherL.transform.position, RockonTarget.transform.position);
-            // レーダー右とロックオン対象の距離を求める
-            float distR = Vector3.Distance(SearcherR.transform.position, RockonTarget.transform.position);
-            // 左の方が大きければ左上方向へ飛行開始
-            if (distL >= distR)
-            {
-                tenkeyoutput = TENKEY_OUTPUT.TOPLEFT;
-            }
-            // 右の方が大きければ右上方向へ飛行開始
-            else
-            {
-                tenkeyoutput = TENKEY_OUTPUT.TOPRIGHT;
-            }
-        }
-        // それ以外（再度ダッシュ）
-        else
-        {
-            tenkeyoutput = TENKEY_OUTPUT.TOP;
-            keyoutput = KEY_OUTPUT.BOOSTDASH;
-            Cpumode = CPUMODE.NORMAL_FLYING;
-        }
+        
     }
 
     /// <summary>

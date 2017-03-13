@@ -1320,7 +1320,7 @@ public class CharacterControlBase : MonoBehaviour
 		}
 		else
 		{
-			if (Cpucontroller.Jumping)
+			if (Cpucontroller.Jumping || Cpucontroller.BoostDash)
 			{
 				return true;
 			}
@@ -1350,6 +1350,26 @@ public class CharacterControlBase : MonoBehaviour
 		}
         return false;
     }
+
+	/// <summary>
+	/// 空中ダッシュ入力があったか否かをチェックする（CPU専用）
+	/// </summary>
+	/// <returns></returns>
+	protected bool GetAirDashInput()
+	{
+		if(IsPlayer == CHARACTERCODE.PLAYER)
+		{
+			
+		}
+		else
+		{
+			if(Cpucontroller.BoostDash)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 
     // サーチ入力があったか否かをチェックする
     // カメラ側で取得が要るのでここはpublicに
@@ -1856,7 +1876,7 @@ public class CharacterControlBase : MonoBehaviour
     protected virtual void ChargeShot()
     {
         // キャンセルダッシュ受付
-        if (HasDashCancelInput)
+        if ((HasDashCancelInput || HasAirDashInput) && Boost > 0)
         {
             // 地上でキャンセルすると浮かないので浮かす
             if (IsGrounded)
@@ -1873,8 +1893,8 @@ public class CharacterControlBase : MonoBehaviour
     protected virtual void SubShot()
     {
         // キャンセルダッシュ受付
-        if (HasDashCancelInput)
-        {
+        if ((HasDashCancelInput || HasAirDashInput) && Boost > 0)
+		{
             // 地上でキャンセルすると浮かないので浮かす
             if (IsGrounded)
             {
@@ -1890,8 +1910,8 @@ public class CharacterControlBase : MonoBehaviour
     protected virtual void ExShot()
     {
         // キャンセルダッシュ受付
-        if (HasDashCancelInput)
-        {
+        if ((HasDashCancelInput || HasAirDashInput) && Boost > 0)
+		{
             // 地上でキャンセルすると浮かないので浮かす
             if (IsGrounded)
             {
@@ -1947,8 +1967,8 @@ public class CharacterControlBase : MonoBehaviour
     protected virtual void StepCancel(Animator animator,int airdashhash, int[] stepanimations)
     {
         // キャンセルダッシュ入力を受け取ったら、キャンセルして空中ダッシュする
-        if (HasDashCancelInput)
-        {
+        if ((HasDashCancelInput || HasAirDashInput) && Boost > 0)
+		{
             AddInput = false;
             // くっついている格闘判定を捨てる
             DestroyWrestle();
@@ -2423,42 +2443,42 @@ public class CharacterControlBase : MonoBehaviour
             //UpdateRotation();
             //this.m_MoveDirection = transform.rotation * Vector3.forward;
             // 角度に応じてX、Zの方向を切り替える
-            if (this.transform.rotation.eulerAngles.y >= 337.5f && this.transform.rotation.eulerAngles.y < 22.5f)
+            if (transform.rotation.eulerAngles.y >= 337.5f && transform.rotation.eulerAngles.y < 22.5f)
             {
                 MoveDirection.x = 0.0f;
                 MoveDirection.z = 0.0f;
             }
-            else if (this.transform.rotation.eulerAngles.y >= 22.5f && this.transform.rotation.eulerAngles.y < 67.5f)
+            else if (transform.rotation.eulerAngles.y >= 22.5f && transform.rotation.eulerAngles.y < 67.5f)
             {
                 MoveDirection.x = 0.7f;
                 MoveDirection.z = 0.0f;
             }
-            else if (this.transform.rotation.eulerAngles.y >= 67.5f && this.transform.rotation.eulerAngles.y < 112.5f)
+            else if (transform.rotation.eulerAngles.y >= 67.5f && transform.rotation.eulerAngles.y < 112.5f)
             {
                 MoveDirection.x = 1.0f;
                 MoveDirection.z = 0.0f;
             }
-            else if (this.transform.rotation.eulerAngles.y >= 112.5f && this.transform.rotation.eulerAngles.y < 157.5f)
+            else if (transform.rotation.eulerAngles.y >= 112.5f && transform.rotation.eulerAngles.y < 157.5f)
             {
                 MoveDirection.x = 0.7f;
                 MoveDirection.z = -0.5f;
             }
-            else if (this.transform.rotation.eulerAngles.y >= 157.5f && this.transform.rotation.eulerAngles.y < 202.5f)
+            else if (transform.rotation.eulerAngles.y >= 157.5f && transform.rotation.eulerAngles.y < 202.5f)
             {
                 MoveDirection.x = 0.0f;
                 MoveDirection.z = -1.0f;
             }
-            else if (this.transform.rotation.eulerAngles.y >= 202.5f && this.transform.rotation.eulerAngles.y < 247.5f)
+            else if (transform.rotation.eulerAngles.y >= 202.5f && transform.rotation.eulerAngles.y < 247.5f)
             {
                 MoveDirection.x = -0.7f;
                 MoveDirection.z = -0.5f;
             }
-            else if (this.transform.rotation.eulerAngles.y >= 247.5f && this.transform.rotation.eulerAngles.y < 292.5f)
+            else if (transform.rotation.eulerAngles.y >= 247.5f && transform.rotation.eulerAngles.y < 292.5f)
             {
                 MoveDirection.x = -1.0f;
                 MoveDirection.z = 0.0f;
             }
-            else if (this.transform.rotation.eulerAngles.y >= 292.5f && this.transform.rotation.eulerAngles.y < 337.5f)
+            else if (transform.rotation.eulerAngles.y >= 292.5f && transform.rotation.eulerAngles.y < 337.5f)
             {
                 MoveDirection.x = -0.7f;
                 MoveDirection.z = 0.0f;
@@ -2469,7 +2489,7 @@ public class CharacterControlBase : MonoBehaviour
             // 発動中重力無効
             GetComponent<Rigidbody>().useGravity = false;
             // その方向へ移動
-            GetComponent<Rigidbody>().AddForce(this.MoveDirection.x, 10, this.MoveDirection.z);
+            GetComponent<Rigidbody>().AddForce(MoveDirection.x, 10, MoveDirection.z);
         }
     }
 
@@ -3073,6 +3093,8 @@ public class CharacterControlBase : MonoBehaviour
 		HasJumpingInput = GetJumpingInput();
 		// ダッシュキャンセル入力があったか否か
 		HasDashCancelInput = GetDashCancelInput();
+		// 空中ダッシュ入力（ダッシュキャンセルののちボタン長押し維持）があったか否か（CPU専用コマンド）
+		HasAirDashInput = GetAirDashInput();
 		// サーチ入力があったか否か
 		HasSearchInput = GetSearchInput();
 		// サーチキャンセル入力があったか否か
@@ -3287,13 +3309,7 @@ public class CharacterControlBase : MonoBehaviour
 			{
 				velocity.y = 0;
 			}
-            RigidBody.velocity = velocity;
-			if (!IsGrounded)
-			{
-				Debug.Log(MoveSpeed);
-				Debug.Log(MoveDirection);
-				Debug.Log(RigidBody.velocity);
-			}
+            RigidBody.velocity = velocity;			
 		}
         // HP表示を増減させる(回復は一瞬で、被ダメージは徐々に減る）
         if (NowHitpoint < DrawHitpoint)
@@ -4891,7 +4907,7 @@ public class CharacterControlBase : MonoBehaviour
                 animator.SetTrigger("Run");
             }
 			// ジャンプ２回でキャンセルダッシュへ移行
-			if(HasDashCancelInput && Boost > 0)
+			if((HasDashCancelInput|| HasAirDashInput) && Boost > 0)
 			{
 				CancelDashDone(animator, CancelDashID);
 			}
@@ -4978,8 +4994,8 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>    
     protected virtual void Animation_Jump(Animator animator, int jumphashid, int airdashID)
     {
-        if (HasDashCancelInput)
-        {
+        if ((HasDashCancelInput || HasAirDashInput) && Boost > 0)
+		{
             transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             JumpTime = 0;
             CancelDashDone(animator, airdashID);
@@ -5005,7 +5021,7 @@ public class CharacterControlBase : MonoBehaviour
             if (Boost > 0)
             {
 				// BD入力でBDへ移行
-				if (HasDashCancelInput)           
+				if ((HasDashCancelInput || HasAirDashInput) && Boost > 0)
 				{
 					CancelDashDone(animator, airdashID);
 					return;
@@ -5021,8 +5037,8 @@ public class CharacterControlBase : MonoBehaviour
                     FallDone(RiseSpeed,animator,fallID);
                 }
                 // ジャンプ再入力で向いている方向へ空中ダッシュ(上昇は押しっぱなし)
-                else if (HasDashCancelInput)
-                {
+                else if ((HasDashCancelInput || HasAirDashInput) && Boost > 0)
+				{
                     CancelDashDone(animator,airdashID);
                 }
 
@@ -5234,15 +5250,15 @@ public class CharacterControlBase : MonoBehaviour
 		Vector3 MoveDirection_OR = MoveDirection;
 
 		// 一応重力復活
-		this.GetComponent<Rigidbody>().useGravity = true;
+		GetComponent<Rigidbody>().useGravity = true;
 		// 飛び越えフラグをカット
 		Rotatehold = false;
 		// 追加入力の有無をカット
-		this.AddInput = false;
+		AddInput = false;
 		// ブーストがあれば慣性移動及び再上昇可。なければ不可
-		if (this.Boost > 0)
+		if (Boost > 0)
 		{
-			if (this.HasDashCancelInput)// ジャンプ再入力で向いている方向へ空中ダッシュ(上昇は押しっぱなし)           
+			if ((HasDashCancelInput || HasAirDashInput) && Boost > 0)// ジャンプ再入力で向いている方向へ空中ダッシュ(上昇は押しっぱなし)           
 			{
 				CancelDashDone(animator, airdashID);
 				return;
@@ -5382,7 +5398,7 @@ public class CharacterControlBase : MonoBehaviour
 		if (Boost > 0)
 		{
             // 入力中はそちらへ進む
-            if (HasJumpingInput)
+            if (HasJumpingInput || HasAirDashInput)
             {
                 // ホールド中旋回禁止
                 if (!Rotatehold)

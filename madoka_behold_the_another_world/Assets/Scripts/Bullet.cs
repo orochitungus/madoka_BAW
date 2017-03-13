@@ -453,6 +453,11 @@ public class Bullet : MonoBehaviour
             // 親オブジェクトを拾う
             InjectionObject = parent.Player;
         }
+		// 射出時に射出したキャラに接触した時はなにもしない
+		if(target != null && InjectionObject.name == target.name)
+		{
+			return;
+		}
 
         // 接触対象のルーチンをGUARDからNORMALへ戻してルーチンをNORMALに戻す
         var targetAI = collision.gameObject.transform.root.GetComponentInChildren<AIControlBase>();

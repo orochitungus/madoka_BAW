@@ -540,7 +540,7 @@ public class MajyuControl : CharacterControlBase
 			attack = AttackDone();
 		}
 		// キャンセルダッシュ受付
-		if (HasDashCancelInput)
+		if ((HasDashCancelInput || HasAirDashInput) && Boost > 0)
 		{
 			// 地上でキャンセルすると浮かないので浮かす
 			if (IsGrounded)
@@ -846,7 +846,7 @@ public class MajyuControl : CharacterControlBase
 	protected override void Shot()
 	{
 		// キャンセルダッシュ受付
-		if (HasDashCancelInput)
+		if ((HasDashCancelInput || HasAirDashInput) && Boost > 0)
 		{
 			// 地上でキャンセルすると浮かないので浮かす
 			if (IsGrounded)

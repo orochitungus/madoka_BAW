@@ -21,7 +21,7 @@ namespace BehaviourTrees
 		{
 			Initialize();
 			// 上昇する時間
-			Risetime = 1.0f;
+			Risetime = 0.5f;
 			// 近接レンジ
 			FightRange = 5.0f;
 			// 近接レンジ（前後特殊格闘を使って上下するか）
@@ -33,6 +33,7 @@ namespace BehaviourTrees
 		// Update is called once per frame
 		void Update()
 		{
+			Debug.Log(Cpumode);
 			UpdateCore();
 		}
 
@@ -107,7 +108,7 @@ namespace BehaviourTrees
 							}
 						}
 					}
-					// TODO:残弾数がなく、弾を撃ってから規定時間はなにもしない
+					// 残弾数がなく、弾を撃ってから規定時間はなにもしない
 					var targetState = ControlTarget.GetComponent<MajyuControl>();
 					if (targetState.BulletNum[0] > 0 && !Shoted)
 					{
@@ -117,15 +118,66 @@ namespace BehaviourTrees
 						StartCoroutine(ShotInterval());
 						return true;
 					}
-					else
+					// 射撃のフォロースルーに入ったら再度空中ダッシュさせる
+					else if(targetState.AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == targetState.FollowThrowAirShotID)
 					{
-						Cpumode = CPUMODE.NORMAL;
-						keyoutput = KEY_OUTPUT.NONE;
+						Cpumode = CPUMODE.BOOSTDASH;
+						keyoutput = KEY_OUTPUT.BOOSTDASH;
 						return false;
 					}
 				}
 			}
 			return false;
+		}
+
+		protected override void Firefight(ref TENKEY_OUTPUT tenkeyoutput, ref KEY_OUTPUT keyoutput)
+		{
+			// 制御対象
+			var target = ControlTarget.GetComponent<CharacterControlBase>();
+			keyoutput = KEY_OUTPUT.NONE;
+			// 地上にいた場合（→再度飛行）
+			if (target.IsGrounded)
+			{
+				keyoutput = KEY_OUTPUT.JUMP;
+				Cpumode = CPUMODE.NORMAL_RISE1;
+				tenkeyoutput = TENKEY_OUTPUT.TOP;
+				Totalrisetime = Time.time;
+			}
+			// 飛び越えられる壁に接触していた場合（→NORMAL_RISE3へ）
+			else if (target.Gethitjumpover())
+			{
+				// 一旦ジャンプボタンとテンキーを放す
+				tenkeyoutput = TENKEY_OUTPUT.NEUTRAL;
+				keyoutput = KEY_OUTPUT.NONE;
+				Cpumode = CPUMODE.NORMAL_FALL;
+			}
+			// 飛び越えられない壁に接触していた場合（→
+			// 空中にいた場合（→再度ダッシュしてビームずんだ）
+			else if (target.Gethitunjumpover())
+			{
+				// レーダー左とロックオン対象の距離を求める
+				float distL = Vector3.Distance(SearcherL.transform.position, RockonTarget.transform.position);
+				// レーダー右とロックオン対象の距離を求める
+				float distR = Vector3.Distance(SearcherR.transform.position, RockonTarget.transform.position);
+				// 左の方が大きければ左上方向へ飛行開始
+				if (distL >= distR)
+				{
+					tenkeyoutput = TENKEY_OUTPUT.TOPLEFT;
+				}
+				// 右の方が大きければ右上方向へ飛行開始
+				else
+				{
+					tenkeyoutput = TENKEY_OUTPUT.TOPRIGHT;
+				}
+			}
+			// 射撃のフォロースルーに入ったら再度空中ダッシュさせる
+			//else if()
+			//{
+			//	tenkeyoutput = TENKEY_OUTPUT.TOP;
+			//	keyoutput = KEY_OUTPUT.BOOSTDASH;
+			//	Cpumode = CPUMODE.BOOSTDASH;
+			//}
+			// それ以外の時は何もしない
 		}
 
 		/// <summary>
@@ -169,11 +221,11 @@ namespace BehaviourTrees
 			Vector3 RayStartPosition = new Vector3(ControlTarget.transform.position.x, ControlTarget.transform.position.y + 1.5f, ControlTarget.transform.position.z);
 			// 地上から離れて一定時間たったか上昇限界高度を超えていると空中ダッシュ
 			//if ((!Physics.Raycast(RayStartPosition, -transform.up, out hit, RiseLimit)))
-			// 地上から離れて一定時間後ジャンプボタンを離す
+			// 地上から離れて一定時間後空中ダッシュさせる
 			if (Time.time > Totalrisetime + Risetime && !target.IsGrounded)
 			{
-				keyoutput = KEY_OUTPUT.NONE;
-				Cpumode = CPUMODE.NORMAL_RISE2;
+				keyoutput = KEY_OUTPUT.BOOSTDASH;
+				Cpumode = CPUMODE.BOOSTDASH;
 				Totalrisetime = Time.time;
 			}
 			else
