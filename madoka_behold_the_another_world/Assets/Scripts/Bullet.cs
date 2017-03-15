@@ -260,15 +260,15 @@ public class Bullet : MonoBehaviour
         // 進行方向に対してレイキャストする
         if (Physics.Raycast(transform.position, Vector3.forward, out hit, 300.0f))
         {
-            var hittarget = hit.collider.gameObject.GetComponent<AIControl_Base>();
+            var hittarget = hit.collider.gameObject.GetComponent<AIControlBase>();
             var hittarget2 = hit.collider.gameObject.GetComponent<CharacterControlBase>();
             // ガード姿勢を取らせる(自分の弾は除く)
             if (hittarget != null && InjectionCharacterIndex != (int)hittarget2.CharacterName)
             {
                 // 相手がNOMOVEの時にはガードは取らせない
-                if (hittarget.m_cpumode != AIControl_Base.CPUMODE.NOMOVE)
+                if (hittarget.Cpumode != AIControlBase.CPUMODE.NOMOVE)
                 {
-                    hittarget.m_cpumode = AIControl_Base.CPUMODE.GUARD;
+                    hittarget.Cpumode = AIControlBase.CPUMODE.GUARD;
                 }
             }
         }
@@ -453,12 +453,17 @@ public class Bullet : MonoBehaviour
             // 親オブジェクトを拾う
             InjectionObject = parent.Player;
         }
+		// 射出時に射出したキャラに接触した時はなにもしない
+		if(target != null && InjectionObject.name == target.name)
+		{
+			return;
+		}
 
         // 接触対象のルーチンをGUARDからNORMALへ戻してルーチンをNORMALに戻す
-        var targetAI = collision.gameObject.transform.root.GetComponentInChildren<AIControl_Base>();
-        if (targetAI != null && targetAI.m_cpumode == AIControl_Base.CPUMODE.GUARD)
+        var targetAI = collision.gameObject.transform.root.GetComponentInChildren<AIControlBase>();
+        if (targetAI != null && targetAI.Cpumode == AIControlBase.CPUMODE.GUARD)
         {
-            targetAI.m_cpumode = AIControl_Base.CPUMODE.GUARDEND;
+            targetAI.Cpumode = AIControlBase.CPUMODE.GUARDEND;
             Destroy(gameObject);
             return;
         }

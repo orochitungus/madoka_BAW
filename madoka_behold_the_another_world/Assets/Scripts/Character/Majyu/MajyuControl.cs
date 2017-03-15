@@ -176,7 +176,7 @@ public class MajyuControl : CharacterControlBase
 		RockonRange = 100.0f;
 
 		// ロックオン限界距離
-		RockonRangeLimit = 200.0f;
+		RockonRangeLimit = 150.0f;
 
 		// ショットのステート
 		Shotmode = ShotMode.NORMAL;
@@ -540,7 +540,7 @@ public class MajyuControl : CharacterControlBase
 			attack = AttackDone();
 		}
 		// キャンセルダッシュ受付
-		if (HasDashCancelInput)
+		if ((HasDashCancelInput || HasAirDashInput) && Boost > 0)
 		{
 			// 地上でキャンセルすると浮かないので浮かす
 			if (IsGrounded)
@@ -846,7 +846,7 @@ public class MajyuControl : CharacterControlBase
 	protected override void Shot()
 	{
 		// キャンセルダッシュ受付
-		if (HasDashCancelInput)
+		if ((HasDashCancelInput || HasAirDashInput) && Boost > 0)
 		{
 			// 地上でキャンセルすると浮かないので浮かす
 			if (IsGrounded)
