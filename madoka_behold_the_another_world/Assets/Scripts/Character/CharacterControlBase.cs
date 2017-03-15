@@ -2026,22 +2026,6 @@ public class CharacterControlBase : MonoBehaviour
             // ステップキャンセル成功の証しとしてエフェクトが虹になる
             StepDone(1, stepinput,animator, stepanimations, true);
         }
-        // CPU時左ステップ
-        else if (Cpucontroller.LeftStep)
-        {
-            // くっついている格闘判定を捨てる
-            DestroyWrestle();
-            StepDone(1, new Vector2(-1, 0),animator, stepanimations, true);
-            HasLeftStepInput = false;
-        }
-        // CPU時右ステップ
-        else if (Cpucontroller.RightStep)
-        {
-            // くっついている格闘判定を捨てる
-            DestroyWrestle();
-            StepDone(1, new Vector2(1, 0),animator,stepanimations, true);
-            HasRightStepInput = false;
-        }
     }
 
     /// <summary>

@@ -133,7 +133,7 @@ namespace BehaviourTrees
 		protected override void Firefight(ref TENKEY_OUTPUT tenkeyoutput, ref KEY_OUTPUT keyoutput)
 		{
 			// 制御対象
-			var target = ControlTarget.GetComponent<CharacterControlBase>();
+			var target = ControlTarget.GetComponent<MajyuControl>();
 			keyoutput = KEY_OUTPUT.NONE;
 			// 地上にいた場合（→再度飛行）
 			if (target.IsGrounded)
@@ -171,13 +171,18 @@ namespace BehaviourTrees
 				}
 			}
 			// 射撃のフォロースルーに入ったら再度空中ダッシュさせる
-			//else if()
-			//{
-			//	tenkeyoutput = TENKEY_OUTPUT.TOP;
-			//	keyoutput = KEY_OUTPUT.BOOSTDASH;
-			//	Cpumode = CPUMODE.BOOSTDASH;
-			//}
+			else if(target.AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == target.FollowThrowShotID || target.AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == target.FollowThrowAirShotID)
+			{
+				tenkeyoutput = TENKEY_OUTPUT.TOP;
+				keyoutput = KEY_OUTPUT.BOOSTDASH;
+				Cpumode = CPUMODE.BOOSTDASH;
+			}
 			// それ以外の時は何もしない
+			else
+			{
+				tenkeyoutput = TENKEY_OUTPUT.NEUTRAL;
+				keyoutput = KEY_OUTPUT.NONE;
+			}
 		}
 
 		/// <summary>

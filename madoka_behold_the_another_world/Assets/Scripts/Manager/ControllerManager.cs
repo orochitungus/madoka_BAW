@@ -1157,7 +1157,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
                 ShotKeyboad = true;
 				ShotUp = false;
 			}
-			// 射撃アップ取得
+			Debug.Log(k.GetValue(i).ToString() + jump_keyboard);
 			
 			// 格闘取得
 			if (k.GetValue(i).ToString() == wrestlecode_keyboard)
