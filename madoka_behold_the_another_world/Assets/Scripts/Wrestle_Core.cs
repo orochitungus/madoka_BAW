@@ -66,15 +66,18 @@ public class Wrestle_Core : MonoBehaviour
         LaunchOffset = 0.0f;       
 	}
 
-   
-    // ステート設定
-    // offensive    [in]:攻撃力
-    // downR        [in]:ダウン値
-    // arousal      [in]:覚醒ゲージ増加量
-    // hittype      [in]:ヒットタイプ
-    // launch       [in]:打ち上げ量
-    // force        [in]:打ち上げ時に加える力
-    public virtual void SetStatus(int offensive, float downR, float arousal, CharacterSkill.HitType hittype, float launch = 10.0f, float force = 5.0f)
+	
+	/// <summary>
+	/// ステート設定
+	/// </summary>
+	/// <param name="offensive">攻撃力</param>
+	/// <param name="downR">ダウン値</param>
+	/// <param name="arousal">覚醒ゲージ増加量</param>
+	/// <param name="hittype">ヒットタイプ</param>
+	/// <param name="exclusionname">除外対象の名前</param>
+	/// <param name="launch">打ち上げ量</param>
+	/// <param name="force">打ち上げ時に加える力</param>
+	public virtual void SetStatus(int offensive, float downR, float arousal, CharacterSkill.HitType hittype,string exclusionname, float launch = 10.0f, float force = 5.0f)
     {
         // 親のオブジェクトを拾う
         Obj_OR = transform.root.GetComponentInChildren<CharacterControlBase>().gameObject;
@@ -87,6 +90,7 @@ public class Wrestle_Core : MonoBehaviour
         Hittype = hittype;
         LaunchOffset = launch;
         Launchforce = force;
+		Exclusion = exclusionname;
     }
 	
 	// Update is called once per frame

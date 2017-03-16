@@ -809,7 +809,13 @@ public class AIControlBase : MonoBehaviour
         // 一端ロックオンボタンを離す
         keyoutput = KEY_OUTPUT.NONE;
 
-		// TODO:地上にいてダウンしていなくブーストゲージがあった場合、飛行させる（着地硬直中などは飛べない）
+		// ロックオン状態で赤ロックになったら戦闘開始
+		if (Engauge(ref keyoutput))
+		{
+			return;
+		}
+
+		// 地上にいてダウンしていなくブーストゲージがあった場合、飛行させる（着地硬直中などは飛べない）
 		if (target.IsGrounded && target.AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash != target.DownHash 
 			&& target.AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash != target.ReversalHash
 			&& target.Boost > 0)
@@ -820,11 +826,7 @@ public class AIControlBase : MonoBehaviour
 			Totalrisetime = Time.time;
 			return;
 		}
-		// ロックオン状態で赤ロックになったら戦闘開始
-		if (Engauge(ref keyoutput))
-        {
-            return;
-        }
+		
 
         // 往路・復路以外で敵が離れたらロックオン対象をスタートかゴールにする
         // カメラ
@@ -1074,6 +1076,15 @@ public class AIControlBase : MonoBehaviour
             Cpumode = CPUMODE.OUTWARD_JOURNEY;
             return;
         }
+		// レンジ外になったらNORMALに戻して仕切り直し
+		if(Vector3.Distance(transform.position, rockonTarget.transform.position) > FightRange)
+		{
+			tenkeyoutput = TENKEY_OUTPUT.NEUTRAL;
+			keyoutput = KEY_OUTPUT.NONE;
+			Cpumode = CPUMODE.NORMAL;
+			return;
+		}
+
         // 相手が格闘を振ってきた場合、横ステップして格闘を入れる
         if(rockonTarget.IsWrestle)
         {

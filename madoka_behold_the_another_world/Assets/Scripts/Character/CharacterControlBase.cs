@@ -3138,26 +3138,6 @@ public class CharacterControlBase : MonoBehaviour
             // 格闘
             HasWrestleChargeInput = GetWrestleChargeInput();
         }
-        else
-        {
-			// TODO:CPU作るまで一旦カット
-			//// CPU情報
-			//var CPU = this.GetComponentInChildren<AIControl_Base>();
-   //         // CPUのキー入力を拾う
-   //         AIControl_Base.KEY_OUTPUT key = CPU.m_keyoutput;
-   //         // CPUのテンキー入力を拾う
-   //         AIControl_Base.TENKEY_OUTPUT tenkey = CPU.m_tenkeyoutput;
-   //         // キー入力を拾う
-   //         key = CPU.m_keyoutput;
-
-   //         // 入力を受けたキーごとにフラグを立てる
-   //         // CPUは同時押し判定を出さないので、1個ずつ来ると考えてOK
-   //         switch (key)
-   //         {
-   //             default:
-   //                 break;
-   //         }
-        }
 
         // キャラを取得
         int character = (int)CharacterName;
@@ -4415,12 +4395,15 @@ public class CharacterControlBase : MonoBehaviour
 		float arousal = Character_Spec.cs[(int)CharacterName][skillIndex].m_arousal + Character_Spec.cs[(int)CharacterName][skillIndex].m_GrowthCoefficientStr * (this.StrLevel - 1);
 		// ヒットタイプ
 		CharacterSkill.HitType hittype = Character_Spec.cs[(int)CharacterName][skillIndex].m_Hittype;
+		// 除外対象の名前
+		string exclusionname = ObjectName.CharacterFileName[(int)CharacterName];
+
 		// 打ち上げ量（とりあえず固定）
 
 		// 格闘時に加算する力（固定）
 
 		// 判定のセッティングを行う
-		wrestleCollision.SetStatus(offensive, downR, arousal, hittype);	
+		wrestleCollision.SetStatus(offensive, downR, arousal, hittype, exclusionname);	
 	}
 
 	// 後格闘（防御）判定出現時に実行
@@ -5150,7 +5133,11 @@ public class CharacterControlBase : MonoBehaviour
             // 入力中はそちらへ進む
             if (HasVHInput)
             {
-                FootSteps();
+				// 足音はPC時のみ
+				if (IsPlayer == CHARACTERCODE.PLAYER)
+				{
+					FootSteps();
+				}
                 UpdateRotation();
 				MoveDirection = transform.rotation * Vector3.forward;
             }

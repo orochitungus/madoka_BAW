@@ -203,7 +203,7 @@ public class Bullet : MonoBehaviour
         // 親オブジェクトを拾う
         InjectionObject = target.Player;
         // ターゲットオブジェクトを拾う
-        this.TargetObject = target.Enemy;
+        TargetObject = target.Enemy;
         // 親オブジェクトから切り離されたときかつ非独立状態なら、親が保持している方向ベクトルを拾う
         // 非独立状態の判定をしないと、射出後も親に合わせて動いてしまう
         // 親オブジェクトを拾う
@@ -475,7 +475,8 @@ public class Bullet : MonoBehaviour
         if (Bullettype == BulletType.BEAM || Bullettype == BulletType.BULLET)
         {
 			// 着弾音を鳴らす
-			AudioSource.PlayClipAtPoint(HitSE, transform.position);
+			//AudioSource.PlayClipAtPoint(HitSE, transform.position);
+			AudioManager.Instance.PlaySE("sen_ge_panchi10");
 			// 着弾した位置にヒットエフェクトを置く            
 			GameObject hiteffect = Instantiate(HitEffect, transform.position, transform.rotation);
 

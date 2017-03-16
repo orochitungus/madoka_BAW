@@ -1089,7 +1089,7 @@ public class MajyuControl : CharacterControlBase
 
 			// 硬直時間を設定
 			AttackTime = Time.time;
-			// 射出音を再生する
+			// 射出音を再生する(PU時のみ)
 			AudioManager.Instance.PlaySE("shot_hand_gun");
 		}
 		// 弾がないときはとりあえずフラグだけは立てておく

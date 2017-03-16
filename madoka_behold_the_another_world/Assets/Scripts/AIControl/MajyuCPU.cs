@@ -63,8 +63,14 @@ namespace BehaviourTrees
 				if (DistanceXZ <= FightRange)
 				{
 					keyoutput = KEY_OUTPUT.NONE;
-					// 高低差が一定以上か
-					if (FightRangeY <= DistanceY)
+					// 地上にいるなら通常格闘開始
+					if(target.IsGrounded)
+					{
+						Cpumode = CPUMODE.DOGFIGHT_STANDBY;
+						return true;
+					}
+					// 高低差が一定以上なら特殊格闘で移動攻撃
+					else if (FightRangeY <= DistanceY)
 					{
 						// 自分が高ければ後特殊格闘(降下攻撃）
 						if (target.transform.position.y >= RockonTarget.transform.position.y)
@@ -78,13 +84,7 @@ namespace BehaviourTrees
 							Cpumode = CPUMODE.DOGFIGHT_UPPER;
 							return true;
 						}
-					}
-					// 高低差がないならば通常格闘へ移行
-					else
-					{
-						Cpumode = CPUMODE.DOGFIGHT_STANDBY;
-						return true;
-					}
+					}					
 				}
 				// そうでなければ空中におり、敵との間に遮蔽物がなければ射撃攻撃（現行、地上にいると射撃のループをしてしまう）
 				else if (!target.IsGrounded)
