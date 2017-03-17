@@ -6,7 +6,7 @@ Time Control and Pause Kit(キリカのマジカル無の境地で使えるかも？）
 // 特定変数の上
 [SerializeField, TooltipAttribute("スプラッシュ Prefab")]
 
-キーコンフィグのキーボードが大文字小文字で切り分けられてしまう→EndEditしたときどっちかに統一するようにする
+キーコンフィグのキーボードが大文字小文字で切り分けられてしまう→EndEditしたときどっちかに統一するようにするかString.Compareを使って大文字小文字無視して比較するようにする
 
 BGMとSEはサウンドマネージャー依存にする(随時差し替え）
 
