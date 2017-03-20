@@ -198,6 +198,8 @@ public class BattleInterfaceController : MonoBehaviour
 	/// </summary>
 	public GameObject EnemyHPGauge;
 
+	public RoundCall Roundcall;
+
     // Use this for initialization
     void Start ()
     {
@@ -226,8 +228,16 @@ public class BattleInterfaceController : MonoBehaviour
 
 			for (int i = 0; i<Playerbg.Length; i++)
 			{
+				// 現在のHP
+				int nowHP = NowPlayerHP[i];
+				// 0を割ったら0
+				if(nowHP < 0)
+				{
+					nowHP = 0;
+				}
+
 				// HP表示
-				PlayerHP[i].text = NowPlayerHP[i].ToString();
+				PlayerHP[i].text = nowHP.ToString();
 
 				// HPが1/4を割っていたら赤色
 				if (NowPlayerHP[i] < 0.25f * MaxPlayerHP[i])
@@ -245,12 +255,14 @@ public class BattleInterfaceController : MonoBehaviour
 					PlayerHP[i].color = new Color(0.0f, 0.0f, 0.0f);
 				}
 			}
+
             // ポーズをかけたらポーズ背景を表示
+			// ただしラウンドコール中は無効	
             // 時間停止中falseを強制返し
             // 通常時、ポーズ入力で停止.ただし死んだら無効
             if (NowPlayerHP[0] > 0 && !PauseBG.gameObject.activeSelf)
-            {
-                if (ControllerManager.Instance.Menu)
+            {				
+                if (ControllerManager.Instance.Menu && !Roundcall.RoundCallDone)
                 {
 					// ポーズをかける
 					// PauseControllerを取得
@@ -265,7 +277,7 @@ public class BattleInterfaceController : MonoBehaviour
 			// ポーズ時、ポーズ入力で解除
 			else if (NowPlayerHP[0] > 0 && PauseBG.gameObject.activeSelf)
 			{
-				if (ControllerManager.Instance.Menu)
+				if (ControllerManager.Instance.Menu && !Roundcall.RoundCallDone)
 				{
                     // PauseControllerを取得
                     PauseControllerInputDetector pcid = Pausecontroller.GetComponent<PauseManager>().GamePauseController;

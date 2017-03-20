@@ -1103,7 +1103,8 @@ public class AIControlBase : MonoBehaviour
         else
         {
             keyoutput = KEY_OUTPUT.WRESTLE;
-        }
+			Cpumode = CPUMODE.DOGFIGHT_DONE;
+		}
     }
 
   
@@ -1126,7 +1127,7 @@ public class AIControlBase : MonoBehaviour
         var target = ControlTarget.GetComponent<CharacterControlBase>();
         tenkeyoutput = TENKEY_OUTPUT.NEUTRAL;
         keyoutput = KEY_OUTPUT.WRESTLE;
-        Cpumode = CPUMODE.DOGFIGHT_DONE;
+        
         // 格闘を振り終わったらNORMALへ戻る
         if (!target.IsWrestle)
         {

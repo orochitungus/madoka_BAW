@@ -2504,9 +2504,9 @@ public class CharacterControlBase : MonoBehaviour
         for (int i = 0; i < WrestleRoot.Length; i++)
         {
             // あらかじめ子があるかチェックしないとGetChildを使うときはエラーになる
-            if (this.WrestleRoot[i] != null && this.WrestleRoot[i].GetComponentInChildren<Wrestle_Core>() != null)
+            if (WrestleRoot[i] != null && this.WrestleRoot[i].GetComponentInChildren<Wrestle_Core>() != null)
             {
-                var wrestle = this.WrestleRoot[i].GetComponentInChildren<Wrestle_Core>();
+                var wrestle = WrestleRoot[i].GetComponentInChildren<Wrestle_Core>();
 
                 if (wrestle != null)
                 {
@@ -2514,7 +2514,8 @@ public class CharacterControlBase : MonoBehaviour
                 }
             }
         }
-    }
+		IsWrestle = false;
+	}
 
     /// <summary>
     /// ステップの開始時間
