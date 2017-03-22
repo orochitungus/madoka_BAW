@@ -9,32 +9,30 @@ namespace UnityChan
 		Animator anim;
 		public float delayWeight;
 		public bool isKeepFace = false;
-
-        public bool isNormal = true;
-        public bool isEdge = true;
-        public bool isSphere = true;
-        public bool isRimLight = true;
-        public bool isSpecular = true;
+        public bool isGUI = true;
 
 		void Start ()
 		{
-
-            anim = GetComponent<Animator> ();
+			anim = GetComponent<Animator> ();
 		}
 
 		void OnGUI ()
 		{
-            /*
-			GUILayout.Box ("-BMToon-", GUILayout.Width (170), GUILayout.Height (25 * (animations.Length + 2)));
-			Rect screenRect = new Rect (10, 25, 150, 25 * (animations.Length + 1));
-			GUILayout.BeginArea (screenRect);
-            isEdge = GUILayout.Toggle (isEdge, "Edge Enable");
-            isNormal = GUILayout.Toggle(isNormal, "NormalMap Enable");
-            isSpecular = GUILayout.Toggle(isSpecular, "Specular Enable");
-            isSphere = GUILayout.Toggle(isSphere, "Sphere Enable");
-            isRimLight = GUILayout.Toggle(isRimLight, "RimLight Enable");
-            GUILayout.EndArea ();
-            */
+            if (isGUI)
+            {
+                GUILayout.Box("Face Update", GUILayout.Width(170), GUILayout.Height(25 * (animations.Length + 2)));
+                Rect screenRect = new Rect(10, 25, 150, 25 * (animations.Length + 1));
+                GUILayout.BeginArea(screenRect);
+                foreach (var animation in animations)
+                {
+                    if (GUILayout.RepeatButton(animation.name))
+                    {
+                        anim.CrossFade(animation.name, 0);
+                    }
+                }
+                isKeepFace = GUILayout.Toggle(isKeepFace, " Keep Face");
+                GUILayout.EndArea();
+            }
 		}
 
 		float current = 0;
@@ -44,26 +42,6 @@ namespace UnityChan
 
 			if (Input.GetMouseButton (0)) {
 				current = 1;
-
-                // 全ての子を取得
-                Transform[] transformList;
-                transformList = this.transform.GetComponentsInChildren<Transform>();
-
-                // リストから子を取り出す
-                foreach (Transform transform in transformList)
-                {
-                    Renderer rnd = transform.GetComponent<Renderer>();
-                    if (rnd != null)
-                    {
-                        if(isEdge) rnd.material.SetFloat("_UseEdge", 1.0f);
-                        else rnd.material.SetFloat("_UseEdge", 0.0f);
-                    }
-                }
-
-
-
-
-
 			} else if (!isKeepFace) {
 				current = Mathf.Lerp (current, 0, delayWeight);
 			}

@@ -1,4 +1,4 @@
-Shader "UnityChan/Skin - Transparent"
+﻿Shader "UnityChan/Skin - Transparent"
 {
 	Properties
 	{
@@ -32,7 +32,7 @@ CGPROGRAM
 #pragma fragment frag
 #include "UnityCG.cginc"
 #include "AutoLight.cginc"
-#include "CharaSkin.cg"
+#include "CharaSkin.cginc"
 ENDCG
 		}
 	}
