@@ -182,6 +182,7 @@
       <string>Assets/character/scono/Materials/model/sconoscituo_frontexwrstle.vmd</string>
       <string>Assets/character/scono/Materials/model/sconoscituo_reversal.vmd</string>
       <string>Assets/character/scono/Materials/model/sconoscituo_down.vmd</string>
+      <string>Assets/character/scono/Materials/model/sconoscituo_backexwrstle.vmd</string>
     </vmdAssetPathList>
     <fbxOutputPath>Assets/character/scono/Materials/model/sconoscituo_magica_cort.fbx</fbxOutputPath>
     <bulletPhysicsVersion>_275</bulletPhysicsVersion>
