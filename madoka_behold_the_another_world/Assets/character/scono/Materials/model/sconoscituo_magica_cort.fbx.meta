@@ -7741,14 +7741,14 @@ ModelImporter:
       name: sconoscituo_spindown_vmd
       takeName: sconoscituo_spindown_vmd
       firstFrame: 0
-      lastFrame: 170
+      lastFrame: 19
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -8037,7 +8037,7 @@ ModelImporter:
       name: sconoscituo_subshot_vmd
       takeName: sconoscituo_subshot_vmd
       firstFrame: 0
-      lastFrame: 170
+      lastFrame: 60
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -8333,14 +8333,14 @@ ModelImporter:
       name: sconoscituo_walk_vmd
       takeName: sconoscituo_walk_vmd
       firstFrame: 0
-      lastFrame: 170
+      lastFrame: 44
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -8629,14 +8629,14 @@ ModelImporter:
       name: sconoscituo_walk_under_only_vmd
       takeName: sconoscituo_walk_under_only_vmd
       firstFrame: 0
-      lastFrame: 170
+      lastFrame: 44
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -8925,7 +8925,7 @@ ModelImporter:
       name: sconoscituo_wrstle1_vmd
       takeName: sconoscituo_wrstle1_vmd
       firstFrame: 0
-      lastFrame: 170
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -9221,7 +9221,7 @@ ModelImporter:
       name: sconoscituo_wrstle2_vmd
       takeName: sconoscituo_wrstle2_vmd
       firstFrame: 0
-      lastFrame: 170
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -9517,7 +9517,7 @@ ModelImporter:
       name: sconoscituo_wrstle3_vmd
       takeName: sconoscituo_wrstle3_vmd
       firstFrame: 0
-      lastFrame: 170
+      lastFrame: 40
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -9813,7 +9813,7 @@ ModelImporter:
       name: sconoscituo_damage_vmd
       takeName: sconoscituo_damage_vmd
       firstFrame: 0
-      lastFrame: 170
+      lastFrame: 20
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -10109,14 +10109,14 @@ ModelImporter:
       name: sconoscituo_airdash_vmd
       takeName: sconoscituo_airdash_vmd
       firstFrame: 0
-      lastFrame: 170
+      lastFrame: 4
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -10405,7 +10405,7 @@ ModelImporter:
       name: sconoscituo_frontwrestle_vmd
       takeName: sconoscituo_frontwrestle_vmd
       firstFrame: 0
-      lastFrame: 170
+      lastFrame: 40
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -10701,14 +10701,14 @@ ModelImporter:
       name: sconoscituo_airdashwrstle_vmd
       takeName: sconoscituo_airdashwrstle_vmd
       firstFrame: 0
-      lastFrame: 170
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
