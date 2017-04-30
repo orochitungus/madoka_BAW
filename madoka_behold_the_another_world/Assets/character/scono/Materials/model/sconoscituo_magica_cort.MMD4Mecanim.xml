@@ -147,7 +147,7 @@
       <string>Assets/character/scono/Materials/model/sconoscituo_backstep.vmd</string>
       <string>Assets/character/scono/Materials/model/sconoscituo_backstep_back.vmd</string>
       <string>Assets/character/scono/Materials/model/sconoscituo_backwrstle.vmd</string>
-      <string>Assets/character/scono/Materials/model/sconoscituo_exshot.vmd</string>
+      <string>Assets/character/scono/Materials/model/sconosciuto_exshot.vmd</string>
       <string>Assets/character/scono/Materials/model/sconoscituo_fall.vmd</string>
       <string>Assets/character/scono/Materials/model/sconoscituo_frontstep.vmd</string>
       <string>Assets/character/scono/Materials/model/sconoscituo_frontstep_back.vmd</string>
@@ -158,8 +158,8 @@
       <string>Assets/character/scono/Materials/model/sconoscituo_leftstep_back.vmd</string>
       <string>Assets/character/scono/Materials/model/sconoscituo_leftwrstle.vmd</string>
       <string>Assets/character/scono/Materials/model/sconoscituo_neutral.vmd</string>
-      <string>Assets/character/scono/Materials/model/sconoscituo_normalshot.vmd</string>
-      <string>Assets/character/scono/Materials/model/sconoscituo_normalshot_toponly.vmd</string>
+      <string>Assets/character/scono/Materials/model/sconosciuto_normalshot.vmd</string>
+      <string>Assets/character/scono/Materials/model/sconosciuto_normalshotTopOnly.vmd</string>
       <string>Assets/character/scono/Materials/model/sconoscituo_pay_an_arm.vmd</string>
       <string>Assets/character/scono/Materials/model/sconoscituo_puthandahead.vmd</string>
       <string>Assets/character/scono/Materials/model/sconoscituo_rightstep.vmd</string>
@@ -168,7 +168,7 @@
       <string>Assets/character/scono/Materials/model/sconoscituo_run.vmd</string>
       <string>Assets/character/scono/Materials/model/sconoscituo_run_under_only.vmd</string>
       <string>Assets/character/scono/Materials/model/sconoscituo_spindown.vmd</string>
-      <string>Assets/character/scono/Materials/model/sconoscituo_subshot.vmd</string>
+      <string>Assets/character/scono/Materials/model/sconosciuto_subshot.vmd</string>
       <string>Assets/character/scono/Materials/model/sconoscituo_walk.vmd</string>
       <string>Assets/character/scono/Materials/model/sconoscituo_walk_under_only.vmd</string>
       <string>Assets/character/scono/Materials/model/sconoscituo_wrstle1.vmd</string>
@@ -183,6 +183,10 @@
       <string>Assets/character/scono/Materials/model/sconoscituo_reversal.vmd</string>
       <string>Assets/character/scono/Materials/model/sconoscituo_down.vmd</string>
       <string>Assets/character/scono/Materials/model/sconoscituo_backexwrstle.vmd</string>
+      <string>Assets/character/scono/Materials/model/sconosciuto_normalshotFollowthrow.vmd</string>
+      <string>Assets/character/scono/Materials/model/sconosciuto_normalshotTopOnlyFollowthrow.vmd</string>
+      <string>Assets/character/scono/Materials/model/sconosciuto_subshotFollowthrow.vmd</string>
+      <string>Assets/character/scono/Materials/model/sconosciuto_exshotFollowthrow.vmd</string>
     </vmdAssetPathList>
     <fbxOutputPath>Assets/character/scono/Materials/model/sconoscituo_magica_cort.fbx</fbxOutputPath>
     <bulletPhysicsVersion>_275</bulletPhysicsVersion>
