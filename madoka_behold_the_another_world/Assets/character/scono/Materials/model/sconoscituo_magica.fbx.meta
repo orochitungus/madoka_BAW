@@ -6856,7 +6856,7 @@ ModelImporter:
       name: sconosciuto_normalshot_vmd
       takeName: sconosciuto_normalshot_vmd
       firstFrame: 0
-      lastFrame: 170
+      lastFrame: 20
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -7152,7 +7152,7 @@ ModelImporter:
       name: sconosciuto_normalshotTopOnly_vmd
       takeName: sconosciuto_normalshotTopOnly_vmd
       firstFrame: 0
-      lastFrame: 170
+      lastFrame: 20
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -7448,7 +7448,7 @@ ModelImporter:
       name: sconoscituo_pay_an_arm_vmd
       takeName: sconoscituo_pay_an_arm_vmd
       firstFrame: 0
-      lastFrame: 170
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -7744,7 +7744,7 @@ ModelImporter:
       name: sconoscituo_puthandahead_vmd
       takeName: sconoscituo_puthandahead_vmd
       firstFrame: 0
-      lastFrame: 170
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -8040,7 +8040,7 @@ ModelImporter:
       name: sconoscituo_reversal_vmd
       takeName: sconoscituo_reversal_vmd
       firstFrame: 0
-      lastFrame: 170
+      lastFrame: 60
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -8336,7 +8336,7 @@ ModelImporter:
       name: sconoscituo_rightstep_vmd
       takeName: sconoscituo_rightstep_vmd
       firstFrame: 0
-      lastFrame: 170
+      lastFrame: 20
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -8632,7 +8632,7 @@ ModelImporter:
       name: sconoscituo_rightstep_back_vmd
       takeName: sconoscituo_rightstep_back_vmd
       firstFrame: 0
-      lastFrame: 170
+      lastFrame: 20
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -8928,7 +8928,7 @@ ModelImporter:
       name: sconoscituo_rightwrstle_vmd
       takeName: sconoscituo_rightwrstle_vmd
       firstFrame: 0
-      lastFrame: 170
+      lastFrame: 50
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -9224,7 +9224,7 @@ ModelImporter:
       name: sconoscituo_run_vmd
       takeName: sconoscituo_run_vmd
       firstFrame: 0
-      lastFrame: 170
+      lastFrame: 22
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -9520,7 +9520,7 @@ ModelImporter:
       name: sconoscituo_run_under_only_vmd
       takeName: sconoscituo_run_under_only_vmd
       firstFrame: 0
-      lastFrame: 170
+      lastFrame: 22
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -9816,7 +9816,7 @@ ModelImporter:
       name: sconoscituo_spindown_vmd
       takeName: sconoscituo_spindown_vmd
       firstFrame: 0
-      lastFrame: 170
+      lastFrame: 20
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -10408,7 +10408,7 @@ ModelImporter:
       name: sconoscituo_walk_vmd
       takeName: sconoscituo_walk_vmd
       firstFrame: 0
-      lastFrame: 170
+      lastFrame: 44
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -10704,7 +10704,7 @@ ModelImporter:
       name: sconoscituo_walk_under_only_vmd
       takeName: sconoscituo_walk_under_only_vmd
       firstFrame: 0
-      lastFrame: 170
+      lastFrame: 44
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -11000,7 +11000,7 @@ ModelImporter:
       name: sconoscituo_wrstle1_vmd
       takeName: sconoscituo_wrstle1_vmd
       firstFrame: 0
-      lastFrame: 170
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -11296,7 +11296,7 @@ ModelImporter:
       name: sconoscituo_wrstle2_vmd
       takeName: sconoscituo_wrstle2_vmd
       firstFrame: 0
-      lastFrame: 170
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -11592,7 +11592,7 @@ ModelImporter:
       name: sconoscituo_wrstle3_vmd
       takeName: sconoscituo_wrstle3_vmd
       firstFrame: 0
-      lastFrame: 170
+      lastFrame: 40
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -11888,7 +11888,7 @@ ModelImporter:
       name: sconosciuto_normalshotFollowthrow_vmd
       takeName: sconosciuto_normalshotFollowthrow_vmd
       firstFrame: 0
-      lastFrame: 170
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -12184,7 +12184,7 @@ ModelImporter:
       name: sconosciuto_normalshotTopOnlyFollowthrow_vmd
       takeName: sconosciuto_normalshotTopOnlyFollowthrow_vmd
       firstFrame: 0
-      lastFrame: 170
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -12480,7 +12480,7 @@ ModelImporter:
       name: sconosciuto_subshotFollowthrow_vmd
       takeName: sconosciuto_subshotFollowthrow_vmd
       firstFrame: 0
-      lastFrame: 170
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -12776,7 +12776,7 @@ ModelImporter:
       name: sconosciuto_exshotFollowthrow_vmd
       takeName: sconosciuto_exshotFollowthrow_vmd
       firstFrame: 0
-      lastFrame: 170
+      lastFrame: 10
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
