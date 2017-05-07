@@ -170,7 +170,7 @@ public class SconosciutoControl : CharacterControlBase
 		// 空中ダッシュＩＤを保持（CharacterControlBaseで使う)
 		CancelDashID = 7;
 		// 覚醒技専用カメラをOFFにする
-		ArousalAttackCamera1.enabled = false;
+		//ArousalAttackCamera1.enabled = false;
 
 		// 格闘専用カメラをOFFにする
 		WrestleCamera.enabled = false;
@@ -181,7 +181,47 @@ public class SconosciutoControl : CharacterControlBase
 		{
 			Debug.LogError("Caution!! BattleInterfaceCanvas is Nothing!!");
 		}
-		// TODO:ハッシュID取得
+		// ハッシュID取得
+		IdleID = Animator.StringToHash("Base Layer.SconosciutoIdle");
+		WalkID = Animator.StringToHash("Base Layer.SconosciutoWalk");
+		JumpID = Animator.StringToHash("Base Layer.SconosciutoJump");
+		JumpingID = Animator.StringToHash("Base Layer.SconosciutoJumping");
+		FallID = Animator.StringToHash("Base Layer.SconosciutoFall");
+		LandingID = Animator.StringToHash("Base Layer.SconosciutoLanding");
+		RunID = Animator.StringToHash("Base Layer.SconosciutoRun");
+		AirDashID = Animator.StringToHash("Base Layer.SconosciutoAirDash");
+		FrontStepID = Animator.StringToHash("Base Layer.SconosciutoFrontStep");
+		FrontStepBackID = Animator.StringToHash("Base Layer.SconosciutoFrontStepBack");
+		LeftStepID = Animator.StringToHash("Base Layer.SconosciutoLeftStep");
+		LeftStepBackID = Animator.StringToHash("Base Layer.SconosciutoLeftStepBack");
+		RightStepID = Animator.StringToHash("Base Layer.SconosciutoRightStep");
+		RightStepBackID = Animator.StringToHash("Base Layer.SconosciutoRightStepBack");
+		BackStepID = Animator.StringToHash("Base Layer.SconosciutoBackStep");
+		BackStepBackID = Animator.StringToHash("Base Layer.SconosciutoBackStepBack");
+		ShotID = Animator.StringToHash("Base Layer.SconosciutoShot");		
+		SubShotID = Animator.StringToHash("Base Layer.SconosciutoSubShot");
+		EXShotID = Animator.StringToHash("Base Layer.SconosciutoEXShot");
+		FollowThrowShotID = Animator.StringToHash("Base Layer.SconosciutoShotFollowthrow");
+		FollowThrowSubShotID = Animator.StringToHash("Base Layer.SconosciutoSubShotFollwthrow");
+		FollowThrowEXShotID = Animator.StringToHash("Base Layer.SconosciutoEXShotFollowthrow");
+		Wrestle1ID = Animator.StringToHash("Base Layer.SconoscituoWrestle1");
+		Wrestle2ID = Animator.StringToHash("Base Layer.SconoscituoWrestle2");
+		Wrestle3ID = Animator.StringToHash("Base Layer.SconoscituoWrestle3");
+		FrontWrestleID = Animator.StringToHash("Base Layer.SconocituoFrontWrestle");
+		LeftWrestleID = Animator.StringToHash("Base Layer.SconoscituoLeftWrestle");
+		RightWrestleID = Animator.StringToHash("Base Layer.SconoscituoRightWrestle");
+		BackWrestleID = Animator.StringToHash("Base Layer.SconoscituoBackWrestle");
+		AirDashWrestleID = Animator.StringToHash("Base Layer.SconocituoAirDashWrestle");
+		EXWrestleID = Animator.StringToHash("Base Layer.SconoscituoEXWrestle");
+		EXFrontWrestleID = Animator.StringToHash("Base Layer.SconoscituoFrontEXWrestle");
+		EXBackWrestleID = Animator.StringToHash("Base Layer.SconoscituoBackEXWrestle");
+		ReversalID = Animator.StringToHash("Base Layer.SconoscituoReversal");
+		ArousalAttackID = Animator.StringToHash("Base Layer.SconoscituoArousalAttack");
+		DamageID = Animator.StringToHash("Base Layer.SconoscituoDamage");
+		DownID = Animator.StringToHash("Base Layer.SconoscituoDown");
+		BlowID = Animator.StringToHash("Base Layer.SconoscituoBlow");
+		SpinDownID = Animator.StringToHash("Base Layer.SconoscituoSpindown");
+
 
 		// リバーサルとダウンのIDを取得
 		ReversalHash = ReversalID;
@@ -348,7 +388,7 @@ public class SconosciutoControl : CharacterControlBase
 			Battleinterfacecontroller.Weapon3.WeaponGraphic.sprite = ShotIcon;
 			Battleinterfacecontroller.Weapon3.NowBulletNumber = BulletNum[(int)ShotType.NORMAL_SHOT];
 			Battleinterfacecontroller.Weapon3.MaxBulletNumber = Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_OriginalBulletNum;
-			Battleinterfacecontroller.Weapon3.UseChargeGauge = true;
+			Battleinterfacecontroller.Weapon3.UseChargeGauge = false;
 			// 1発でも使えれば使用可能
 			if (BulletNum[(int)ShotType.NORMAL_SHOT] > 0)
 			{
@@ -398,6 +438,61 @@ public class SconosciutoControl : CharacterControlBase
 	// Update is called once per frame
 	void Update () 
 	{
-	
+		// 共通アップデート処理(時間停止系の状態になると入力は禁止)
+		bool isspindown = false;
+		if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == SpinDownID)
+		{
+			isspindown = true;
+		}
+		if (Update_Core(isspindown, AnimatorUnit, DownID, AirDashID, AirShotID, JumpingID, FallID, IdleID, BlowID, RunID, FrontStepID, LeftStepID, RightStepID, BackStepID, DamageID))
+		{
+			UpdateAnimation();
+			// リロード実行           
+			// メイン射撃
+			ReloadSystem.OneByOne(ref BulletNum[(int)ShotType.NORMAL_SHOT], Time.time, Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_OriginalBulletNum,
+				Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_reloadtime, ref MainshotEndtime);
+			// サブ射撃
+			ReloadSystem.AllTogether(ref BulletNum[(int)ShotType.SUB_SHOT], Time.time, Character_Spec.cs[(int)CharacterName][(int)ShotType.SUB_SHOT].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.SUB_SHOT].m_OriginalBulletNum,
+				Character_Spec.cs[(int)CharacterName][(int)ShotType.SUB_SHOT].m_reloadtime, ref SubshotEndtime);
+			// 特殊射撃
+			ReloadSystem.OneByOne(ref BulletNum[(int)ShotType.EX_SHOT], Time.time, Character_Spec.cs[(int)CharacterName][(int)ShotType.EX_SHOT].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.EX_SHOT].m_OriginalBulletNum,
+				Character_Spec.cs[(int)CharacterName][(int)ShotType.EX_SHOT].m_reloadtime, ref ExshotEndtime);
+		}
+	}
+
+	void UpdateAnimation()
+	{
+		if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == IdleID)
+		{
+			Animation_Idle(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == WalkID)
+		{
+			Animation_Walk(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == JumpID)
+		{
+			Animation_Jump(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == JumpingID)
+		{
+			Animation_Jumping(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FallID)
+		{
+			Animation_Fall(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LandingID)
+		{
+			Animation_Landing(AnimatorUnit);
+		}
+	}
+
+	/// <summary>
+	/// Jumpingへ移行する（JumpのAnimationの最終フレームで実行する）
+	/// </summary>
+	public void JumpingMigration()
+	{
+		AnimatorUnit.SetTrigger("Jumping");
 	}
 }

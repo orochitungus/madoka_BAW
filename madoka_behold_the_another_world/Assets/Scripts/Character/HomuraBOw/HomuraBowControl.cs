@@ -577,8 +577,7 @@ public class HomuraBowControl : CharacterControlBase
 		// 通常
 		if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == IdleID)
 		{
-			int[] stepanimations = { 8, 9, 10, 11 };
-			Animation_Idle(AnimatorUnit, 42, 6,stepanimations,4,2,7);
+			Animation_Idle(AnimatorUnit);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == WalkID)
 		{
@@ -586,26 +585,23 @@ public class HomuraBowControl : CharacterControlBase
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == JumpID)
 		{
-			Animation_Jump(AnimatorUnit, 2, 7);
+			Animation_Jump(AnimatorUnit);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == JumpingID)
 		{
-			int[] stepanimations = { 8, 9, 10, 11 };
-			Animation_Jumping(AnimatorUnit, 4, stepanimations, 7, 5);
+			Animation_Jumping(AnimatorUnit);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FallID)
 		{
-			int[] stepanimations = { 8, 9, 10, 11 };
-			Animation_Fall(AnimatorUnit, 7, 2, stepanimations, 5);
+			Animation_Fall(AnimatorUnit);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LandingID)
 		{
-			Animation_Landing(AnimatorUnit, 0);
+			Animation_Landing(AnimatorUnit);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RunID)
 		{
-            int[] stepanimations = { 8, 9, 10, 11 };
-            Animation_Run(AnimatorUnit, 4, stepanimations, 0, 2);
+            Animation_Run(AnimatorUnit, 4, 0, 2);
         }
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == AirDashID)
 		{
@@ -693,33 +689,27 @@ public class HomuraBowControl : CharacterControlBase
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle1ID)
 		{
-            int[] stepanimations = { 8, 9, 10, 11 };
-            Wrestle1(AnimatorUnit, 7, stepanimations);
+            Wrestle1(AnimatorUnit, 7);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle2ID)
 		{
-            int[] stepanimations = { 8, 9, 10, 11 };
-            Wrestle2(AnimatorUnit, 7, stepanimations);
+            Wrestle2(AnimatorUnit, 7);
         }
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle3ID)
 		{
-            int[] stepanimations = { 8, 9, 10, 11 };
-            Wrestle3(AnimatorUnit, 7, stepanimations);
+            Wrestle3(AnimatorUnit, 7);
         }
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontWrestleID)
 		{
-			int[] stepanimations = { 8, 9, 10, 11 };
-			FrontWrestle1(AnimatorUnit, 7, stepanimations);
+			FrontWrestle1(AnimatorUnit, 7);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LeftWrestleID)
 		{
-			int[] stepanimations = { 8, 9, 10, 11 };
-			LeftWrestle1(AnimatorUnit, 7, stepanimations);
+			LeftWrestle1(AnimatorUnit, 7);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RightWrestleID)
 		{
-			int[] stepanimations = { 8, 9, 10, 11 };
-			RightWrestle1(AnimatorUnit, 7, stepanimations);
+			RightWrestle1(AnimatorUnit, 7);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BackWrestleID)
 		{
@@ -727,8 +717,7 @@ public class HomuraBowControl : CharacterControlBase
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == AirDashWrestleID)
 		{
-			int[] stepanimations = { 8, 9, 10, 11 };
-			AirDashWrestle(AnimatorUnit, 7, stepanimations, 4);
+			AirDashWrestle(AnimatorUnit, 7, 4);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXWrestleID)
 		{
@@ -736,13 +725,11 @@ public class HomuraBowControl : CharacterControlBase
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXFrontWrestleID)
 		{
-            int[] stepanimations = { 8, 9, 10, 11 };
-            FrontExWrestle1(AnimatorUnit, 7, stepanimations, 4);
+            FrontExWrestle1(AnimatorUnit, 7, 4);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXBackWrestleID)
 		{
-			int[] stepanimations = { 8, 9, 10, 11 };
-			BackExWrestle(AnimatorUnit, 7, stepanimations, 4, 5);
+			BackExWrestle(AnimatorUnit, 7, 4, 5);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == ReversalID)
 		{
@@ -998,7 +985,7 @@ public class HomuraBowControl : CharacterControlBase
 		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
 	}
 
-	protected override void Animation_Idle(Animator animator, int downID, int runID, int[] stepanimations, int fallID, int jumpID, int airdashID)
+	protected override void Animation_Idle(Animator animator)
 	{
         // 攻撃したかフラグ
         bool attack = false;
@@ -1025,30 +1012,30 @@ public class HomuraBowControl : CharacterControlBase
 			{
 				transform.Translate(new Vector3(0, 1, 0));
 			}
-			CancelDashDone(AnimatorUnit, 7);
+			CancelDashDone(AnimatorUnit);
 		}
         // 攻撃した場合はステートが変更されるので、ここで終了
         if (!attack)
         {
-            base.Animation_Idle(animator, downID, runID, stepanimations, fallID, jumpID, airdashID);
+            base.Animation_Idle(animator);
         }
     }
 
-    protected override void Animation_Jumping(Animator animator, int fallID, int[] stepanimations, int airdashID, int landinghashID)
+    protected override void Animation_Jumping(Animator animator)
     {
-        base.Animation_Jumping(animator, fallID, stepanimations, airdashID, landinghashID);
+        base.Animation_Jumping(animator);
         AttackDone();
     }
 
-    protected override void Animation_Fall(Animator animator, int airdashID, int jumpID, int[] stepanimations, int landingID)
+    protected override void Animation_Fall(Animator animator)
     {
-        base.Animation_Fall(animator, airdashID, jumpID, stepanimations, landingID);
+        base.Animation_Fall(animator);
         AttackDone();
     }
 
-    protected override void Animation_Run(Animator animator, int fallhashID, int[] stepanimations, int idleID, int jumpID)
+    protected override void Animation_Run(Animator animator, int fallhashID, int idleID, int jumpID)
     {
-        base.Animation_Run(animator, fallhashID, stepanimations, idleID, jumpID);
+        base.Animation_Run(animator, fallhashID, idleID, jumpID);
         AttackDone(true, false);
     }
 
@@ -1068,7 +1055,7 @@ public class HomuraBowControl : CharacterControlBase
             {
                 transform.Translate(new Vector3(0, 1, 0));
             }
-            CancelDashDone(AnimatorUnit, 7);
+            CancelDashDone(AnimatorUnit);
         }
         base.Shot();
     }
@@ -1605,9 +1592,9 @@ public class HomuraBowControl : CharacterControlBase
     /// <param name="animator"></param>
     /// <param name="airdashID"></param>
     /// <param name="stepanimations"></param>
-    protected override void Wrestle1(Animator animator, int airdashID, int[] stepanimations)
+    protected override void Wrestle1(Animator animator, int airdashID)
     {
-        base.Wrestle1(animator, airdashID, stepanimations);
+        base.Wrestle1(animator, airdashID);
         // 追加入力受け取り
         if (HasWrestleInput)
         {
@@ -1621,9 +1608,9 @@ public class HomuraBowControl : CharacterControlBase
     /// <param name="animator"></param>
     /// <param name="airdashhash"></param>
     /// <param name="stepanimations"></param>
-    protected override void Wrestle2(Animator animator, int airdashhash, int[] stepanimations)
+    protected override void Wrestle2(Animator animator, int airdashhash)
     {
-        base.Wrestle2(animator, airdashhash, stepanimations);
+        base.Wrestle2(animator, airdashhash);
         // 追加入力受け取り
         if (HasWrestleInput)
         {
@@ -1638,8 +1625,7 @@ public class HomuraBowControl : CharacterControlBase
 	{
 		base.ExWrestle1();
 		Wrestletime += Time.deltaTime;
-		int[] stepanimations = { 8, 9, 10, 11 };
-		StepCancel(AnimatorUnit, 7, stepanimations);
+		StepCancel(AnimatorUnit, 7);
 	}
 
     /// <summary>
@@ -1649,14 +1635,14 @@ public class HomuraBowControl : CharacterControlBase
     /// <param name="airdashhash"></param>
     /// <param name="stepanimations"></param>
     /// <param name="fallid"></param>
-    protected override void FrontExWrestle1(Animator animator, int airdashhash, int[] stepanimations, int fallid)
+    protected override void FrontExWrestle1(Animator animator, int airdashhash, int fallid)
     {
-        base.FrontExWrestle1(animator, airdashhash, stepanimations, fallid);
+        base.FrontExWrestle1(animator, airdashhash, fallid);
         Wrestletime += Time.deltaTime; 
         // レバー入力カットか特殊格闘入力カットで落下に移行する
         if(ControllerManager.Instance.TopUp || ControllerManager.Instance.EXWrestleUp)
         {
-            FallDone(Vector3.zero, animator, fallid);
+            FallDone(Vector3.zero, animator);
         }
 		// 移動速度（上方向に垂直上昇する）
 		float movespeed = 100.0f;
@@ -1676,13 +1662,13 @@ public class HomuraBowControl : CharacterControlBase
     /// <param name="stepanimations"></param>
     /// <param name="fallid"></param>
     /// <param name="landingid"></param>
-    protected override void BackExWrestle(Animator animator, int airdashhash, int[] stepanimations, int fallid, int landingid)
+    protected override void BackExWrestle(Animator animator, int airdashhash, int fallid, int landingid)
     {
-        base.BackExWrestle(animator, airdashhash, stepanimations, fallid, landingid);
+        base.BackExWrestle(animator, airdashhash, fallid, landingid);
         // レバー入力カットか特殊格闘入力カットで落下に移行する
         if (ControllerManager.Instance.UnderUp || ControllerManager.Instance.EXWrestleUp)
         {
-            FallDone(Vector3.zero, animator, fallid);
+            FallDone(Vector3.zero, animator);
         }
 		// 移動速度（上方向に垂直上昇する）
 		float movespeed = 100.0f;

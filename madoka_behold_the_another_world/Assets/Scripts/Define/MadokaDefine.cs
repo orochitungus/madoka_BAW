@@ -17,7 +17,7 @@ public class MadokaDefine : SingletonMonoBehaviour<MadokaDefine>
 	/// <summary>
 	/// ラウンドコール時のカウント
 	/// </summary>
-	public const float ROUNDCALLCOUNT = 3;
+	public const float ROUNDCALLCOUNT = 3.5f;
     
 	// 画面サイズ
     public static float SCREENWIDTH = 1024.0f;

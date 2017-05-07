@@ -592,11 +592,11 @@ public static class savingparameter
         story = 0;
 
 		// パーティーメンバー(弓ほむらのみで、僚機なし）
-		nowparty[0] = (int)Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B;
+		//nowparty[0] = (int)Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B;
 		// 魔獣試験
 		//nowparty[0] = (int)Character_Spec.CHARACTER_NAME.ENEMY_MAJYU;
 		// スコノ試験
-        //nowparty[0] = (int)Character_Spec.CHARACTER_NAME.MEMBER_SCHONO;
+        nowparty[0] = (int)Character_Spec.CHARACTER_NAME.MEMBER_SCHONO;
 
         // 主人公
         nowHero = Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B;

@@ -12,9 +12,7 @@ BGM‚ÆSE‚ÍƒTƒEƒ“ƒhƒ}ƒl[ƒWƒƒ[ˆË‘¶‚É‚·‚é¨ƒƒjƒ…[‚È‚Ç‚Ì‚ÝBƒQ[ƒ€“à‚Í’Êí‚ÌƒTƒEƒ
 
 ã‹LƒNƒ‰ƒX‚ðŒp³‚µ‚ÄƒXƒRƒm‚ðì¬‚·‚é(ã’…‚Æ”¯‚ÆƒXƒJ[ƒg‚Æ–XŽqü‚è‚Í•¨—‰‰ŽZ‚ð“K—p‚·‚é‚½‚ßƒAƒjƒ‚ð“ü‚ê‚È‚¢j
 (https://effekseer.github.io/jp/)						¨5/4
-	•‘•‚ÌƒAƒCƒRƒ“‚ðì‚é
-	ƒAƒjƒ[ƒ^[‚ðì‚é
-	Šî–{“®ì‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚éiƒjƒ…[ƒgƒ‰ƒ‹A‘–sAƒWƒƒƒ“ƒvA‹ó’†ƒ_ƒbƒVƒ…Aƒ_ƒ[ƒWAƒ_ƒEƒ“AƒŠƒo[ƒTƒ‹AŠoÁj
+	Šî–{“®ì‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚éi‘–sA‹ó’†ƒ_ƒbƒVƒ…Aƒ_ƒ[ƒWAƒ_ƒEƒ“AƒŠƒo[ƒTƒ‹AŠoÁj
 	’ÊíŽËŒ‚‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é
 	ƒTƒuŽËŒ‚‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é
 	“ÁŽêŽËŒ‚‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é
@@ -29,11 +27,13 @@ BGM‚ÆSE‚ÍƒTƒEƒ“ƒhƒ}ƒl[ƒWƒƒ[ˆË‘¶‚É‚·‚é¨ƒƒjƒ…[‚È‚Ç‚Ì‚ÝBƒQ[ƒ€“à‚Í’Êí‚ÌƒTƒEƒ
 	‹ó’†ƒ_ƒbƒVƒ…Ši“¬‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é
 	ŠoÁ‹Z‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é
 
-‹|‚Ù‚Þ‚ç‚ðì‚è’¼‚·										
+‹|‚Ù‚Þ‚ç‚ðì‚è’¼‚·									
+	
+•ö‰óŒ©‘êŒ´ƒXƒe[ƒW‚ðì‚é								¨5/5
 
-Eƒvƒƒ[ƒO‚Pì¬										¨5/5
+Eƒvƒƒ[ƒO‚Pì¬										¨5/6
 
-•ö‰óŒ©‘êŒ´ƒXƒe[ƒW‚ðì‚é								¨5/6
+
 
 ƒƒjƒ…[‚ðì‚é											¨5/13
 
@@ -61,6 +61,8 @@ TalkSystem‚Ì‚«o‚µ‚Ì‘å‚«‚³‚ðƒCƒxƒ“ƒgƒV[ƒ“‚Ì‚»‚ê‚Æˆê’v‚³‚¹‚é
 
 ‰®ã‚ðV‚µ‚¢ƒf[ƒ^‚É·‚µ‘Ö‚¦‚éiƒGƒŒƒx[ƒ^[‚ÌoŒ»ˆÊ’u‚ª•Ï‚í‚Á‚Ä‚¢‚éj
 														¨5/28
+
+‚Ü‚Ç‚©‚ðì‚éiƒGƒ{ƒVƒ‚ƒfƒ‹‚ÌŠç—ÖŠs‚ðŽQl‚É‚·‚éj		¨6/3
 
 Œð·“_‚Ü‚Åis‰Â”\‚É‚·‚é								¨6/3
 
@@ -137,7 +139,7 @@ TalkSystem‚Ì‚«o‚µ‚Ì‘å‚«‚³‚ðƒCƒxƒ“ƒgƒV[ƒ“‚Ì‚»‚ê‚Æˆê’v‚³‚¹‚é
 
 ƒNƒŠƒAŒãƒCƒxƒ“ƒg‚ðì‚é									¨
 
-Ž­–Ú‰Æ“à•”‚ðì‚é
+Ž­–Ú‰Æ“à•”‚ðì‚é										¨—v‘Š’ki}–Ê“n‚µ‚Ä¬•¨‚Í‚±‚Á‚¿‚Åì‚é‚Æ‚©j
 	‚Ü‚Ç‚©‚Ì•”‰®
 	‚QF
 	ô–ÊŠ

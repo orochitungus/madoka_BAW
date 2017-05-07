@@ -132,12 +132,24 @@ public class RoundCall : MonoBehaviour
 		Leftuntil.text = Counter.ToString("f2");
 		Counter -= 0.017f;
 		// 残り1秒を割ったら次へ
-		if (Counter < 1.0f)
+		if (Counter < 0.5f)
 		{
 			Leftuntil.gameObject.SetActive(false);
 			Ready.gameObject.SetActive(false);
 			Engauge.gameObject.SetActive(true);
 			Roundcallstate = RoundCallState.ENGAUGE;
+		}
+		else if(Counter > 2.5f)
+		{
+			Ready.text = "3";
+		}
+		else if(Counter > 1.5f)
+		{
+			Ready.text = "2";
+		}
+		else
+		{
+			Ready.text = "1";
 		}
 	}
 	

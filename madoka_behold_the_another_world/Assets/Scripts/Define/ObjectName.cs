@@ -16,7 +16,7 @@ public class ObjectName
         "",                         // 6  千歳ゆま
         "",                         // 7  呉キリカ
         "",                         // 8  美国織莉子
-        "Sconosciuto_Battle_Use",   // 9  スコノシュート（PC)
+        "SconosciutoBattleUse",		// 9  スコノシュート（PC)
         "HomuraBowBattleUse",		// 10 暁美ほむら（弓）
         "",                         // 11 アルティメットまどか（まどかの覚醒とは一応別扱い）
 		"majyu_use_battle",			// 12 魔獣
@@ -34,7 +34,7 @@ public class ObjectName
         "",                                 // 千歳ゆま
         "",                                 // 呉キリカ
         "",                                 // 美国織莉子
-        "Scono_battle_use",                 // スコノシュート（PC)
+        "SconosciutoBattleUse",             // スコノシュート（PC)
         "Homura_Quest_Use",                 // 暁美ほむら（弓）
         "",                                 // アルティメットまどか（まどかの覚醒とは一応別扱い）
 		"majyu_use_battle",					// 魔獣
