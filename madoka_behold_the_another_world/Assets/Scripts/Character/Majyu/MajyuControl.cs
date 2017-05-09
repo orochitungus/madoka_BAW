@@ -350,7 +350,7 @@ public class MajyuControl : CharacterControlBase
 		// 走行
 		else if(AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RunID)
 		{
-			Animation_Run(AnimatorUnit, 4, 0, 2);
+			Animation_Run(AnimatorUnit);
 		}
 		// 空中ダッシュ
 		else if(AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == AirDashID)
@@ -802,9 +802,9 @@ public class MajyuControl : CharacterControlBase
 	/// <param name="fallhashID"></param>
 	/// <param name="idleID"></param>
 	/// <param name="jumpID"></param>
-	protected override void Animation_Run(Animator animator, int fallhashID, int idleID, int jumpID)
+	protected override void Animation_Run(Animator animator)
 	{
-		base.Animation_Run(animator, fallhashID, idleID, jumpID);
+		base.Animation_Run(animator);
 		AttackDone(true, false);
 	}
 

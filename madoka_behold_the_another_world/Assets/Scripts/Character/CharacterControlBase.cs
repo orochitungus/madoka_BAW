@@ -2772,14 +2772,14 @@ public class CharacterControlBase : MonoBehaviour
     protected void LandingDone2(Animator animator,int landinghash)
     {
         // 地響き防止
-        this.MoveDirection = transform.rotation * new Vector3(0, 0, 0);
+        MoveDirection = transform.rotation * new Vector3(0, 0, 0);
         // モーション終了時にアイドルへ移行
         // 硬直時間が終わるとIdleへ戻る。オバヒ着地とかやりたいならBoost0でLandingTimeの値を変えるとか
         if (Time.time > LandingTime + LandingWaitTime)
         {
             animator.SetTrigger("Landing");
             // ブースト量を初期化する
-            this.Boost = GetMaxBoost(this.BoostLevel);
+            Boost = GetMaxBoost(this.BoostLevel);
         }
     }
 
@@ -2796,7 +2796,7 @@ public class CharacterControlBase : MonoBehaviour
 		RigidBody = GetComponent<Rigidbody>();
 
 		// PCでなければカメラを無効化しておく
-		if (this.IsPlayer != CHARACTERCODE.PLAYER)
+		if (IsPlayer != CHARACTERCODE.PLAYER)
 		{
 			// 自分にひっついているカメラオブジェクトを探し、カメラを切っておく
 			transform.Find("Main Camera").GetComponent<Camera>().enabled = false;
@@ -5102,10 +5102,7 @@ public class CharacterControlBase : MonoBehaviour
 	/// Run時共通動作
 	/// </summary>
 	/// <param name="animator"></param>
-	/// <param name="fallhashID"></param>
-	/// <param name="idleID"></param>
-	/// <param name="jumpID"></param>
-    protected virtual void Animation_Run(Animator animator, int fallhashID,int idleID,int jumpID)
+    protected virtual void Animation_Run(Animator animator)
     {
         RigidBody.constraints = RigidbodyConstraints.FreezeRotation;
 		// ずれた本体角度を戻す(Yはそのまま）
@@ -5174,7 +5171,7 @@ public class CharacterControlBase : MonoBehaviour
             }
 
             // ジャンプでジャンプへ移行(GetButtonDownで押しっぱなしにはならない。GetButtonで押しっぱなしに対応）
-            if (this.HasJumpInput && Boost > 0)
+            if (HasJumpInput && Boost > 0)
             {
                 // 上昇制御をAddForceにするとやりにくい（特に慣性ジャンプ）
                 JumpDone(animator);

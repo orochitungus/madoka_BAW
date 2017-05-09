@@ -486,6 +486,10 @@ public class SconosciutoControl : CharacterControlBase
 		{
 			Animation_Landing(AnimatorUnit);
 		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RunID)
+		{
+			Animation_Run(AnimatorUnit);
+		}
 	}
 
 	/// <summary>
@@ -494,5 +498,21 @@ public class SconosciutoControl : CharacterControlBase
 	public void JumpingMigration()
 	{
 		AnimatorUnit.SetTrigger("Jumping");
+	}
+
+	protected override void Animation_Run(Animator animator)
+	{
+		base.Animation_Run(animator);
+		AttackDone(true, false);
+	}
+
+	/// <summary>
+	/// 攻撃行動全般(RunとAirDashは特殊なので使用しない）
+	/// </summary>
+	/// <param name="run"></param>
+	/// <param name="AirDash"></param>
+	public bool AttackDone(bool run = false, bool AirDash = false)
+	{
+		return false;
 	}
 }
