@@ -574,6 +574,7 @@ public class HomuraBowControl : CharacterControlBase
 
 	void UpdateAnimation()
 	{
+		ShowAirDashEffect = false;		
 		// 通常
 		if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == IdleID)
 		{
@@ -605,7 +606,8 @@ public class HomuraBowControl : CharacterControlBase
         }
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == AirDashID)
 		{
-            Animation_AirDash(AnimatorUnit, 2, 4, 5);
+			ShowAirDashEffect = true;
+            Animation_AirDash(AnimatorUnit);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontStepID)
 		{
@@ -717,6 +719,7 @@ public class HomuraBowControl : CharacterControlBase
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == AirDashWrestleID)
 		{
+			ShowAirDashEffect = true;
 			AirDashWrestle(AnimatorUnit, 7, 4);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXWrestleID)
@@ -754,6 +757,15 @@ public class HomuraBowControl : CharacterControlBase
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == SpinDownID)
 		{
 			SpinDown(AnimatorUnit);
+		}
+
+		if(ShowAirDashEffect)
+		{
+			AirDashEffect.SetActive(true);
+		}
+		else
+		{
+			AirDashEffect.SetActive(false);
 		}
 	}
 
@@ -1039,9 +1051,9 @@ public class HomuraBowControl : CharacterControlBase
         AttackDone(true, false);
     }
 
-    protected override void Animation_AirDash(Animator animator, int jumpID, int fallID, int landingID)
+    protected override void Animation_AirDash(Animator animator)
     {
-        base.Animation_AirDash(animator, jumpID, fallID, landingID);
+        base.Animation_AirDash(animator);
         AttackDone(false, true);
     }
 

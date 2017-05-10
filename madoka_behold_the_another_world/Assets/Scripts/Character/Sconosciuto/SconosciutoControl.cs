@@ -462,6 +462,7 @@ public class SconosciutoControl : CharacterControlBase
 
 	void UpdateAnimation()
 	{
+		ShowAirDashEffect = false;
 		if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == IdleID)
 		{
 			Animation_Idle(AnimatorUnit);
@@ -489,6 +490,20 @@ public class SconosciutoControl : CharacterControlBase
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RunID)
 		{
 			Animation_Run(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == AirDashID)
+		{
+			ShowAirDashEffect = true;
+			Animation_AirDash(AnimatorUnit);
+		}
+
+		if (ShowAirDashEffect)
+		{
+			AirDashEffect.SetActive(true);
+		}
+		else
+		{
+			AirDashEffect.SetActive(false);
 		}
 	}
 

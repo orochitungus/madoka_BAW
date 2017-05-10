@@ -120,6 +120,16 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     public GameObject ArousalEffect;
 
+	/// <summary>
+	/// 空中ダッシュエフェクト
+	/// </summary>
+	public GameObject AirDashEffect;
+
+	/// <summary>
+	/// 空中ダッシュエフェクト表示フラグ
+	/// </summary>
+	public bool ShowAirDashEffect;
+
     /// <summary>
     /// ポーズコントローラー
     /// </summary>
@@ -5332,9 +5342,7 @@ public class CharacterControlBase : MonoBehaviour
     /// ブーストダッシュ時に実行
     /// </summary>
     /// <param name="animator"></param>
-    /// <param name="jumpID"></param>
-    /// <param name="fallID"></param>
-	protected virtual void Animation_AirDash(Animator animator, int jumpID,int fallID,int landingID)
+	protected virtual void Animation_AirDash(Animator animator)
 	{
 		transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
 		// ずれた本体角度を戻す(Yはそのまま） 
