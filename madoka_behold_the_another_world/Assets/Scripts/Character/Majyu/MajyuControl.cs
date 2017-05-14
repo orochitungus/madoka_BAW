@@ -362,42 +362,42 @@ public class MajyuControl : CharacterControlBase
 		// 前ステップ
 		else if(AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontStepID)
 		{
-			Animation_StepDone(AnimatorUnit, FrontStepID, 12, LeftStepID, 13, RightStepID, 14, BackStepID, 15, 7, 2);
+			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID);
 		}
 		// 左ステップ
 		else if(AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LeftStepID)
 		{
-			Animation_StepDone(AnimatorUnit, FrontStepID, 12, LeftStepID, 13, RightStepID, 14, BackStepID, 15, 7, 2);
+			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID);
 		}
 		// 右ステップ
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RightStepID)
 		{
-			Animation_StepDone(AnimatorUnit, FrontStepID, 12, LeftStepID, 13, RightStepID, 14, BackStepID, 15, 7, 2);
+			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID);
 		}
 		// 後ステップ
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BackStepID)
 		{
-			Animation_StepDone(AnimatorUnit, FrontStepID, 12, LeftStepID, 13, RightStepID, 14, BackStepID, 15, 7, 2);
+			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID);
 		}
 		// 前ステップ終了
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontStepBackID)
 		{
-			Animation_StepBack(AnimatorUnit, 0);
+			Animation_StepBack(AnimatorUnit);
 		}
 		// 左ステップ終了
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LeftStepBackID)
 		{
-			Animation_StepBack(AnimatorUnit, 0);
+			Animation_StepBack(AnimatorUnit);
 		}
 		// 右ステップ終了
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RightStepBackID)
 		{
-			Animation_StepBack(AnimatorUnit, 0);
+			Animation_StepBack(AnimatorUnit);
 		}
 		// 後ステップ終了
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BackStepBackID)
 		{
-			Animation_StepBack(AnimatorUnit, 0);
+			Animation_StepBack(AnimatorUnit);
 		}
 		// 射撃
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == ShotID)
@@ -483,12 +483,12 @@ public class MajyuControl : CharacterControlBase
 		// ダウン
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == DownID)
 		{
-			Down(AnimatorUnit, 27);
+			Down(AnimatorUnit);
 		}
 		// ダメージ（吹き飛び）
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BlowID)
 		{
-			Blow(AnimatorUnit, 27);
+			Blow(AnimatorUnit);
 		}
 		// きりもみダウン
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == SpinDownID)

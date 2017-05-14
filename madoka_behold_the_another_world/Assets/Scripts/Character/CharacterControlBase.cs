@@ -1833,8 +1833,10 @@ public class CharacterControlBase : MonoBehaviour
             {
                 FallDone(new Vector3(0, 0, 0),animator);
             }
-            // アニメーションを戻す
-            animator.SetTrigger("Idle");
+			// ステップ累積時間を戻す
+			_StepStartTime = 0;
+			// アニメーションを戻す
+			animator.SetTrigger("Idle");
         }
     }
 
@@ -2422,10 +2424,10 @@ public class CharacterControlBase : MonoBehaviour
             //UpdateRotation();
             //this.m_MoveDirection = transform.rotation * Vector3.forward;
             // 角度に応じてX、Zの方向を切り替える
-            if (transform.rotation.eulerAngles.y >= 337.5f && transform.rotation.eulerAngles.y < 22.5f)
+            if (transform.rotation.eulerAngles.y >= 337.5f || transform.rotation.eulerAngles.y < 22.5f)
             {
                 MoveDirection.x = 0.0f;
-                MoveDirection.z = 0.0f;
+                MoveDirection.z = 1.0f;
             }
             else if (transform.rotation.eulerAngles.y >= 22.5f && transform.rotation.eulerAngles.y < 67.5f)
             {
@@ -3202,8 +3204,8 @@ public class CharacterControlBase : MonoBehaviour
         {
             GetComponent<Rigidbody>().useGravity = false;  // 重力無効
             MoveSpeed = StepInitialVelocity;
-            MoveDirection.y = 0;         // Y移動無効            
-        }
+            MoveDirection.y = 0;         // Y移動無効 
+		}
 		// 左右ステップ時
 		else if(animator.GetCurrentAnimatorStateInfo(0).fullPathHash == leftstepid || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == rightstepid)
 		{
@@ -3418,8 +3420,6 @@ public class CharacterControlBase : MonoBehaviour
         // 地面オブジェクトに触れた場合は着地モーションへ移行(暴走防止のために、上昇中は判定禁止.時間で判定しないと、引っかかったときに無限ループする)
         if (SteppingLength > StepMoveLength)
         {
-            //MoveDirection.y = -2;                
-            //MoveDirection = transform.rotation * Vector3.forward;
             if( animator.GetCurrentAnimatorStateInfo(0).fullPathHash == frontstephash)
             {
                 animator.SetTrigger("FrontStepBack");
@@ -3440,10 +3440,10 @@ public class CharacterControlBase : MonoBehaviour
     }
 
     // ステップ落下時のキャンセルダッシュ及び再ジャンプ受付
-    protected bool CancelCheck(Animator animator, int airdashID,int jumpID)
+    protected bool CancelCheck(Animator animator)
     {
         // ブーストが残っていればキャンセルダッシュは受け付ける（方向入力は受け付けない）
-        if (this.Boost > 0)
+        if (Boost > 0)
         {
             // 方向キーなしで再度ジャンプを押した場合、慣性ジャンプ
             if (!HasVHInput && ControllerManager.Instance.Jump)
@@ -3488,7 +3488,8 @@ public class CharacterControlBase : MonoBehaviour
         RunShotDone = false;
         // 上体を戻す
         BrestObject.transform.rotation = Quaternion.Euler(0, 0, 0);
-        
+
+		_StepStartTime = 0;
         // 方向キー入力があった場合かつ地上にいた場合
         if (IsGrounded && HasVHInput)
         {
@@ -3496,8 +3497,8 @@ public class CharacterControlBase : MonoBehaviour
         }
         // 方向キー入力がなくかつ地上にいた場合
         else if (IsGrounded)
-        {
-            animator.SetTrigger("Idle");
+        {		
+			animator.SetTrigger("Idle");
         }
         // 空中にいた場合
         else
@@ -4533,10 +4534,13 @@ public class CharacterControlBase : MonoBehaviour
 
     public virtual void DamageInit(Animator animator, int damageID, bool isBlow,int blowID,int spindownID)
 	{
+		// ステップ累積時間を戻す
+		_StepStartTime = 0;
 		// くっついているエフェクトを消す
 		BrokenEffect();
 		// くっついている格闘判定を消す
 		DestroyWrestle();
+		
 		// 継承先で本体にくっついていたオブジェクトをカット
 		// m_DownRebirthTimeのカウントを開始
 		// 入力をポーズ以外すべて禁止
@@ -4685,6 +4689,7 @@ public class CharacterControlBase : MonoBehaviour
 			else
 			{
 				RigidBody.useGravity = true;
+				_StepStartTime = 0;
                 animator.SetTrigger("Idle");
 			}
 		}
@@ -4694,8 +4699,7 @@ public class CharacterControlBase : MonoBehaviour
     /// 吹き飛び
     /// </summary>
     /// <param name="animator"></param>
-    /// <param name="reversalid"></param>
-    protected virtual void Blow(Animator animator,int reversalid)
+    protected virtual void Blow(Animator animator)
 	{
 		// 接地までなにもせず、接地したらDownへ移行し、m_DownTimeを計算する
 		// ブースト入力があった場合、ダウン値がMAX未満でブーストゲージが一定量あれば、Reversalへ変更	
@@ -4718,7 +4722,7 @@ public class CharacterControlBase : MonoBehaviour
 		}
 		// ブースト入力があった場合、ダウン値がMAX未満でブーストゲージが一定量あれば、Reversalへ変更	
 		// rotationを0にして復帰アニメを再生する
-		else if (this.NowDownRatio <= DownRatioBias &&  this.HasJumpInput && Boost >= ReversalUseBoost)
+		else if (NowDownRatio <= DownRatioBias &&  HasJumpInput && Boost >= ReversalUseBoost)
 		{
 			// ブースト量を減らす
 			Boost -= ReversalUseBoost;
@@ -4756,8 +4760,7 @@ public class CharacterControlBase : MonoBehaviour
     /// ダウン
     /// </summary>
     /// <param name="animator"></param>
-    /// <param name="reversalID"></param>
-    protected virtual void Down(Animator animator,int reversalID)
+    protected virtual void Down(Animator animator)
 	{
 		// rotationの固定を復活させ、0,0,0にする
 		this.GetComponent<Rigidbody>().rotation = Quaternion.Euler(Vector3.zero);
@@ -4828,15 +4831,24 @@ public class CharacterControlBase : MonoBehaviour
 		// ステートを復帰にする
 		animator.SetTrigger("Reversal");
 	}
+		
 
     /// <summary>
     /// Idle時共通操作
     /// </summary>
     protected virtual void Animation_Idle(Animator animator)
     {
-		// 移行後復活
-		//IsStep = false;
-		//IsWrestle = false;
+		Debug.Log("StepStartTime:" + _StepStartTime);
+		// ステップへの移行中だった場合何もしない(タイミングの問題でステップに切り替えてもステート変化が間に合わないことがある）
+		if (_StepStartTime != 0)
+		{
+			if(Time.time - _StepStartTime > 1.0f)
+			{
+				_StepStartTime = 0;
+			}
+					
+			return;			
+		}
 		// 固定があった場合解除
 		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 		// 死んでいたらダウン
@@ -5199,6 +5211,8 @@ public class CharacterControlBase : MonoBehaviour
 	/// <param name="animator"></param>
 	protected virtual void Animation_Fall(Animator animator)
 	{
+		// ステップ累積時間を戻す
+		_StepStartTime = 0;
 		// くっついているエフェクトを消す
 		BrokenEffect();
 		transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
@@ -5332,6 +5346,7 @@ public class CharacterControlBase : MonoBehaviour
 		// 硬直時間が終わるとIdleへ戻る。オバヒ着地とかやりたいならBoost0でLandingTimeの値を変えるとか
 		if (Time.time > LandingTime + LandingWaitTime)
 		{
+			_StepStartTime = 0;
             animator.SetTrigger("Idle");
 			// ブースト量を初期化する
 			Boost = GetMaxBoost(BoostLevel);
@@ -5388,25 +5403,20 @@ public class CharacterControlBase : MonoBehaviour
 	/// </summary>
 	/// <param name="animator"></param>
 	/// <param name="frontstephash"></param>
-	/// <param name="frontstepbackID"></param>
 	/// <param name="leftstephash"></param>
-	/// <param name="leftstepbackID"></param>
 	/// <param name="rightstephash"></param>
-	/// <param name="rightstepbackID"></param>
 	/// <param name="backstephash"></param>
-	/// <param name="backstepbackID"></param>
-	protected void Animation_StepDone(Animator animator,int frontstephash,int frontstepbackID,int leftstephash, int leftstepbackID,int rightstephash,int rightstepbackID,int backstephash,int backstepbackID,int airdashID,int jumpID)
+	protected void Animation_StepDone(Animator animator,int frontstephash,int leftstephash,int rightstephash,int backstephash)
 	{
 		StepMove(animator, frontstephash, leftstephash, rightstephash, backstephash);
-		CancelCheck(animator,airdashID,jumpID);
+		CancelCheck(animator);
 	}
 
 	/// <summary>
 	/// ステップ終了アニメ実行時の処理
 	/// </summary>
 	/// <param name="animator"></param>
-	/// <param name="idleID"></param>
-	protected void Animation_StepBack(Animator animator, int idleID)
+	protected void Animation_StepBack(Animator animator)
 	{
 		// ロック中は相手の方向を見る
 		if(IsRockon)
@@ -5430,6 +5440,8 @@ public class CharacterControlBase : MonoBehaviour
 			GetComponent<Rigidbody>().useGravity = true;
 			// 動作を停止する
 			MoveDirection = new Vector3(0, 0, 0);
+			// 累積時間を戻す
+			_StepStartTime = 0;
             // アニメーションをIdleに戻す
             animator.SetTrigger("Idle");
 		}	

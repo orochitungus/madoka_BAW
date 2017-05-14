@@ -496,7 +496,71 @@ public class SconosciutoControl : CharacterControlBase
 			ShowAirDashEffect = true;
 			Animation_AirDash(AnimatorUnit);
 		}
-
+		// 前ステップ
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontStepID)
+		{
+			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID);
+		}
+		// 左ステップ
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LeftStepID)
+		{
+			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID);
+		}
+		// 右ステップ
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RightStepID)
+		{
+			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID);
+		}
+		// 後ステップ
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BackStepID)
+		{
+			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID);
+		}
+		// 前ステップ終了
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontStepBackID)
+		{
+			Animation_StepBack(AnimatorUnit);
+		}
+		// 左ステップ終了
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LeftStepBackID)
+		{
+			Animation_StepBack(AnimatorUnit);
+		}
+		// 右ステップ終了
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RightStepBackID)
+		{
+			Animation_StepBack(AnimatorUnit);
+		}
+		// 後ステップ終了
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BackStepBackID)
+		{
+			Animation_StepBack(AnimatorUnit);
+		}
+		// リバーサル
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == ReversalID)
+		{
+			Reversal();
+		}
+		// ダメージ
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == DamageID)
+		{
+			Damage(AnimatorUnit);
+		}
+		// ダウン
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == DownID)
+		{
+			Down(AnimatorUnit);
+		}
+		// 吹き飛び
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BlowID)
+		{
+			Blow(AnimatorUnit);
+		}
+		// きりもみダウン
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == SpinDownID)
+		{
+			SpinDown(AnimatorUnit);
+		}
 		if (ShowAirDashEffect)
 		{
 			AirDashEffect.SetActive(true);
@@ -504,6 +568,41 @@ public class SconosciutoControl : CharacterControlBase
 		else
 		{
 			AirDashEffect.SetActive(false);
+		}
+	}
+
+	/// <summary>
+	/// アイドル時のアニメーションを制御
+	/// </summary>
+	/// <param name="animator"></param>
+	protected override void Animation_Idle(Animator animator)
+	{
+		// 攻撃したかフラグ
+		bool attack = false;
+		// くっついている弾丸系のエフェクトを消す
+		//DestroyArrow();
+
+		// 格闘の累積時間を初期化
+		Wrestletime = 0;
+		// 地上にいるか？(落下開始時は一応禁止）
+		if (IsGrounded)
+		{
+			attack = AttackDone();
+		}
+		// キャンセルダッシュ受付
+		if ((HasDashCancelInput || HasAirDashInput) && Boost > 0)
+		{
+			// 地上でキャンセルすると浮かないので浮かす
+			if (IsGrounded)
+			{
+				transform.Translate(new Vector3(0, 1, 0));
+			}
+			CancelDashDone(AnimatorUnit);
+		}
+		// 攻撃した場合はステートが変更されるので、ここで終了
+		if (!attack)
+		{
+			base.Animation_Idle(animator);
 		}
 	}
 
@@ -529,5 +628,34 @@ public class SconosciutoControl : CharacterControlBase
 	public bool AttackDone(bool run = false, bool AirDash = false)
 	{
 		return false;
+	}
+
+	protected override void Animation_Jumping(Animator animator)
+	{
+		base.Animation_Jumping(animator);
+		AttackDone();
+	}
+
+	protected override void Animation_Fall(Animator animator)
+	{
+		base.Animation_Fall(animator);
+		AttackDone();
+	}	
+
+	protected override void Animation_AirDash(Animator animator)
+	{
+		base.Animation_AirDash(animator);
+		AttackDone(false, true);
+	}
+
+	/// <summary>
+	/// Idle状態に戻す
+	/// </summary>
+	public void ReturnToIdle()
+	{
+		// 矢や格闘判定も消しておく
+		//DestroyArrow();
+		//DestroyWrestle();
+		ReturnMotion(AnimatorUnit);
 	}
 }
