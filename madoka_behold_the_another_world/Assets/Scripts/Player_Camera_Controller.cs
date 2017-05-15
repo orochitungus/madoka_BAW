@@ -347,7 +347,7 @@ public class Player_Camera_Controller : MonoBehaviour
         if (RockOnTarget == null)
         {
             target.IsRockon = false;
-            this.IsRockOn = false;
+            IsRockOn = false;
             return false;
         }
 

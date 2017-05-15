@@ -1397,7 +1397,8 @@ public class AIControlBase : MonoBehaviour
 		// プレイヤーサイドの場合
 		if (IsPlayer == CharacterControlBase.CHARACTERCODE.PLAYER_ALLY)
 		{
-			if (pcc.OnPushSerchButton(true, true, true))
+			// 相手がダウンしていなければロックオンして通常へ移行する
+			if (pcc.OnPushSerchButton(true, true,true))
 			{
 				Cpumode = CPUMODE.NORMAL;
 			}
@@ -1405,7 +1406,8 @@ public class AIControlBase : MonoBehaviour
 		// エネミーサイドの場合
 		else if (IsPlayer == CharacterControlBase.CHARACTERCODE.ENEMY)
 		{
-			if (pcc.OnPushSerchButton(false, true, true))
+			// 相手がダウンしていなければロックオンして通常へ移行する
+			if (pcc.OnPushSerchButton(false, true,true))
 			{
 				Cpumode = CPUMODE.NORMAL;
 			}
