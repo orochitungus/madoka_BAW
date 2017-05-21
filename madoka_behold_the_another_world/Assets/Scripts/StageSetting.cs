@@ -242,45 +242,116 @@ public class StageSetting : MonoBehaviour
 
 	// Use this for initialization
 	void Start () 
-    {		
-        m_setting = false;
+    {
+		player1Setting = false;
+		// 二人以上いる場合
+		if (savingparameter.GetNowPartyNum() >= 2)
+		{
+			player2Setting = false;
+		}
+		else
+		{
+			player2Setting = true;
+		}
+		// 三人以上いる場合
+		if (savingparameter.GetNowPartyNum() == 3)
+		{
+			player3Setting = false;
+		}
+		else
+		{
+			player3Setting = true;
+		}
 	}
 	
     // 配置したか否か(Startでロードした段階ではまだオブジェクトが生成されていない
-    private bool m_setting;
+    private bool player1Setting;
+	private bool player2Setting;
+	private bool player3Setting;
+
+	/// <summary>
+	/// 初期化完了フラグ
+	/// </summary>
+	private bool settingComplete = false;
 
 	// Update is called once per frame
 	void Update () 
     {
-        Initialise();        
+		if (!settingComplete)
+		{
+			Initialise();
+		}        
 	}
 
     // 初期化
     void Initialise()
     {
-        if (!m_setting)
-        {            
-            if (!SettingCharacter(0))
-            {
-                return;
-            }
+		// 一人目
+		if (!player1Setting)
+		{
+			if (!SettingCharacter(0))
+			{
+				return;
+			}
+			// プレイヤーが一人だけのときならSettingCharacter(0)が成功した時点で初期化終了
+			else
+			{
+				if(savingparameter.GetNowPartyNum() == 1)
+				{
+					settingComplete = true; 
+				}
+				player1Setting = true;
+			}
+		}
 
-            // クエストパートでは２、３人目は出さないので飛ばす
-            if (!IsQuestStage)
-            {
-                //・2キャラ目、3キャラ目がいる場合はその左右に配置する(いない場合は除く)
-                for (int i = 1; i < 3; i++)
-                {
-                    // いない場合を除く
-                    if (savingparameter.GetNowParty(i) != 0)
-                    {
-                        SettingCharacter(i);
-                    }
-                }
-            }
-            m_setting = true;
-        }
-    }
+        // クエストパートでは２、３人目は出さないので飛ばす
+        if (!IsQuestStage)
+        {
+			// 二人目
+			if(!player2Setting)
+			{
+				if(!SettingCharacter(1))
+				{
+					return;
+				}				
+				else
+				{
+					player2Setting = true;									
+				}
+			}
+            // 三人目
+			if(!player3Setting)
+			{
+				if(!SettingCharacter(2))
+				{
+					return;
+				}				
+				else
+				{
+					player3Setting = true;
+				}
+			}
+
+			// プレイヤーが二人のときで両方成功してたら初期化終了
+			if(savingparameter.GetNowPartyNum() == 2)
+			{
+				if(player1Setting && player2Setting)
+				{
+					settingComplete = true;
+				}
+			}
+
+			// プレイヤーが三人のときで両方成功してたら初期化終了
+			if(savingparameter.GetNowPartyNum() == 3)
+			{
+				if(player1Setting && player2Setting && player3Setting)
+				{
+					settingComplete = true;
+				}
+			}
+		}
+
+	}
 
     // ロードしたキャラをセッティングする
     // partynumber[in]  :パーティーの何人目か
@@ -288,11 +359,14 @@ public class StageSetting : MonoBehaviour
     {
         // Findでロードしたキャラクターを探す
         GameObject PlayerCharacter;
-        // 戦闘ステージ
-        if (!IsQuestStage)
-            PlayerCharacter = GameObject.Find(ObjectName.CharacterFileName[savingparameter.GetNowParty(partynumber)] + "(Clone)");
-        else
-            PlayerCharacter = GameObject.Find(ObjectName.CharacterFileName_Quest[savingparameter.GetNowParty(partynumber)] + "(Clone)");
+		// 戦闘ステージ
+		if (!IsQuestStage)
+		{
+			Debug.Log("Name_OR:" + ObjectName.CharacterFileName[savingparameter.GetNowParty(partynumber)]);
+			PlayerCharacter = GameObject.Find(ObjectName.CharacterFileName[savingparameter.GetNowParty(partynumber)] + "(Clone)");
+		}
+		else
+			PlayerCharacter = GameObject.Find(ObjectName.CharacterFileName_Quest[savingparameter.GetNowParty(partynumber)] + "(Clone)");
         // ロードが終わるまでタイムラグがあるようなので一旦待つ
         if (PlayerCharacter == null)
         {

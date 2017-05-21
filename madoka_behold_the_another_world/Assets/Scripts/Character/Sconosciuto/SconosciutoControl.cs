@@ -561,6 +561,21 @@ public class SconosciutoControl : CharacterControlBase
 		{
 			SpinDown(AnimatorUnit);
 		}
+		// 射撃
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == ShotID)
+		{
+			Shot();
+		}
+		// 走行射撃
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RunShotID)
+		{
+			Shot();
+		}
+		// 空中射撃
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == AirShotID)
+		{
+			Shot();
+		}
 		if (ShowAirDashEffect)
 		{
 			AirDashEffect.SetActive(true);
@@ -580,7 +595,7 @@ public class SconosciutoControl : CharacterControlBase
 		// 攻撃したかフラグ
 		bool attack = false;
 		// くっついている弾丸系のエフェクトを消す
-		//DestroyArrow();
+		DestroyArrow();
 
 		// 格闘の累積時間を初期化
 		Wrestletime = 0;
@@ -627,6 +642,153 @@ public class SconosciutoControl : CharacterControlBase
 	/// <param name="AirDash"></param>
 	public bool AttackDone(bool run = false, bool AirDash = false)
 	{
+		DestroyWrestle();
+		DestroyArrow();
+		// 覚醒中は覚醒技を発動
+		if (HasArousalAttackInput && IsArousal)
+		{
+			// アーマーをONにする
+			IsArmor = true;
+
+			// TODO:覚醒技前処理をここに入れる
+			
+			return true;
+		}
+		// サブ射撃でサブ射撃へ移行
+		else if (HasSubShotInput)
+		{
+			// 歩き撃ちはしないので、強制停止
+			if (run || AirDash)
+			{
+				// 強制停止実行
+				EmagencyStop(AnimatorUnit);
+			}
+			// TODO:サブ射撃実行
+			
+			return true;
+		}
+		// 特殊射撃で特殊射撃へ移行
+		else if (HasExShotInput)
+		{
+			// 歩き撃ちはしないので、強制停止
+			if (run || AirDash)
+			{
+				// 強制停止実行
+				EmagencyStop(AnimatorUnit);
+			}
+			// TODO:特殊射撃実行
+			
+			return true;
+		}
+		// 特殊格闘で特殊格闘へ移行
+		else if (HasExWrestleInput)
+		{
+			// 前特殊格闘(ブーストがないと実行不可)
+			if (HasFrontInput && Boost > 0)
+			{
+				// TODO:前特殊格闘実行
+				
+			}
+			// 空中で後特殊格闘(ブーストがないと実行不可）
+			else if (HasBackInput && !IsGrounded && Boost > 0)
+			{
+				// TODO:後特殊格闘実行
+			}
+			// それ以外
+			else
+			{
+				// TODO:特殊格闘実行
+			}
+			return true;
+		}
+		// 射撃で射撃へ移行
+		else if (HasShotInput)
+		{
+			if (run)
+			{
+				if (IsRockon)
+				{
+					// ①　transform.TransformDirection(Vector3.forward)でオブジェクトの正面の情報を得る
+					var forward = transform.TransformDirection(Vector3.forward);
+					// ②　自分の場所から対象との距離を引く
+					// カメラからEnemyを求める
+					var target = MainCamera.transform.GetComponentInChildren<Player_Camera_Controller>();
+					var targetDirection = target.Enemy.transform.position - transform.position;
+					// ③　①と②の角度をVector3.Angleで取る　			
+					float angle = Vector3.Angle(forward, targetDirection);
+					// 角度60度以内なら上体回しで撃つ（歩き撃ち限定で上記の矢の方向ベクトルを加算する）
+					if (angle < 60)
+					{
+						// TODO:上体補正
+
+						RunShotDone = true;
+						// 走行射撃実行
+						ShotDone(true);
+					}
+					// それ以外なら強制的に停止して（立ち撃ちにして）撃つ
+					else
+					{
+						// 強制停止実行
+						EmagencyStop(AnimatorUnit);
+						// 射撃実行
+						ShotDone(false);
+					}
+				}
+				// 非ロック状態なら歩き撃ちフラグを立てる
+				else
+				{
+					RunShotDone = true;
+					// 射撃実行
+					ShotDone(true);
+				}
+			}
+			else
+			{
+				// 射撃実行
+				ShotDone(false);
+			}
+			return true;
+		}
+		// 格闘で格闘へ移行
+		else if (HasWrestleInput)
+		{
+			// 空中ダッシュ中で空中ダッシュ格闘へ移行
+			if (AirDash)
+			{
+				// 空中ダッシュ格闘実行
+				AirDashWrestleDone(AnimatorUnit, AirDashSpeed, 11);
+			}
+			// 前格闘で前格闘へ移行
+			else if (HasFrontInput)
+			{
+				// 前格闘実行(Character_Spec.cs参照)
+				WrestleDone(AnimatorUnit, 7, "FrontWrestle");
+			}
+			// 左格闘で左格闘へ移行
+			else if (HasLeftInput)
+			{
+				// 左格闘実行(Character_Spec.cs参照)
+				WrestleDone_GoAround_Left(AnimatorUnit, 8);
+			}
+			// 右格闘で右格闘へ移行
+			else if (HasRightInput)
+			{
+				// 右格闘実行(Character_Spec.cs参照)
+				WrestleDone_GoAround_Right(AnimatorUnit, 9);
+			}
+			// 後格闘で後格闘へ移行
+			else if (HasBackInput)
+			{
+				// 後格闘実行（ガード）(Character_Spec.cs参照)
+				GuardDone(AnimatorUnit, 10);
+			}
+			else
+			{
+				// それ以外ならN格闘実行(2段目と3段目の追加入力はWrestle1とWrestle2で行う
+				WrestleDone(AnimatorUnit, 4, "Wrestle1");
+			}
+			return true;
+		}
 		return false;
 	}
 
@@ -654,8 +816,29 @@ public class SconosciutoControl : CharacterControlBase
 	public void ReturnToIdle()
 	{
 		// 矢や格闘判定も消しておく
-		//DestroyArrow();
-		//DestroyWrestle();
+		DestroyArrow();
+		DestroyWrestle();
 		ReturnMotion(AnimatorUnit);
+	}
+
+	/// <summary>
+	/// 射撃の装填開始
+	/// </summary>
+	/// <param name="ruhshot">走行射撃であるか否か</param>
+	public void ShotDone(bool runshot)
+	{
+		// 歩行時は上半身のみにして走行（下半身のみ）と合成
+		if (runshot)
+		{
+			// アニメーション合成処理＆再生
+			AnimatorUnit.SetTrigger("RunShot");
+		}
+		// 立ち射撃か空中射撃
+		else
+		{
+			AnimatorUnit.SetTrigger("Shot");
+		}
+		// 装填状態へ移行
+		Shotmode = ShotMode.RELORD;
 	}
 }

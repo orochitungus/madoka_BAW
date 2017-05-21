@@ -43,7 +43,23 @@ public static class savingparameter
     {
         return nowparty[index];
     }
-        
+    
+	/// <summary>
+	/// 現在のパーティーは何人か
+	/// </summary>
+	/// <returns></returns>
+	public static int GetNowPartyNum()
+	{
+		int partynum = 0;
+		for(int i=0; i<3; i++)
+		{
+			if(GetNowParty(i) != 0)
+			{
+				partynum++;
+			}
+		}
+		return partynum;
+	}
 
     // 各キャラのレベル
     private static int[] nowlevel = new int[(int)Character_Spec.CHARACTER_NAME.CHARACTER_ALL_NUM];

@@ -3539,8 +3539,8 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     protected virtual void DestroyArrow()
     {
-        // 弾があるなら消す(m_ArrowRootの下に何かあるなら全部消す）
-        // メイン射撃など
+		// 弾があるなら消す(MainShotRootの下に何かあるなら全部消す）
+		// メイン射撃など
 		int ChildCount = MainShotRoot.transform.childCount;
         for (int i = 0; i < ChildCount; i++)
         {
@@ -3732,7 +3732,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="idlehash"></param>
     protected void EmagencyStop(Animator animator)
     {
-        this.MoveDirection = Vector3.zero;
+        MoveDirection = Vector3.zero;
         animator.SetTrigger("Idle");
     }
 
@@ -4638,12 +4638,12 @@ public class CharacterControlBase : MonoBehaviour
 
 
 		// 重力を復活
-		this.GetComponent<Rigidbody>().useGravity = true;
+		GetComponent<Rigidbody>().useGravity = true;
 		// 固定していた場合、固定解除
-		this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 
 		// 錐揉みダウン（ダウン値MAX）なら錐揉みダウンアニメを再生し、ステートをSpinDownへ切り替える
-		if (this.NowDownRatio >= this.DownRatioBias)
+		if (NowDownRatio >= DownRatioBias)
 		{
 			// 錐揉みダウンアニメを再生する
 			animator.SetTrigger("Spindown");
@@ -4660,7 +4660,7 @@ public class CharacterControlBase : MonoBehaviour
 		}
 		// 攻撃と同じベクトルを与える。ここの値はm_BlowDirectionに保存したものを使う
 		// TODO:Velocityで飛ばしてるのでMoveDirectionに変えてそれで飛ばす
-		RigidBody.AddForce(this.BlowDirection.x*10, 10, this.BlowDirection.z*10);
+		RigidBody.AddForce(BlowDirection.x*10, 10, BlowDirection.z*10);
 	}
 
     /// <summary>
@@ -4709,16 +4709,16 @@ public class CharacterControlBase : MonoBehaviour
 		// ステートを復帰にする
 
 		// 接地までなにもせず、接地したらDownへ移行し、m_DownTimeを計算する
-		if (this.IsGrounded)
+		if (IsGrounded)
 		{
             animator.SetTrigger("Down");
 			// downへ移行
-			this.DownTime = Time.time;
+			DownTime = Time.time;
 			// 速度を0まで落とす（吹き飛び時のベクトルを消す）
-			this.MoveDirection = Vector3.zero;
+			MoveDirection = Vector3.zero;
 			// 回転を戻す
 			// rotationの固定を復活させ、0,0,0にする
-			this.GetComponent<Rigidbody>().rotation = Quaternion.Euler(Vector3.zero);
+			GetComponent<Rigidbody>().rotation = Quaternion.Euler(Vector3.zero);
 		}
 		// ブースト入力があった場合、ダウン値がMAX未満でブーストゲージが一定量あれば、Reversalへ変更	
 		// rotationを0にして復帰アニメを再生する
