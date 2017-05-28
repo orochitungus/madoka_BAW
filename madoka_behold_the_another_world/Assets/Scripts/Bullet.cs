@@ -402,7 +402,7 @@ public class Bullet : MonoBehaviour
     // 指定時間後自分を破棄する
     protected void BrokenMySelf()
     {
-        // とりあえず時間が通常のときだけ自壊させる（何かしらと接触すると壊す予定ではあるが・・・時間停止中どうするべきか・・・？）
+        // とりあえず時間が通常のときだけ自壊させる
         if (Timestopmode == CharacterControlBase.TimeStopMode.NORMAL || Timestopmode == CharacterControlBase.TimeStopMode.TIME_DELAY)
         {
             if (LifeTime*60 < TimeNow)
@@ -591,7 +591,7 @@ public class Bullet : MonoBehaviour
             // アニメが起動していなかった場合、アニメを起動する
             if (!StartedBombAnimation)
             {
-                this.GetComponent<Animation>().Play(BombAnimationName);
+                GetComponent<Animation>().Play(BombAnimationName);
                 StartedBombAnimation = true;
             }
             // 敵にあたったわけでないなら強制抜け

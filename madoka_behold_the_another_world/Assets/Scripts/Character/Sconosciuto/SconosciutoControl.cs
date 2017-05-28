@@ -576,6 +576,22 @@ public class SconosciutoControl : CharacterControlBase
 		{
 			Shot();
 		}
+		// 射撃フォロースルー
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowShotID)
+		{
+			Shot();
+		}
+		// 走行射撃フォロースルー
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowRunShotID)
+		{
+			Shot();
+		}
+		// 空中射撃フォロースルー
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowAirShotID)
+		{
+			Shot();
+		}
+
 		if (ShowAirDashEffect)
 		{
 			AirDashEffect.SetActive(true);
@@ -663,8 +679,8 @@ public class SconosciutoControl : CharacterControlBase
 				// 強制停止実行
 				EmagencyStop(AnimatorUnit);
 			}
-			// TODO:サブ射撃実行
-			
+			// サブ射撃実行
+			SubShotDone();
 			return true;
 		}
 		// 特殊射撃で特殊射撃へ移行
@@ -832,6 +848,7 @@ public class SconosciutoControl : CharacterControlBase
 		{
 			// アニメーション合成処理＆再生
 			AnimatorUnit.SetTrigger("RunShot");
+			Debug.Log("RunShotDone!!");
 		}
 		// 立ち射撃か空中射撃
 		else
@@ -840,5 +857,200 @@ public class SconosciutoControl : CharacterControlBase
 		}
 		// 装填状態へ移行
 		Shotmode = ShotMode.RELORD;
+	}
+
+	protected override void Shot()
+	{
+		// キャンセルダッシュ受付
+		if ((HasDashCancelInput || HasAirDashInput) && Boost > 0)
+		{
+			// 地上でキャンセルすると浮かないので浮かす
+			if (IsGrounded)
+			{
+				transform.Translate(new Vector3(0, 1, 0));
+			}
+			CancelDashDone(AnimatorUnit);
+		}
+		base.Shot();
+	}
+
+	/// <summary>
+	/// 装填を行う（アニメーションファイルの装填フレームにインポートする）
+	/// </summary>
+	/// <param name="type">射撃がどれであるか</param>
+	public void ShootloadNormalShot()
+	{
+		// 弾があるとき限定（チャージショット除く）
+		if (BulletNum[0] > 0)
+		{
+			// ロックオン時本体の方向を相手に向ける       
+			if (IsRockon)
+			{
+				RotateToTarget();
+			}
+			// 弾を消費する
+			BulletNum[0]--;
+			// 撃ち終わった時間を設定する                
+			// メイン（弾数がMax-1のとき）
+			if (BulletNum[0] == Character_Spec.cs[(int)CharacterName][0].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][0].m_OriginalBulletNum - 1)
+			{
+				MainshotEndtime = Time.time;
+			}
+
+			// 矢の出現ポジションをフックと一致させる
+			Vector3 pos = MainShotRoot.transform.position;
+			Quaternion rot = Quaternion.Euler(MainShotRoot.transform.rotation.eulerAngles.x, MainShotRoot.transform.rotation.eulerAngles.y, MainShotRoot.transform.rotation.eulerAngles.z);
+			// 矢を出現させる			
+			var obj = Instantiate(NormalShotBullet, pos, rot);
+			// 親子関係を再設定する(=矢をフックの子にする）
+			if (obj.transform.parent == null)
+			{
+				obj.transform.parent = MainShotRoot.transform;
+				// 矢の親子関係を付けておく
+				obj.transform.GetComponent<Rigidbody>().isKinematic = true;
+			}			
+		}
+	}
+
+	/// <summary>
+	/// 射撃（射出）射撃のアニメーションファイルの射出フレームにインポートする
+	/// </summary>
+	/// <param name="type"></param>
+	public void Shooting()
+	{
+		// 通常射撃の矢
+		var arrow = GetComponentInChildren<SconosciutoNormalShot>();
+		
+
+		if (arrow != null)
+		{
+			// 矢のスクリプトの速度を設定する
+			// メイン弾速設定
+			arrow.ShotSpeed = Character_Spec.cs[(int)CharacterName][0].m_Movespeed;			
+				
+			// 矢の方向を決定する(本体と同じ方向に向けて打ち出す。ただしノーロックで本体の向きが0のときはベクトルが0になるので、このときだけはカメラの方向に飛ばす）
+			if (IsRockon && RunShotDone)
+			{
+				// ロックオン対象の座標を取得
+				var target = GetComponentInChildren<Player_Camera_Controller>();
+				// 対象の座標を取得
+				Vector3 targetpos = target.Enemy.transform.position;
+				// 補正値込みの胸部と本体の回転ベクトルを取得
+				// 本体
+				Quaternion mainrot = Quaternion.LookRotation(targetpos - this.transform.position);
+				// 胸部
+				Vector3 normalizeRot_OR = BrestObject.transform.rotation.eulerAngles;
+				// 本体と胸部と矢の補正値分回転角度を合成
+				Vector3 addrot = mainrot.eulerAngles + normalizeRot_OR - new Vector3(0, 74.0f, 0);
+				Quaternion qua = Quaternion.Euler(addrot);
+				// forwardをかけて本体と胸部の和を進行方向ベクトルへ変換                
+				Vector3 normalizeRot = (qua) * Vector3.forward;
+				// 移動ベクトルを確定する
+				arrow.MoveDirection = Vector3.Normalize(normalizeRot);
+			}
+			// ロックオンしているとき
+			else if (IsRockon)
+			{
+				// ロックオン対象の座標を取得
+				var target = GetComponentInChildren<Player_Camera_Controller>();
+				// 対象の座標を取得
+				Vector3 targetpos = target.Enemy.transform.position;
+				// 本体の回転角度を拾う
+				Quaternion mainrot = Quaternion.LookRotation(targetpos - this.transform.position);
+				// 正規化して代入する
+				Vector3 normalizeRot = mainrot * Vector3.forward;
+
+				// 通常射撃の矢
+				arrow.MoveDirection = Vector3.Normalize(normalizeRot);				
+			}
+			// ロックオンしていないとき
+			else
+			{
+				// 本体角度が0の場合カメラの方向を射出角とし、正規化して代入する
+				if (transform.rotation.eulerAngles == Vector3.zero)
+				{
+					// ただしそのままだとカメラが下を向いているため、一旦その分は補正する
+					Quaternion rotateOR = MainCamera.transform.rotation;
+					Vector3 rotateOR_E = rotateOR.eulerAngles;
+					rotateOR_E.x = 0;
+					rotateOR = Quaternion.Euler(rotateOR_E);
+
+					// 通常射撃の矢
+					if (arrow != null)
+					{
+						arrow.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+					}
+				}
+				// それ以外は本体の角度を射出角にする
+				else
+				{
+					// 通常射撃の矢
+					arrow.MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);										
+				}				
+			}
+			// 弾丸の向きを合わせる
+			arrow.transform.rotation = transform.rotation;
+			Debug.Log(arrow.transform.rotation.eulerAngles);
+
+			// 矢の移動ベクトルを代入する
+			// 通常射撃
+			if (arrow != null)
+			{
+				BulletMoveDirection = arrow.MoveDirection;
+			}
+
+
+			// 攻撃力を代入する
+			// 攻撃力を決定する(ここの2がスキルのインデックス。下も同様）
+			OffensivePowerOfBullet = Character_Spec.cs[(int)CharacterName][0].m_OriginalStr + Character_Spec.cs[(int)CharacterName][0].m_GrowthCoefficientStr * (this.StrLevel - 1);
+			// ダウン値を決定する
+			DownratioPowerOfBullet = Character_Spec.cs[(int)CharacterName][0].m_DownPoint;
+			// 覚醒ゲージ増加量を決定する
+			ArousalRatioOfBullet = Character_Spec.cs[(int)CharacterName][0].m_arousal;
+
+			Shotmode = ShotMode.SHOT;
+
+			// 固定状態を解除
+			// ずれた本体角度を戻す(Yはそのまま）
+			transform.rotation = Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y, 0));
+			transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+
+			// 硬直時間を設定
+			AttackTime = Time.time;
+			// 射出音を再生する
+			AudioManager.Instance.PlaySE("shot_hand_gun");
+		}
+		// 弾がないときはとりあえずフラグだけは立てておく
+		else
+		{
+			// 硬直時間を設定
+			AttackTime = Time.time;
+			Shotmode = ShotMode.SHOTDONE;
+		}
+
+		// フォロースルーへ移行する(チャージショットの場合は別タイミング）
+		// 走行時
+		if (RunShotDone)
+		{
+			AnimatorUnit.SetTrigger("RunFollowThrow");
+		}
+		// 通常時
+		else
+		{
+			AnimatorUnit.SetTrigger("ShotFollowThrow");
+		}
+		
+	}
+
+	/// <summary>
+	/// サブ射撃実行
+	/// </summary>
+	public void SubShotDone()
+	{
+		AnimatorUnit.SetTrigger("SubShot");
+		// 装填状態へ移行
+		Shotmode = ShotMode.RELORD;
+		// 位置固定を行う
+		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
 	}
 }

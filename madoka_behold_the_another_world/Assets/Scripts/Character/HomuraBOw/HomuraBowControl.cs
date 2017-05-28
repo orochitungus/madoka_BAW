@@ -1538,9 +1538,9 @@ public class HomuraBowControl : CharacterControlBase
 	private void SetOffensivePower(SkillType_Homura_B kind)
 	{
 		// 攻撃力を決定する(ここの2がスキルのインデックス。下も同様）
-		this.OffensivePowerOfBullet = Character_Spec.cs[(int)CharacterName][(int)kind].m_OriginalStr + Character_Spec.cs[(int)CharacterName][(int)kind].m_GrowthCoefficientStr * (this.StrLevel - 1);
+		OffensivePowerOfBullet = Character_Spec.cs[(int)CharacterName][(int)kind].m_OriginalStr + Character_Spec.cs[(int)CharacterName][(int)kind].m_GrowthCoefficientStr * (this.StrLevel - 1);
 		// ダウン値を決定する
-		this.DownratioPowerOfBullet = Character_Spec.cs[(int)CharacterName][(int)kind].m_DownPoint;
+		DownratioPowerOfBullet = Character_Spec.cs[(int)CharacterName][(int)kind].m_DownPoint;
 		// 覚醒ゲージ増加量を決定する
 		ArousalRatioOfBullet = Character_Spec.cs[(int)CharacterName][(int)kind].m_arousal;
 	}

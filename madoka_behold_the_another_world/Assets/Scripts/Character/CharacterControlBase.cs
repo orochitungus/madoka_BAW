@@ -3837,7 +3837,7 @@ public class CharacterControlBase : MonoBehaviour
         float movespeed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Movespeed;
         // 移動方向
         // ロックオン且つ本体角度が0でない時、相手の方向を移動方向とする
-        if (IsRockon && this.transform.rotation.eulerAngles.y != 0)
+        if (IsRockon && transform.rotation.eulerAngles.y != 0)
         {
             // ロックオン対象を取得
             var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
@@ -3961,7 +3961,7 @@ public class CharacterControlBase : MonoBehaviour
         float movespeed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Movespeed;
         // 移動方向
         // ロックオン且つ本体角度が0でない時、相手の左側を移動方向とする（通常時のロックオン時左移動をさせつつ前進させる）
-        if (IsRockon && this.transform.rotation.eulerAngles.y != 0)
+        if (IsRockon && transform.rotation.eulerAngles.y != 0)
         {
             // ロックオン対象を取得
             var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
@@ -3979,7 +3979,7 @@ public class CharacterControlBase : MonoBehaviour
             MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
         }
         // 本体角度が0の場合カメラの方向に45度足した値をを移動方向とし、正規化して代入する
-        else if (this.transform.rotation.eulerAngles.y == 0)
+        else if (transform.rotation.eulerAngles.y == 0)
         {
             // ただしそのままだとカメラが下を向いているため、一旦その分は補正する
             Quaternion rotateOR = MainCamera.transform.rotation;
@@ -3987,7 +3987,7 @@ public class CharacterControlBase : MonoBehaviour
             rotateOR_E.x = 0;
             rotateOR_E.y = rotateOR.eulerAngles.y + 10;
             rotateOR = Quaternion.Euler(rotateOR_E);
-            this.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+            MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
         }
         // それ以外は本体の角度+45度を移動方向にする
         else
