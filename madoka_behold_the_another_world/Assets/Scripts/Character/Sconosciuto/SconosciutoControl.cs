@@ -875,7 +875,7 @@ public class SconosciutoControl : CharacterControlBase
 	}
 
 	/// <summary>
-	/// 装填を行う（アニメーションファイルの装填フレームにインポートする）
+	/// 通常射撃の装填を行う（アニメーションファイルの装填フレームにインポートする）
 	/// </summary>
 	/// <param name="type">射撃がどれであるか</param>
 	public void ShootloadNormalShot()

@@ -168,6 +168,10 @@ public class Bullet : MonoBehaviour
 	/// </summary>
 	public GameObject FunnelBeam;
 
+	/// <summary>
+	/// ボム着弾時のエフェクト
+	/// </summary>
+	public GameObject BombEffect;
  
     // Updateでの共通処理（継承用）
     protected void UpdateCore()
@@ -593,6 +597,8 @@ public class Bullet : MonoBehaviour
             {
                 GetComponent<Animation>().Play(BombAnimationName);
                 StartedBombAnimation = true;
+				// 爆風エフェクトをONにする
+				BombEffect.SetActive(true);
             }
             // 敵にあたったわけでないなら強制抜け
             if (target == null)
