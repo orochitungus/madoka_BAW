@@ -402,11 +402,11 @@ public class SconosciutoControl : CharacterControlBase
 			// サブ射撃
 			Battleinterfacecontroller.Weapon2.Kind.text = "Sub Shot";
 			Battleinterfacecontroller.Weapon2.WeaponGraphic.sprite = SubShotIcon;
-			Battleinterfacecontroller.Weapon2.NowBulletNumber = BulletNum[(int)ShotType.SUB_SHOT];
-			Battleinterfacecontroller.Weapon2.MaxBulletNumber = Character_Spec.cs[(int)CharacterName][(int)ShotType.SUB_SHOT].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.SUB_SHOT].m_OriginalBulletNum;
+			Battleinterfacecontroller.Weapon2.NowBulletNumber = BulletNum[1];
+			Battleinterfacecontroller.Weapon2.MaxBulletNumber = Character_Spec.cs[(int)CharacterName][1].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][1].m_OriginalBulletNum;
 			Battleinterfacecontroller.Weapon2.UseChargeGauge = false;
 			// 1発でも使えれば使用可能(リロード時は0になる)
-			if (BulletNum[(int)ShotType.SUB_SHOT] != 0)
+			if (BulletNum[1] != 0)
 			{
 				Battleinterfacecontroller.Weapon2.Use = true;
 			}
@@ -418,11 +418,11 @@ public class SconosciutoControl : CharacterControlBase
 			// 特殊射撃
 			Battleinterfacecontroller.Weapon1.Kind.text = "EX Shot";
 			Battleinterfacecontroller.Weapon1.WeaponGraphic.sprite = ExShotIcon;
-			Battleinterfacecontroller.Weapon1.NowBulletNumber = BulletNum[(int)ShotType.EX_SHOT];
-			Battleinterfacecontroller.Weapon1.MaxBulletNumber = Character_Spec.cs[(int)CharacterName][(int)ShotType.EX_SHOT].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.EX_SHOT].m_OriginalBulletNum;
+			Battleinterfacecontroller.Weapon1.NowBulletNumber = BulletNum[2];
+			Battleinterfacecontroller.Weapon1.MaxBulletNumber = Character_Spec.cs[(int)CharacterName][2].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][2].m_OriginalBulletNum;
 			Battleinterfacecontroller.Weapon1.UseChargeGauge = false;
 			// 1発でも使えれば使用可能
-			if (BulletNum[(int)ShotType.EX_SHOT] > 0)
+			if (BulletNum[2] > 0)
 			{
 				Battleinterfacecontroller.Weapon1.Use = true;
 			}
@@ -452,11 +452,11 @@ public class SconosciutoControl : CharacterControlBase
 			ReloadSystem.OneByOne(ref BulletNum[(int)ShotType.NORMAL_SHOT], Time.time, Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_OriginalBulletNum,
 				Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_reloadtime, ref MainshotEndtime);
 			// サブ射撃
-			ReloadSystem.AllTogether(ref BulletNum[(int)ShotType.SUB_SHOT], Time.time, Character_Spec.cs[(int)CharacterName][(int)ShotType.SUB_SHOT].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.SUB_SHOT].m_OriginalBulletNum,
-				Character_Spec.cs[(int)CharacterName][(int)ShotType.SUB_SHOT].m_reloadtime, ref SubshotEndtime);
+			ReloadSystem.AllTogether(ref BulletNum[1], Time.time, Character_Spec.cs[(int)CharacterName][1].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][1].m_OriginalBulletNum,
+				Character_Spec.cs[(int)CharacterName][1].m_reloadtime, ref SubshotEndtime);
 			// 特殊射撃
-			ReloadSystem.OneByOne(ref BulletNum[(int)ShotType.EX_SHOT], Time.time, Character_Spec.cs[(int)CharacterName][(int)ShotType.EX_SHOT].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.EX_SHOT].m_OriginalBulletNum,
-				Character_Spec.cs[(int)CharacterName][(int)ShotType.EX_SHOT].m_reloadtime, ref ExshotEndtime);
+			ReloadSystem.OneByOne(ref BulletNum[2], Time.time, Character_Spec.cs[(int)CharacterName][2].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][2].m_OriginalBulletNum,
+				Character_Spec.cs[(int)CharacterName][2].m_reloadtime, ref ExshotEndtime);
 		}
 	}
 
@@ -591,6 +591,26 @@ public class SconosciutoControl : CharacterControlBase
 		{
 			Shot();
 		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowSubShotID)
+		{
+			SubShot();
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowEXShotID)
+		{
+			ExShot();
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle1ID)
+		{
+			Wrestle1(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle2ID)
+		{
+			Wrestle2(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle3ID)
+		{
+			Wrestle3(AnimatorUnit);
+		}
 
 		if (ShowAirDashEffect)
 		{
@@ -692,8 +712,8 @@ public class SconosciutoControl : CharacterControlBase
 				// 強制停止実行
 				EmagencyStop(AnimatorUnit);
 			}
-			// TODO:特殊射撃実行
-			
+			// 特殊射撃実行
+			ExShotDone();
 			return true;
 		}
 		// 特殊格闘で特殊格闘へ移行
@@ -778,7 +798,7 @@ public class SconosciutoControl : CharacterControlBase
 			else if (HasFrontInput)
 			{
 				// 前格闘実行(Character_Spec.cs参照)
-				WrestleDone(AnimatorUnit, 7, "FrontWrestle");
+				WrestleDone(AnimatorUnit, 4, "FrontWrestle");
 			}
 			// 左格闘で左格闘へ移行
 			else if (HasLeftInput)
@@ -835,6 +855,25 @@ public class SconosciutoControl : CharacterControlBase
 		DestroyArrow();
 		DestroyWrestle();
 		ReturnMotion(AnimatorUnit);
+	}
+
+	protected override void DestroyArrow()
+	{
+		base.DestroyArrow();
+		// サブ射撃
+		int ChildCount = SubShotHock.transform.childCount;
+		for (int i = 0; i < ChildCount; i++)
+		{
+			Transform child = SubShotHock.transform.GetChild(i);
+			Destroy(child.gameObject);
+		}
+		// 特殊射撃
+		int childcount2 = EXShotHock.transform.childCount;
+		for(int i=0; i<childcount2; i++)
+		{
+			Transform child = EXShotHock.transform.GetChild(i);
+			Destroy(child.gameObject);
+		}
 	}
 
 	/// <summary>
@@ -1074,88 +1113,245 @@ public class SconosciutoControl : CharacterControlBase
     /// </summary>
     public void ShootLoadSubShot()
     {
-        // サブ射撃の弾丸
-        var arrow = GetComponentInChildren<SconosciutoSubShot>();
-        if(arrow != null)
-        {
-            // 弾速設定
-            arrow.ShotSpeed = Character_Spec.cs[(int)CharacterName][1].m_Movespeed;
-            // ロックオンしているとき
-            if(IsRockon)
-            {
-                // ロックオン対象の座標を取得
-                var target = GetComponentInChildren<Player_Camera_Controller>();
-                // 対象の座標を取得
-                Vector3 targetpos = target.Enemy.transform.position;
-                // 本体の回転角度を拾う
-                Quaternion mainrot = Quaternion.LookRotation(targetpos - this.transform.position);
-                // 正規化して代入する
-                Vector3 normalizeRot = mainrot * Vector3.forward;
+		// 弾があるとき限定
+		if (BulletNum[1] > 0)
+		{
+			// ロックオン時本体の方向を相手に向ける       
+			if (IsRockon)
+			{
+				RotateToTarget();
+			}
+			// 弾を消費する
+			BulletNum[1]--;
+			// 撃ち終わった時間を設定する                
+			// メイン（弾数がMax-1のとき）
+			if (BulletNum[1] == Character_Spec.cs[(int)CharacterName][1].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][1].m_OriginalBulletNum - 1)
+			{
+				SubshotEndtime = Time.time;
+			}
 
-                // サブ射撃の弾丸
-                arrow.MoveDirection = Vector3.Normalize(normalizeRot);
-            }
-            // ロックオンしていないとき
-            else
-            {
-                // 本体角度が0の場合カメラの方向を射出角とし、正規化して代入する
-                if (transform.rotation.eulerAngles == Vector3.zero)
-                {
-                    // ただしそのままだとカメラが下を向いているため、一旦その分は補正する
-                    Quaternion rotateOR = MainCamera.transform.rotation;
-                    Vector3 rotateOR_E = rotateOR.eulerAngles;
-                    rotateOR_E.x = 0;
-                    rotateOR = Quaternion.Euler(rotateOR_E);
+			// 矢の出現ポジションをフックと一致させる
+			Vector3 pos = SubShotHock.transform.position;
+			Quaternion rot = Quaternion.Euler(SubShotHock.transform.rotation.eulerAngles.x, SubShotHock.transform.rotation.eulerAngles.y, SubShotHock.transform.rotation.eulerAngles.z);
+			// 矢を出現させる			
+			var obj = Instantiate(SubShotBullet, pos, rot);
+			// 親子関係を再設定する(=矢をフックの子にする）
+			if (obj.transform.parent == null)
+			{
+				obj.transform.parent = SubShotHock.transform;
+				// 矢の親子関係を付けておく
+				obj.transform.GetComponent<Rigidbody>().isKinematic = true;
+			}
+		}
 
-                    // 通常射撃の矢
-                    if (arrow != null)
-                    {
-                        arrow.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
-                    }
-                }
-                // それ以外は本体の角度を射出角にする
-                else
-                {
-                    // 通常射撃の矢
-                    arrow.MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
-                }
-            }
-            // 弾丸の向きを合わせる
-            arrow.transform.rotation = transform.rotation;
-            // 矢の移動ベクトルを代入する
-            if (arrow != null)
-            {
-                BulletMoveDirection = arrow.MoveDirection;
-            }
-            // 攻撃力を代入する
-            // 攻撃力を決定する(ここの2がスキルのインデックス。下も同様）
-            OffensivePowerOfBullet = Character_Spec.cs[(int)CharacterName][1].m_OriginalStr + Character_Spec.cs[(int)CharacterName][1].m_GrowthCoefficientStr * (StrLevel - 1);
-            // ダウン値を決定する
-            DownratioPowerOfBullet = Character_Spec.cs[(int)CharacterName][1].m_DownPoint;
-            // 覚醒ゲージ増加量を決定する
-            ArousalRatioOfBullet = Character_Spec.cs[(int)CharacterName][1].m_arousal;
+	}
 
-            Shotmode = ShotMode.SHOT;
+	/// <summary>
+	/// サブ射撃の射出のところにインポートする
+	/// </summary>
+	public void ShootingSubShot()
+	{
+		// サブ射撃の弾丸
+		var arrow = GetComponentInChildren<SconosciutoSubShot>();
+		if (arrow != null)
+		{
+			// 弾速設定
+			arrow.ShotSpeed = Character_Spec.cs[(int)CharacterName][1].m_Movespeed;
+			// ロックオンしているとき
+			if (IsRockon)
+			{
+				// ロックオン対象の座標を取得
+				var target = GetComponentInChildren<Player_Camera_Controller>();
+				// 対象の座標を取得
+				Vector3 targetpos = target.Enemy.transform.position;
+				// 本体の回転角度を拾う
+				Quaternion mainrot = Quaternion.LookRotation(targetpos - this.transform.position);
+				// 正規化して代入する
+				Vector3 normalizeRot = mainrot * Vector3.forward;
 
-            // 固定状態を解除
-            // ずれた本体角度を戻す(Yはそのまま）
-            transform.rotation = Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y, 0));
-            transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+				// サブ射撃の弾丸
+				arrow.MoveDirection = Vector3.Normalize(normalizeRot);
+			}
+			// ロックオンしていないとき
+			else
+			{
+				// 本体角度が0の場合カメラの方向を射出角とし、正規化して代入する
+				if (transform.rotation.eulerAngles == Vector3.zero)
+				{
+					// ただしそのままだとカメラが下を向いているため、一旦その分は補正する
+					Quaternion rotateOR = MainCamera.transform.rotation;
+					Vector3 rotateOR_E = rotateOR.eulerAngles;
+					rotateOR_E.x = 0;
+					rotateOR = Quaternion.Euler(rotateOR_E);
 
-            // 硬直時間を設定
-            AttackTime = Time.time;
-            // 射出音を再生する
-            AudioManager.Instance.PlaySE("shot_hand_gun");
-        }
-        // 弾がないときはとりあえずフラグだけは立てておく
-        else
-        {
-            // 硬直時間を設定
-            AttackTime = Time.time;
-            Shotmode = ShotMode.SHOTDONE;
-        }
-        // フォロースルーへ移行する
-        AnimatorUnit.SetTrigger("SubShotFollowThrow");
+					// 通常射撃の矢
+					if (arrow != null)
+					{
+						arrow.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+					}
+				}
+				// それ以外は本体の角度を射出角にする
+				else
+				{
+					// 通常射撃の矢
+					arrow.MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
+				}
+			}
+			// 弾丸の向きを合わせる
+			arrow.transform.rotation = transform.rotation;
+			// 矢の移動ベクトルを代入する
+			if (arrow != null)
+			{
+				BulletMoveDirection = arrow.MoveDirection;
+			}
+			// 攻撃力を代入する
+			// 攻撃力を決定する(ここの2がスキルのインデックス。下も同様）
+			OffensivePowerOfBullet = Character_Spec.cs[(int)CharacterName][1].m_OriginalStr + Character_Spec.cs[(int)CharacterName][1].m_GrowthCoefficientStr * (StrLevel - 1);
+			// ダウン値を決定する
+			DownratioPowerOfBullet = Character_Spec.cs[(int)CharacterName][1].m_DownPoint;
+			// 覚醒ゲージ増加量を決定する
+			ArousalRatioOfBullet = Character_Spec.cs[(int)CharacterName][1].m_arousal;
 
-    }
+			Shotmode = ShotMode.SHOT;
+
+			// 固定状態を解除
+			// ずれた本体角度を戻す(Yはそのまま）
+			transform.rotation = Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y, 0));
+			transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+
+			// 硬直時間を設定
+			AttackTime = Time.time;
+			// 射出音を再生する
+			AudioManager.Instance.PlaySE("shot_hand_gun");
+		}
+		// 弾がないときはとりあえずフラグだけは立てておく
+		else
+		{
+			// 硬直時間を設定
+			AttackTime = Time.time;
+			Shotmode = ShotMode.SHOTDONE;
+		}
+		// フォロースルーへ移行する
+		AnimatorUnit.SetTrigger("SubShotFollowThrow");
+	}
+
+	/// <summary>
+	/// 特殊射撃実行
+	/// </summary>
+	public void ExShotDone()
+	{
+		AnimatorUnit.SetTrigger("EXShot");
+		// 位置固定を行う
+		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+	}
+
+	/// <summary>
+	/// 特殊射撃の装填を行う(特殊射撃はレーザーなのでこの時点で発射される）
+	/// </summary>
+	public void ShootLoadEXShot()
+	{
+		// 弾があるとき限定
+		if (BulletNum[2] > 0)
+		{
+			// ロックオン時本体の方向を相手に向ける       
+			if (IsRockon)
+			{
+				RotateToTarget();
+			}
+			// 弾を消費する
+			BulletNum[2]--;
+			// 撃ち終わった時間を設定する                
+			// メイン（弾数がMax-1のとき）
+			if (BulletNum[2] == Character_Spec.cs[(int)CharacterName][2].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][2].m_OriginalBulletNum - 1)
+			{
+				SubshotEndtime = Time.time;
+			}
+			// 矢の出現ポジションをフックと一致させる
+			Vector3 pos = EXShotHock.transform.position;
+			Quaternion rot = Quaternion.Euler(EXShotHock.transform.rotation.eulerAngles.x, EXShotHock.transform.rotation.eulerAngles.y, EXShotHock.transform.rotation.eulerAngles.z);
+			// 矢を出現させる			
+			var obj = Instantiate(EXShotLaser, pos, rot);
+			// 親子関係を再設定する(=矢をフックの子にする）
+			if (obj.transform.parent == null)
+			{
+				obj.transform.parent = EXShotHock.transform;
+				// 矢の親子関係を付けておく
+				obj.transform.GetComponent<Rigidbody>().isKinematic = true;
+			}
+		}
+	}
+
+	/// <summary>
+	/// 特殊射撃の場合フォロースルーに移行する
+	/// </summary>
+	public void FollowThrowEXShot()
+	{
+		DestroyArrow();
+		AnimatorUnit.SetTrigger("EXShotFollowThrow");
+	}
+
+	/// <summary>
+	/// N格闘1段目実行時、キャンセルや派生の入力を受け取る
+	/// </summary>
+	/// <param name="animator"></param>
+	/// <param name="airdashID"></param>
+	/// <param name="stepanimations"></param>
+	protected override void Wrestle1(Animator animator)
+	{
+		base.Wrestle1(animator);
+		// 追加入力受け取り
+		if (HasWrestleInput)
+		{
+			AddInput = true;
+		}
+	}
+
+	/// <summary>
+	/// N格闘2段目実行時、キャンセルや派生の入力を受け取る
+	/// </summary>
+	/// <param name="animator"></param>
+	/// <param name="airdashhash"></param>
+	/// <param name="stepanimations"></param>
+	protected override void Wrestle2(Animator animator)
+	{
+		base.Wrestle2(animator);
+		// 追加入力受け取り
+		if (HasWrestleInput)
+		{
+			AddInput = true;
+		}
+	}
+
+
+
+	/// <summary>
+	/// 格闘攻撃終了後、派生を行う
+	/// </summary>
+	/// <param name="nextmotion"></param>
+	public void WrestleFinish(int nextmotion)
+	{
+		// 判定オブジェクトを全て破棄
+		DestroyWrestle();
+		// 格闘の累積時間を初期化
+		Wrestletime = 0;
+		// 派生入力があった場合は派生する
+		if (AddInput)
+		{
+			// N格闘２段目派生
+			if (nextmotion == 0)
+			{
+				WrestleDone(AnimatorUnit, 4, "Wrestle2");
+			}
+			// N格闘３段目派生
+			else if (nextmotion == 1)
+			{
+				WrestleDone(AnimatorUnit, 5, "Wrestle3");
+			}
+		}
+		// なかったら戻す
+		else
+		{
+			ReturnToIdle();
+		}
+	}
 }

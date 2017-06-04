@@ -432,17 +432,17 @@ public class MajyuControl : CharacterControlBase
 		// N格闘1段目
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle1ID)
 		{
-			Wrestle1(AnimatorUnit, 7);
+			Wrestle1(AnimatorUnit);
 		}
 		// N格闘2段目
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle2ID)
 		{
-			Wrestle2(AnimatorUnit, 7);
+			Wrestle2(AnimatorUnit);
 		}
 		// N格闘3段目
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle3ID)
 		{
-			Wrestle3(AnimatorUnit, 7);
+			Wrestle3(AnimatorUnit);
 		}
 		// 前格闘
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontWrestleID)
@@ -856,9 +856,9 @@ public class MajyuControl : CharacterControlBase
 	/// </summary>
 	/// <param name="animator"></param>
 	/// <param name="airdashID"></param>
-	protected override void Wrestle1(Animator animator, int airdashID)
+	protected override void Wrestle1(Animator animator)
 	{
-		base.Wrestle1(animator, airdashID);
+		base.Wrestle1(animator);
 		// 追加入力受け取り
 		if (HasWrestleInput)
 		{
@@ -871,9 +871,9 @@ public class MajyuControl : CharacterControlBase
 	/// </summary>
 	/// <param name="animator"></param>
 	/// <param name="airdashhash"></param>
-	protected override void Wrestle2(Animator animator, int airdashhash)
+	protected override void Wrestle2(Animator animator)
 	{
-		base.Wrestle2(animator, airdashhash);
+		base.Wrestle2(animator);
 		// 追加入力受け取り
 		if (HasWrestleInput)
 		{

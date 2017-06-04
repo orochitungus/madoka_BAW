@@ -691,15 +691,15 @@ public class HomuraBowControl : CharacterControlBase
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle1ID)
 		{
-            Wrestle1(AnimatorUnit, 7);
+            Wrestle1(AnimatorUnit);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle2ID)
 		{
-            Wrestle2(AnimatorUnit, 7);
+            Wrestle2(AnimatorUnit);
         }
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle3ID)
 		{
-            Wrestle3(AnimatorUnit, 7);
+            Wrestle3(AnimatorUnit);
         }
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontWrestleID)
 		{
@@ -1604,9 +1604,9 @@ public class HomuraBowControl : CharacterControlBase
     /// <param name="animator"></param>
     /// <param name="airdashID"></param>
     /// <param name="stepanimations"></param>
-    protected override void Wrestle1(Animator animator, int airdashID)
+    protected override void Wrestle1(Animator animator)
     {
-        base.Wrestle1(animator, airdashID);
+        base.Wrestle1(animator);
         // 追加入力受け取り
         if (HasWrestleInput)
         {
@@ -1620,9 +1620,9 @@ public class HomuraBowControl : CharacterControlBase
     /// <param name="animator"></param>
     /// <param name="airdashhash"></param>
     /// <param name="stepanimations"></param>
-    protected override void Wrestle2(Animator animator, int airdashhash)
+    protected override void Wrestle2(Animator animator)
     {
-        base.Wrestle2(animator, airdashhash);
+        base.Wrestle2(animator);
         // 追加入力受け取り
         if (HasWrestleInput)
         {
@@ -1637,7 +1637,7 @@ public class HomuraBowControl : CharacterControlBase
 	{
 		base.ExWrestle1();
 		Wrestletime += Time.deltaTime;
-		StepCancel(AnimatorUnit, 7);
+		StepCancel(AnimatorUnit);
 	}
 
     /// <summary>
@@ -1936,7 +1936,6 @@ public class HomuraBowControl : CharacterControlBase
 		// 死んだ時は羽を消しておく
 		ArousalAttackWing.SetActive(false);
 		base.Down(animator);
-
 	}
 
 }

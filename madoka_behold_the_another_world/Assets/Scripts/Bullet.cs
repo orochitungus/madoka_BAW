@@ -148,10 +148,11 @@ public class Bullet : MonoBehaviour
     /// </summary>
     protected bool StartedBombAnimation;
 
-    /// <summary>
-    /// BOMBのアニメーションの名前
-    /// </summary>
-    public string BombAnimationName;
+	/// <summary>
+	/// BOMBの場合のAnimator
+	/// </summary>
+	public Animator BombAnimator;
+	    
 
     /// <summary>
     /// 着弾時のヒットエフェクト
@@ -519,7 +520,7 @@ public class Bullet : MonoBehaviour
 			{   // 吹き飛びの場合、相手に方向ベクトルを与える            
 				// Y軸方向は少し上向き
 				target.MoveDirection.y += 10;
-				target.BlowDirection = this.MoveDirection;
+				target.BlowDirection = MoveDirection;
 				// 吹き飛びの場合、攻撃を当てた相手を浮かす（MadokaDefine.LAUNCHOFFSET)            
 				target.GetComponent<Rigidbody>().position = target.GetComponent<Rigidbody>().position + new Vector3(0, MadokaDefine.LAUNCHOFFSET, 0);
 				target.GetComponent<Rigidbody>().AddForce(this.MoveDirection.x * MadokaDefine.LAUNCHOFFSET, this.MoveDirection.y * MadokaDefine.LAUNCHOFFSET, this.MoveDirection.z * MadokaDefine.LAUNCHOFFSET);
@@ -592,10 +593,12 @@ public class Bullet : MonoBehaviour
         // BOMBの場合
         else if (Bullettype == BulletType.BOMB)
         {
-            // アニメが起動していなかった場合、アニメを起動する
-            if (!StartedBombAnimation)
+			AudioManager.Instance.PlaySE("sen_ge_panchi10");
+			
+			// アニメが起動していなかった場合、アニメを起動する
+			if (!StartedBombAnimation)
             {
-                GetComponent<Animation>().Play(BombAnimationName);
+				BombAnimator.SetTrigger("Bomb");
                 StartedBombAnimation = true;
 				// 爆風エフェクトをONにする
 				BombEffect.SetActive(true);
@@ -621,7 +624,7 @@ public class Bullet : MonoBehaviour
             {   // 吹き飛びの場合、相手に方向ベクトルを与える            
                 // Y軸方向は少し上向き
                 target.MoveDirection.y += 10;
-                target.BlowDirection = this.MoveDirection;
+                target.BlowDirection = MoveDirection;
                 // 吹き飛びの場合、攻撃を当てた相手を浮かす（MadokaDefine.LAUNCHOFFSET)            
                 target.GetComponent<Rigidbody>().position = target.GetComponent<Rigidbody>().position + new Vector3(0, MadokaDefine.LAUNCHOFFSET, 0);
                 target.GetComponent<Rigidbody>().AddForce(this.MoveDirection.x * MadokaDefine.LAUNCHOFFSET, this.MoveDirection.y * MadokaDefine.LAUNCHOFFSET, this.MoveDirection.z * MadokaDefine.LAUNCHOFFSET);
@@ -636,7 +639,9 @@ public class Bullet : MonoBehaviour
                     target.DamageInit(target.AnimatorUnit, 41, false, 43, 44);
                 }              
             }
-        }
+			// 弾丸を止める
+			MoveDirection = Vector3.zero;
+		}
 		// FUNNEL
 		else if(Bullettype == BulletType.FUNNEL_LASER)
 		{

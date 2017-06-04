@@ -1939,11 +1939,11 @@ public class CharacterControlBase : MonoBehaviour
     /// <summary>
     /// N格1段目
     /// </summary>    
-    protected virtual void Wrestle1(Animator animator, int airdashID)
+    protected virtual void Wrestle1(Animator animator)
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
-        StepCancel(animator,airdashID);
+        StepCancel(animator);
     }
 
     /// <summary>
@@ -1951,11 +1951,11 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="animator"></param>
     /// <param name="airdashhash"></param>
-    protected virtual void Wrestle2(Animator animator, int airdashhash)
+    protected virtual void Wrestle2(Animator animator)
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
-        StepCancel(animator, airdashhash );
+        StepCancel(animator);
     }
 
     /// <summary>
@@ -1963,17 +1963,17 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="animator"></param>
     /// <param name="airdashhash"></param>
-    protected virtual void Wrestle3(Animator animator, int airdashhash)
+    protected virtual void Wrestle3(Animator animator)
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
-        StepCancel(animator, airdashhash);
+        StepCancel(animator);
     }
 
     /// <summary>
     /// ステップキャンセル実行時の処理
     /// </summary>
-    protected virtual void StepCancel(Animator animator,int airdashhash)
+    protected virtual void StepCancel(Animator animator)
     {
         // キャンセルダッシュ入力を受け取ったら、キャンセルして空中ダッシュする
         if ((HasDashCancelInput || HasAirDashInput) && Boost > 0)
@@ -2053,7 +2053,7 @@ public class CharacterControlBase : MonoBehaviour
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
-        StepCancel(animator, airdashhash);
+        StepCancel(animator);
     }
 
     /// <summary>
@@ -2065,7 +2065,7 @@ public class CharacterControlBase : MonoBehaviour
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
-        StepCancel(animator, airdashhash);
+        StepCancel(animator);
     }
 
     /// <summary>
@@ -2077,7 +2077,7 @@ public class CharacterControlBase : MonoBehaviour
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
-        StepCancel(animator, airdashhash);
+        StepCancel(animator);
     }
 
     /// <summary>
@@ -2089,7 +2089,7 @@ public class CharacterControlBase : MonoBehaviour
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
-        StepCancel(animator, airdashhash);
+        StepCancel(animator);
     }
 
     /// <summary>
@@ -2101,7 +2101,7 @@ public class CharacterControlBase : MonoBehaviour
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
-        StepCancel(animator, airdashhash);
+        StepCancel(animator);
     }
 
     /// <summary>
@@ -2113,7 +2113,7 @@ public class CharacterControlBase : MonoBehaviour
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
-        StepCancel(animator, airdashhash );
+        StepCancel(animator);
     }
 
     /// <summary>
@@ -2125,7 +2125,7 @@ public class CharacterControlBase : MonoBehaviour
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
-        StepCancel(animator, airdashhash);
+        StepCancel(animator);
     }
 
     /// <summary>
@@ -2137,7 +2137,7 @@ public class CharacterControlBase : MonoBehaviour
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
-        StepCancel(animator, airdashhash);
+        StepCancel(animator);
     }
 
     /// <summary>
@@ -2149,7 +2149,7 @@ public class CharacterControlBase : MonoBehaviour
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
-        StepCancel(animator, airdashhash);
+        StepCancel(animator);
     }
 
     /// <summary>
@@ -2268,7 +2268,7 @@ public class CharacterControlBase : MonoBehaviour
             DestroyWrestle();
             _FallStartTime = Time.time;
         }
-        StepCancel(animator, airdashhash);
+        StepCancel(animator);
     }
 
     /// <summary>
@@ -2356,7 +2356,7 @@ public class CharacterControlBase : MonoBehaviour
             DestroyWrestle();
             _FallStartTime = Time.time;
         }
-        StepCancel(animator, airdashhash);
+        StepCancel(animator);
         // 接地したらLandingにする
         if (IsGrounded)
         {
@@ -3865,7 +3865,7 @@ public class CharacterControlBase : MonoBehaviour
         // それ以外は本体の角度を移動方向にする
         else
         {
-            this.MoveDirection = Vector3.Normalize(this.transform.rotation * Vector3.forward);
+            MoveDirection = Vector3.Normalize(this.transform.rotation * Vector3.forward);
         }
         // アニメーション速度
         float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
@@ -4226,7 +4226,7 @@ public class CharacterControlBase : MonoBehaviour
 	
 
     /// <summary>
-    /// 格闘判定出現時に実行（一応派生は認めておく。専用のはそっちで利用）
+    /// 格闘判定出現時に実行（一応派生は認めておく。専用のはそっちで利用。弓ほむら・魔獣以外使用禁止。理由は引数にWrestleTypeがとれなくなったため）
     /// </summary>
     /// <param name="wrestletype">格闘攻撃の種類</param>
     protected virtual void WrestleStart(WrestleType wrestletype)
@@ -4400,6 +4400,184 @@ public class CharacterControlBase : MonoBehaviour
 
 		// 判定のセッティングを行う
 		wrestleCollision.SetStatus(offensive, downR, arousal, hittype, exclusionname);	
+	}
+
+
+	/// <summary>
+	/// 上記のint指定版(今後はこっちを使うこと）
+	/// </summary>
+	/// <param name="index">対象の格闘攻撃のインデックス</param>
+	protected virtual void WrestleStart2(int index)
+	{
+		// 判定を生成し・フックと一致させる  
+		Vector3 pos = WrestleRoot[index].transform.position;
+		Quaternion rot = WrestleRoot[index].transform.rotation;
+		var obj = (GameObject)Instantiate(WrestleObject[index], pos, rot);
+		// 親子関係を再設定する(=判定をフックの子にする）
+		if (obj.transform.parent == null)
+		{
+			obj.transform.parent = WrestleRoot[index].transform;
+			// 親子関係を付けておく
+			obj.transform.GetComponent<Rigidbody>().isKinematic = true;
+		}
+
+		// ステートを設定する
+		// skilltypeのインデックス(格闘系はSkillType.Wrestle1+Xなので、Xにwrestletypeを代入）
+		int skillIndex = 0;/*(int)CharacterSkill.SkillType.WRESTLE_1 + (int)wrestletype;*/
+
+		// キャラごとに構成が異なるので、ここで処理分岐(入力が格闘でありながら、動作が格闘でない技を持つキャラが多くいる）
+		switch (CharacterName)
+		{
+			case Character_Spec.CHARACTER_NAME.MEMBER_MADOKA:
+				{
+					if (index == 0)
+						skillIndex = 4;
+					else if (index == 1)
+						skillIndex = 5;
+					else if (index == 2)
+						skillIndex = 6;
+					else if (index == 3)
+						skillIndex = 8;
+					else if (index == 4)
+						skillIndex = 9;
+					else if (index == 5)
+						skillIndex = 10;
+					else if (index == 6)
+						skillIndex = 11;
+					else if (index == 7)
+						skillIndex = 12;
+					else if (index == 8)
+						skillIndex = 14;
+					else if (index == 9)
+						skillIndex = 15;
+				}
+				break;
+			case Character_Spec.CHARACTER_NAME.MEMBER_UL_MADOKA:
+				break;
+			case Character_Spec.CHARACTER_NAME.MEMBER_SAYAKA:
+				break;
+			case Character_Spec.CHARACTER_NAME.MEMBER_MAMI:
+				break;
+			case Character_Spec.CHARACTER_NAME.MEMBER_HOMURA:
+				break;
+			case Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B:
+				{
+					if (index == 0)
+						skillIndex = 4;
+					else if (index == 1)
+						skillIndex = 5;
+					else if (index == 2)
+						skillIndex = 6;
+					else if (index == 3)
+						skillIndex = 8;
+					else if (index == 4)
+						skillIndex = 9;
+					else if (index == 5)
+						skillIndex = 10;
+					else if (index == 6)
+						skillIndex = 11;
+					else if (index == 7)
+						skillIndex = 12;
+					else if (index == 8)
+						skillIndex = 13;
+				}
+				break;
+			case Character_Spec.CHARACTER_NAME.MEMBER_KYOKO:
+
+				break;
+			case Character_Spec.CHARACTER_NAME.MEMBER_YUMA:
+				{
+					if (index == 0)
+						skillIndex = 3;
+					else if (index == 1)
+						skillIndex = 4;
+					else if (index == 2)
+						skillIndex = 5;
+					else if (index == 3)
+						skillIndex = 6;
+					else if (index == 4)
+						skillIndex = 7;
+					else if (index == 5)
+						skillIndex = 8;
+					else if (index == 6)
+						skillIndex = 9;
+					else if (index == 7)
+						skillIndex = 10;
+					else if (index == 8)
+						skillIndex = 11;
+				}
+				break;
+			case Character_Spec.CHARACTER_NAME.MEMBER_ORIKO:
+				break;
+			case Character_Spec.CHARACTER_NAME.MEMBER_KIRIKA:
+				break;
+			case Character_Spec.CHARACTER_NAME.MEMBER_SCHONO:
+				{
+					if (index == 0)
+						skillIndex = 3;
+					else if (index == 1)
+						skillIndex = 4;
+					else if (index == 2)
+						skillIndex = 5;
+					else if (index == 3)
+						skillIndex = 6;
+					else if (index == 4)
+						skillIndex = 7;
+					else if (index == 5)
+						skillIndex = 8;
+					else if (index == 6)
+						skillIndex = 9;
+					else if (index == 7)
+						skillIndex = 10;
+					else if (index == 8)
+						skillIndex = 11;
+				}
+				break;
+			case Character_Spec.CHARACTER_NAME.ENEMY_MAJYU:
+				{
+					if (index == 0)
+						skillIndex = 1;
+					else if (index == 1)
+						skillIndex = 2;
+					else if (index == 2)
+						skillIndex = 3;
+					else if (index == 3)
+						skillIndex = 4;
+					else if (index == 4)
+						skillIndex = 5;
+					else if (index == 5)
+						skillIndex = 6;
+					else if (index == 6)
+						skillIndex = 7;
+					else if (index == 7)
+						skillIndex = 8;
+				}
+				break;
+		}
+
+
+
+		// 格闘判定を拾う
+		var wrestleCollision = GetComponentInChildren<Wrestle_Core>();
+
+		// 各ステートを計算する
+		// 攻撃力
+		int offensive = Character_Spec.cs[(int)CharacterName][skillIndex].m_OriginalStr + Character_Spec.cs[(int)CharacterName][skillIndex].m_GrowthCoefficientStr * (this.StrLevel - 1);
+		// ダウン値
+		float downR = Character_Spec.cs[(int)CharacterName][skillIndex].m_DownPoint;
+		// 覚醒ゲージ増加量
+		float arousal = Character_Spec.cs[(int)CharacterName][skillIndex].m_arousal + Character_Spec.cs[(int)CharacterName][skillIndex].m_GrowthCoefficientStr * (this.StrLevel - 1);
+		// ヒットタイプ
+		CharacterSkill.HitType hittype = Character_Spec.cs[(int)CharacterName][skillIndex].m_Hittype;
+		// 除外対象の名前
+		string exclusionname = ObjectName.CharacterFileName[(int)CharacterName];
+
+		// 打ち上げ量（とりあえず固定）
+
+		// 格闘時に加算する力（固定）
+
+		// 判定のセッティングを行う
+		wrestleCollision.SetStatus(offensive, downR, arousal, hittype, exclusionname);
 	}
 
 	// 後格闘（防御）判定出現時に実行
