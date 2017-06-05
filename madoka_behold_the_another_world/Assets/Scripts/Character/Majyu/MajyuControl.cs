@@ -447,7 +447,7 @@ public class MajyuControl : CharacterControlBase
 		// 前格闘
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontWrestleID)
 		{
-			FrontWrestle1(AnimatorUnit, 7);
+			FrontWrestle1(AnimatorUnit);
 		}
 		// 後格闘（ガード）
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BackWrestleID)

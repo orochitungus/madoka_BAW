@@ -599,6 +599,7 @@ public class SconosciutoControl : CharacterControlBase
 		{
 			ExShot();
 		}
+		// 通常格闘
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle1ID)
 		{
 			Wrestle1(AnimatorUnit);
@@ -611,7 +612,20 @@ public class SconosciutoControl : CharacterControlBase
 		{
 			Wrestle3(AnimatorUnit);
 		}
-
+		// 前格闘
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontWrestleID)
+		{
+			FrontWrestle1(AnimatorUnit);
+		}
+		// 横格闘
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LeftWrestleID)
+		{
+			LeftWrestle1(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RightWrestleID)
+		{
+			RightWrestle1(AnimatorUnit);
+		}
 		if (ShowAirDashEffect)
 		{
 			AirDashEffect.SetActive(true);
@@ -804,13 +818,13 @@ public class SconosciutoControl : CharacterControlBase
 			else if (HasLeftInput)
 			{
 				// 左格闘実行(Character_Spec.cs参照)
-				WrestleDone_GoAround_Left(AnimatorUnit, 8);
+				WrestleDone_GoAround_Left(AnimatorUnit, 7);
 			}
 			// 右格闘で右格闘へ移行
 			else if (HasRightInput)
 			{
 				// 右格闘実行(Character_Spec.cs参照)
-				WrestleDone_GoAround_Right(AnimatorUnit, 9);
+				WrestleDone_GoAround_Right(AnimatorUnit, 8);
 			}
 			// 後格闘で後格闘へ移行
 			else if (HasBackInput)
@@ -1353,5 +1367,31 @@ public class SconosciutoControl : CharacterControlBase
 		{
 			ReturnToIdle();
 		}
+	}
+
+	/// <summary>
+	/// 左格闘時の本体動作
+	/// </summary>
+	/// <param name="animator"></param>
+	protected override void LeftWrestle1(Animator animator)
+	{
+		base.LeftWrestle1(animator);
+		if (IsRockon)
+		{
+			RotateToTarget();
+			SideStep(180);
+		}
+	}
+
+	/// <summary>
+	/// 右格闘時の本体動作
+	/// </summary>
+	/// <param name="animator"></param>
+	protected override void RightWrestle1(Animator animator)
+	{
+		base.RightWrestle1(animator);
+		// ロックオン時の相手の座標を取得
+
+		// 右ステップ同様の動作で相手の横に回り込む
 	}
 }

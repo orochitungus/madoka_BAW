@@ -703,15 +703,15 @@ public class HomuraBowControl : CharacterControlBase
         }
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontWrestleID)
 		{
-			FrontWrestle1(AnimatorUnit, 7);
+			FrontWrestle1(AnimatorUnit);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LeftWrestleID)
 		{
-			LeftWrestle1(AnimatorUnit, 7);
+			LeftWrestle1(AnimatorUnit);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RightWrestleID)
 		{
-			RightWrestle1(AnimatorUnit, 7);
+			RightWrestle1(AnimatorUnit);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BackWrestleID)
 		{

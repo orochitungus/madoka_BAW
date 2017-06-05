@@ -2049,7 +2049,7 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="animator"></param>
     /// <param name="airdashhash"></param>
-    protected virtual void FrontWrestle1(Animator animator, int airdashhash)
+    protected virtual void FrontWrestle1(Animator animator)
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
@@ -2061,7 +2061,7 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="animator"></param>
     /// <param name="airdashhash"></param>
-    protected virtual void FrontWrestle2(Animator animator, int airdashhash)
+    protected virtual void FrontWrestle2(Animator animator)
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
@@ -2073,7 +2073,7 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="animator"></param>
     /// <param name="airdashhash"></param>
-    protected virtual void FrontWrestle3(Animator animator, int airdashhash)
+    protected virtual void FrontWrestle3(Animator animator)
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
@@ -2085,7 +2085,7 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="animator"></param>
     /// <param name="airdashhash"></param>
-    protected virtual void LeftWrestle1(Animator animator, int airdashhash)
+    protected virtual void LeftWrestle1(Animator animator)
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
@@ -2097,7 +2097,7 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="animator"></param>
     /// <param name="airdashhash"></param>
-    protected virtual void LeftWrestle2(Animator animator, int airdashhash)
+    protected virtual void LeftWrestle2(Animator animator)
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
@@ -2109,7 +2109,7 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="animator"></param>
     /// <param name="airdashhash"></param>
-    protected virtual void LeftWrestle3(Animator animator, int airdashhash)
+    protected virtual void LeftWrestle3(Animator animator)
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
@@ -2121,7 +2121,7 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="animator"></param>
     /// <param name="airdashhash"></param>
-    protected virtual void RightWrestle1(Animator animator, int airdashhash)
+    protected virtual void RightWrestle1(Animator animator)
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
@@ -2133,7 +2133,7 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="animator"></param>
     /// <param name="airdashhash"></param>
-    protected virtual void RightWrestle2(Animator animator, int airdashhash)
+    protected virtual void RightWrestle2(Animator animator)
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
@@ -2144,8 +2144,7 @@ public class CharacterControlBase : MonoBehaviour
     /// 右横格闘3段目
     /// </summary>
     /// <param name="animator"></param>
-    /// <param name="airdashhash"></param>
-    protected virtual void RightWrestle3(Animator animator, int airdashhash)
+    protected virtual void RightWrestle3(Animator animator)
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
@@ -2622,19 +2621,7 @@ public class CharacterControlBase : MonoBehaviour
         var toWorldVector = MainCamera.transform.rotation;
         // ベクトルは平行移動の影響を受けないので逆行列は使わない
         // スケールの影響は受けるがここでは無視する。
-
-        // CPU時、ここで入力を取得
-        //if (this.IsPlayer != CHARACTERCODE.PLAYER)
-        //{
-        //    // CPU情報
-        //    var CPU = this.GetComponentInChildren<AIControl_Base>();
-        //    // テンキーの種類からhorizontalとverticalを取得
-        //    if ((int)CPU.m_tenkeyoutput <= 8)
-        //    {
-        //        horizontal = CPU.m_lever[(int)CPU.m_tenkeyoutput].x;
-        //        vertical = CPU.m_lever[(int)CPU.m_tenkeyoutput].y;
-        //    }
-        //}
+		        
 
         // ロックオン時特殊処理
         // 案1：敵と重なるような状態になったら一時的に移動方向を固定する(角度が特異姿勢になるので、暴走する）
@@ -3922,7 +3909,7 @@ public class CharacterControlBase : MonoBehaviour
             rotateOR_E.x = 0;
             rotateOR_E.y = rotateOR.eulerAngles.y - 10;
             rotateOR = Quaternion.Euler(rotateOR_E);
-            this.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+            MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
         }
         // それ以外は本体の角度+45度を移動方向にする
         else
@@ -3930,7 +3917,7 @@ public class CharacterControlBase : MonoBehaviour
             Vector3 addrot = this.transform.eulerAngles;
             addrot.y = addrot.y - 10;
             Quaternion addrot_Q = Quaternion.Euler(addrot);
-            this.MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
+            MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
         }
         // アニメーション速度
         float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
@@ -3940,7 +3927,7 @@ public class CharacterControlBase : MonoBehaviour
         // アニメーションの速度を調整する
         animator.speed = speed;
         // 移動速度を調整する
-        this.WrestlSpeed = movespeed;
+        WrestlSpeed = movespeed;
     }
 
 
@@ -3953,7 +3940,7 @@ public class CharacterControlBase : MonoBehaviour
     protected virtual void WrestleDone_GoAround_Right(Animator animator, int skilltype)
     {
         // 追加入力フラグをカット
-        this.AddInput = false;
+        AddInput = false;
         // ステートを設定する
         // skilltypeのインデックス(格闘系はSkillType.Wrestle1+Xなので、Xにwrestletypeを代入）
         int skillIndex = skilltype;

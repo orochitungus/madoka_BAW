@@ -5451,7 +5451,23 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.40203565
+        functionName: WrestleStart2
+        data: 
+        objectReferenceParameter: {fileID: 1054776789524050, guid: af108f5738d5e214094bc5d1f5c73f09,
+          type: 2}
+        floatParameter: 0
+        intParameter: 4
+        messageOptions: 0
+      - time: 0.9847328
+        functionName: ReturnToIdle
+        data: 
+        objectReferenceParameter: {fileID: 1054776789524050, guid: af108f5738d5e214094bc5d1f5c73f09,
+          type: 2}
+        floatParameter: 0
+        intParameter: 4
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -5631,7 +5647,23 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.40966922
+        functionName: WrestleStart2
+        data: 
+        objectReferenceParameter: {fileID: 1054776789524050, guid: af108f5738d5e214094bc5d1f5c73f09,
+          type: 2}
+        floatParameter: 0
+        intParameter: 5
+        messageOptions: 0
+      - time: 1
+        functionName: ReturnToIdle
+        data: 
+        objectReferenceParameter: {fileID: 1054776789524050, guid: af108f5738d5e214094bc5d1f5c73f09,
+          type: 2}
+        floatParameter: 0
+        intParameter: 5
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
