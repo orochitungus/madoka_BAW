@@ -2189,6 +2189,8 @@ public class CharacterControlBase : MonoBehaviour
 				IsWrestle = false;
 			}
 		}
+		// 強制的にロック対象の方を向く
+		RotateToTarget();
 	}
 
     /// <summary>
@@ -4578,6 +4580,26 @@ public class CharacterControlBase : MonoBehaviour
 		if (obj.transform.parent == null)
 		{
 			obj.transform.parent = WrestleRoot[(int)WrestleType.BACK_WRESTLE].transform;
+			// 親子関係を付けておく
+			obj.transform.GetComponent<Rigidbody>().isKinematic = true;
+		}
+
+	}
+
+	/// <summary>
+	/// 上記のインデックス指定版
+	/// </summary>
+	/// <param name="index">後格闘のスキルインデックス</param>
+	protected virtual void GuardStart2(int index)
+	{
+		// 判定を生成し・フックと一致させる  
+		Vector3 pos = WrestleRoot[index].transform.position;
+		Quaternion rot = WrestleRoot[index].transform.rotation;
+		var obj = Instantiate(WrestleObject[index], pos, rot);
+		// 親子関係を再設定する(=判定をフックの子にする）
+		if (obj.transform.parent == null)
+		{
+			obj.transform.parent = WrestleRoot[index].transform;
 			// 親子関係を付けておく
 			obj.transform.GetComponent<Rigidbody>().isKinematic = true;
 		}

@@ -626,6 +626,11 @@ public class SconosciutoControl : CharacterControlBase
 		{
 			RightWrestle1(AnimatorUnit);
 		}
+		// 後格闘（ガード）
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BackWrestleID)
+		{
+			BackWrestle(AnimatorUnit);
+		}
 		if (ShowAirDashEffect)
 		{
 			AirDashEffect.SetActive(true);
@@ -830,7 +835,7 @@ public class SconosciutoControl : CharacterControlBase
 			else if (HasBackInput)
 			{
 				// 後格闘実行（ガード）(Character_Spec.cs参照)
-				GuardDone(AnimatorUnit, 10);
+				GuardDone(AnimatorUnit, 9);
 			}
 			else
 			{
@@ -1390,8 +1395,10 @@ public class SconosciutoControl : CharacterControlBase
 	protected override void RightWrestle1(Animator animator)
 	{
 		base.RightWrestle1(animator);
-		// ロックオン時の相手の座標を取得
-
-		// 右ステップ同様の動作で相手の横に回り込む
+		if (IsRockon)
+		{
+			RotateToTarget();
+			SideStep(-180);
+		}
 	}
 }
