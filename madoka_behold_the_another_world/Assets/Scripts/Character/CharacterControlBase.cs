@@ -837,7 +837,10 @@ public class CharacterControlBase : MonoBehaviour
 	/// </summary>
 	private Vector3 StepStartPos;
 
-	
+	/// <summary>
+	/// ガード状態であるか否か（各キャラのBackWrestleでこれをONにし、IdleかDamageで折る）
+	/// </summary>
+	public bool IsGuard;
 
     /// <summary>
     /// プレイヤーのレベル設定を行う
@@ -2157,6 +2160,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="animator"></param>
     protected virtual void BackWrestle(Animator animator)
     {
+		IsGuard = true;
         IsWrestle = true;
         //1．ブーストゲージを減衰させる
         Boost -= Time.deltaTime * 5.0f;
@@ -2171,7 +2175,8 @@ public class CharacterControlBase : MonoBehaviour
 		//3．下入力を離すと、強制的にIdleに戻す
 		if (IsPlayer == CHARACTERCODE.PLAYER)
 		{
-			if (ControllerManager.Instance.UnderUp)
+			// ↓要素が抜けたらガード解除
+			if (!ControllerManager.Instance.Under && !ControllerManager.Instance.LeftUnder && !ControllerManager.Instance.RightUnder)
 			{
 				animator.SetTrigger("Idle");
 				DestroyWrestle();
@@ -2190,7 +2195,10 @@ public class CharacterControlBase : MonoBehaviour
 			}
 		}
 		// 強制的にロック対象の方を向く
-		RotateToTarget();
+		if (IsRockon)
+		{
+			RotateToTarget();
+		}
 	}
 
     /// <summary>
@@ -3842,14 +3850,14 @@ public class CharacterControlBase : MonoBehaviour
             MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
         }
         // 本体角度が0の場合カメラの方向を移動方向とし、正規化して代入する
-        else if (this.transform.rotation.eulerAngles.y == 0)
+        else if (transform.rotation.eulerAngles.y == 0)
         {
             // ただしそのままだとカメラが下を向いているため、一旦その分は補正する
             Quaternion rotateOR = MainCamera.transform.rotation;
             Vector3 rotateOR_E = rotateOR.eulerAngles;
             rotateOR_E.x = 0;
             rotateOR = Quaternion.Euler(rotateOR_E);
-            this.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+            MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
         }
         // それ以外は本体の角度を移動方向にする
         else
@@ -3868,6 +3876,7 @@ public class CharacterControlBase : MonoBehaviour
         WrestlSpeed = movespeed;
     }
 
+	
     /// <summary>
     /// 回り込み近接・左(相手の斜め前へ移動して回り込むタイプ）
     /// </summary>
@@ -4032,7 +4041,7 @@ public class CharacterControlBase : MonoBehaviour
             rotateOR_E.x = 0;
             rotateOR_E.y += 180;
             rotateOR = Quaternion.Euler(rotateOR_E);
-            this.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+            MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
         }
         //   ロックオンしていない場合→本体を前方方向へ向ける（現在の自分の角度がカメラ側を向いているので、180度加算してひっくり返す）
         else
@@ -4040,7 +4049,7 @@ public class CharacterControlBase : MonoBehaviour
             Vector3 addrot = this.transform.eulerAngles;
             addrot.y = addrot.y + 180;
             Quaternion addrot_Q = Quaternion.Euler(addrot);
-            this.MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
+            MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
         }
         //3．アニメーション速度を設定する
         float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
@@ -4806,6 +4815,8 @@ public class CharacterControlBase : MonoBehaviour
 		GetComponent<Rigidbody>().useGravity = false;
 		// ダメージ硬直の計算開始
 		DamagedTime = Time.time;
+		// ガードフラグを折る
+		IsGuard = false;
     }
 
     /// <summary>
@@ -5025,7 +5036,6 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     protected virtual void Animation_Idle(Animator animator)
     {
-		Debug.Log("StepStartTime:" + _StepStartTime);
 		// ステップへの移行中だった場合何もしない(タイミングの問題でステップに切り替えてもステート変化が間に合わないことがある）
 		if (_StepStartTime != 0)
 		{
@@ -5059,6 +5069,8 @@ public class CharacterControlBase : MonoBehaviour
         GetComponent<Rigidbody>().useGravity = true;
         // ブーストを回復させる
         Boost = GetMaxBoost(BoostLevel);
+		// ガードフラグを折る
+		IsGuard = false;
         // 地上にいるか？
         if (IsGrounded)
         {
@@ -5372,11 +5384,13 @@ public class CharacterControlBase : MonoBehaviour
             {
                 StepDone(1, new Vector2(-1, 0), animator);
             }
-
-            // 入力が外れるとアイドル状態へ
+            // 入力が外れるとアイドル状態へ（ガード中は除く）
             else
             {
-                animator.SetTrigger("Idle");
+				if (!IsGuard)
+				{
+					animator.SetTrigger("Idle");
+				}
             }
 
             // ジャンプでジャンプへ移行(GetButtonDownで押しっぱなしにはならない。GetButtonで押しっぱなしに対応）

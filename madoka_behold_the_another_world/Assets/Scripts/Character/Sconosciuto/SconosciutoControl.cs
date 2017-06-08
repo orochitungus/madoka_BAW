@@ -628,7 +628,7 @@ public class SconosciutoControl : CharacterControlBase
 		}
 		// 後格闘（ガード）
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BackWrestleID)
-		{
+		{			
 			BackWrestle(AnimatorUnit);
 		}
 		if (ShowAirDashEffect)
@@ -823,13 +823,13 @@ public class SconosciutoControl : CharacterControlBase
 			else if (HasLeftInput)
 			{
 				// 左格闘実行(Character_Spec.cs参照)
-				WrestleDone_GoAround_Left(AnimatorUnit, 7);
+				WrestleDone(AnimatorUnit, 7, "LeftWrestle");
 			}
 			// 右格闘で右格闘へ移行
 			else if (HasRightInput)
 			{
 				// 右格闘実行(Character_Spec.cs参照)
-				WrestleDone_GoAround_Right(AnimatorUnit, 8);
+				WrestleDone(AnimatorUnit, 8, "RightWrestle");
 			}
 			// 後格闘で後格闘へ移行
 			else if (HasBackInput)
@@ -1381,11 +1381,11 @@ public class SconosciutoControl : CharacterControlBase
 	protected override void LeftWrestle1(Animator animator)
 	{
 		base.LeftWrestle1(animator);
-		if (IsRockon)
-		{
-			RotateToTarget();
-			SideStep(180);
-		}
+		//if (IsRockon)
+		//{
+		//	RotateToTarget();
+		//	SideStep(180);
+		//}
 	}
 
 	/// <summary>
@@ -1395,10 +1395,10 @@ public class SconosciutoControl : CharacterControlBase
 	protected override void RightWrestle1(Animator animator)
 	{
 		base.RightWrestle1(animator);
-		if (IsRockon)
-		{
-			RotateToTarget();
-			SideStep(-180);
-		}
+		//if (IsRockon)
+		//{
+		//	RotateToTarget();
+		//	SideStep(-180);
+		//}
 	}
 }
