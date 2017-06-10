@@ -2437,47 +2437,47 @@ public class CharacterControlBase : MonoBehaviour
             {
                 MoveDirection.x = 0.0f;
                 MoveDirection.z = 1.0f;
-            }
+			}
             else if (transform.rotation.eulerAngles.y >= 22.5f && transform.rotation.eulerAngles.y < 67.5f)
             {
                 MoveDirection.x = 0.7f;
                 MoveDirection.z = 0.0f;
-            }
+			}
             else if (transform.rotation.eulerAngles.y >= 67.5f && transform.rotation.eulerAngles.y < 112.5f)
             {
                 MoveDirection.x = 1.0f;
                 MoveDirection.z = 0.0f;
-            }
+			}
             else if (transform.rotation.eulerAngles.y >= 112.5f && transform.rotation.eulerAngles.y < 157.5f)
             {
                 MoveDirection.x = 0.7f;
                 MoveDirection.z = -0.5f;
-            }
+			}
             else if (transform.rotation.eulerAngles.y >= 157.5f && transform.rotation.eulerAngles.y < 202.5f)
             {
                 MoveDirection.x = 0.0f;
                 MoveDirection.z = -1.0f;
-            }
+			}
             else if (transform.rotation.eulerAngles.y >= 202.5f && transform.rotation.eulerAngles.y < 247.5f)
             {
                 MoveDirection.x = -0.7f;
                 MoveDirection.z = -0.5f;
-            }
+			}
             else if (transform.rotation.eulerAngles.y >= 247.5f && transform.rotation.eulerAngles.y < 292.5f)
             {
                 MoveDirection.x = -1.0f;
                 MoveDirection.z = 0.0f;
-            }
+			}
             else if (transform.rotation.eulerAngles.y >= 292.5f && transform.rotation.eulerAngles.y < 337.5f)
             {
                 MoveDirection.x = -0.7f;
                 MoveDirection.z = 0.0f;
-            }
+			}
 
             // 上方向への慣性を切る
             MoveDirection.y = 0;
-            // 発動中重力無効
-            GetComponent<Rigidbody>().useGravity = false;
+			// 発動中重力無効
+			GetComponent<Rigidbody>().useGravity = false;
             // その方向へ移動
             GetComponent<Rigidbody>().AddForce(MoveDirection.x, 10, MoveDirection.z);
         }
@@ -2782,9 +2782,9 @@ public class CharacterControlBase : MonoBehaviour
     {
         // 地響き防止
         MoveDirection = transform.rotation * new Vector3(0, 0, 0);
-        // モーション終了時にアイドルへ移行
-        // 硬直時間が終わるとIdleへ戻る。オバヒ着地とかやりたいならBoost0でLandingTimeの値を変えるとか
-        if (Time.time > LandingTime + LandingWaitTime)
+		// モーション終了時にアイドルへ移行
+		// 硬直時間が終わるとIdleへ戻る。オバヒ着地とかやりたいならBoost0でLandingTimeの値を変えるとか
+		if (Time.time > LandingTime + LandingWaitTime)
         {
             animator.SetTrigger("Landing");
             // ブースト量を初期化する
@@ -3582,12 +3582,12 @@ public class CharacterControlBase : MonoBehaviour
             {
                 UpdateRotation_step();      // steprotは相手の方向を向いたまま動くので、こっちを使う
                 MoveDirection = StepRotation * Vector3.forward;
-            }
+			}
             else
             {
                 UpdateRotation();
                 MoveDirection = transform.rotation * Vector3.forward;
-            }
+			}
         }
         // 入力が外れると、落下する
         else
@@ -3597,7 +3597,7 @@ public class CharacterControlBase : MonoBehaviour
                 animator.SetTrigger("Idle");
             }
             MoveDirection = Vector3.zero;
-        }
+		}
     }
 
     // 首もしくは上体ををロックオン対象へ向ける
@@ -3848,7 +3848,7 @@ public class CharacterControlBase : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(mypos - targetpos);
             // 方向ベクトルを向けた方向に合わせる            
             MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
-        }
+		}
         // 本体角度が0の場合カメラの方向を移動方向とし、正規化して代入する
         else if (transform.rotation.eulerAngles.y == 0)
         {
@@ -3858,12 +3858,12 @@ public class CharacterControlBase : MonoBehaviour
             rotateOR_E.x = 0;
             rotateOR = Quaternion.Euler(rotateOR_E);
             MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
-        }
+		}
         // それ以外は本体の角度を移動方向にする
         else
         {
             MoveDirection = Vector3.Normalize(this.transform.rotation * Vector3.forward);
-        }
+		}
         // アニメーション速度
         float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
 
@@ -3910,7 +3910,7 @@ public class CharacterControlBase : MonoBehaviour
             Quaternion addrot_Q = Quaternion.Euler(addrot);
             // 方向ベクトルを向けた方向に合わせる            
             MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
-        }
+		}
         // 本体角度が0の場合カメラの方向に45度足した値をを移動方向とし、正規化して代入する
         else if (this.transform.rotation.eulerAngles.y == 0)
         {
@@ -3921,7 +3921,7 @@ public class CharacterControlBase : MonoBehaviour
             rotateOR_E.y = rotateOR.eulerAngles.y - 10;
             rotateOR = Quaternion.Euler(rotateOR_E);
             MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
-        }
+		}
         // それ以外は本体の角度+45度を移動方向にする
         else
         {
@@ -3929,7 +3929,7 @@ public class CharacterControlBase : MonoBehaviour
             addrot.y = addrot.y - 10;
             Quaternion addrot_Q = Quaternion.Euler(addrot);
             MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
-        }
+		}
         // アニメーション速度
         float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
         // アニメーションを再生する
@@ -3975,7 +3975,7 @@ public class CharacterControlBase : MonoBehaviour
             Quaternion addrot_Q = Quaternion.Euler(addrot);
             // 方向ベクトルを向けた方向に合わせる            
             MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
-        }
+		}
         // 本体角度が0の場合カメラの方向に45度足した値をを移動方向とし、正規化して代入する
         else if (transform.rotation.eulerAngles.y == 0)
         {
@@ -3986,15 +3986,15 @@ public class CharacterControlBase : MonoBehaviour
             rotateOR_E.y = rotateOR.eulerAngles.y + 10;
             rotateOR = Quaternion.Euler(rotateOR_E);
             MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
-        }
+		}
         // それ以外は本体の角度+45度を移動方向にする
         else
         {
             Vector3 addrot = this.transform.eulerAngles;
             addrot.y = addrot.y + 10;
             Quaternion addrot_Q = Quaternion.Euler(addrot);
-            this.MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
-        }
+            MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
+		}
         // アニメーション速度
         float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
         // アニメーションを再生する
@@ -4031,7 +4031,7 @@ public class CharacterControlBase : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(mypos - targetpos);
             // 方向ベクトルを向けた方向に合わせる            
             MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
-        }
+		}
         // 本体角度が0の場合カメラの方向を移動方向とし、正規化して代入する
         else if (IsRockon && this.transform.rotation.eulerAngles.y == 0)
         {
@@ -4042,7 +4042,7 @@ public class CharacterControlBase : MonoBehaviour
             rotateOR_E.y += 180;
             rotateOR = Quaternion.Euler(rotateOR_E);
             MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
-        }
+		}
         //   ロックオンしていない場合→本体を前方方向へ向ける（現在の自分の角度がカメラ側を向いているので、180度加算してひっくり返す）
         else
         {
@@ -4050,7 +4050,7 @@ public class CharacterControlBase : MonoBehaviour
             addrot.y = addrot.y + 180;
             Quaternion addrot_Q = Quaternion.Euler(addrot);
             MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
-        }
+		}
         //3．アニメーション速度を設定する
         float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
         // アニメーションを再生する
@@ -4202,7 +4202,7 @@ public class CharacterControlBase : MonoBehaviour
 			Vector3 rotateOR_E = rotateOR.eulerAngles;
 			rotateOR_E.x = 0;
 			rotateOR = Quaternion.Euler(rotateOR_E);
-			this.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+			MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
 		}
 		// それ以外は本体の角度を移動方向にする
 		else
@@ -4937,7 +4937,6 @@ public class CharacterControlBase : MonoBehaviour
 	{
 		// 落下に入ったら落下速度を調整する
 		MoveDirection.y = MadokaDefine.FALLSPEED;
-
 		// 基本Blowと同じだが、着地と同時にアニメをダウンに切り替える
 		if (IsGrounded)
 		{
@@ -5307,9 +5306,8 @@ public class CharacterControlBase : MonoBehaviour
 
         // 上昇算演
         MoveDirection = RiseSpeed;
-
-        // 上昇中にオブジェクトに触れた場合は着地モーションへ移行(暴走防止のために、硬直中は判定禁止)
-        if (Time.time > this.JumpTime + this.JumpWaitTime)
+		// 上昇中にオブジェクトに触れた場合は着地モーションへ移行(暴走防止のために、硬直中は判定禁止)
+		if (Time.time > this.JumpTime + this.JumpWaitTime)
         {
             if (IsGrounded) // 優先順位はこっちを下にしておかないと上昇前に引っかかる
             {
@@ -5333,7 +5331,7 @@ public class CharacterControlBase : MonoBehaviour
         if (IsGrounded)
         {
             // 入力中はそちらへ進む
-            if (HasVHInput)
+            if (HasVHInput && !IsWrestle)
             {
 				// 足音はPC時のみ
 				if (IsPlayer == CHARACTERCODE.PLAYER)
@@ -5342,7 +5340,7 @@ public class CharacterControlBase : MonoBehaviour
 				}
                 UpdateRotation();
 				MoveDirection = transform.rotation * Vector3.forward;
-            }
+			}
             // ステップの場合ステップ
             // 前
             else if(ControllerManager.Instance.FrontStep)
@@ -5468,35 +5466,35 @@ public class CharacterControlBase : MonoBehaviour
 			// 左後
 			else if(ControllerManager.Instance.LeftBackStep)
 			{
-				this.MoveDirection = MoveDirection_OR;
+				MoveDirection = MoveDirection_OR;
 				StepDone(1, new Vector2(-1, -1), animator);
 				return;
 			}
 			// 後
 			else if(ControllerManager.Instance.BackStep)
 			{
-				this.MoveDirection = MoveDirection_OR;
+				MoveDirection = MoveDirection_OR;
 				StepDone(1, new Vector2(0, -1), animator);
 				return;
 			}
 			// 右後
 			else if(ControllerManager.Instance.RightBackStep)
 			{
-				this.MoveDirection = MoveDirection_OR;
+				MoveDirection = MoveDirection_OR;
 				StepDone(1, new Vector2(1, -1), animator);
 				return;
 			}
 			// 右
 			else if(ControllerManager.Instance.Right)
 			{
-				this.MoveDirection = MoveDirection_OR;
+				MoveDirection = MoveDirection_OR;
 				StepDone(1, new Vector2(1, 0), animator);
 				return;
 			}
 			// 右前
 			else if(ControllerManager.Instance.RightFrontStep)
 			{
-				this.MoveDirection = MoveDirection_OR;
+				MoveDirection = MoveDirection_OR;
 				StepDone(1, new Vector2(1, 1), animator);
 				return;
 			}
@@ -5577,7 +5575,7 @@ public class CharacterControlBase : MonoBehaviour
                     UpdateRotation();
                 }
                 MoveDirection = transform.rotation * Vector3.forward;
-            }
+			}
             // ボタンを離すと下降
             else
             {

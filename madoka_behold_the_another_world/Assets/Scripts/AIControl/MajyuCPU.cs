@@ -33,7 +33,7 @@ namespace BehaviourTrees
 		// Update is called once per frame
 		void Update()
 		{
-			Debug.Log(Cpumode);
+			//Debug.Log(Cpumode);
 			UpdateCore();
 		}
 

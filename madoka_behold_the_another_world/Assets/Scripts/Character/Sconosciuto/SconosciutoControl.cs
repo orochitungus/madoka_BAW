@@ -1381,11 +1381,38 @@ public class SconosciutoControl : CharacterControlBase
 	protected override void LeftWrestle1(Animator animator)
 	{
 		base.LeftWrestle1(animator);
-		//if (IsRockon)
-		//{
-		//	RotateToTarget();
-		//	SideStep(180);
-		//}
+		if (IsRockon)
+		{
+			// MoveDirectionを再設定
+			// ロックオン且つ本体角度が0でない時、相手の方向を移動方向とする
+			if(transform.rotation.eulerAngles.y != 0)
+			{
+				// ロックオン対象を取得
+				var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
+				// ロックオン対象の座標
+				Vector3 targetpos = target.transform.position;
+				// 上記の座標は足元を向いているので、自分の高さに補正する
+				targetpos.y = transform.position.y;
+				// 自機の座標
+				Vector3 mypos = transform.position;
+				// 自機をロックオン対象に向ける
+				transform.rotation = Quaternion.LookRotation(mypos - targetpos);
+				// 方向ベクトルを向けた方向に合わせる            
+				MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
+				MoveDirection.x = 0;
+			}
+			// 本体角度が0の場合カメラの方向を移動方向とし、正規化して代入する
+			else
+			{
+				// ただしそのままだとカメラが下を向いているため、一旦その分は補正する
+				Quaternion rotateOR = MainCamera.transform.rotation;
+				Vector3 rotateOR_E = rotateOR.eulerAngles;
+				rotateOR_E.x = 0;
+				rotateOR = Quaternion.Euler(rotateOR_E);
+				MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+				MoveDirection.x = 0;
+			}
+		}
 	}
 
 	/// <summary>
@@ -1395,10 +1422,37 @@ public class SconosciutoControl : CharacterControlBase
 	protected override void RightWrestle1(Animator animator)
 	{
 		base.RightWrestle1(animator);
-		//if (IsRockon)
-		//{
-		//	RotateToTarget();
-		//	SideStep(-180);
-		//}
+		if (IsRockon)
+		{
+			// MoveDirectionを再設定
+			// ロックオン且つ本体角度が0でない時、相手の方向を移動方向とする
+			if (transform.rotation.eulerAngles.y != 0)
+			{
+				// ロックオン対象を取得
+				var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
+				// ロックオン対象の座標
+				Vector3 targetpos = target.transform.position;
+				// 上記の座標は足元を向いているので、自分の高さに補正する
+				targetpos.y = transform.position.y;
+				// 自機の座標
+				Vector3 mypos = transform.position;
+				// 自機をロックオン対象に向ける
+				transform.rotation = Quaternion.LookRotation(mypos - targetpos);
+				// 方向ベクトルを向けた方向に合わせる            
+				MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
+				MoveDirection.x = 0;
+			}
+			// 本体角度が0の場合カメラの方向を移動方向とし、正規化して代入する
+			else
+			{
+				// ただしそのままだとカメラが下を向いているため、一旦その分は補正する
+				Quaternion rotateOR = MainCamera.transform.rotation;
+				Vector3 rotateOR_E = rotateOR.eulerAngles;
+				rotateOR_E.x = 0;
+				rotateOR = Quaternion.Euler(rotateOR_E);
+				MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+				MoveDirection.x = 0;
+			}
+		}
 	}
 }
