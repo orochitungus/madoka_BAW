@@ -861,12 +861,34 @@ public class SconosciutoControl : CharacterControlBase
 			{
                 // 空中ダッシュ格闘実行
                 WrestleDone(AnimatorUnit, 10, "AirDashWrestle");
-                // こちらもループアニメなので、animに関数を貼る手段は使えないため判定をここで作る
-                // 判定の場所
-
-            }
-            // 前格闘で前格闘へ移行
-            else if (HasFrontInput)
+				// こちらもループアニメなので、animに関数を貼る手段は使えないため判定をここで作る
+				// 判定の場所
+				Vector3 pos = WrestleRoot[10].transform.position;
+				// 判定の角度
+				Quaternion rot = WrestleRoot[10].transform.rotation;
+				// 判定を生成する
+				var obj = Instantiate(WrestleObject[10], pos, rot);
+				// 判定を子オブジェクトにする
+				if (obj.transform.parent == null)
+				{
+					obj.transform.parent = WrestleRoot[10].transform;
+					// 親子関係を付けておく
+					obj.transform.GetComponent<Rigidbody>().isKinematic = true;
+				}
+				// 判定に値をセットする
+				// インデックス
+				int characterName = (int)Character_Spec.CHARACTER_NAME.MEMBER_SCHONO;
+				obj.gameObject.GetComponent<Wrestle_Core>().SetStatus(
+					Character_Spec.cs[characterName][10].m_OriginalStr + Character_Spec.cs[characterName][10].m_GrowthCoefficientStr * (StrLevel - 1),    // offensive    [in]:攻撃力
+					Character_Spec.cs[characterName][10].m_DownPoint,                                                                                       // downR        [in]:ダウン値
+					Character_Spec.cs[characterName][10].m_arousal,                                                                                        // arousal      [in]:覚醒ゲージ増加量
+					Character_Spec.cs[characterName][10].m_Hittype,                                                                                         // hittype      [in]:ヒットタイプ
+					ObjectName.CharacterFileName[(int)CharacterName]
+					);
+				
+			}
+			// 前格闘で前格闘へ移行
+			else if (HasFrontInput)
 			{
 				// 前格闘実行(Character_Spec.cs参照)
 				WrestleDone(AnimatorUnit, 4, "FrontWrestle");
