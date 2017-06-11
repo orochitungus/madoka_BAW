@@ -115,7 +115,11 @@ public class Wrestle_Core : MonoBehaviour
 		{
 			return;
 		}
-		
+		// 除外対象が設定されていないものは使わない
+        if(Exclusion == "")
+        {
+            return;
+        }
 
 		// シールド時は何もしない
 		if(IsShield)
@@ -127,8 +131,7 @@ public class Wrestle_Core : MonoBehaviour
         // ヒットSEを鳴らす
         if (InspHitSE != null)
         {
-			//AudioSource.PlayClipAtPoint(InspHitSE, transform.position);
-			AudioManager.Instance.PlaySE("sen_ge_panchi10");
+			AudioSource.PlayClipAtPoint(InspHitSE, transform.position);
         }
 		// 着弾した位置にヒットエフェクトを置く           
 		GameObject hiteffect = (GameObject)Instantiate(HitEffect, transform.position, transform.rotation);

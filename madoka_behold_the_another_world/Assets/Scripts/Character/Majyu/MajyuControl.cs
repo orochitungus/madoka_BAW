@@ -458,17 +458,17 @@ public class MajyuControl : CharacterControlBase
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == AirDashWrestleID)
 		{
 			ShowAirDashEffect = true;
-			AirDashWrestle(AnimatorUnit, 7, 4);
+			AirDashWrestle(AnimatorUnit);
 		}
 		// 前特殊格闘
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXFrontWrestleID)
 		{
-			FrontExWrestle1(AnimatorUnit, 7, 4);
+			FrontExWrestle1(AnimatorUnit);
 		}
 		// 後特殊格闘
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXBackWrestleID)
 		{
-			BackExWrestle(AnimatorUnit, 7, 4, 5);
+			BackExWrestle(AnimatorUnit);
 		}
 		// 起き上がり
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == ReversalID)
@@ -887,9 +887,9 @@ public class MajyuControl : CharacterControlBase
 	/// <param name="animator"></param>
 	/// <param name="airdashhash"></param>
 	/// <param name="fallid"></param>
-	protected override void FrontExWrestle1(Animator animator, int airdashhash, int fallid)
+	protected override void FrontExWrestle1(Animator animator)
 	{
-		base.FrontExWrestle1(animator, airdashhash, fallid);
+		base.FrontExWrestle1(animator);
 		Wrestletime += Time.deltaTime;
 		// レバー入力カットか特殊格闘入力カットで落下に移行する
 		if (ControllerManager.Instance.TopUp || ControllerManager.Instance.EXWrestleUp)
@@ -914,9 +914,9 @@ public class MajyuControl : CharacterControlBase
 	/// <param name="stepanimations"></param>
 	/// <param name="fallid"></param>
 	/// <param name="landingid"></param>
-	protected override void BackExWrestle(Animator animator, int airdashhash, int fallid, int landingid)
+	protected override void BackExWrestle(Animator animator)
 	{
-		base.BackExWrestle(animator, airdashhash, fallid, landingid);
+		base.BackExWrestle(animator);
 		// レバー入力カットか特殊格闘入力カットで落下に移行する
 		if (ControllerManager.Instance.UnderUp || ControllerManager.Instance.EXWrestleUp)
 		{

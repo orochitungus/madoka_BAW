@@ -720,7 +720,7 @@ public class HomuraBowControl : CharacterControlBase
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == AirDashWrestleID)
 		{
 			ShowAirDashEffect = true;
-			AirDashWrestle(AnimatorUnit, 7, 4);
+			AirDashWrestle(AnimatorUnit);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXWrestleID)
 		{
@@ -728,11 +728,11 @@ public class HomuraBowControl : CharacterControlBase
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXFrontWrestleID)
 		{
-            FrontExWrestle1(AnimatorUnit, 7, 4);
+            FrontExWrestle1(AnimatorUnit);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXBackWrestleID)
 		{
-			BackExWrestle(AnimatorUnit, 7, 4, 5);
+			BackExWrestle(AnimatorUnit);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == ReversalID)
 		{
@@ -1644,12 +1644,9 @@ public class HomuraBowControl : CharacterControlBase
     /// 前特殊格闘
     /// </summary>
     /// <param name="animator"></param>
-    /// <param name="airdashhash"></param>
-    /// <param name="stepanimations"></param>
-    /// <param name="fallid"></param>
-    protected override void FrontExWrestle1(Animator animator, int airdashhash, int fallid)
+    protected override void FrontExWrestle1(Animator animator)
     {
-        base.FrontExWrestle1(animator, airdashhash, fallid);
+        base.FrontExWrestle1(animator);
         Wrestletime += Time.deltaTime; 
         // レバー入力カットか特殊格闘入力カットで落下に移行する
         if(ControllerManager.Instance.TopUp || ControllerManager.Instance.EXWrestleUp)
@@ -1670,13 +1667,9 @@ public class HomuraBowControl : CharacterControlBase
     /// 後特殊格闘
     /// </summary>
     /// <param name="animator"></param>
-    /// <param name="airdashhash"></param>
-    /// <param name="stepanimations"></param>
-    /// <param name="fallid"></param>
-    /// <param name="landingid"></param>
-    protected override void BackExWrestle(Animator animator, int airdashhash, int fallid, int landingid)
+    protected override void BackExWrestle(Animator animator)
     {
-        base.BackExWrestle(animator, airdashhash, fallid, landingid);
+        base.BackExWrestle(animator);
         // レバー入力カットか特殊格闘入力カットで落下に移行する
         if (ControllerManager.Instance.UnderUp || ControllerManager.Instance.EXWrestleUp)
         {
@@ -1685,7 +1678,7 @@ public class HomuraBowControl : CharacterControlBase
 		// 移動速度（上方向に垂直上昇する）
 		float movespeed = 100.0f;
 
-		// 移動方向（移動目的のため、とりあえず垂直上昇させる）
+		// 移動方向（移動目的のため、とりあえず垂直下降させる）
 		MoveDirection = Vector3.Normalize(new Vector3(0, -1, 0));
 
 		// 移動速度を調整する

@@ -2205,8 +2205,7 @@ public class CharacterControlBase : MonoBehaviour
     /// 空中ダッシュ格闘
     /// </summary>
     /// <param name="animator">本体のAnimator</param>
-    /// <param name="airdashhash">空中ダッシュのハッシュID</param>
-    protected virtual void AirDashWrestle(Animator animator, int airdashhash,int fallID)
+    protected virtual void AirDashWrestle(Animator animator)
     {
 		Vector3 RiseSpeed = new Vector3(MoveDirection.x, this.RiseSpeed, MoveDirection.z);
 		IsWrestle = true;
@@ -2259,9 +2258,7 @@ public class CharacterControlBase : MonoBehaviour
     /// 前特殊格闘1段目（全員共通で上昇技）
     /// </summary>
     /// <param name="animator"></param>
-    /// <param name="airdashhash"></param>
-    /// <param name="fallhash"></param>
-    protected virtual void FrontExWrestle1(Animator animator, int airdashhash, int fallhash)
+    protected virtual void FrontExWrestle1(Animator animator)
     {
         IsWrestle = true;
         // 毎フレームブーストを消費する
@@ -2348,10 +2345,7 @@ public class CharacterControlBase : MonoBehaviour
     /// 後特殊格闘（全員共通で下降技）
     /// </summary>
     /// <param name="animator"></param>
-    /// <param name="airdashhash"></param>
-    /// <param name="fallhash"></param>
-    /// <param name="landinghash"></param>
-    protected virtual void BackExWrestle(Animator animator, int airdashhash, int fallhash,int landinghash)
+    protected virtual void BackExWrestle(Animator animator)
     {
         IsWrestle = true;
         // 毎フレームブーストを消費する
@@ -4067,8 +4061,7 @@ public class CharacterControlBase : MonoBehaviour
 	/// </summary>
 	/// <param name="animator">制御対象のanimator</param>
 	/// <param name="skilltype">スキルのインデックス/キャラごとに異なる</param>
-	/// <param name="wrestlehash">使用する格闘のハッシュID</param>
-	protected virtual void WrestleDone_UpperEx(Animator animator, int skilltype, int wrestlehash)
+	protected virtual void WrestleDone_UpperEx(Animator animator, int skilltype)
 	{
 		// 追加入力フラグをカット
 		this.AddInput = false;
@@ -4410,7 +4403,7 @@ public class CharacterControlBase : MonoBehaviour
 		// 判定を生成し・フックと一致させる  
 		Vector3 pos = WrestleRoot[index].transform.position;
 		Quaternion rot = WrestleRoot[index].transform.rotation;
-		var obj = (GameObject)Instantiate(WrestleObject[index], pos, rot);
+		var obj = Instantiate(WrestleObject[index], pos, rot);
 		// 親子関係を再設定する(=判定をフックの子にする）
 		if (obj.transform.parent == null)
 		{
@@ -4511,24 +4504,28 @@ public class CharacterControlBase : MonoBehaviour
 				break;
 			case Character_Spec.CHARACTER_NAME.MEMBER_SCHONO:
 				{
-					if (index == 0)
-						skillIndex = 3;
-					else if (index == 1)
-						skillIndex = 4;
-					else if (index == 2)
-						skillIndex = 5;
-					else if (index == 3)
-						skillIndex = 6;
-					else if (index == 4)
-						skillIndex = 7;
-					else if (index == 5)
-						skillIndex = 8;
-					else if (index == 6)
-						skillIndex = 9;
-					else if (index == 7)
-						skillIndex = 10;
-					else if (index == 8)
-						skillIndex = 11;
+                    if (index == 0)
+                        skillIndex = 3;
+                    else if (index == 1)
+                        skillIndex = 4;
+                    else if (index == 2)
+                        skillIndex = 5;
+                    else if (index == 3)
+                        skillIndex = 6;
+                    else if (index == 4)
+                        skillIndex = 7;
+                    else if (index == 5)
+                        skillIndex = 8;
+                    else if (index == 6)
+                        skillIndex = 9;
+                    else if (index == 7)
+                        skillIndex = 11;
+                    else if (index == 8)
+                        skillIndex = 12;
+                    else if (index == 9)
+                        skillIndex = 13;
+                    else if (index == 10)
+                        skillIndex = 10;
 				}
 				break;
 			case Character_Spec.CHARACTER_NAME.ENEMY_MAJYU:
@@ -4577,6 +4574,7 @@ public class CharacterControlBase : MonoBehaviour
 		// 判定のセッティングを行う
 		wrestleCollision.SetStatus(offensive, downR, arousal, hittype, exclusionname);
 	}
+       
 
 	// 後格闘（防御）判定出現時に実行
 	protected virtual void GuardStart()

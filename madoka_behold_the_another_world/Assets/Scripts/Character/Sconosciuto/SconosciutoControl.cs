@@ -631,7 +631,28 @@ public class SconosciutoControl : CharacterControlBase
 		{			
 			BackWrestle(AnimatorUnit);
 		}
-		if (ShowAirDashEffect)
+        else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXWrestleID)
+        {
+            ExWrestle1();
+        }
+        // 前特殊格闘
+        else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXFrontWrestleID)
+        {
+            FrontExWrestle1(AnimatorUnit);
+        }
+        // 後特殊格闘
+        else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXBackWrestleID)
+        {
+            BackExWrestle(AnimatorUnit);
+        }
+        // 空中ダッシュ格闘
+        else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == AirDashWrestleID)
+        {
+            ShowAirDashEffect = true;
+            AirDashWrestle(AnimatorUnit);
+        }
+
+        if (ShowAirDashEffect)
 		{
 			AirDashEffect.SetActive(true);
 		}
@@ -741,18 +762,46 @@ public class SconosciutoControl : CharacterControlBase
 			// 前特殊格闘(ブーストがないと実行不可)
 			if (HasFrontInput && Boost > 0)
 			{
-				// TODO:前特殊格闘実行
-				
-			}
-			// 空中で後特殊格闘(ブーストがないと実行不可）
-			else if (HasBackInput && !IsGrounded && Boost > 0)
+                // 前特殊格闘実行
+                FrontEXWrestleDone(AnimatorUnit, 12);
+                // スコノの前特格と空中ダッシュ格闘はループアニメなので、WrestleStartをanimファイルに貼るという方法が使えない（無限にくっつく）
+                // そこでここで判定を生成し、fallに入ったら判定を消す
+                // 判定を作る
+                // 判定の場所
+                Vector3 pos = WrestleRoot[8].transform.position;
+                // 判定の角度（0固定）
+                Quaternion rot = WrestleRoot[8].transform.rotation;
+                // 判定を生成する
+                var obj = Instantiate(WrestleObject[8], pos, rot);
+                // 判定を子オブジェクトにする
+                if (obj.transform.parent == null)
+                {
+                    obj.transform.parent = WrestleRoot[8].transform;
+                    // 親子関係を付けておく
+                    obj.transform.GetComponent<Rigidbody>().isKinematic = true;
+                }
+                // 判定に値をセットする
+                // インデックス
+                int characterName = (int)Character_Spec.CHARACTER_NAME.MEMBER_SCHONO;
+                obj.gameObject.GetComponent<Wrestle_Core>().SetStatus(
+                    Character_Spec.cs[characterName][12].m_OriginalStr + Character_Spec.cs[characterName][12].m_GrowthCoefficientStr * (StrLevel - 1),    // offensive    [in]:攻撃力
+                    Character_Spec.cs[characterName][12].m_DownPoint,                                                                                       // downR        [in]:ダウン値
+                    Character_Spec.cs[characterName][12].m_arousal,                                                                                         // arousal      [in]:覚醒ゲージ増加量
+                    Character_Spec.cs[characterName][12].m_Hittype,                                                                                          // hittype      [in]:ヒットタイプ
+                    ObjectName.CharacterFileName[(int)CharacterName]
+                    );
+            }
+            // 空中で後特殊格闘(ブーストがないと実行不可）
+            else if (HasBackInput && !IsGrounded && Boost > 0)
 			{
-				// TODO:後特殊格闘実行
+                // 後特殊格闘実行
+                BackEXWrestleDone(AnimatorUnit, 9);
 			}
 			// それ以外
 			else
 			{
-				// TODO:特殊格闘実行
+                // 特殊格闘実行
+                EXWrestleDone(AnimatorUnit, 11);
 			}
 			return true;
 		}
@@ -810,11 +859,14 @@ public class SconosciutoControl : CharacterControlBase
 			// 空中ダッシュ中で空中ダッシュ格闘へ移行
 			if (AirDash)
 			{
-				// 空中ダッシュ格闘実行
-				AirDashWrestleDone(AnimatorUnit, AirDashSpeed, 11);
-			}
-			// 前格闘で前格闘へ移行
-			else if (HasFrontInput)
+                // 空中ダッシュ格闘実行
+                WrestleDone(AnimatorUnit, 10, "AirDashWrestle");
+                // こちらもループアニメなので、animに関数を貼る手段は使えないため判定をここで作る
+                // 判定の場所
+
+            }
+            // 前格闘で前格闘へ移行
+            else if (HasFrontInput)
 			{
 				// 前格闘実行(Character_Spec.cs参照)
 				WrestleDone(AnimatorUnit, 4, "FrontWrestle");
@@ -1455,4 +1507,151 @@ public class SconosciutoControl : CharacterControlBase
 			}
 		}
 	}
+
+    /// <summary>
+    /// 特殊格闘を実行する
+    /// </summary>
+    /// <param name="animator"></param>
+    /// <param name="skillindex"></param>
+    public void EXWrestleDone(Animator animator, int skillindex)
+    {
+        // 追加入力フラグをカット
+        AddInput = false;
+        // 移動速度
+        float movespeed = Character_Spec.cs[(int)CharacterName][skillindex].m_Movespeed;
+        // 移動方向
+        // ロックオン且つ本体角度が0でない時、相手の方向を移動方向とする
+        if (IsRockon && transform.rotation.eulerAngles.y != 0)
+        {
+            // ロックオン対象を取得
+            var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
+            // ロックオン対象の座標
+            Vector3 targetpos = target.transform.position;
+            // 上記の座標は足元を向いているので、自分の高さに補正する
+            targetpos.y = transform.position.y;
+            // 自機の座標
+            Vector3 mypos = transform.position;
+            // 自機をロックオン対象に向ける
+            transform.rotation = Quaternion.LookRotation(mypos - targetpos);
+            // 方向ベクトルを向けた方向に合わせる            
+            MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
+        }
+        // 本体角度が0の場合カメラの方向を移動方向とし、正規化して代入する
+        else if (transform.rotation.eulerAngles.y == 0)
+        {
+            // ただしそのままだとカメラが下を向いているため、一旦その分は補正する
+            Quaternion rotateOR = MainCamera.transform.rotation;
+            Vector3 rotateOR_E = rotateOR.eulerAngles;
+            rotateOR_E.x = 0;
+            rotateOR = Quaternion.Euler(rotateOR_E);
+            MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+        }
+        // それ以外は本体の角度を移動方向にする
+        else
+        {
+            MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
+        }
+        // アニメーション速度
+        float speed = Character_Spec.cs[(int)CharacterName][skillindex].m_Animspeed;
+
+        // アニメーションを再生する
+        animator.SetTrigger("EXWrestle");
+
+        // アニメーションの速度を調整する
+        animator.speed = speed;
+        // 移動速度を調整する
+        WrestlSpeed = movespeed;
+    }
+
+    /// <summary>
+    /// 前特殊格闘を実行する
+    /// </summary>
+    /// <param name="animator"></param>
+    /// <param name="skillindex"></param>
+    public void FrontEXWrestleDone(Animator animator, int skillindex)
+    {
+        // 追加入力フラグをカット
+        AddInput = false;
+        // 移動速度（上方向に垂直上昇する）
+
+        // アニメーション速度
+        animator.speed = Character_Spec.cs[(int)CharacterName][skillindex].m_Animspeed;
+
+        // アニメーションを再生する
+        animator.SetTrigger("FrontEXWrestle");
+
+    }
+
+    /// <summary>
+	/// 特殊格闘
+	/// </summary>
+	protected override void ExWrestle1()
+    {
+        base.ExWrestle1();
+        Wrestletime += Time.deltaTime;
+        StepCancel(AnimatorUnit);
+    }
+
+    /// <summary>
+    /// 前特殊格闘
+    /// </summary>
+    /// <param name="animator"></param>
+    protected override void FrontExWrestle1(Animator animator)
+    {
+        base.FrontExWrestle1(animator);
+        Wrestletime += Time.deltaTime;
+        // レバー入力カットか特殊格闘入力カットで落下に移行する
+        if (ControllerManager.Instance.TopUp || ControllerManager.Instance.EXWrestleUp)
+        {
+            FallDone(Vector3.zero, animator);
+        }
+        // 移動速度（上方向に垂直上昇する）
+        float movespeed = 100.0f;
+
+        // 移動方向（移動目的のため、とりあえず垂直上昇させる）
+        MoveDirection = Vector3.Normalize(new Vector3(0, 1, 0));
+
+        // 移動速度を調整する
+        WrestlSpeed = movespeed;
+    }
+
+    /// <summary>
+    /// 後特殊格闘
+    /// </summary>
+    /// <param name="animator"></param>
+    protected override void BackExWrestle(Animator animator)
+    {
+        base.BackExWrestle(animator);
+        // レバー入力カットか特殊格闘入力カットで落下に移行する
+        if (ControllerManager.Instance.UnderUp || ControllerManager.Instance.EXWrestleUp)
+        {
+            FallDone(Vector3.zero, animator);
+        }
+        // 移動速度（上方向に垂直上昇する）
+        float movespeed = 100.0f;
+
+        // 移動方向（移動目的のため、とりあえず垂直下降させる）
+        MoveDirection = Vector3.Normalize(new Vector3(0, -1, 0));
+
+        // 移動速度を調整する
+        WrestlSpeed = movespeed;
+    }
+
+    /// <summary>
+    /// 後特殊格闘を実行する
+    /// </summary>
+    /// <param name="animator"></param>
+    /// <param name="skillindex"></param>
+    public void BackEXWrestleDone(Animator animator, int skillindex)
+    {
+        // 追加入力フラグをカット
+        AddInput = false;
+
+        // アニメーション速度
+        animator.speed = Character_Spec.cs[(int)CharacterName][skillindex].m_Animspeed;
+
+        // アニメーションを再生する
+        animator.SetTrigger("BackEXWrestle");
+
+    }
 }

@@ -6211,7 +6211,47 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.9578454
+        functionName: ReturnToIdle
+        data: 
+        objectReferenceParameter: {fileID: 1054776789524050, guid: af108f5738d5e214094bc5d1f5c73f09,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.20140515
+        functionName: WrestleStart2
+        data: 
+        objectReferenceParameter: {fileID: 1054776789524050, guid: af108f5738d5e214094bc5d1f5c73f09,
+          type: 2}
+        floatParameter: 0
+        intParameter: 7
+        messageOptions: 0
+      - time: 0.28337237
+        functionName: DestroyWrestle
+        data: 
+        objectReferenceParameter: {fileID: 1054776789524050, guid: af108f5738d5e214094bc5d1f5c73f09,
+          type: 2}
+        floatParameter: 0
+        intParameter: 7
+        messageOptions: 0
+      - time: 0.5714286
+        functionName: WrestleStart2
+        data: 
+        objectReferenceParameter: {fileID: 1054776789524050, guid: af108f5738d5e214094bc5d1f5c73f09,
+          type: 2}
+        floatParameter: 0
+        intParameter: 7
+        messageOptions: 0
+      - time: 0.7751757
+        functionName: DestroyWrestle
+        data: 
+        objectReferenceParameter: {fileID: 1054776789524050, guid: af108f5738d5e214094bc5d1f5c73f09,
+          type: 2}
+        floatParameter: 0
+        intParameter: 7
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -6571,7 +6611,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.8946136
+        functionName: WrestleStart2
+        data: 
+        objectReferenceParameter: {fileID: 1054776789524050, guid: af108f5738d5e214094bc5d1f5c73f09,
+          type: 2}
+        floatParameter: 0
+        intParameter: 9
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
