@@ -36,6 +36,11 @@ public class SconosciutoControl : CharacterControlBase
 	public GameObject EXShotHock;
 
 	/// <summary>
+	/// 覚醒技のビームを放つパワーボール
+	/// </summary>
+	public GameObject ArousalCore;
+
+	/// <summary>
 	/// メイン射撃撃ち終わり時間
 	/// </summary>
 	private float MainshotEndtime;
@@ -726,8 +731,9 @@ public class SconosciutoControl : CharacterControlBase
 			// アーマーをONにする
 			IsArmor = true;
 
-			// TODO:覚醒技前処理をここに入れる
+			// 覚醒技前処理をここに入れる
 			
+
 			return true;
 		}
 		// サブ射撃でサブ射撃へ移行

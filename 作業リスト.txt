@@ -13,6 +13,10 @@ BGM‚ÆSE‚ÍƒTƒEƒ“ƒhƒ}ƒl[ƒWƒƒ[ˆË‘¶‚É‚·‚é¨ƒƒjƒ…[‚È‚Ç‚Ì‚ÝBƒQ[ƒ€“à‚Í’Êí‚ÌƒTƒEƒ
 ã‹LƒNƒ‰ƒX‚ðŒp³‚µ‚ÄƒXƒRƒm‚ðì¬‚·‚é(ã’…‚Æ”¯‚ÆƒXƒJ[ƒg‚Æ–XŽqü‚è‚Í•¨—‰‰ŽZ‚ð“K—p‚·‚é‚½‚ßƒAƒjƒ‚ð“ü‚ê‚È‚¢j
 (https://effekseer.github.io/jp/)						¨5/4
 	ŠoÁ‹Z‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é
+		ƒQ[ƒW‚ð‘SÁ”ï‚µAƒpƒ[ƒ{[ƒ‹‚ðŒf‚°‚é
+		ƒpƒ[ƒ{[ƒ‹‚©‚çƒŒ[ƒU[‚ðo‚µA“ã‚¬•¥‚¤
+		“ã‚¬•¥‚Á‚½êŠ‚ÉUŒ‚”»’è‚ªo‚é
+		“ã‚¬•¥‚¢‚ªI‚í‚é‚ÆIdle‚É–ß‚é
 
 •ö‰óŒ©‘êŒ´ƒXƒe[ƒW‚ðì‚é								¨5/5
 
