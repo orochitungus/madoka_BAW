@@ -41,6 +41,11 @@ public class SconosciutoControl : CharacterControlBase
 	public GameObject ArousalCore;
 
 	/// <summary>
+	/// パワーボールのアニメーター
+	/// </summary>
+	public Animator ArousalCoreAnimator;
+
+	/// <summary>
 	/// メイン射撃撃ち終わり時間
 	/// </summary>
 	private float MainshotEndtime;
@@ -731,8 +736,8 @@ public class SconosciutoControl : CharacterControlBase
 			// アーマーをONにする
 			IsArmor = true;
 
-			// 覚醒技前処理をここに入れる
-			
+			// モーションを覚醒技にする
+			ArousalAttackDone();
 
 			return true;
 		}
@@ -951,6 +956,7 @@ public class SconosciutoControl : CharacterControlBase
 	public void ReturnToIdle()
 	{
 		// 矢や格闘判定も消しておく
+		IsArmor = false;
 		DestroyArrow();
 		DestroyWrestle();
 		ReturnMotion(AnimatorUnit);
@@ -1682,4 +1688,34 @@ public class SconosciutoControl : CharacterControlBase
         animator.SetTrigger("BackEXWrestle");
 
     }
+
+
+	/// <summary>
+	/// 覚醒技を実行する
+	/// </summary>
+	public void ArousalAttackDone()
+	{
+		AnimatorUnit.SetTrigger("ArousalAttack");
+		ArousalCoreAnimator.SetTrigger("Wait");
+		// 位置固定を行う
+		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+	}
+
+	/// <summary>
+	/// パワーボールを出現させてアニメーションを再生する
+	/// </summary>
+	public void AppearArousalBall()
+	{
+		ArousalCore.SetActive(true);
+		ArousalCoreAnimator.SetTrigger("ArousalAttack");
+	}
+
+	/// <summary>
+	/// パワーボールを出現させてアニメーションを終える
+	/// </summary>
+	public void EraseArousalBall()
+	{
+		ArousalCoreAnimator.SetTrigger("Wait");
+		ArousalCore.SetActive(false);
+	}
 }

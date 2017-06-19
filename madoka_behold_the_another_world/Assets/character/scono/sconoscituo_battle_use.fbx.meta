@@ -6995,7 +6995,31 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.20630372
+        functionName: AppearArousalBall
+        data: 
+        objectReferenceParameter: {fileID: 1054776789524050, guid: af108f5738d5e214094bc5d1f5c73f09,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9398281
+        functionName: EraseArousalBall
+        data: 
+        objectReferenceParameter: {fileID: 1054776789524050, guid: af108f5738d5e214094bc5d1f5c73f09,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.99140406
+        functionName: ReturnToIdle
+        data: 
+        objectReferenceParameter: {fileID: 1054776789524050, guid: af108f5738d5e214094bc5d1f5c73f09,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
