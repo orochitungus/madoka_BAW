@@ -19,6 +19,7 @@ namespace Utage
 				Debug.LogError(ToErrorString(label + " is not contained in file setting"));
 			}
 			this.isLoop = ParseCellOptional<bool>(AdvColumnName.Arg2, false);
+			this.volume = ParseCellOptional<float>(AdvColumnName.Arg3, 1.0f);
 
 			this.file = AddLoadFile(dataManager.SoundSetting.LabelToFilePath(label, SoundType.Se), dataManager.SoundSetting.FindData(label) );
 		}
@@ -27,12 +28,13 @@ namespace Utage
 		{
 			if (!engine.Page.CheckSkip () || !engine.Config.SkipVoiceAndSe) 
 			{
-				engine.SoundManager.PlaySe(file, label, SoundPlayMode.Add, isLoop);
+				engine.SoundManager.PlaySe(file, volume, label, SoundPlayMode.Add, isLoop);
 			}
 		}
 
 		string label;
 		AssetFile file;
+		float volume;
 		bool isLoop;
 	}
 }

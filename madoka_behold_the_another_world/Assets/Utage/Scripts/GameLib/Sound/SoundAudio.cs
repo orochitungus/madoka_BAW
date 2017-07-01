@@ -28,7 +28,7 @@ namespace Utage
 		SoundStreamStatus Status { get { return status; } }
 
 		//現在鳴らしているオーディオソース
-		AudioSource AudioSource { get; set; }
+		public AudioSource AudioSource { get; private set; }
 		//イントロループするときのオーディオソース
 		AudioSource AudioSourceForIntroLoop { get; set; }
 

@@ -327,75 +327,15 @@ namespace Utage
 			isWaitBootLoading = false;
 		}
 
-#if false
-		/// <summary>
-		/// 指定のパスのゲームを開始
-		/// </summary>
-		/// <param name="url">ファイルパス</param>
-		/// <param name="resourceDir">リソースディレクトリ</param>
-		/// <param name="version">シナリオバージョン（-1以下で必ずサーバーからデータを読み直す）</param>
-		public void BootFromCsv(string url, string resourceDir, int version)
-		{
-			BootFromCsv(new List<string>(new string[] { url }), resourceDir, version);
-		}
 
 		/// <summary>
-		/// 指定のパスのゲームを開始
+		/// 既にその章データを設定済みか
 		/// </summary>
-		/// <param name="url">ファイルパス</param>
-		/// <param name="resourceDir">リソースディレクトリ</param>
-		/// <param name="version">シナリオバージョン（-1以下で必ずサーバーからデータを読み直す）</param>
-		public void BootFromCsv(List<string> urlList, string resourceDir, int version)
+		/// <param name="url">パス</param>
+		public bool ExitsChapter(string url)
 		{
-			this.gameObject.SetActive(true);
-			StopAllCoroutines();
-			StartCoroutine(LoadSettingDataCsvAsync(urlList, resourceDir, version));
-		}
-
-		IEnumerator LoadSettingDataCsvAsync(List<string> urlList, string resourceDir, int version)
-		{
-			ClearOnStart();
-			isStarted = true;
-			isWaitBootLoading = true;
-			onPreInit.Invoke();
-			//ロード
-			while (!AssetFileManager.IsInitialized()) yield return null;
-
-			//プロファイラ―が最初の1フレームはちゃんんと記録してくれないので遅らせる
-			yield return null;
-
-			//シナリオデータを作成
-			AdvImportScenarios scenarios = new AdvImportScenarios();
-			foreach (string url in urlList)
-			{
-				string chapterName = FilePathUtil.GetFileNameWithoutDoubleExtension(url);
-				AdvChapterData chapter = null;//SettingDataManager.FindChapter(chapterName);
-				if (chapter != null)
-				{
-					Debug.LogError(chapterName + " is already exists");
-				}
-				else
-				{
-					chapter = new AdvChapterData(chapterName);
-//					yield return StartCoroutine(chapter.CoLoadFromTsv(url, version));
-					scenarios.AddChapter(chapter);
-				}
-			}
-			DataManager.SettingDataManager.ImportedScenarios = scenarios;
-			BootInit(resourceDir);
-			isWaitBootLoading = false;
-		}
-#endif
-
-		/// <summary>
-		/// 章の起動用TSVをロード
-		/// </summary>
-		/// <param name="url">CSVのパス</param>
-		/// <param name="version">シナリオバージョン（-1以下で必ずサーバーからデータを読み直す）</param>
-		/// <returns></returns>
-		public void LoadChapter(string url)
-		{
-			StartCoroutine(CoLoadChapter(url));
+			string chapterAssetName = FilePathUtil.GetFileNameWithoutExtension(url);
+			return DataManager.SettingDataManager.ImportedScenarios.Chapters.Exists(x => x.name == chapterAssetName);
 		}
 
 		/// <summary>
@@ -404,13 +344,12 @@ namespace Utage
 		/// <param name="url">CSVのパス</param>
 		/// <param name="version">シナリオバージョン（-1以下で必ずサーバーからデータを読み直す）</param>
 		/// <returns></returns>
-		IEnumerator CoLoadChapter(string url)
+		public IEnumerator LoadChapterAsync(string url)
 		{
 			AssetFile file = AssetFileManager.Load(url, this);
 			while (!file.IsLoadEnd) yield return null;
 
-//			AdvChapterData chapter = file.UnityObject as AdvChapterData;
-			AdvChapterData chapter = null;
+			AdvChapterData chapter = file.UnityObject as AdvChapterData;
 			if (chapter == null)
 			{
 				Debug.LogError(url + " is  not scenario file");
@@ -421,14 +360,11 @@ namespace Utage
 			{
 				this.DataManager.SettingDataManager.ImportedScenarios = new AdvImportScenarios();
 			}
-			this.DataManager.SettingDataManager.ImportedScenarios.AddChapter(chapter);
-
-			//設定データを反映
-			GraphicManager.Remake(DataManager.SettingDataManager.LayerSetting);
-			//パラメーターをデフォルト値でリセット
-			Param.InitDefaultAll(DataManager.SettingDataManager.DefaultParam);
-			//リソースファイル(画像やサウンド)のダウンロードをバックグラウンドで進めておく
-//			DataManager.StartBackGroundDownloadResourceInChapter(chapter);
+			if (this.DataManager.SettingDataManager.ImportedScenarios.TryAddChapter(chapter))
+			{
+				//シナリオデータの初期化
+				DataManager.BootInitChapter(chapter);
+			}
 		}
 
 		void OnClicked()
@@ -521,18 +457,8 @@ namespace Utage
 			//通常セーブデータの初期化
 			SaveManager.Init();
 
-			if (bootAsync)
-			{
-				//非同期初期化
-				StartCoroutine(DataManager.CoBootInitScenariodData(StartScenarioLabel));
-			}
-			else
-			{
-				//シナリオデータの初期化
-				DataManager.BootInitScenariodData();
-				//リソースファイル(画像やサウンド)のダウンロードをバックグラウンドで進めておく
-				DataManager.StartBackGroundDownloadResource(StartScenarioLabel);
-			}
+			//シナリオデータの初期化
+			DataManager.BootInitScenario(bootAsync);
 		}
 
 		//カスタムコマンドの初期化

@@ -25,7 +25,7 @@ namespace Utage
 		{
 			foreach( var data in AnimationData.DataList)
 			{
-				Dicing.TryChangePatternWithOption(Dicing.MainPattern, EyeTag, data.GetSffixName() );
+				Dicing.TryChangePatternWithOption(Dicing.MainPattern, EyeTag, data.ComvertNameSimple() );
 				yield return new WaitForSeconds(data.Duration);
 			}
 			Dicing.TryChangePatternWithOption(Dicing.MainPattern, EyeTag, "");

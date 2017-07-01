@@ -11,6 +11,18 @@ using System.Collections.Generic;
 public class UtageUguiGallery : UguiView
 {
 	public UguiView[] views;
+	int tabIndex = -1;
+
+	/// <summary>
+	/// オープンしたときに呼ばれる
+	/// </summary>
+	void OnOpen()
+	{
+		if (tabIndex >= 0)
+		{
+			views[tabIndex].ToggleOpen(true);
+		}
+	}
 
 	//一時的に表示オフ
 	public void Sleep()
@@ -37,5 +49,6 @@ public class UtageUguiGallery : UguiView
 			views[i].ToggleOpen(false);
 		}
 		views[index].ToggleOpen(true);
+		tabIndex = index;
 	}
 }

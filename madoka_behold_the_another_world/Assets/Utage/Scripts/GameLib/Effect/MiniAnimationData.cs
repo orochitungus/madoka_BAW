@@ -47,6 +47,18 @@ namespace Utage
 				}
 			}
 
+			//命名規則などを踏まえた名前を
+			public string ComvertNameSimple()
+			{
+				switch (ParseNamigType())
+				{
+					case NamingType.Suffix:
+						return GetSffixName();
+					default:
+						return name;
+				}
+			}
+
 			//サフィックス（接尾辞）としての名前を取得
 			public string GetSffixName()
 			{

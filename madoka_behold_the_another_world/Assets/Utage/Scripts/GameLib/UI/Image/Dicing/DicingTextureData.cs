@@ -100,12 +100,16 @@ namespace Utage
 			int index = 0;
 			for (int cellY = 0; cellY < cellCountY; ++cellY)
 			{
-				float y = cellY * paddingCellSize;
-				for (int cellX = 0; cellX < cellCountX; ++cellX)
+				float y0 = cellY * paddingCellSize;
+                //本来のテクスチャの大きさ以上にはしない
+                float y1 = Mathf.Min( y0 + paddingCellSize, this.Height);
+                for (int cellX = 0; cellX < cellCountX; ++cellX)
 				{
-					float x = cellX * paddingCellSize;
-					DicingTextureData.QuadVerts quadVerts = new DicingTextureData.QuadVerts();
-					quadVerts.v = new Vector4(x, y, x + paddingCellSize, y + paddingCellSize);
+                    DicingTextureData.QuadVerts quadVerts = new DicingTextureData.QuadVerts();
+                    float x0 = cellX * paddingCellSize;
+                    //本来のテクスチャの大きさ以上にはしない
+                    float x1 = Mathf.Min(x0 + paddingCellSize, this.Width);
+                    quadVerts.v = new Vector4(x0, y0, x1, y1);
 					int cellIndex = cellIndexList[index];
 					quadVerts.isAllTransparent = (cellIndex == transparentIndex);
 
@@ -114,8 +118,8 @@ namespace Utage
 					//パディングを考慮してUV値を設定しておく
 					float uvX = 1.0f * (ux + atlas.Padding) / atlasWidth;
 					float uvY = 1.0f * (uy + atlas.Padding) / atlasHeight;
-					float uvW = 1.0f * (paddingCellSize) / atlasWidth;
-					float uvH = 1.0f * (paddingCellSize) / atlasHeight;
+					float uvW = 1.0f * (x1-x0) / atlasWidth;
+					float uvH = 1.0f * (y1-y0) / atlasHeight;
 					quadVerts.uvRect = new Rect(uvX, uvY, uvW, uvH);
 					this.verts.Add(quadVerts);
 					index++;

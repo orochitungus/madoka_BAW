@@ -11,7 +11,7 @@ namespace Utage
 	/// </summary>
 	public class AdvImportScenarios : ScriptableObject
 	{
-		const int Version = 2;
+		const int Version = 3;
 		
 		[SerializeField]
 		int importVersion = 0;
@@ -33,26 +33,26 @@ namespace Utage
 			importVersion = Version;
 			this.Chapters.Clear();
 		}
-
-		/// <summary>
-		/// 設定データのエクセルシートを読み込む
-		/// </summary>
-		/// <param name="sheetName">シート名</param>
-		/// <param name="grid">シートのStringGridデータ</param>
-		public AdvChapterData AddImportData( string chapterName, List<AdvImportBook> importDataList)
-		{
-			importVersion = Version;
-			AdvChapterData chapter = new AdvChapterData(chapterName);
-			this.Chapters.Add(chapter);
-			chapter.InitImportData(importDataList);
-			return chapter;
-		}
 #endif
 
-		//ダウンロードデータを追加
+		//章データを追加
 		public void AddChapter(AdvChapterData chapterData)
 		{
 			this.Chapters.Add(chapterData);
+		}
+
+		//章データを追加（既に同じ名前の章があったら追加しない）
+		public bool TryAddChapter(AdvChapterData chapterData)
+		{
+			if (Chapters.Exists(x => x.name == chapterData.name))
+			{
+				return false;
+			}
+			else
+			{
+				this.Chapters.Add(chapterData);
+				return true;
+			}
 		}
 	}
 }

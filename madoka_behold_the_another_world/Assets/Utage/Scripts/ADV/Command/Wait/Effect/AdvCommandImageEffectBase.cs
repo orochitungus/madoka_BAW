@@ -30,7 +30,8 @@ namespace Utage
 		{
 			Camera camera = target.GetComponentInChildren<Camera>(true);
 			ImageEffectBase imageEffect;
-			if (!ImageEffectUtil.TryGetComonentCreateIfMissing( imageEffectType, out imageEffect, camera.gameObject))
+			bool alreadyEnabled;
+			if (!ImageEffectUtil.TryGetComonentCreateIfMissing( imageEffectType, out imageEffect, out alreadyEnabled, camera.gameObject))
 			{
 				Complete(imageEffect, thread);
 				return;

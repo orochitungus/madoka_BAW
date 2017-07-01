@@ -58,7 +58,7 @@ namespace Utage
 
 			foreach (MainAssetInfo asset in directory.GetAllChildren())
 			{
-				if (asset.Asset is MonoScript || asset.Asset is Shader)
+				if (asset.Asset is MonoScript || asset.Asset is Shader || asset.Asset is TextAsset)
 				{
 					EditScript(asset);
 				}

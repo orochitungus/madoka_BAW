@@ -9,8 +9,7 @@ namespace Utage
 	/// <summary>
 	/// 章データ
 	/// </summary>
-	[System.Serializable]
-	public class AdvChapterData
+	public class AdvChapterData : ScriptableObject
 	{
 		//章の名前
 		public string ChapterName { get { return chapterName; } }
@@ -29,7 +28,7 @@ namespace Utage
 
 		public bool IsInited { get; set; }
 
-		public AdvChapterData(string name)
+		public void Init(string name)
 		{
 			this.chapterName = name;
 		}
@@ -102,6 +101,11 @@ namespace Utage
 			{
 				foreach (var sheet in book.ImportGridList)
 				{
+					if (scenarioDataTbl.ContainsKey(sheet.SheetName))
+					{
+						Debug.LogErrorFormat("{0} is already contains", sheet.SheetName);
+						continue;
+					}
 					Profiler.BeginSample("new Scenario");
 					sheet.InitLink();
 					AdvScenarioData scenario = new AdvScenarioData(sheet);
@@ -219,8 +223,9 @@ namespace Utage
 #endif
 
 #if UNITY_EDITOR
-		internal void InitImportData(List<AdvImportBook> importDataList)
+		public void InitImportData(List<AdvImportBook> importDataList)
 		{
+			this.SettingList.Clear();
 			this.DataList.Clear();
 			this.DataList.AddRange(importDataList);
 		}

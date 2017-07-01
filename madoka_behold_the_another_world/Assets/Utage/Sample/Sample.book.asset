@@ -7586,554 +7586,231 @@ MonoBehaviour:
     - rowIndex: 4
       debugIndex: 4
       strings:
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - "\uFF5E\u30DC\u30A4\u30B9\u306E\u518D\u751F\uFF5E"
-      - 
-      - 
-      - 
-      - Voice Playback
+      - '**Audio0'
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 5
       debugIndex: 5
       strings:
-      - 
-      - "\u3046\u305F\u3053"
-      - 
-      - 
+      - Selection
+      - '**Audio1'
       - 
       - 
       - 
-      - "\u307E\u305A\u306F\u30DC\u30A4\u30B9\u3092\u9CF4\u3089\u3057\u3066\u307F\u307E\u3057\u3087\u3046\u304B\u3002"
+      - 
+      - 
+      - "\u57FA\u672C\u6A5F\u80FD"
       - 
       - 
       - 
-      - Let's try playing a voice.
+      - Basic
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 6
       debugIndex: 6
       strings:
-      - 
-      - "\u3046\u305F\u3053"
-      - 
-      - 
+      - Selection
+      - '**Audio2'
       - 
       - 
       - 
-      - "\u30DC\u30A4\u30B9\u3092\u518D\u751F\u3059\u308B\u306B\u306F\u3001\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC\u306E\u53F0\u8A5E\u8868\u793A\u306E\u3068\u304D\u306BVoice\u5217\u306B\u30D5\u30A1\u30A4\u30EB\u540D\u3092\u8A18\u8FF0\u3057\u307E\u3059\u3002"
+      - 
+      - 
+      - "\u5168\u4F53\u64CD\u4F5C"
       - 
       - 
       - 
-      - To play a voice, define a file in the Voice line when displaying a character's
-        lines.
+      - Overall operation
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 7
       debugIndex: 7
       strings:
-      - 
-      - "\u3046\u305F\u3053"
-      - 
-      - 
+      - Selection
+      - '*Basic'
       - 
       - 
       - 
-      - "\u30ED\u30DC\u5B50\u3061\u3083\u3093\u3002\u304A\u9858\u3044\u3002"
+      - 
+      - 
+      - "\u623B\u308B"
       - 
       - 
       - 
-      - Hey, Ms. Robot. Please!
+      - Go back
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 8
-      debugIndex: 8
+      debugIndex: 11
       strings:
-      - 
-      - "\u30ED\u30DC\u5B50"
-      - 
-      - 
-      - 
-      - 
-      - 
-      - "\u30DC\u30A4\u30B9\u306E\u30C6\u30B9\u30C8\u518D\u751F\u3002\u6B63\u3057\u304F\u518D\u751F\u3055\u308C\u3066\u3044\u308B\u3067\u3057\u3087\u3046\u304B\uFF1F"
-      - 
-      - voice_test1.wav
-      - 
-      - This is a voice test playback. Did you hear it?
+      - '**Audio1'
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 9
-      debugIndex: 9
+      debugIndex: 12
       strings:
-      - 
-      - "\u3046\u305F\u3053"
-      - 
-      - 
+      - Selection
+      - '**BGM'
       - 
       - 
       - 
-      - "\u3046\u3093\u3001\u3070\u3063\u3061\u308A\u3088\u3002"
       - 
-      - voice_test2.wav
       - 
-      - I sure did.
+      - BGM
+      - 
+      - 
+      - 
+      - BGM
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 10
-      debugIndex: 10
+      debugIndex: 13
       strings:
-      - 
-      - "\u30E9\u30F3"
-      - 
-      - 
+      - Selection
+      - '**SE'
       - 
       - 
       - 
-      - "\u304A\u304A\u30FC\u3002\u3067\u3082\u5909\u306A\u58F0\u3060\u3002"
       - 
-      - voice_test3.wav
       - 
-      - Alright! But it sounds funny.
+      - SE
+      - 
+      - 
+      - 
+      - SFX
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 11
-      debugIndex: 11
+      debugIndex: 14
       strings:
-      - 
-      - "\u3046\u305F\u3053"
-      - 
-      - 
+      - Selection
+      - '**Ambience'
       - 
       - 
       - 
-      - "\u5408\u6210\u97F3\u58F0\u3067\u3059\u304B\u3089\u306D\u30FC\u3002\u3061\u3083\u3093\u3068\u3057\u305F\u58F0\u304C\u6B32\u3057\u3044\u306A\u3089\u58F0\u512A\u3055\u3093\u306B\u983C\u3093\u3060\u307B\u3046\u304C\u3044\u3044\u308F\u306D\u3002"
       - 
-      - voice_test4.wav
       - 
-      - It's a synthesized voice, that's why. If you want a real voice, you're gonna
-        have to ask a voice actor.
+      - "\u74B0\u5883\u97F3"
+      - 
+      - 
+      - 
+      - Ambience
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 12
-      debugIndex: 12
+      debugIndex: 15
       strings:
+      - Selection
+      - '**Voice'
       - 
       - 
       - 
       - 
       - 
-      - 
-      - 
-      - "\u30DC\u30A4\u30B9\u30D5\u30A1\u30A4\u30EB\u306F\u3001\u30B5\u30A6\u30F3\u30C9\u30B7\u30FC\u30C8\u3067\u7BA1\u7406\u3055\u308C\u306A\u3044\u70B9\u306B\u6CE8\u610F\u3057\u3066\u304F\u3060\u3055\u3044\u3002"
+      - "\u30DC\u30A4\u30B9"
       - 
       - 
       - 
-      - Note that voice files are not maintained in the sound sheet.
+      - Voice
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 13
-      debugIndex: 13
+      debugIndex: 16
       strings:
+      - Selection
+      - '**Audio0'
       - 
       - 
       - 
       - 
       - 
-      - 
-      - 
-      - "\u901A\u5E38\u306E\u30C6\u30AD\u30B9\u30C8\u8868\u793A\u3068\u306F\u5225\u306B\u3001\u30B3\u30DE\u30F3\u30C9\u304B\u3089\u30DC\u30A4\u30B9\u3092\u9CF4\u3089\u3059\u3053\u3068\u3082\u3067\u304D\u307E\u3059\u3002"
+      - "\u623B\u308B"
       - 
       - 
       - 
-      - As an alternative to the usual text display system command, you can also play
-        the voice from the command.
+      - Go back
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 14
-      debugIndex: 14
+      debugIndex: 19
       strings:
-      - Voice
-      - "\u3046\u305F\u3053"
-      - TRUE
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - voice_test1.wav
+      - '**Audio2'
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 15
-      debugIndex: 15
+      debugIndex: 20
       strings:
+      - Selection
+      - '**StopSound'
       - 
       - 
       - 
       - 
       - 
-      - 
-      - 
-      - "\u30DC\u30A4\u30B9\u518D\u751F\u30B3\u30DE\u30F3\u30C9"
+      - "\u97F3\u3092\u6B62\u3081\u308B"
       - 
       - 
       - 
-      - Use the Voice command to start playback
+      - BGM
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 16
-      debugIndex: 16
+      debugIndex: 21
       strings:
+      - Selection
+      - '**ChangeVolume'
       - 
       - 
       - 
       - 
       - 
-      - 
-      - 
-      - "Arg2\u3067\u30EB\u30FC\u30D7\u3082\u8A2D\u5B9A\u3067\u304D\u307E\u3059\u3002\u3067\u3059\u304C\u3001\u30DC\u30A4\u30B9\u306F\u30BB\u30FC\u30D6\u3055\u308C\u306A\u3044\u306E\u3067\u6CE8\u610F\u3057\u3066\u304F\u3060\u3055\u3044\u3002"
+      - "\u97F3\u91CF\u3092\u5909\u66F4\u3059\u308B"
       - 
       - 
       - 
-      - Loop can also be set in the Arg2. But, please note that voice is not saved.
+      - SE
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 17
-      debugIndex: 17
+      debugIndex: 22
       strings:
-      - StopVoice
+      - Selection
+      - '**Audio0'
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u623B\u308B"
+      - 
+      - 
+      - 
+      - Go back
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 18
-      debugIndex: 18
+      debugIndex: 26
       strings:
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - "\u30DC\u30A4\u30B9\u505C\u6B62\u30B3\u30DE\u30F3\u30C9"
-      - 
-      - 
-      - 
-      - and the StopVoice command to stop it.
+      - '**BGM'
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 19
-      debugIndex: 19
-      strings:
-      - CharacterOff
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 20
-      debugIndex: 20
-      strings:
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - "\uFF5ESE\u3092\u9CF4\u3089\u3059\uFF5E"
-      - 
-      - 
-      - 
-      - Play Sound Effects
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 21
-      debugIndex: 21
-      strings:
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - "SE\u306E\u518D\u751F\u306F\u3001\u300CSe\u300D\u30B3\u30DE\u30F3\u30C9\u3092\u4F7F\u3044\u307E\u3059\u3002"
-      - 
-      - 
-      - 
-      - SFX playback is done through the Se (sound effect) command.
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 22
-      debugIndex: 22
-      strings:
-      - Se
-      - "\u30B7\u30E5\u30FC\u30C8"
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 23
-      debugIndex: 23
-      strings:
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - "\u300CArg1\u300D\u306B\u306F\u3001\u300CSound\u300D\u30B7\u30FC\u30C8\u306BSE\u3068\u3057\u3066\u767B\u9332\u3057\u305F\u30E9\u30D9\u30EB\u3092\u6307\u5B9A\u3057\u307E\u3059\u3002"
-      - 
-      - 
-      - 
-      - Specify as Arg1 the sound effect label you registered in the SFX sheet.
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 24
-      debugIndex: 24
-      strings:
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - "SE\u306F\u3001\u57FA\u672C\u7684\u306B\u4E00\u5EA6\u9CF4\u3089\u3057\u3066\u305D\u308C\u3067\u7D42\u308F\u308A\u3067\u3059\u3002"
-      - 
-      - 
-      - 
-      - SFX generally play once and then conclude.
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 25
-      debugIndex: 25
-      strings:
-      - Se
-      - "\u7206\u767A"
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 26
-      debugIndex: 26
-      strings:
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - "\u9023\u7D9A\u3057\u3066\u540C\u3058\u97F3\u3092\u3044\u304F\u3064\u3082\u9CF4\u3089\u3059\u3053\u3068\u304C\u3067\u304D\u307E\u3059\u3002"
-      - 
-      - 
-      - 
-      - You can also play the same sound back repeatedly.
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 27
       debugIndex: 27
-      strings:
-      - Se
-      - "\u30B7\u30E5\u30FC\u30C8"
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 28
-      debugIndex: 28
-      strings:
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - "SE\u518D\u751F"
-      - 
-      - 
-      - 
-      - SFX playback
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 29
-      debugIndex: 29
-      strings:
-      - Se
-      - "\u30B7\u30E5\u30FC\u30C8"
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 30
-      debugIndex: 30
-      strings:
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - "SE\u518D\u751F"
-      - 
-      - 
-      - 
-      - SFX playback
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 31
-      debugIndex: 31
-      strings:
-      - Se
-      - "\u30B7\u30E5\u30FC\u30C8"
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 32
-      debugIndex: 32
-      strings:
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - "SE\u518D\u751F"
-      - 
-      - 
-      - 
-      - SFX playback
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 33
-      debugIndex: 33
-      strings:
-      - Se
-      - "\u30B7\u30E5\u30FC\u30C8"
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 34
-      debugIndex: 34
-      strings:
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - "SE\u505C\u6B62\u3082\u3067\u304D\u307E\u3059"
-      - 
-      - 
-      - 
-      - SFX playback
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 35
-      debugIndex: 35
-      strings:
-      - Se
-      - "\u7206\u767A"
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 36
-      debugIndex: 36
-      strings:
-      - StopSe
-      - "\u7206\u767A"
-      - 
-      - 
-      - 
-      - 
-      - .2
-      - 
-      - 
-      - 
-      - 
-      - This concludes the SFX playback section.
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 37
-      debugIndex: 37
-      strings:
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - "SE\u505C\u6B62"
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 38
-      debugIndex: 38
-      strings:
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - "SE\u518D\u751F\u306B\u3064\u3044\u3066\u306F\u4EE5\u4E0A\u3067\u3059\u3002"
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 39
-      debugIndex: 41
-      strings:
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - "\uFF5EBGM\u3092\u9CF4\u3089\u3059\uFF5E"
-      - 
-      - 
-      - 
-      - Play music
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 40
-      debugIndex: 42
       strings:
       - 
       - 
@@ -8150,16 +7827,16 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 41
-      debugIndex: 43
+    - rowIndex: 20
+      debugIndex: 28
       strings:
       - Bgm
       - "BGM\u305D\u306E1"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 42
-      debugIndex: 44
+    - rowIndex: 21
+      debugIndex: 29
       strings:
       - 
       - 
@@ -8176,8 +7853,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 43
-      debugIndex: 45
+    - rowIndex: 22
+      debugIndex: 30
       strings:
       - 
       - 
@@ -8194,8 +7871,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 44
-      debugIndex: 46
+    - rowIndex: 23
+      debugIndex: 31
       strings:
       - 
       - 
@@ -8213,16 +7890,16 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 45
-      debugIndex: 47
+    - rowIndex: 24
+      debugIndex: 32
       strings:
       - Bgm
       - "BGM\u305D\u306E1"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 46
-      debugIndex: 48
+    - rowIndex: 25
+      debugIndex: 33
       strings:
       - 
       - 
@@ -8240,8 +7917,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 47
-      debugIndex: 49
+    - rowIndex: 26
+      debugIndex: 34
       strings:
       - 
       - 
@@ -8259,8 +7936,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 48
-      debugIndex: 51
+    - rowIndex: 27
+      debugIndex: 36
       strings:
       - 
       - 
@@ -8277,8 +7954,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 49
-      debugIndex: 52
+    - rowIndex: 28
+      debugIndex: 37
       strings:
       - Bgm
       - "BGM\u305D\u306E2"
@@ -8290,8 +7967,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 50
-      debugIndex: 53
+    - rowIndex: 29
+      debugIndex: 38
       strings:
       - 
       - 
@@ -8309,8 +7986,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 51
-      debugIndex: 54
+    - rowIndex: 30
+      debugIndex: 39
       strings:
       - 
       - 
@@ -8328,15 +8005,30 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 52
-      debugIndex: 55
+    - rowIndex: 31
+      debugIndex: 40
       strings:
       - StopBgm
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 53
-      debugIndex: 57
+    - rowIndex: 32
+      debugIndex: 41
+      strings:
+      - Jump
+      - '**Audio1'
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 33
+      debugIndex: 44
+      strings:
+      - '**SE'
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 34
+      debugIndex: 45
       strings:
       - 
       - 
@@ -8345,16 +8037,262 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\uFF5E\u74B0\u5883\u97F3\u3092\u9CF4\u3089\u3059\uFF5E"
+      - "SE\u306E\u518D\u751F\u306F\u3001\u300CSe\u300D\u30B3\u30DE\u30F3\u30C9\u3092\u4F7F\u3044\u307E\u3059\u3002"
       - 
       - 
       - 
-      - Playing ambient tones
+      - SFX playback is done through the Se (sound effect) command.
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 35
+      debugIndex: 46
+      strings:
+      - Se
+      - "\u30B7\u30E5\u30FC\u30C8"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 36
+      debugIndex: 47
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u300CArg1\u300D\u306B\u306F\u3001\u300CSound\u300D\u30B7\u30FC\u30C8\u306BSE\u3068\u3057\u3066\u767B\u9332\u3057\u305F\u30E9\u30D9\u30EB\u3092\u6307\u5B9A\u3057\u307E\u3059\u3002"
+      - 
+      - 
+      - 
+      - Specify as Arg1 the sound effect label you registered in the SFX sheet.
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 37
+      debugIndex: 48
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "SE\u306F\u3001\u57FA\u672C\u7684\u306B\u4E00\u5EA6\u9CF4\u3089\u3057\u3066\u305D\u308C\u3067\u7D42\u308F\u308A\u3067\u3059\u3002"
+      - 
+      - 
+      - 
+      - SFX generally play once and then conclude.
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 38
+      debugIndex: 49
+      strings:
+      - Se
+      - "\u7206\u767A"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 39
+      debugIndex: 50
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u9023\u7D9A\u3057\u3066\u540C\u3058\u97F3\u3092\u3044\u304F\u3064\u3082\u9CF4\u3089\u3059\u3053\u3068\u304C\u3067\u304D\u307E\u3059\u3002"
+      - 
+      - 
+      - 
+      - You can also play the same sound back repeatedly.
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 40
+      debugIndex: 51
+      strings:
+      - Se
+      - "\u30B7\u30E5\u30FC\u30C8"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 41
+      debugIndex: 52
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "SE\u518D\u751F"
+      - 
+      - 
+      - 
+      - SFX playback
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 42
+      debugIndex: 53
+      strings:
+      - Se
+      - "\u30B7\u30E5\u30FC\u30C8"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 43
+      debugIndex: 54
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "SE\u518D\u751F"
+      - 
+      - 
+      - 
+      - SFX playback
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 44
+      debugIndex: 55
+      strings:
+      - Se
+      - "\u30B7\u30E5\u30FC\u30C8"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 45
+      debugIndex: 56
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "SE\u518D\u751F"
+      - 
+      - 
+      - 
+      - SFX playback
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 46
+      debugIndex: 57
+      strings:
+      - Se
+      - "\u30B7\u30E5\u30FC\u30C8"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 47
+      debugIndex: 58
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "SE\u505C\u6B62\u3082\u3067\u304D\u307E\u3059"
+      - 
+      - 
+      - 
+      - SFX can also be stopped
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 48
+      debugIndex: 59
+      strings:
+      - Se
+      - "\u7206\u767A"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 49
+      debugIndex: 60
+      strings:
+      - StopSe
+      - "\u7206\u767A"
+      - 
+      - 
+      - 
+      - 
+      - .2
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 50
+      debugIndex: 61
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "SE\u505C\u6B62"
+      - 
+      - 
+      - 
+      - Stop SFX
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 51
+      debugIndex: 62
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "SE\u518D\u751F\u306B\u3064\u3044\u3066\u306F\u4EE5\u4E0A\u3067\u3059\u3002"
+      - 
+      - 
+      - 
+      - This concludes the SFX playback section.
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 52
+      debugIndex: 64
+      strings:
+      - Jump
+      - '**Audio1'
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 53
+      debugIndex: 68
+      strings:
+      - '**Ambience'
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 54
-      debugIndex: 58
+      debugIndex: 69
       strings:
       - 
       - 
@@ -8373,7 +8311,7 @@ MonoBehaviour:
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 55
-      debugIndex: 59
+      debugIndex: 70
       strings:
       - 
       - 
@@ -8391,7 +8329,7 @@ MonoBehaviour:
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 56
-      debugIndex: 60
+      debugIndex: 71
       strings:
       - 
       - 
@@ -8409,7 +8347,7 @@ MonoBehaviour:
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 57
-      debugIndex: 61
+      debugIndex: 72
       strings:
       - Ambience
       - "\u74B0\u5883\u97F3\u305D\u306E1"
@@ -8417,7 +8355,7 @@ MonoBehaviour:
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 58
-      debugIndex: 62
+      debugIndex: 73
       strings:
       - 
       - 
@@ -8435,14 +8373,14 @@ MonoBehaviour:
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 59
-      debugIndex: 63
+      debugIndex: 74
       strings:
       - StopAmbience
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 60
-      debugIndex: 64
+      debugIndex: 75
       strings:
       - 
       - 
@@ -8460,7 +8398,7 @@ MonoBehaviour:
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 61
-      debugIndex: 65
+      debugIndex: 76
       strings:
       - Ambience
       - "\u74B0\u5883\u97F3\u305D\u306E1"
@@ -8469,7 +8407,7 @@ MonoBehaviour:
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 62
-      debugIndex: 66
+      debugIndex: 77
       strings:
       - 
       - 
@@ -8487,7 +8425,7 @@ MonoBehaviour:
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 63
-      debugIndex: 67
+      debugIndex: 78
       strings:
       - 
       - 
@@ -8505,7 +8443,7 @@ MonoBehaviour:
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 64
-      debugIndex: 68
+      debugIndex: 79
       strings:
       - 
       - 
@@ -8523,7 +8461,7 @@ MonoBehaviour:
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 65
-      debugIndex: 69
+      debugIndex: 80
       strings:
       - Ambience
       - "\u74B0\u5883\u97F3\u305D\u306E2"
@@ -8531,7 +8469,7 @@ MonoBehaviour:
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 66
-      debugIndex: 70
+      debugIndex: 81
       strings:
       - 
       - 
@@ -8549,7 +8487,150 @@ MonoBehaviour:
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 67
-      debugIndex: 75
+      debugIndex: 82
+      strings:
+      - Jump
+      - '**Audio1'
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 68
+      debugIndex: 84
+      strings:
+      - '**Voice'
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 69
+      debugIndex: 85
+      strings:
+      - 
+      - "\u3046\u305F\u3053"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30DC\u30A4\u30B9\u3092\u9CF4\u3089\u3057\u3066\u307F\u307E\u3057\u3087\u3046\u304B\u3002"
+      - 
+      - 
+      - 
+      - Let's try playing a voice.
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 70
+      debugIndex: 86
+      strings:
+      - 
+      - "\u3046\u305F\u3053"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30DC\u30A4\u30B9\u3092\u518D\u751F\u3059\u308B\u306B\u306F\u3001\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC\u306E\u53F0\u8A5E\u8868\u793A\u306E\u3068\u304D\u306BVoice\u5217\u306B\u30D5\u30A1\u30A4\u30EB\u540D\u3092\u8A18\u8FF0\u3057\u307E\u3059\u3002"
+      - 
+      - 
+      - 
+      - To play a voice, define a file in the Voice line when displaying a character's
+        lines.
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 71
+      debugIndex: 87
+      strings:
+      - 
+      - "\u3046\u305F\u3053"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30ED\u30DC\u5B50\u3061\u3083\u3093\u3002\u304A\u9858\u3044\u3002"
+      - 
+      - 
+      - 
+      - Hey, Ms. Robot. Please!
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 72
+      debugIndex: 88
+      strings:
+      - 
+      - "\u30ED\u30DC\u5B50"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30DC\u30A4\u30B9\u306E\u30C6\u30B9\u30C8\u518D\u751F\u3002\u6B63\u3057\u304F\u518D\u751F\u3055\u308C\u3066\u3044\u308B\u3067\u3057\u3087\u3046\u304B\uFF1F"
+      - 
+      - voice_test1.wav
+      - 
+      - This is a voice test playback. Did you hear it?
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 73
+      debugIndex: 89
+      strings:
+      - 
+      - "\u3046\u305F\u3053"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u3046\u3093\u3001\u3070\u3063\u3061\u308A\u3088\u3002"
+      - 
+      - voice_test2.wav
+      - 
+      - I sure did.
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 74
+      debugIndex: 90
+      strings:
+      - 
+      - "\u30E9\u30F3"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u304A\u304A\u30FC\u3002\u3067\u3082\u5909\u306A\u58F0\u3060\u3002"
+      - 
+      - voice_test3.wav
+      - 
+      - Alright! But it sounds funny.
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 75
+      debugIndex: 91
+      strings:
+      - 
+      - "\u3046\u305F\u3053"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u5408\u6210\u97F3\u58F0\u3067\u3059\u304B\u3089\u306D\u30FC\u3002\u3061\u3083\u3093\u3068\u3057\u305F\u58F0\u304C\u6B32\u3057\u3044\u306A\u3089\u58F0\u512A\u3055\u3093\u306B\u983C\u3093\u3060\u307B\u3046\u304C\u3044\u3044\u308F\u306D\u3002"
+      - 
+      - voice_test4.wav
+      - 
+      - It's a synthesized voice, that's why. If you want a real voice, you're gonna
+        have to ask a voice actor.
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 76
+      debugIndex: 92
       strings:
       - 
       - 
@@ -8558,16 +8639,145 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\uFF5E\u30B5\u30A6\u30F3\u30C9\u3092\u540C\u6642\u306B\u518D\u751F\u3001\u7D42\u4E86\u3055\u305B\u308B\uFF5E"
+      - "\u30DC\u30A4\u30B9\u30D5\u30A1\u30A4\u30EB\u306F\u3001\u30B5\u30A6\u30F3\u30C9\u30B7\u30FC\u30C8\u3067\u7BA1\u7406\u3055\u308C\u306A\u3044\u70B9\u306B\u6CE8\u610F\u3057\u3066\u304F\u3060\u3055\u3044\u3002"
       - 
       - 
       - 
-      - Playing or stopping sounds simultaneously
+      - Note that voice files are not maintained in the sound sheet.
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 68
-      debugIndex: 76
+    - rowIndex: 77
+      debugIndex: 93
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u901A\u5E38\u306E\u30C6\u30AD\u30B9\u30C8\u8868\u793A\u3068\u306F\u5225\u306B\u3001\u30B3\u30DE\u30F3\u30C9\u304B\u3089\u30DC\u30A4\u30B9\u3092\u9CF4\u3089\u3059\u3053\u3068\u3082\u3067\u304D\u307E\u3059\u3002"
+      - 
+      - 
+      - 
+      - As an alternative to the usual text display system command, you can also play
+        the voice from the command.
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 78
+      debugIndex: 94
+      strings:
+      - Voice
+      - "\u3046\u305F\u3053"
+      - TRUE
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - voice_test1.wav
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 79
+      debugIndex: 95
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30DC\u30A4\u30B9\u518D\u751F\u30B3\u30DE\u30F3\u30C9"
+      - 
+      - 
+      - 
+      - Use the Voice command to start playback
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 80
+      debugIndex: 96
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "Arg2\u3067\u30EB\u30FC\u30D7\u3082\u8A2D\u5B9A\u3067\u304D\u307E\u3059\u3002\u3067\u3059\u304C\u3001\u30DC\u30A4\u30B9\u306F\u30BB\u30FC\u30D6\u3055\u308C\u306A\u3044\u306E\u3067\u6CE8\u610F\u3057\u3066\u304F\u3060\u3055\u3044\u3002"
+      - 
+      - 
+      - 
+      - Loop can also be set in the Arg2. But, please note that voice is not saved.
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 81
+      debugIndex: 97
+      strings:
+      - StopVoice
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 82
+      debugIndex: 98
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30DC\u30A4\u30B9\u505C\u6B62\u30B3\u30DE\u30F3\u30C9"
+      - 
+      - 
+      - 
+      - and the StopVoice command to stop it.
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 83
+      debugIndex: 99
+      strings:
+      - CharacterOff
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 84
+      debugIndex: 100
+      strings:
+      - Jump
+      - '**Audio1'
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 85
+      debugIndex: 102
+      strings:
+      - '**StopSound'
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - SFX, Bgm, Ambience can be played at the same time.
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 86
+      debugIndex: 103
       strings:
       - 
       - 
@@ -8577,39 +8787,35 @@ MonoBehaviour:
       - 
       - 
       - "Se,Bgm,Ambience\u306F\u5168\u3066\u540C\u6642\u306B\u9CF4\u3089\u3059\u3053\u3068\u304C\u3067\u304D\u307E\u3059\u3002"
-      - 
-      - 
-      - 
-      - Se, Bgm, and Ambience can all be played back simultaneously.
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 69
-      debugIndex: 77
+    - rowIndex: 87
+      debugIndex: 104
       strings:
       - Se
       - "\u7206\u767A"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 70
-      debugIndex: 78
+    - rowIndex: 88
+      debugIndex: 105
       strings:
       - Bgm
       - "BGM\u305D\u306E1"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 71
-      debugIndex: 79
+    - rowIndex: 89
+      debugIndex: 106
       strings:
       - Ambience
       - "\u74B0\u5883\u97F3\u305D\u306E1"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 72
-      debugIndex: 80
+    - rowIndex: 90
+      debugIndex: 107
       strings:
       - 
       - "\u30C6\u30B9\u30C8"
@@ -8622,19 +8828,19 @@ MonoBehaviour:
       - 
       - voice_test1.wav
       - 
-      - To stop all sounds, issue the StopSound command.
+      - To stop all sounds, use the "StopSound" command.
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 73
-      debugIndex: 81
+    - rowIndex: 91
+      debugIndex: 108
       strings:
       - StopSound
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 74
-      debugIndex: 82
+    - rowIndex: 92
+      debugIndex: 109
       strings:
       - 
       - 
@@ -8643,16 +8849,16 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u305F\u3060\u3057\u3001\u6B62\u307E\u308B\u306E\u306FBGM\u3068\u74B0\u5883\u97F3\u306E\u307F\u3067\u3059\u3002"
+      - "\u305F\u3060\u3057\u3001Arg1\u306B\u6307\u5B9A\u304C\u306A\u3044\u5834\u5408\u306F\u6B62\u307E\u308B\u306E\u306FBGM\u3068\u74B0\u5883\u97F3\u306E\u307F\u3067\u3059\u3002"
       - 
       - 
       - 
-      - However, note that this only applies to the music and ambient sounds.
+      - However, if Arg 1 is not specified, only BGM and environmental sound stops.
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 75
-      debugIndex: 83
+    - rowIndex: 93
+      debugIndex: 110
       strings:
       - 
       - 
@@ -8665,22 +8871,389 @@ MonoBehaviour:
       - 
       - 
       - 
-      - SFX are intended to be played back for a short period of time. The timing
-        with which the audio ends can be configured in the settings.
+      - SFX is supposed to ring for only a short time, as the timing at which the
+        voice stops is determined by the configuration L69setting.
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 76
-      debugIndex: 86
+    - rowIndex: 94
+      debugIndex: 112
+      strings:
+      - Se
+      - "\u7206\u767A"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 95
+      debugIndex: 113
+      strings:
+      - Bgm
+      - "BGM\u305D\u306E1"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 96
+      debugIndex: 114
+      strings:
+      - Ambience
+      - "\u74B0\u5883\u97F3\u305D\u306E1"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 97
+      debugIndex: 116
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30DC\u30A4\u30B9\u3084SE\u3092\u542B\u3081\u3066\u6B62\u3081\u305F\u3044\u5834\u5408\u306F\u3001Arg1\u306B\u6B62\u3081\u308B\u30B5\u30A6\u30F3\u30C9\u306E\u7A2E\u985E\u3092\u6307\u5B9A\u3057\u307E\u3059\u3002"
+      - 
+      - voice_test1.wav
+      - 
+      - If you want to stop including Voice and SFX, specify the type of sound you
+        want to stop at Arg 1.
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 98
+      debugIndex: 117
+      strings:
+      - StopSound
+      - Bgm,Se,Ambience,Voice
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 99
+      debugIndex: 119
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u307E\u305F\u3001Arg1\u306B\u300CAll\u300D\u3092\u6307\u5B9A\u3059\u308B\u3068\u3001\u3059\u3079\u3066\u306E\u7A2E\u985E\u306E\u30B5\u30A6\u30F3\u30C9\u3092\u6B62\u3081\u308B\u3053\u3068\u304C\u3067\u304D\u307E\u3059\u3002"
+      - 
+      - 
+      - 
+      - Also, if you specify "All" for Arg 1, you can stop all kinds of sounds.
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 100
+      debugIndex: 120
+      strings:
+      - Se
+      - "\u7206\u767A"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 101
+      debugIndex: 121
+      strings:
+      - Bgm
+      - "BGM\u305D\u306E1"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 102
+      debugIndex: 122
+      strings:
+      - Ambience
+      - "\u74B0\u5883\u97F3\u305D\u306E1"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 103
+      debugIndex: 123
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u5168\u3066\u306E\u30B5\u30A6\u30F3\u30C9\u3092\u6B62\u3081\u307E\u3059\u3002"
+      - 
+      - 
+      - 
+      - I will stop all sounds.
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 104
+      debugIndex: 124
+      strings:
+      - StopSound
+      - All
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 105
+      debugIndex: 125
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u4EE5\u4E0A\u3067\u3059\u3002"
+      - 
+      - 
+      - 
+      - that's all.
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 106
+      debugIndex: 127
       strings:
       - Jump
-      - '*Basic'
+      - '**Audio2'
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 107
+      debugIndex: 133
+      strings:
+      - '**ChangeVolume'
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 108
+      debugIndex: 134
+      strings:
+      - Bgm
+      - "BGM\u305D\u306E1"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 109
+      debugIndex: 135
+      strings:
+      - Ambience
+      - "\u74B0\u5883\u97F3\u305D\u306E1"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 110
+      debugIndex: 136
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30DC\u30EA\u30E5\u30FC\u30E0\u306E\u5909\u66F4"
+      - 
+      - 
+      - 
+      - Change volume
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 111
+      debugIndex: 137
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u300CChangeSoundVolume\u300D\u30B3\u30DE\u30F3\u30C9\u3067\u3001\u5168\u4F53\u30DC\u30EA\u30E5\u30FC\u30E0\u3092\u5909\u66F4\u3067\u304D\u307E\u3059\u3002"
+      - 
+      - 
+      - 
+      - You can change the whole volume with "ChangeSoundVolume" command.
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 112
+      debugIndex: 138
+      strings:
+      - ChangeSoundVolume
+      - Bgm
+      - .5
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 113
+      debugIndex: 139
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u3053\u3053\u3067\u3044\u3046\u30DC\u30EA\u30E5\u30FC\u30E0\u306F\u3001\u30B3\u30F3\u30D5\u30A3\u30B0\u3067\u8A2D\u5B9A\u3059\u308B\u30DE\u30B9\u30BF\u30FC\u30DC\u30EA\u30E5\u30FC\u30E0\u3084"
+      - 
+      - 
+      - 
+      - The volume referred to here is the master volume set in the configuration
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 114
+      debugIndex: 140
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30B5\u30A6\u30F3\u30C9\u518D\u751F\u30B3\u30DE\u30F3\u30C9\u3067\u6307\u5B9A\u3057\u305F\u30DC\u30EA\u30E5\u30FC\u30E0\u3068\u306F\u5225\u306E\u30DC\u30EA\u30E5\u30FC\u30E0\u3067\u3059\u3002"
+      - 
+      - 
+      - 
+      - It is a volume different from the volume specified by the sound playback command.
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 115
+      debugIndex: 143
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "Arg2\u306B\u30B5\u30A6\u30F3\u30C9\u306E\u7A2E\u985E\u3092\u6307\u5B9A\u3059\u308B\u3053\u3068\u3067\u3001\u8907\u6570\u306E\u30DC\u30EA\u30E5\u30FC\u30E0\u5909\u66F4\u304C\u53EF\u80FD\u3067\u3059\u3002"
+      - 
+      - 
+      - 
+      - Multiple volume change is possible by specifying the type of sound in Arg
+        2.
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 116
+      debugIndex: 144
+      strings:
+      - ChangeSoundVolume
+      - Bgm,Ambience
+      - .2
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 117
+      debugIndex: 146
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u3053\u306E\u8A2D\u5B9A\u306F\u305D\u308C\u4EE5\u964D\u6C38\u4E45\u306B\u7D9A\u304F\u306E\u3067\u3001\u5FC5\u305A\u30DC\u30EA\u30E5\u30FC\u30E0\u3092\u623B\u3059\u3053\u3068\u3092\u5FD8\u308C\u306A\u3044\u3067\u304F\u3060\u3055\u3044\u3002"
+      - 
+      - 
+      - 
+      - Do not forget to return the volume as this setting lasts forever.
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 118
+      debugIndex: 148
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "Arg1\u306B\u300CAll\u300D\u3092\u6307\u5B9A\u3059\u308B\u3068\u3001\u3059\u3079\u3066\u306E\u7A2E\u985E\u306E\u30B5\u30A6\u30F3\u30C9\u306E\u30DC\u30EA\u30E5\u30FC\u30E0\u5909\u66F4\u304C\u53EF\u80FD\u306A\u306E\u3067"
+      - 
+      - 
+      - 
+      - If "All" is specified for Arg 1, it is possible to change the volume of all
+        kinds of sound
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 119
+      debugIndex: 149
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u5168\u3066\u306E\u30DC\u30EA\u30E5\u30FC\u30E0\u3092\u5143\u306B\u623B\u3057\u305F\u3044\u3068\u304D\u306F\u3001Arg1\u306B\u300CAll\u300D\u3068\u3057\u3066\u3001\u30DC\u30EA\u30E5\u30FC\u30E0\u30921\u306B\u6307\u5B9A\u3057\u3066\u304F\u3060\u3055\u3044\u3002"
+      - 
+      - 
+      - 
+      - To restore all volumes, specify "All" for Arg 1 and volume 1 for Arg 1.
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 120
+      debugIndex: 151
+      strings:
+      - ChangeSoundVolume
+      - All
+      - 1
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 121
+      debugIndex: 152
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u4EE5\u4E0A\u3067\u3059\u3002"
+      - 
+      - 
+      - 
+      - that's all.
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 122
+      debugIndex: 153
+      strings:
+      - StopSound
+      - All
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 123
+      debugIndex: 154
+      strings:
+      - Jump
+      - '**Audio2'
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     name: Assets/Utage/Sample/Sample.xls:Audio
     type: 1
-    textLength: 4103
+    textLength: 5753
     headerRow: 0
     entityIndexTbl: 
     entityDataList: []

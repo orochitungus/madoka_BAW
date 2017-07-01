@@ -19,7 +19,7 @@ namespace Utage
 	/// まばたき処理
 	/// </summary>
 	[AddComponentMenu("Utage/Lib/UI/LipSynchAvatar")]
-	public class LipSynchAvatar : LipSynchBase
+	public class LipSynchAvatar : LipSynch2d
 	{
 		AvatarImage Avator { get { return this.gameObject.GetComponentCache<AvatarImage>(ref avator); } }
 		AvatarImage avator;

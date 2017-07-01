@@ -40,6 +40,21 @@ namespace Utage
 		[SerializeField]
 		string bgSpriteName = "BG";
 
+		public bool DebugAutoResetCanvasPosition
+		{
+			get
+			{
+#if UNITY_EDITOR
+				return debugAutoResetCanvasPosition;
+#else
+				return false;				 
+
+#endif
+			}
+		}
+		[SerializeField]
+		bool debugAutoResetCanvasPosition = false;
+
 
 		/// <summary>
 		/// レンダーテクスチャー設定
@@ -58,6 +73,24 @@ namespace Utage
 
 		[SerializeField]
 		AdvGraphicRenderTextureManager renderTextureManager;
+
+		/// <summary>
+		/// ビデオ制御
+		/// </summary>
+		public AdvVideoManager VideoManager
+		{
+			get
+			{
+				if (videoManager == null)
+				{
+					videoManager = this.transform.parent.AddChildGameObjectComponent<AdvVideoManager>("VideoManager");
+				}
+				return videoManager;
+			}
+		}
+
+		[SerializeField]
+		AdvVideoManager videoManager;
 
 		/// <summary>
 		/// イベントモード（キャラクター立ち絵非表示）
@@ -284,6 +317,7 @@ namespace Utage
 		}
 
 		public string SaveKey { get { return "AdvGraphicManager"; } }
+
 		const int Version = 0;
 		//セーブデータ用のバイナリ書き込み
 		public void OnWrite(BinaryWriter writer)

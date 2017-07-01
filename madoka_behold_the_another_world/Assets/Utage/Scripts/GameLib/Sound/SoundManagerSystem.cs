@@ -91,6 +91,13 @@ namespace Utage
 			return group.IsPlaying(label);
 		}
 
+		public AudioSource GetAudioSource(string groupName, string label)
+		{
+			SoundGroup group = GetGroup(groupName);
+			if (group == null) return null;
+			return group.GetAudioSource(label);
+		}
+
 		public float GetSamplesVolume(string groupName, string label)
 		{
 			SoundGroup group = GetGroup(groupName);
@@ -135,6 +142,23 @@ namespace Utage
 		{
 			SoundGroup group = GetGroupAndCreateIfMissing(groupName);
 			group.MasterVolume = volume;
+		}
+
+		public float GetGroupVolume(string groupName)
+		{
+			SoundGroup group = GetGroup(groupName);
+			if (group == null)
+			{
+				Debug.LogError(groupName + " is not created");
+				return 1;
+			}
+			return group.GroupVolume;
+		}
+
+		public void SetGroupVolume(string groupName, float volume)
+		{
+			SoundGroup group = GetGroupAndCreateIfMissing(groupName);
+			group.GroupVolume = volume;
 		}
 
 		/// <summary>

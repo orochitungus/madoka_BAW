@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using UnityEngine.Experimental.Director;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -75,6 +74,18 @@ namespace UtageExtensions
 			return component ?? (component = go.GetComponentInChildren<T>(true));
 		}
 
+
+		//コンポーネントのキャッシュを取得(なかったらシーン内からFind)
+		public static T GetComponentCacheFindIfMissing<T>(this GameObject go, ref T component) where T : Component
+		{
+			if (component == null)
+			{
+				component = GameObject.FindObjectOfType<T>();
+			}
+			return component;
+		}
+
+
 		//********Componentの拡張メソッド********//
 
 		//コンポーネントのキャッシュを取得
@@ -142,11 +153,27 @@ namespace UtageExtensions
 			}
 		}
 
+		//コンポーネントのキャッシュを取得(なかったらシーン内からFind)
+		public static T GetComponentCacheFindIfMissing<T>(this Component target, ref T component) where T : Component
+		{
+			return target.gameObject.GetComponentCacheFindIfMissing<T>(ref component);
+		}
+
+
+		//コンポーネントのシングルトンの処理
+		public static T GetSingletonFindIfMissing<T>(this T target, ref T instance) where T : Component
+		{
+			if (instance == null)
+			{
+				instance = GameObject.FindObjectOfType<T>();
+			}
+			return instance;
+		}
 
 		//コンポーネントのシングルトンの処理
 		public static void InitSingletonComponent<T>(this T target, ref T instance) where T : Component
 		{
-			if (instance != null)
+			if (instance != null && instance != target)
 			{
 				Debug.LogErrorFormat("{0} is multiple created", typeof(T).ToString());
 				GameObject.Destroy(target.gameObject);
@@ -229,6 +256,10 @@ namespace UtageExtensions
 			child.transform.SetParent(t);
 			child.transform.localScale = localScale;
 			child.transform.localPosition = localPosition;
+			if (child.transform is RectTransform)
+			{
+				(child.transform as RectTransform).anchoredPosition = localPosition;
+			}
 			child.transform.localRotation = Quaternion.identity;
 			child.ChangeLayerDeep(t.gameObject.layer);
 			return child;
@@ -317,7 +348,7 @@ namespace UtageExtensions
 		/// <param name="localScale">子に設定するローカルスケール</param>
 		public static GameObject AddChildGameObject(this Transform t, string name, Vector3 localPosition, Vector3 localScale)
 		{
-			GameObject go = new GameObject(name);
+			GameObject go = (t is RectTransform) ? new GameObject(name, typeof(RectTransform)) : new GameObject(name);
 			t.AddChild(go, localPosition, localScale);
 			return go;
 		}
@@ -355,7 +386,15 @@ namespace UtageExtensions
 		public static T AddChildGameObjectComponent<T>(this Transform t, string name, Vector3 localPosition, Vector3 localScale) where T : Component
 		{
 			GameObject go = t.AddChildGameObject(name, localPosition, localScale);
-			return go.AddComponent<T>();
+			T component = go.GetComponent<T>();
+			if (component == null)
+			{
+				return go.AddComponent<T>();
+			}
+			else
+			{
+				return component;
+			}
 		}
 
 		/// <summary>
@@ -482,59 +521,6 @@ namespace UtageExtensions
 			t.sizeDelta = Vector2.zero;
 		}
 
-
-		//アラインメントする
-		public static void Alignment(this RectTransform t, Alignment alignment)
-		{
-			t.Alignment(alignment, Vector3.zero);
-		}
-
-		//アラインメントする
-		public static void Alignment(this RectTransform t, Alignment alignment, Vector3 offset0)
-		{
-			if (alignment == Utage.Alignment.None)
-			{
-				t.localPosition = offset0;
-				return;
-			}
-
-			Vector2 size = t.GetSizeScaled();
-			Vector2 alignmentValue = AlignmentUtil.GetAlignmentValue(alignment);
-			t.anchorMin = t.anchorMax = alignmentValue;
-
-			offset0.x += (alignmentValue.x - 0.5f) * size.x;
-			offset0.y += (alignmentValue.y - 0.5f) * size.y;
-
-			//アラインメントする際の座標値オフセット
-			Vector3 offset1 = t.pivot - alignmentValue;
-			offset1.x *= size.x;
-			offset1.y *= size.y;
-			t.localPosition = offset0 + offset1;
-		}
-
-		//アラインメントしたのち、現在のローカル座標をオフセット値としてそのまま反映する
-		public static void AlignmentKeppLocalOffset(this RectTransform t, Alignment alignment)
-		{
-			if (alignment == Utage.Alignment.None)
-			{
-				return;
-			}
-
-			Vector2 size = t.GetSizeScaled();
-
-			Vector2 alignmentValue = AlignmentUtil.GetAlignmentValue(alignment);
-			t.anchorMin = t.anchorMax = alignmentValue;
-			//アンカーを変えることで、localPositionが変化するのに注意
-			Vector3 offset0 = t.localPosition;
-
-			//アラインメントする際の座標値オフセット
-			Vector3 offset1 = t.pivot - alignmentValue;
-			offset1.x *= size.x;
-			offset1.y *= size.y;
-
-			t.localPosition = offset0 + offset1;
-		}
-
 		//キャンバス内での相対座標としての、矩形を取得（回転はないものとする）
 		public static Rect RectInCanvas(this RectTransform t, Canvas canvas)
 		{
@@ -588,21 +574,6 @@ namespace UtageExtensions
 			return copy;
 		}
 
-		//********RenderTextureの拡張メソッド********//
-
-		public static bool Playing(this AnimationClipPlayable clipPlayable)
-		{
-			switch (clipPlayable.clip.wrapMode)
-			{
-				case WrapMode.Loop:
-				case WrapMode.PingPong:
-					return true;
-				default:
-					break;
-			}
-
-			return (clipPlayable.time <= clipPlayable.duration);
-		}
 
 		//******** Dictionaryの拡張メソッド********//
 

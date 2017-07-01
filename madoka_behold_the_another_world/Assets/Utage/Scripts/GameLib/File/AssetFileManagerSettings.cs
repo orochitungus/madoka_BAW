@@ -180,6 +180,6 @@ namespace Utage
 			this.settings = settings;
 		}
 
-		AssetFileManagerSettings.LoadType LoadType { get { return Settings.LoadTypeSetting; } }
+		public AssetFileManagerSettings.LoadType LoadType { get { return Settings.LoadTypeSetting; } }
 	}
 }

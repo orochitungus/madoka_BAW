@@ -11,11 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16d9053a75362054598d72e1d8988bc8, type: 3}
   m_Name: SampleChapter.scenarios
   m_EditorClassIdentifier: 
-  importVersion: 1
+  importVersion: 3
   chapters:
-  - chapterName: Chpater1
-    dataList:
-    - {fileID: 11400000, guid: 51c768046a8fd4d4ba6f626ffcc16574, type: 2}
-  - chapterName: Chapter2
-    dataList:
-    - {fileID: 11400000, guid: e4deb518c3cf9a745ab8134baffd668a, type: 2}
+  - {fileID: 11400000, guid: 24e9814674dc92a4a8ce8524f44fa766, type: 2}
+  - {fileID: 11400000, guid: c673887133db55d4f9fa4dae3c80e9b7, type: 2}

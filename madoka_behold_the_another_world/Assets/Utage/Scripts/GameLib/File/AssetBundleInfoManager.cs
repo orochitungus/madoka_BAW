@@ -81,30 +81,30 @@ namespace Utage
 		//アセットバンドルの情報を取得
 		public AssetBundleInfo FindAssetBundleInfo(string path)
 		{
-			string key = FilePathUtil.ChangeExtension(path, ".asset");
 			//ファイル情報を取得or作成
 			AssetBundleInfo info;
 			//大文字と小文字を無視するDictionaryでアセットバンドルの小文字化に対応している
-			if (!dictionary.TryGetValue(key, out info))
+			if (!dictionary.TryGetValue(path, out info))
 			{
-				return null;
+				string key = FilePathUtil.ChangeExtension(path, ".asset");
+				if (!dictionary.TryGetValue(key, out info))
+				{
+					return null;
+				}
 			}
-			else
-			{
-				return info;
-			}
+			return info;
 		}
 
 		//アセットバンドルの情報を追加(カスタムしたアセットバンドルの情報を設定する場合はここを使う)
-		public void AddAssetBundleInfo(string resourceUrl, string assetBunleUrl, int assetBunleVersion)
+		public void AddAssetBundleInfo(string resourcePath, string assetBunleUrl, int assetBunleVersion)
 		{
 			try
 			{
-				dictionary.Add(resourceUrl, new AssetBundleInfo(assetBunleUrl, assetBunleVersion));
+				dictionary.Add(resourcePath, new AssetBundleInfo(assetBunleUrl, assetBunleVersion));
 			}
 			catch
 			{
-				Debug.LogError(resourceUrl + "is already contains in assetbundleManger");
+				Debug.LogError(resourcePath + "is already contains in assetbundleManger");
 			}
 		}
 

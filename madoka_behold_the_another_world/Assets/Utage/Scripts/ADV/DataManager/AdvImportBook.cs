@@ -64,6 +64,10 @@ namespace Utage
 			foreach (var grid in GridList)
 			{
 				string sheetName = grid.SheetName;
+				if (sheetName.Contains("."))
+				{
+					Debug.LogErrorFormat("Don't use '.' to sheetname in  {0}", grid.Name);
+				}
 				if (AdvSheetParser.IsScenarioSheet(sheetName) && !AdvMacroManager.IsMacroName(sheetName) )
 				{
 					importGridList.Add(new AdvImportScenarioSheet(grid, dataManager, macroManager));

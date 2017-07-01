@@ -82,19 +82,20 @@ namespace Utage
 		internal override void SetCommandArg(AdvCommand command)
 		{
 			string stateName = command.ParseCellOptional<string>(AdvColumnName.Arg2, "");
+			float fadeTime = command.ParseCellOptional<float>(AdvColumnName.Arg6, 0.2f);
 			if (!string.IsNullOrEmpty(stateName))
 			{
 				Animator animator = GetComponentInChildren<Animator>();
 				if (animator)
 				{
-					animator.CrossFade(stateName, 0);
+					animator.CrossFade(stateName, fadeTime);
 				}
 				else
 				{
 					Animation animation = GetComponentInChildren<Animation>();
 					if (animation != null)
 					{
-						animation.CrossFade(stateName);
+						animation.CrossFade(stateName, fadeTime);
 					}
 				}
 			}

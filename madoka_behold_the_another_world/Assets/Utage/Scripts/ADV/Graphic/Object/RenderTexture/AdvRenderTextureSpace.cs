@@ -100,7 +100,13 @@ namespace Utage
 		//描画キャンバスの作成
 		void CreateCanvas()
 		{
-			this.Canvas = this.RenderCamera.transform.AddChildGameObjectComponent<Canvas>("Canvas");
+			GameObject go = new GameObject("Canvas", typeof(RectTransform), typeof(Canvas));
+			this.RenderCamera.transform.AddChild(go);
+			this.Canvas = go.GetComponent<Canvas>();
+#if UNITY_5_6_OR_NEWER
+			this.Canvas.additionalShaderChannels = AdditionalCanvasShaderChannels.TexCoord1 | AdditionalCanvasShaderChannels.Normal | AdditionalCanvasShaderChannels.Tangent;
+			this.RenderCamera.nearClipPlane = -1;
+#endif
 			this.Canvas.renderMode = RenderMode.ScreenSpaceCamera;
 			this.Canvas.worldCamera = this.RenderCamera;
 

@@ -34,6 +34,7 @@ namespace Utage
 		protected override void AddGraphicComponentOnInit()
 		{
 			Avatar = this.gameObject.AddComponent< AvatarImage>();
+			Avatar.OnPostRefresh.AddListener(OnPostRefresh);
 			this.EyeBlink = this.gameObject.AddComponent<EyeBlinkAvatar>();
 			this.LipSynch = this.gameObject.AddComponent<LipSynchAvatar>();
 			this.Animation = this.gameObject.AddComponent<AdvAnimationPlayer>();
@@ -56,6 +57,15 @@ namespace Utage
 				{
 					graphic.color = color.MulColor;
 				}
+			}
+		}
+
+		//目パチなどのために
+		void OnPostRefresh()
+		{
+			if (!this.LastResource.RenderTextureSetting.EnableRenderTexture)
+			{
+				OnEffectColorsChange(this.ParentObject.EffectColor);
 			}
 		}
 

@@ -43,9 +43,23 @@ namespace Utage
 		//配置
 		internal override void Alignment(Utage.Alignment alignment, AdvGraphicInfo graphic)
 		{
-			RectTransform rectTransform = this.transform as RectTransform;
-			rectTransform.pivot = graphic.Pivot;
-			rectTransform.Alignment(alignment, graphic.Position);
+			RectTransform t = this.transform as RectTransform;
+			t.pivot = graphic.Pivot;
+			if (alignment == Utage.Alignment.None)
+			{
+				//アラインメイント指定なし
+				t.anchoredPosition = graphic.Position;
+				return;
+			}
+			//アラインメイントから、アンカーの値を取得
+			Vector2 alignmentValue = AlignmentUtil.GetAlignmentValue(alignment);
+			t.anchorMin = t.anchorMax = alignmentValue;
+
+			//アラインメントする際の座標値オフセット
+			Vector3 offset1 = t.pivot - alignmentValue;
+			offset1.Scale(t.GetSizeScaled());
+			//アンカーとピボットを考慮したポジション設定
+			t.anchoredPosition = graphic.Position + offset1;
 		}
 	}
 }

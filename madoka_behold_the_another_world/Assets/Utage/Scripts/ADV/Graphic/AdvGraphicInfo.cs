@@ -17,6 +17,7 @@ namespace Utage
 		public const string TypeTexture = "Texture";
 		public const string TypeParticle = "Particle";
 		public const string TypeCapture = "Capture";
+		public const string TypeVideo = "Video";
 
 
 		//独自オブジェクトを作成するためのコールバック
@@ -32,10 +33,12 @@ namespace Utage
 		public const string FileType2D = "2D";
 		public const string FileTypeAvatar = "Avatar";
 		public const string FileTypeDicing = "Dicing";
+		public const string FileTypeVideo = "Video";
 		public const string FileType2DPrefab = "2DPrefab";
 		public const string FileTypeParticle = "Particle";
 		public const string FileType3D = "3D";
 		public const string FileType3DPrefab = "3DPrefab";
+		public const string FileTypeCustom = "Custom";
 
 		public string DataType { get; protected set; }
 		int Index { get; set; }
@@ -241,11 +244,20 @@ namespace Utage
 					return typeof(AdvGraphicObjectParticle);
 				case FileType2DPrefab:
 					return typeof(AdvGraphicObject2DPrefab);
+				case FileTypeCustom:
+					return typeof(AdvGraphicObjectCustom);
 
 				case FileTypeAvatar:
 					return typeof(AdvGraphicObjectAvatar);
 				case FileTypeDicing:
 					return typeof(AdvGraphicObjectDicing);
+				case FileTypeVideo:
+#if UNITY_5_6_OR_NEWER
+					return typeof(AdvGraphicObjectVideo);
+#else
+					Debug.LogErrorFormat("FileType :{0} is not support Unity5.5. Please upgrade Unity5.6 or newer ", FileTypeVideo);
+					return typeof(AdvGraphicObjectVideo);
+#endif
 				case FileType2D:
 				default:
 					return typeof(AdvGraphicObjectRawImage);

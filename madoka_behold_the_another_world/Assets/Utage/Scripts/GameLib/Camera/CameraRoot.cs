@@ -58,7 +58,8 @@ namespace Utage
 			{
 				string imageEffectType = reader.ReadString();
 				ImageEffectBase imageEffect;
-				if (!ImageEffectUtil.TryGetComonentCreateIfMissing(imageEffectType, out imageEffect, LetterBoxCamera.gameObject))
+				bool alreadyEnabled;
+				if (!ImageEffectUtil.TryGetComonentCreateIfMissing(imageEffectType, out imageEffect, out alreadyEnabled, LetterBoxCamera.gameObject))
 				{
 					Debug.LogError("Unkonwo Image Effect Type [ " + imageEffectType  +" ]");
 					reader.SkipBuffer();

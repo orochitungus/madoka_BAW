@@ -70,7 +70,8 @@ namespace Utage
 				Debug.LogError(command.ToErrorString(characterLabel + ", " + pattern + " is not contained in Chactecter Sheet"));
 				return null;
 			}
-			if (!string.IsNullOrEmpty(data.NameText))
+			//名前テキストをキャラクターシートの定義に変更
+			if (!string.IsNullOrEmpty(data.NameText) && nameText == characterLabel)
 			{
 				nameText = data.NameText;
 			}

@@ -367,6 +367,26 @@ MonoBehaviour:
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 23
+      debugIndex: 31
+      strings:
+      - 
+      - Selection
+      - "*\u30D3\u30C7\u30AA\u30AA\u30D6\u30B8\u30A7\u30AF\u30C8"
+      - unity56OrNewer
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30D3\u30C7\u30AA\u30AA\u30D6\u30B8\u30A7\u30AF\u30C8"
+      - 
+      - 
+      - 
+      - video
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 24
       debugIndex: 32
       strings:
       - 
@@ -386,7 +406,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 24
+    - rowIndex: 25
       debugIndex: 35
       strings:
       - 
@@ -394,7 +414,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 25
+    - rowIndex: 26
       debugIndex: 36
       strings:
       - 
@@ -414,7 +434,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 26
+    - rowIndex: 27
       debugIndex: 37
       strings:
       - 
@@ -434,7 +454,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 27
+    - rowIndex: 28
       debugIndex: 38
       strings:
       - 
@@ -454,7 +474,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 28
+    - rowIndex: 29
       debugIndex: 44
       strings:
       - 
@@ -462,7 +482,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 29
+    - rowIndex: 30
       debugIndex: 45
       strings:
       - 
@@ -470,19 +490,19 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 30
+    - rowIndex: 31
       debugIndex: 46
       strings:
       - 
       - Selection
-      - "*\u30BF\u30A4\u30E0\u30E9\u30A4\u30F3\u30A8\u30D5\u30A7\u30AF\u30C8"
+      - "*\u5BB43\u6F14\u51FA\u305D\u306E1"
       - 
       - 
       - 
       - 
       - 
       - 
-      - "\u30BF\u30A4\u30E0\u30E9\u30A4\u30F3\u30A8\u30D5\u30A7\u30AF\u30C8"
+      - "\u305D\u306E\uFF11"
       - 
       - 
       - 
@@ -490,19 +510,19 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 31
+    - rowIndex: 32
       debugIndex: 47
       strings:
       - 
       - Selection
-      - "*\u30AB\u30E1\u30E9\u30EF\u30FC\u30AF"
+      - "*\u5BB43\u6F14\u51FA\u305D\u306E2"
       - 
       - 
       - 
       - 
       - 
       - 
-      - "\u30AB\u30E1\u30E9\u30EF\u30FC\u30AF"
+      - "\u305D\u306E\uFF12"
       - 
       - 
       - 
@@ -510,48 +530,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 32
-      debugIndex: 48
-      strings:
-      - 
-      - Selection
-      - "*\u30A4\u30E1\u30FC\u30B8\u30A8\u30D5\u30A7\u30AF\u30C8"
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - "\u30A4\u30E1\u30FC\u30B8\u30A8\u30D5\u30A7\u30AF\u30C8"
-      - 
-      - 
-      - 
-      - Image effect
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
     - rowIndex: 33
-      debugIndex: 49
-      strings:
-      - 
-      - Selection
-      - "*\u30C8\u30E9\u30F3\u30B8\u30B7\u30E7\u30F3"
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - "\u30C8\u30E9\u30F3\u30B8\u30B7\u30E7\u30F3"
-      - 
-      - 
-      - 
-      - Transition
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 34
-      debugIndex: 50
+      debugIndex: 48
       strings:
       - 
       - Selection
@@ -570,72 +550,104 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 35
-      debugIndex: 61
+    - rowIndex: 34
+      debugIndex: 51
       strings:
       - 
-      - "*\u30BF\u30A4\u30E0\u30E9\u30A4\u30F3\u30A8\u30D5\u30A7\u30AF\u30C8"
+      - "*\u5BB43\u6F14\u51FA\u305D\u306E1"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 36
-      debugIndex: 62
+    - rowIndex: 35
+      debugIndex: 52
       strings:
       - 
       - CharacterOff
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 37
-      debugIndex: 63
+    - rowIndex: 36
+      debugIndex: 53
       strings:
       - 
       - Selection
-      - "*\u30A6\u30A7\u30A4\u30C8\u3068\u30DA\u30FC\u30B8\u51E6\u7406"
+      - "*\u30BF\u30A4\u30E0\u30E9\u30A4\u30F3\u30A8\u30D5\u30A7\u30AF\u30C8"
       - 
       - 
       - 
       - 
       - 
       - 
-      - "\u30A6\u30A7\u30A4\u30C8\u3068\u30DA\u30FC\u30B8\u51E6\u7406"
+      - "\u30BF\u30A4\u30E0\u30E9\u30A4\u30F3\u30A8\u30D5\u30A7\u30AF\u30C8"
+      - 
+      - 
+      - 
+      - Timeline effect
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 37
+      debugIndex: 54
+      strings:
+      - 
+      - Selection
+      - "*\u30AB\u30E1\u30E9\u30EF\u30FC\u30AF"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30AB\u30E1\u30E9\u30EF\u30FC\u30AF"
+      - 
+      - 
+      - 
+      - Camera work
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 38
-      debugIndex: 64
+      debugIndex: 55
       strings:
       - 
       - Selection
-      - "*\u30B9\u30EC\u30C3\u30C9"
+      - "*\u30A4\u30E1\u30FC\u30B8\u30A8\u30D5\u30A7\u30AF\u30C8"
       - 
       - 
       - 
       - 
       - 
       - 
-      - "\u30B9\u30EC\u30C3\u30C9"
+      - "\u30A4\u30E1\u30FC\u30B8\u30A8\u30D5\u30A7\u30AF\u30C8"
+      - 
+      - 
+      - 
+      - Image effect
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 39
-      debugIndex: 65
+      debugIndex: 56
       strings:
       - 
       - Selection
-      - "*\u30AD\u30FC\u30D5\u30EC\u30FC\u30E0\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3"
+      - "*\u30C8\u30E9\u30F3\u30B8\u30B7\u30E7\u30F3"
       - 
       - 
       - 
       - 
       - 
       - 
-      - "\u30AD\u30FC\u30D5\u30EC\u30FC\u30E0\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3"
+      - "\u30C8\u30E9\u30F3\u30B8\u30B7\u30E7\u30F3"
+      - 
+      - 
+      - 
+      - Transition
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 40
-      debugIndex: 66
+      debugIndex: 57
       strings:
       - 
       - Selection
@@ -647,19 +659,51 @@ MonoBehaviour:
       - 
       - 
       - "\u623B\u308B"
+      - 
+      - 
+      - 
+      - Return
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 41
-      debugIndex: 69
+      debugIndex: 60
       strings:
       - 
-      - "*\u753B\u9762\u5168\u4F53\u52B9\u679C"
+      - "*\u5BB43\u6F14\u51FA\u305D\u306E2"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 42
-      debugIndex: 70
+      debugIndex: 61
+      strings:
+      - 
+      - CharacterOff
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 43
+      debugIndex: 62
+      strings:
+      - 
+      - Selection
+      - "*\u30D3\u30C7\u30AA"
+      - unity56OrNewer
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30D3\u30C7\u30AA"
+      - 
+      - 
+      - 
+      - Video
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 44
+      debugIndex: 63
       strings:
       - 
       - Selection
@@ -671,11 +715,15 @@ MonoBehaviour:
       - 
       - 
       - "\u30D5\u30A7\u30FC\u30C9"
+      - 
+      - 
+      - 
+      - Fade
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 43
-      debugIndex: 71
+    - rowIndex: 45
+      debugIndex: 64
       strings:
       - 
       - Selection
@@ -687,19 +735,119 @@ MonoBehaviour:
       - 
       - 
       - "\u623B\u308B"
+      - 
+      - 
+      - 
+      - Return
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 44
-      debugIndex: 77
+    - rowIndex: 46
+      debugIndex: 69
+      strings:
+      - 
+      - "*\u30BF\u30A4\u30E0\u30E9\u30A4\u30F3\u30A8\u30D5\u30A7\u30AF\u30C8"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 47
+      debugIndex: 70
+      strings:
+      - 
+      - CharacterOff
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 48
+      debugIndex: 71
+      strings:
+      - 
+      - Selection
+      - "*\u30A6\u30A7\u30A4\u30C8\u3068\u30DA\u30FC\u30B8\u51E6\u7406"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30A6\u30A7\u30A4\u30C8\u3068\u30DA\u30FC\u30B8\u51E6\u7406"
+      - 
+      - 
+      - 
+      - Wait and page control
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 49
+      debugIndex: 72
+      strings:
+      - 
+      - Selection
+      - "*\u30B9\u30EC\u30C3\u30C9"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30B9\u30EC\u30C3\u30C9"
+      - 
+      - 
+      - 
+      - Thread
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 50
+      debugIndex: 73
+      strings:
+      - 
+      - Selection
+      - "*\u30AD\u30FC\u30D5\u30EC\u30FC\u30E0\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30AD\u30FC\u30D5\u30EC\u30FC\u30E0\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3"
+      - 
+      - 
+      - 
+      - Key frame animation
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 51
+      debugIndex: 74
+      strings:
+      - 
+      - Selection
+      - "*\u5BB43\u6F14\u51FA\u305D\u306E1"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u623B\u308B"
+      - 
+      - 
+      - 
+      - Return
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 52
+      debugIndex: 90
       strings:
       - 
       - "*\u30D7\u30EC\u30CF\u30D6\u306B\u30EA\u30BD\u30FC\u30B9\u30ED\u30FC\u30C9\u3092\u8FFD\u52A0"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 45
-      debugIndex: 82
+    - rowIndex: 53
+      debugIndex: 95
       strings:
       - 
       - Jump
@@ -709,7 +857,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage/Sample/SampleUtage3.xls:Utage3
     type: 1
-    textLength: 1154
+    textLength: 1422
     headerRow: 0
     entityIndexTbl: 
     entityDataList: []
@@ -12059,6 +12207,298 @@ MonoBehaviour:
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 1
+      debugIndex: 2
+      strings:
+      - "*\u30D3\u30C7\u30AA\u30AA\u30D6\u30B8\u30A7\u30AF\u30C8"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 2
+      debugIndex: 3
+      strings:
+      - "**\u901A\u5E38"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 3
+      debugIndex: 5
+      strings:
+      - ParticleOff
+      - 
+      - 
+      - 
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 4
+      debugIndex: 6
+      strings:
+      - Selection
+      - "**\u57FA\u672C"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u57FA\u672C\u8868\u793A"
+      - 
+      - 
+      - 
+      - Basic display
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 5
+      debugIndex: 7
+      strings:
+      - Selection
+      - "**\u900F\u904E\u753B\u50CF\u8868\u793A"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u900F\u904E\u753B\u50CF\u8868\u793A"
+      - 
+      - 
+      - 
+      - Return
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 6
+      debugIndex: 8
+      strings:
+      - Selection
+      - "*\u30AB\u30B9\u30BF\u30E0\u30AA\u30D6\u30B8\u30A7\u30AF\u30C8\u8868\u793A"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u623B\u308B"
+      - 
+      - 
+      - 
+      - Return
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 7
+      debugIndex: 10
+      strings:
+      - "**\u57FA\u672C"
+      - 
+      - 
+      - 
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 8
+      debugIndex: 11
+      strings:
+      - Sprite
+      - "\u30D3\u30C7\u30AA\u30B5\u30F3\u30D7\u30EB1"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 9
+      debugIndex: 12
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30D3\u30C7\u30AA\u8868\u793A"
+      - 
+      - 
+      - 
+      - It is the basic display of particles
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 10
+      debugIndex: 14
+      strings:
+      - 
+      - AlphaMovie
+      - 
+      - 
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 11
+      debugIndex: 18
+      strings:
+      - SpriteOff
+      - "\u30D3\u30C7\u30AA\u30B5\u30F3\u30D7\u30EB1"
+      - 
+      - 
+      - 
+      - 
+      - 0
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 12
+      debugIndex: 19
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30D3\u30C7\u30AA\u3092\u6D88\u3057\u307E\u3057\u305F"
+      - 
+      - 
+      - 
+      - I deleted the particles
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 13
+      debugIndex: 20
+      strings:
+      - Jump
+      - "**\u901A\u5E38"
+      - 
+      - 
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 14
+      debugIndex: 23
+      strings:
+      - "**\u900F\u904E\u753B\u50CF\u8868\u793A"
+      - 
+      - 
+      - 
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 15
+      debugIndex: 24
+      strings:
+      - Sprite
+      - "\u30A2\u30EB\u30D5\u30A1\u30D3\u30C7\u30AA\u30B5\u30F3\u30D7\u30EB1"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 16
+      debugIndex: 25
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30A2\u30EB\u30D5\u30A1\u30C1\u30E3\u30F3\u30CD\u30EB\u4ED8\u304D\u52D5\u753B\u8868\u793A"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 17
+      debugIndex: 27
+      strings:
+      - Sprite
+      - "\u30DC\u30FC\u30EB"
+      - 
+      - 
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 18
+      debugIndex: 28
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30B9\u30D7\u30E9\u30A4\u30C8\u3092\u624B\u524D\u306B\u7F6E\u304F"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 19
+      debugIndex: 31
+      strings:
+      - SpriteOff
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 0
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 20
+      debugIndex: 32
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30D3\u30C7\u30AA\u3092\u6D88\u3057\u307E\u3057\u305F"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 21
+      debugIndex: 33
+      strings:
+      - Jump
+      - "**\u901A\u5E38"
+      - 
+      - 
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    name: Assets/Utage/Sample/SampleUtage3.xls:VideoObject
+    type: 1
+    textLength: 402
+    headerRow: 0
+    entityIndexTbl: 
+    entityDataList: []
+  - rows:
+    - rowIndex: 0
+      debugIndex: 0
+      strings:
+      - Command
+      - Arg1
+      - Arg2
+      - Arg3
+      - Arg4
+      - Arg5
+      - Arg6
+      - WaitType
+      - Text
+      - PageCtrl
+      - Voice
+      - WindowType
+      - English
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 1
       debugIndex: 1
       strings:
       - "*\u30EC\u30A4\u30E4\u30FC\u7CFB\u30B3\u30DE\u30F3\u30C9"
@@ -17090,7 +17530,7 @@ MonoBehaviour:
       debugIndex: 4
       strings:
       - Selection
-      - "*\u30BF\u30A4\u30E0\u30E9\u30A4\u30F3\u30A8\u30D5\u30A7\u30AF\u30C8"
+      - "*\u5BB43\u6F14\u51FA\u305D\u306E1"
       - 
       - 
       - 
@@ -17237,7 +17677,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage/Sample/SampleUtage3.xls:CameraWork
     type: 1
-    textLength: 412
+    textLength: 408
     headerRow: 0
     entityIndexTbl: 
     entityDataList: []
@@ -17336,7 +17776,7 @@ MonoBehaviour:
       debugIndex: 6
       strings:
       - Selection
-      - "*\u5BB43\u6F14\u51FA"
+      - "*\u5BB43\u6F14\u51FA\u305D\u306E1"
       - 
       - 
       - 
@@ -24510,7 +24950,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage/Sample/SampleUtage3.xls:Transition
     type: 1
-    textLength: 9891
+    textLength: 9894
     headerRow: 0
     entityIndexTbl: 
     entityDataList: []
@@ -24636,7 +25076,7 @@ MonoBehaviour:
       strings:
       - 
       - Selection
-      - "*\u5BB43\u6F14\u51FA"
+      - "*\u5BB43\u6F14\u51FA\u305D\u306E1"
       - 
       - 
       - 
@@ -26034,7 +26474,161 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage/Sample/SampleUtage3.xls:ImageEffectSample
     type: 1
-    textLength: 3227
+    textLength: 3230
+    headerRow: 0
+    entityIndexTbl: 
+    entityDataList: []
+  - rows:
+    - rowIndex: 0
+      debugIndex: 0
+      strings:
+      - Command
+      - Arg1
+      - Arg2
+      - Arg3
+      - Arg4
+      - Arg5
+      - Arg6
+      - WaitType
+      - Text
+      - PageCtrl
+      - Voice
+      - WindowType
+      - English
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 1
+      debugIndex: 2
+      strings:
+      - "*\u30D3\u30C7\u30AA"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 2
+      debugIndex: 3
+      strings:
+      - "**\u901A\u5E38"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 3
+      debugIndex: 6
+      strings:
+      - Selection
+      - "**\u57FA\u672C"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u57FA\u672C\u8868\u793A"
+      - 
+      - 
+      - 
+      - Basic display
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 4
+      debugIndex: 7
+      strings:
+      - Selection
+      - "*\u30AB\u30B9\u30BF\u30E0\u30AA\u30D6\u30B8\u30A7\u30AF\u30C8\u8868\u793A"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u623B\u308B"
+      - 
+      - 
+      - 
+      - Return
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 5
+      debugIndex: 9
+      strings:
+      - "**\u57FA\u672C"
+      - 
+      - 
+      - 
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 6
+      debugIndex: 10
+      strings:
+      - 
+      - "\u30D3\u30C7\u30AA\u30B5\u30F3\u30D7\u30EB1"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 7
+      debugIndex: 11
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30D3\u30C7\u30AA\u8868\u793A"
+      - 
+      - 
+      - 
+      - It is the basic display of particles
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 8
+      debugIndex: 13
+      strings:
+      - Video
+      - TestVideo
+      - UICamera
+      - 
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 9
+      debugIndex: 18
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30D3\u30C7\u30AA\u3092\u6D88\u3057\u307E\u3057\u305F"
+      - 
+      - 
+      - 
+      - I deleted the video
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 10
+      debugIndex: 19
+      strings:
+      - Jump
+      - "**\u901A\u5E38"
+      - 
+      - 
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    name: Assets/Utage/Sample/SampleUtage3.xls:VideoSample
+    type: 1
+    textLength: 252
     headerRow: 0
     entityIndexTbl: 
     entityDataList: []
@@ -26152,13 +26746,13 @@ MonoBehaviour:
       debugIndex: 10
       strings:
       - Jump
-      - "*\u753B\u9762\u5168\u4F53\u52B9\u679C"
+      - "*\u5BB43\u6F14\u51FA\u305D\u306E2"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     name: Assets/Utage/Sample/SampleUtage3.xls:Fade2
     type: 1
-    textLength: 157
+    textLength: 158
     headerRow: 0
     entityIndexTbl: 
     entityDataList: []

@@ -15,22 +15,47 @@ public class SampleLoadError : MonoBehaviour
 		AssetFileManager.SetLoadErrorCallBack(CustomCallbackFileLoadError);
 	}
 
+	bool isWaitingRetry;
+
 	void CustomCallbackFileLoadError(AssetFile file)
 	{
 		string errorMsg = "インターネットに接続した状況でプレイしてください";
 		if (SystemUi.GetInstance() != null)
 		{
-			//リロードを促すダイアログを表示
-			SystemUi.GetInstance().OpenDialog1Button(
+			if (isWaitingRetry)
+			{
+				StartCoroutine(CoWaitRetry(file));
+			}
+			else
+			{
+				isWaitingRetry = true;
+				//リロードを促すダイアログを表示
+				SystemUi.GetInstance().OpenDialog1Button(
 				errorMsg, LanguageSystemText.LocalizeText(SystemText.Retry),
-				()=>OnRetry(file));
-			this.gameObject.SetActive(false);
+				() =>
+				{
+					isWaitingRetry = false;
+					OnRetry(file);
+				});
+			}
 		}
 		else
 		{
 			OnRetry(file);
 		}
 	}
+
+
+	//リトライダイアログからの応答を待つ
+	IEnumerator CoWaitRetry(AssetFile file)
+	{
+		while (isWaitingRetry)
+		{
+			yield return null;
+		}
+		OnRetry(file);
+	}
+
 
 	void OnRetry(AssetFile file)
 	{

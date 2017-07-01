@@ -120,6 +120,12 @@ namespace Utage
 		DefaultDirInfo particleDirInfo;
 
 		/// <summary>
+		/// パーティクルのパス情報
+		/// </summary>
+		public DefaultDirInfo VideoDirInfo { get { return videoDirInfo; } }
+		DefaultDirInfo videoDirInfo;
+
+		/// <summary>
 		/// 起動時の初期化
 		/// </summary>
 		/// <param name="resourceDir">リソースディレクトリ</param>
@@ -136,7 +142,7 @@ namespace Utage
 			ambienceDirInfo = new DefaultDirInfo { defaultDir = @"Sound/Ambience", defaultExt = ".wav" };
 			voiceDirInfo = new DefaultDirInfo { defaultDir = @"Sound/Voice", defaultExt = ".wav" };
 			particleDirInfo = new DefaultDirInfo { defaultDir = @"Particle", defaultExt = ".prefab" };
-
+			videoDirInfo = new DefaultDirInfo { defaultDir = @"Video", defaultExt = ".mp4" };
 
 			InitDefaultDirInfo(ResourceDir, characterDirInfo);
 			InitDefaultDirInfo(ResourceDir, bgDirInfo);
@@ -148,6 +154,7 @@ namespace Utage
 			InitDefaultDirInfo(ResourceDir, ambienceDirInfo);
 			InitDefaultDirInfo(ResourceDir, voiceDirInfo);
 			InitDefaultDirInfo(ResourceDir, particleDirInfo);
+			InitDefaultDirInfo(ResourceDir, videoDirInfo);
 		}
 		void InitDefaultDirInfo(string root, DefaultDirInfo info)
 		{

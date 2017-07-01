@@ -362,6 +362,7 @@ namespace Utage
 				if (Path.GetExtension(assetpath) == ".unity") continue;
 				foreach (Object obj in AssetDatabase.LoadAllAssetsAtPath(assetpath))
 				{
+					if (obj == null) continue;
 					if (PrefabUtility.GetPrefabType(obj) == PrefabType.Prefab)
 					{
 						//プレハブの場合

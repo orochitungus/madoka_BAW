@@ -1,4 +1,5 @@
 ﻿// UTAGE: Unity Text Adventure Game Engine (c) Ryohei Tokimura
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,6 +43,7 @@ namespace Utage
 		public AdvMacroManager MacroManager { get { return this.macroManager; } }
 		AdvMacroManager macroManager = new AdvMacroManager();
 
+
 		/// <summary>
 		/// 起動時の初期化
 		/// </summary>
@@ -50,6 +52,46 @@ namespace Utage
 		{
 			settingDataManager.BootInit(rootDirResource);
 		}
+
+		/// <summary>
+		/// シナリオ起動時の初期化
+		/// </summary>
+		public void BootInitScenario(bool async)
+		{
+			if (async)
+			{
+				//非同期初期化
+				StartCoroutine(CoBootInitScenariodData());
+			}
+			else
+			{
+				//シナリオデータの初期化
+				BootInitScenariodData();
+				//リソースファイル(画像やサウンド)のダウンロードをバックグラウンドで進めておく
+				StartBackGroundDownloadResource();
+			}
+		}
+
+
+		public void BootInitChapter(AdvChapterData chapter)
+		{
+			chapter.BootInit(this.SettingDataManager);
+
+			//シナリオデータ
+			Dictionary<string, AdvScenarioData> scenarios = new Dictionary<string, AdvScenarioData>();
+			chapter.AddScenario(scenarios);
+			//シナリオデータの初期化
+			foreach (var keyValue in scenarios)
+			{
+				this.scenarioDataTbl.Add(keyValue.Key, keyValue.Value);
+			}
+			//シナリオデータの初期化
+			foreach (var keyValue in scenarios)
+			{
+				keyValue.Value.Init(this.settingDataManager);
+			}
+		}
+
 
 		/// <summary>
 		/// シナリオデータのロードと初期化を開始
@@ -77,7 +119,7 @@ namespace Utage
 		/// <summary>
 		/// シナリオデータのロードと初期化を開始(非同期版)
 		/// </summary>
-		public IEnumerator CoBootInitScenariodData(string startScenario)
+		public IEnumerator CoBootInitScenariodData()
 		{
 			//シナリオのインポート済みのデータをまず初期化
 			if (this.settingDataManager.ImportedScenarios != null)
@@ -93,7 +135,7 @@ namespace Utage
 			}
 
 			//リソースファイル(画像やサウンド)のダウンロードをバックグラウンドで進めておく
-			this.StartBackGroundDownloadResource(startScenario);
+			this.StartBackGroundDownloadResource();
 		}
 
 		
@@ -101,40 +143,22 @@ namespace Utage
 		/// リソースファイル(画像やサウンド)のダウンロードをバックグラウンドで進めておく
 		/// </summary>
 		/// <param name="startScenario">開始シナリオ名</param>
-		public void StartBackGroundDownloadResource( string startScenario )
+		public void StartBackGroundDownloadResource()
 		{
 			if (isBackGroundDownload)
 			{
-				StartCoroutine(CoBackGroundDownloadResource(startScenario));
-				SettingDataManager.DownloadAll();
+				DownloadAll();
 			}
 		}
-		IEnumerator CoBackGroundDownloadResource(string label)
-		{
-			if (label.Length > 1 && label[0] == '*')
-			{
-				label = label.Substring(1);
-			}
 
-			AdvScenarioData data = FindScenarioData(label);
-			if (data == null)
-			{
-				Debug.LogError(label + " is not found in all scenario");
-				yield break;
-			}
-			if (!data.IsAlreadyBackGroundLoad)
+		//明示的に全てのリソースをDLをする
+		public void DownloadAll()
+		{
+			foreach (AdvScenarioData data in scenarioDataTbl.Values)
 			{
 				data.Download(this);
-				foreach (AdvScenarioJumpData jumpData in data.JumpDataList)
-				{
-					//シナリオファイルのロード待ち
-					while (!IsLoadEndScenarioLabel(jumpData))
-					{
-						yield return null;
-					}
-					yield return StartCoroutine(CoBackGroundDownloadResource(jumpData.ToLabel));
-				}
 			}
+			SettingDataManager.DownloadAll();
 		}
 
 		/// <summary>

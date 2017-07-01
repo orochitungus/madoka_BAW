@@ -82,7 +82,13 @@ public class UtageUguiLoadWait : UguiView
 		DownloadType = Type.Boot;
         this.Open();
     }
-    void OnClose()
+	//章データのロードとして開く
+	public void OpenOnChapter()
+	{
+		DownloadType = Type.ChapterDownload;
+		this.Open();
+	}
+	void OnClose()
     {
 		DownloadType = Type.Default;
 	}

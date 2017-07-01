@@ -380,10 +380,32 @@ namespace Utage
                     if (Collors[i].r != cell.Collors[i].r) return false;
                     if (Collors[i].g != cell.Collors[i].g) return false;
                     if (Collors[i].b != cell.Collors[i].b) return false;
-                    if (Collors[i].a != cell.Collors[i].a) return false;
+					if (Collors[i].a != cell.Collors[i].a) return false;
                 }
                 return true;
             }
+			internal bool Compare(ColorCell cell, int threshold)
+			{
+				if (IsAllTransparnet || cell.IsAllTransparnet)
+				{
+					return IsAllTransparnet && cell.IsAllTransparnet;
+				}
+				if (Collors.Length != cell.Collors.Length)
+				{
+					return false;
+				}
+
+				for (int i = 0; i < Collors.Length; ++i)
+				{
+					int diff = 0;
+					diff += Mathf.Abs(Collors[i].r - cell.Collors[i].r);
+					diff += Mathf.Abs(Collors[i].g - cell.Collors[i].g);
+					diff += Mathf.Abs(Collors[i].b - cell.Collors[i].b);
+					diff += Mathf.Abs(Collors[i].a - cell.Collors[i].a);
+					if (diff > threshold) return false;
+				}
+				return true;
+			}
 		}
 
 		//パックする前のテクスチャ情報
@@ -572,7 +594,7 @@ namespace Utage
 				List<int> indexList;
 				if (TryAddTexture(textureInfo, out newCells, out indexList))
                 {
-                    cells.AddRange(newCells);
+					cells.AddRange(newCells);
 					textureInfo.cellIndexLists = indexList;
 					textures.Add(textureInfo);
                     return true;

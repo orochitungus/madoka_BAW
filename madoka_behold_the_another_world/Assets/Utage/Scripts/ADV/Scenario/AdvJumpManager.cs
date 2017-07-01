@@ -12,13 +12,13 @@ namespace Utage
 
 		public string ReturnLabel { get; set; }		//戻り先のラベル
 		public int ReturnPageNo { get; set; }		//戻り先の
-		public AdvCommand ReturnCommand { get; set; }		//戻り先の
+		public AdvCommand ReturnCommand { get; set; }       //戻り先の
 
-		string JumpLabel { get; set; }		//指定されているジャンプ先のシナリオラベル
-		string CalledLabel { get; set; }		//呼び出し元のシナリオラベル
+		internal string JumpLabel { get; private set; }      //指定されているジャンプ先のシナリオラベル
+		internal string CalledLabel { get; private set; }		//呼び出し元のシナリオラベル
 		//呼び出しサブルーチンコマンドのインデックス
 		//（同一シナリオラベル内でのサブルーチンがいつかある場合、何番目のサブルーチンコマンドか）
-		int CalledSubroutineCommandIndex { get; set; }
+		internal int CalledSubroutineCommandIndex { get; private set; }
 
 		public SubRoutineInfo( AdvEngine engine, string jumpLabel, string calledLabel, int calledSubroutineCommandIndex)
 		{
@@ -81,6 +81,7 @@ namespace Utage
 		internal SubRoutineInfo SubRoutineReturnInfo { get; private set; }
 
 		//サブルーチンのコールスタック
+		internal Stack<SubRoutineInfo> SubRoutineCallStack { get { return subRoutineCallStack; } }
 		Stack<SubRoutineInfo> subRoutineCallStack = new Stack<SubRoutineInfo>();
 
 		class RandomInfo

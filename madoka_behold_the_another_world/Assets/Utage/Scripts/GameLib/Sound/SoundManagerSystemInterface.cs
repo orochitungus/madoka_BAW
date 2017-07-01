@@ -40,6 +40,11 @@ namespace Utage
 		bool IsPlaying(string groupName, string label);
 
 		/// <summary>
+		/// 指定のオーディオを取得
+		/// </summary>
+		AudioSource GetAudioSource(string groupName, string label);
+
+		/// <summary>
 		/// 現在のボリュームを波形から計算して取得
 		/// </summary>
 		float GetSamplesVolume(string groupName, string label);
@@ -67,6 +72,12 @@ namespace Utage
 		/// </summary>
 		float GetMasterVolume(string groupName);
 		void SetMasterVolume(string groupName, float volume);
+
+		/// <summary>
+		/// グループボリュームの設定
+		/// </summary>
+		float GetGroupVolume(string groupName);
+		void SetGroupVolume(string groupName, float volume);
 
 		/// <summary>
 		/// グループ内で複数のオーディオを再生するかどうか

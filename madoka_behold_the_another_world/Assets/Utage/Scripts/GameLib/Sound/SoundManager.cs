@@ -250,7 +250,12 @@ namespace Utage
 
 		public void PlayBgm(AssetFile file, float fadeInTime, float fadeOutTime)
 		{
-			System.Play(IdBgm, IdBgm, new SoundData( file, SoundPlayMode.NotPlaySame, DefaultVolume, true), fadeInTime, fadeOutTime);
+			PlayBgm(file, DefaultVolume, fadeInTime, fadeOutTime);
+		}
+
+		public void PlayBgm(AssetFile file, float volume, float fadeInTime, float fadeOutTime)
+		{
+			System.Play(IdBgm, IdBgm, new SoundData(file, SoundPlayMode.NotPlaySame, volume, true), fadeInTime, fadeOutTime);
 		}
 
 		public void StopBgm()
@@ -271,7 +276,11 @@ namespace Utage
 
 		public void PlayAmbience(AssetFile file, bool isLoop, float fadeInTime, float fadeOutTime)
 		{
-			System.Play(IdAmbience, IdAmbience, new SoundData(file, SoundPlayMode.NotPlaySame, DefaultVolume, isLoop), fadeInTime, fadeOutTime);
+			PlayAmbience(file, DefaultVolume, isLoop, fadeInTime, fadeOutTime);
+		}
+		public void PlayAmbience(AssetFile file, float volume, bool isLoop, float fadeInTime, float fadeOutTime)
+		{
+			System.Play(IdAmbience, IdAmbience, new SoundData(file, SoundPlayMode.NotPlaySame, volume, isLoop), fadeInTime, fadeOutTime);
 		}
 
 		public void PlayAmbience(AudioClip clip, bool isLoop)
@@ -302,17 +311,22 @@ namespace Utage
 
 		public void PlayVoice(string characterLabel, AssetFile file, float fadeInTime, float fadeOutTime)
 		{
-			PlayVoice(characterLabel, file, false, fadeInTime, fadeOutTime);
+			PlayVoice(characterLabel, file, DefaultVolume, false, fadeInTime, fadeOutTime);
 		}
 		
 		public void PlayVoice(string characterLabel, AssetFile file, bool isLoop)
 		{
-			PlayVoice(characterLabel, file, isLoop, 0, DefaultVoiceFadeTime);
+			PlayVoice(characterLabel, file, DefaultVolume, isLoop, 0, DefaultVoiceFadeTime);
 		}
 
-		public void PlayVoice(string characterLabel, AssetFile file, bool isLoop, float fadeInTime, float fadeOutTime)
+		public void PlayVoice(string characterLabel, AssetFile file, float volume, bool isLoop)
 		{
-			PlayVoice(characterLabel, new SoundData(file, VoicePlayMode, DefaultVolume, isLoop), fadeInTime, fadeOutTime);
+			PlayVoice(characterLabel, file, volume, isLoop, 0, DefaultVoiceFadeTime);
+		}
+
+		public void PlayVoice(string characterLabel, AssetFile file, float volume, bool isLoop, float fadeInTime, float fadeOutTime)
+		{
+			PlayVoice(characterLabel, new SoundData(file, VoicePlayMode, volume, isLoop), fadeInTime, fadeOutTime);
 		}
 
 		public void PlayVoice(string characterLabel, AudioClip clip, bool isLoop)
@@ -440,6 +454,16 @@ namespace Utage
 		}
 
 		//************ All ************//
+
+		public void SetGroupVolume(string groupName, float volume)
+		{
+			System.SetGroupVolume(groupName, volume);
+		}
+
+		public float GetGroupVolume(string groupName)
+		{
+			return System.GetGroupVolume(groupName);
+		}
 
 		/// <summary>
 		/// フェードアウトして曲全てを停止

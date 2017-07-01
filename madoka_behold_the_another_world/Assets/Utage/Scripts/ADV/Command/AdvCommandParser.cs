@@ -82,7 +82,8 @@ namespace Utage
 		public const string IdLayerReset = "LayerReset";            //レイヤー操作　Reset（位置なども初期状態に戻す）
 		public const string IdLayerOff = "LayerOff";				//レイヤー操作　オブジェクトすべて消す
 
-		public const string IdMovie = "Movie";						//ムービー再生
+		public const string IdMovie = "Movie";                      //ムービー再生
+		public const string IdVideo = "Video";                      //VideoClip再生
 
 		public const string IdSe = "Se";							//SE再生
 		public const string IdStopSe = "StopSe";					//SE停止
@@ -92,7 +93,8 @@ namespace Utage
 		public const string IdStopAmbience = "StopAmbience";		//環境音停止
 		public const string IdVoice = "Voice";						//ボイス再生
 		public const string IdStopVoice = "StopVoice";				//ボイス停止
-		public const string IdStopSound = "StopSound";				//サウンドの停止
+		public const string IdStopSound = "StopSound";              //サウンドの停止
+		public const string IdChangeSoundVolume = "ChangeSoundVolume"; //サウンドのボリューム変更
 
 		public const string IdSelection = "Selection";				//選択肢表示
 		public const string IdSelectionEnd = "SelectionEnd";		//選択肢追加終了
@@ -238,6 +240,9 @@ namespace Utage
 				case IdMovie:
 					return new AdvCommandMovie(row, dataManager);
 
+				case IdVideo:
+					return new AdvCommandVideo(row, dataManager);
+
 				case IdTween:
 					return new AdvCommandTween(row, dataManager);
 				case IdFadeIn:
@@ -288,6 +293,8 @@ namespace Utage
 					return new AdvCommandStopVoice(row);
 				case IdStopSound:
 					return new AdvCommandStopSound(row);
+				case IdChangeSoundVolume:
+					return new AdvCommandChangeSoundVolume(row);
 
 				case IdWait:
 					return new AdvCommandWait(row);

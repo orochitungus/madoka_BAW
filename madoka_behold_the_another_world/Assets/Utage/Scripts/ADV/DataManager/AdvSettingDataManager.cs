@@ -87,6 +87,13 @@ namespace Utage
 		public AdvParticleSetting ParticleSetting { get { return this.advParticleSetting; } }
 		AdvParticleSetting advParticleSetting = new AdvParticleSetting();
 
+		/// <summary>
+		/// VidoClip設定
+		/// </summary>
+		public AdvVideoSetting VideoSetting { get { return this.videoSetting; } }
+		AdvVideoSetting videoSetting = new AdvVideoSetting();
+
+
 		List<IAdvSetting> SettingDataList
 		{
 			get

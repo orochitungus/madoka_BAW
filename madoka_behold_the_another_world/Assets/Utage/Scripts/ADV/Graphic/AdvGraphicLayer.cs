@@ -53,7 +53,10 @@ namespace Utage
 			this.SettingData = settingData;
 
 			//UI用のコード
-			this.Canvas = this.gameObject.AddComponent<Canvas>();
+			this.Canvas = this.GetComponent<Canvas>();
+#if UNITY_5_6_OR_NEWER
+			this.Canvas.additionalShaderChannels = AdditionalCanvasShaderChannels.TexCoord1 | AdditionalCanvasShaderChannels.Normal | AdditionalCanvasShaderChannels.Tangent;
+#endif
 
 			if (!string.IsNullOrEmpty(SettingData.LayerMask))
 			{
@@ -89,7 +92,10 @@ namespace Utage
 			ResetCanvasRectTransform();
 			//ToDo
 			//キャンバスのアニメーションの最中でリセットされると破綻するが・・・
-//			this.LetterBoxCamera.OnGameScreenSizeChange.AddListener(x => ResetCanvasRectTransform());
+			if (Manager.DebugAutoResetCanvasPosition)
+			{
+				this.LetterBoxCamera.OnGameScreenSizeChange.AddListener(x => ResetCanvasRectTransform());
+			}
 		}
 
 

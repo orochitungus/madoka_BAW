@@ -11,7 +11,7 @@ using System.Collections.Generic;
 /// </summary>
 namespace Utage
 {
-	[AddComponentMenu("Utage/ADV/Extra/SelectionTimeLimit")]
+	[AddComponentMenu("Utage/ADV/Extra/SelectionTimeLimitText")]
 	public class AdvSelectionTimeLimitText : MonoBehaviour
 	{
 

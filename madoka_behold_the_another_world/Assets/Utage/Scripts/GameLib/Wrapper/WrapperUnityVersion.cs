@@ -358,13 +358,38 @@ namespace Utage
 #if UNITY_5_3_OR_NEWER
 		public static bool IsFinishedSplashScreen()
 		{
-#if UNITY_5_3 || UNITY_5_4 || UNITY_5_5_0 || UNITY_5_5_1
-			return !Application.isShowingSplashScreen;
-#else
-			//UNITY_5_5_2からはこっち
+#if UNITY_5_5_OR_NEWER
 			return UnityEngine.Rendering.SplashScreen.isFinished;
+#else
+			//昔の
+			return !Application.isShowingSplashScreen;
 #endif
 		}
 #endif
+
+		public static float UsedHeapMegaSize()
+		{
+#if UNITY_5_6_OR_NEWER
+			return 1.0f * UnityEngine.Profiling.Profiler.usedHeapSizeLong / 1024 / 1024;
+#else
+			return 1.0f * UnityEngine.Profiling.Profiler.usedHeapSize / 1024 / 1024; ;
+#endif
+		}
+		public static float MonoHeapMegaSize()
+		{
+#if UNITY_5_6_OR_NEWER
+			return 1.0f * UnityEngine.Profiling.Profiler.GetMonoHeapSizeLong() / 1024 / 1024;
+#else
+			return 1.0f * UnityEngine.Profiling.Profiler.GetMonoHeapSize() / 1024 / 1024;
+#endif
+		}
+		public static float MonoUsedMegaSize()
+		{
+#if UNITY_5_6_OR_NEWER
+			return 1.0f * UnityEngine.Profiling.Profiler.GetMonoUsedSizeLong() / 1024 / 1024;
+#else
+			return 1.0f * UnityEngine.Profiling.Profiler.GetMonoUsedSize() / 1024 / 1024;
+#endif
+		}
 	}
 }

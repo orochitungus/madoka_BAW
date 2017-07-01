@@ -57,7 +57,6 @@
 
 			#pragma multi_compile __ UNITY_UI_ALPHACLIP
 
-			//�N���X�t�F�[�h�摜���g����
 			#pragma multi_compile __ CROSS_FADE
 
 			
@@ -90,7 +89,7 @@
 			{
 				v2f OUT;
 				OUT.worldPosition = IN.vertex;
-				OUT.vertex = mul(UNITY_MATRIX_MVP, OUT.worldPosition);
+				OUT.vertex = UnityObjectToClipPos(OUT.worldPosition);
 
 				OUT.texcoord = IN.texcoord;
 

@@ -510,5 +510,15 @@ namespace Utage
 				}
 			}
 		}
+
+		void OnEnable()
+		{
+//			Debug.Log("OnEnable");
+		}
+
+		void OnDisable()
+		{
+//			Debug.Log("OnDisable");
+		}
 	}
 }

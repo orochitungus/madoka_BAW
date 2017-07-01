@@ -44,13 +44,25 @@ namespace Utage
 			Camera camera = target.GetComponentInChildren<Camera>(true);
 
 			ImageEffectBase imageEffect;
-			ImageEffectUtil.TryGetComonentCreateIfMissing(ImageEffectType.ColorFade.ToString(), out imageEffect, camera.gameObject);
+			bool alreadyEnabled;
+			ImageEffectUtil.TryGetComonentCreateIfMissing(ImageEffectType.ColorFade.ToString(), out imageEffect, out alreadyEnabled, camera.gameObject);
+			ColorFade colorFade = imageEffect as ColorFade;
+			float start,end;
+			if (inverse)
+			{
+				//画面全体のフェードイン（つまりカメラのカラーフェードアウト）
+				start = colorFade.color.a;
+				end = 0;
+			}
+			else
+			{
+				//画面全体のフェードアウト（つまりカメラのカラーフェードイン）
+				//colorFade.Strengthで、すでにフェードされているのでそちらの値をつかう
+				start = alreadyEnabled ? colorFade.Strength : 0;
+				end =  this.color.a;
+			}
 			imageEffect.enabled = true;
 
-			ColorFade colorFade = imageEffect as ColorFade;
-
-			float start = inverse ? colorFade.color.a : 0;
-			float end = inverse ? 0 : this.color.a;
 			colorFade.color = color;
 
 			Timer timer = camera.gameObject.AddComponent<Timer>();

@@ -23,6 +23,13 @@ namespace Utage
 		TextAndVoice,       //テキストとボイス
 	};
 
+	//現在のリップシンクのモード
+	public enum LipSynchMode
+	{
+		Text,               //テキスト
+		Voice,              //ボイス
+	};
+
 	[System.Serializable]
 	public class LipSynchEvent : UnityEvent<LipSynchBase> { }
 	/// <summary>
@@ -34,50 +41,11 @@ namespace Utage
 		[SerializeField]
 		LipSynchType type = LipSynchType.TextAndVoice;
 
-		public float Duration { get { return duration; } set { duration = value; } }
-		[SerializeField]
-		float duration = 0.2f;
-
-		public float Interval { get { return interval; } set { interval = value; } }
-		[SerializeField]
-		float interval = 0.2f;
-
-		//ボイス音量に合わせて口パクする際のスケール値
-		public float ScaleVoiceVolume { get { return scaleVoiceVolume; } set { scaleVoiceVolume = value; } }
-		[SerializeField]
-		float scaleVoiceVolume = 1;
-
-		//口のパターンタグ
-		public string LipTag { get { return lipTag; } set { lipTag = value; } }
-		[SerializeField]
-		string lipTag = "lip";
-
-		//アニメーションデータ
-		public MiniAnimationData AnimationData { get { return animationData; } set { animationData = value; } }
-		[SerializeField]
-		MiniAnimationData animationData = new MiniAnimationData();
-
-		//リップシンクのボリューム(0～1。0以下の場合は無効)
-		public float LipSyncVolume { get; set; }
-		
-
-		public GameObject Target
-		{
-			get { if (target == null) { target = this.gameObject; } return target; }
-			set { target = value; }
-		}
-		[SerializeField]
-		GameObject target;
-
-		//テキストのリップシンクを現在有効になっているか
+		//テキストのリップシンクが現在有効になっているか
 		//外部から変更する
-		public bool EnableTextLipSync
-		{
-			get { return enableTextLipSync; }
-			set { enableTextLipSync = value; }
-		}
-		[SerializeField]
-		bool enableTextLipSync;
+		public bool EnableTextLipSync { get; set; }
+
+		public LipSynchMode LipSynchMode { get; set; }
 
 		//テキストのリップシンクチェック
 		public LipSynchEvent OnCheckTextLipSync = new LipSynchEvent();
@@ -120,36 +88,37 @@ namespace Utage
 		{
 			IsEnable = false;
 			IsPlaying = false;
-			if (coLypSync != null)
-			{
-				StopCoroutine(coLypSync);
-				coLypSync = null;
-			}
+			OnStopLipSync();
 		}
 
 		//更新
-		void Update()
+		protected virtual void Update()
 		{
-			bool enableLipSync = IsEnable && (CheckVoiceLipSync() || CheckTextLipSync() );
+			bool isVoice = CheckVoiceLipSync();
+			bool isText = CheckTextLipSync();
+			this.LipSynchMode = isVoice ? LipSynchMode.Voice : LipSynchMode.Text;
+			bool enableLipSync = IsEnable && (isVoice || isText);
 			if (enableLipSync)
 			{
 				if (!IsPlaying)
 				{
 					IsPlaying = true;
-					StartLipSync();
+					OnStartLipSync();
 				}
-				UpdateLipSync();
+				OnUpdateLipSync();
 			}
 			else
 			{
 				if (IsPlaying)
 				{
 					IsPlaying = false;
+					OnStopLipSync();
 				}
 			}
 		}
 
-		bool CheckVoiceLipSync()
+		//ボイスのリップシンクのチェック
+		protected bool CheckVoiceLipSync()
 		{
 			switch (Type)
 			{
@@ -170,7 +139,8 @@ namespace Utage
 			return false;
 		}
 
-		bool CheckTextLipSync()
+		//テキストのリップシンクのチェック
+		protected bool CheckTextLipSync()
 		{
 			switch (Type)
 			{
@@ -186,28 +156,10 @@ namespace Utage
 			return false;
 		}
 
-		void UpdateLipSync()
-		{
-			if (CheckVoiceLipSync())
-			{
-				LipSyncVolume = (SoundManager.GetInstance().GetVoiceSamplesVolume(CharacterLabel) * ScaleVoiceVolume);
-			}
-			else
-			{
-				LipSyncVolume = -1;
-			}
-		}
+		protected abstract void OnStartLipSync();
 
-		protected Coroutine coLypSync;
+		protected abstract void OnUpdateLipSync();
 
-		protected void StartLipSync()
-		{
-			if (coLypSync == null)
-			{
-				coLypSync = StartCoroutine(CoUpdateLipSync());
-			}
-		}
-
-		protected abstract IEnumerator CoUpdateLipSync();
+		protected abstract void OnStopLipSync();
 	}
 }

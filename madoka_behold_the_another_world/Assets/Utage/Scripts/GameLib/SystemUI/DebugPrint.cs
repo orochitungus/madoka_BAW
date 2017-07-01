@@ -164,9 +164,9 @@ namespace Utage
 			memSizeSystem = SystemInfo.systemMemorySize;
 			memSizeGraphic = SystemInfo.graphicsMemorySize;
 			memSizeGC = 1.0f * System.GC.GetTotalMemory(false) / 1024 / 1024;
-			memSizeUsedHeap = 1.0f * Profiler.usedHeapSize / 1024 / 1024;
-			memSizeMonoHeap = 1.0f * Profiler.GetMonoHeapSize() / 1024 / 1024; ;
-			memSizeMonoUsedHeap = 1.0f * Profiler.GetMonoUsedSize() / 1024 / 1024; ;
+			memSizeUsedHeap =  WrapperUnityVersion.UsedHeapMegaSize();
+			memSizeMonoHeap = WrapperUnityVersion.MonoHeapMegaSize();
+			memSizeMonoUsedHeap = WrapperUnityVersion.MonoUsedMegaSize();
 		}
 
 		void AddLog(string message)

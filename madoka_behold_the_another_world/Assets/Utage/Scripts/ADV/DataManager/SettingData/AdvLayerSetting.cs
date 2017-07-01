@@ -39,9 +39,9 @@ namespace Utage
 		//ボーダー設定
 		internal enum BorderType
 		{
-			None,		//設定なし
-			Streach,	//大きさに合わせて広げる
-			BorderMin,	//小さいほうの値（左や下）だけに合わせる
+			None,       //設定なし
+			Streach,    //大きさに合わせて広げる
+			BorderMin,  //小さいほうの値（左や下）だけに合わせる
 			BorderMax,  //大きいほうの値（左や下）だけに合わせる
 		};
 
@@ -60,7 +60,7 @@ namespace Utage
 				{
 					case BorderType.BorderMin:
 						size = (this.size == 0) ? defaultSize : this.size;
-						position = (-defaultSize/2 + borderMin + size/2);
+						position = (-defaultSize / 2 + borderMin + size / 2);
 						break;
 					case BorderType.BorderMax:
 						size = (this.size == 0) ? defaultSize : this.size;
@@ -100,7 +100,7 @@ namespace Utage
 		/// <summary>
 		/// ピボット
 		/// </summary>
-		public Vector2 Pivot  { get; private set; }
+		public Vector2 Pivot { get; private set; }
 
 		/// <summary>
 		/// 描画順
@@ -152,7 +152,7 @@ namespace Utage
 				InitKey(key);
 				this.Type = AdvParser.ParseCell<LayerType>(row, AdvColumnName.Type);
 				this.Order = AdvParser.ParseCell<int>(row, AdvColumnName.Order);
-				this.LayerMask = AdvParser.ParseCellOptional<string>(row, AdvColumnName.LayerMask,"");
+				this.LayerMask = AdvParser.ParseCellOptional<string>(row, AdvColumnName.LayerMask, "");
 
 				//X座標や幅の設定
 				this.Horizontal = new RectSetting();
@@ -178,16 +178,16 @@ namespace Utage
 				bool isBorderBottom = !AdvParser.IsEmptyCell(row, AdvColumnName.BorderBottom);
 				if (isBorderTop)
 				{
-					this.Vertical.type = (isBorderBottom) ? BorderType.Streach : BorderType.BorderMin;
+					this.Vertical.type = (isBorderBottom) ? BorderType.Streach : BorderType.BorderMax;
 				}
 				else
 				{
-					this.Vertical.type = (isBorderBottom) ? BorderType.BorderMax : BorderType.None;
+					this.Vertical.type = (isBorderBottom) ? BorderType.BorderMin : BorderType.None;
 				}
 				Vertical.position = AdvParser.ParseCellOptional<float>(row, AdvColumnName.Y, 0);
 				Vertical.size = AdvParser.ParseCellOptional<float>(row, AdvColumnName.Height, 0);
-				Vertical.borderMin = AdvParser.ParseCellOptional<float>(row, AdvColumnName.BorderTop, 0);
-				Vertical.borderMax = AdvParser.ParseCellOptional<float>(row, AdvColumnName.BorderBottom, 0);
+				Vertical.borderMin = AdvParser.ParseCellOptional<float>(row, AdvColumnName.BorderBottom, 0);
+				Vertical.borderMax = AdvParser.ParseCellOptional<float>(row, AdvColumnName.BorderTop, 0);
 
 
 				Vector2 pivot;
@@ -215,13 +215,13 @@ namespace Utage
 		/// <param name="name">名前</param>
 		/// <param name="type">タイプ</param>
 		/// <param name="order">描画順</param>
-		public void InitDefault( string name, LayerType type, int order )
+		public void InitDefault(string name, LayerType type, int order)
 		{
 			InitKey(name);
 			this.Type = type;
 			this.Horizontal = new RectSetting();
 			this.Vertical = new RectSetting();
-			this.Pivot = Vector2.one*0.5f;
+			this.Pivot = Vector2.one * 0.5f;
 			this.Order = order;
 			this.Scale = Vector2.one;
 			this.Z = -0.01f * order;
@@ -240,27 +240,27 @@ namespace Utage
 		public override void ParseGrid(StringGrid grid)
 		{
 			base.ParseGrid(grid);
-			InitDefault(AdvLayerSettingData.LayerType.Bg,0);
+			InitDefault(AdvLayerSettingData.LayerType.Bg, 0);
 			InitDefault(AdvLayerSettingData.LayerType.Character, 100);
 			InitDefault(AdvLayerSettingData.LayerType.Sprite, 200);
 		}
 
-		void InitDefault( AdvLayerSettingData.LayerType type, int defaultOrder )
+		void InitDefault(AdvLayerSettingData.LayerType type, int defaultOrder)
 		{
 			AdvLayerSettingData defaultLayer = List.Find((item) => item.Type == type);
 			if (defaultLayer == null)
 			{
 				defaultLayer = new AdvLayerSettingData();
-				defaultLayer.InitDefault( type.ToString()  +" Default", type, defaultOrder);
-				AddData( defaultLayer);
+				defaultLayer.InitDefault(type.ToString() + " Default", type, defaultOrder);
+				AddData(defaultLayer);
 			}
 			defaultLayer.IsDefault = true;
 		}
 
-		public bool Contains(string layerName, AdvLayerSettingData.LayerType type )
+		public bool Contains(string layerName, AdvLayerSettingData.LayerType type)
 		{
 			AdvLayerSettingData data;
-			if( Dictionary.TryGetValue(layerName, out data ) )
+			if (Dictionary.TryGetValue(layerName, out data))
 			{
 				return data.Type == type;
 			}

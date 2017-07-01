@@ -19,7 +19,7 @@ namespace Utage
 	/// 口パク処理
 	/// </summary>
 	[AddComponentMenu("Utage/Lib/UI/LipSynchDicing")]
-	public class LipSynchDicing : LipSynchBase
+	public class LipSynchDicing : LipSynch2d
 	{
 		DicingImage Dicing { get { return this.gameObject.GetComponentCache<DicingImage>(ref dicing); } }
 		DicingImage dicing;
@@ -31,7 +31,7 @@ namespace Utage
 				string pattern = Dicing.MainPattern;
 				foreach (var data in AnimationData.DataList)
 				{
-					Dicing.TryChangePatternWithOption(pattern, LipTag, data.GetSffixName() );
+					Dicing.TryChangePatternWithOption(pattern, LipTag, data.ComvertNameSimple() );
 					yield return new WaitForSeconds(data.Duration);
 				}
 				Dicing.TryChangePatternWithOption(pattern, LipTag, "");

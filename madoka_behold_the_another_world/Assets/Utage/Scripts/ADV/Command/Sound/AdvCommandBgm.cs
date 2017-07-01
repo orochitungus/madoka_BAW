@@ -20,14 +20,16 @@ namespace Utage
 
 			this.file = AddLoadFile(dataManager.SoundSetting.LabelToFilePath(label, SoundType.Bgm), dataManager.SoundSetting.FindData(label));
 
+			this.volume = ParseCellOptional<float>(AdvColumnName.Arg3, 1.0f);
 			this.fadeOutTime = ParseCellOptional<float>(AdvColumnName.Arg5,0.2f);
 			this.fadeInTime = ParseCellOptional<float>(AdvColumnName.Arg6,0);
 		}
 		public override void DoCommand(AdvEngine engine)
 		{
-			engine.SoundManager.PlayBgm(file, fadeInTime, fadeOutTime);
+			engine.SoundManager.PlayBgm(file, volume, fadeInTime, fadeOutTime);
 		}
 		AssetFile file;
+		float volume;
 		float fadeInTime;
 		float fadeOutTime;
 	}

@@ -48,7 +48,7 @@ namespace Utage
 					, new AdvGraphicOperaitonArg(this, this.characterInfo.Graphic.Main, fadeTime));
 			}
 
-			if ((engine.Page.CharacterLabel != characterInfo.Label))
+			if( CheckNewCharacterInfo(engine) )
 			{
 				//現在のページのキャラクター情報は上書き
 				engine.Page.CharacterInfo = characterInfo;
@@ -92,6 +92,26 @@ namespace Utage
 			}
 		}
 
+		bool CheckNewCharacterInfo( AdvEngine engine )
+		{
+			if( engine.Page.CharacterLabel != characterInfo.Label)
+			{
+				return true;
+			}
+
+			if( engine.Page.NameText != characterInfo.NameText)
+			{
+				return true;
+			}
+
+			if( !string.IsNullOrEmpty (characterInfo.Pattern))
+			{
+				return true;
+			}
+
+			return false;
+		}
+		
 		// 選択肢終了などの特別なコマンドを自動生成する場合、そのIDを返す
 		public override string[] GetExtraCommandIdArray(AdvCommand next)
 		{

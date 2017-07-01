@@ -26,6 +26,7 @@ namespace Utage
 				voiceFile = AddLoadFile(dataManager.BootSetting.GetLocalizeVoiceFilePath(voice), null);
 			}
 			this.isLoop = ParseCellOptional<bool>(AdvColumnName.Arg2, false);
+			this.volume = ParseCellOptional<float>(AdvColumnName.Arg3, 1.0f);
 		}
 
 		public override void DoCommand(AdvEngine engine)
@@ -34,11 +35,12 @@ namespace Utage
 			{
 				return;
 			}
-			engine.SoundManager.PlayVoice(characterLabel, voiceFile, isLoop);
+			engine.SoundManager.PlayVoice(characterLabel, voiceFile, volume, isLoop);
 		}
 
 		protected string characterLabel;
 		protected AssetFile voiceFile;
+		float volume;
 		bool isLoop;
 	}
 }

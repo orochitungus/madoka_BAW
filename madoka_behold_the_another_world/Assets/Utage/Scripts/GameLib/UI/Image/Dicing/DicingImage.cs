@@ -87,6 +87,11 @@ namespace Utage
 				this.Pattern = pattern;
 				return true;
 			}
+			else if (DicingData.Exists(option))
+			{
+				this.Pattern = option;
+				return true;
+			}
 			else
 			{
 				this.Pattern = MainPattern;

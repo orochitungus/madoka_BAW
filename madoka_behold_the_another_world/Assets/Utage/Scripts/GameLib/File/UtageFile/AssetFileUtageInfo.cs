@@ -48,7 +48,14 @@ namespace Utage
 				}
 				else
 				{
-					return AssetFileStrageType.Resources;
+					if(Setting.LoadType == AssetFileManagerSettings.LoadType.Server)
+					{
+						return AssetFileStrageType.Server;
+					}
+					else
+					{
+						return AssetFileStrageType.Resources;
+					}
 				}
 			}
 		}

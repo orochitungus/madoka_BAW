@@ -59,6 +59,11 @@ namespace Utage
 		AdvPageEvent onTrigWaitInputBrPage = new AdvPageEvent();
 
 
+		//入力待ちの間に、入力イベントがあった
+		public AdvPageEvent OnTrigInput { get { return onTrigInput; } }
+		[SerializeField]
+		AdvPageEvent onTrigInput = new AdvPageEvent();
+
 		//現在のページのデータ
 		public AdvScenarioPageData CurrentData { get; private set; }
 
@@ -543,6 +548,11 @@ namespace Utage
 			}
 			if (IsInputSendMessage())
 			{
+				//スキップではなく入力でのみトリガー発生
+				if (isInputSendMessage)
+				{
+					OnTrigInput.Invoke(this);
+				}
 				if (Engine.Config.VoiceStopType == VoiceStopType.OnClick)
 				{
 					//ループじゃないボイスを止める

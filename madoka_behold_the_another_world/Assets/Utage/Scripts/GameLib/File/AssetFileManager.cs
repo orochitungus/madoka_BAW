@@ -126,33 +126,52 @@ namespace Utage
 			set { callbackError = value; }
 		}
 
-		// ロードエラー時のデフォルトコールバック
-		void CallbackFileLoadError(AssetFile file)
+        bool isWaitingRetry;
+
+        // ロードエラー時のデフォルトコールバック
+        void CallbackFileLoadError(AssetFile file)
 		{
-			AssetFile errorFile = file;
+            AssetFileBase errorFile =  file as AssetFileBase;
 			string errorMsg = file.LoadErrorMsg + "\n" + file.FileName;
 			Debug.LogError(errorMsg);
 
-			if (SystemUi.GetInstance() != null)
-			{
-				//リロードを促すダイアログを表示
-				SystemUi.GetInstance().OpenDialog1Button(
-					errorMsg, LanguageSystemText.LocalizeText(SystemText.Retry),
-					()=>
-					{
-						this.gameObject.SetActive(true);
-						ReloadFileSub(errorFile as AssetFileBase);
-					}
-					);
-				this.gameObject.SetActive(false);
-			}
-			else
-			{
-				ReloadFileSub(errorFile as AssetFileBase);
-			}
-		}
+            if (SystemUi.GetInstance() != null)
+            {
+                if (isWaitingRetry)
+                {
+					StartCoroutine(CoWaitRetry(errorFile));
+                }
+                else
+                {
+                    isWaitingRetry = true;
+                    //リロードを促すダイアログを表示
+                    SystemUi.GetInstance().OpenDialog1Button(
+                        errorMsg, LanguageSystemText.LocalizeText(SystemText.Retry),
+                        () =>
+                        {
+                            isWaitingRetry = false;
+                            ReloadFileSub(errorFile);
+                        }
+                        );
+                }
+            }
+            else
+            {
+                ReloadFileSub(errorFile);
+            }
+        }
 
-		void Awake()
+		//リトライダイアログからの応答を待つ
+        IEnumerator CoWaitRetry(AssetFileBase file)
+        {
+            while (isWaitingRetry)
+            {
+                yield return null;
+            }
+            ReloadFileSub(file);
+        }
+
+        void Awake()
 		{
 			if (null == instance)
 			{

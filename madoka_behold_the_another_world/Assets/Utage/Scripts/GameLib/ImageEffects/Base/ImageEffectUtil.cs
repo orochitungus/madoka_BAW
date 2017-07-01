@@ -53,7 +53,7 @@ namespace Utage
 			new ImageEffectPattern(ImageEffectType.Vortex.ToString(), typeof(Vortex), new Shader[] { Shader.Find(ShaderManager.VortexName) }),
 		};
 
-		static bool TryParse(string type, out Type ComponentType, out Shader[] Shaders)
+		static internal bool TryParse(string type, out Type ComponentType, out Shader[] Shaders)
 		{
 			ImageEffectPattern pattern = patterns.Find(x => x.type == type);
 			if (pattern == null)
@@ -79,10 +79,11 @@ namespace Utage
 			return pattern.type;
 		}
 
-		static internal bool TryGetComonentCreateIfMissing(string type, out ImageEffectBase component, GameObject target)
+		static internal bool TryGetComonentCreateIfMissing(string type, out ImageEffectBase component, out bool alreadyEnabled, GameObject target)
 		{
 			Type componentType;
 			Shader[] shaders;
+			alreadyEnabled = false;
 			if (!TryParse(type, out componentType, out shaders))
 			{
 				Debug.LogError(type + " is not find in Image effect patterns");
@@ -95,6 +96,10 @@ namespace Utage
 			{
 				component = target.gameObject.AddComponent(componentType) as ImageEffectBase;
 				component.SetShaders(shaders);
+			}
+			else
+			{
+				alreadyEnabled = component.enabled;
 			}
 			return true;
 		}

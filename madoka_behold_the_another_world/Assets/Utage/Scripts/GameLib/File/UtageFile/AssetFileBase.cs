@@ -155,7 +155,7 @@ namespace Utage
 					{
 						if (this.FileInfo.AssetBundleInfo == null)
 						{
-							Debug.LogError("Not found in assetbundle manifest " + FileName);
+							Debug.LogError("Not found in assetbundle list " + FileName);
 							return FilePathUtil.EncodeUrl(FileName);
 						}
 						string url = this.FileInfo.AssetBundleInfo.Url;

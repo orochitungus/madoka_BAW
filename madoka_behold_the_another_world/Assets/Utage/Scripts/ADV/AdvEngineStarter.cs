@@ -71,11 +71,25 @@ namespace Utage
 		string serverUrl;
 
 		/// <summary>
-		/// シナリオ名
+		/// シナリオ名(空欄の場合は、RootResourceDirと同名のscenarios.assetを使う)
 		/// </summary>
 		public string ScenariosName { get { return scenariosName; } set { scenariosName = value; } }
 		[SerializeField]
 		string scenariosName;
+
+		/// <summary>
+		/// チャプター別のロード機能を使うか
+		/// </summary>
+		public bool UseChapter { get { return useChapter; } set { useChapter = value; } }
+		[SerializeField]
+		bool useChapter;
+
+		/// <summary>
+		/// チャプター名の指定
+		/// </summary>
+		public List<string> ChapterNames { get { return chapterNames; } }
+		[SerializeField]
+		List<string> chapterNames;
 
 		//もうロードが始まっているか
 		public bool IsLoadStart { get; set; }
@@ -178,7 +192,14 @@ namespace Utage
 			}
 			if (needsToLoadScenario)
 			{
-				yield return LoadScenariosAsync(GetDynamicStrageRoot());
+				if (UseChapter)
+				{
+					yield return LoadChaptersAsync(GetDynamicStrageRoot());
+				}
+				else
+				{
+					yield return LoadScenariosAsync(GetDynamicStrageRoot());
+				}
 			}
 			if (this.Scenarios == null)
 			{
@@ -296,6 +317,29 @@ namespace Utage
 			}
 			return FilePathUtil.Combine(rootDir, fileName);
 		}
+
+		//章別に分かれたシナリオをロードする
+		IEnumerator LoadChaptersAsync(string rootDir)
+		{
+			//動的に作成
+			AdvImportScenarios scenarios = ScriptableObject.CreateInstance<AdvImportScenarios>();
+			foreach (string chapterName in ChapterNames)
+			{
+				string url = FilePathUtil.Combine(rootDir, chapterName) + ".chapter.asset";
+				AssetFile file = AssetFileManager.Load(url, this);
+				while (!file.IsLoadEnd) yield return null;
+
+				AdvChapterData chapter = file.UnityObject as AdvChapterData;
+				if (scenarios == null)
+				{
+					Debug.LogError(url + " is  not scenario file");
+					yield break;
+				}
+				scenarios.AddChapter(chapter);
+			}
+			this.Scenarios = scenarios;
+		}
+
 
 		//シナリオ開始
 		public void StartEngine()

@@ -30,7 +30,10 @@ namespace Utage
 			{
 				if (item.Type == type)
 				{
-					AdvGraphicLayer layer = manager.transform.AddChildGameObjectComponent<AdvGraphicLayer>(item.Name);
+					//5.6対策でRectTransformを指定したnewが必要
+					var go = new GameObject(item.Name, typeof(RectTransform), typeof(Canvas));
+					manager.transform.AddChild(go);
+					AdvGraphicLayer layer = go.AddComponent<AdvGraphicLayer>();
 					layer.Init(manager, item);
 					layers.Add(layer);
 					if (item.IsDefault) DefaultLayer = layer;

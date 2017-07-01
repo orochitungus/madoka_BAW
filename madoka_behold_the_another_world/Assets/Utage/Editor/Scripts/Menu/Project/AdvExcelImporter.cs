@@ -20,6 +20,7 @@ namespace Utage
 			AdvScenarioDataBuilderWindow.Import(importedAssets);
 		}
 		public const string BookAssetExt = ".book.asset";
+		public const string ChapterAssetExt = ".chapter.asset";
 		public const string ScenarioAssetExt = ".asset";
 
 		//シナリオデータ
@@ -214,13 +215,20 @@ namespace Utage
 		//マクロ処理したインポートデータを作成する
 		void ImportChapter(string chapterName, List<AdvImportBook> books)
 		{
-			//シナリオアセットに各ブックのアセットを設定
-			AdvChapterData chapter = this.scenariosAsset.AddImportData(chapterName, books);
+			//チャプターデータを作成し、各シナリオを設定
+			string  path = AssetDatabase.GetAssetPath(this.Project);
+			path = FilePathUtil.Combine(FilePathUtil.GetDirectoryPath(path), chapterName);
+			AdvChapterData chapter = LoadOrCreateChapterAsset(path);
+			chapter.InitImportData(books);
+			this.scenariosAsset.AddChapter(chapter);
+
+			//設定データの解析とインポート
 			AdvSettingDataManager setting = new AdvSettingDataManager();
 			setting.ImportedScenarios = this.scenariosAsset;
 			chapter.MakeSettingImportData(this.macroManager);
 			setting.BootInit("");
 			chapter.MakeScenarioImportData(setting, this.macroManager);
+			EditorUtility.SetDirty(chapter);
 			AdvGraphicInfo.CallbackExpression = setting.DefaultParam.CalcExpressionBoolean;
 			TextParser.CallbackCalcExpression = setting.DefaultParam.CalcExpressionNotSetParam;
 			iTweenData.CallbackGetValue = setting.DefaultParam.GetParameter;
@@ -263,6 +271,21 @@ namespace Utage
 			{
 				CheckCharacterCount(scenarioList);
 			}
+		}
+
+		//チャプターデータのアセット取得
+		AdvChapterData LoadOrCreateChapterAsset( string path)
+		{
+			string assetPath = Path.ChangeExtension(path, ChapterAssetExt);
+			AdvChapterData asset = AssetDatabase.LoadAssetAtPath<AdvChapterData>(assetPath);
+			if (asset == null)
+			{
+				//まだないので作る
+				asset = ScriptableObject.CreateInstance<AdvChapterData>();
+				AssetDatabase.CreateAsset(asset, assetPath);
+				asset.hideFlags = HideFlags.NotEditable;
+			}
+			return asset;
 		}
 
 #if false

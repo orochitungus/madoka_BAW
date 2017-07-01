@@ -1,6 +1,5 @@
 ﻿// UTAGE: Unity Text Adventure Game Engine (c) Ryohei Tokimura
 using UnityEngine;
-using UnityEngine.Experimental.Director;
 using System;
 using System.IO;
 using System.Collections;
@@ -26,8 +25,7 @@ namespace Utage
 
 		Action onComplete;
 		Animation lecayAnimation;
-		AnimationClipPlayable clipPlayable;
-		Animator animator;
+		Animator animator = null;
 
 		internal void Play(AnimationClip clip, float speed, Action onComplete = null)
 		{
@@ -40,7 +38,7 @@ namespace Utage
 			}
 			else
 			{
-				PlayAnimatinMecanim(clip, speed);
+				Debug.LogError("Not Support");
 			}
 		}
 
@@ -51,15 +49,6 @@ namespace Utage
 				lecayAnimation.Stop();
 			}
 			OnComplete();
-		}
-
-		//メカニムでアニメーションClip再生
-		void PlayAnimatinMecanim(AnimationClip clip, float speed)
-		{
-			this.animator = this.gameObject.GetComponentCreateIfMissing<Animator>();
-			// PlayableAPIのノードを作ってAnimatorで再生
-			this.clipPlayable = AnimationClipPlayable.Create(clip);
-			this.animator.Play(clipPlayable);
 		}
 
 		//レガシーアニメーションでアニメーションClip再生
@@ -117,10 +106,7 @@ namespace Utage
 			}
 			else if(this.animator)
 			{
-				if (!this.clipPlayable.Playing())
-				{
-					OnComplete();
-				}
+				Debug.LogError("Not Support");
 			}
 		}
 

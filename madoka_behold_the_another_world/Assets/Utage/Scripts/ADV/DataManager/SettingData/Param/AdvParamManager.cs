@@ -2,8 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System; 
-using System.Text.RegularExpressions; 
+using System;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UtageExtensions;
 using UnityEngine.Profiling;
@@ -49,16 +49,33 @@ namespace Utage
 			string structName, indexKey, valueKey;
 			if (!ParseKey(key, out structName, out indexKey, out valueKey))
 			{
-				return GetDefault().Tbl.TryGetValue(key, out data);
+				AdvParamStruct def = GetDefault();
+				if (def == null) return false;
+				return def.Tbl.TryGetValue(key, out data);
 			}
 			else
 			{
-				if (!StructTbl.ContainsKey(structName)) return false;
-
-				if (!StructTbl[structName].Tbl.ContainsKey(indexKey)) return false;
-
-				return StructTbl[structName].Tbl[indexKey].Tbl.TryGetValue(valueKey, out data);
+				AdvParamStruct paramStruct;
+				if (!TryGetParamTbl(structName, indexKey, out paramStruct))
+				{
+					return false;
+				}
+				return paramStruct.Tbl.TryGetValue(valueKey, out data);
 			}
+		}
+
+		/// <summary>
+		/// パラメータテーブルを取得
+		/// </summary>
+		public bool TryGetParamTbl(string structName, string indexKey, out AdvParamStruct paramStruct)
+		{
+			paramStruct = null;
+			if (!StructTbl.ContainsKey(structName)) return false;
+
+			if (!StructTbl[structName].Tbl.ContainsKey(indexKey)) return false;
+
+			paramStruct = StructTbl[structName].Tbl[indexKey];
+			return true;
 		}
 
 		public AdvParamStruct GetDefault()
@@ -128,6 +145,56 @@ namespace Utage
 					Debug.LogError("Param: " + keyValue.Key + "  is not found in default param");
 				}
 			}
+		}
+
+		public int GetParameterInt(string key)
+		{
+			return GetParameter<int>(key);
+		}
+
+		public void SetParameterInt(string key, int value)
+		{
+			SetParameter<int>(key, value);
+		}
+
+		public float GetParameterFloat(string key)
+		{
+			return GetParameter<float>(key);
+		}
+
+		public void SetParameterFloat(string key, float value)
+		{
+			SetParameter<float>(key, value);
+		}
+
+		public bool GetParameterBoolean(string key)
+		{
+			return GetParameter<bool>(key);
+		}
+
+		public void SetParameterBoolean(string key, bool value)
+		{
+			SetParameter<bool>(key, value);
+		}
+
+		public string GetParameterString(string key)
+		{
+			return GetParameter<string>(key);
+		}
+
+		public void SetParameterString(string key, string value)
+		{
+			SetParameter<string>(key, value);
+		}
+
+		public T GetParameter<T>(string key)
+		{
+			return (T)GetParameter(key);
+		}
+
+		public void SetParameter<T>(string key, T value)
+		{
+			SetParameter(key, (object)value);
 		}
 
 		/// <summary>
@@ -339,7 +406,7 @@ namespace Utage
 		/// <summary>
 		/// 値の代入を試みる
 		/// </summary>
-		bool CheckSetParameterSub( string key, object parameter, out AdvParamData data)
+		bool CheckSetParameterSub(string key, object parameter, out AdvParamData data)
 		{
 			if (!TryGetParamData(key, out data))
 			{
@@ -386,7 +453,7 @@ namespace Utage
 			foreach (var keyValue in StructTbl)
 			{
 				writer.Write(keyValue.Key);
-				writer.WriteBuffer((x)=>keyValue.Value.Write(x, fileType));
+				writer.WriteBuffer((x) => keyValue.Value.Write(x, fileType));
 			}
 			Profiler.EndSample();
 		}
@@ -413,7 +480,7 @@ namespace Utage
 				string key = reader.ReadString();
 				if (StructTbl.ContainsKey(key))
 				{
-					reader.ReadBuffer((x)=>StructTbl[key].Read(x,fileType));
+					reader.ReadBuffer((x) => StructTbl[key].Read(x, fileType));
 				}
 				else
 				{
@@ -457,7 +524,7 @@ namespace Utage
 			{
 				if (systemData == null)
 				{
-					systemData = new IoInerface(this,AdvParamData.FileType.System);
+					systemData = new IoInerface(this, AdvParamData.FileType.System);
 				}
 				return systemData;
 			}

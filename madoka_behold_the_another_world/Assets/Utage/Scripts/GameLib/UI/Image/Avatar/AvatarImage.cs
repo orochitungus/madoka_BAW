@@ -1,5 +1,6 @@
 ﻿// UTAGE: Unity Text Adventure Game Engine (c) Ryohei Tokimura
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections;
@@ -72,6 +73,9 @@ namespace Utage
 		[SerializeField]
 		Material material;
 
+		public UnityEvent OnPostRefresh = new UnityEvent();
+
+
 		//上下左右の反転
 		public bool FlipX { get { return flipX; } set { flipX = value; HasChanged = true; } }
 		[SerializeField]
@@ -131,6 +135,7 @@ namespace Utage
 			RootChildren.DestroyChildrenInEditorOrPlayer();
 			avatarPattern.Rebuild(AvatarData);
 			MakeImageFromAvartorData(AvatarData);
+			OnPostRefresh.Invoke();
 		}
 
 		//イメージデータから作成

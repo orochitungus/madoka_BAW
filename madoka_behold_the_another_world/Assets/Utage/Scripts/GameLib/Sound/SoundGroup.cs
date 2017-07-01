@@ -46,6 +46,11 @@ namespace Utage
 		[Range(0, 1), SerializeField]
 		float masterVolume = 1;
 
+		//グループボリューム
+		public float GroupVolume { get { return groupVolume; } set { groupVolume = value; } }
+		[Range(0, 1), SerializeField]
+		float groupVolume = 1;
+
 		//ダッキングの影響を与えるグループ
 		public List<SoundGroup> DuckGroups { get { return duckGroups; } }
 		[SerializeField]
@@ -63,7 +68,7 @@ namespace Utage
 
 		internal float GetVolume(string tag)
 		{
-			float masterVolume = this.MasterVolume * SoundManager.MasterVolume;
+			float masterVolume = this.GroupVolume * this.MasterVolume * SoundManager.MasterVolume;
 			foreach(var taggedVolume in SoundManager.TaggedMasterVolumes)
 			{
 				if (taggedVolume.Tag == tag)
@@ -212,7 +217,15 @@ namespace Utage
 				if (keyValue.Value.IsPlayingLoop()) continue;
 				keyValue.Value.Stop(fadeTime);
 			}
-		}		
+		}
+
+		
+		internal AudioSource GetAudioSource(string label)
+		{
+			SoundAudioPlayer player = GetPlayer(label);
+			if (player == null) return null;
+			return player.Audio.AudioSource;
+		}
 
 		internal float GetSamplesVolume(string label)
 		{
@@ -221,16 +234,18 @@ namespace Utage
 			return player.GetSamplesVolume();
 		}
 
-		const int Version = 0;
+		const int Version = 1;
+		const int Version0 = 0;
 		//セーブデータ用のバイナリ書き込み
 		internal void Write(BinaryWriter writer)
 		{
 			writer.Write(Version);
+			writer.Write(GroupVolume);
 			writer.Write(PlayerList.Count);
 			foreach (var keyValue in PlayerList)
 			{
 				writer.Write(keyValue.Key);
-				writer.WriteBuffer(keyValue.Value.Write );
+				writer.WriteBuffer(keyValue.Value.Write);
 			}
 		}
 
@@ -240,6 +255,10 @@ namespace Utage
 			int version = reader.ReadInt32();
 			if (version <= Version)
 			{
+				if (version > Version0)
+				{
+					GroupVolume = reader.ReadSingle();
+				}
 				int playerCount = reader.ReadInt32();
 				for (int i = 0; i < playerCount; ++i)
 				{

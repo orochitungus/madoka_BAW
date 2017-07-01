@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   excelList: []
   chapterDataList:
-  - chapterName: Chpater1
+  - chapterName: Chapter1
     excelList:
     - {fileID: 102900000, guid: cd3cef943406d7946b0823cc4cb7f0d0, type: 3}
     excelDir: {fileID: 0}
@@ -22,8 +22,10 @@ MonoBehaviour:
     - {fileID: 102900000, guid: 32b84b1fdd1cdcc4491c55fe59810663, type: 3}
     excelDir: {fileID: 0}
   checkWaitType: 0
+  checkWhiteSpaceEndOfCell: 1
   checkTextCount: 1
   scenarios: {fileID: 11400000, guid: b7d61043fd2b0fc4cbd63c89d8414c11, type: 2}
+  autoImportType: 0
   convertPath: 
   convertVersion: 0
   isAutoUpdateVersionAfterConvert: 0
@@ -40,3 +42,5 @@ MonoBehaviour:
   - {fileID: 102900000, guid: ee55ff21253156d4f9bb5065d6e9ec6b, type: 3}
   - {fileID: 102900000, guid: 919f8a874a9249c4cba4a3d15a1149b9, type: 3}
   customInportMovieFolders: []
+  quickImport: 0
+  parseFormula: 0
