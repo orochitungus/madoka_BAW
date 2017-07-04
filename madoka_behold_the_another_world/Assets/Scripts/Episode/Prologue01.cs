@@ -85,7 +85,7 @@ public class Prologue01 : MonoBehaviour
         {
             case 0:
                 // カメラをほむらたちの後ろまで下げる
-                if(Camera1.transform.localPosition.z > -690)
+                if(Camera1.transform.localPosition.z >= -690)
                 {
                     Camera1.transform.localPosition = new Vector3(Camera1.transform.localPosition.x, Camera1.transform.localPosition.y, Camera1.transform.localPosition.z - 0.5f); 
                 }
@@ -111,7 +111,8 @@ public class Prologue01 : MonoBehaviour
         // ショットキーの入力受け取り
         if(ControllerManager.Instance.Shot)
         {
-            // タッチの疑似情報を作る 
+			// タッチの疑似情報を作る 
+			engine.UiManager.IsInputTrig = true;
         }
 	}
 
