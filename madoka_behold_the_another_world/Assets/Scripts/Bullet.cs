@@ -483,7 +483,7 @@ public class Bullet : MonoBehaviour
 			//AudioSource.PlayClipAtPoint(HitSE, transform.position);
 			AudioManager.Instance.PlaySE("sen_ge_panchi10");
 			// 着弾した位置にヒットエフェクトを置く            
-			GameObject hiteffect = Instantiate(HitEffect, transform.position, transform.rotation);
+			Instantiate(HitEffect, transform.position, transform.rotation);
 
 			// targetがCharacterControl_Baseクラスでなければ「自壊させて」強制抜け
 			if (target == null)

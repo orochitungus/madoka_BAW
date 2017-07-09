@@ -218,8 +218,10 @@ namespace Utage
 				foreach (string path in pathList)
 				{
 					MainAssetInfo assetInfo = new MainAssetInfo(path);
-					if (!(assetInfo.Asset is ScriptableObject)) continue;
-					assets.Add(assetInfo);
+					if (assetInfo.Asset is AdvChapterData)
+					{
+						assets.Add(assetInfo);
+					}
 				}
 			}
 			else

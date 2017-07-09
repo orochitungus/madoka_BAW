@@ -709,10 +709,7 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     protected Reload ReloadSystem;
 
-    /// <summary>
-    /// 落下開始時間
-    /// </summary>
-    private float _FallStartTime;
+  
 
 	/// <summary>
     /// 使用する足音
@@ -825,7 +822,7 @@ public class CharacterControlBase : MonoBehaviour
 	/// <summary>
 	/// ステップによる移動先
 	/// </summary>
-	private Vector3 StepTarget;
+	//private Vector3 StepTarget;
 
 	/// <summary>
 	/// ステップ中にフォーカスする座標
@@ -1875,7 +1872,6 @@ public class CharacterControlBase : MonoBehaviour
         {
             animator.SetTrigger("Fall");
             DestroyWrestle();
-            _FallStartTime = Time.time;
         }
         // 着地時にLandingを実行する
         if (IsGrounded)
@@ -2221,7 +2217,6 @@ public class CharacterControlBase : MonoBehaviour
 				FallDone(RiseSpeed, animator);
 				animator.SetTrigger("Fall");
 				DestroyWrestle();
-				_FallStartTime = Time.time;
 			}
 		}
 		else
@@ -2231,7 +2226,6 @@ public class CharacterControlBase : MonoBehaviour
 				FallDone(RiseSpeed, animator);
 				animator.SetTrigger("Fall");
 				DestroyWrestle();
-				_FallStartTime = Time.time;
 			}
 		}
     }
@@ -2272,7 +2266,6 @@ public class CharacterControlBase : MonoBehaviour
             DestroyWrestle();
             animator.SetTrigger("Fall");
             DestroyWrestle();
-            _FallStartTime = Time.time;
         }
         StepCancel(animator);
     }
@@ -2357,7 +2350,6 @@ public class CharacterControlBase : MonoBehaviour
             DestroyWrestle();
             animator.SetTrigger("Fall");
             DestroyWrestle();
-            _FallStartTime = Time.time;
         }
         StepCancel(animator);
         // 接地したらLandingにする
@@ -2492,7 +2484,6 @@ public class CharacterControlBase : MonoBehaviour
         GetComponent<Rigidbody>().useGravity = true;
         animator.SetTrigger("Fall");
         RiseSpeed = new Vector3(0, -this.RiseSpeed, 0);
-        _FallStartTime = Time.time;
     }
 
     /// <summary>
@@ -3139,7 +3130,7 @@ public class CharacterControlBase : MonoBehaviour
             }
             else
             {
-                float OR_GemCont = savingparameter.GetGemContimination(character);                
+                //float OR_GemCont = savingparameter.GetGemContimination(character);                
                 arousalStart(damageid, blowid);
             }
         }
@@ -3288,9 +3279,9 @@ public class CharacterControlBase : MonoBehaviour
 		var enemy = MainCamera.GetComponentInChildren<Player_Camera_Controller>().Enemy;
 		StepFocus = enemy.transform.position;
 		// A→B
-		var now = transform.position - StepFocus;
+		//var now = transform.position - StepFocus;
 		// A→B'
-		StepTarget = Quaternion.AngleAxis(deg, Vector3.up) * now;
+		//StepTarget = Quaternion.AngleAxis(deg, Vector3.up) * now;
 		StepDegree = deg;
 
 	}
@@ -3495,7 +3486,6 @@ public class CharacterControlBase : MonoBehaviour
         else
         {
             animator.SetTrigger("Fall");
-            _FallStartTime = Time.time;
         }        
     }
 
@@ -5143,7 +5133,6 @@ public class CharacterControlBase : MonoBehaviour
         // いなければ落下
         else
         {
-            _FallStartTime = Time.time;
             animator.SetTrigger("Fall");
         }
 
@@ -5298,7 +5287,6 @@ public class CharacterControlBase : MonoBehaviour
         if (!HasJumpingInput)
         {
             animator.SetTrigger("Fall");
-            _FallStartTime = Time.time;
             RiseSpeed = new Vector3(0, -this.RiseSpeed, 0);
         }
 

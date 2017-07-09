@@ -498,18 +498,16 @@ namespace Utage
 			count = 0;
 			AdvEngine engine = UtageEditorToolKit.FindComponentAllInTheScene<AdvEngine>();
 			if (engine == null) return false;
-			
-			AdvUguiManager uguiManager = UtageEditorToolKit.FindComponentAllInTheScene<AdvUguiManager>();
-			if (uguiManager == null) return false;
 
-			bool isActive = uguiManager.gameObject.activeSelf;
+			AdvUiManager uiManager = UtageEditorToolKit.FindComponentAllInTheScene<AdvUiManager>();
+			if (uiManager == null) return false;
+
+			bool isActive = uiManager.gameObject.activeSelf;
 			if (!isActive)
 			{
-				uguiManager.gameObject.SetActive(true);
-				//				UguiLetterBoxCanvasScaler scaler = uguiManager.GetComponent<UguiLetterBoxCanvasScaler>();
-				//				if (scaler != null)					scaler.SetLayoutHorizontal();
+				uiManager.gameObject.SetActive(true);
 			}
-			AdvUguiMessageWindow[] messageWindows = uguiManager.GetComponentsInChildren<AdvUguiMessageWindow>(true);
+			AdvUguiMessageWindow[] messageWindows = uiManager.GetComponentsInChildren<AdvUguiMessageWindow>(true);
 			Dictionary<string, AdvUguiMessageWindow> windows = new Dictionary<string, AdvUguiMessageWindow>();
 			foreach (var window in messageWindows)
 			{
@@ -520,7 +518,7 @@ namespace Utage
 			{
 				count += data.EditorCheckCharacterCount(engine, windows);
 			}
-			if (!isActive) uguiManager.gameObject.SetActive(false);
+			if (!isActive) uiManager.gameObject.SetActive(false);
 			return true;
 		}
 	}

@@ -11,7 +11,7 @@ namespace Utage
 	//喋っていないキャラクターをグレーアウトする処理
 	//AdvEngineのOnPageTextChangeから呼び出す、このコンポーネントの同名メソッドを登録すると使えるようになる
 	[AddComponentMenu("Utage/ADV/Extra/CharacterGrayOutContoller")]
-	public class AdvCharacterGrayOutContoller : MonoBehaviour
+	public class AdvCharacterGrayOutController : MonoBehaviour
 	{
 		/// <summary>ADVエンジン</summary>
 		public AdvEngine Engine { get { return this.engine ?? (this.engine = FindObjectOfType<AdvEngine>()); } }
@@ -61,6 +61,15 @@ namespace Utage
 			get { return fadeTime; }
 			set { fadeTime = value; }
 		}
+
+		//グレーアウトしないキャラクター名のリスト
+		public List<string> NoGrayoutCharacters
+		{
+			get { return noGrayoutCharacters; }
+			set { noGrayoutCharacters = value; }
+		}
+		[SerializeField]
+		List<string> noGrayoutCharacters = new List<string>();
 
 		//テキストに変更があった場合
 		void Awake()
@@ -126,6 +135,12 @@ namespace Utage
 			if ((Mask & LightingMask.NewCharacerInPage) == LightingMask.NewCharacerInPage)
 			{
 				if (pageBeginLayer.Find(x => (x !=null ) && (x.DefaultObject.name == layer.DefaultObject.name) ) == null) return true;
+			}
+
+			//名前指定のあるキャラ
+			if (NoGrayoutCharacters.Exists(x=>x== layer.DefaultObject.name))
+			{
+				return true;
 			}
 			return false;
 		}

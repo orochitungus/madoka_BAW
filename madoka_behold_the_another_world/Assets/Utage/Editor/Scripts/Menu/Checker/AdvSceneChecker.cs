@@ -168,8 +168,8 @@ namespace Utage
 			AdvMessageWindowManager manager = UtageEditorToolKit.FindComponentAllInTheScene<AdvMessageWindowManager>();
 			if (manager == null) return true;
 
-			AdvUguiManager uguiManager = UtageEditorToolKit.FindComponentAllInTheScene<AdvUguiManager>();
-			if (uguiManager == null) return false;
+			AdvUiManager uiManager = UtageEditorToolKit.FindComponentAllInTheScene<AdvUiManager>();
+			if (uiManager == null) return false;
 
 			AdvUguiMessageWindowManager mangaer = UtageEditorToolKit.FindComponentAllInTheScene<AdvUguiMessageWindowManager>();
 			return (mangaer == null);

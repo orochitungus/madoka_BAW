@@ -12,7 +12,10 @@ namespace Utage
 	public class AdvConfig : MonoBehaviour, IBinaryIO
 	{
 		[SerializeField]
-		bool dontUseSystemSaveData = false;		//システムセーブデータを使わない
+		bool dontUseSystemSaveData = false;     //システムセーブデータを使わない
+
+		[SerializeField]
+		bool dontUseFullScreen = false;			//フルスクリーンの切り替えを行わない
 
 		[SerializeField]
 		float sendCharWaitSecMax = 1.0f / 10;	//一文字送りの待ち時間の最大値
@@ -154,13 +157,14 @@ namespace Utage
 			set {
 				if (UtageToolKit.IsPlatformStandAloneOrEditor())
 				{
+					current.isFullScreen = value;
+					if (dontUseFullScreen) return;
 					//PC版のみ、フルスクリーン切り替え
 #if UNITY_5
 					Unity5ChangeScreen(value);
 #else
 					Screen.fullScreen = value;
 #endif
-					current.isFullScreen = value;
 				}
 			}
 		}

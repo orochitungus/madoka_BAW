@@ -292,7 +292,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
     /// </summary>
     private InputDirection[] _Inputdirections = new InputDirection[60];
 
-    private bool[] Jumpdirections = new bool[60];
+    //private bool[] Jumpdirections = new bool[60];
 
     // Use this for initialization
     void Start () 
@@ -340,16 +340,16 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 			// 左or右
 			string horizontalVector = "";
 			// 左右どっちが＋？
-			bool isRightPlus = true;
+			//bool isRightPlus = true;
 			if (Rightkey.IndexOf("Button") >= 0)
 			{
 				horizontalVector = "Button";
 			}
 			// MINUSが入っていたらIsRightPlusをfalseにする（右方向がマイナスになるため）
-			if (Rightkey.IndexOf("MINUS") >= 0)
-			{
-				isRightPlus = false;
-			}
+			//if (Rightkey.IndexOf("MINUS") >= 0)
+			//{
+			//	isRightPlus = false;
+			//}
 
 			// 軸入力だった場合
 			if (Upkey.IndexOf("3rd") >= 0)
@@ -952,8 +952,8 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
                 // 右スティック取得
                 // 右スティック設定取得
                 string up = PlayerPrefs.GetString("ElevationUpper_Controller");
-                string down = PlayerPrefs.GetString("ElevationDown_Controller");
-                string left = PlayerPrefs.GetString("AzimuthLeft_Controller");
+                //string down = PlayerPrefs.GetString("ElevationDown_Controller");
+                //string left = PlayerPrefs.GetString("AzimuthLeft_Controller");
                 string right = PlayerPrefs.GetString("AzimuthRight_Controller");
 
                 float rightVertical = 0.0f;

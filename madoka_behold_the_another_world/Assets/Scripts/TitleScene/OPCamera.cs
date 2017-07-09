@@ -5,17 +5,11 @@ public class OPCamera : MonoBehaviour
 {
 	public TitleController Titlecontroller;
 
-
-	/// <summary>
-	/// TitleCanvasにくっついているタイトル画面制御用のAnimator
-	/// </summary>
-	Animator StateAnimator;
+		
 	int []stateCode = new int[4];
 
 	void Awake()
 	{
-		// Animatorを取得する
-		StateAnimator = Titlecontroller.TitleCanvas.GetComponent<TitleCanvas>().TitleCanvasAnimator;
 		// モーション登録
 		stateCode[0] = Animator.StringToHash("Base Layer.LogoStandby");
 		stateCode[1] = Animator.StringToHash("Base Layer.LogoAppear");

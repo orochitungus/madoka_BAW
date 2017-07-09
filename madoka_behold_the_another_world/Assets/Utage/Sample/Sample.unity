@@ -2125,9 +2125,9 @@ Camera:
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
+    x: 0.00038669875
     y: 0
-    width: 1
+    width: 0.9992266
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
@@ -5948,9 +5948,9 @@ Camera:
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
+    x: 0.00038669875
     y: 0
-    width: 1
+    width: 0.9992266
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
@@ -6658,6 +6658,7 @@ GameObject:
   - component: {fileID: 456724016}
   - component: {fileID: 456724017}
   - component: {fileID: 456724018}
+  - component: {fileID: 456724019}
   m_Layer: 0
   m_Name: AdvEngine
   m_TagString: Untagged
@@ -6949,6 +6950,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dontUseSystemSaveData: 0
+  dontUseFullScreen: 0
   sendCharWaitSecMax: 0.1
   autoPageWaitSecMax: 2.5
   autoPageWaitSecMin: 0
@@ -7048,6 +7050,7 @@ MonoBehaviour:
   mainColor: {r: 1, g: 1, b: 1, a: 1}
   subColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   fadeTime: 0.2
+  noGrayoutCharacters: []
 --- !u!114 &456724014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7120,6 +7123,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   engine: {fileID: 456724002}
+--- !u!114 &456724019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 456724000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39da3c5b850a5e244a52e39475804d01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &466480950
 GameObject:
   m_ObjectHideFlags: 0
@@ -14644,9 +14658,9 @@ Camera:
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
+    x: 0.00038669875
     y: 0
-    width: 1
+    width: 0.9992266
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
@@ -17400,9 +17414,9 @@ Camera:
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
+    x: 0.00038669875
     y: 0
-    width: 1
+    width: 0.9992266
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
@@ -27716,6 +27730,7 @@ MonoBehaviour:
   bgSpriteName: BG
   debugAutoResetCanvasPosition: 0
   renderTextureManager: {fileID: 0}
+  videoManager: {fileID: 0}
 --- !u!1 &2064797486
 GameObject:
   m_ObjectHideFlags: 0

@@ -6486,6 +6486,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dontUseSystemSaveData: 1
+  dontUseFullScreen: 0
   sendCharWaitSecMax: 0.1
   autoPageWaitSecMax: 2.5
   autoPageWaitSecMin: 0
@@ -13651,10 +13652,10 @@ Camera:
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
-    y: 0.00065276027
-    width: 1
-    height: 0.9986945
+    x: 0.00038669875
+    y: 0
+    width: 0.9992266
+    height: 1
   near clip plane: -1
   far clip plane: 1000
   field of view: 60
@@ -16273,10 +16274,10 @@ Camera:
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
-    y: 0.00065276027
-    width: 1
-    height: 0.9986945
+    x: 0.00038669875
+    y: 0
+    width: 0.9992266
+    height: 1
   near clip plane: -2
   far clip plane: 1000
   field of view: 60
@@ -25650,6 +25651,7 @@ MonoBehaviour:
   bgSpriteName: BG
   debugAutoResetCanvasPosition: 0
   renderTextureManager: {fileID: 0}
+  videoManager: {fileID: 0}
 --- !u!1 &2064797486
 GameObject:
   m_ObjectHideFlags: 0

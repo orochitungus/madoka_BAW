@@ -225,7 +225,7 @@ namespace Utage
 				string audioName = reader.ReadString();
 				if (!string.IsNullOrEmpty(audioName))
 				{
-					Audio = AudioList.Find(x => x.gameObject.name == audioName);
+					Audio = AudioList.Find(x => x != FadeOutAudio && x.gameObject.name == audioName);
 				}
 				if (this.Group.AutoDestoryPlayer && AudioList.Count == 0)
 				{

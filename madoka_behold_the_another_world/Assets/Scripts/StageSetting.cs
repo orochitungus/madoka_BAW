@@ -118,7 +118,7 @@ public class StageSetting : MonoBehaviour
 					// バトルパート
                     else
                     {
-                        GameObject player = Instantiate(BattleCharacter[savingparameter.GetNowParty(i)], SetPosPlayer, Quaternion.Euler(SetRotPlayer));
+                        Instantiate(BattleCharacter[savingparameter.GetNowParty(i)], SetPosPlayer, Quaternion.Euler(SetRotPlayer));
 						// 現在HP
 						Battleinterfacecontroller.NowPlayerHP[i] = savingparameter.GetNowHP(savingparameter.GetNowParty(i));
 						// 最大HP

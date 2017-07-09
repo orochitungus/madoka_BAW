@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2011 Bob Berkebile (pixelplacment)
+// Copyright (c) 2011 Bob Berkebile (pixelplacment)
 // Please direct any bugs/comments/suggestions to http://pixelplacement.com
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -40,7 +40,7 @@ using UnityEngine;
 #endregion
 
 /// <summary>
-/// <para>Version: 2.0.46</para>	 
+/// <para>Version: 2.0.5</para>	 
 /// <para>Author: Bob Berkebile (http://pixelplacement.com)</para>
 /// <para>Support: http://itween.pixelplacement.com</para>
 /// </summary>
@@ -3869,14 +3869,8 @@ public class iTween : MonoBehaviour{
 		vector3s[3] = thisTransform.eulerAngles;		
 		
 		//root:
-		if(isLocal)
-		{
-			vector3s[0]=transform.localPosition;
-		}
-		else
-		{
-			vector3s[0]=transform.position;
-		}
+		vector3s[0]=thisTransform.position;
+		
 		//amount:
 		if (tweenArguments.Contains("amount")) {
 			vector3s[1]=(Vector3)tweenArguments["amount"];

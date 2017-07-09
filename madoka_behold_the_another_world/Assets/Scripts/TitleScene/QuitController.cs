@@ -29,10 +29,7 @@ public class QuitController : MonoBehaviour
 	/// </summary>
 	public bool ModeChangeDone;
 
-	// 1F前の左入力
-	private bool _PreLeftInput;
-	// 1F前の右入力
-	private bool _PreRightInput;
+
 
 	public TitleCanvas Titlecanvas;
 
@@ -55,7 +52,7 @@ public class QuitController : MonoBehaviour
 			}
 
 			// 左
-			if (!_PreLeftInput && ControllerManager.Instance.Left)
+			if (ControllerManager.Instance.Left)
 			{
 				if (NowSelect == 1)
 				{
@@ -63,7 +60,7 @@ public class QuitController : MonoBehaviour
 				}
 			}
 			// 右
-			if (!_PreRightInput && ControllerManager.Instance.Right)
+			if (ControllerManager.Instance.Right)
 			{
 				if (NowSelect == 0)
 				{

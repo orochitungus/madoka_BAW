@@ -85,8 +85,8 @@ public class LogoSceneController : MonoBehaviour
 			PlayerPrefs.SetFloat("VoiceVolue", 1.0f);
 		}
 
-		int x = PlayerPrefs.GetInt("TenKeySetup");
-		int y = PlayerPrefs.GetInt("RightStickSetup");
+		//int x = PlayerPrefs.GetInt("TenKeySetup");
+		//int y = PlayerPrefs.GetInt("RightStickSetup");
 		// コントローラー設定をやっていたらタイトルへ、していなかったらコントローラー設定へ
 		// タイトルへ遷移
 		if (PlayerPrefs.GetInt("TenKeySetup") != 0 || PlayerPrefs.GetInt("RightStickSetup") != 0)

@@ -129,6 +129,20 @@ namespace Utage
 			if (letterBoxCamera != null)
 			{
 				RawImage.rectTransform.SetSize(letterBoxCamera.CurrentSize);
+				//ズームが1ではなく、このイメージを描画するカメラのキャプチャ画像かどうか
+				if (letterBoxCamera.Zoom2D != 1)
+				{
+					int layerMask = 1 << this.gameObject.layer;
+					if ((letterBoxCamera.CachedCamera.cullingMask & layerMask) != 0)
+					{
+						Vector2 pivot = letterBoxCamera.Zoom2DCenter;
+						pivot.x /= letterBoxCamera.CurrentSize.x;
+						pivot.y /= letterBoxCamera.CurrentSize.y;
+						pivot = -pivot + Vector2.one * 0.5f;
+						RawImage.rectTransform.pivot = pivot;
+						RawImage.rectTransform.localScale = Vector3.one / letterBoxCamera.Zoom2D;
+					}
+				}
 			}
 			else
 			{

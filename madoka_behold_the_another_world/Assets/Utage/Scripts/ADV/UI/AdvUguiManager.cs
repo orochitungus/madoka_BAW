@@ -7,7 +7,9 @@ using UtageExtensions;
 namespace Utage
 {
 	/// <summary>
-	/// UI全般の管理
+	/// UI全般の入力処理。
+	/// 独自のキーボード入力などが必要な場合は
+	/// これ（AdvUguiManager）かAdvUiManagerを継承して処理を書きかえること
 	/// </summary>
 	[AddComponentMenu("Utage/ADV/UiManager")]
 	public class AdvUguiManager : AdvUiManager
@@ -18,16 +20,16 @@ namespace Utage
 		public AdvUguiMessageWindowManager MessageWindow{ get { return messageWindow ?? (messageWindow = GetMessageWindowManagerCreateIfMissing());}}
 
 		[SerializeField]
-		AdvUguiMessageWindowManager messageWindow;
+		protected AdvUguiMessageWindowManager messageWindow;
 
 		[SerializeField]
-		AdvUguiSelectionManager selection;
+		protected AdvUguiSelectionManager selection;
 
 		[SerializeField]
-		AdvUguiBacklogManager backLog;
+		protected AdvUguiBacklogManager backLog;
 
 		[SerializeField]
-		bool disableMouseWheelBackLog = false;
+		protected bool disableMouseWheelBackLog = false;
 
 		public override void Open()
 		{
@@ -71,7 +73,7 @@ namespace Utage
 		}
 
 		//ウインドウ閉じるボタンが押された
-		void OnTapCloseWindow()
+		protected virtual void OnTapCloseWindow()
 		{
 			Status = UiStatus.HideMessageWindow;
 		}
@@ -137,15 +139,27 @@ namespace Utage
 		/// <summary>
 		/// タッチされたとき
 		/// </summary>
-		public void OnPointerDown(BaseEventData data)
+		public virtual void OnPointerDown(BaseEventData data)
 		{
-			if ((data as PointerEventData).button != PointerEventData.InputButton.Left) return;
+			if (data !=null && data is PointerEventData)
+			{
+				//左クリック入力のみ
+				if((data as PointerEventData).button != PointerEventData.InputButton.Left) return;
+			}
 
+			OnInput(data);
+		}
+
+		/// <summary>
+		/// クリックなどの入力があったとき（キーボード入力による文字送りなどを拡張するときに）
+		/// </summary>
+		public virtual void OnInput(BaseEventData data = null)
+		{
 			switch (Status)
 			{
 				case UiStatus.Backlog:
 					break;
-				case UiStatus.HideMessageWindow:	//メッセージウィンドウが非表示
+				case UiStatus.HideMessageWindow:    //メッセージウィンドウが非表示
 					Status = UiStatus.Default;
 					break;
 				case UiStatus.Default:
@@ -164,13 +178,15 @@ namespace Utage
 								Engine.Page.InputSendMessage();
 							}
 						}
-						base.OnPointerDown(data as PointerEventData);
+						if (data != null && data is PointerEventData)
+						{
+							base.OnPointerDown(data as PointerEventData);
+						}
 					}
 					break;
 			}
 		}
 
-		
 
 		//旧バージョンとの互換性のための処理、メッセージウィンドウがなかったら作る
 		public AdvUguiMessageWindowManager GetMessageWindowManagerCreateIfMissing()
