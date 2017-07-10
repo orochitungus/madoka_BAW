@@ -52,6 +52,11 @@ public class Prologue01 : MonoBehaviour
 	/// </summary>
 	public Material Sky;
 
+	/// <summary>
+	/// ほむらの弓
+	/// </summary>
+	public GameObject HomuraBow;
+
 
 	/// <summary>
 	/// 宴の表示部分を呼び出す
@@ -71,6 +76,14 @@ public class Prologue01 : MonoBehaviour
             GameObject loadManager = (GameObject)Instantiate(Resources.Load("ControllerManager"));
             loadManager.name = "ControllerManager";
         }
+
+		// AudioManagerがあるか判定
+		if(GameObject.Find("AudioManager") == null)
+		{
+			// なければ作る
+			GameObject loadManager = (GameObject)Instantiate(Resources.Load("AudioManager"));
+			loadManager.name = "AudioManager";
+		}
 
 
         // QBとほむらのモーションを初期化
@@ -116,13 +129,15 @@ public class Prologue01 : MonoBehaviour
 		iTween.MoveTo(Camera1.gameObject, new Vector3(254.3377f, 4.437881f, 128.03f), 3.0f);
 
 		yield return new WaitForSeconds(3.0f);
+
+		//「宴」のシナリオを呼び出す
+		Engine.JumpScenario(scenarioLabel);
+
 		// カメラをほむらに向ける
 		Camera1.transform.localPosition = new Vector3(-34.6f, -105.2179f, -670.6f);
 		Camera1.transform.localRotation = Quaternion.Euler(new Vector3(0, 180, 0));
 		Camera1.fieldOfView = 44;
-
-		//「宴」のシナリオを呼び出す
-		Engine.JumpScenario(scenarioLabel);
+				
 
         //「宴」のポーズ終了待ち
         while (!Engine.IsPausingScenario)
@@ -194,10 +209,13 @@ public class Prologue01 : MonoBehaviour
 
 		// 魔獣出現
 		Majyu1.gameObject.SetActive(true);
-		AudioSource.PlayClipAtPoint(Appearmajyu_se, Majyu1.transform.position);
+		AudioManager.Instance.PlaySE("87043__runnerpack__weapappear");
 		Camera1.transform.localPosition = new Vector3(-37.60001f, -105.7f, -621.8f);
 		Camera1.fieldOfView = 25;
 		Camera1.transform.localRotation = Quaternion.Euler(new Vector3(-10,0,0));
+
+		// 魔獣出現のイベントが終わるまで少し待つ
+		yield return new WaitForSeconds(2.0f);
 
 		// シナリオ2つめ開始
 		Engine.JumpScenario("Prologue01_2");
@@ -210,6 +228,25 @@ public class Prologue01 : MonoBehaviour
 		Camera1.transform.localPosition = new Vector3(-34.6f, -105.2179f, -670.6f);
 		Camera1.transform.localRotation = Quaternion.Euler(new Vector3(0, 180, 0));
 		Camera1.fieldOfView = 44;
+		// ほむらの向きを変える
+		HomuraAnimator.SetTrigger("lu_back");
+
+		// シーン再生
+		engine.ResumeScenario();
+
+		//「宴」のポーズ終了待ち
+		while (!Engine.IsPausingScenario)
+		{
+			yield return 0;
+		}
+
+		// ほむら、弓を抜刀する
+		HomuraBow.SetActive(true);
+		AudioManager.Instance.PlaySE("30245__streety__sword2");
+		HomuraAnimator.SetTrigger("setup_bow");
+		// シーン再生
+		engine.ResumeScenario();
+
 
 		//「宴」の終了待ち
 		while (!Engine.IsEndScenario)
