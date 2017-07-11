@@ -32,8 +32,10 @@ namespace BehaviourTrees
 		// Update is called once per frame
 		void Update()
 		{
-			//Debug.Log(Cpumode);
-			UpdateCore();
+			if (IsPlayer != CharacterControlBase.CHARACTERCODE.PLAYER)
+			{
+				UpdateCore();
+			}
 		}
 
 		/// <summary>

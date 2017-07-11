@@ -184,7 +184,7 @@ public class AIControlBase : MonoBehaviour
     // update内で実行する
     protected void UpdateCore()
     {
-        // 自機の時は一応やらせない
+        // 自機の時はやらせない
         if (IsPlayer != CharacterControlBase.CHARACTERCODE.PLAYER)
         {
             // 自機の現在位置を取得
