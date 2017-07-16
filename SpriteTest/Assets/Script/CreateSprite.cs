@@ -20,6 +20,10 @@ public class CreateSprite : MonoBehaviour
 		
 	}
 
+    public void OnClickGoButton()
+    {
+        StartCoroutine(Initialize());
+    }
 
 	public IEnumerator Initialize()
 	{
@@ -90,6 +94,16 @@ public class CreateSprite : MonoBehaviour
 		appearOrder[6] = 6;
 		appearOrder[7] = 7;
 
+        // 開始前ウェイト
+        beforeWaitApperTime[0] = 0.1f;
+        beforeWaitApperTime[1] = 0.1f;
+        beforeWaitApperTime[2] = 0.1f;
+
+        // 終了後ウェイト
+        afterWaitApperTime[0] = 0.1f;
+        afterWaitApperTime[1] = 0.1f;
+        afterWaitApperTime[2] = 0.1f;
+
 		// スプライト生成
 		for(int i=0; i<totalframenum; i++)
 		{
@@ -97,11 +111,42 @@ public class CreateSprite : MonoBehaviour
 		}
 
 		// 規定回数表示
-		for(int i=0; i<totalappearnum; i++)
-		{
-			yield return new WaitForSeconds(beforeWaitApperTime[i]);
-			// フレーム分アニメーションを表示
+		//for(int i=0; i<totalappearnum; i++)
+		//{
+  //          // 開始前の待ち状態
+		//	yield return new WaitForSeconds(beforeWaitApperTime[i]);
+  //          // フレーム分アニメーションを表示
+  //          for (int j = 0; j < totalframenum; j++)
+  //          {
+  //              // どれを再生する？
+  //              Renderer.sprite = sprite[appearOrder[j]];
+  //              // 待ち時間を入れる
+  //              yield return new WaitForSeconds(appearTimePerFrame[j]);
+  //          }
+  //          // 終了後の待ち状態
+  //          yield return new WaitForSeconds(afterWaitApperTime[i]);
+  //          // スプライト消去
+  //          Renderer.sprite = null;
+		//}
 
-		}
+        for(int i=0; i<totalappearnum * totalframenum; i++)
+        {
+            // 開始前の待ち状態
+            if (i% totalframenum == 0)
+            {                
+                yield return new WaitForSeconds(beforeWaitApperTime[i/ totalframenum]);                
+            }
+            // どれを再生する？
+            Renderer.sprite = sprite[appearOrder[i%totalappearnum]];
+            // 待ち時間を入れる
+            yield return new WaitForSeconds(appearTimePerFrame[i % totalappearnum]);
+            // 終了後の待ち時間
+            if((i + 1)% totalframenum == 0)
+            {
+                yield return new WaitForSeconds(afterWaitApperTime[i / totalframenum]);
+                // スプライト消去
+                Renderer.sprite = null;
+            }
+        }
 	}
 }
