@@ -612,15 +612,13 @@ public static class savingparameter
 		// 魔獣試験
 		//nowparty[0] = (int)Character_Spec.CHARACTER_NAME.ENEMY_MAJYU;
 		// スコノ試験
-        //nowparty[0] = (int)Character_Spec.CHARACTER_NAME.MEMBER_SCHONO;
+		//nowparty[0] = (int)Character_Spec.CHARACTER_NAME.MEMBER_SCHONO;
+		nowparty[1] = (int)Character_Spec.CHARACTER_NAME.MEMBER_MADOKA;
 
         // 主人公
         nowHero = Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B;
 
-        for (int i = 1; i < 4; i++)
-        {
-            nowparty[i] = 0;
-        }
+        
         // レベル初期化(一応全キャラ分やっておく)
         for (int i = 0; i < (int)(Character_Spec.CHARACTER_NAME.CHARACTER_ALL_NUM); i++)
         {

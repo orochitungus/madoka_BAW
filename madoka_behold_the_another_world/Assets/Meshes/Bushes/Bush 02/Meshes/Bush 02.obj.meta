@@ -1,16 +1,22 @@
 fileFormatVersion: 2
-guid: c68d3b2c1a2186f4eb2b1646bd51f383
+guid: 2b6bcb4abb920c947aa59a8748797448
+timeCreated: 1485873970
+licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
-    100002: road_turn_right
+    100002: Bush_02
+    100004: Bush_02_collider
     400000: //RootNode
-    400002: road_turn_right
-    2300000: road_turn_right
-    3300000: road_turn_right
-    4300000: road_turn_right
-    9500000: //RootNode
+    400002: Bush_02
+    400004: Bush_02_collider
+    2300000: Bush_02
+    2300002: Bush_02_collider
+    3300000: Bush_02
+    3300002: Bush_02_collider
+    4300000: Bush_02
+    4300002: Bush_02_collider
   materials:
     importMaterials: 1
     materialName: 0
@@ -49,11 +55,11 @@ ModelImporter:
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
-    useFileScale: 0
+    useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
-    tangentImportMode: 4
+    tangentImportMode: 3
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
@@ -71,9 +77,9 @@ ModelImporter:
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
-    skeletonHasParents: 0
+    skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

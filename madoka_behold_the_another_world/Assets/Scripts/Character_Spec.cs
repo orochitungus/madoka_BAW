@@ -47,6 +47,26 @@ public static class Character_Spec
         "魔獣"
     };
 
+	/// <summary>
+	/// キャラクター名（英語）
+	/// </summary>
+	public static string[] NameEn = new string[]
+	{
+		"",
+		"KANAME MADOKA",
+		"MIKI SAYAKA",
+		"AKEMI HOMURA",
+		"TOMOE MAMI",
+		"SAKURA KYOKO",
+		"CHITOSE YUMA",
+		"KURE KIRIKA",
+		"MIKUNI ORIKO",
+		"SCONOSCIUTO",
+		"AKEMI HOMURA",
+		"ULTIMATE MADOKA",
+		"MAJYU",
+	};
+
     // HP初期値
     public static int[] HP_OR = new int[]
     {
