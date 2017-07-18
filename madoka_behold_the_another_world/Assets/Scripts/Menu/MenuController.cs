@@ -235,105 +235,7 @@ public class MenuController : MonoBehaviour
 					// 選択したキャラは誰？
 					int selectedCharacter = savingparameter.GetNowParty(CharSelect);
 					// Statusの中身を書き換える
-					// キャラグラフィック
-					// まどか
-					if (selectedCharacter == (int)Character_Spec.CHARACTER_NAME.MEMBER_MADOKA)
-					{
-						Status.GetComponent<MenuStatus>().CharacterImage.sprite = Status.GetComponent<MenuStatus>().Madoka;
-					}
-					// さやか
-					else if (selectedCharacter == (int)Character_Spec.CHARACTER_NAME.MEMBER_SAYAKA)
-					{
-						Status.GetComponent<MenuStatus>().CharacterImage.sprite = Status.GetComponent<MenuStatus>().Sayaka;
-					}
-					// ほむら
-					else if (selectedCharacter == (int)Character_Spec.CHARACTER_NAME.MEMBER_HOMURA)
-					{
-						Status.GetComponent<MenuStatus>().CharacterImage.sprite = Status.GetComponent<MenuStatus>().Homura;
-					}
-					// マミ
-					else if (selectedCharacter == (int)Character_Spec.CHARACTER_NAME.MEMBER_MAMI)
-					{
-						Status.GetComponent<MenuStatus>().CharacterImage.sprite = Status.GetComponent<MenuStatus>().Mami;
-					}
-					// 杏子
-					else if (selectedCharacter == (int)Character_Spec.CHARACTER_NAME.MEMBER_KYOKO)
-					{
-						Status.GetComponent<MenuStatus>().CharacterImage.sprite = Status.GetComponent<MenuStatus>().Kyoko;
-					}
-					// ゆま
-					else if (selectedCharacter ==(int)Character_Spec.CHARACTER_NAME.MEMBER_YUMA)
-					{
-						Status.GetComponent<MenuStatus>().CharacterImage.sprite = Status.GetComponent<MenuStatus>().Yuma;
-					}
-					// キリカ
-					else if (selectedCharacter == (int)Character_Spec.CHARACTER_NAME.MEMBER_KIRIKA)
-					{
-						Status.GetComponent<MenuStatus>().CharacterImage.sprite = Status.GetComponent<MenuStatus>().Kirika;
-					}
-					// 織莉子
-					else if (selectedCharacter == (int)Character_Spec.CHARACTER_NAME.MEMBER_ORIKO)
-					{
-						Status.GetComponent<MenuStatus>().CharacterImage.sprite = Status.GetComponent<MenuStatus>().Oriko;
-					}
-					// 弓ほむら
-					else if (selectedCharacter == (int)Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B)
-					{
-						Status.GetComponent<MenuStatus>().CharacterImage.sprite = Status.GetComponent<MenuStatus>().HomuraB;
-					}
-					// スコノシュート
-					else if (selectedCharacter == (int)Character_Spec.CHARACTER_NAME.MEMBER_SCHONO)
-					{
-						Status.GetComponent<MenuStatus>().CharacterImage.sprite = Status.GetComponent<MenuStatus>().Sconosciuto;
-					}
-					// アルティメットまどか
-					else if (selectedCharacter == (int)Character_Spec.CHARACTER_NAME.MEMBER_UL_MADOKA)
-					{
-						Status.GetComponent<MenuStatus>().CharacterImage.sprite = Status.GetComponent<MenuStatus>().UMadoka;
-					}
-					// 円環のさやか
-
-					// デビルほむら
-
-					// なぎさ
-
-					// ミッチェル
-
-					// 上記以外は消す(テスト用の魔獣など）
-					else
-					{
-						Status.GetComponent<MenuStatus>().CharacterImage.sprite = null;
-					}
-
-					// 名前を書き換える
-					Status.GetComponent<MenuStatus>().NameJp.text = Character_Spec.Name[selectedCharacter];
-					Status.GetComponent<MenuStatus>().NameEn.text = Character_Spec.NameEn[selectedCharacter];
-
-					// レベルを書き換える
-					Status.GetComponent<MenuStatus>().Level.text = "Level-" + savingparameter.GetNowLevel(selectedCharacter);
-
-					// HPを書き換える
-					Status.GetComponent<MenuStatus>().NowHP.text = savingparameter.GetNowHP(selectedCharacter).ToString("d4");
-					Status.GetComponent<MenuStatus>().MaxHP.text = savingparameter.GetMaxHP(selectedCharacter).ToString("d4");
-
-					// Magicを書き換える
-					Status.GetComponent<MenuStatus>().NowMagic.text = savingparameter.GetNowArousal(selectedCharacter).ToString("d4");
-					Status.GetComponent<MenuStatus>().MaxMagic.text = savingparameter.GetMaxArousal(selectedCharacter).ToString("d4");
-
-					// SkillPointを書き換える
-					Status.GetComponent<MenuStatus>().SkillPoint.text = savingparameter.GetSkillPoint(selectedCharacter).ToString("d2");
-
-					// Strを書き換える
-					Status.GetComponent<MenuStatus>().Str.text = savingparameter.GetStrLevel(selectedCharacter).ToString("d2");
-					// Strのアローをアクティブにする
-					Status.GetComponent<MenuStatus>().StrArrow.SetActive(true);
-
-					// Conを書き換える
-					Status.GetComponent<MenuStatus>().Con.text = savingparameter.GetArousalLevel(selectedCharacter).ToString("d2");
-					// Conのアローをディアクティブにする
-					Status.GetComponent<MenuStatus>().ConArrow.SetActive(false);
-
-
+					Status.GetComponent<MenuStatus>().Initialize(selectedCharacter);
 
 					// STATUSへ移行
 					Menucontrol = MenuControl.STATUS;
@@ -347,6 +249,39 @@ public class MenuController : MonoBehaviour
 						Characterstatusroot[i].Frame.color = new Color(255, 255, 255);						
 					}
 					Menucontrol = MenuControl.ROOT;
+				}
+			}
+			else if(Menucontrol == MenuControl.STATUS)
+			{
+				// 強化したい項目を選ぶ
+				KeyInputController(ref Status.GetComponent<MenuStatus>().NowSelect, ref Dummy, (int)StatusKind.TOTALSTATUSNUM, 0);
+				// SHOTでポップアップを出し,強化ポイントを割り振らせる
+				if(ControllerManager.Instance.Shot)
+				{
+					AudioManager.Instance.PlaySE("OK");
+					iTween.ScaleTo(PopUp, iTween.Hash(
+						// 拡大率指定
+						"x", 1,
+						"y", 1,
+						// 拡大時間指定
+						"time",0.5f
+					));
+				}
+				// CANCELでSTATUCHARSELECTに戻る
+				else if(ControllerManager.Instance.Jump)
+				{
+					AudioManager.Instance.PlaySE("OK");
+					iTween.MoveTo(Status, iTween.Hash(
+						// 移動先指定
+						"position", new Vector3(793, 174, 0),
+						// 移動時間指定
+						"time", 0.5f,
+						// 終了時Root呼び出し
+						"oncomplete", "InsertRoot",
+						"oncompletetarget", gameObject
+					));
+
+					Menucontrol = MenuControl.STATUSCHARSELECT;
 				}
 			}
         });
@@ -409,6 +344,32 @@ public class MenuController : MonoBehaviour
 					Characterstatusroot[i].Frame.color = new Color(255, 255, 255);
 				}
 			}
+			// インフォメーションテキストの内容
+			InformationText.text = "強化したいキャラクターを選んでください";
+		});
+
+		// STATUS状態
+		this.UpdateAsObservable().Where(_ => Menucontrol == MenuControl.STATUS).Subscribe(_ =>
+		{
+			// インフォメーションテキストの内容
+			switch (Status.GetComponent<MenuStatus>().NowSelect)
+			{
+				case (int)StatusKind.STR:
+					InformationText.text = "強化したい項目を選択してください\n攻撃力を表します。一回の攻撃に与えられるダメージに影響します";
+					break;
+				case (int)StatusKind.CON:
+					InformationText.text = "強化したい項目を選択してください\n集中力を表します。マジックバーストの維持時間に影響します";
+					break;
+				case (int)StatusKind.VIT:
+					InformationText.text = "強化したい項目を選択してください\n防御力を表します。一回の攻撃を受けた時のダメージ軽減量に影響します";
+					break;
+				case (int)StatusKind.DEX:
+					InformationText.text = "強化したい項目を選択してください\n器用さを表します。各種武装の残弾数や持続時間に影響します";
+					break;
+				case (int)StatusKind.AGI:
+					InformationText.text = "強化したい項目を選択してください\n敏捷性を表します。ブースト量の消費に影響します";
+					break;
+			}
 		});
 
     }
@@ -431,7 +392,7 @@ public class MenuController : MonoBehaviour
     /// </summary>
     void Initialize()
     {
-		// テスト用
+		// TODO:テスト用
 		savingparameter.savingparameter_Init();
 
 
@@ -632,7 +593,15 @@ public class MenuController : MonoBehaviour
 	/// </summary>
 	private void InsertStatus()
 	{
-		iTween.MoveTo(Status, new Vector3(300, 174, 0), 0.5f);
+		iTween.MoveTo(Status, new Vector3(320, 174, 0), 0.5f);
+	}
+
+	/// <summary>
+	/// ルート画面を入れる
+	/// </summary>
+	private void InsertRoot()
+	{
+		iTween.MoveTo(Root, new Vector3(320, 174, 0), 0.5f);
 	}
 }
 
@@ -644,6 +613,7 @@ public enum MenuControl
     ROOT,                   // ルート
     STATUS,                 // ステータス
 	STATUSCHARSELECT,		// ステータスキャラ選択
+	STATUSPOINTSELECT,		// ステータスポイント選択
     ITEM,                   // アイテム
     SKILL,                  // スキル
     SYSTEM,                 // システム

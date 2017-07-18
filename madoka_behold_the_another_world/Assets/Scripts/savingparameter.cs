@@ -664,14 +664,14 @@ public static class savingparameter
 		FieldItemGetManagement.ItemKind = -2;
 		FieldItemGetManagement.ItemNum = 0;
 
-        
-        //// 実験でリボほむらのみSKILLPOINTを10に
-        //SkillPoint[(int)Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B] = 10;
-        //// 実験でリボほむらのHPを半分に
-        //nowHP[(int)Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B] = 50;
-        //// 実験でリボほむらのSG汚染率を50％に
-        //GemContimination[(int)Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B] = 50;
-    }
+
+		// 実験でリボほむらのみSKILLPOINTを10に
+		SkillPoint[(int)Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B] = 10;
+		//// 実験でリボほむらのHPを半分に
+		//nowHP[(int)Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B] = 50;
+		//// 実験でリボほむらのSG汚染率を50％に
+		//GemContimination[(int)Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B] = 50;
+	}
 
     // データを保存する
     // obj      [in]:保存するオブジェクト
