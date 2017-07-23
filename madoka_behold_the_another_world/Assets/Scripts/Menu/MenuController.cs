@@ -67,6 +67,11 @@ public class MenuController : MonoBehaviour
 	/// </summary>
 	private bool ModeChangeDone;
 
+	/// <summary>
+	/// 強化するステータスの暫定値
+	/// </summary>
+	private int StatusInterim;
+
     /// <summary>
     /// 各キャラの顔
     /// </summary>
@@ -209,8 +214,10 @@ public class MenuController : MonoBehaviour
 					AudioManager.Instance.PlaySE("OK");
 					switch (MenuBarSelect)
 					{
-						case 0:
+						case (int)Menumode.STATUS:
 							Menucontrol = MenuControl.STATUSCHARSELECT;
+							break;
+						case (int)Menumode.ITEM:
 							break;
 					}
 				}
@@ -255,17 +262,42 @@ public class MenuController : MonoBehaviour
 			{
 				// 強化したい項目を選ぶ
 				KeyInputController(ref Status.GetComponent<MenuStatus>().NowSelect, ref Dummy, (int)StatusKind.TOTALSTATUSNUM, 0);
-				// SHOTでポップアップを出し,強化ポイントを割り振らせる
+				
+				// OKで各選択モードに入る
 				if(ControllerManager.Instance.Shot)
 				{
 					AudioManager.Instance.PlaySE("OK");
-					iTween.ScaleTo(PopUp, iTween.Hash(
-						// 拡大率指定
-						"x", 1,
-						"y", 1,
-						// 拡大時間指定
-						"time",0.5f
-					));
+					Status.GetComponent<MenuStatus>().SelectMode = true;
+					if (Status.GetComponent<MenuStatus>().NowSelect == (int)StatusKind.STR)
+					{
+						// 暫定値に現在のSTRを入れる
+						Status.GetComponent<MenuStatus>().StrInterim = savingparameter.GetStrLevel(savingparameter.GetNowParty(CharSelect));
+						Menucontrol = MenuControl.STATUSSTR;
+					}
+					else if(Status.GetComponent<MenuStatus>().NowSelect == (int)StatusKind.CON)
+					{
+						// 暫定値に現在のConを入れる
+						Status.GetComponent<MenuStatus>().ConInterim = savingparameter.GetArousalLevel(savingparameter.GetNowParty(CharSelect));
+						Menucontrol = MenuControl.STATUSCON;
+					}
+					else if(Status.GetComponent<MenuStatus>().NowSelect == (int)StatusKind.VIT)
+					{
+						// 暫定値に現在のVitを入れる
+						Status.GetComponent<MenuStatus>().VitInterim = savingparameter.GetDefLevel(savingparameter.GetNowParty(CharSelect));
+						Menucontrol = MenuControl.STATUSVIT;
+					}
+					else if (Status.GetComponent<MenuStatus>().NowSelect == (int)StatusKind.DEX)
+					{
+						// 暫定値に現在のDexを入れる
+						Status.GetComponent<MenuStatus>().DexInterim = savingparameter.GetBulLevel(savingparameter.GetNowParty(CharSelect));
+						Menucontrol = MenuControl.STATUSDEX;
+					}
+					else if (Status.GetComponent<MenuStatus>().NowSelect == (int)StatusKind.AGI)
+					{
+						// 暫定値に現在のAgiを入れる
+						Status.GetComponent<MenuStatus>().AgiInterim = savingparameter.GetBoostLevel(savingparameter.GetNowParty(CharSelect));
+						Menucontrol = MenuControl.STATUSAGI;
+					}
 				}
 				// CANCELでSTATUCHARSELECTに戻る
 				else if(ControllerManager.Instance.Jump)
@@ -280,11 +312,141 @@ public class MenuController : MonoBehaviour
 						"oncomplete", "InsertRoot",
 						"oncompletetarget", gameObject
 					));
-
+					
 					Menucontrol = MenuControl.STATUSCHARSELECT;
 				}
 			}
-        });
+			else if(Menucontrol == MenuControl.STATUSSTR)
+			{
+				KeyInputController(ref Dummy, ref Status.GetComponent<MenuStatus>().StrInterim, 0, savingparameter.GetStrLevel(savingparameter.GetNowParty(CharSelect)) + savingparameter.GetSkillPoint(savingparameter.GetNowParty(CharSelect)) + 1,0, savingparameter.GetStrLevel(savingparameter.GetNowParty(CharSelect)));
+				StatusReinforcement(MenuControl.STATUSSTR);
+			}
+			else if(Menucontrol == MenuControl.STATUSSTRFINALCONFIRM)
+			{
+				KeyInputController(ref Dummy, ref PopUp.GetComponent<MenuPopup>().NowSelect, 0, 2);
+				// 選択確定
+				if(PopUp.GetComponent<MenuPopup>().NowSelect == 0)
+				{
+					if (ControllerManager.Instance.Shot)
+					{
+						ReinforcementDone(MenuControl.STATUSSTRFINALCONFIRM);
+					}
+				}
+				// 選択キャンセル
+				else
+				{
+					if (ControllerManager.Instance.Shot)
+					{
+						ReinforcementCancel();
+						Menucontrol = MenuControl.STATUSSTR;
+					}
+				}
+			}
+			else if(Menucontrol == MenuControl.STATUSCON)
+			{
+				KeyInputController(ref Dummy, ref Status.GetComponent<MenuStatus>().ConInterim, 0, savingparameter.GetArousalLevel(savingparameter.GetNowParty(CharSelect)) + savingparameter.GetSkillPoint(savingparameter.GetNowParty(CharSelect)) + 1, 0, savingparameter.GetArousalLevel(savingparameter.GetNowParty(CharSelect)));
+				StatusReinforcement(MenuControl.STATUSCON);
+			}
+			else if(Menucontrol == MenuControl.STATUSCONFINALCONFIRM)
+			{
+				KeyInputController(ref Dummy, ref PopUp.GetComponent<MenuPopup>().NowSelect, 0, 2);
+				// 選択確定
+				if (PopUp.GetComponent<MenuPopup>().NowSelect == 0)
+				{
+					if (ControllerManager.Instance.Shot)
+					{
+						ReinforcementDone(MenuControl.STATUSCONFINALCONFIRM);
+					}
+				}
+				// 選択キャンセル
+				else
+				{
+					if (ControllerManager.Instance.Shot)
+					{
+						ReinforcementCancel();
+						Menucontrol = MenuControl.STATUSCON;
+					}
+				}
+			}
+			else if(Menucontrol == MenuControl.STATUSVIT)
+			{
+				KeyInputController(ref Dummy, ref Status.GetComponent<MenuStatus>().VitInterim, 0, savingparameter.GetDefLevel(savingparameter.GetNowParty(CharSelect)) + savingparameter.GetSkillPoint(savingparameter.GetNowParty(CharSelect)) + 1, 0, savingparameter.GetDefLevel(savingparameter.GetNowParty(CharSelect)));
+				StatusReinforcement(MenuControl.STATUSVIT);
+			}
+			else if(Menucontrol == MenuControl.STATUSVITFINALCONFIRM)
+			{
+				KeyInputController(ref Dummy, ref PopUp.GetComponent<MenuPopup>().NowSelect, 0, 2);
+				// 選択確定
+				if (PopUp.GetComponent<MenuPopup>().NowSelect == 0)
+				{
+					if (ControllerManager.Instance.Shot)
+					{
+						ReinforcementDone(MenuControl.STATUSVITFINALCONFIRM);
+					}
+				}
+				// 選択キャンセル
+				else
+				{
+					if (ControllerManager.Instance.Shot)
+					{
+						ReinforcementCancel();
+						Menucontrol = MenuControl.STATUSVIT;
+					}
+				}
+			}
+			else if(Menucontrol == MenuControl.STATUSDEX)
+			{
+				KeyInputController(ref Dummy, ref Status.GetComponent<MenuStatus>().DexInterim, 0, savingparameter.GetBulLevel(savingparameter.GetNowParty(CharSelect)) + savingparameter.GetSkillPoint(savingparameter.GetNowParty(CharSelect)) + 1, 0, savingparameter.GetBulLevel(savingparameter.GetNowParty(CharSelect)));
+				StatusReinforcement(MenuControl.STATUSDEX);
+			}
+			else if(Menucontrol == MenuControl.STATUSDEXFINALCONFIRM)
+			{
+				KeyInputController(ref Dummy, ref PopUp.GetComponent<MenuPopup>().NowSelect, 0, 2);
+				// 選択確定
+				if (PopUp.GetComponent<MenuPopup>().NowSelect == 0)
+				{
+					if (ControllerManager.Instance.Shot)
+					{
+						ReinforcementDone(MenuControl.STATUSDEXFINALCONFIRM);
+					}
+				}
+				// 選択キャンセル
+				else
+				{
+					if (ControllerManager.Instance.Shot)
+					{
+						ReinforcementCancel();
+						Menucontrol = MenuControl.STATUSDEX;
+					}
+				}
+			}
+			else if (Menucontrol == MenuControl.STATUSAGI)
+			{
+				KeyInputController(ref Dummy, ref Status.GetComponent<MenuStatus>().AgiInterim, 0, savingparameter.GetBoostLevel(savingparameter.GetNowParty(CharSelect)) + savingparameter.GetSkillPoint(savingparameter.GetNowParty(CharSelect)) + 1, 0, savingparameter.GetBoostLevel(savingparameter.GetNowParty(CharSelect)));
+				StatusReinforcement(MenuControl.STATUSAGI);
+			}
+			else if (Menucontrol == MenuControl.STATUSAGIFINALCONFIRM)
+			{
+				KeyInputController(ref Dummy, ref PopUp.GetComponent<MenuPopup>().NowSelect, 0, 2);
+				// 選択確定
+				if (PopUp.GetComponent<MenuPopup>().NowSelect == 0)
+				{
+					if (ControllerManager.Instance.Shot)
+					{
+						ReinforcementDone(MenuControl.STATUSAGIFINALCONFIRM);
+					}
+				}
+				// 選択キャンセル
+				else
+				{
+					if (ControllerManager.Instance.Shot)
+					{
+						ReinforcementCancel();
+						Menucontrol = MenuControl.STATUSAGI;
+					}
+				}
+			}
+		});
 
         // ルート状態
         this.UpdateAsObservable().Where(_ => Menucontrol == MenuControl.ROOT).Subscribe(_ =>
@@ -348,6 +510,7 @@ public class MenuController : MonoBehaviour
 			InformationText.text = "強化したいキャラクターを選んでください";
 		});
 
+		
 		// STATUS状態
 		this.UpdateAsObservable().Where(_ => Menucontrol == MenuControl.STATUS).Subscribe(_ =>
 		{
@@ -355,23 +518,22 @@ public class MenuController : MonoBehaviour
 			switch (Status.GetComponent<MenuStatus>().NowSelect)
 			{
 				case (int)StatusKind.STR:
-					InformationText.text = "強化したい項目を選択してください\n攻撃力を表します。一回の攻撃に与えられるダメージに影響します";
+					InformationText.text = "攻撃力を表します。一回の攻撃に与えられるダメージに影響します\n選択して左右で増減し、ショットキーで決定できます";
 					break;
 				case (int)StatusKind.CON:
-					InformationText.text = "強化したい項目を選択してください\n集中力を表します。マジックバーストの維持時間に影響します";
+					InformationText.text = "集中力を表します。マジックバーストの維持時間に影響します\n選択して左右で増減し、ショットキーで決定できます";
 					break;
 				case (int)StatusKind.VIT:
-					InformationText.text = "強化したい項目を選択してください\n防御力を表します。一回の攻撃を受けた時のダメージ軽減量に影響します";
+					InformationText.text = "防御力を表します。一回の攻撃を受けた時のダメージ軽減量に影響します\n選択して左右で増減し、ショットキーで決定できます";
 					break;
 				case (int)StatusKind.DEX:
-					InformationText.text = "強化したい項目を選択してください\n器用さを表します。各種武装の残弾数や持続時間に影響します";
+					InformationText.text = "器用さを表します。各種武装の残弾数や持続時間に影響します\n選択して左右で増減し、ショットキーで決定できます";
 					break;
 				case (int)StatusKind.AGI:
-					InformationText.text = "強化したい項目を選択してください\n敏捷性を表します。ブースト量の消費に影響します";
+					InformationText.text = "敏捷性を表します。ブースト量の消費に影響します\n選択して左右で増減し、ショットキーで決定できます";
 					break;
 			}
 		});
-
     }
 	
 	// Update is called once per frame
@@ -531,12 +693,14 @@ public class MenuController : MonoBehaviour
     /// <param name="variableLR">左右入力で変化させる変数</param>
     /// <param name="lengthUD">上下入力の最大値</param>
     /// <param name="lengthLR">左右入力の最大値</param>
-    private void KeyInputController(ref int variableUD, ref int variableLR,int lengthUD, int lengthLR)
+	/// <param name="minLR">上下入力の最大値</param>
+	/// <param name="minUD">左右入力の最大値</param>
+    private void KeyInputController(ref int variableUD, ref int variableLR,int lengthUD, int lengthLR, int minUD = 0, int minLR = 0)
     {
         // 上
         if (!_PreTopInput && ControllerManager.Instance.Top)
         {
-            if (variableUD > 0)
+            if (variableUD > minUD)
             {
                 AudioManager.Instance.PlaySE("cursor");
                 variableUD--;
@@ -555,7 +719,7 @@ public class MenuController : MonoBehaviour
         // 左
         if(!_PreLeftInput && ControllerManager.Instance.Left)
         {
-            if(variableLR > 0)
+            if(variableLR > minLR)
             {
                 AudioManager.Instance.PlaySE("cursor");
                 variableLR--;
@@ -587,6 +751,8 @@ public class MenuController : MonoBehaviour
             ModeChangeDone = false;
         }
     }
+	
+	
 
 	/// <summary>
 	/// ステータス画面を入れる
@@ -603,17 +769,220 @@ public class MenuController : MonoBehaviour
 	{
 		iTween.MoveTo(Root, new Vector3(320, 174, 0), 0.5f);
 	}
+
+	/// <summary>
+	/// ステータス強化を実行したときの処理
+	/// </summary>
+	private void StatusReinforcement(MenuControl menucontrol)
+	{
+		switch (menucontrol)
+		{
+			case MenuControl.STATUSSTR:
+				KeyInputController(ref Dummy, ref Status.GetComponent<MenuStatus>().StrInterim, 0, savingparameter.GetStrLevel(savingparameter.GetNowParty(CharSelect)) + savingparameter.GetSkillPoint(savingparameter.GetNowParty(CharSelect)) + 1, 0, savingparameter.GetStrLevel(savingparameter.GetNowParty(CharSelect)));
+				break;
+			case MenuControl.STATUSCON:
+				KeyInputController(ref Dummy, ref Status.GetComponent<MenuStatus>().ConInterim, 0, savingparameter.GetArousalLevel(savingparameter.GetNowParty(CharSelect)) + savingparameter.GetSkillPoint(savingparameter.GetNowParty(CharSelect)) + 1, 0, savingparameter.GetArousalLevel(savingparameter.GetNowParty(CharSelect)));
+				break;
+			case MenuControl.STATUSVIT:
+				KeyInputController(ref Dummy, ref Status.GetComponent<MenuStatus>().VitInterim, 0, savingparameter.GetDefLevel(savingparameter.GetNowParty(CharSelect)) + savingparameter.GetDefLevel(savingparameter.GetNowParty(CharSelect)) + 1, 0, savingparameter.GetDefLevel(savingparameter.GetNowParty(CharSelect)));
+				break;
+			case MenuControl.STATUSDEX:
+				KeyInputController(ref Dummy, ref Status.GetComponent<MenuStatus>().DexInterim, 0, savingparameter.GetBulLevel(savingparameter.GetNowParty(CharSelect)) + savingparameter.GetBulLevel(savingparameter.GetNowParty(CharSelect)) + 1, 0, savingparameter.GetBulLevel(savingparameter.GetNowParty(CharSelect)));
+				break;
+			case MenuControl.STATUSAGI:
+				KeyInputController(ref Dummy, ref Status.GetComponent<MenuStatus>().AgiInterim, 0, savingparameter.GetBoostLevel(savingparameter.GetNowParty(CharSelect)) + savingparameter.GetBoostLevel(savingparameter.GetNowParty(CharSelect)) + 1, 0, savingparameter.GetBoostLevel(savingparameter.GetNowParty(CharSelect)));
+				break;
+		}
+
+		// 選択確定時、ポップアップを出して最終確認する
+		if (ControllerManager.Instance.Shot)
+		{
+			iTween.ScaleTo(PopUp, iTween.Hash(
+				// 拡大率指定
+				"y", 1,
+				// 拡大時間指定
+				"time", 0.5f
+			));
+			// PopUpを初期化
+			PopUp.GetComponent<MenuPopup>().NowSelect = 1;
+			// 文字列を書き込む
+			switch (menucontrol)
+			{
+				case MenuControl.STATUSSTR:
+					PopUp.GetComponent<MenuPopup>().PopupText.text = "このように強化されます\n" + savingparameter.GetStrLevel(savingparameter.GetNowParty(CharSelect)).ToString("d2") + "->"  + Status.GetComponent<MenuStatus>().StrInterim.ToString("d2") + "\nよろしいですか？";
+					Menucontrol = MenuControl.STATUSSTRFINALCONFIRM;
+					break;
+				case MenuControl.STATUSCON:
+					PopUp.GetComponent<MenuPopup>().PopupText.text = "このように強化されます\n" + savingparameter.GetArousalLevel(savingparameter.GetNowParty(CharSelect)).ToString("d2") + "->"  + Status.GetComponent<MenuStatus>().ConInterim.ToString("d2") + "\nよろしいですか？";
+					Menucontrol = MenuControl.STATUSCONFINALCONFIRM;
+					break;
+				case MenuControl.STATUSVIT:
+					PopUp.GetComponent<MenuPopup>().PopupText.text = "このように強化されます\n" + savingparameter.GetDefLevel(savingparameter.GetNowParty(CharSelect)).ToString("d2") + "->"  + Status.GetComponent<MenuStatus>().VitInterim.ToString("d2") + "\nよろしいですか？";
+					Menucontrol = MenuControl.STATUSVITFINALCONFIRM;
+					break;
+				case MenuControl.STATUSDEX:
+					PopUp.GetComponent<MenuPopup>().PopupText.text = "このように強化されます\n" + savingparameter.GetBulLevel(savingparameter.GetNowParty(CharSelect)).ToString("d2") + "->"  + Status.GetComponent<MenuStatus>().DexInterim.ToString("d2") + "\nよろしいですか？";
+					Menucontrol = MenuControl.STATUSDEXFINALCONFIRM;
+					break;
+				case MenuControl.STATUSAGI:
+					PopUp.GetComponent<MenuPopup>().PopupText.text = "このように強化されます\n" + savingparameter.GetBoostLevel(savingparameter.GetNowParty(CharSelect)).ToString("d2") + "->"  + Status.GetComponent<MenuStatus>().AgiInterim.ToString("d2") + "\nよろしいですか？";
+					Menucontrol = MenuControl.STATUSAGIFINALCONFIRM;
+					break;
+			}			
+			
+		}
+		// キャンセル時、元に戻す
+		else if (ControllerManager.Instance.Jump)
+		{
+			AudioManager.Instance.PlaySE("cursor");
+			Status.GetComponent<MenuStatus>().SelectMode = false;
+			switch (menucontrol)
+			{
+				case MenuControl.STATUSSTR:
+					Status.GetComponent<MenuStatus>().StrInterim = savingparameter.GetStrLevel(savingparameter.GetNowParty(CharSelect));
+					break;
+				case MenuControl.STATUSCON:
+					Status.GetComponent<MenuStatus>().ConInterim = savingparameter.GetArousalLevel(savingparameter.GetNowParty(CharSelect));
+					break;
+				case MenuControl.STATUSVIT:
+					Status.GetComponent<MenuStatus>().VitInterim = savingparameter.GetDefLevel(savingparameter.GetNowParty(CharSelect));
+					break;
+				case MenuControl.STATUSDEX:
+					Status.GetComponent<MenuStatus>().DexInterim = savingparameter.GetBulLevel(savingparameter.GetNowParty(CharSelect));
+					break;
+				case MenuControl.STATUSAGI:
+					Status.GetComponent<MenuStatus>().AgiInterim = savingparameter.GetBoostLevel(savingparameter.GetNowParty(CharSelect));
+					break;
+			}
+			Menucontrol = MenuControl.STATUS;
+		}
+	}
+
+	/// <summary>
+	/// 選択確定したときの処理
+	/// </summary>
+	/// <param name="menucontrol"></param>
+	private void ReinforcementDone(MenuControl menucontrol)
+	{
+		AudioManager.Instance.PlaySE("OK");
+		Status.GetComponent<MenuStatus>().SelectMode = false;
+		iTween.ScaleTo(PopUp, iTween.Hash(
+				// 拡大率指定
+				"y", 0,
+				// 拡大時間指定
+				"time", 0.5f
+			));
+		Menucontrol = MenuControl.STATUS;
+		switch (menucontrol)
+		{
+			case MenuControl.STATUSSTRFINALCONFIRM:
+				{
+					// 元のステータス
+					int strOR = savingparameter.GetStrLevel(savingparameter.GetNowParty(CharSelect));
+					// ステータスを新しい値に変える
+					savingparameter.SetStrLevel(savingparameter.GetNowParty(CharSelect), Status.GetComponent<MenuStatus>().StrInterim);
+					// スキルポイントを使った分減らす
+					int usedskillpoint = savingparameter.GetStrLevel(savingparameter.GetNowParty(CharSelect)) - strOR;
+					int skillpointnext = savingparameter.GetSkillPoint(savingparameter.GetNowParty(CharSelect)) - usedskillpoint;
+					savingparameter.SetSkillPoint(savingparameter.GetNowParty(CharSelect), skillpointnext);
+					// 表記を反映させる
+					Status.GetComponent<MenuStatus>().Str.text = savingparameter.GetStrLevel(savingparameter.GetNowParty(CharSelect)).ToString("d2");
+					Status.GetComponent<MenuStatus>().SkillPoint.text = skillpointnext.ToString("d2");
+				}
+				break;
+			case MenuControl.STATUSCONFINALCONFIRM:
+				{
+					// 元のステータス
+					int conOR = savingparameter.GetArousalLevel(savingparameter.GetNowParty(CharSelect));
+					// ステータスを新しい値に変える
+					savingparameter.SetArousalLevel(savingparameter.GetNowParty(CharSelect), Status.GetComponent<MenuStatus>().ConInterim);
+					// スキルポイントを使った分減らす
+					int useskillpoint = savingparameter.GetArousalLevel(savingparameter.GetNowParty(CharSelect)) - conOR;
+					int skillpointnext = savingparameter.GetSkillPoint(savingparameter.GetNowParty(CharSelect)) - useskillpoint;
+					// 表記を反映させる
+					Status.GetComponent<MenuStatus>().Con.text = savingparameter.GetArousalLevel(savingparameter.GetNowParty(CharSelect)).ToString("d2");
+					Status.GetComponent<MenuStatus>().SkillPoint.text = skillpointnext.ToString("d2");
+				}
+				break;
+			case MenuControl.STATUSVITFINALCONFIRM:
+				{
+					// 元のステータス
+					int vitOR = savingparameter.GetDefLevel(savingparameter.GetNowParty(CharSelect));
+					// ステータスを新しい値に変える
+					savingparameter.SetDefLevel(savingparameter.GetNowParty(CharSelect), Status.GetComponent<MenuStatus>().VitInterim);
+					// スキルポイントを使った分減らす
+					int useskillpoint = savingparameter.GetDefLevel(savingparameter.GetNowParty(CharSelect)) - vitOR;
+					int skillpointnext = savingparameter.GetSkillPoint(savingparameter.GetNowParty(CharSelect)) - useskillpoint;
+					// 表記を反映させる
+					Status.GetComponent<MenuStatus>().Vit.text = savingparameter.GetDefLevel(savingparameter.GetNowParty(CharSelect)).ToString("d2");
+					Status.GetComponent<MenuStatus>().SkillPoint.text = skillpointnext.ToString("d2");
+				}
+				break;
+			case MenuControl.STATUSDEXFINALCONFIRM:
+				{
+					// 元のステータス
+					int dexOR = savingparameter.GetBulLevel(savingparameter.GetNowParty(CharSelect));
+					// ステータスを新しい値に変える
+					savingparameter.SetBulLevel(savingparameter.GetNowParty(CharSelect), Status.GetComponent<MenuStatus>().DexInterim);
+					// スキルポイントを使った分減らす
+					int useskillpoint = savingparameter.GetBulLevel(savingparameter.GetNowParty(CharSelect)) - dexOR;
+					int skillpointnext = savingparameter.GetSkillPoint(savingparameter.GetNowParty(CharSelect)) - useskillpoint;
+					// 表記を反映させる
+					Status.GetComponent<MenuStatus>().Dex.text = savingparameter.GetBulLevel(savingparameter.GetNowParty(CharSelect)).ToString("d2");
+					Status.GetComponent<MenuStatus>().SkillPoint.text = skillpointnext.ToString("d2");
+				}
+				break;
+			case MenuControl.STATUSAGIFINALCONFIRM:
+				{
+					// 元のステータス
+					int agiOR = savingparameter.GetBoostLevel(savingparameter.GetNowParty(CharSelect));
+					// ステータスを新しい値に変える
+					savingparameter.SetBoostLevel(savingparameter.GetNowParty(CharSelect), Status.GetComponent<MenuStatus>().AgiInterim);
+					// スキルポイントを使った分減らす
+					int useskillpoint = savingparameter.GetBoostLevel(savingparameter.GetNowParty(CharSelect)) - agiOR;
+					int skillpointnext = savingparameter.GetSkillPoint(savingparameter.GetNowParty(CharSelect)) - useskillpoint;
+					// 表記を反映させる
+					Status.GetComponent<MenuStatus>().Agi.text = savingparameter.GetBoostLevel(savingparameter.GetNowParty(CharSelect)).ToString("d2");
+					Status.GetComponent<MenuStatus>().SkillPoint.text = skillpointnext.ToString("d2");
+				}
+				break;
+		}
+	}
+
+	/// <summary>
+	/// 選択キャンセルした時の処理
+	/// </summary>
+	private void ReinforcementCancel()
+	{
+		AudioManager.Instance.PlaySE("cursor");
+		iTween.ScaleTo(PopUp, iTween.Hash(
+				// 拡大率指定
+				"y", 0,
+				// 拡大時間指定
+				"time", 0.5f
+			));
+	}
 }
 
 /// <summary>
-/// 現在MenuBarのどれが選択されているか
-/// </summary>
+/// 現在の操作モード
+///  </summary>
 public enum MenuControl
 {
     ROOT,                   // ルート
     STATUS,                 // ステータス
 	STATUSCHARSELECT,		// ステータスキャラ選択
 	STATUSPOINTSELECT,		// ステータスポイント選択
+	STATUSSTR,				// STR選択
+	STATUSSTRFINALCONFIRM,	// STR最終確認
+	STATUSCON,				// CON選択
+	STATUSCONFINALCONFIRM,	// CON最終確認
+	STATUSVIT,				// VIT選択
+	STATUSVITFINALCONFIRM,	// VIT最終確認
+	STATUSDEX,				// DEX選択
+	STATUSDEXFINALCONFIRM,	// DEX最終確認
+	STATUSAGI,				// AGI選択
+	STATUSAGIFINALCONFIRM,	// AGI最終確認
     ITEM,                   // アイテム
     SKILL,                  // スキル
     SYSTEM,                 // システム
@@ -621,4 +990,16 @@ public enum MenuControl
     SAVE,                   // セーブ
     LOAD,                   // ロード
     TITLE                   // タイトル
+}
+
+public enum Menumode
+{
+	STATUS,
+	ITEM,                   // アイテム
+	SKILL,                  // スキル
+	SYSTEM,                 // システム
+	PARTY,                  // パーティー
+	SAVE,                   // セーブ
+	LOAD,                   // ロード
+	TITLE                   // タイトル
 }

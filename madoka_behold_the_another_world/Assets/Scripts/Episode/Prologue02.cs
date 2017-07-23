@@ -92,7 +92,7 @@ public class Prologue02 : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-		
+		StartCoroutine(CoTalk("Prologue02"));
 	}
 	
 	// Update is called once per frame
@@ -112,7 +112,117 @@ public class Prologue02 : MonoBehaviour
 	/// <returns></returns>
 	private IEnumerator CoTalk(string scenarioLabel)
     {
-        iTween.RotateTo(Camera1.gameObject, iTween.Hash("x", 35,"islocal", true));
+        iTween.RotateTo(Camera1.gameObject, iTween.Hash("x", 35,"islocal", true, "time", 3.0f));
         yield return new WaitForSeconds(3.0f);
-    }
+
+		//「宴」のシナリオを呼び出す
+		Engine.JumpScenario(scenarioLabel);
+
+		// カメラをほむらに向ける
+		Camera1.transform.localPosition = new Vector3(-24.3f, -104.5f, 376);
+		Camera1.transform.localRotation = Quaternion.Euler(new Vector3(0, 180, 0));
+		Camera1.fieldOfView = 14;
+				
+
+		//「宴」のポーズ終了待ち
+		while (!Engine.IsPausingScenario)
+		{
+			yield return 0;
+		}
+
+		// 音を出してほむらを跪かせる
+		AudioManager.Instance.PlaySE("ashioto_jari");
+		HomuraAnimator.SetTrigger("kneel");
+
+		// シーン再生
+		engine.ResumeScenario();
+
+		//「宴」のポーズ終了待ち
+		while (!Engine.IsPausingScenario)
+		{
+			yield return 0;
+		}
+
+		// スコノシュートをアクティブにする
+		Sconosciuto.SetActive(true);
+
+		// スコノシュートを落下させる
+		iTween.MoveTo(Sconosciuto, iTween.Hash
+		(
+			"y", -107.87f,
+			"islocal", true,
+			"time", 1.0f
+		));
+		AudioManager.Instance.PlaySE("ashioto_jari");
+		AudioManager.Instance.PlayBGM("Fury");
+		yield return new WaitForSeconds(1.0f);
+
+		// シーン再生
+		engine.ResumeScenario();
+
+		// カメラをスコノに向ける
+		Camera1.transform.localPosition = new Vector3(-24.3f, -104.5f, 341);
+		Camera1.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
+		Camera1.fieldOfView = 14;
+				
+		//「宴」のポーズ終了待ち
+		while (!Engine.IsPausingScenario)
+		{
+			yield return 0;
+		}
+
+		// ほむら立ちあがる
+		HomuraAnimator.SetTrigger("standup");
+
+		// シーン再生
+		engine.ResumeScenario();
+
+		Camera1.transform.localPosition = new Vector3(-31, -104.5f, 341);
+		Camera1.transform.localRotation = Quaternion.Euler(new Vector3(0, 29.934f, 0));
+		Camera1.fieldOfView = 31;
+				
+		//「宴」のポーズ終了待ち
+		while (!Engine.IsPausingScenario)
+		{
+			yield return 0;
+		}
+
+		// スコノを変身させる
+		Sconosciuto.transform.position = new Vector3(0, 0, 0);
+		SconosciutoWhiteCort.transform.localPosition = new Vector3(-24.2f, -107.87f, 360.65f);
+		AudioManager.Instance.PlaySE("87043__runnerpack__weapappear");
+
+		// シーン再生
+		engine.ResumeScenario();
+
+		//「宴」のポーズ終了待ち
+		while (!Engine.IsPausingScenario)
+		{
+			yield return 0;
+		}
+
+		// ほむら手を出す
+		HomuraAnimator.SetTrigger("showgreefseed");
+
+		// シーン再生
+		engine.ResumeScenario();
+
+		//「宴」のポーズ終了待ち
+		while (!Engine.IsPausingScenario)
+		{
+			yield return 0;
+		}
+
+		// スコノシュート拒絶する
+		SconosciutoWhiteCortAnimator.SetTrigger("pay_an_arm");
+
+		// シーン再生
+		engine.ResumeScenario();
+
+		//「宴」の終了待ち
+		while (!Engine.IsEndScenario)
+		{
+			yield return 0;
+		}
+	}
 }

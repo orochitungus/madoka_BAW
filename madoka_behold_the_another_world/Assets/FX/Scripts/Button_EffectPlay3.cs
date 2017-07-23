@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+#pragma warning disable 0618
+
 public class Button_EffectPlay3 : MonoBehaviour {
 
 	public GameObject Player;

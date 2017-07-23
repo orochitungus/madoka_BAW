@@ -59,12 +59,16 @@ public class MenuStatus : MonoBehaviour
 
 	public GameObject StrArrow;
 
+	public int StrInterim;
+
 	/// <summary>
 	/// 
 	/// </summary>
 	public Text Con;
 
 	public GameObject ConArrow;
+
+	public int ConInterim;
 
 	/// <summary>
 	/// 
@@ -73,12 +77,16 @@ public class MenuStatus : MonoBehaviour
 
 	public GameObject VitArrow;
 
+	public int VitInterim;
+
 	/// <summary>
 	/// 
 	/// </summary>
 	public Text Dex;
 
 	public GameObject DexArrow;
+
+	public int DexInterim;
 
 	/// <summary>
 	/// 
@@ -87,10 +95,22 @@ public class MenuStatus : MonoBehaviour
 
 	public GameObject AgiArrow;
 
+	public int AgiInterim;
+
 	/// <summary>
 	/// 現在選択中の項目
 	/// </summary>
 	public int NowSelect;
+
+	/// <summary>
+	/// 選択中のキャラクター
+	/// </summary>
+	private int SelectedCharacter;
+
+	/// <summary>
+	/// 選択モード
+	/// </summary>
+	public bool SelectMode;
 
 	/// <summary>
 	/// 全身像
@@ -123,6 +143,14 @@ public class MenuStatus : MonoBehaviour
 				VitArrow.SetActive(false);
 				DexArrow.SetActive(false);
 				AgiArrow.SetActive(false);
+				if(SelectMode)
+				{
+					Str.color = new Color(1, 0, 0);
+				}
+				else
+				{
+					Str.color = new Color(1, 1, 1);
+				}
 			}
 			else if(NowSelect == (int)StatusKind.CON)
 			{
@@ -131,6 +159,14 @@ public class MenuStatus : MonoBehaviour
 				VitArrow.SetActive(false);
 				DexArrow.SetActive(false);
 				AgiArrow.SetActive(false);
+				if (SelectMode)
+				{
+					Con.color = new Color(1, 0, 0);
+				}
+				else
+				{
+					Con.color = new Color(1, 1, 1);
+				}
 			}
 			else if(NowSelect == (int)StatusKind.VIT)
 			{
@@ -139,6 +175,14 @@ public class MenuStatus : MonoBehaviour
 				VitArrow.SetActive(true);
 				DexArrow.SetActive(false);
 				AgiArrow.SetActive(false);
+				if (SelectMode)
+				{
+					Vit.color = new Color(1, 0, 0);
+				}
+				else
+				{
+					Vit.color = new Color(1, 1, 1);
+				}
 			}
 			else if(NowSelect == (int)StatusKind.DEX)
 			{
@@ -147,6 +191,14 @@ public class MenuStatus : MonoBehaviour
 				VitArrow.SetActive(false);
 				DexArrow.SetActive(true);
 				AgiArrow.SetActive(false);
+				if (SelectMode)
+				{
+					Dex.color = new Color(1, 0, 0);
+				}
+				else
+				{
+					Dex.color = new Color(1, 1, 1);
+				}
 			}
 			else if(NowSelect == (int)StatusKind.AGI)
 			{
@@ -155,7 +207,21 @@ public class MenuStatus : MonoBehaviour
 				VitArrow.SetActive(false);
 				DexArrow.SetActive(false);
 				AgiArrow.SetActive(true);
+				if (SelectMode)
+				{
+					Agi.color = new Color(1, 0, 0);
+				}
+				else
+				{
+					Agi.color = new Color(1, 1, 1);
+				}
 			}
+
+			Str.text = StrInterim.ToString("d2");
+			Con.text = ConInterim.ToString("d2");
+			Vit.text = VitInterim.ToString("d2");
+			Dex.text = DexInterim.ToString("d2");
+			Agi.text = AgiInterim.ToString("d2");
 		});
 	}
 	
@@ -241,6 +307,9 @@ public class MenuStatus : MonoBehaviour
 			CharacterImage.sprite = null;
 		}
 
+		// キャラクターを書き換える
+		SelectedCharacter = selectedCharacter;
+
 		// 名前を書き換える
 		NameJp.text = Character_Spec.Name[selectedCharacter];
 		NameEn.text = Character_Spec.NameEn[selectedCharacter];
@@ -257,23 +326,22 @@ public class MenuStatus : MonoBehaviour
 		MaxMagic.text = ((int)savingparameter.GetMaxArousal(selectedCharacter)).ToString("d4");
 
 		// SkillPointを書き換える
-		SkillPoint.text = savingparameter.GetSkillPoint(selectedCharacter).ToString("d2");
-
+		SkillPoint.text = savingparameter.GetSkillPoint(SelectedCharacter).ToString("d2");
+		
 		// Strを書き換える
-		Str.text = savingparameter.GetStrLevel(selectedCharacter).ToString("d2");
-		
-		// Conを書き換える
-		Con.text = savingparameter.GetArousalLevel(selectedCharacter).ToString("d2");
-		
+		StrInterim = savingparameter.GetStrLevel(SelectedCharacter);
 
-		// Vitを書き換える
-		Vit.text = savingparameter.GetArousalLevel(selectedCharacter).ToString("d2");
-		
+		// Conを書き換える
+		ConInterim = savingparameter.GetArousalLevel(SelectedCharacter);
+
+		// Vitを書き換える		
+		VitInterim = savingparameter.GetDefLevel(SelectedCharacter);
+
 		// Dexを書き換える
-		Dex.text = savingparameter.GetArousalLevel(selectedCharacter).ToString("d2");
-		
+		DexInterim = savingparameter.GetBulLevel(SelectedCharacter);
+
 		// Agiを書き換える
-		Agi.text = savingparameter.GetArousalLevel(selectedCharacter).ToString("d2");
+		AgiInterim = savingparameter.GetBoostLevel(SelectedCharacter);
 
 		// 選択項目を初期化する
 		NowSelect = 0;

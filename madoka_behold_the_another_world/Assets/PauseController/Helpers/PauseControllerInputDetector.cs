@@ -3,6 +3,8 @@ using System.Collections;
 using System; 
 using EleckTek ; 
 
+#pragma warning disable 0618
+
 public class PauseControllerInputDetector : MonoBehaviour {
 	
 	public string a_Description ; 

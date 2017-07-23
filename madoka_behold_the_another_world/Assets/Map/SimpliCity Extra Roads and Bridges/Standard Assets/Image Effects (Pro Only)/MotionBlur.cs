@@ -1,5 +1,7 @@
 using UnityEngine;
 
+#pragma warning disable 0618
+
 // This class implements simple ghosting type Motion Blur.
 // If Extra Blur is selected, the scene will allways be a little blurred,
 // as it is scaled to a smaller resolution.
