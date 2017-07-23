@@ -13,10 +13,6 @@ public class Prologue01 : MonoBehaviour
 	/// </summary>
 	public Camera Camera1;
 
-	/// <summary>
-	/// ストーリーの進行度
-	/// </summary>
-	public int Xstory;
 
 	/// <summary>
 	/// 宴呼び出し
@@ -90,8 +86,7 @@ public class Prologue01 : MonoBehaviour
         HomuraAnimator.SetTrigger("neutral");
 		KyubeyAnimator.SetTrigger("neutral");
 
-		// Xstory初期化
-		Xstory = 0;
+		
 
         // スカイボックス変更
         RenderSettings.skybox = Sky;
