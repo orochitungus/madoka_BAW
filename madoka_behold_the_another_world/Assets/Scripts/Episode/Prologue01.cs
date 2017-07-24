@@ -122,8 +122,7 @@ public class Prologue01 : MonoBehaviour
     {
 		// カメラを移動させる
 		iTween.MoveTo(Camera1.gameObject, new Vector3(254.3377f, 4.437881f, 128.03f), 3.0f);
-
-		yield return new WaitForSeconds(3.0f);
+		yield return new WaitForSeconds(3.1f);
 
 		//「宴」のシナリオを呼び出す
 		Engine.JumpScenario(scenarioLabel);
