@@ -155,7 +155,7 @@ public class Prologue02 : MonoBehaviour
 		));
 		AudioManager.Instance.PlaySE("ashioto_jari");
 		AudioManager.Instance.PlayBGM("Fury");
-		yield return new WaitForSeconds(1.0f);
+		yield return new WaitForSeconds(1.1f);
 
 		// シーン再生
 		engine.ResumeScenario();
