@@ -839,6 +839,7 @@ public class CharacterControlBase : MonoBehaviour
 	/// </summary>
 	public bool IsGuard;
 
+
     /// <summary>
     /// プレイヤーのレベル設定を行う
     /// </summary>
@@ -3021,11 +3022,14 @@ public class CharacterControlBase : MonoBehaviour
         // 接地判定
         IsGrounded = onGround2(isSpindown);
 
-        
-        // PC死亡時、PauseControllerを消す(メニュー画面に移行させないため）
-        // また、ショット入力でタイトル画面へ移行する
-        if (NowHitpoint < 1 && IsPlayer == CHARACTERCODE.PLAYER)
+		
+
+		// PC死亡時、PauseControllerを消す(メニュー画面に移行させないため）
+		// また、ショット入力でタイトル画面へ移行する
+		if (NowHitpoint < 1 && IsPlayer == CHARACTERCODE.PLAYER)
         {
+			// ゲームオーバーをアクティブにする
+			GameObject.Find("BattleInterfaceCanvas").GetComponent<BattleInterfaceController>().GameOver.SetActive(true);
             GameObject PauseController = GameObject.Find("Pause Controller");
             if (PauseController)
             {
@@ -3797,8 +3801,7 @@ public class CharacterControlBase : MonoBehaviour
 			AnimatorUnit.SetTrigger("Reversal");
 		}
 		// インターフェースを一時的に消す
-		BattleInterfaceController battleinterface = GameObject.Find("BattleInterfaceCanvas").GetComponent<BattleInterfaceController>();
-		battleinterface.UnDrawInterface();
+		GameObject.Find("BattleInterfaceCanvas").GetComponent<BattleInterfaceController>().UnDrawInterface();
 	}
 
     /// <summary>
@@ -4628,7 +4631,7 @@ public class CharacterControlBase : MonoBehaviour
 		{
 			damage = 1;
 		}
-		this.NowHitpoint -= damage;
+		NowHitpoint -= damage;
 		// 死んだ場合、止めを刺したキャラに経験値が加算されるようにする（味方殺しでは経験値は増えない。また、まどかとアルティメットまどか、弓ほむらと銃ほむらは経験値とLVを共有する）
 		if (IsPlayer == CHARACTERCODE.ENEMY && NowHitpoint < 1)
 		{
@@ -4666,7 +4669,10 @@ public class CharacterControlBase : MonoBehaviour
 			int charactername = (int)this.CharacterName;
 			savingparameter.SetNowHP(charactername, NowHitpoint);
 		}
+
+		
 	}
+		
 
 	/// <summary>
 	/// 被弾側の覚醒ゲージを増加させる。SendMessageで弾丸などから呼ばれる
@@ -5674,13 +5680,13 @@ public class CharacterControlBase : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-	
+		
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-	
+		
 	}
 }
 

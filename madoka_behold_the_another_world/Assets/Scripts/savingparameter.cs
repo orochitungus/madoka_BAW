@@ -613,7 +613,7 @@ public static class savingparameter
 		//nowparty[0] = (int)Character_Spec.CHARACTER_NAME.ENEMY_MAJYU;
 		// スコノ試験
 		//nowparty[0] = (int)Character_Spec.CHARACTER_NAME.MEMBER_SCHONO;
-		nowparty[1] = (int)Character_Spec.CHARACTER_NAME.MEMBER_MADOKA;
+		//nowparty[1] = (int)Character_Spec.CHARACTER_NAME.MEMBER_MADOKA;
 
         // 主人公
         nowHero = Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B;

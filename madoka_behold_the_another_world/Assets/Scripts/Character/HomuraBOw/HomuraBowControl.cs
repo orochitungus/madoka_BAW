@@ -481,6 +481,8 @@ public class HomuraBowControl : CharacterControlBase
             Battleinterfacecontroller.ItemName.text = savingparameter.GetNowEquipItemString();
             // 装備アイテム個数
             Battleinterfacecontroller.ItemNumber.text = savingparameter.GetItemNum(savingparameter.GetNowEquipItem()).ToString();
+			// インフォメーション表示内容
+			Battleinterfacecontroller.InformationText.text = StagePosition.Purpose[savingparameter.nowField];
             // 武装ゲージ(マミとさやかにモードチェンジに伴う武装ゲージ変化があるのでこっちに入れる）
             // 4番目と5番目は消す
             Battleinterfacecontroller.Weapon4.gameObject.SetActive(false);

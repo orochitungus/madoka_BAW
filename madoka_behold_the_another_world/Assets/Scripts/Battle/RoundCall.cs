@@ -82,7 +82,28 @@ public class RoundCall : MonoBehaviour
 			Pausecontroller.name = "PauseManager";
 		}
 		RoundCallDone = true;
-		
+
+		// RoundCallCameraの位置と角度を決定
+		int settingPosition = 0;
+		for (int i = 0; i < StageCode.stagefromindex[savingparameter.nowField].Length; ++i)
+		{
+			if (savingparameter.beforeField == StageCode.stagefromindex[savingparameter.nowField][i])
+			{
+				settingPosition = i;
+				break;
+			}
+		}
+		// キャラを映すようにする
+		Vector3 charpos = StagePosition.m_InitializeCharacterPos[savingparameter.nowField][settingPosition][0];
+		Vector3 charrot = StagePosition.m_InitializeCharacterRot[savingparameter.nowField][settingPosition][0];
+		// 角度は180度反転する
+		float yrot = charrot.y - 180;
+		// 配置位置
+		float xpos = charpos.x + 3 * Mathf.Sin(Mathf.Deg2Rad * charrot.y);
+		float zpos = charpos.z + 3 * Mathf.Cos(Mathf.Deg2Rad * charrot.y);
+
+		RoundCallCamera.transform.position = new Vector3(xpos, charpos.y + 4.0f, zpos);
+		RoundCallCamera.transform.rotation = Quaternion.Euler(new Vector3(charrot.x, yrot, charrot.z));
 	}
 
 	// Use this for initialization
@@ -115,7 +136,7 @@ public class RoundCall : MonoBehaviour
 	void Clearcondtion()
 	{
 		// クリア条件を表示
-		ClearCondition.text = "クリア条件：" + ClearcondtionText;
+		ClearCondition.text = "クリア条件：" + StagePosition.Purpose[savingparameter.nowField];
 		// ショットキーを押されたら次へ
 		if(ControllerManager.Instance.Shot)
 		{

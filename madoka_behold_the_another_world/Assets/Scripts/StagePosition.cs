@@ -12,35 +12,23 @@ public static class StagePosition
         {
             new Vector3[]{ new Vector3(0,0,0), new Vector3(10,0,0),new Vector3(-10,0,0)}
         },
-        // 1:崩壊見滝原1
+        // 1:崩壊見滝原
         new Vector3[][]
         { 
-            new Vector3[]{ new Vector3(1033, 149, 523), new Vector3( 1028, 149, 523), new Vector3(1038, 149, 523 ) },
-            new Vector3[]{ new Vector3(1120, 143, 1899), new Vector3(1125, 143, 1899),new Vector3(1115, 143, 1899) }
-        },   
-        // 2:崩壊見滝原2
+            new Vector3[]{ new Vector3(254, 0, 145), new Vector3( 244, 0, 145), new Vector3(264, 0, 145 ) },	// プロローグ1から来た場合 
+        },
+        // 2:イマジカショック・グラウンドゼロ（VSスコノシュート）
         new Vector3[][]
         {
-            new Vector3[]{ new Vector3(1014,142,2107), new Vector3(1009,142,2107), new Vector3(1019,142,2107)},
-            new Vector3[]{ new Vector3(971,142,3907), new Vector3(976,142,3907), new Vector3(966,142,3907)}
-        },
-        // 3:イマジカショック・グラウンドゼロ
-        new Vector3[][]
-        {
-            new Vector3[]{ new Vector3(965,142,4110), new Vector3(960,142,4110),new Vector3(970,142,4110)}
-        },
-        // 4:イマジカショック・グラウンドゼロ（VSスコノシュート）
-        new Vector3[][]
-        {
-            new Vector3[]{ new Vector3(979,141,4811), new Vector3(974,141,4811), new Vector3(984,141,4811)}
-        },
-        // 5:見滝原病院・ほむらの病室
+			new Vector3[]{ new Vector3(264, 0, 1150), new Vector3(254,0,1150),new Vector3(274,0,1150)}
+		},
+        // 3:見滝原病院・ほむらの病室
         new Vector3[][]
         {
             new Vector3[]{ new Vector3(0,0,3.5f),new Vector3(5.0f,0,3.5f),new Vector3(-5.0f,0,3.5f)},       // 56階廊下から来た場合
             new Vector3[]{ new Vector3(0,0,0), new Vector3(5.0f,0,0), new Vector3(-5.0f, 0, 0) }            // プロローグ5から来た場合
         },
-        // 6:見滝原病院・56階廊下
+        // 4:見滝原病院・56階廊下
         new Vector3[][]
         {
             new Vector3[]{ new Vector3(0,0,3.5f),new Vector3(5.0f,0,3.5f),new Vector3(-5.0f,0,3.5f)},       // ほむら病室から来た場合
@@ -48,7 +36,7 @@ public static class StagePosition
             new Vector3[]{ new Vector3(30,0,11), new Vector3(30,0,6), new Vector3(30,0,16) },               // 階段から来た場合
             new Vector3[]{ new Vector3(26,0,36), new Vector3(26,0,31), new Vector3(30,0,41) },              // エレベーターから来た場合
         },
-		// 7:見滝原病院・106階廊下
+		// 5:見滝原病院・106階廊下
 		new Vector3[][]
 		{
 			new Vector3[]{ new Vector3(0,0,3.5f),new Vector3(5.0f,0,3.5f),new Vector3(-5.0f,0,3.5f)},		// 恭介病室から来た場合
@@ -56,24 +44,24 @@ public static class StagePosition
 			new Vector3[]{ new Vector3(26,0,36), new Vector3(26,0,31), new Vector3(30,0,41) },              // エレベーターから来た場合
 			new Vector3[]{ new Vector3(0,0,3.5f),new Vector3(5.0f,0,3.5f),new Vector3(-5.0f,0,3.5f)},		// EXエピソードから来た場合
 		},
-		// 8:見滝原病院・150階(屋上)
+		// 6:見滝原病院・150階(屋上)
 		new Vector3[][]
 		{
 			new Vector3[]{ new Vector3(102.8091f,0,-36.07839f), new Vector3(107.8091f,0,-36.07839f), new Vector3(97.8091f,0,-36.07839f)},	// エレベーターから来た場合
 		},
-		// 9:見滝原病院・1階
+		// 7:見滝原病院・1階
 		new Vector3[][]
 		{
 			new Vector3[]{ new Vector3(9.731555f,0,-27.33751f), new Vector3(4.731555f,0,-27.33751f), new Vector3(14.731555f,0,-27.33751f)},	// エレベーターから来た場合
 			new Vector3[]{ new Vector3(24.49534f,0,12.14979f), new Vector3(19.49534f,0,12.14979f), new Vector3(29.49534f,0,12.14979f)},	// 入口から来た場合
 		},
-		// 10:見滝原病院入口
+		// 8:見滝原病院入口
 		new Vector3[][]
 		{
 			new Vector3[]{ new Vector3(3.787974f,0,0.1080822f), new Vector3(-2.787974f,0,0.1080822f), new Vector3(8.787974f,0,0.1080822f)},	// 1階から来た場合
 			new Vector3[]{ new Vector3(-49.40907f,-0.96f,-0.5917053f),new Vector3(-54.40907f,-0.96f,-0.5917053f),new Vector3(-44.40907f,-0.96f,-0.5917053f)},	// 全体マップから来た場合
 		},
-		// 11:見滝原病院・恭介の病室
+		// 9:見滝原病院・恭介の病室
 		new Vector3[][]
 		{
 		
@@ -88,35 +76,24 @@ public static class StagePosition
         {
             new Vector3[]{ new Vector3(0,0,0), new Vector3(0,0,0), new Vector3(0,0,0)}
         },
-        // 1:崩壊見滝原1
+        // 1:崩壊見滝原
         new Vector3[][]
         {
             new Vector3[]{ new Vector3(0,0,0), new Vector3(0,0,0), new Vector3(0,0,0)},
             new Vector3[]{ new Vector3(0,180,0), new Vector3(0,180,0), new Vector3(0,180,0)}
         },
-        // 2:崩壊見滝原2
-        new Vector3[][]
-        {
-            new Vector3[]{ new Vector3(0,0,0), new Vector3(0,0,0), new Vector3(0,0,0)},
-            new Vector3[]{ new Vector3(0,180,0), new Vector3(0,180,0), new Vector3(0,180,0)}
-        },
-        // 3:イマジカショック・グラウンドゼロ
+        // 2:イマジカショック・グラウンドゼロ（VSスコノシュート）
         new Vector3[][]
         {
             new Vector3[]{ new Vector3(0,0,0), new Vector3(0,0,0), new Vector3(0,0,0)},
         },
-        // 4:イマジカショック・グラウンドゼロ（VSスコノシュート）
-        new Vector3[][]
-        {
-            new Vector3[]{ new Vector3(0,0,0), new Vector3(0,0,0), new Vector3(0,0,0)},
-        },
-        // 5:見滝原病院・ほむらの病室
+        // 3:見滝原病院・ほむらの病室
         new Vector3[][]
         {
             new Vector3[]{new Vector3(0,180.0f,0),new Vector3(0,180.0f,0),new Vector3(0,180.0f,0)}, // 56階廊下から来た場合
             new Vector3[]{new Vector3(0,0.0f,0),new Vector3(0,0.0f,0),new Vector3(0,0.0f,0)}        // プロローグ5から来た場合
         },
-        // 6:見滝原病院・56階廊下
+        // 4:見滝原病院・56階廊下
         new Vector3[][]
         {
             new Vector3[]{new Vector3(0,0.0f,0), new Vector3(0,0.0f,0), new Vector3(0,0.0f,0)},       // ほむらの病室から来た場合
@@ -124,7 +101,7 @@ public static class StagePosition
             new Vector3[]{new Vector3(0,270.0f,0), new Vector3(0,270.0f,0), new Vector3(0,270.0f,0)}, // 階段から来た場合
             new Vector3[]{new Vector3(0,270.0f,0), new Vector3(0,270.0f,0), new Vector3(0,270.0f,0)}, // エレベーターから来た場合
         },
-		// 7:見滝原病院・106階廊下
+		// 5:見滝原病院・106階廊下
 		new Vector3[][]
 		{
 			new Vector3[]{new Vector3(0,0.0f,0), new Vector3(0,0.0f,0), new Vector3(0,0.0f,0)},			// 恭介の病室から来た場合
@@ -132,33 +109,31 @@ public static class StagePosition
 			new Vector3[]{new Vector3(0,270.0f,0), new Vector3(0,270.0f,0), new Vector3(0,270.0f,0)},	// エレベーターから来た場合
 			new Vector3[]{new Vector3(0,0.0f,0), new Vector3(0,0.0f,0), new Vector3(0,0.0f,0)},			// EXエピソードから来た場合
 		},
-		// 8:見滝原病院・150階(屋上)
+		// 6:見滝原病院・150階(屋上)
 		new Vector3[][]
 		{
 			new Vector3[]{new Vector3(0,270.0f,0), new Vector3(0,270.0f,0), new Vector3(0,270.0f,0)},	// エレベーターから来た場合
 		},
-		// 9:見滝原病院・1階
+		// 7:見滝原病院・1階
 		new Vector3[][]
 		{
 			new Vector3[]{new Vector3(0,270.0f,0), new Vector3(0,270.0f,0), new Vector3(0,270.0f,0)},	// エレベーターから来た場合
 			new Vector3[]{new Vector3(0,270.0f,0), new Vector3(0,270.0f,0), new Vector3(0,270.0f,0)},	// 入口から来た場合
 		},
-		// 10:見滝原病院入口
+		// 8:見滝原病院入口
 		new Vector3[][]
 		{
 			new Vector3[]{new Vector3(0,270.0f,0), new Vector3(0,270.0f,0), new Vector3(0,270.0f,0)},	// 1階から来た場合
 			new Vector3[]{new Vector3(0,90.0f,0), new Vector3(0,90.0f,0), new Vector3(0,90.0f,0)},	// 全体マップから来た場合
 		},
-		// 11:見滝原病院・恭介の病室
+		// 9:見滝原病院・恭介の病室
     };
     // 各ステージのステージ名
     public static string[] m_StageName = new string[]
     {
         "テスト",
-        "崩壊見滝原１",
-        "崩壊見滝原２",
+        "崩壊見滝原",
         "イマジカショック・グラウンドゼロ",
-        "ISGZ VS Sconosciuto",
         "見滝原病院・ほむらの病室",
         "見滝原病院・56階廊下",
 		"見滝原病院・106階廊下",
@@ -167,4 +142,20 @@ public static class StagePosition
 		"見滝原病院入口",
 		"見滝原病院・恭介の病室",
     };
+
+	// 戦闘ステージの場合の目標文言
+	public static string[] Purpose = new string[]
+	{
+		"",
+		"先に進め！",
+		"謎の魔法少女を倒せ！",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+	};
+
 }

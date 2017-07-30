@@ -163,6 +163,7 @@ public class BattleInterfaceController : MonoBehaviour
 	/// </summary>
 	public GameObject Information;
 
+	
 	/// <summary>
 	/// アイテム表示部ルート
 	/// </summary>
@@ -198,7 +199,15 @@ public class BattleInterfaceController : MonoBehaviour
 	/// </summary>
 	public GameObject EnemyHPGauge;
 
+	/// <summary>
+	/// ラウンドコール
+	/// </summary>
 	public RoundCall Roundcall;
+
+	/// <summary>
+	/// ゲームオーバー
+	/// </summary>
+	public GameObject GameOver;
 
     // Use this for initialization
     void Start ()
