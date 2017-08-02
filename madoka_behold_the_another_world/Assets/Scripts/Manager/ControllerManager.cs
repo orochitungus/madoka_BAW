@@ -158,6 +158,11 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 	public bool SearchUp;
 
 	/// <summary>
+	/// サーチ長押し
+	/// </summary>
+	public bool Searching;
+
+	/// <summary>
 	/// コマンド
 	/// </summary>
 	public bool Command;
@@ -1067,9 +1072,9 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 		});
 
 		// ロック外し
-		var unlockstream = this.UpdateAsObservable().Where(_ => Search);
+		var unlockstream = this.UpdateAsObservable().Where(_ => Searching);
         // ロック外しキャンセル
-        var unlockcancelstream = this.UpdateAsObservable().Where(_ => !Search);
+        var unlockcancelstream = this.UpdateAsObservable().Where(_ => !Searching);
         // ロック外し実行（1秒以上長押しでロックが外れる）
         unlockstream.SelectMany(_ => Observable.Timer(TimeSpan.FromSeconds(1.0f)))
         // 途中でロックボタンが離れるとリセット
@@ -1179,6 +1184,8 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 				Search = true;
                 SearchKeyboard = true;
 				SearchUp = false;
+				Searching = true;
+				StartCoroutine(SearchButtonStopper());
 			}
 			// メニュー取得
 			if (k.GetValue(i).ToString() == menu_keyboard)
@@ -1201,6 +1208,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 				Item = true;
                 ItemKeyboard = true;
 				ItemUp = false;
+				StartCoroutine(ItemButtonStopper());
 			}
 			// サブ射撃取得
 			if (k.GetValue(i).ToString() == subshot_keyboard)
@@ -1282,6 +1290,8 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 				Search = true;
                 SearchController = true;
 				SearchUp = false;
+				Searching = true;
+				StartCoroutine(SearchButtonStopper());
 			}
 			// メニュー取得
 			if (k.GetValue(i).ToString() == menu_controller)
@@ -1304,6 +1314,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 				Item = true;
                 ItemController = true;
 				ItemUp = false;
+				StartCoroutine(ItemButtonStopper());
 			}
 			// サブ射撃取得
 			if (k.GetValue(i).ToString() == subshot_controller)
@@ -1357,6 +1368,18 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 		}
 	}
 
+
+	/// <summary>
+	/// フレーム終了時にサーチボタンのフラグを折る
+	/// </summary>
+	/// <returns></returns>
+	private IEnumerator SearchButtonStopper()
+	{
+		yield return new WaitForEndOfFrame();
+		Search = false;
+
+	}
+
 	/// <summary>
 	/// フレーム終了時にメニューボタンのフラグを折る
 	/// </summary>
@@ -1367,11 +1390,25 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 		Menu = false;
 	}
 
+	/// <summary>
+	/// フレーム終了時にジャンプボタンのフラグを折る
+	/// </summary>
+	/// <returns></returns>
     public IEnumerator JumpButtonStopper()
     {
         yield return new WaitForEndOfFrame();
         Jump = false;
     }
+
+	/// <summary>
+	/// フレーム終了時にアイテムボタンのフラグを折る
+	/// </summary>
+	/// <returns></returns>
+	public IEnumerator ItemButtonStopper()
+	{
+		yield return new WaitForEndOfFrame();
+		Item = false;
+	}
 
 	/// <summary>
 	/// 長押しを取得
@@ -1401,6 +1438,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 				Jump = false;
                 Jumping = true;
             }
+
         }
         // キー入力取得（コントローラー）
         if (k.GetValue(i).ToString().IndexOf("Joystick1") >= 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0)
@@ -1459,6 +1497,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 			if (k.GetValue(i).ToString() == search_keyboard)
 			{
 				SearchUp = true;
+				Searching = false;
 			}
 			// メニュー取得
 			if (k.GetValue(i).ToString() == menu_keyboard)
@@ -1531,8 +1570,9 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 			}
 			// サーチ取得
 			if (k.GetValue(i).ToString() == search_controller)
-			{;
+			{
 				SearchUp = true;
+				Searching = false;
 			}
 			// メニュー取得
 			if (k.GetValue(i).ToString() == menu_controller)
@@ -1623,6 +1663,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 			{
 				Search = false;
                 SearchKeyboard = false;
+				Searching = false;
 			}
 			// メニュー取得
 			if (k.GetValue(i).ToString() == menu_keyboard && MenuKeyboard)
@@ -1708,6 +1749,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 			{
 				Search = false;
                 SearchController = false;
+				Searching = false;
 			}
 			// メニュー取得
 			if (k.GetValue(i).ToString() == menu_controller && MenuController)

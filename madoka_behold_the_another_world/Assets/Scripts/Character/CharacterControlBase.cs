@@ -1390,6 +1390,7 @@ public class CharacterControlBase : MonoBehaviour
         {
             if (ControllerManager.Instance.Search && !ControllerManager.Instance.Unlock)
             {
+				Debug.Log("SearchInput Done");	
                 return true;
             }
         }
@@ -1402,6 +1403,7 @@ public class CharacterControlBase : MonoBehaviour
 		}
         return false;
     }
+		
 
 	// サーチ長押し（ロックオン解除）があったか否かをチェック
 	public bool GetUnSerchInput()
@@ -3063,7 +3065,7 @@ public class CharacterControlBase : MonoBehaviour
 		// 空中ダッシュ入力（ダッシュキャンセルののちボタン長押し維持）があったか否か（CPU専用コマンド）
 		HasAirDashInput = GetAirDashInput();
 		// サーチ入力があったか否か
-		HasSearchInput = GetSearchInput();
+		//HasSearchInput = GetSearchInput();
 		// サーチキャンセル入力があったか否か
 		HasSearchCancelInput = GetUnSerchInput();
 		// 格闘入力があったか否か

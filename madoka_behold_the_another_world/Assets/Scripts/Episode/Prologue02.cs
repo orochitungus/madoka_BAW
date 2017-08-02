@@ -87,7 +87,10 @@ public class Prologue02 : MonoBehaviour
         Camera1.transform.localPosition = new Vector3(-23.10001f, -27.6f, 257.5f);
         Camera1.fieldOfView = 18;
         Camera1.transform.localRotation = Quaternion.Euler(new Vector3(-1.117f,0,0));
-    }
+
+		// BGM再生開始
+		AudioManager.Instance.PlayBGM("Kankyou Kaze01-1");
+	}
 
     // Use this for initialization
     void Start ()
@@ -224,5 +227,9 @@ public class Prologue02 : MonoBehaviour
 		{
 			yield return 0;
 		}
+
+		savingparameter.story = 1;  // ストーリー進行度変更
+
+
 	}
 }

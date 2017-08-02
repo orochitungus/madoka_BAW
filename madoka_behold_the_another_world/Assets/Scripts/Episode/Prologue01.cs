@@ -247,6 +247,8 @@ public class Prologue01 : MonoBehaviour
 		{
 			yield return 0;
 		}
+
+		FadeManager.Instance.LoadLevel("BrokenMitakihara", 1.0f);
 	}
 
 }

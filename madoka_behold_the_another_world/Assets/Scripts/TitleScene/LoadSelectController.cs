@@ -119,7 +119,7 @@ public class LoadSelectController : MonoBehaviour
 				// NEW GAMEの場合ステートを初期化してプロローグへ移行
 				else
 				{
-					FadeManager.Instance.LoadLevel("Prologue", 1.0f);
+					FadeManager.Instance.LoadLevel("Prologue01", 1.0f);
 				}
 			}
 			// 選択キャンセル時の処理

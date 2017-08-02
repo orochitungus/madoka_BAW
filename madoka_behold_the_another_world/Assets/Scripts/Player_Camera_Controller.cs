@@ -421,41 +421,19 @@ public class Player_Camera_Controller : MonoBehaviour
 	/// <param name="target">このカメラが追跡しているキャラクター</param>
 	public void RockOnSelecter(CharacterControlBase target)
 	{
-		// 自分＋1の相手を選択する
+		// RockOnTargetの次のインデックスに値を回す
 		int nexttarget = NowTarget + 1;
-		// 認識している相手の中で、ロックオンできる相手を探す
-		while (true)
+		
+		// 最大値を超えていれば0にする
+		if(nexttarget > RockOnTarget.Count - 1)
 		{
-			// 最大値を超えていれば0に
-			if (nexttarget > RockOnTarget.Count - 1)
-			{
-				nexttarget = 0;
-			}
-			// 相手が存在すればロックオン
-			if (RockOnTarget[nexttarget] != null)
-			{
-				// 自分の場合はロックオンさせない
-				float distance_check = Vector3.Distance(RockOnTarget[nexttarget].transform.position, target.transform.position);
-				if (distance_check > 0)
-				{
-					RockDone(target,nexttarget);
-				}
-				break;
-			}
-			// しなければもう１つインデックスを加算して仕切り直し
-			else
-			{
-				nexttarget++;
-				// もしnowtargetと同じ値なら残り1体なのでロックオン解除
-				if (NowTarget == nexttarget)
-				{
-					IsRockOn = false;
-					target.IsRockon = false;
-					// 増援が来たことの判定はここでやる（初めてロックオンした時の処理をここでもう一度）
-					return;
-				}
-			}
+			nexttarget = 0;
 		}
+
+		// 対象をロックする
+		RockDone(target, nexttarget);	
+		
+		
 	}
 
     // ロックオン範囲内にいる敵を検索し、ロックオンする

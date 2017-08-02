@@ -223,10 +223,7 @@ namespace BehaviourTrees
 
 			// 制御対象
 			var target = ControlTarget.GetComponent<MajyuControl>();
-			//RaycastHit hit;
-			//Vector3 RayStartPosition = new Vector3(ControlTarget.transform.position.x, ControlTarget.transform.position.y + 1.5f, ControlTarget.transform.position.z);
-			// 地上から離れて一定時間たったか上昇限界高度を超えていると空中ダッシュ
-			//if ((!Physics.Raycast(RayStartPosition, -transform.up, out hit, RiseLimit)))
+			
 			// 地上から離れて一定時間後空中ダッシュさせる
 			if (Time.time > Totalrisetime + Risetime && !target.IsGrounded)
 			{

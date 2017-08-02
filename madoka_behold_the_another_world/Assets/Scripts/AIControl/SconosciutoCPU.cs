@@ -103,17 +103,163 @@ public class SconosciutoCPU : AIControlBase
                     }
                 }
                 var targetState = ControlTarget.GetComponent<SconosciutoControl>();
-                // 弾が有ったら射撃攻撃
-                                
-                // 射撃のフォロースルーに入ったら再度空中ダッシュさせる
-                if (targetState.AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == targetState.FollowThrowAirShotID)
-                {
-                    Cpumode = CPUMODE.BOOSTDASH;
-                    keyoutput = KEY_OUTPUT.BOOSTDASH;
-                    return false;
-                }
+
+				
+
+				// どの射撃をするか決める
+				float attacktype = Random.value;// 攻撃手段(0-0.2:覚醒技、0.2-0.6(通常射撃）、0.6-0.8(サブ射撃）、0.8-1.0（特殊射撃）、ゲージなし(BD格闘)
+				
+				// 覚醒技
+				if (0.0f <= attacktype && attacktype < 0.2f && target.IsArousal)
+				{
+					Cpumode = CPUMODE.AROUSAL;
+					keyoutput = KEY_OUTPUT.AROUSAL;
+					return true;
+				}
+				// 通常射撃
+				else if (0.2f <= attacktype && attacktype < 0.6f && targetState.BulletNum[0] > 0)
+				{
+					Cpumode = CPUMODE.FIREFIGHT;
+					keyoutput = KEY_OUTPUT.SHOT;
+					return true;
+				}
+				// サブ射撃
+				else if (0.6f <= attacktype && attacktype < 0.75f && targetState.BulletNum[1] > 0)
+				{
+					Cpumode = CPUMODE.FIREFIGHT;
+					keyoutput = KEY_OUTPUT.SUBSHOT;
+					return true;
+				}
+				// 特殊射撃
+				else if (0.75f <= attacktype && attacktype <= 1.0f && targetState.BulletNum[2] > 0)
+				{
+					Cpumode = CPUMODE.FIREFIGHT;
+					keyoutput = KEY_OUTPUT.EXSHOT;
+					return true;
+				}
+				// BD格闘
+				else
+				{
+					Cpumode = CPUMODE.DOGFIGHT_EX;
+					keyoutput = KEY_OUTPUT.WRESTLE;
+					return true;
+				}
             }
         }
         return false;
     }
+
+	protected override void Firefight(ref TENKEY_OUTPUT tenkeyoutput, ref KEY_OUTPUT keyoutput)
+	{
+		// 制御対象
+		var target = ControlTarget.GetComponent<MajyuControl>();
+		keyoutput = KEY_OUTPUT.NONE;
+		// 地上にいた場合（→再度飛行）
+		if (target.IsGrounded)
+		{
+			keyoutput = KEY_OUTPUT.JUMP;
+			Cpumode = CPUMODE.NORMAL_RISE1;
+			tenkeyoutput = TENKEY_OUTPUT.TOP;
+			Totalrisetime = Time.time;
+		}
+		// 飛び越えられる壁に接触していた場合（→NORMAL_RISE3へ）
+		else if (target.Gethitjumpover())
+		{
+			// 一旦ジャンプボタンとテンキーを放す
+			tenkeyoutput = TENKEY_OUTPUT.NEUTRAL;
+			keyoutput = KEY_OUTPUT.NONE;
+			Cpumode = CPUMODE.NORMAL_FALL;
+		}
+		// 飛び越えられない壁に接触していた場合（→
+		// 空中にいた場合（→再度ダッシュしてビームずんだ）
+		else if (target.Gethitunjumpover())
+		{
+			// レーダー左とロックオン対象の距離を求める
+			float distL = Vector3.Distance(SearcherL.transform.position, RockonTarget.transform.position);
+			// レーダー右とロックオン対象の距離を求める
+			float distR = Vector3.Distance(SearcherR.transform.position, RockonTarget.transform.position);
+			// 左の方が大きければ左上方向へ飛行開始
+			if (distL >= distR)
+			{
+				tenkeyoutput = TENKEY_OUTPUT.TOPLEFT;
+			}
+			// 右の方が大きければ右上方向へ飛行開始
+			else
+			{
+				tenkeyoutput = TENKEY_OUTPUT.TOPRIGHT;
+			}
+		}
+		// 射撃のフォロースルーに入ったら再度空中ダッシュさせる
+		else if (target.AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == target.FollowThrowShotID || target.AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == target.FollowThrowAirShotID)
+		{
+			tenkeyoutput = TENKEY_OUTPUT.TOP;
+			keyoutput = KEY_OUTPUT.BOOSTDASH;
+			Cpumode = CPUMODE.BOOSTDASH;
+		}
+		// それ以外の時は何もしない
+		else
+		{
+			tenkeyoutput = TENKEY_OUTPUT.NEUTRAL;
+			keyoutput = KEY_OUTPUT.NONE;
+		}
+	}
+
+	/// <summary>
+	/// 通常状態になったときの処理
+	/// </summary>
+	/// <param name="tenkeyoutput"></param>
+	/// <param name="keyoutput"></param>
+	protected override void Normal(ref TENKEY_OUTPUT tenkeyoutput, ref KEY_OUTPUT keyoutput)
+	{
+		base.Normal(ref tenkeyoutput, ref keyoutput);
+		// ロックオン対象情報を取得
+		CharacterControlBase rockonTarget = RockonTarget.GetComponent<CharacterControlBase>();
+		// 制御対象
+		CharacterControlBase target = ControlTarget.GetComponent<CharacterControlBase>();
+
+		// 相手がダウンしていた場合(回復中含む)
+		if (rockonTarget != null && rockonTarget.NowDownRatio >= rockonTarget.DownRatioBias)
+		{
+			// ロックオン対象が二人以上いた場合、ロックを切り替える
+			// ロックオン対象が誰もいなかった場合、哨戒に戻す
+			keyoutput = KEY_OUTPUT.SEARCH;
+			ReturnPatrol(target);
+		}
+	}
+
+	protected override void Normal_rise1(ref KEY_OUTPUT keyoutput)
+	{
+		// 何らかの理由で哨戒起点か終点をロックしたまま攻撃体制に入った場合は元に戻す
+		if (UnRockAndReturnPatrol())
+			return;
+
+		// 制御対象
+		var target = ControlTarget.GetComponent<MajyuControl>();
+
+		// 地上から離れて一定時間後空中ダッシュさせる
+		if (Time.time > Totalrisetime + Risetime && !target.IsGrounded)
+		{
+			keyoutput = KEY_OUTPUT.BOOSTDASH;
+			Cpumode = CPUMODE.BOOSTDASH;
+			Totalrisetime = Time.time;
+		}
+		else
+		{
+			keyoutput = KEY_OUTPUT.JUMPING;
+		}
+		// 地上から離れずに一定時間いるとNORMALへ戻って仕切り直す
+		if (Time.time > Totalrisetime + Risetime && target.IsGrounded)
+		{
+			Cpumode = CPUMODE.NORMAL;
+		}
+		// 敵との距離が離れすぎるとロックオンを解除して哨戒に戻る
+		// カメラ
+		Player_Camera_Controller pcc = ControlTarget_Camera.GetComponent<Player_Camera_Controller>();
+		float distance = Vector3.Distance(pcc.Player.transform.position, pcc.Enemy.transform.position);
+		if ((int)Latecpumode > (int)CPUMODE.RETURN_PATH && distance > target.RockonRangeLimit)
+		{
+			ReturnPatrol(target);
+		}
+	}
+}
 }
