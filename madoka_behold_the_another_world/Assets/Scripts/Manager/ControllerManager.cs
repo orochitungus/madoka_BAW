@@ -1185,7 +1185,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
                 SearchKeyboard = true;
 				SearchUp = false;
 				Searching = true;
-				StartCoroutine(SearchButtonStopper());
+				//StartCoroutine(SearchButtonStopper());
 			}
 			// メニュー取得
 			if (k.GetValue(i).ToString() == menu_keyboard)
@@ -1208,7 +1208,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 				Item = true;
                 ItemKeyboard = true;
 				ItemUp = false;
-				StartCoroutine(ItemButtonStopper());
+				//StartCoroutine(ItemButtonStopper());
 			}
 			// サブ射撃取得
 			if (k.GetValue(i).ToString() == subshot_keyboard)
@@ -1291,7 +1291,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
                 SearchController = true;
 				SearchUp = false;
 				Searching = true;
-				StartCoroutine(SearchButtonStopper());
+				//StartCoroutine(SearchButtonStopper());
 			}
 			// メニュー取得
 			if (k.GetValue(i).ToString() == menu_controller)
@@ -1314,7 +1314,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 				Item = true;
                 ItemController = true;
 				ItemUp = false;
-				StartCoroutine(ItemButtonStopper());
+				//StartCoroutine(ItemButtonStopper());
 			}
 			// サブ射撃取得
 			if (k.GetValue(i).ToString() == subshot_controller)

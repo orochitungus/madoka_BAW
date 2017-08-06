@@ -193,5 +193,6 @@ public class Prologue04 : MonoBehaviour
 			yield return 0;
 		}
 
+		FadeManager.Instance.LoadLevel("Prologue05", 1.0f);
 	}
 }

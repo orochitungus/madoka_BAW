@@ -1390,12 +1390,17 @@ public class CharacterControlBase : MonoBehaviour
         {
             if (ControllerManager.Instance.Search && !ControllerManager.Instance.Unlock)
             {
-				Debug.Log("SearchInput Done");	
+				Debug.Log("SearchInput Done");
+				ControllerManager.Instance.Search = false;
                 return true;
             }
         }
 		else
 		{
+			if(Cpucontroller == null)
+			{
+				return false;
+			}
 			if(Cpucontroller.Search && !Cpucontroller.Unlock)
 			{
 				return true;
@@ -1612,6 +1617,8 @@ public class CharacterControlBase : MonoBehaviour
 				var obj = (GameObject)Instantiate(ItemEffect, transform.position, transform.rotation);
 				// 親子関係を再設定する
 				obj.transform.parent = this.transform;
+				// アイテム使用フラグを折る
+				ControllerManager.Instance.Item = false;
 				return true;
 			}
 		}
@@ -3042,7 +3049,7 @@ public class CharacterControlBase : MonoBehaviour
                 // 例外１：最初のスコノ戦で負けたらプロローグ３へ
                 if (savingparameter.story == 1)
                 {
-                    FadeManager.Instance.LoadLevel("Prologue3", 1.0f);
+                    FadeManager.Instance.LoadLevel("Prologue03", 1.0f);
                 }
                 else
                 {

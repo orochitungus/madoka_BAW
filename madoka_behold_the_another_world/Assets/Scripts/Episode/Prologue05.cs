@@ -136,5 +136,8 @@ public class Prologue05 : MonoBehaviour
 		{
 			yield return 0;
 		}
+
+		// 次のシーンへ移動
+		FadeManager.Instance.LoadLevel("title", 1.0f);
 	}
 }

@@ -230,6 +230,11 @@ public class Prologue02 : MonoBehaviour
 
 		savingparameter.story = 1;  // ストーリー進行度変更
 
+		// 位置変更
+		savingparameter.nowField = 2;
 
+
+		// 次のシーンへ移行する
+		FadeManager.Instance.LoadLevel("ImagicaShockGroundZeroPrologue", 1.0f);
 	}
 }

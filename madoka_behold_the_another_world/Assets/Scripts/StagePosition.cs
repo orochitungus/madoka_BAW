@@ -20,7 +20,7 @@ public static class StagePosition
         // 2:イマジカショック・グラウンドゼロ（VSスコノシュート）
         new Vector3[][]
         {
-			new Vector3[]{ new Vector3(264, 0, 1150), new Vector3(254,0,1150),new Vector3(274,0,1150)}
+			new Vector3[]{ new Vector3(270, 0, 1163), new Vector3(260,0,1163),new Vector3(280,0,1163)}		// プロローグ2から来た場合
 		},
         // 3:見滝原病院・ほむらの病室
         new Vector3[][]
