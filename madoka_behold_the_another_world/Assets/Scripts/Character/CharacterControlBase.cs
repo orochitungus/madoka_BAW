@@ -3169,10 +3169,13 @@ public class CharacterControlBase : MonoBehaviour
         //m_nowDownRatioが0を超えていて、Damage_Initではなく（ダウン値加算前にリセットされる）m_DownRebirthTimeが規定時間を経過し、かつダウン値が閾値より小さければダウン値をリセットする
         if (NowDownRatio > 0 && animator.GetCurrentAnimatorStateInfo(0).fullPathHash != downid)
         {
-            if ((Time.time > DownRebirthTime + DownRebirthWaitTime) && (NowDownRatio < DownRatioBias))
-            {
+            //if ((Time.time > DownRebirthTime + DownRebirthWaitTime) && (NowDownRatio < DownRatioBias))
+			if ((Time.time > DownRebirthTime + DownRebirthWaitTime) && (NowDownRatio < DownRatioBias))
+			{
                 DownRebirthTime = 0;
                 NowDownRatio = 0.0f;
+				DownTime = 0;
+				Invincible = false;
             }
         }
 

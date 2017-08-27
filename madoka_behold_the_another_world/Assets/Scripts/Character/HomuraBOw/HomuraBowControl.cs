@@ -150,7 +150,8 @@ public class HomuraBowControl : CharacterControlBase
 	/// <summary>
 	/// 総発動時間(秒）
 	/// </summary>
-	private const float ArousalAttackTotal = 10.0f;
+	[SerializeField]
+	private float ArousalAttackTotal = 1.0f;
 
 	/// <summary>
 	/// 累積発動時間（秒）
@@ -170,7 +171,7 @@ public class HomuraBowControl : CharacterControlBase
 	/// <summary>
 	/// 覚醒技の判定フック
 	/// </summary>
-	public GameObject ArousalAttackHock;
+	public GameObject ArousalAttackHook;
 
 	/// <summary>
 	/// 覚醒技の攻撃判定
@@ -1011,8 +1012,13 @@ public class HomuraBowControl : CharacterControlBase
 		{
 			Destroy(wh);
 		}
-        // 格闘の累積時間を初期化
-        Wrestletime = 0;
+		// 覚醒技が発動失敗した場合カメラと視点とアーマーを戻す
+		ArousalAttackCamera1.enabled = false;
+		ArousalAttackWing.SetActive(false);
+		IsArmor = false;
+
+		// 格闘の累積時間を初期化
+		Wrestletime = 0;
         // 地上にいるか？(落下開始時は一応禁止）
         if (IsGrounded)
         {
