@@ -1,4 +1,6 @@
-﻿// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
 
 Shader "BMToon/BMT_Basic" {
 	Properties{
@@ -210,7 +212,7 @@ Shader "BMToon/BMT_Basic" {
 	//バーテックスシェーダ
 	v2f vert(appdata_full v) {
 		v2f o;
-		o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+		o.pos = UnityObjectToClipPos(v.vertex);
 		o.tex = v.texcoord;
 
 		TANGENT_SPACE_ROTATION;
@@ -374,7 +376,7 @@ Shader "BMToon/BMT_Basic" {
 	v2f vert(appdata_full v) {
 		v2f o;
 		o = (v2f)0;
-		o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+		o.pos = UnityObjectToClipPos(v.vertex);
 		o.tex = v.texcoord;
 
 		TANGENT_SPACE_ROTATION;
@@ -489,8 +491,8 @@ Shader "BMToon/BMT_Basic" {
 			return o;
 		#else
 			o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
-			float4 pos = mul(UNITY_MATRIX_MVP, v.vertex);                               // 頂点
-			float4 normal = normalize(mul(UNITY_MATRIX_MVP, float4(v.normal, 0)));    // 法線
+			float4 pos = UnityObjectToClipPos(v.vertex);                               // 頂点
+			float4 normal = normalize(UnityObjectToClipPos(float4(v.normal, 0)));    // 法線
 
 			float scale_col = tex2Dlod(_EdgeSizeTex, float4(o.uv,0,0)).r;
 			float  edgeScale = _EdgeSize * 0.002 * scale_col * saturate(1 - length(WorldSpaceViewDir(v.vertex))*0.05);                                       // Edge スケール係数

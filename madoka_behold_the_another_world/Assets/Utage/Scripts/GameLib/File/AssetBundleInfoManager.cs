@@ -199,7 +199,7 @@ namespace Utage
 		public void DeleteAllCache()
 		{
 			FileIOManager.DeleteDirectory(FilePathUtil.Combine(FileIOManager.SdkTemporaryCachePath, cacheDirectoryName)+"/");
-			UnityEngine.Caching.CleanCache();
+			UnityEngine.Caching.ClearCache();
 		}
 	}
 }

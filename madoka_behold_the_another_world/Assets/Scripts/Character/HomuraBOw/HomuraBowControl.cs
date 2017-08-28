@@ -1007,7 +1007,7 @@ public class HomuraBowControl : CharacterControlBase
         // くっついている弾丸系のエフェクトを消す
         DestroyArrow();
 		// 羽フックを壊す
-		var wh = gameObject.transform.FindChild("WINGHOCK");
+		var wh = gameObject.transform.Find("WINGHOCK");
 		if (wh != null)
 		{
 			Destroy(wh);

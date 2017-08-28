@@ -1358,7 +1358,7 @@ public class AIControlBase : MonoBehaviour
 		}
 
 		// このキャラのメインカメラを拾う
-		GameObject maincamera = this.transform.FindChild("Main Camera").gameObject;
+		GameObject maincamera = this.transform.Find("Main Camera").gameObject;
 		// スタート地点
 		GameObject startpoint = ControlTarget.GetComponent<CharacterControlBase>().StartingPoint;
 		// エンド地点

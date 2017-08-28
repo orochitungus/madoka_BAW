@@ -142,7 +142,7 @@ namespace Utage
 				))
 			{
 				DeleteFolder(FileIOManager.SdkTemporaryCachePath);
-				Caching.CleanCache();
+				Caching.ClearCache();
 			}
 		}
 

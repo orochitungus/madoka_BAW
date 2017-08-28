@@ -4714,14 +4714,14 @@ public class CharacterControlBase : MonoBehaviour
 	protected void BrokenEffect()
 	{
 		// ステップ
-		if (gameObject.transform.FindChild("StepEffect(Clone)") != null)
+		if (gameObject.transform.Find("StepEffect(Clone)") != null)
 		{
-			Destroy(gameObject.transform.FindChild("StepEffect(Clone)").gameObject);
+			Destroy(gameObject.transform.Find("StepEffect(Clone)").gameObject);
 		}
 		// 格闘ステップキャンセル
-		if (gameObject.transform.FindChild("StepEffectCancel(Clone)") != null)
+		if (gameObject.transform.Find("StepEffectCancel(Clone)") != null)
 		{
-			Destroy(gameObject.transform.FindChild("StepEffectCancel(Clone)").gameObject);
+			Destroy(gameObject.transform.Find("StepEffectCancel(Clone)").gameObject);
 		}
 	}
 
