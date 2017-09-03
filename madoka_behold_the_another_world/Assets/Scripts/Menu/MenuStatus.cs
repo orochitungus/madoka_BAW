@@ -96,7 +96,7 @@ public class MenuStatus : MonoBehaviour
 	public GameObject AgiArrow;
 
 	public int AgiInterim;
-
+	
 	/// <summary>
 	/// 現在選択中の項目
 	/// </summary>

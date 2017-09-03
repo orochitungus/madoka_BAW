@@ -22,6 +22,11 @@ public class MenuItemDraw : MonoBehaviour
 	/// </summary>
 	public Text[] ItemNum;
 
+	/// <summary>
+	/// アイテムの種類
+	/// </summary>
+	public int[] ItemKind = new int[Item.itemspec.Length];
+
 	[SerializeField]
 	private GameObject []Cursor;
 

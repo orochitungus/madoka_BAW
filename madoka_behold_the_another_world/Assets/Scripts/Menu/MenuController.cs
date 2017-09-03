@@ -120,7 +120,7 @@ public class MenuController : MonoBehaviour
 	/// アイテム画面のオブジェクト
 	/// </summary>
 	[SerializeField]
-	private GameObject Item;
+	private GameObject ItemWindow;
 
 	/// <summary>
 	/// スキル画面のオブジェクト
@@ -151,6 +151,11 @@ public class MenuController : MonoBehaviour
 	/// </summary>
 	[SerializeField]
 	private GameObject PopUp;
+
+	/// <summary>
+	/// ステータス画面のY座標
+	/// </summary>
+	private float STATUSWINDOWYPOS = 200;
 
     void Awake()
     {
@@ -218,6 +223,39 @@ public class MenuController : MonoBehaviour
 							Menucontrol = MenuControl.STATUSCHARSELECT;
 							break;
 						case (int)Menumode.ITEM:
+							// 選択するとITEMへ移行
+							AudioManager.Instance.PlaySE("OK");
+							iTween.MoveTo(Root, iTween.Hash(
+								// 移動先指定
+								"position", new Vector3(793, STATUSWINDOWYPOS, 0),
+								// 移動時間指定
+								"time", 0.5f,
+								// 終了時Status呼び出し
+								"oncomplete", "InsertItem",
+								"oncompletetarget", gameObject
+							));
+							// 所持アイテム一覧を表示する
+							MenuItemDraw menuItemDraw = ItemWindow.GetComponent<MenuItemDraw>();
+
+							// 所持個数を取得し、その分を描画する
+							for (int i = 0; i < Item.itemspec.Length; ++i)
+							{
+								if(savingparameter.GetItemNum(i) > 0)
+								{
+									menuItemDraw.ItemName[i].text = Item.itemspec[i].Name();
+									menuItemDraw.ItemNum[i].text = savingparameter.GetItemNum(i).ToString("d2");
+									menuItemDraw.ItemKind[i] = i;
+								}
+								else
+								{
+									menuItemDraw.ItemName[i].text = "";
+									menuItemDraw.ItemNum[i].text = "";
+									menuItemDraw.ItemKind[i] = -1;
+								}
+							}
+							menuItemDraw.NowSelect = 0;
+							// ITEMへ移行
+							Menucontrol = MenuControl.ITEM;
 							break;
 					}
 				}
@@ -231,7 +269,7 @@ public class MenuController : MonoBehaviour
 					AudioManager.Instance.PlaySE("OK");
 					iTween.MoveTo(Root, iTween.Hash(
 						// 移動先指定
-						"position", new Vector3(793,174,0),
+						"position", new Vector3(793, STATUSWINDOWYPOS, 0),
 						// 移動時間指定
 						"time", 0.5f,
 						// 終了時Status呼び出し
@@ -305,7 +343,7 @@ public class MenuController : MonoBehaviour
 					AudioManager.Instance.PlaySE("OK");
 					iTween.MoveTo(Status, iTween.Hash(
 						// 移動先指定
-						"position", new Vector3(793, 174, 0),
+						"position", new Vector3(793, STATUSWINDOWYPOS, 0),
 						// 移動時間指定
 						"time", 0.5f,
 						// 終了時Root呼び出し
@@ -444,6 +482,36 @@ public class MenuController : MonoBehaviour
 						ReinforcementCancel();
 						Menucontrol = MenuControl.STATUSAGI;
 					}
+				}
+			}
+			// 装備アイテム選択
+			else if(Menucontrol == MenuControl.ITEM)
+			{
+				KeyInputController(ref ItemWindow.GetComponent<MenuItemDraw>().NowSelect, ref Dummy, Item.itemspec.Length, 0);
+				// 選択の場合ポップアップを出す
+				if(ControllerManager.Instance.Shot)
+				{
+					// アイテムの種類を取得(ないところは-1になっている）
+					if(ItemWindow.GetComponent<MenuItemDraw>().ItemKind[ItemWindow.GetComponent<MenuItemDraw>().NowSelect] >= 0)
+					{
+						
+					}
+				}
+				// キャンセル
+				else if (ControllerManager.Instance.Jump)
+				{
+					AudioManager.Instance.PlaySE("OK");
+					iTween.MoveTo(ItemWindow, iTween.Hash(
+						// 移動先指定
+						"position", new Vector3(793, STATUSWINDOWYPOS, 0),
+						// 移動時間指定
+						"time", 0.5f,
+						// 終了時Root呼び出し
+						"oncomplete", "InsertRoot",
+						"oncompletetarget", gameObject
+					));
+
+					Menucontrol = MenuControl.ROOT;
 				}
 			}
 		});
@@ -759,7 +827,7 @@ public class MenuController : MonoBehaviour
 	/// </summary>
 	private void InsertStatus()
 	{
-		iTween.MoveTo(Status, new Vector3(320, 174, 0), 0.5f);
+		iTween.MoveTo(Status, new Vector3(320, STATUSWINDOWYPOS, 0), 0.5f);
 	}
 
 	/// <summary>
@@ -767,7 +835,15 @@ public class MenuController : MonoBehaviour
 	/// </summary>
 	private void InsertRoot()
 	{
-		iTween.MoveTo(Root, new Vector3(320, 174, 0), 0.5f);
+		iTween.MoveTo(Root, new Vector3(320, STATUSWINDOWYPOS, 0), 0.5f);
+	}
+
+	/// <summary>
+	/// アイテム画面を入れる
+	/// </summary>
+	private void InsertItem()
+	{
+		iTween.MoveTo(ItemWindow, new Vector3(320, STATUSWINDOWYPOS, 0), 0.5f);
 	}
 
 	/// <summary>
@@ -984,6 +1060,7 @@ public enum MenuControl
 	STATUSAGI,				// AGI選択
 	STATUSAGIFINALCONFIRM,	// AGI最終確認
     ITEM,                   // アイテム
+	ITEMFINALCONFIRM,		// アイテム最終確認
     SKILL,                  // スキル
     SYSTEM,                 // システム
     PARTY,                  // パーティー
