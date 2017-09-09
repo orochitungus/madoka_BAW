@@ -1597,7 +1597,7 @@ public class CharacterControlBase : MonoBehaviour
 					// SE再生
 					AudioManager.Instance.PlaySE("Regeneration");
 				}
-				// SG浄化
+				// 蘇生＋HP回復＋マジックゲージ回復
 				else if (Item.itemspec[nowitem].ItemFuciton() == ItemSpec.ItemFunction.REBIRTH_SOUL)
 				{
 					// エフェクト作成

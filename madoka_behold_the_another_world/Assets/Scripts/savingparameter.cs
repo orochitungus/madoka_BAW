@@ -467,21 +467,17 @@ public static class savingparameter
                 CureHP(GetNowParty(targetcharacter), Item.itemspec[itemkind].RebirthEn());
             }
         }
-        // SG汚染率回復系
+        // 無条件完全回復
         else if (Item.itemspec[itemkind].ItemFuciton() == ItemSpec.ItemFunction.REBIRTH_SOUL)
         {
             // 全体
             if (Item.itemspec[itemkind].IsAll())
-            {
-                
+            {                
                 for (int i = 0; i < MadokaDefine.MAXPARTYMEMBER; i++)
                 {
-                    // 無汚染時回復無効
-                    if (GetGemContimination(GetNowParty(i)) != 0)
-                    {
-                        CureContimination(GetNowParty(i), Item.itemspec[itemkind].RebirthEn());
-                    }
-                }
+					CureHP(GetNowParty(i), Item.itemspec[itemkind].RebirthEn());
+					SetMaxArousal(GetNowParty(i));
+				}
             }
             // 単体
             else

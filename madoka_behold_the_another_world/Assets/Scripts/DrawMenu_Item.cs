@@ -192,8 +192,8 @@ public partial class DrawMenu
                         {
                             AudioSource.PlayClipAtPoint(Regenaration, transform.position);
                         }
-                        // SG浄化
-                        else
+                        // 蘇生・HP・マジックゲージ回復
+						else
                         {
                             AudioSource.PlayClipAtPoint(PurificationSG, transform.position);
                         }

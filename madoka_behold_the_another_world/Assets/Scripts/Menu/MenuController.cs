@@ -245,12 +245,14 @@ public class MenuController : MonoBehaviour
 									menuItemDraw.ItemName[i].text = Item.itemspec[i].Name();
 									menuItemDraw.ItemNum[i].text = savingparameter.GetItemNum(i).ToString("d2");
 									menuItemDraw.ItemKind[i] = i;
+									menuItemDraw.ItemDescription[i] = Item.itemspec[i].Information();
 								}
 								else
 								{
 									menuItemDraw.ItemName[i].text = "";
 									menuItemDraw.ItemNum[i].text = "";
 									menuItemDraw.ItemKind[i] = -1;
+									menuItemDraw.ItemDescription[i] = "";
 								}
 							}
 							menuItemDraw.NowSelect = 0;
@@ -494,7 +496,14 @@ public class MenuController : MonoBehaviour
 					// アイテムの種類を取得(ないところは-1になっている）
 					if(ItemWindow.GetComponent<MenuItemDraw>().ItemKind[ItemWindow.GetComponent<MenuItemDraw>().NowSelect] >= 0)
 					{
-						
+						iTween.ScaleTo(PopUp, iTween.Hash(
+										// 拡大率指定
+										"y", 1,
+										// 拡大時間指定
+										"time", 0.5f));
+						// ポップアップに文字書き込み
+						PopUp.GetComponent<MenuPopup>().PopupText.text = "このアイテムを装備しますか？";
+						Menucontrol = MenuControl.ITEMFINALCONFIRM;
 					}
 				}
 				// キャンセル
@@ -512,6 +521,29 @@ public class MenuController : MonoBehaviour
 					));
 
 					Menucontrol = MenuControl.ROOT;
+				}
+			}
+			// アイテム装備最終確認
+			else if(Menucontrol == MenuControl.ITEMFINALCONFIRM)
+			{
+				KeyInputController(ref Dummy, ref PopUp.GetComponent<MenuPopup>().NowSelect, 0, 2);
+				// 選択確定
+				if (PopUp.GetComponent<MenuPopup>().NowSelect == 0)
+				{
+					if (ControllerManager.Instance.Shot)
+					{
+						// TODO:アイテム装備処理
+
+					}
+				}
+				// 選択キャンセル
+				else
+				{
+					if (ControllerManager.Instance.Shot)
+					{
+						ReinforcementCancel();
+						Menucontrol = MenuControl.ITEM;
+					}
 				}
 			}
 		});
@@ -601,6 +633,14 @@ public class MenuController : MonoBehaviour
 					InformationText.text = "敏捷性を表します。ブースト量の消費に影響します\n選択して左右で増減し、ショットキーで決定できます";
 					break;
 			}
+		});
+
+		// ITEM状態
+		this.UpdateAsObservable().Where(_ => Menucontrol == MenuControl.ITEM).Subscribe(_ =>
+		{
+			MenuItemDraw menuItemDraw = ItemWindow.GetComponent<MenuItemDraw>();
+			// インフォメーションテキストの内容
+			InformationText.text = menuItemDraw.ItemDescription[menuItemDraw.NowSelect];
 		});
     }
 	
