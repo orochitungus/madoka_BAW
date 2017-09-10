@@ -126,7 +126,7 @@ public class MenuController : MonoBehaviour
 	/// スキル画面のオブジェクト
 	/// </summary>
 	[SerializeField]
-	private GameObject Skill;
+	private GameObject SkillWindow;
 
 	/// <summary>
 	/// システム画面のオブジェクト
@@ -155,7 +155,9 @@ public class MenuController : MonoBehaviour
 	/// <summary>
 	/// ステータス画面のY座標
 	/// </summary>
-	private float STATUSWINDOWYPOS = 200;
+	private float STATUSWINDOWYPOS = 180;
+
+    private float STATUSWINDOWXPOS = 800;
 
     void Awake()
     {
@@ -234,31 +236,13 @@ public class MenuController : MonoBehaviour
 								"oncomplete", "InsertItem",
 								"oncompletetarget", gameObject
 							));
-							// 所持アイテム一覧を表示する
-							MenuItemDraw menuItemDraw = ItemWindow.GetComponent<MenuItemDraw>();
-
-							// 所持個数を取得し、その分を描画する
-							for (int i = 0; i < Item.itemspec.Length; ++i)
-							{
-								if(savingparameter.GetItemNum(i) > 0)
-								{
-									menuItemDraw.ItemName[i].text = Item.itemspec[i].Name();
-									menuItemDraw.ItemNum[i].text = savingparameter.GetItemNum(i).ToString("d2");
-									menuItemDraw.ItemKind[i] = i;
-									menuItemDraw.ItemDescription[i] = Item.itemspec[i].Information();
-								}
-								else
-								{
-									menuItemDraw.ItemName[i].text = "";
-									menuItemDraw.ItemNum[i].text = "";
-									menuItemDraw.ItemKind[i] = -1;
-									menuItemDraw.ItemDescription[i] = "";
-								}
-							}
-							menuItemDraw.NowSelect = 0;
+                            ItemDraw();
 							// ITEMへ移行
 							Menucontrol = MenuControl.ITEM;
 							break;
+                        case (int)Menumode.SKILL:
+                            Menucontrol = MenuControl.SKILLCHARSELECT;
+                            break;
 					}
 				}
             }
@@ -532,10 +516,12 @@ public class MenuController : MonoBehaviour
 				{
 					if (ControllerManager.Instance.Shot)
 					{
-						// TODO:アイテム装備処理
-
-					}
-				}
+                        savingparameter.SetNowEquipItem(ItemWindow.GetComponent<MenuItemDraw>().ItemKind[ItemWindow.GetComponent<MenuItemDraw>().NowSelect]);
+                        ReinforcementCancel();
+                        Menucontrol = MenuControl.ITEM;
+                        ItemDraw();
+                    }
+                }
 				// 選択キャンセル
 				else
 				{
@@ -546,6 +532,41 @@ public class MenuController : MonoBehaviour
 					}
 				}
 			}
+            // スキルキャラ選択
+            else if(Menucontrol == MenuControl.SKILLCHARSELECT)
+            {
+                KeyInputController(ref Dummy, ref CharSelect, 0, savingparameter.GetNowPartyNum());
+                // 選択するとSKILLへ移行
+                if (ControllerManager.Instance.Shot)
+                {
+                    // 選択するとITEMへ移行
+                    AudioManager.Instance.PlaySE("OK");
+                    iTween.MoveTo(Root, iTween.Hash(
+                        // 移動先指定
+                        "position", new Vector3(793, STATUSWINDOWYPOS, 0),
+                        // 移動時間指定
+                        "time", 0.5f,
+                        // 終了時Skill呼び出し
+                        "oncomplete", "InsertSkill",
+                        "oncompletetarget", gameObject
+                    ));
+                    // 選択したキャラは誰？
+                    int selectedCharacter = savingparameter.GetNowParty(CharSelect);
+                    // SKILL書き込み
+                    SkillWindow.GetComponent<MenuSkillDraw>().Initiallize(selectedCharacter);
+                    Menucontrol = MenuControl.SKILL;
+                }
+                // キャンセルでROOTに戻る
+                else if (ControllerManager.Instance.Jump)
+                {
+                    AudioManager.Instance.PlaySE("OK");
+                    for (int i = 0; i < MadokaDefine.MAXPARTYMEMBER; i++)
+                    {
+                        Characterstatusroot[i].Frame.color = new Color(255, 255, 255);
+                    }
+                    Menucontrol = MenuControl.ROOT;
+                }
+            }
 		});
 
         // ルート状態
@@ -593,7 +614,7 @@ public class MenuController : MonoBehaviour
          });
 
 		// STATUSCHARASELECT状態
-		this.UpdateAsObservable().Where(_ => Menucontrol == MenuControl.STATUSCHARSELECT).Subscribe(_ =>
+		this.UpdateAsObservable().Where(_ => Menucontrol == MenuControl.STATUSCHARSELECT || Menucontrol == MenuControl.SKILLCHARSELECT).Subscribe(_ =>
 		{
 			for (int i = 0; i<MadokaDefine.MAXPARTYMEMBER; i++)
 			{
@@ -606,8 +627,15 @@ public class MenuController : MonoBehaviour
 					Characterstatusroot[i].Frame.color = new Color(255, 255, 255);
 				}
 			}
-			// インフォメーションテキストの内容
-			InformationText.text = "強化したいキャラクターを選んでください";
+            // インフォメーションテキストの内容
+            if (Menucontrol == MenuControl.STATUSCHARSELECT)
+            {
+                InformationText.text = "強化したいキャラクターを選んでください";
+            }
+            else if(Menucontrol == MenuControl.SKILLCHARSELECT)
+            {
+                InformationText.text = "スキルを確認したいキャラクターを選んでください";
+            }
 		});
 
 		
@@ -886,6 +914,14 @@ public class MenuController : MonoBehaviour
 		iTween.MoveTo(ItemWindow, new Vector3(320, STATUSWINDOWYPOS, 0), 0.5f);
 	}
 
+    /// <summary>
+    /// スキル画面を入れる
+    /// </summary>
+    private void InsertSkill()
+    {
+        iTween.MoveTo(SkillWindow, new Vector3(320, STATUSWINDOWYPOS, 0), 0.5f);
+    }
+
 	/// <summary>
 	/// ステータス強化を実行したときの処理
 	/// </summary>
@@ -1078,6 +1114,40 @@ public class MenuController : MonoBehaviour
 				"time", 0.5f
 			));
 	}
+
+    /// <summary>
+    /// アイテム一覧を描画する
+    /// </summary>
+    public void ItemDraw()
+    {
+        // 所持アイテム一覧を表示する
+        MenuItemDraw menuItemDraw = ItemWindow.GetComponent<MenuItemDraw>();
+
+        // 所持個数を取得し、その分を描画する
+        for (int i = 0; i < Item.itemspec.Length; ++i)
+        {
+            if (savingparameter.GetItemNum(i) > 0)
+            {
+                menuItemDraw.ItemName[i].text = Item.itemspec[i].Name();
+                // 装備していた場合は装備と追記する
+                if (savingparameter.GetNowEquipItemString() == Item.itemspec[i].Name())
+                {
+                    menuItemDraw.ItemName[i].text += "<装備中>";
+                }
+                menuItemDraw.ItemNum[i].text = savingparameter.GetItemNum(i).ToString("d2");
+                menuItemDraw.ItemKind[i] = i;
+                menuItemDraw.ItemDescription[i] = Item.itemspec[i].Information();
+            }
+            else
+            {
+                menuItemDraw.ItemName[i].text = "";
+                menuItemDraw.ItemNum[i].text = "";
+                menuItemDraw.ItemKind[i] = -1;
+                menuItemDraw.ItemDescription[i] = "";
+            }
+        }
+        menuItemDraw.NowSelect = 0;
+    }
 }
 
 /// <summary>
@@ -1102,6 +1172,7 @@ public enum MenuControl
     ITEM,                   // アイテム
 	ITEMFINALCONFIRM,		// アイテム最終確認
     SKILL,                  // スキル
+    SKILLCHARSELECT,        // スキルキャラ選択
     SYSTEM,                 // システム
     PARTY,                  // パーティー
     SAVE,                   // セーブ
