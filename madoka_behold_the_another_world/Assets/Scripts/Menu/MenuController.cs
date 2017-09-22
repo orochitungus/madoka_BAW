@@ -155,7 +155,7 @@ public class MenuController : MonoBehaviour
 	/// <summary>
 	/// ステータス画面のY座標
 	/// </summary>
-	private float STATUSWINDOWYPOS = 180;
+	private float STATUSWINDOWYPOS = 190;
 
     private float STATUSWINDOWXPOS = 800;
 
@@ -229,7 +229,7 @@ public class MenuController : MonoBehaviour
 							AudioManager.Instance.PlaySE("OK");
 							iTween.MoveTo(Root, iTween.Hash(
 								// 移動先指定
-								"position", new Vector3(793, STATUSWINDOWYPOS, 0),
+								"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
 								// 移動時間指定
 								"time", 0.5f,
 								// 終了時Status呼び出し
@@ -255,7 +255,7 @@ public class MenuController : MonoBehaviour
 					AudioManager.Instance.PlaySE("OK");
 					iTween.MoveTo(Root, iTween.Hash(
 						// 移動先指定
-						"position", new Vector3(793, STATUSWINDOWYPOS, 0),
+						"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
 						// 移動時間指定
 						"time", 0.5f,
 						// 終了時Status呼び出し
@@ -329,7 +329,7 @@ public class MenuController : MonoBehaviour
 					AudioManager.Instance.PlaySE("OK");
 					iTween.MoveTo(Status, iTween.Hash(
 						// 移動先指定
-						"position", new Vector3(793, STATUSWINDOWYPOS, 0),
+						"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
 						// 移動時間指定
 						"time", 0.5f,
 						// 終了時Root呼び出し
@@ -496,7 +496,7 @@ public class MenuController : MonoBehaviour
 					AudioManager.Instance.PlaySE("OK");
 					iTween.MoveTo(ItemWindow, iTween.Hash(
 						// 移動先指定
-						"position", new Vector3(793, STATUSWINDOWYPOS, 0),
+						"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
 						// 移動時間指定
 						"time", 0.5f,
 						// 終了時Root呼び出し
@@ -516,7 +516,7 @@ public class MenuController : MonoBehaviour
 				{
 					if (ControllerManager.Instance.Shot)
 					{
-                        savingparameter.SetNowEquipItem(ItemWindow.GetComponent<MenuItemDraw>().ItemKind[ItemWindow.GetComponent<MenuItemDraw>().NowSelect]);
+						 savingparameter.SetNowEquipItem(ItemWindow.GetComponent<MenuItemDraw>().ItemKind[ItemWindow.GetComponent<MenuItemDraw>().NowSelect]);
                         ReinforcementCancel();
                         Menucontrol = MenuControl.ITEM;
                         ItemDraw();
@@ -543,7 +543,7 @@ public class MenuController : MonoBehaviour
                     AudioManager.Instance.PlaySE("OK");
                     iTween.MoveTo(Root, iTween.Hash(
                         // 移動先指定
-                        "position", new Vector3(793, STATUSWINDOWYPOS, 0),
+                        "position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
                         // 移動時間指定
                         "time", 0.5f,
                         // 終了時Skill呼び出し
@@ -567,6 +567,29 @@ public class MenuController : MonoBehaviour
                     Menucontrol = MenuControl.ROOT;
                 }
             }
+			// スキル表示
+			else if(Menucontrol == MenuControl.SKILL)
+			{
+				// 最大ページ取得
+				int maxpage = SkillWindow.GetComponent<MenuSkillDraw>().MaxPage - 1;
+				// 左右キーでページ送り
+				KeyInputController(ref Dummy, ref SkillWindow.GetComponent<MenuSkillDraw>().NowPage, 0, maxpage);
+				// キャンセルでSKILLCHARSELECTへ移行
+				if(ControllerManager.Instance.Jump)
+				{
+					AudioManager.Instance.PlaySE("OK");
+					iTween.MoveTo(SkillWindow, iTween.Hash(
+						// 移動先指定
+						"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
+						// 移動時間指定
+						"time", 0.5f,
+						// 終了時Root呼び出し
+						"oncomplete", "InsertRoot",
+						"oncompletetarget", gameObject
+					));
+					Menucontrol = MenuControl.SKILLCHARSELECT;
+				}
+			}
 		});
 
         // ルート状態
@@ -670,6 +693,50 @@ public class MenuController : MonoBehaviour
 			// インフォメーションテキストの内容
 			InformationText.text = menuItemDraw.ItemDescription[menuItemDraw.NowSelect];
 		});
+
+		// SKILL状態
+		this.UpdateAsObservable().Where(_ => Menucontrol == MenuControl.SKILL).Subscribe(_ =>
+		{
+			MenuSkillDraw menuSkillDraw = SkillWindow.GetComponent<MenuSkillDraw>();
+			// 現在のページを取得
+			int nowpage = menuSkillDraw.NowPage;
+			// 最大ページを取得
+			int maxpage = menuSkillDraw.MaxPage;
+			// キャラクターを取得
+			int selectedcharacter = savingparameter.GetNowParty(CharSelect);
+
+			// 現在のページが0なら←矢印を消す
+			if (nowpage == 0)
+			{
+				menuSkillDraw.LeftArrow.color = new Color(1, 1, 1, 0);
+				menuSkillDraw.RightArrow.color = new Color(1, 1, 1, 1);
+			}
+			// 現在のページが最大ページなら→矢印を消す
+			else if(nowpage == maxpage - 2)
+			{
+				menuSkillDraw.LeftArrow.color = new Color(1, 1, 1, 1);
+				menuSkillDraw.RightArrow.color = new Color(1, 1, 1, 0);
+			}
+			// それ以外なら両方表示
+			else
+			{
+				menuSkillDraw.LeftArrow.color = new Color(1, 1, 1, 1);
+				menuSkillDraw.RightArrow.color = new Color(1, 1, 1, 1);
+			}
+
+			// ページに応じて描画内容を選択
+			// 通常
+			if (nowpage < maxpage - 2)
+			{
+				menuSkillDraw.SkillDraw(nowpage, selectedcharacter);
+			}
+			// ファイナルマジック
+			else
+			{
+				menuSkillDraw.FinalMagicDraw(selectedcharacter);
+			}
+		});
+		
     }
 	
 	// Update is called once per frame
