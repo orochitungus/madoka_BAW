@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System;
 using System.Collections;
 using UniRx;
 using UniRx.Triggers;
@@ -50,6 +51,16 @@ public class ControllerSettingPopup : MonoBehaviour
 	private string _RightInput;
 
 	/// <summary>
+	/// 1F前のOK入力
+	/// </summary>
+	private bool _PreOKInput;
+
+	/// <summary>
+	/// 1F前のキャンセル入力
+	/// </summary>
+	private bool _PreCancelInput;
+
+	/// <summary>
 	/// 各ステートの登録番号
 	/// </summary>
 	public int Standby;
@@ -59,6 +70,7 @@ public class ControllerSettingPopup : MonoBehaviour
 	public int CloseController2Setting;
 
 	public SETTINGTARGET SettingTarget;
+
 
 	void Awake()
 	{
@@ -77,6 +89,8 @@ public class ControllerSettingPopup : MonoBehaviour
 	{
 		Controllersettingpopup.Play("Base Layer.CloseControllerSetting");
 	}
+
+	
 
     /// <summary>
     /// OKボタンを押した場合、スティック設定に入る
@@ -98,7 +112,7 @@ public class ControllerSettingPopup : MonoBehaviour
 		Controllersettingpopup.SetBool("SetRightStick", false);
 		Controllersettingpopup.SetBool("ControllerSettingClose", true);
 		Keyconfigcontroller.Nowmode = KeyConfigController.NowMode.POPUPCLOSE;
-    }
+	}
 
 	
 	/// <summary>
@@ -209,6 +223,51 @@ public class ControllerSettingPopup : MonoBehaviour
 			Controllersettingpopup = GameObject.Find("ControllerSelectPopUp").GetComponent<Animator>();
 		}
 
+		//// OKキー入力ストリーム
+		//var okkeystream = this.UpdateAsObservable().Where(_ => GetOKInput());
+		//// OKキー解除ストリーム
+		//var okkeyupstream = this.UpdateAsObservable().Where(_ => !GetOKInput());
+		//// キャンセルキー入力ストリーム
+		//var cancelkeystream = this.UpdateAsObservable().Where(_ => GetCancelInput());
+		//// キャンセルキー解除ストリーム
+		//var cancelkeyupstream = this.UpdateAsObservable().Where(_ => !GetCancelInput());
+
+		//// 途中で離されたら解除
+		//okkeystream.SelectMany(_ => Observable.Timer(TimeSpan.FromSeconds(0.5)))
+		//.TakeUntil(okkeyupstream).RepeatUntilDestroy(this.gameObject).Subscribe(_ =>
+		//{
+		//	_PreOKInput = false;
+		//});
+		//cancelkeystream.SelectMany(_ => Observable.Timer(TimeSpan.FromSeconds(0.5)))
+		//.TakeUntil(cancelkeyupstream).RepeatUntilDestroy(this.gameObject).Subscribe(_ =>
+		//{
+		//	_PreCancelInput = false;
+		//});
+
+
+		//// OKとキャンセルの入力受け取り
+		//// 方向キー
+		//this.UpdateAsObservable().Where(_=> _PreOKInput && SettingTarget == SETTINGTARGET.TENKEY).Subscribe(_ =>
+		//{
+		//	if (GetOKInput())
+		//	{
+		//		OnClickOKButton();
+		//	}
+		//});
+
+		//// 右スティック
+		//this.UpdateAsObservable().Where(_ => SettingTarget == SETTINGTARGET.RIGHTSTICK).Subscribe(_ =>
+		//{
+		//	if (GetOKInput() && !_PreOKInput)
+		//	{
+		//		OnClickOKButton2();
+		//	}
+		//	if (GetCancelInput() && !_PreCancelInput)
+		//	{
+		//		OnClickCancelButton();
+		//	}
+		//});
+
 		// 2個目のポップアップのタイトル&質問文字列
 		this.UpdateAsObservable().Subscribe(_ =>
 		{
@@ -218,60 +277,60 @@ public class ControllerSettingPopup : MonoBehaviour
 					if (SettingTarget == SETTINGTARGET.RIGHTSTICK)
 					{
 						Popup2Title.text = "INPUT \n \"RIGHTSTICK UPPER\"";
-						Popup2QuestionText.text = "右スティックを上に倒してください\n中止する場合はCANCELを押してください";
+						Popup2QuestionText.text = "右スティックを上に倒してください\n中止する場合はCANCELをクリックしてください";
 					}
 					else if(SettingTarget == SETTINGTARGET.TENKEY)
 					{
 						Popup2Title.text = "INPUT \n \"TENKEY UPPER\"";
-						Popup2QuestionText.text = "十字キーを上に倒してください\n中止する場合はCANCELを押してください";
+						Popup2QuestionText.text = "十字キーを上に倒してください\n中止する場合はCANCELをクリックしてください";
 					}
 					break;
 				case KeyConfigController.NowMode.RIGHTSTICK2DOWNCHECK:
 					if (SettingTarget == SETTINGTARGET.RIGHTSTICK)
 					{
 						Popup2Title.text = "INPUT \n \"RIGHTSTICK DOWN\"";
-						Popup2QuestionText.text = "右スティックを下に倒してください\n中止する場合はCANCELを押してください";
+						Popup2QuestionText.text = "右スティックを下に倒してください\n中止する場合はCANCELをクリックしてください";
 					}
 					else if (SettingTarget == SETTINGTARGET.TENKEY)
 					{
 						Popup2Title.text = "INPUT \n \"TENKEY DOWN\"";
-						Popup2QuestionText.text = "十字キーを下に倒してください\n中止する場合はCANCELを押してください";
+						Popup2QuestionText.text = "十字キーを下に倒してください\n中止する場合はCANCELをクリックしてください";
 					}
 					break;
 				case KeyConfigController.NowMode.RIGHTSTICK2LEFTCHECK:
 					if (SettingTarget == SETTINGTARGET.RIGHTSTICK)
 					{
 						Popup2Title.text = "INPUT \n \"RIGHTSTICK LEFT\"";
-						Popup2QuestionText.text = "右スティックを左に倒してください\n中止する場合はCANCELを押してください";
+						Popup2QuestionText.text = "右スティックを左に倒してください\n中止する場合はCANCELをクリックしてください";
 					}
 					else if (SettingTarget == SETTINGTARGET.TENKEY)
 					{
 						Popup2Title.text = "INPUT \n \"TENKEY LEFT\"";
-						Popup2QuestionText.text = "十字キーを左に倒してください\n中止する場合はCANCELを押してください";
+						Popup2QuestionText.text = "十字キーを左に倒してください\n中止する場合はCANCELをクリックしてください";
 					}
 					break;
 				case KeyConfigController.NowMode.RIGHTSTICK2RIGHTCHECK:
 					if (SettingTarget == SETTINGTARGET.RIGHTSTICK)
 					{
 						Popup2Title.text = "INPUT \n \"RIGHTSTICK RIGHT\"";
-						Popup2QuestionText.text = "右スティックを右に倒してください\n中止する場合はCANCELを押してください";
+						Popup2QuestionText.text = "右スティックを右に倒してください\n中止する場合はCANCELをクリックしてください";
 					}
 					else if (SettingTarget == SETTINGTARGET.TENKEY)
 					{
 						Popup2Title.text = "INPUT \n \"TENKEY RIGHT\"";
-						Popup2QuestionText.text = "十字キーを右に倒してください\n中止する場合はCANCELを押してください";
+						Popup2QuestionText.text = "十字キーを右に倒してください\n中止する場合はCANCELをクリックしてください";
 					}
 					break;
 				case KeyConfigController.NowMode.RICHTSTICKFINALCHECK:
 					if (SettingTarget == SETTINGTARGET.RIGHTSTICK)
 					{
 						Popup2Title.text = "SETTING COMPLETE!!";
-						Popup2QuestionText.text = "右スティックの設定が完了しました\n確定する場合はOKを、やり直す場合はCANCELを押してください";
+						Popup2QuestionText.text = "右スティックの設定が完了しました\n確定する場合はOKを、やり直す場合はCANCELをクリックしてください";
 					}
 					else if (SettingTarget == SETTINGTARGET.TENKEY)
 					{
 						Popup2Title.text = "SETTING COMPLETE!!";
-						Popup2QuestionText.text = "方向キーの設定が完了しました\n確定する場合はOKを、やり直す場合はCANCELを押してください";
+						Popup2QuestionText.text = "方向キーの設定が完了しました\n確定する場合はOKを、やり直す場合はCANCELをクリックしてください";
 					}
 					break;
 					
@@ -287,29 +346,29 @@ public class ControllerSettingPopup : MonoBehaviour
 				{
 					case KeyConfigController.NowMode.RIGHTSTICK2UPPERCHECK:
 						_UpperInput = GetStickInput();
-						Popup2AnswerText.text = "上動作：" + _UpperInput + "\n上動作が認識されました\nＯＫボタンを押してください";					
+						Popup2AnswerText.text = "上動作：" + _UpperInput + "\n上動作が認識されました\nＯＫボタンをクリックしてください";
 						break;
 					case KeyConfigController.NowMode.RIGHTSTICK2DOWNCHECK:
 						_DownInput = GetStickInput();
-						Popup2AnswerText.text = "下動作：" + _DownInput + "\n下動作が認識されました\nＯＫボタンを押してください";
+						Popup2AnswerText.text = "下動作：" + _DownInput + "\n下動作が認識されました\nＯＫボタンをクリックしてください";
 						break;
-					case KeyConfigController.NowMode.RIGHTSTICK2LEFTCHECK:						
+					case KeyConfigController.NowMode.RIGHTSTICK2LEFTCHECK:
 						_LeftInput = GetStickInput();
-						Popup2AnswerText.text = "左動作：" + _LeftInput + "\n左動作が認識されました\nＯＫボタンを押してください";
+						Popup2AnswerText.text = "左動作：" + _LeftInput + "\n左動作が認識されました\nＯＫボタンをクリックしてください";
 						break;
 					case KeyConfigController.NowMode.RIGHTSTICK2RIGHTCHECK:
 						_RightInput = GetStickInput();
-						Popup2AnswerText.text = "右動作：" + _RightInput + "\n右動作が認識されました\nＯＫボタンを押してください";
+						Popup2AnswerText.text = "右動作：" + _RightInput + "\n右動作が認識されました\nＯＫボタンをクリックしてください";
 						break;
 				}
 			}
 		});
 	}
 	
-	// Update is called once per frame
-	void Update ()
-    {
-	
+
+	void LateUpdate ()
+    {		
+		_PreCancelInput = GetCancelInput();
 	}
 
 	public string GetStickInput()
@@ -382,6 +441,172 @@ public class ControllerSettingPopup : MonoBehaviour
 		}
 
 		return "";
+	}
+
+	/// <summary>
+	/// 現段階で設定されているOKキーを取得する
+	/// </summary>
+	/// <returns></returns>
+	public bool GetOKInput()
+	{
+		// キー入力
+		if (Input.anyKeyDown)
+		{
+			Array k = Enum.GetValues(typeof(KeyCode));
+			for (int i = 0; i < k.Length; i++)
+			{
+				// キー取得
+				if (Input.GetKeyDown((KeyCode)k.GetValue(i)))
+				{
+					Debug.Log(k.GetValue(i).ToString());
+					//キーボード
+					//入力がテンキーとマウスクリックだったら無視
+					if (k.GetValue(i).ToString().IndexOf("Arrow") < 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0 && k.GetValue(i).ToString().IndexOf("Joystick") < 0)
+					{
+						if (k.GetValue(i).ToString() == Keyconfigcontroller.ShotKeyboardText.text)
+						{
+							return true;
+						}
+
+					}
+					// ジョイスティック
+					// ジョイスティック1以外のボタンおよび軸入力は無視
+					else 
+					if (k.GetValue(i).ToString().IndexOf("Joystick1") >= 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0)
+					{
+						if (Keyconfigcontroller.ShotControllerText.text == k.GetValue(i).ToString().Substring(9))
+						{
+							_PreOKInput = true;
+							return true;
+						}
+					}
+				}
+				
+			}
+		}
+		_PreOKInput = false;
+		return false;
+	}
+
+	/// <summary>
+	/// 現段階で設定されているOKキーの解除を取得する
+	/// </summary>
+	/// <returns></returns>
+	public bool GetOKPull()
+	{
+		if(Input.anyKey)
+		{
+			Array k = Enum.GetValues(typeof(KeyCode));
+			for (int i = 0; i < k.Length; i++)
+			{
+				if(Input.GetKeyUp((KeyCode)k.GetValue(i)))
+				{
+					// キーボード
+					// 入力がテンキーとマウスクリックだったら無視
+					if (k.GetValue(i).ToString().IndexOf("Arrow") < 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0 && k.GetValue(i).ToString().IndexOf("Joystick") < 0)
+					{
+						if (k.GetValue(i).ToString() == Keyconfigcontroller.ShotKeyboardText.text)
+						{
+							return true;
+						}
+					}
+					// ジョイスティック
+					// ジョイスティック1以外のボタンおよび軸入力は無視
+					else if (k.GetValue(i).ToString().IndexOf("Joystick1") >= 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0)
+					{
+						if (Keyconfigcontroller.ShotControllerText.text == k.GetValue(i).ToString().Substring(9))
+						{
+							return true;
+						}
+					}
+
+					if (i == k.Length - 1)
+					{
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+	
+
+	/// <summary>
+	/// 現段階で設定されているキャンセルキーを受け取る
+	/// </summary>
+	/// <returns></returns>
+	public bool GetCancelInput()
+	{
+		// キー入力
+		if (Input.anyKeyDown)
+		{
+			Array k = Enum.GetValues(typeof(KeyCode));
+			for (int i = 0; i < k.Length; i++)
+			{
+				// キー取得
+				if (Input.GetKeyDown((KeyCode)k.GetValue(i)))
+				{
+					//Debug.Log(k.GetValue(i).ToString());
+					// キーボード
+					// 入力がテンキーとマウスクリックだったら無視
+					if (k.GetValue(i).ToString().IndexOf("Arrow") < 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0 && k.GetValue(i).ToString().IndexOf("Joystick") < 0)
+					{
+						if (k.GetValue(i).ToString() == Keyconfigcontroller.JumpKeyboadText.text)
+						{
+							
+							return true;
+						}
+					}
+					// ジョイスティック
+					// ジョイスティック1以外のボタンおよび軸入力は無視
+					else if (k.GetValue(i).ToString().IndexOf("Joystick1") >= 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0)
+					{
+						if (Keyconfigcontroller.JumpControllerText.text == k.GetValue(i).ToString().Substring(9))
+						{
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+	public bool GetPullCancel()
+	{
+		// キー入力
+		if (Input.anyKey)
+		{
+			Array k = Enum.GetValues(typeof(KeyCode));
+			for (int i = 0; i < k.Length; i++)
+			{
+				// キー取得
+				if (Input.GetKeyUp((KeyCode)k.GetValue(i)))
+				{
+					//Debug.Log(k.GetValue(i).ToString());
+					// キーボード
+					// 入力がテンキーとマウスクリックだったら無視
+					if (k.GetValue(i).ToString().IndexOf("Arrow") < 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0 && k.GetValue(i).ToString().IndexOf("Joystick") < 0)
+					{
+						if (k.GetValue(i).ToString() == Keyconfigcontroller.JumpKeyboadText.text)
+						{
+							return true;
+						}
+					}
+					// ジョイスティック
+					// ジョイスティック1以外のボタンおよび軸入力は無視
+					else if (k.GetValue(i).ToString().IndexOf("Joystick1") >= 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0)
+					{
+						if (Keyconfigcontroller.JumpControllerText.text == k.GetValue(i).ToString().Substring(9))
+						{
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
 	}
 }
 

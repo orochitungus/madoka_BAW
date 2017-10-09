@@ -23,7 +23,11 @@ public static class Character_Spec
         MEMBER_UL_MADOKA,   // アルティメットまどか（まどかの覚醒とは一応別扱い）
         // 敵キャラ(NPC)
         ENEMY_MAJYU,        // 魔獣
-
+		// クリア後のおまけキャラ(途中で使うかも？）
+		MEMBER_DEVIL_HOMURA,// 悪魔ほむら
+		MEMBER_NAGISA,		// 百江なぎさ
+		MEMBER_SAYAKA_GODSIBB,	// 円環のさやか
+		MEMBER_MICHEL,		// ミッチェル
         CHARACTER_ALL_NUM,  // 全キャラ
     };
 
@@ -44,7 +48,12 @@ public static class Character_Spec
         "sconosciuto",    
         "暁美 ほむら",       //（弓）
         "アルティメットまどか",//（まどかの覚醒とは一応別扱い）
-        "魔獣"
+        "魔獣",
+		"悪魔ほむら",
+		"百江 なぎさ",
+		"円環のさやか",
+		"ミッチェル・N",
+		""
     };
 
 	/// <summary>
@@ -65,6 +74,10 @@ public static class Character_Spec
 		"AKEMI HOMURA",
 		"ULTIMATE MADOKA",
 		"MAJYU",
+		"DEVIL HOMURA",
+		"MOMOE NAGISA",
+		"SAYAKA GODSIBB",
+		"MICHEL NOSTREDAME"
 	};
 
     // HP初期値
@@ -83,7 +96,10 @@ public static class Character_Spec
         170,                // 暁美ほむら（弓）
         250,                // アルティメットまどか（まどかの覚醒とは一応別扱い）
         100,                // 魔獣
-
+		250,				// 悪魔ほむら
+		230,				// 百江なぎさ
+		240,				// 円環のさやか
+		250,				// ミッチェル
     };
     // HP成長係数
     public static int[] HP_Grouth = new int[]
@@ -100,7 +116,11 @@ public static class Character_Spec
         25,                 // スコノシュート
         20,                 // 暁美ほむら（弓）
         30,                 // アルティメットまどか（まどかの覚醒とは一応別扱い）
-        20                  // 魔獣
+        20,                 // 魔獣
+		30,					// 悪魔ほむら
+		25,					// 百江なぎさ
+		25,					// 円環のさやか
+		30,					// ミッチェル
     };
     // 防御力
     public static int[] Def_OR = new int[]
@@ -118,6 +138,10 @@ public static class Character_Spec
         10,                 // 暁美ほむら（弓）
         20,                 // アルティメットまどか（まどかの覚醒とは一応別扱い）
         7,                  // 魔獣
+		20,					// 悪魔ほむら
+		18,					// 百江なぎさ
+		18,					// 円環のさやか
+		20,					// ミッチェル
     };
     // 防御力成長係数
     public static int[] Def_Growth = new int[]
@@ -134,7 +158,11 @@ public static class Character_Spec
         4,                  // スコノシュート
         2,                  // 暁美ほむら（弓）
         4,                  // アルティメットまどか（まどかの覚醒とは一応別扱い）
-        2                   // 魔獣
+        2,                  // 魔獣
+		4,					// 悪魔ほむら
+		3,					// 百江なぎさ
+		3,					// 円環のさやか
+		4,					// ミッチェル
     };
     // ブースト量初期値(Lv1の時の値）
     public static int[] Boost_OR = new int[]
@@ -151,8 +179,12 @@ public static class Character_Spec
         200,                // スコノシュート
         170,                // 暁美ほむら（弓）
         280,                // アルティメットまどか（まどかの覚醒とは一応別扱い）
-        120,                // 魔獣            
-    };
+        120,                // 魔獣
+		280,				// 悪魔ほむら
+		220,				// 百江なぎさ
+		280,				// 円環のさやか
+		280,				// ミッチェル
+	};
     // ブースト量成長係数
     public static int[] Boost_Growth = new int[]
     {
@@ -169,6 +201,10 @@ public static class Character_Spec
         5,                  // 暁美ほむら（弓）
         8,                  // アルティメットまどか（まどかの覚醒とは一応別扱い）
         5,                  // 魔獣
+		8,					// 悪魔ほむら
+		7,					// 百江なぎさ
+		8,					// 円環のさやか
+		8,					// ミッチェル
     };
     
     // 覚醒ゲージ量初期値(LV1の時の値）
@@ -187,6 +223,10 @@ public static class Character_Spec
         170,                // 暁美ほむら（弓）
         200,                // アルティメットまどか（まどかの覚醒とは一応別扱い）
         120,                // 魔獣
+		200,				// 悪魔ほむら
+		170,				// 百江なぎさ
+		190,				// 円環のさやか
+		200,				// ミッチェル
     };
     // 覚醒ゲージ量成長係数
     public static int[] Arousal_Growth = new int[]
@@ -204,23 +244,31 @@ public static class Character_Spec
         4,                  // 暁美ほむら（弓）
         8,                  // アルティメットまどか（まどかの覚醒とは一応別扱い）
         4,                  // 魔獣
+		8,					// 悪魔ほむら
+		5,					// 百江なぎさ
+		8,					// 円環のさやか
+		8,					// ミッチェル
     };
     // 撃破時の取得経験値
     public static int[] Exp = new int[]
     {
-        0,                   // なし        
-        300,                 // 鹿目まどか
-        300,                 // 美樹さやか
-        300,                 // 暁美ほむら（銃）
-        300,                 // 巴マミ
-        300,                 // 佐倉杏子
-        300,                 // 千歳ゆま
-        300,                 // 呉キリカ
-        300,                 // 美国織莉子
-        600,                 // スコノシュート
-        300,                 // 暁美ほむら（弓）
-        400,                 // アルティメットまどか（まどかの覚醒とは一応別扱い）
-        2,                   // 魔獣
+        0,                  // なし        
+        300,                // 鹿目まどか
+        300,                // 美樹さやか
+        300,                // 暁美ほむら（銃）
+        300,                // 巴マミ
+        300,                // 佐倉杏子
+        300,                // 千歳ゆま
+        300,                // 呉キリカ
+        300,                // 美国織莉子
+        600,                // スコノシュート
+        300,                // 暁美ほむら（弓）
+        400,                // アルティメットまどか（まどかの覚醒とは一応別扱い）
+        2,                  // 魔獣
+		1600,				// 悪魔ほむら
+		1000,				// 百江なぎさ
+		1500,				// 円環のさやか
+		0,					// ミッチェル
     };
 
 	/// <summary>
@@ -385,5 +433,13 @@ public static class Character_Spec
             // 下特殊格闘
             new CharacterSkill(CharacterSkill.SkillType.BACK_EX_WRESTLE,"鷹爪脚",20,5,5.0f,1,CharacterSkill.HitType.BLOW,1.0f,60.0f), 
         },
+		// 悪魔ほむら
+		new CharacterSkill[] { },
+		// 百江なぎさ
+		new CharacterSkill[] {},
+		// 円環のさやか
+		new CharacterSkill[] {},
+		// ミッチェル
+		new CharacterSkill[] {},
     };
 }

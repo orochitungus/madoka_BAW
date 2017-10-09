@@ -11,7 +11,7 @@ public class MenuController : MonoBehaviour
     /// <summary>
     /// 現在のモード
     /// </summary>
-    private MenuControl Menucontrol;
+    public MenuControl Menucontrol;
 
     /// <summary>
     /// 選択時のスプライト
@@ -132,13 +132,13 @@ public class MenuController : MonoBehaviour
 	/// システム画面のオブジェクト
 	/// </summary>
 	[SerializeField]
-	private GameObject System;
+	private GameObject SystemWindow;
 
 	/// <summary>
 	/// パーティー画面のオブジェクト
 	/// </summary>
 	[SerializeField]
-	private GameObject Party;
+	private GameObject PartyWindow;
 
 	/// <summary>
 	/// セーブロード画面のオブジェクト
@@ -158,6 +158,11 @@ public class MenuController : MonoBehaviour
 	private float STATUSWINDOWYPOS = 190;
 
     private float STATUSWINDOWXPOS = 800;
+
+	/// <summary>
+	/// キーコンフィグ画面
+	/// </summary>
+	public GameObject KeyConfigScreen;
 
     void Awake()
     {
@@ -243,6 +248,24 @@ public class MenuController : MonoBehaviour
                         case (int)Menumode.SKILL:
                             Menucontrol = MenuControl.SKILLCHARSELECT;
                             break;
+						case (int)Menumode.SYSTEM:
+							// 選択するとSYSTEMへ移行
+							AudioManager.Instance.PlaySE("OK");
+							Menucontrol = MenuControl.SYSTEM;
+							iTween.MoveTo(Root, iTween.Hash(
+								// 移動先指定
+								"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
+								// 移動時間指定
+								"time", 0.5f,
+								// 終了時Status呼び出し
+								"oncomplete", "InsertSystem",
+								"oncompletetarget", gameObject
+							));
+							break;
+						case (int)Menumode.PARTY:
+							// 選択するとPARTYへ移行
+
+							break;
 					}
 				}
             }
@@ -590,6 +613,55 @@ public class MenuController : MonoBehaviour
 					Menucontrol = MenuControl.SKILLCHARSELECT;
 				}
 			}
+			// システム表示
+			else if(Menucontrol == MenuControl.SYSTEM)
+			{
+				// 方向キー上下で項目変更
+				KeyInputController(ref SystemWindow.GetComponent<MenuSystemDraw>().NowSelect,ref Dummy, 4, 0);
+				// BGM/SE/VOICEの制御はMenuSystemDrawでやる
+
+				// キャンセルでROOTへ移行
+				if (ControllerManager.Instance.Jump)
+				{
+					AudioManager.Instance.PlaySE("OK");
+					iTween.MoveTo(SystemWindow, iTween.Hash(
+						// 移動先指定
+						"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
+						// 移動時間指定
+						"time", 0.5f,
+						// 終了時Root呼び出し
+						"oncomplete", "InsertRoot",
+						"oncompletetarget", gameObject
+						));
+					Menucontrol = MenuControl.ROOT;
+				}
+
+				// NowSelect = 3でショットキーを押すとキーコンフィグへ移行
+				if(SystemWindow.GetComponent<MenuSystemDraw>().NowSelect == 3 && ControllerManager.Instance.Shot)
+				{
+					AudioManager.Instance.PlaySE("OK");
+					KeyConfigScreen.SetActive(true);
+					Menucontrol = MenuControl.KEYCONFIG;
+				}
+
+				// 説明文表示
+				switch (SystemWindow.GetComponent<MenuSystemDraw>().NowSelect)
+				{
+					case 0:
+						InformationText.text = "方向キー左右でBGMのボリュームを調整します\nシャンプでひとつ前の画面に戻ります";
+						break;
+					case 1:
+						InformationText.text = "方向キー左右でSEのボリュームを調整します\nシャンプでひとつ前の画面に戻ります";
+						break;
+					case 2:
+						InformationText.text = "方向キー左右でVOICEのボリュームを調整します\nシャンプでひとつ前の画面に戻ります";
+						break;
+					case 3:
+						InformationText.text = "ショットを押すとキーコンフィグ画面へ移動します\nシャンプでひとつ前の画面に戻ります";
+						break;
+				}
+			}
+
 		});
 
         // ルート状態
@@ -738,6 +810,15 @@ public class MenuController : MonoBehaviour
 		});
 		
     }
+
+	/// <summary>
+	/// SystemWindowをprivateにしてしまったのでアクセス用
+	/// </summary>
+	/// <param name="nowselect"></param>
+	public void MenuSystemDrawSelect(int nowselect)
+	{
+		SystemWindow.GetComponent<MenuSystemDraw>().NowSelect = nowselect;
+	}
 	
 	// Update is called once per frame
 	void Update ()
@@ -988,6 +1069,22 @@ public class MenuController : MonoBehaviour
     {
         iTween.MoveTo(SkillWindow, new Vector3(320, STATUSWINDOWYPOS, 0), 0.5f);
     }
+
+	/// <summary>
+	/// システム画面を入れる
+	/// </summary>
+	private void InsertSystem()
+	{
+		iTween.MoveTo(SystemWindow, new Vector3(320, STATUSWINDOWYPOS, 0), 0.5f);
+	}
+
+	/// <summary>
+	/// パーティー編成画面を入れる
+	/// </summary>
+	private void InsertParty()
+	{
+		iTween.MoveTo(PartyWindow, new Vector3(320, STATUSWINDOWYPOS, 0), 0.5f);
+	}
 
 	/// <summary>
 	/// ステータス強化を実行したときの処理
@@ -1241,6 +1338,7 @@ public enum MenuControl
     SKILL,                  // スキル
     SKILLCHARSELECT,        // スキルキャラ選択
     SYSTEM,                 // システム
+	KEYCONFIG,				// キーコンフィグ
     PARTY,                  // パーティー
     SAVE,                   // セーブ
     LOAD,                   // ロード

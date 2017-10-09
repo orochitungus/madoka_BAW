@@ -27,6 +27,87 @@ public static class savingparameter
     // 現在の所持金
     public static int nowmoney;
 
+	/// <summary>
+	/// キャラクターセレクトが使用可能であるか
+	/// </summary>
+	public static bool UseableCharacterSelect;
+
+	// 各キャラクターが選択可能であるか否か（配列にすると計算が面倒になるので敢えてバラす）
+	/// <summary>
+	/// 鹿目まどかが使用可能であるか否か
+	/// </summary>
+	public static bool UseableMadoka;
+
+	/// <summary>
+	/// 美樹さやかが使用可能であるか否か
+	/// </summary>
+	public static bool UseableSayaka;
+
+	/// <summary>
+	/// 暁美ほむら（銃）が使用可能であるか否か
+	/// </summary>
+	public static bool UseableHomura;
+
+	/// <summary>
+	/// 巴マミが使用可能であるか否か
+	/// </summary>
+	public static bool UseableMami;
+
+	/// <summary>
+	/// 佐倉杏子が使用可能であるか否か
+	/// </summary>
+	public static bool UseableKyoko;
+
+	/// <summary>
+	/// 千歳ゆまが使用可能であるか否か
+	/// </summary>
+	public static bool UseableYuma;
+
+	/// <summary>
+	/// 呉キリカが使用可能であるか否か
+	/// </summary>
+	public static bool UseableKirika;
+
+	/// <summary>
+	/// 美国織莉子が使用可能であるか否か
+	/// </summary>
+	public static bool UseableOriko;
+
+	/// <summary>
+	/// スコノシュートが使用可能であるか否か
+	/// </summary>
+	public static bool UseableSconosciuto;
+
+	/// <summary>
+	/// 暁美ほむら（弓）が使用可能であるか否か
+	/// </summary>
+	public static bool UseableHomuraBow;
+
+	/// <summary>
+	/// アルティメットまどかが使用可能であるか否か
+	/// </summary>
+	public static bool UseableUltimateMadoka;
+
+	/// <summary>
+	/// 悪魔ほむらが使用可能であるか否か
+	/// </summary>
+	public static bool UseableDevilHomura;
+
+	/// <summary>
+	/// 百江なぎさが使用可能であるか否か
+	/// </summary>
+	public static bool UseableNagisa;
+
+	/// <summary>
+	/// 円環のさやかが使用可能であるか否か
+	/// </summary>
+	public static bool UseableSayakaGodsibb;
+
+	/// <summary>
+	/// ミッチェル・ノートルダムが使用可能であるか否か
+	/// </summary>
+	public static bool UseableMichel;
+
     // キャラクター関連
     // 現在のパーティー(護衛対象も一応パーティーに含める)
     private static int[] nowparty = new int[4];     
@@ -667,6 +748,26 @@ public static class savingparameter
 		//nowHP[(int)Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B] = 50;
 		//// 実験でリボほむらのSG汚染率を50％に
 		//GemContimination[(int)Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B] = 50;
+
+		// 実験でキャラセレクトを使用可能にする
+		UseableCharacterSelect = true;
+
+		// 実験で全キャラ使用可能にする
+		UseableMadoka = true;
+		UseableSayaka = true;
+		UseableHomura = true;
+		UseableMami = true;
+		UseableKyoko = true;
+		UseableYuma = true;
+		UseableKirika = true;
+		UseableOriko = true;
+		UseableSconosciuto = true;
+		UseableHomuraBow = true;
+		UseableUltimateMadoka = true;
+		UseableDevilHomura = true;
+		UseableSayakaGodsibb = true;
+		UseableNagisa = true;
+		UseableMichel = true;
 	}
 
     // データを保存する
