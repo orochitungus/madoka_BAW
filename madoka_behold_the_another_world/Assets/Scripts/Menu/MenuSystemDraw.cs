@@ -40,10 +40,13 @@ public class MenuSystemDraw : MonoBehaviour
 	// 1F前の右入力
 	private bool _PreRightInput;
 
+	[SerializeField]
+	private MenuController Menucontroller;
+
 	// Use this for initialization
 	void Start ()
     {
-        this.UpdateAsObservable().Subscribe(_ =>
+        this.UpdateAsObservable().Where(_=> Menucontroller.Menucontrol == MenuControl.SYSTEM).Subscribe(_ =>
         {
             // ゲージ変形量反映
             BGMGauge.fillAmount = PlayerPrefs.GetFloat("BGMVolume");

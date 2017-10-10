@@ -85,9 +85,9 @@ public class MenuPartyDraw : MonoBehaviour
 						// 最大HPを表示
 						CharacterMaxHP.text = savingparameter.GetMaxHP(characterindex).ToString("d4");
 						// 現在MPを表示
-						CharacterNowMagic.text = savingparameter.GetNowArousal(characterindex).ToString("d4");
+						CharacterNowMagic.text = ((int)savingparameter.GetNowArousal(characterindex)).ToString("d4");
 						// 最大MPを表示
-						CharacterMaxMagic.text = savingparameter.GetMaxArousal(characterindex).ToString("d4");
+						CharacterMaxMagic.text = ((int)savingparameter.GetMaxArousal(characterindex)).ToString("d4");
 					}
 					// ディアクティブの場合キャラクターの画像を消す
 					else
@@ -169,7 +169,7 @@ public class MenuPartyDraw : MonoBehaviour
 	}
 
 	/// <summary>
-	/// 
+	/// キャラグラフィックをセットアップする
 	/// </summary>
 	/// <param name="num"></param>
 	private void SetUpCursor(PartyCursorNumber num, bool useable)

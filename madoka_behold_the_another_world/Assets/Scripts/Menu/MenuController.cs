@@ -155,9 +155,17 @@ public class MenuController : MonoBehaviour
 	/// <summary>
 	/// ステータス画面のY座標
 	/// </summary>
-	private float STATUSWINDOWYPOS = 190;
+	private const float STATUSWINDOWYPOS = 190;
 
-    private float STATUSWINDOWXPOS = 800;
+	/// <summary>
+	/// ステータス画面のX座標
+	/// </summary>
+    private const float STATUSWINDOWXPOS = 800;
+
+	/// <summary>
+	/// キャラクター選択画面の行の最大幅
+	/// </summary>
+	private const int CHARACTERSELECTXLENGTH = 7;
 
 	/// <summary>
 	/// キーコンフィグ画面
@@ -216,12 +224,12 @@ public class MenuController : MonoBehaviour
         // 短押し判定(前フレーム押してない）		
         this.UpdateAsObservable().Subscribe(_ =>
         {
-            // 各モードごとに操作する変数を変える
-            if(Menucontrol == MenuControl.ROOT)
-            {
-                KeyInputController(ref MenuBarSelect, ref Dummy, Menubar.Length, 0);
+			// 各モードごとに操作する変数を変える
+			if (Menucontrol == MenuControl.ROOT)
+			{
+				KeyInputController(ref MenuBarSelect, ref Dummy, Menubar.Length, 0);
 				// 選択により各モードへ移行
-				if(ControllerManager.Instance.Shot)
+				if (ControllerManager.Instance.Shot)
 				{
 					AudioManager.Instance.PlaySE("OK");
 					switch (MenuBarSelect)
@@ -241,13 +249,13 @@ public class MenuController : MonoBehaviour
 								"oncomplete", "InsertItem",
 								"oncompletetarget", gameObject
 							));
-                            ItemDraw();
+							ItemDraw();
 							// ITEMへ移行
 							Menucontrol = MenuControl.ITEM;
 							break;
-                        case (int)Menumode.SKILL:
-                            Menucontrol = MenuControl.SKILLCHARSELECT;
-                            break;
+						case (int)Menumode.SKILL:
+							Menucontrol = MenuControl.SKILLCHARSELECT;
+							break;
 						case (int)Menumode.SYSTEM:
 							// 選択するとSYSTEMへ移行
 							AudioManager.Instance.PlaySE("OK");
@@ -264,16 +272,34 @@ public class MenuController : MonoBehaviour
 							break;
 						case (int)Menumode.PARTY:
 							// 選択するとPARTYへ移行
-
+							AudioManager.Instance.PlaySE("OK");
+							// 選択可能な場合一人目選択へ
+							if (savingparameter.UseableCharacterSelect)
+							{
+								Menucontrol = MenuControl.PARTYSELECT1;
+							}
+							else
+							{
+								Menucontrol = MenuControl.PARTYUNSELECT;
+							}
+							iTween.MoveTo(Root, iTween.Hash(
+								// 移動先指定
+								"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
+								// 移動時間指定
+								"time", 0.5f,
+								// 終了時Party呼び出し
+								"oncomplete", "InsertParty",
+								"oncompletetarget", gameObject
+							));
 							break;
 					}
 				}
-            }
-			else if(Menucontrol == MenuControl.STATUSCHARSELECT)
+			}
+			else if (Menucontrol == MenuControl.STATUSCHARSELECT)
 			{
 				KeyInputController(ref Dummy, ref CharSelect, 0, savingparameter.GetNowPartyNum());
 				// 選択するとSTATUSに移行
-				if(ControllerManager.Instance.Shot)
+				if (ControllerManager.Instance.Shot)
 				{
 					AudioManager.Instance.PlaySE("OK");
 					iTween.MoveTo(Root, iTween.Hash(
@@ -282,9 +308,9 @@ public class MenuController : MonoBehaviour
 						// 移動時間指定
 						"time", 0.5f,
 						// 終了時Status呼び出し
-						"oncomplete","InsertStatus",
+						"oncomplete", "InsertStatus",
 						"oncompletetarget", gameObject
-					));					
+					));
 					// 選択したキャラのSTATUSを表示する
 					// 選択したキャラは誰？
 					int selectedCharacter = savingparameter.GetNowParty(CharSelect);
@@ -295,23 +321,23 @@ public class MenuController : MonoBehaviour
 					Menucontrol = MenuControl.STATUS;
 				}
 				// CANCELでROOTに戻る
-				else if(ControllerManager.Instance.Jump)
+				else if (ControllerManager.Instance.Jump)
 				{
 					AudioManager.Instance.PlaySE("OK");
-					for (int i = 0; i<MadokaDefine.MAXPARTYMEMBER; i++)
+					for (int i = 0; i < MadokaDefine.MAXPARTYMEMBER; i++)
 					{
-						Characterstatusroot[i].Frame.color = new Color(255, 255, 255);						
+						Characterstatusroot[i].Frame.color = new Color(255, 255, 255);
 					}
 					Menucontrol = MenuControl.ROOT;
 				}
 			}
-			else if(Menucontrol == MenuControl.STATUS)
+			else if (Menucontrol == MenuControl.STATUS)
 			{
 				// 強化したい項目を選ぶ
 				KeyInputController(ref Status.GetComponent<MenuStatus>().NowSelect, ref Dummy, (int)StatusKind.TOTALSTATUSNUM, 0);
-				
+
 				// OKで各選択モードに入る
-				if(ControllerManager.Instance.Shot)
+				if (ControllerManager.Instance.Shot)
 				{
 					AudioManager.Instance.PlaySE("OK");
 					Status.GetComponent<MenuStatus>().SelectMode = true;
@@ -321,13 +347,13 @@ public class MenuController : MonoBehaviour
 						Status.GetComponent<MenuStatus>().StrInterim = savingparameter.GetStrLevel(savingparameter.GetNowParty(CharSelect));
 						Menucontrol = MenuControl.STATUSSTR;
 					}
-					else if(Status.GetComponent<MenuStatus>().NowSelect == (int)StatusKind.CON)
+					else if (Status.GetComponent<MenuStatus>().NowSelect == (int)StatusKind.CON)
 					{
 						// 暫定値に現在のConを入れる
 						Status.GetComponent<MenuStatus>().ConInterim = savingparameter.GetArousalLevel(savingparameter.GetNowParty(CharSelect));
 						Menucontrol = MenuControl.STATUSCON;
 					}
-					else if(Status.GetComponent<MenuStatus>().NowSelect == (int)StatusKind.VIT)
+					else if (Status.GetComponent<MenuStatus>().NowSelect == (int)StatusKind.VIT)
 					{
 						// 暫定値に現在のVitを入れる
 						Status.GetComponent<MenuStatus>().VitInterim = savingparameter.GetDefLevel(savingparameter.GetNowParty(CharSelect));
@@ -347,7 +373,7 @@ public class MenuController : MonoBehaviour
 					}
 				}
 				// CANCELでSTATUCHARSELECTに戻る
-				else if(ControllerManager.Instance.Jump)
+				else if (ControllerManager.Instance.Jump)
 				{
 					AudioManager.Instance.PlaySE("OK");
 					iTween.MoveTo(Status, iTween.Hash(
@@ -359,20 +385,20 @@ public class MenuController : MonoBehaviour
 						"oncomplete", "InsertRoot",
 						"oncompletetarget", gameObject
 					));
-					
+
 					Menucontrol = MenuControl.STATUSCHARSELECT;
 				}
 			}
-			else if(Menucontrol == MenuControl.STATUSSTR)
+			else if (Menucontrol == MenuControl.STATUSSTR)
 			{
-				KeyInputController(ref Dummy, ref Status.GetComponent<MenuStatus>().StrInterim, 0, savingparameter.GetStrLevel(savingparameter.GetNowParty(CharSelect)) + savingparameter.GetSkillPoint(savingparameter.GetNowParty(CharSelect)) + 1,0, savingparameter.GetStrLevel(savingparameter.GetNowParty(CharSelect)));
+				KeyInputController(ref Dummy, ref Status.GetComponent<MenuStatus>().StrInterim, 0, savingparameter.GetStrLevel(savingparameter.GetNowParty(CharSelect)) + savingparameter.GetSkillPoint(savingparameter.GetNowParty(CharSelect)) + 1, 0, savingparameter.GetStrLevel(savingparameter.GetNowParty(CharSelect)));
 				StatusReinforcement(MenuControl.STATUSSTR);
 			}
-			else if(Menucontrol == MenuControl.STATUSSTRFINALCONFIRM)
+			else if (Menucontrol == MenuControl.STATUSSTRFINALCONFIRM)
 			{
 				KeyInputController(ref Dummy, ref PopUp.GetComponent<MenuPopup>().NowSelect, 0, 2);
 				// 選択確定
-				if(PopUp.GetComponent<MenuPopup>().NowSelect == 0)
+				if (PopUp.GetComponent<MenuPopup>().NowSelect == 0)
 				{
 					if (ControllerManager.Instance.Shot)
 					{
@@ -389,12 +415,12 @@ public class MenuController : MonoBehaviour
 					}
 				}
 			}
-			else if(Menucontrol == MenuControl.STATUSCON)
+			else if (Menucontrol == MenuControl.STATUSCON)
 			{
 				KeyInputController(ref Dummy, ref Status.GetComponent<MenuStatus>().ConInterim, 0, savingparameter.GetArousalLevel(savingparameter.GetNowParty(CharSelect)) + savingparameter.GetSkillPoint(savingparameter.GetNowParty(CharSelect)) + 1, 0, savingparameter.GetArousalLevel(savingparameter.GetNowParty(CharSelect)));
 				StatusReinforcement(MenuControl.STATUSCON);
 			}
-			else if(Menucontrol == MenuControl.STATUSCONFINALCONFIRM)
+			else if (Menucontrol == MenuControl.STATUSCONFINALCONFIRM)
 			{
 				KeyInputController(ref Dummy, ref PopUp.GetComponent<MenuPopup>().NowSelect, 0, 2);
 				// 選択確定
@@ -415,12 +441,12 @@ public class MenuController : MonoBehaviour
 					}
 				}
 			}
-			else if(Menucontrol == MenuControl.STATUSVIT)
+			else if (Menucontrol == MenuControl.STATUSVIT)
 			{
 				KeyInputController(ref Dummy, ref Status.GetComponent<MenuStatus>().VitInterim, 0, savingparameter.GetDefLevel(savingparameter.GetNowParty(CharSelect)) + savingparameter.GetSkillPoint(savingparameter.GetNowParty(CharSelect)) + 1, 0, savingparameter.GetDefLevel(savingparameter.GetNowParty(CharSelect)));
 				StatusReinforcement(MenuControl.STATUSVIT);
 			}
-			else if(Menucontrol == MenuControl.STATUSVITFINALCONFIRM)
+			else if (Menucontrol == MenuControl.STATUSVITFINALCONFIRM)
 			{
 				KeyInputController(ref Dummy, ref PopUp.GetComponent<MenuPopup>().NowSelect, 0, 2);
 				// 選択確定
@@ -441,12 +467,12 @@ public class MenuController : MonoBehaviour
 					}
 				}
 			}
-			else if(Menucontrol == MenuControl.STATUSDEX)
+			else if (Menucontrol == MenuControl.STATUSDEX)
 			{
 				KeyInputController(ref Dummy, ref Status.GetComponent<MenuStatus>().DexInterim, 0, savingparameter.GetBulLevel(savingparameter.GetNowParty(CharSelect)) + savingparameter.GetSkillPoint(savingparameter.GetNowParty(CharSelect)) + 1, 0, savingparameter.GetBulLevel(savingparameter.GetNowParty(CharSelect)));
 				StatusReinforcement(MenuControl.STATUSDEX);
 			}
-			else if(Menucontrol == MenuControl.STATUSDEXFINALCONFIRM)
+			else if (Menucontrol == MenuControl.STATUSDEXFINALCONFIRM)
 			{
 				KeyInputController(ref Dummy, ref PopUp.GetComponent<MenuPopup>().NowSelect, 0, 2);
 				// 選択確定
@@ -494,14 +520,14 @@ public class MenuController : MonoBehaviour
 				}
 			}
 			// 装備アイテム選択
-			else if(Menucontrol == MenuControl.ITEM)
+			else if (Menucontrol == MenuControl.ITEM)
 			{
 				KeyInputController(ref ItemWindow.GetComponent<MenuItemDraw>().NowSelect, ref Dummy, Item.itemspec.Length, 0);
 				// 選択の場合ポップアップを出す
-				if(ControllerManager.Instance.Shot)
+				if (ControllerManager.Instance.Shot)
 				{
 					// アイテムの種類を取得(ないところは-1になっている）
-					if(ItemWindow.GetComponent<MenuItemDraw>().ItemKind[ItemWindow.GetComponent<MenuItemDraw>().NowSelect] >= 0)
+					if (ItemWindow.GetComponent<MenuItemDraw>().ItemKind[ItemWindow.GetComponent<MenuItemDraw>().NowSelect] >= 0)
 					{
 						iTween.ScaleTo(PopUp, iTween.Hash(
 										// 拡大率指定
@@ -531,7 +557,7 @@ public class MenuController : MonoBehaviour
 				}
 			}
 			// アイテム装備最終確認
-			else if(Menucontrol == MenuControl.ITEMFINALCONFIRM)
+			else if (Menucontrol == MenuControl.ITEMFINALCONFIRM)
 			{
 				KeyInputController(ref Dummy, ref PopUp.GetComponent<MenuPopup>().NowSelect, 0, 2);
 				// 選択確定
@@ -539,12 +565,12 @@ public class MenuController : MonoBehaviour
 				{
 					if (ControllerManager.Instance.Shot)
 					{
-						 savingparameter.SetNowEquipItem(ItemWindow.GetComponent<MenuItemDraw>().ItemKind[ItemWindow.GetComponent<MenuItemDraw>().NowSelect]);
-                        ReinforcementCancel();
-                        Menucontrol = MenuControl.ITEM;
-                        ItemDraw();
-                    }
-                }
+						savingparameter.SetNowEquipItem(ItemWindow.GetComponent<MenuItemDraw>().ItemKind[ItemWindow.GetComponent<MenuItemDraw>().NowSelect]);
+						ReinforcementCancel();
+						Menucontrol = MenuControl.ITEM;
+						ItemDraw();
+					}
+				}
 				// 選択キャンセル
 				else
 				{
@@ -555,50 +581,50 @@ public class MenuController : MonoBehaviour
 					}
 				}
 			}
-            // スキルキャラ選択
-            else if(Menucontrol == MenuControl.SKILLCHARSELECT)
-            {
-                KeyInputController(ref Dummy, ref CharSelect, 0, savingparameter.GetNowPartyNum());
-                // 選択するとSKILLへ移行
-                if (ControllerManager.Instance.Shot)
-                {
-                    // 選択するとITEMへ移行
-                    AudioManager.Instance.PlaySE("OK");
-                    iTween.MoveTo(Root, iTween.Hash(
-                        // 移動先指定
-                        "position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
-                        // 移動時間指定
-                        "time", 0.5f,
-                        // 終了時Skill呼び出し
-                        "oncomplete", "InsertSkill",
-                        "oncompletetarget", gameObject
-                    ));
-                    // 選択したキャラは誰？
-                    int selectedCharacter = savingparameter.GetNowParty(CharSelect);
-                    // SKILL書き込み
-                    SkillWindow.GetComponent<MenuSkillDraw>().Initiallize(selectedCharacter);
-                    Menucontrol = MenuControl.SKILL;
-                }
-                // キャンセルでROOTに戻る
-                else if (ControllerManager.Instance.Jump)
-                {
-                    AudioManager.Instance.PlaySE("OK");
-                    for (int i = 0; i < MadokaDefine.MAXPARTYMEMBER; i++)
-                    {
-                        Characterstatusroot[i].Frame.color = new Color(255, 255, 255);
-                    }
-                    Menucontrol = MenuControl.ROOT;
-                }
-            }
+			// スキルキャラ選択
+			else if (Menucontrol == MenuControl.SKILLCHARSELECT)
+			{
+				KeyInputController(ref Dummy, ref CharSelect, 0, savingparameter.GetNowPartyNum());
+				// 選択するとSKILLへ移行
+				if (ControllerManager.Instance.Shot)
+				{
+					// 選択するとITEMへ移行
+					AudioManager.Instance.PlaySE("OK");
+					iTween.MoveTo(Root, iTween.Hash(
+						// 移動先指定
+						"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
+						// 移動時間指定
+						"time", 0.5f,
+						// 終了時Skill呼び出し
+						"oncomplete", "InsertSkill",
+						"oncompletetarget", gameObject
+					));
+					// 選択したキャラは誰？
+					int selectedCharacter = savingparameter.GetNowParty(CharSelect);
+					// SKILL書き込み
+					SkillWindow.GetComponent<MenuSkillDraw>().Initiallize(selectedCharacter);
+					Menucontrol = MenuControl.SKILL;
+				}
+				// キャンセルでROOTに戻る
+				else if (ControllerManager.Instance.Jump)
+				{
+					AudioManager.Instance.PlaySE("OK");
+					for (int i = 0; i < MadokaDefine.MAXPARTYMEMBER; i++)
+					{
+						Characterstatusroot[i].Frame.color = new Color(255, 255, 255);
+					}
+					Menucontrol = MenuControl.ROOT;
+				}
+			}
 			// スキル表示
-			else if(Menucontrol == MenuControl.SKILL)
+			else if (Menucontrol == MenuControl.SKILL)
 			{
 				// 最大ページ取得
 				int maxpage = SkillWindow.GetComponent<MenuSkillDraw>().MaxPage - 1;
 				// 左右キーでページ送り
 				KeyInputController(ref Dummy, ref SkillWindow.GetComponent<MenuSkillDraw>().NowPage, 0, maxpage);
 				// キャンセルでSKILLCHARSELECTへ移行
-				if(ControllerManager.Instance.Jump)
+				if (ControllerManager.Instance.Jump)
 				{
 					AudioManager.Instance.PlaySE("OK");
 					iTween.MoveTo(SkillWindow, iTween.Hash(
@@ -614,10 +640,10 @@ public class MenuController : MonoBehaviour
 				}
 			}
 			// システム表示
-			else if(Menucontrol == MenuControl.SYSTEM)
+			else if (Menucontrol == MenuControl.SYSTEM)
 			{
 				// 方向キー上下で項目変更
-				KeyInputController(ref SystemWindow.GetComponent<MenuSystemDraw>().NowSelect,ref Dummy, 4, 0);
+				KeyInputController(ref SystemWindow.GetComponent<MenuSystemDraw>().NowSelect, ref Dummy, 4, 0);
 				// BGM/SE/VOICEの制御はMenuSystemDrawでやる
 
 				// キャンセルでROOTへ移行
@@ -637,7 +663,7 @@ public class MenuController : MonoBehaviour
 				}
 
 				// NowSelect = 3でショットキーを押すとキーコンフィグへ移行
-				if(SystemWindow.GetComponent<MenuSystemDraw>().NowSelect == 3 && ControllerManager.Instance.Shot)
+				if (SystemWindow.GetComponent<MenuSystemDraw>().NowSelect == 3 && ControllerManager.Instance.Shot)
 				{
 					AudioManager.Instance.PlaySE("OK");
 					KeyConfigScreen.SetActive(true);
@@ -660,6 +686,49 @@ public class MenuController : MonoBehaviour
 						InformationText.text = "ショットを押すとキーコンフィグ画面へ移動します\nシャンプでひとつ前の画面に戻ります";
 						break;
 				}
+			}
+			else if (Menucontrol == MenuControl.PARTYSELECT1)
+			{
+				// 方向キー上下左右でカーソル移動
+
+				
+				// キャンセルでROOTへ移行
+				if (ControllerManager.Instance.Jump)
+				{
+					AudioManager.Instance.PlaySE("OK");
+					iTween.MoveTo(PartyWindow, iTween.Hash(
+						// 移動先指定
+						"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
+						// 移動時間指定
+						"time", 0.5f,
+						// 終了時Root呼び出し
+						"oncomplete", "InsertRoot",
+						"oncompletetarget", gameObject
+						));
+					Menucontrol = MenuControl.ROOT;
+				}
+				// 説明文を表示
+				InformationText.text = "一人目のキャラクター（プレイヤーキャラクター）を選択してください。\nショットキーで決定し、ジャンプキーでキャンセルしてひとつ前の画面に戻ります";
+			}
+			else if (Menucontrol == MenuControl.PARTYUNSELECT)
+			{
+				// キャンセルでROOTへ移行
+				if (ControllerManager.Instance.Jump)
+				{
+					AudioManager.Instance.PlaySE("OK");
+					iTween.MoveTo(PartyWindow, iTween.Hash(
+						// 移動先指定
+						"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
+						// 移動時間指定
+						"time", 0.5f,
+						// 終了時Root呼び出し
+						"oncomplete", "InsertRoot",
+						"oncompletetarget", gameObject
+						));
+					Menucontrol = MenuControl.ROOT;
+				}
+				// 説明文を表示
+				InformationText.text = "現在はパーティーを選択できません\nシャンプでひとつ前の画面に戻ります";
 			}
 
 		});
@@ -1036,7 +1105,26 @@ public class MenuController : MonoBehaviour
         }
     }
 	
-	
+	/// <summary>
+	/// 上記のキャラ選択専用版
+	/// </summary>
+	/// <param name="variableUD"></param>
+	/// <param name="variableLR"></param>
+	/// <param name="lengthUD"></param>
+	/// <param name="lengthLR"></param>
+	private void KeyInputControllerCharacterSelect(ref int variableUD, ref int variableLR, int lengthUD, int lengthLR)
+	{
+		// 上
+		if (!_PreTopInput && ControllerManager.Instance.Top)
+		{
+			if (variableUD > CHARACTERSELECTXLENGTH - 1)
+			{
+				AudioManager.Instance.PlaySE("cursor");
+				variableUD -= CHARACTERSELECTXLENGTH;
+			}
+		}
+		// 下
+	}
 
 	/// <summary>
 	/// ステータス画面を入れる
@@ -1083,6 +1171,7 @@ public class MenuController : MonoBehaviour
 	/// </summary>
 	private void InsertParty()
 	{
+		PartyWindow.GetComponent<MenuPartyDraw>().Setup();
 		iTween.MoveTo(PartyWindow, new Vector3(320, STATUSWINDOWYPOS, 0), 0.5f);
 	}
 
@@ -1339,7 +1428,11 @@ public enum MenuControl
     SKILLCHARSELECT,        // スキルキャラ選択
     SYSTEM,                 // システム
 	KEYCONFIG,				// キーコンフィグ
-    PARTY,                  // パーティー
+	PARTYUNSELECT,			// パーティー選択不可
+    PARTYSELECT1,           // パーティー選択一人目
+	PARTYSELECT2,			// パーティー選択二人目
+	PARTYSELECT3,			// パーティー選択三人目
+	PARTYSELECTFINALCHECK,	// パーティー選択最終確認
     SAVE,                   // セーブ
     LOAD,                   // ロード
     TITLE                   // タイトル
