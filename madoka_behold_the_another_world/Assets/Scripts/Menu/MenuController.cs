@@ -97,7 +97,14 @@ public class MenuController : MonoBehaviour
     private Sprite HomuraBowFace;
     [SerializeField]
     private Sprite UltimateMadokaFace;
-	// 追加があったらこの下に追加
+	[SerializeField]
+	private Sprite SayakaGodsibbFace;
+	[SerializeField]
+	private Sprite NagisaFace;
+	[SerializeField]
+	private Sprite DevilHomuraFace;
+	[SerializeField]
+	private Sprite MichelFace;
 
 
 	// インフォメーションのテキスト
@@ -144,7 +151,7 @@ public class MenuController : MonoBehaviour
 	/// セーブロード画面のオブジェクト
 	/// </summary>
 	[SerializeField]
-	private GameObject SaveLoad;
+	private GameObject SaveLoadWindow;
 
 	/// <summary>
 	/// ポップアップ
@@ -291,6 +298,46 @@ public class MenuController : MonoBehaviour
 								"oncomplete", "InsertParty",
 								"oncompletetarget", gameObject
 							));
+							break;
+						case (int)Menumode.SAVE:
+							// 選択するとSAVEへ移行
+							AudioManager.Instance.PlaySE("OK");
+							Menucontrol = MenuControl.SAVE;
+							iTween.MoveTo(Root, iTween.Hash(
+								// 移動先指定
+								"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
+								// 移動時間指定
+								"time", 0.5f,
+								// 終了時Status呼び出し
+								"oncomplete", "InsertSaveLoad",
+								"oncompletetarget", gameObject
+							));
+							break;
+						case (int)Menumode.LOAD:
+							// 選択するとLOADへ移行
+							AudioManager.Instance.PlaySE("OK");
+							Menucontrol = MenuControl.LOAD;
+							iTween.MoveTo(Root, iTween.Hash(
+								// 移動先指定
+								"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
+								// 移動時間指定
+								"time", 0.5f,
+								// 終了時Status呼び出し
+								"oncomplete", "InsertSaveLoad",
+								"oncompletetarget", gameObject
+							));
+							break;
+						case 7:
+							// 選択するとタイトルへ戻る最終確認を出す
+							AudioManager.Instance.PlaySE("OK");
+							iTween.ScaleTo(PopUp, iTween.Hash(
+										// 拡大率指定
+										"y", 1,
+										// 拡大時間指定
+										"time", 0.5f));
+							// ポップアップに文字書き込み
+							PopUp.GetComponent<MenuPopup>().PopupText.text = "タイトルに戻りますか？";
+							Menucontrol = MenuControl.TITLE;
 							break;
 					}
 				}
@@ -690,8 +737,8 @@ public class MenuController : MonoBehaviour
 			else if (Menucontrol == MenuControl.PARTYSELECT1)
 			{
 				// 方向キー上下左右でカーソル移動
+				KeyInputControllerCharacterSelect(ref PartyWindow.GetComponent<MenuPartyDraw>().Nowselect, ref PartyWindow.GetComponent<MenuPartyDraw>().Nowselect, 2, CHARACTERSELECTXLENGTH);
 
-				
 				// キャンセルでROOTへ移行
 				if (ControllerManager.Instance.Jump)
 				{
@@ -707,8 +754,63 @@ public class MenuController : MonoBehaviour
 						));
 					Menucontrol = MenuControl.ROOT;
 				}
+				// 決定で一人目確定
+				else if(ControllerManager.Instance.Shot && PartyWindow.GetComponent<MenuPartyDraw>().Menupartycharcursor[PartyWindow.GetComponent<MenuPartyDraw>().Nowselect].Useable)
+				{
+					AudioManager.Instance.PlaySE("OK");
+					PartyWindow.GetComponent<MenuPartyDraw>().SelectDone(0);
+					Menucontrol = MenuControl.PARTYSELECT2;
+				}
+
 				// 説明文を表示
 				InformationText.text = "一人目のキャラクター（プレイヤーキャラクター）を選択してください。\nショットキーで決定し、ジャンプキーでキャンセルしてひとつ前の画面に戻ります";
+			}
+			else if(Menucontrol == MenuControl.PARTYSELECT2)
+			{
+				// 方向キー上下左右でカーソル移動
+				KeyInputControllerCharacterSelect(ref PartyWindow.GetComponent<MenuPartyDraw>().Nowselect, ref PartyWindow.GetComponent<MenuPartyDraw>().Nowselect, 2, CHARACTERSELECTXLENGTH);
+				// キャンセルで最終確認へ
+				if (ControllerManager.Instance.Jump)
+				{
+					PartyWindow.GetComponent<MenuPartyDraw>().FinalConfirmDone();
+					PartyWindow.GetComponent<MenuPartyDraw>().Select.SetActive(false);
+					PartyWindow.GetComponent<MenuPartyDraw>().FinalCheck.SetActive(true);
+					Menucontrol = MenuControl.PARTYSELECTFINALCHECK;
+				}
+				// 決定で二人目確定
+				else if (ControllerManager.Instance.Shot && PartyWindow.GetComponent<MenuPartyDraw>().Menupartycharcursor[PartyWindow.GetComponent<MenuPartyDraw>().Nowselect].Useable)
+				{
+					AudioManager.Instance.PlaySE("OK");
+					PartyWindow.GetComponent<MenuPartyDraw>().SelectDone(1);
+					Menucontrol = MenuControl.PARTYSELECT3;
+				}
+				// 説明文を表示
+				InformationText.text = "二人目のキャラクターを選択してください。\nショットキーで決定し、ジャンプキーで確認画面に移動します";
+			}
+			else if(Menucontrol == MenuControl.PARTYSELECT3)
+			{
+				// 方向キー上下左右でカーソル移動
+				KeyInputControllerCharacterSelect(ref PartyWindow.GetComponent<MenuPartyDraw>().Nowselect, ref PartyWindow.GetComponent<MenuPartyDraw>().Nowselect, 2, CHARACTERSELECTXLENGTH);
+				// キャンセルで最終確認へ
+				if (ControllerManager.Instance.Jump)
+				{
+					PartyWindow.GetComponent<MenuPartyDraw>().FinalConfirmDone();
+					PartyWindow.GetComponent<MenuPartyDraw>().Select.SetActive(false);
+					PartyWindow.GetComponent<MenuPartyDraw>().FinalCheck.SetActive(true);
+					Menucontrol = MenuControl.PARTYSELECTFINALCHECK;
+				}
+				// 決定で三人目確定
+				else if (ControllerManager.Instance.Shot && PartyWindow.GetComponent<MenuPartyDraw>().Menupartycharcursor[PartyWindow.GetComponent<MenuPartyDraw>().Nowselect].Useable)
+				{
+					AudioManager.Instance.PlaySE("OK");
+					PartyWindow.GetComponent<MenuPartyDraw>().SelectDone(2);
+					PartyWindow.GetComponent<MenuPartyDraw>().FinalConfirmDone();
+					PartyWindow.GetComponent<MenuPartyDraw>().Select.SetActive(false);
+					PartyWindow.GetComponent<MenuPartyDraw>().FinalCheck.SetActive(true);
+					Menucontrol = MenuControl.PARTYSELECTFINALCHECK;
+				}
+				// 説明文を表示
+				InformationText.text = "三人目のキャラクターを選択してください。\nショットキーで決定し、ジャンプキーで確認画面に移動します";
 			}
 			else if (Menucontrol == MenuControl.PARTYUNSELECT)
 			{
@@ -730,7 +832,288 @@ public class MenuController : MonoBehaviour
 				// 説明文を表示
 				InformationText.text = "現在はパーティーを選択できません\nシャンプでひとつ前の画面に戻ります";
 			}
-
+			else if(Menucontrol == MenuControl.PARTYSELECTFINALCHECK)
+			{
+				// 決定で確定
+				if(ControllerManager.Instance.Shot)
+				{
+					// パーティー確定
+					for(int i=0; i<3; i++)
+					{
+						int partymember = PartyWindow.GetComponent<MenuPartyDraw>().SelectedParty[i];
+						savingparameter.SetNowParty(i, partymember);
+					}
+					// ROOTのグラフィック書き換え
+					InsertRootCharacter();
+					AudioManager.Instance.PlaySE("OK");
+					iTween.MoveTo(PartyWindow, iTween.Hash(
+						// 移動先指定
+						"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
+						// 移動時間指定
+						"time", 0.5f,
+						// 終了時Root呼び出し
+						"oncomplete", "InsertRoot",
+						"oncompletetarget", gameObject
+						));
+					Menucontrol = MenuControl.ROOT;
+				}
+				// キャンセルでROOTへ移行
+				else if (ControllerManager.Instance.Jump)
+				{
+					AudioManager.Instance.PlaySE("OK");
+					iTween.MoveTo(PartyWindow, iTween.Hash(
+						// 移動先指定
+						"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
+						// 移動時間指定
+						"time", 0.5f,
+						// 終了時Root呼び出し
+						"oncomplete", "InsertRoot",
+						"oncompletetarget", gameObject
+						));
+					Menucontrol = MenuControl.ROOT;
+				}
+				// 説明文を表示
+				InformationText.text = "これでよろしいですか？。\nショットキーで決定し、ジャンプキーでキャンセルします";
+			}
+			// セーブ場所選択
+			else if(Menucontrol == MenuControl.SAVE)
+			{
+				// 方向キー左右でページ送り・方向キー上下でファイル送り
+				KeyInputControllerSaveFileSelect(ref SaveLoadWindow.GetComponent<MenuSaveLoadDraw>().Nowselect, ref SaveLoadWindow.GetComponent<MenuSaveLoadDraw>().Nowpage, 20, 5);
+				// セーブファイル名
+				string savefilename = @"save\" + (SaveLoadWindow.GetComponent<MenuSaveLoadDraw>().Nowpage * 10 + SaveLoadWindow.GetComponent<MenuSaveLoadDraw>().Nowselect + 1).ToString("D3") + ".sav";
+				// 上書き時決定で最終確認へ移行
+				if (ControllerManager.Instance.Shot)
+				{
+					// そのセーブファイルがすでに存在した場合はCHECKSELECTFINALへ
+					if (System.IO.File.Exists(savefilename))
+					{
+						AudioManager.Instance.PlaySE("OK");
+						Status.GetComponent<MenuStatus>().SelectMode = false;
+						iTween.ScaleTo(PopUp, iTween.Hash(
+								// 拡大率指定
+								"y", 1,
+								// 拡大時間指定
+								"time", 0.5f
+							));
+						// ポップアップに文字書き込み
+						PopUp.GetComponent<MenuPopup>().PopupText.text = "上書きしますがよろしいですか？";
+						Menucontrol = MenuControl.SAVECONFIRM;
+					}
+					// 存在しない場合はセーブを実行
+					else
+					{
+						SaveLoadWindow.GetComponent<MenuSaveLoadDraw>().SaveDone(savefilename);	
+						SaveLoadWindow.GetComponent<MenuSaveLoadDraw>().SaveFileNameRebuild();
+					}
+				}
+				// キャンセルでROOTへ移行
+				else if (ControllerManager.Instance.Jump)
+				{
+					AudioManager.Instance.PlaySE("OK");
+					iTween.MoveTo(SaveLoadWindow, iTween.Hash(
+						// 移動先指定
+						"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
+						// 移動時間指定
+						"time", 0.5f,
+						// 終了時Root呼び出し
+						"oncomplete", "InsertRoot",
+						"oncompletetarget", gameObject
+						));
+					Menucontrol = MenuControl.ROOT;
+				}
+				// 説明文を表示
+				InformationText.text = "セーブする場所を選んでください。\nショットキーで決定し、ジャンプキーでルート画面に戻ります";
+			}
+			// 
+			else if(Menucontrol == MenuControl.SAVECONFIRM)
+			{
+				KeyInputController(ref Dummy, ref PopUp.GetComponent<MenuPopup>().NowSelect, 0, 2);
+				// 選択確定
+				if (PopUp.GetComponent<MenuPopup>().NowSelect == 0)
+				{
+					if (ControllerManager.Instance.Shot)
+					{
+						// セーブファイル名
+						string savefilename = @"save\" + (SaveLoadWindow.GetComponent<MenuSaveLoadDraw>().Nowpage * 10 + SaveLoadWindow.GetComponent<MenuSaveLoadDraw>().Nowselect + 1).ToString("D3") + ".sav";
+						SaveLoadWindow.GetComponent<MenuSaveLoadDraw>().SaveDone(savefilename);
+						// セーブファイル表示名
+						SaveLoadWindow.GetComponent<MenuSaveLoadDraw>().SaveFileNameRebuild();
+						iTween.ScaleTo(PopUp, iTween.Hash(
+							// 拡大率指定
+							"y", 0,
+							// 拡大時間指定
+							"time", 0.5f
+						));
+						Menucontrol = MenuControl.SAVE;
+					}
+				}
+				// 選択キャンセル
+				else
+				{
+					if (ControllerManager.Instance.Shot)
+					{
+						ReinforcementCancel();
+						Menucontrol = MenuControl.SAVE;
+					}
+				}
+			}
+			// ロードファイル選択
+			else if (Menucontrol == MenuControl.LOAD)
+			{
+				// 方向キー左右でページ送り・方向キー上下でファイル送り
+				KeyInputControllerSaveFileSelect(ref SaveLoadWindow.GetComponent<MenuSaveLoadDraw>().Nowselect, ref SaveLoadWindow.GetComponent<MenuSaveLoadDraw>().Nowpage, 20, 5);
+				// ファイルが存在する場所で選択確定したら最終確認へ
+				// セーブファイル名
+				string savefilename = @"save\" + (SaveLoadWindow.GetComponent<MenuSaveLoadDraw>().Nowpage * 10 + SaveLoadWindow.GetComponent<MenuSaveLoadDraw>().Nowselect + 1).ToString("D3") + ".sav";
+				// 上書き時決定で最終確認へ移行
+				if (ControllerManager.Instance.Shot && System.IO.File.Exists(savefilename))
+				{
+					AudioManager.Instance.PlaySE("OK");
+					Status.GetComponent<MenuStatus>().SelectMode = false;
+					iTween.ScaleTo(PopUp, iTween.Hash(
+							// 拡大率指定
+							"y", 1,
+							// 拡大時間指定
+							"time", 0.5f
+						));
+					// ポップアップに文字書き込み
+					PopUp.GetComponent<MenuPopup>().PopupText.text = "このファイルをロードします。よろしいですか？";
+					Menucontrol = MenuControl.LOADCONFIRM;
+				}
+				// キャンセルでROOTへ移行
+				else if (ControllerManager.Instance.Jump)
+				{
+					AudioManager.Instance.PlaySE("OK");
+					iTween.MoveTo(SaveLoadWindow, iTween.Hash(
+						// 移動先指定
+						"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
+						// 移動時間指定
+						"time", 0.5f,
+						// 終了時Root呼び出し
+						"oncomplete", "InsertRoot",
+						"oncompletetarget", gameObject
+						));
+					Menucontrol = MenuControl.ROOT;
+				}
+				// 説明文を表示
+				InformationText.text = "ロードするファイルを選んでください。\nショットキーで決定し、ジャンプキーでルート画面に戻ります";
+			}
+			// ロード最終確認
+			else if(Menucontrol == MenuControl.LOADCONFIRM)
+			{
+				KeyInputController(ref Dummy, ref PopUp.GetComponent<MenuPopup>().NowSelect, 0, 2);
+				// 選択確定
+				if (PopUp.GetComponent<MenuPopup>().NowSelect == 0)
+				{
+					if (ControllerManager.Instance.Shot)
+					{
+						// ロードファイル名
+						string savefilename = @"save\" + (SaveLoadWindow.GetComponent<MenuSaveLoadDraw>().Nowpage * 10 + SaveLoadWindow.GetComponent<MenuSaveLoadDraw>().Nowselect + 1).ToString("D3") + ".sav";
+						// ロード処理開始
+						// セーブファイルとなるオブジェクト
+						SaveData sd = new SaveData();
+						// 保存したファイルをロード
+						sd = (SaveData)savingparameter.LoadFromBinaryFile(savefilename);
+						// ロードした内容をsavingparameterへ書き込む
+						// ストーリー進行度 
+						savingparameter.story = sd.story;
+						// キャラクターの配置位置
+						savingparameter.nowposition.x = sd.nowposition_x;
+						savingparameter.nowposition.y = sd.nowposition_y;
+						savingparameter.nowposition.z = sd.nowposition_z;
+						// キャラクターの配置角度
+						savingparameter.nowrotation.x = sd.nowrotation_x;
+						savingparameter.nowrotation.y = sd.nowrotation_y;
+						savingparameter.nowrotation.z = sd.nowrotation_z;
+						// アイテムボックスの開閉フラグ
+						for (int i = 0; i < MadokaDefine.NUMOFITEMBOX; ++i)
+						{
+							savingparameter.itemboxopen[i] = sd.itemboxopen[i];
+						}
+						// 現在の所持金
+						savingparameter.nowmoney = sd.nowmoney;
+						// 現在のパーティー(護衛対象も一応パーティーに含める)
+						for (int i = 0; i < 4; ++i)
+						{
+							savingparameter.SetNowParty(i, sd.nowparty[i]);
+						}
+						// キャラクター関連
+						for (int i = 0; i < (int)Character_Spec.CHARACTER_NAME.CHARACTER_ALL_NUM; ++i)
+						{
+							// 各キャラのレベル
+							savingparameter.SetNowLevel(i, sd.nowlevel[i]);
+							// 各キャラの現在の経験値
+							savingparameter.SetExp(i, sd.nowExp[i]);
+							// 各キャラのHP
+							savingparameter.SetNowHP(i, sd.nowHP[i]);
+							// 各キャラの最大HP
+							savingparameter.SetMaxHP(i, sd.nowMaxHP[i]);
+							// 各キャラの覚醒ゲージ
+							savingparameter.SetNowArousal(i, sd.nowArousal[i]);
+							// 各キャラの最大覚醒ゲージ
+							savingparameter.SetMaxArousal(i);
+							// 各キャラの攻撃力レベル
+							savingparameter.SetStrLevel(i, sd.StrLevel[i]);
+							// 各キャラの防御力レベル
+							savingparameter.SetDefLevel(i, sd.DefLevel[i]);
+							// 各キャラの残弾数レベル
+							savingparameter.SetBulLevel(i, sd.BulLevel[i]);
+							// 各キャラのブースト量レベル
+							savingparameter.SetBoostLevel(i, sd.BoostLevel[i]);
+							// 覚醒ゲージレベル
+							savingparameter.SetArousalLevel(i, sd.ArousalLevel[i]);
+							// ソウルジェム汚染率
+							savingparameter.SetGemContimination(i, sd.GemContimination[i]);
+							// スキルポイント
+							savingparameter.SetSkillPoint(i, sd.SkillPoint[i]);
+						}
+						// 各アイテムの保持数
+						for (int i = 0; i < Item.itemspec.Length; ++i)
+						{
+							savingparameter.SetItemNum(i, sd.m_numofItem[i]);
+						}
+						// 現在装備中のアイテム
+						savingparameter.SetNowEquipItem(sd.m_nowequipItem);
+						// 現在の場所
+						savingparameter.nowField = sd.nowField;
+						// 前にいた場所
+						savingparameter.beforeField = 9999;
+						// 該当の場所へ遷移する
+						FadeManager.Instance.LoadLevel(SceneName.sceneName[savingparameter.nowField], 1.0f);
+					}
+				}
+				// 選択キャンセル
+				else
+				{
+					if (ControllerManager.Instance.Shot)
+					{
+						ReinforcementCancel();
+						Menucontrol = MenuControl.LOAD;
+					}
+				}
+			}
+			// タイトルへ戻る
+			else if(Menucontrol == MenuControl.TITLE)
+			{
+				KeyInputController(ref Dummy, ref PopUp.GetComponent<MenuPopup>().NowSelect, 0, 2);
+				// 選択確定
+				if (PopUp.GetComponent<MenuPopup>().NowSelect == 0)
+				{
+					if (ControllerManager.Instance.Shot)
+					{
+						FadeManager.Instance.LoadLevel("title", 1.0f);
+					}
+				}
+				else
+				{
+					if (ControllerManager.Instance.Shot)
+					{
+						ReinforcementCancel();
+						Menucontrol = MenuControl.ROOT;
+					}
+				}
+			}
 		});
 
         // ルート状態
@@ -913,7 +1296,9 @@ public class MenuController : MonoBehaviour
 
 		// モードをROOTにする
 		Menucontrol = MenuControl.ROOT;
-        // MenubarのSTATUSを選択状態にする
+
+
+       // MenubarのSTATUSを選択状態にする
        for(int i=0; i<Menubar.Length; i++)
         { 
             if(i==0)
@@ -928,83 +1313,104 @@ public class MenuController : MonoBehaviour
         MenuBarSelect = 0;
 		CharSelect = 0;
 
-        // STATUSのキャラにデータを入れる
-        for(int i=0; i<Characterstatusroot.Length; i++)
-        {
-            // 誰？
-            int characterindex = savingparameter.GetNowParty(i);
-            // NONEだった場合項目を消す
-            if (characterindex == (int)Character_Spec.CHARACTER_NAME.MEMBER_NONE)
-            {
-                Characterstatusroot[i].gameObject.SetActive(false);
-            }            
-            else
-            {
+		// STATUSのキャラにデータを入れる
+		InsertRootCharacter();
+    }
+	/// <summary>
+	/// STATUSのキャラにデータを入れる
+	/// </summary>
+	private void InsertRootCharacter()
+	{
+		for (int i = 0; i < Characterstatusroot.Length; i++)
+		{
+			// 誰？
+			int characterindex = savingparameter.GetNowParty(i);
+			// NONEだった場合項目を消す
+			if (characterindex == (int)Character_Spec.CHARACTER_NAME.MEMBER_NONE)
+			{
+				Characterstatusroot[i].gameObject.SetActive(false);
+			}
+			else
+			{
+				Characterstatusroot[i].gameObject.SetActive(true);
 				// キャラの顔を出す
 				// まどか
 				if (characterindex == (int)Character_Spec.CHARACTER_NAME.MEMBER_MADOKA)
-                {
-                    Characterstatusroot[i].CharacterFace.sprite = MadokaFace;
-                }
-                // さやか
-				else if(characterindex == (int)Character_Spec.CHARACTER_NAME.MEMBER_SAYAKA)
+				{
+					Characterstatusroot[i].CharacterFace.sprite = MadokaFace;
+				}
+				// さやか
+				else if (characterindex == (int)Character_Spec.CHARACTER_NAME.MEMBER_SAYAKA)
 				{
 					Characterstatusroot[i].CharacterFace.sprite = SayakaFace;
 				}
-                // ほむら
-				else if(characterindex == (int)Character_Spec.CHARACTER_NAME.MEMBER_HOMURA)
+				// ほむら
+				else if (characterindex == (int)Character_Spec.CHARACTER_NAME.MEMBER_HOMURA)
 				{
 					Characterstatusroot[i].CharacterFace.sprite = HomuraFace;
 				}
-                // マミ
-				else if(characterindex == (int)Character_Spec.CHARACTER_NAME.MEMBER_MAMI)
+				// マミ
+				else if (characterindex == (int)Character_Spec.CHARACTER_NAME.MEMBER_MAMI)
 				{
 					Characterstatusroot[i].CharacterFace.sprite = MamiFace;
 				}
-                // 杏子
-				else if(characterindex == (int)Character_Spec.CHARACTER_NAME.MEMBER_KYOKO)
+				// 杏子
+				else if (characterindex == (int)Character_Spec.CHARACTER_NAME.MEMBER_KYOKO)
 				{
 					Characterstatusroot[i].CharacterFace.sprite = KyokoFace;
 				}
-                // ゆま
-				else if(characterindex ==(int)Character_Spec.CHARACTER_NAME.MEMBER_YUMA)
+				// ゆま
+				else if (characterindex == (int)Character_Spec.CHARACTER_NAME.MEMBER_YUMA)
 				{
 					Characterstatusroot[i].CharacterFace.sprite = YumaFace;
 				}
-                // キリカ
-				else if(characterindex == (int)Character_Spec.CHARACTER_NAME.MEMBER_KIRIKA)
+				// キリカ
+				else if (characterindex == (int)Character_Spec.CHARACTER_NAME.MEMBER_KIRIKA)
 				{
 					Characterstatusroot[i].CharacterFace.sprite = KirikaFace;
 				}
-                // 織莉子
-				else if(characterindex == (int)Character_Spec.CHARACTER_NAME.MEMBER_ORIKO)
+				// 織莉子
+				else if (characterindex == (int)Character_Spec.CHARACTER_NAME.MEMBER_ORIKO)
 				{
 					Characterstatusroot[i].CharacterFace.sprite = OrikoFace;
 				}
-                // 弓ほむら
-				else if(characterindex == (int)Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B)
+				// 弓ほむら
+				else if (characterindex == (int)Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B)
 				{
 					Characterstatusroot[i].CharacterFace.sprite = HomuraBowFace;
 				}
-                // スコノシュート
-				else if(characterindex == (int)Character_Spec.CHARACTER_NAME.MEMBER_SCHONO)
+				// スコノシュート
+				else if (characterindex == (int)Character_Spec.CHARACTER_NAME.MEMBER_SCHONO)
 				{
 					Characterstatusroot[i].CharacterFace.sprite = SconosciutoFace;
 				}
-                // アルティメットまどか
-				else if(characterindex == (int)Character_Spec.CHARACTER_NAME.MEMBER_UL_MADOKA)
+				// アルティメットまどか
+				else if (characterindex == (int)Character_Spec.CHARACTER_NAME.MEMBER_UL_MADOKA)
 				{
 					Characterstatusroot[i].CharacterFace.sprite = UltimateMadokaFace;
 				}
-                // 円環のさやか
+				// 円環のさやか
+				else if (characterindex == (int)Character_Spec.CHARACTER_NAME.MEMBER_SAYAKA_GODSIBB)
+				{
+					Characterstatusroot[i].CharacterFace.sprite = SayakaGodsibbFace;
+				}
+				// デビルほむら
+				else if (characterindex == (int)Character_Spec.CHARACTER_NAME.MEMBER_DEVIL_HOMURA)
+				{
+					Characterstatusroot[i].CharacterFace.sprite = DevilHomuraFace;
+				}
+				// なぎさ
+				else if (characterindex == (int)Character_Spec.CHARACTER_NAME.MEMBER_NAGISA)
+				{
+					Characterstatusroot[i].CharacterFace.sprite = NagisaFace;
+				}
+				// ミッチェル
+				else if (characterindex == (int)Character_Spec.CHARACTER_NAME.MEMBER_MICHEL)
+				{
+					Characterstatusroot[i].CharacterFace.sprite = MichelFace;
+				}
 
-                // デビルほむら
-
-                // なぎさ
-
-                // ミッチェル
-
-                // 上記以外は消す(テスト用の魔獣など）
+				// 上記以外は消す(テスト用の魔獣など）
 				else
 				{
 					Characterstatusroot[i].CharacterFace.sprite = null;
@@ -1035,9 +1441,8 @@ public class MenuController : MonoBehaviour
 				// Agi
 				Characterstatusroot[i].CharacterNowAgi.text = savingparameter.GetBoostLevel(savingparameter.GetNowParty(i)).ToString("d2");
 			}
-        }
-
-    }
+		}
+	}
 
     /// <summary>
     /// キー入力に応じて任意の変数を増減させる
@@ -1117,13 +1522,141 @@ public class MenuController : MonoBehaviour
 		// 上
 		if (!_PreTopInput && ControllerManager.Instance.Top)
 		{
-			if (variableUD > CHARACTERSELECTXLENGTH - 1)
+			// 中央列のみデビルほむらのカーソルに移動する
+			if(variableUD == 14)
+			{
+				AudioManager.Instance.PlaySE("cursor");
+				variableUD = 10;
+			}
+			else if (variableUD > CHARACTERSELECTXLENGTH - 1)
 			{
 				AudioManager.Instance.PlaySE("cursor");
 				variableUD -= CHARACTERSELECTXLENGTH;
 			}
+
 		}
 		// 下
+		if(!_PreUnderInput && ControllerManager.Instance.Under)
+		{
+			// 中央列のみ弓ほむらのカーソルに移動する
+			if(variableUD == 10)
+			{
+				AudioManager.Instance.PlaySE("cursor");
+				variableUD = 14;
+			}
+			else if(variableUD < CHARACTERSELECTXLENGTH)
+			{
+				AudioManager.Instance.PlaySE("cursor");
+				variableUD += CHARACTERSELECTXLENGTH;
+			} 
+		}
+		// 左
+		if (!_PreLeftInput && ControllerManager.Instance.Left)
+		{
+			if (variableLR != 0 && variableLR != CHARACTERSELECTXLENGTH && variableLR != 14)
+			{
+				AudioManager.Instance.PlaySE("cursor");
+				variableLR--;
+			}
+		}
+		// 右
+		if (!_PreRightInput && ControllerManager.Instance.Right)
+		{
+			if (variableLR != CHARACTERSELECTXLENGTH - 1 && variableLR < CHARACTERSELECTXLENGTH * 2 - 1)
+			{
+				AudioManager.Instance.PlaySE("cursor");
+				variableLR++;
+			}
+		}
+
+		// 入力更新
+		// 上
+		_PreTopInput = ControllerManager.Instance.Top;
+		// 下
+		_PreUnderInput = ControllerManager.Instance.Under;
+		// 左
+		_PreLeftInput = ControllerManager.Instance.Left;
+		// 右
+		_PreRightInput = ControllerManager.Instance.Right;
+		// ボタンを離すとモードチェンジ瞬間フラグを折る(一旦ボタンを離さないと次へ行かせられない）
+		if (!ControllerManager.Instance.Shot)
+		{
+			ModeChangeDone = false;
+		}
+	}
+
+	/// <summary>
+	/// 上記のセーブファイル選択版
+	/// </summary>
+	/// <param name="variableUD"></param>
+	/// <param name="variableLR"></param>
+	/// <param name="lengthUD"></param>
+	/// <param name="lengthLR"></param>
+	private void KeyInputControllerSaveFileSelect(ref int variableUD, ref int variableLR, int lengthUD, int lengthLR)
+	{
+		// 上
+		if (!_PreTopInput && ControllerManager.Instance.Top)
+		{
+			if (variableUD > 0)
+			{
+				AudioManager.Instance.PlaySE("cursor");
+				variableUD--;
+			}
+		}
+		// 下
+		if (!_PreUnderInput && ControllerManager.Instance.Under)
+		{
+			if (variableUD < lengthUD - 1)
+			{
+				AudioManager.Instance.PlaySE("cursor");
+				variableUD++;
+			}
+		}
+
+		// 左
+		if (!_PreLeftInput && ControllerManager.Instance.Left)
+		{
+			if(variableLR == 0)
+			{
+				AudioManager.Instance.PlaySE("cursor");
+				variableLR = lengthLR - 1;
+			}
+			else
+			{
+				AudioManager.Instance.PlaySE("cursor");
+				variableLR--;
+			}
+		}
+
+		// 右
+		if (!_PreRightInput && ControllerManager.Instance.Right)
+		{
+			if (variableLR < lengthLR - 1)
+			{
+				AudioManager.Instance.PlaySE("cursor");
+				variableLR++;
+			}
+			else
+			{
+				AudioManager.Instance.PlaySE("cursor");
+				variableLR = 0;
+			}
+		}
+
+		// 入力更新
+		// 上
+		_PreTopInput = ControllerManager.Instance.Top;
+		// 下
+		_PreUnderInput = ControllerManager.Instance.Under;
+		// 左
+		_PreLeftInput = ControllerManager.Instance.Left;
+		// 右
+		_PreRightInput = ControllerManager.Instance.Right;
+		// ボタンを離すとモードチェンジ瞬間フラグを折る(一旦ボタンを離さないと次へ行かせられない）
+		if (!ControllerManager.Instance.Shot)
+		{
+			ModeChangeDone = false;
+		}
 	}
 
 	/// <summary>
@@ -1173,6 +1706,18 @@ public class MenuController : MonoBehaviour
 	{
 		PartyWindow.GetComponent<MenuPartyDraw>().Setup();
 		iTween.MoveTo(PartyWindow, new Vector3(320, STATUSWINDOWYPOS, 0), 0.5f);
+	}
+
+	/// <summary>
+	/// セーブ・ロード画面を入れる
+	/// </summary>
+	private void InsertSaveLoad()
+	{
+		SaveLoadWindow.GetComponent<MenuSaveLoadDraw>().SaveDataOpen(0);
+		SaveLoadWindow.GetComponent<MenuSaveLoadDraw>().Nowselect = 0;
+		SaveLoadWindow.GetComponent<MenuSaveLoadDraw>().Nowpage = 0;
+		SaveLoadWindow.GetComponent<MenuSaveLoadDraw>().DrawCursor(0);
+		iTween.MoveTo(SaveLoadWindow, new Vector3(320, STATUSWINDOWYPOS, 0), 0.5f);
 	}
 
 	/// <summary>
@@ -1434,7 +1979,9 @@ public enum MenuControl
 	PARTYSELECT3,			// パーティー選択三人目
 	PARTYSELECTFINALCHECK,	// パーティー選択最終確認
     SAVE,                   // セーブ
+	SAVECONFIRM,			// セーブ最終確認
     LOAD,                   // ロード
+	LOADCONFIRM,			// ロード最終確認
     TITLE                   // タイトル
 }
 

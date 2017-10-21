@@ -52,7 +52,7 @@ public static class Character_Spec
 		"悪魔ほむら",
 		"百江 なぎさ",
 		"円環のさやか",
-		"ミッチェル・N",
+		"ミッチェル ノートルダム",
 		""
     };
 
