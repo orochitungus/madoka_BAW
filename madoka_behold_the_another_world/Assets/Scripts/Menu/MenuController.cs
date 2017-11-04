@@ -165,9 +165,11 @@ public class MenuController : MonoBehaviour
 	private const float STATUSWINDOWYPOS = 190;
 
 	/// <summary>
-	/// ステータス画面のX座標
+	/// ステータス画面のX座標(移動時）
 	/// </summary>
-    private const float STATUSWINDOWXPOS = 800;
+    private const float STATUSWINDOWXPOS = 900;
+
+	private const float STATUSWINDOWXPOSOR = 340;
 
 	/// <summary>
 	/// キャラクター選択画面の行の最大幅
@@ -1290,10 +1292,6 @@ public class MenuController : MonoBehaviour
     /// </summary>
     void Initialize()
     {
-		// TODO:テスト用
-		savingparameter.savingparameter_Init();
-
-
 		// モードをROOTにする
 		Menucontrol = MenuControl.ROOT;
 
@@ -1664,7 +1662,7 @@ public class MenuController : MonoBehaviour
 	/// </summary>
 	private void InsertStatus()
 	{
-		iTween.MoveTo(Status, new Vector3(320, STATUSWINDOWYPOS, 0), 0.5f);
+		iTween.MoveTo(Status, new Vector3(STATUSWINDOWXPOSOR, STATUSWINDOWYPOS, 0), 0.5f);
 	}
 
 	/// <summary>
@@ -1672,7 +1670,7 @@ public class MenuController : MonoBehaviour
 	/// </summary>
 	private void InsertRoot()
 	{
-		iTween.MoveTo(Root, new Vector3(320, STATUSWINDOWYPOS, 0), 0.5f);
+		iTween.MoveTo(Root, new Vector3(STATUSWINDOWXPOSOR, STATUSWINDOWYPOS, 0), 0.5f);
 	}
 
 	/// <summary>
@@ -1680,7 +1678,7 @@ public class MenuController : MonoBehaviour
 	/// </summary>
 	private void InsertItem()
 	{
-		iTween.MoveTo(ItemWindow, new Vector3(320, STATUSWINDOWYPOS, 0), 0.5f);
+		iTween.MoveTo(ItemWindow, new Vector3(STATUSWINDOWXPOSOR, STATUSWINDOWYPOS, 0), 0.5f);
 	}
 
     /// <summary>
@@ -1688,7 +1686,7 @@ public class MenuController : MonoBehaviour
     /// </summary>
     private void InsertSkill()
     {
-        iTween.MoveTo(SkillWindow, new Vector3(320, STATUSWINDOWYPOS, 0), 0.5f);
+        iTween.MoveTo(SkillWindow, new Vector3(STATUSWINDOWXPOSOR, STATUSWINDOWYPOS, 0), 0.5f);
     }
 
 	/// <summary>
@@ -1696,7 +1694,7 @@ public class MenuController : MonoBehaviour
 	/// </summary>
 	private void InsertSystem()
 	{
-		iTween.MoveTo(SystemWindow, new Vector3(320, STATUSWINDOWYPOS, 0), 0.5f);
+		iTween.MoveTo(SystemWindow, new Vector3(STATUSWINDOWXPOSOR, STATUSWINDOWYPOS, 0), 0.5f);
 	}
 
 	/// <summary>
@@ -1705,7 +1703,7 @@ public class MenuController : MonoBehaviour
 	private void InsertParty()
 	{
 		PartyWindow.GetComponent<MenuPartyDraw>().Setup();
-		iTween.MoveTo(PartyWindow, new Vector3(320, STATUSWINDOWYPOS, 0), 0.5f);
+		iTween.MoveTo(PartyWindow, new Vector3(STATUSWINDOWXPOSOR, STATUSWINDOWYPOS, 0), 0.5f);
 	}
 
 	/// <summary>
@@ -1717,7 +1715,7 @@ public class MenuController : MonoBehaviour
 		SaveLoadWindow.GetComponent<MenuSaveLoadDraw>().Nowselect = 0;
 		SaveLoadWindow.GetComponent<MenuSaveLoadDraw>().Nowpage = 0;
 		SaveLoadWindow.GetComponent<MenuSaveLoadDraw>().DrawCursor(0);
-		iTween.MoveTo(SaveLoadWindow, new Vector3(320, STATUSWINDOWYPOS, 0), 0.5f);
+		iTween.MoveTo(SaveLoadWindow, new Vector3(STATUSWINDOWXPOSOR, STATUSWINDOWYPOS, 0), 0.5f);
 	}
 
 	/// <summary>

@@ -137,7 +137,15 @@ public class Prologue05 : MonoBehaviour
 			yield return 0;
 		}
 
+		// ストーリー変更
+		savingparameter.story = 2;
+		// フィールドを見滝原病院ほむらの部屋へ
+		savingparameter.nowField = 3;
+		savingparameter.beforeField = 8888;
+		// パーティーを銃ほむらにする
+		savingparameter.SetNowParty(0, (int)Character_Spec.CHARACTER_NAME.MEMBER_HOMURA);
+
 		// 次のシーンへ移動
-		FadeManager.Instance.LoadLevel("title", 1.0f);
+		FadeManager.Instance.LoadLevel("MitakiharaHospitalHomuraRoom", 1.0f);
 	}
 }

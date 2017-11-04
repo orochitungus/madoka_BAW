@@ -419,7 +419,7 @@ public class StageSetting : MonoBehaviour
         // クエストパート用
         else
         {
-            CharacterControl_Base_Quest playerCharacter = PlayerCharacter.GetComponentInChildren<CharacterControl_Base_Quest>();
+            CharacterControlBaseQuest playerCharacter = PlayerCharacter.GetComponentInChildren<CharacterControlBaseQuest>();
             // キャラクターの向きを決める
             // カメラ
             Player_Camera_Controller playerCamera = PlayerCharacter.GetComponentInChildren<Player_Camera_Controller>();

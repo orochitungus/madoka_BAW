@@ -32,21 +32,6 @@ public class LoadFileSelect : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
-		// カーソル制御
-		this.UpdateAsObservable().Subscribe(_ =>
-		{
-			for (int i = 0; i<Cursor.Length; i++)
-			{
-				if (i == NowSelect)
-				{
-					Cursor[i].gameObject.SetActive(true);
-				}
-				else
-				{
-					Cursor[i].gameObject.SetActive(false);
-				}
-			}
-		});
 
 		// 入力取得
 		// 短押し判定(前フレーム押してない）		
@@ -59,6 +44,8 @@ public class LoadFileSelect : MonoBehaviour
 				{
 					AudioManager.Instance.PlaySE("cursor");
 					NowSelect--;
+					Cursor[NowSelect + 1].gameObject.SetActive(false);
+					Cursor[NowSelect].gameObject.SetActive(true);
 				}
 			}
 			// 下
@@ -68,6 +55,8 @@ public class LoadFileSelect : MonoBehaviour
 				{
 					AudioManager.Instance.PlaySE("cursor");
 					NowSelect++;
+					Cursor[NowSelect - 1].gameObject.SetActive(false);
+					Cursor[NowSelect].gameObject.SetActive(true);
 				}
 			}
 			// 左
@@ -242,6 +231,11 @@ public class LoadFileSelect : MonoBehaviour
 		for(int i=0; i<20; i++)
 		{
 			Files[i].text = SaveDaraInformation[i];
+		}
+		// 最初のカーソル以外を消す
+		for (int i = 1; i < 20; i++)
+		{
+			Cursor[i].gameObject.SetActive(false);
 		}
 	}
 }

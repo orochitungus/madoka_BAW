@@ -93,14 +93,15 @@ public class Player_Camera_Controller : MonoBehaviour
         m_enemy_offset_height = 0.0f;
         Distance_mine = 18.0f;
 
-		// インターフェースを拾う
-		Battleinterfacecontroller = GameObject.Find("BattleInterfaceCanvas").GetComponent<BattleInterfaceController>();
-		if(Battleinterfacecontroller == null)
+		var target = Player.GetComponentInChildren<CharacterControlBase>();    // 戦闘用キャラの場合
+
+		if (target != null)
 		{
-			Debug.LogError("BattleInterfaceCanvas is Nothing!!");
+			// インターフェースを拾う
+			Battleinterfacecontroller = GameObject.Find("BattleInterfaceCanvas").GetComponent<BattleInterfaceController>();
 		}
 		
-        var target = Player.GetComponentInChildren<CharacterControlBase>();    // 戦闘用キャラの場合
+        
         // 戦闘用キャラ
         if (target != null)
         {
@@ -125,14 +126,14 @@ public class Player_Camera_Controller : MonoBehaviour
 		// 視点を初期化
 		RotX = Mathf.Asin(height / Distance) * Mathf.Rad2Deg;
 
-		// ロックオンカーソル制御用クラスにBattleInterfaceControllerを与える(PC時のみ)
-		if (target.IsPlayer == CharacterControlBase.CHARACTERCODE.PLAYER)
+		// ロックオンカーソル制御用クラスにBattleInterfaceControllerを与える(PC戦闘用時のみ)
+		if (target != null && target.IsPlayer == CharacterControlBase.CHARACTERCODE.PLAYER)
 		{
 			Rockoncursorcontrol.parentRectTrans = Battleinterfacecontroller.GetComponent<RectTransform>();
 		}
 
 		// ロックオンカーソル制御(PC時のみ)
-		this.UpdateAsObservable().Where(_ => target.IsPlayer == CharacterControlBase.CHARACTERCODE.PLAYER).Subscribe(_ => 
+		this.UpdateAsObservable().Where(_ => target != null && target.IsPlayer == CharacterControlBase.CHARACTERCODE.PLAYER).Subscribe(_ => 
 		{			
 			if (IsRockOn && !IsArousalAttack)
 			{

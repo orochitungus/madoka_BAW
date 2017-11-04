@@ -28,7 +28,7 @@ public class StageMovement : MonoBehaviour
     {
         // 接触対象を取得
         var target = collision.gameObject.GetComponent<CharacterControlBase>();
-        var target_quest = collision.gameObject.GetComponent<CharacterControl_Base_Quest>();
+        var target_quest = collision.gameObject.GetComponent<CharacterControlBaseQuest>();
         // プレイヤーだった場合指定したシーンへ移動
         if(target != null)
         {

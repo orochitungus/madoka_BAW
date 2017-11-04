@@ -269,7 +269,7 @@ public class BattleInterfaceController : MonoBehaviour
 			// ただしラウンドコール中は無効	
             // 時間停止中falseを強制返し
             // 通常時、ポーズ入力で停止.ただし死んだら無効
-            if (NowPlayerHP[0] > 0 && !PauseBG.gameObject.activeSelf)
+            if (savingparameter.GetNowHP(savingparameter.GetNowParty(0)) > 0 && !PauseBG.gameObject.activeSelf)
             {				
                 if (ControllerManager.Instance.Menu && !Roundcall.RoundCallDone)
                 {
@@ -284,7 +284,7 @@ public class BattleInterfaceController : MonoBehaviour
                 }
             }
 			// ポーズ時、ポーズ入力で解除
-			else if (NowPlayerHP[0] > 0 && PauseBG.gameObject.activeSelf)
+			else if (savingparameter.GetNowHP(savingparameter.GetNowParty(0)) > 0 && PauseBG.gameObject.activeSelf)
 			{
 				if (ControllerManager.Instance.Menu && !Roundcall.RoundCallDone)
 				{

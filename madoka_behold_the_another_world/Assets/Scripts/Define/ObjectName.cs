@@ -28,14 +28,14 @@ public class ObjectName
 		"",                                 // なし
         "",                                 // 鹿目まどか
         "",                                 // 美樹さやか
-        "Homura_Quest_Use",                 // 暁美ほむら（銃）
+        "HomuraQuestUse",	                // 暁美ほむら（銃）
         "",                                 // 巴マミ
         "",                                 // 佐倉杏子
         "",                                 // 千歳ゆま
         "",                                 // 呉キリカ
         "",                                 // 美国織莉子
         "SconosciutoBattleUse",             // スコノシュート（PC)
-        "Homura_Quest_Use",                 // 暁美ほむら（弓）
+        "HomuraQuestUse",	                // 暁美ほむら（弓）
         "",                                 // アルティメットまどか（まどかの覚醒とは一応別扱い）
 		"majyu_use_battle",					// 魔獣
 	};

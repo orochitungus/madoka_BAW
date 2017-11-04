@@ -1886,6 +1886,7 @@ public class CharacterControlBase : MonoBehaviour
         // 着地時にLandingを実行する
         if (IsGrounded)
         {
+			Debug.Log("01");
             LandingDone(animator);
         }
     }
@@ -2367,7 +2368,8 @@ public class CharacterControlBase : MonoBehaviour
         {
             // 判定オブジェクトを破棄する.一応くっついているものはすべて削除
             DestroyWrestle();
-            LandingDone(animator);
+			Debug.Log("02");
+			LandingDone(animator);
         }
     }
 
@@ -5313,10 +5315,11 @@ public class CharacterControlBase : MonoBehaviour
 		// 上昇中にオブジェクトに触れた場合は着地モーションへ移行(暴走防止のために、硬直中は判定禁止)
 		if (Time.time > this.JumpTime + this.JumpWaitTime)
         {
-            if (IsGrounded) // 優先順位はこっちを下にしておかないと上昇前に引っかかる
-            {
-                LandingDone(animator);
-            }
+    //        if (IsGrounded) // 優先順位はこっちを下にしておかないと上昇前に引っかかる
+    //        {
+				//Debug.Log("03");
+				//LandingDone(animator);
+    //        }
         }
     }
 		
@@ -5529,6 +5532,7 @@ public class CharacterControlBase : MonoBehaviour
 		if (IsGrounded)
 		{
 			MoveDirection = Vector3.zero;
+			Debug.Log("04");
 			LandingDone(animator);
 		}
 	}
@@ -5593,10 +5597,11 @@ public class CharacterControlBase : MonoBehaviour
 			MoveDirection = RiseSpeed;
 		}
 		// 着地で着地モーションへ
-		if (IsGrounded)
-		{
-			LandingDone(animator);
-		}
+		//if (IsGrounded)
+		//{
+		//	Debug.Log("05");
+		//	LandingDone(animator);
+		//}
 		// 常時ブースト消費
 		Boost = Boost - BoostLess;
 	}
