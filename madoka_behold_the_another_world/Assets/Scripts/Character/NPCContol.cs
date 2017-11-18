@@ -40,7 +40,6 @@ public class NPCContol : MonoBehaviour
 	void Start () 
 	{
 		
-
 	}
 	
 	// Update is called once per frame
@@ -70,7 +69,7 @@ public class NPCContol : MonoBehaviour
 		collision.transform.GetComponent<CharacterControlBaseQuest>().Moveable = false;
 		// プレイヤーキャラクターのアニメを止める
 		Animator animator = collision.transform.GetComponent<Animator>();
-		animator.Play("Idle");
+		animator.SetTrigger("Idle");
 		// 会話シーンを呼び出す
 		StartCoroutine(CoTalk(collision));
 	}

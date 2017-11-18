@@ -511,7 +511,7 @@ public class CharacterControlBaseQuest : MonoBehaviour
 			// アイドル時は下方向ベクトル止める
 			else if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == idleid)
 			{
-				velocity.y = 0;
+				velocity = Vector3.zero;
 			}
 			RigidBody.velocity = velocity;
 		}
