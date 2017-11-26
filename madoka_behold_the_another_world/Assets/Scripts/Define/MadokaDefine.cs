@@ -51,7 +51,7 @@ public class MadokaDefine : SingletonMonoBehaviour<MadokaDefine>
     public const int AGI = 4;
 
     // アイテム所持上限数
-    public const int MAXITEM = 20;
+    public const int MAXITEM = 99;
     // アイテムエフェクト有効時間
     public const float ITEMEFFECTTIME = 2.0f;
     // ダメージエフェクト有効時間
@@ -86,6 +86,11 @@ public class MadokaDefine : SingletonMonoBehaviour<MadokaDefine>
 
     // 初期所持金
     public const int FIRSTMONEY = 1000;
+
+	/// <summary>
+	/// EXエピソードの数
+	/// </summary>
+	public const int EXEPISODE = 99;
 
     // レベルアップテーブル
     public static int[] LEVELUPEXP = new int[]

@@ -200,7 +200,31 @@ public class Prologue06 : MonoBehaviour
 			yield return 0;
 		}
 
-		
+		// スコノシュートにカメラを切り替える
+		Camera1.transform.localPosition = new Vector3(27.86f, 2.78f, 5.58f);
+		Camera1.fieldOfView = 37;
+		Camera1.transform.localRotation = Quaternion.Euler(new Vector3(0, -90, 0));
+		// カメラをスコノシュートに移動させる
+		iTween.MoveTo(Camera1.gameObject, iTween.Hash("x", 0f, "islocal", true, "time", 3.0f));
+		yield return new WaitForSeconds(3.1f);
+
+		// シーン再生
+		engine.ResumeScenario();
+
+		//「宴」の終了待ち
+		while (!Engine.IsEndScenario)
+		{
+			yield return 0;
+		}
+
+		// フラグを切り替えて元の場所へ移動させる
+		// ストーリー変更
+		savingparameter.story = 3;
+		// フィールドを見滝原病院56階へ
+		savingparameter.nowField = 4;
+		savingparameter.beforeField = 7777;
+		// 次のシーンへ移動
+		FadeManager.Instance.LoadLevel("MitakiharaHospital56F", 1.0f);
 	}
 
 }

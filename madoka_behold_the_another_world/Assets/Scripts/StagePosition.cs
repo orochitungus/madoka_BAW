@@ -41,13 +41,13 @@ public static class StagePosition
 		{
 			new Vector3[]{ new Vector3(0,0,3.5f),new Vector3(5.0f,0,3.5f),new Vector3(-5.0f,0,3.5f)},		// 恭介病室から来た場合
 			new Vector3[]{ new Vector3(30,0,11), new Vector3(30,0,6), new Vector3(30,0,16) },               // 階段から来た場合
-			new Vector3[]{ new Vector3(26,0,36), new Vector3(26,0,31), new Vector3(30,0,41) },              // エレベーターから来た場合
+			new Vector3[]{ new Vector3(26,0.1f,36), new Vector3(26,0,31), new Vector3(30,0,41) },           // エレベーターから来た場合
 			new Vector3[]{ new Vector3(0,0,3.5f),new Vector3(5.0f,0,3.5f),new Vector3(-5.0f,0,3.5f)},		// EXエピソードから来た場合
 		},
 		// 6:見滝原病院・150階(屋上)
 		new Vector3[][]
 		{
-			new Vector3[]{ new Vector3(102.8091f,0,-36.07839f), new Vector3(107.8091f,0,-36.07839f), new Vector3(97.8091f,0,-36.07839f)},	// エレベーターから来た場合
+			new Vector3[]{ new Vector3(30,0,0), new Vector3(30,0,-5f), new Vector3(30,0,5f)},	// エレベーターから来た場合
 		},
 		// 7:見滝原病院・1階
 		new Vector3[][]
@@ -61,11 +61,7 @@ public static class StagePosition
 			new Vector3[]{ new Vector3(3.787974f,0,0.1080822f), new Vector3(-2.787974f,0,0.1080822f), new Vector3(8.787974f,0,0.1080822f)},	// 1階から来た場合
 			new Vector3[]{ new Vector3(-49.40907f,-0.96f,-0.5917053f),new Vector3(-54.40907f,-0.96f,-0.5917053f),new Vector3(-44.40907f,-0.96f,-0.5917053f)},	// 全体マップから来た場合
 		},
-		// 9:見滝原病院・恭介の病室
-		new Vector3[][]
-		{
-		
-		},
+		// 9:
     };
 
     // 各ステージのキャラクターの初期配置角度

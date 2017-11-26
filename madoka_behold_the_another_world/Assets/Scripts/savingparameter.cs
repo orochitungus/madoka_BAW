@@ -24,6 +24,9 @@ public static class savingparameter
     // アイテムボックスの開閉フラグ
     public static bool[] itemboxopen = new bool[MadokaDefine.NUMOFITEMBOX];
 
+	// EXエピソードの実行フラグ
+	public static bool[] exEpisode = new bool[MadokaDefine.EXEPISODE];
+
     // 現在の所持金
     public static int nowmoney;
 

@@ -17,6 +17,15 @@ public class Selector : MonoBehaviour
 	public Image BackGround;
 
 	/// <summary>
+	/// 選択肢の出現条件最小
+	/// </summary>
+	public int []StoryConditionMin;
+	/// <summary>
+	/// 選択肢の出現条件最大
+	/// </summary>
+	public int []StoryConditionMax;
+
+	/// <summary>
 	/// 選択肢のタイトル
 	/// </summary>
 	public Text SelectTitle;
@@ -25,6 +34,26 @@ public class Selector : MonoBehaviour
 	/// 選択肢のテキスト
 	/// </summary>
 	public Text[]SelectText;
+
+	/// <summary>
+	/// 選択肢の名前
+	/// </summary>
+	public string[]SelectName;
+
+	/// <summary>
+	/// 行き先のコード(-1ならキャンセル)
+	/// </summary>
+	public int[]ForCode;
+
+	/// <summary>
+	/// 行き先のシーンの名前
+	/// </summary>
+	public string []NextScene;
+
+	/// <summary>
+	/// 移動元のコード
+	/// </summary>
+	public int FromCode;
 
 	/// <summary>
 	/// カーソル
@@ -59,54 +88,7 @@ public class Selector : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
-		Select = SelectMode.STANDBY;
-		this.UpdateAsObservable().Where(_ => BackGround.gameObject.activeSelf).Subscribe(_ =>
-		{
-			// 上
-			if (!_PreTopInput && ControllerManager.Instance.Top)
-			{
-				if (NowSelect > 0)
-				{
-					AudioManager.Instance.PlaySE("cursor");
-					NowSelect--;
-				}
-			}
-			// 下
-			if (!_PreUnderInput && ControllerManager.Instance.Under)
-			{
-				if (NowSelect < MaxSelect)
-				{
-					AudioManager.Instance.PlaySE("cursor");
-					NowSelect++;
-				}
-			}
-
-			// 入力更新
-			// 上
-			_PreTopInput = ControllerManager.Instance.Top;
-			// 下
-			_PreUnderInput = ControllerManager.Instance.Under;
-			
-			// カーソル位置更新
-			for(int i=0; i< MaxSelect; i++)
-			{
-				if(i==NowSelect)
-				{
-					Cursor[i].gameObject.SetActive(true);
-				}
-				else
-				{
-					Cursor[i].gameObject.SetActive(false);
-				}
-			}
-
-			// 選択確定
-			if(Select == SelectMode.STANDBY && ControllerManager.Instance.Shot)
-			{
-				Select = SelectMode.SELECT;
-				AudioManager.Instance.PlaySE("OK");
-			}
-		});
+		CursorController();
 	}
 
 	// Update is called once per frame
@@ -119,8 +101,9 @@ public class Selector : MonoBehaviour
 	/// 接触時に選択肢を表示する
 	/// </summary>
 	/// <param name="collision"></param>
-	protected void OnCollisionEnter(Collision collision)
+	protected virtual void OnCollisionEnter(Collision collision)
 	{
+		Select = SelectMode.STANDBY;
 		// プレイヤーキャラクターの移動を封じる
 		collision.transform.GetComponent<CharacterControlBaseQuest>().Moveable = false;
 		// プレイヤーキャラクターのアニメを止める
@@ -142,6 +125,57 @@ public class Selector : MonoBehaviour
 		BackGround.gameObject.SetActive(false);
 		// プレイヤーキャラクターの移動を復帰させる
 		Player.GetComponent<CharacterControlBaseQuest>().Moveable = true;
+	}
+
+	protected void CursorController()
+	{
+		this.UpdateAsObservable().Where(_ => BackGround.gameObject.activeSelf).Subscribe(_ =>
+		{
+			// 上
+			if (!_PreTopInput && ControllerManager.Instance.Top)
+			{
+				if (NowSelect > 0)
+				{
+					AudioManager.Instance.PlaySE("cursor");
+					NowSelect--;
+				}
+			}
+			// 下
+			if (!_PreUnderInput && ControllerManager.Instance.Under)
+			{
+				if (NowSelect < MaxSelect && ForCode[NowSelect + 1] != -2)
+				{
+					AudioManager.Instance.PlaySE("cursor");
+					NowSelect++;
+				}
+			}
+
+			// 入力更新
+			// 上
+			_PreTopInput = ControllerManager.Instance.Top;
+			// 下
+			_PreUnderInput = ControllerManager.Instance.Under;
+
+			// カーソル位置更新
+			for (int i = 0; i < MaxSelect; i++)
+			{
+				if (i == NowSelect)
+				{
+					Cursor[i].gameObject.SetActive(true);
+				}
+				else
+				{
+					Cursor[i].gameObject.SetActive(false);
+				}
+			}
+
+			// 選択確定
+			if (Select == SelectMode.STANDBY && ControllerManager.Instance.Shot)
+			{
+				Select = SelectMode.SELECT;
+				AudioManager.Instance.PlaySE("OK");
+			}
+		});
 	}
 }
 
