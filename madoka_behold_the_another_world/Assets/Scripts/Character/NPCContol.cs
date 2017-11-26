@@ -39,7 +39,7 @@ public class NPCContol : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		
+		AnimatorUnit.Play(NormalAnimationName);
 	}
 	
 	// Update is called once per frame
