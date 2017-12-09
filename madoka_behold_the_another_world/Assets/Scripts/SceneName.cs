@@ -15,7 +15,7 @@ public static class SceneName
 		"MitakiharaHospital150F",					//  6:見滝原病院・150階（屋上)
 		"MitakiharaHospitalEntrance",				//  7:見滝原病院・1階
 		"MitakiharaHospitalBycicleshed",			//  8:見滝原病院・入口
-		"",											//  9:見滝原全体マップ
+		"",											//  9:見滝原全体マップ(便宜上)
 		"",											// 10:歩道橋
 		"",											// 11:商店街
 		"",											// 12:路地裏

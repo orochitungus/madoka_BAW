@@ -1,0 +1,227 @@
+fileFormatVersion: 2
+guid: 0e1218813268e53428d55c944e82db15
+timeCreated: 1512476591
+licenseType: Free
+ModelImporter:
+  serializedVersion: 21
+  fileIDToRecycleName:
+    100000: arm_L_
+    100002: arm_R_
+    100004: body
+    100006: brest
+    100008: const_foot_L_
+    100010: const_foot_R_
+    100012: const_reg_L_
+    100014: const_reg_R_
+    100016: foot_L_
+    100018: foot_R_
+    100020: hand_L_
+    100022: hand_R_
+    100024: handfinger011_L_
+    100026: handfinger011_R_
+    100028: handfinger012_L_
+    100030: handfinger012_R_
+    100032: handfinger021_L_
+    100034: handfinger021_R_
+    100036: handfinger022_L_
+    100038: handfinger022_R_
+    100040: handfinger023_L_
+    100042: handfinger023_R_
+    100044: handfinger031_L_
+    100046: handfinger031_R_
+    100048: handfinger032_L_
+    100050: handfinger032_R_
+    100052: handfinger033_L_
+    100054: handfinger033_R_
+    100056: handfinger041_L_
+    100058: handfinger041_R_
+    100060: handfinger042_L_
+    100062: handfinger042_R_
+    100064: handfinger043_L_
+    100066: handfinger043_R_
+    100068: handfinger051_L_
+    100070: handfinger051_R_
+    100072: handfinger052_L_
+    100074: handfinger052_R_
+    100076: handfinger053_L_
+    100078: handfinger053_R_
+    100080: head
+    100082: kosi
+    100084: kubi
+    100086: //RootNode
+    100088: Mesh
+    100090: reg_L_
+    100092: reg_R_
+    100094: root
+    100096: shoulder_L_
+    100098: shoulder_R_
+    100100: skirt
+    100102: skirt5
+    100104: skirt_1
+    100106: skirt_2_L_
+    100108: skirt_2_R_
+    100110: skirt_3_L_
+    100112: skirt_3_R_
+    100114: skirt_4_L_
+    100116: skirt_4_R_
+    100118: tail
+    100120: tail1_L_
+    100122: tail1_R_
+    100124: thigh_L_
+    100126: thigh_R_
+    100128: XSBone_000
+    400000: arm_L_
+    400002: arm_R_
+    400004: body
+    400006: brest
+    400008: const_foot_L_
+    400010: const_foot_R_
+    400012: const_reg_L_
+    400014: const_reg_R_
+    400016: foot_L_
+    400018: foot_R_
+    400020: hand_L_
+    400022: hand_R_
+    400024: handfinger011_L_
+    400026: handfinger011_R_
+    400028: handfinger012_L_
+    400030: handfinger012_R_
+    400032: handfinger021_L_
+    400034: handfinger021_R_
+    400036: handfinger022_L_
+    400038: handfinger022_R_
+    400040: handfinger023_L_
+    400042: handfinger023_R_
+    400044: handfinger031_L_
+    400046: handfinger031_R_
+    400048: handfinger032_L_
+    400050: handfinger032_R_
+    400052: handfinger033_L_
+    400054: handfinger033_R_
+    400056: handfinger041_L_
+    400058: handfinger041_R_
+    400060: handfinger042_L_
+    400062: handfinger042_R_
+    400064: handfinger043_L_
+    400066: handfinger043_R_
+    400068: handfinger051_L_
+    400070: handfinger051_R_
+    400072: handfinger052_L_
+    400074: handfinger052_R_
+    400076: handfinger053_L_
+    400078: handfinger053_R_
+    400080: head
+    400082: kosi
+    400084: kubi
+    400086: //RootNode
+    400088: Mesh
+    400090: reg_L_
+    400092: reg_R_
+    400094: root
+    400096: shoulder_L_
+    400098: shoulder_R_
+    400100: skirt
+    400102: skirt5
+    400104: skirt_1
+    400106: skirt_2_L_
+    400108: skirt_2_R_
+    400110: skirt_3_L_
+    400112: skirt_3_R_
+    400114: skirt_4_L_
+    400116: skirt_4_R_
+    400118: tail
+    400120: tail1_L_
+    400122: tail1_R_
+    400124: thigh_L_
+    400126: thigh_R_
+    400128: XSBone_000
+    4300000: body
+    4300002: tail
+    4300004: skirt
+    7400000: Madoka_Idle
+    7400002: Madoka_Walk
+    7400004: Madoka_Run
+    7400006: Madoka_Jump
+    7400008: Madoka_Fall
+    7400010: Madoka_Landing
+    7400012: Madoka_AirDash
+    7400014: Madoka_Squat
+    9500000: //RootNode
+    13700000: body
+    13700002: skirt
+    13700004: tail
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
