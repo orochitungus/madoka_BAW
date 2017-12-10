@@ -143,7 +143,7 @@ public class Selector : MonoBehaviour
 			// 下
 			if (!_PreUnderInput && ControllerManager.Instance.Under)
 			{
-				if (NowSelect < MaxSelect && ForCode[NowSelect + 1] != -2)
+				if (NowSelect < MaxSelect -1 && ForCode[NowSelect + 1] != -2)
 				{
 					AudioManager.Instance.PlaySE("cursor");
 					NowSelect++;

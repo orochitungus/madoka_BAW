@@ -6,9 +6,15 @@ public static class MovePointData
 {
 	public static MovePoint []MovepointMitakihara = new MovePoint[]
 	{
-		new MovePoint("見滝原市立病院","Mitakihara Hospital", new Vector3(1316.8f,162,740.3f), new Vector3(21.808f, 203.191f, 0), 0,9999,30),
-		new MovePoint("歩道橋", "Footbridge", new Vector3(1060,26,572), new Vector3(9.889001f,267.362f,0), 0, 9999, 30),
+		new MovePoint("見滝原市立病院","Mitakihara Hospital", new Vector3(1316.8f,162,740.3f), new Vector3(21.808f, 203.191f, 0), 0,9999,30,FROMCODEFORMAP.MITAKIHARAHOSPITAL,"MitakiharaHospitalBycicleshed",8),
+		new MovePoint("歩道橋", "Footbridge", new Vector3(1060,26,572), new Vector3(9.889001f,267.362f,0), 0, 9999, 30, FROMCODEFORMAP.FOOTBRIDGE,"",10),
 	};
+}
+
+public enum FROMCODEFORMAP
+{
+	MITAKIHARAHOSPITAL = 9,
+	FOOTBRIDGE = 11,
 }
 
 public class MovePoint
@@ -53,6 +59,21 @@ public class MovePoint
 	/// </summary>
 	public bool NowPosition;
 
+	/// <summary>
+	/// どこであるか
+	/// </summary>
+	public FROMCODEFORMAP Fromcode;
+
+	/// <summary>
+	/// 移動先のステージファイルの名前
+	/// </summary>
+	public string StageFileName;
+
+	/// <summary>
+	/// 移動先のステージファイルのインデックス（StageCode.csのインデックスを参照）
+	/// </summary>
+	public int ForCode;
+
 	
 	/// <summary>
 	/// コンストラクタ
@@ -63,7 +84,7 @@ public class MovePoint
 	/// <param name="cameraRotation"></param>
 	/// <param name="lowXStory"></param>
 	/// <param name="highXStory"></param>
-	public MovePoint(string nameJP, string nameEN, Vector3 cameraPosition, Vector3 cameraRotation, int lowXStory, int highXStory, float fieldOfView)
+	public MovePoint(string nameJP, string nameEN, Vector3 cameraPosition, Vector3 cameraRotation, int lowXStory, int highXStory, float fieldOfView, FROMCODEFORMAP fromcode, string stagefilename,int forcode)
 	{
 		NameJP = nameJP;
 		NameEN = nameEN;
@@ -72,5 +93,8 @@ public class MovePoint
 		LowXStory = lowXStory;
 		HighXStory = highXStory;
 		FieldOfView = fieldOfView;
+		Fromcode = fromcode;
+		StageFileName = stagefilename;
+		ForCode = forcode;
 	}
 }

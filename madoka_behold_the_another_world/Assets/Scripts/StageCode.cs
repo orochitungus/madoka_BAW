@@ -24,9 +24,9 @@ public static class StageCode
 		// 7:見滝原病院1階
 		new int[]{603,1001},
 		// 8:見滝原病院入口
-		new int[]{901,1201},
+		new int[]{901,902},
 		// 9:見滝原全体マップ
-
+		new int[]{ },
 		// 10:歩道橋
 
 		// 11:商店街

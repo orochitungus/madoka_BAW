@@ -122,7 +122,8 @@ public static class StagePosition
 			new Vector3[]{new Vector3(0,270.0f,0), new Vector3(0,270.0f,0), new Vector3(0,270.0f,0)},	// 1階から来た場合
 			new Vector3[]{new Vector3(0,90.0f,0), new Vector3(0,90.0f,0), new Vector3(0,90.0f,0)},	// 全体マップから来た場合
 		},
-		// 9:見滝原病院・恭介の病室
+		// 9:見滝原全体マップ
+
     };
     // 各ステージのステージ名
     public static string[] m_StageName = new string[]
@@ -142,12 +143,11 @@ public static class StagePosition
 	// 戦闘ステージの場合の目標文言
 	public static string[] Purpose = new string[]
 	{
-		"",
 		"先に進め！",
 		"謎の魔法少女を倒せ！",
-		"",
-		"",
-		"",
+		"情報を集めるために病室の外へ出よう！",
+		"さやかと恭介を追いかけよう",
+		"まどかを探すため、病院の外へ出よう！",
 		"",
 		"",
 		"",

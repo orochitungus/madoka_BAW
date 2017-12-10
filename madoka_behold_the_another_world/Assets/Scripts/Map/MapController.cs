@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UniRx;
+using UniRx.Triggers;
 
 public class MapController : MonoBehaviour 
 {
@@ -9,6 +12,58 @@ public class MapController : MonoBehaviour
 	/// </summary>
 	public string BGMName;
 
+	/// <summary>
+	/// どこから来たかというフラグ
+	/// </summary>
+	public int FromCode;
+
+	/// <summary>
+	/// 移動可能領域
+	/// </summary>
+	List<MovePoint> Movepoint = new List<MovePoint>();
+
+	/// <summary>
+	/// カメラ
+	/// </summary>
+	public Camera MainCamera;
+
+	/// <summary>
+	/// インフォメーションテキスト表示部
+	/// </summary>
+	public Text Information;
+
+	/// <summary>
+	/// 日本語名表示部
+	/// </summary>
+	public Text NameJP;
+
+	/// <summary>
+	/// 英語名表示部
+	/// </summary>
+	public Text NameEN;
+
+	/// <summary>
+	/// 現在選択中のマップのインデックス
+	/// </summary>
+	private int NowIndex;
+
+	/// <summary>
+	/// ポップアップ
+	/// </summary>
+	public GameObject PopUp;
+
+	/// <summary>
+	/// 1F前の左入力
+	/// </summary>
+	private bool PreLeftInput;
+
+	/// <summary>
+	/// 1F前の右入力
+	/// </summary>
+	private bool PreRightInput;
+
+	public GameObject LeftArrow;
+	public GameObject RightArrow;
 
 
 	void Awake()
@@ -58,23 +113,167 @@ public class MapController : MonoBehaviour
 		}
 
 		// 現在移動可能な個所をリストアップしてリストにする
+		for(int i=0; i<MovePointData.MovepointMitakihara.Length; i++)
+		{
+			if(savingparameter.story >= MovePointData.MovepointMitakihara[i].LowXStory && savingparameter.story <= MovePointData.MovepointMitakihara[i].HighXStory)
+			{
+				Movepoint.Add(MovePointData.MovepointMitakihara[i]);
+				// 現在位置の場合フラグを追加
+				if(savingparameter.nowField == (int)Movepoint[i].Fromcode)
+				{
+					Movepoint[i].NowPosition = true;
+				}
+				else
+				{
+					Movepoint[i].NowPosition = false;
+				}
+			}
+		}
 
 		// リストの中で現在の位置にカメラをセットしてインフォメーションと現在位置を表示する
+		for(int i=0; i<Movepoint.Count; i++)
+		{
+			if(Movepoint[i].NowPosition)
+			{
+				SetMapData(i);
+				// インデックスを保持
+				NowIndex = i;
+			}
+		}
 
 		// BGMを変更する
+		AudioManager.Instance.PlayBGM(BGMName);
+		// Informationに書き込む
+		Information.text = StagePosition.Purpose[savingparameter.story];
 	}
 
 	// Use this for initialization
 	void Start () 
 	{
-		
+		// 場所選択
+		this.UpdateAsObservable().Where(_ => PopUp.gameObject.transform.localScale.y == 0).Subscribe(_ =>
+		{
+			// 左
+			if (!PreLeftInput && ControllerManager.Instance.Left)
+			{
+				if (NowIndex > 0)
+				{
+					AudioManager.Instance.PlaySE("cursor");
+					NowIndex--;
+					SetMapData(NowIndex);
+				}
+			}
+			// 右
+			if (!PreRightInput && ControllerManager.Instance.Right)
+			{
+				if (NowIndex < Movepoint.Count - 1)
+				{
+					AudioManager.Instance.PlaySE("cursor");
+					NowIndex++;
+					SetMapData(NowIndex);
+				}
+			}
+
+			// 入力更新
+			// 上
+			PreLeftInput = ControllerManager.Instance.Left;
+			// 下
+			PreRightInput = ControllerManager.Instance.Right;
+
+			// 選択確定
+			if(ControllerManager.Instance.Shot)
+			{
+				AudioManager.Instance.PlaySE("OK");
+				iTween.ScaleTo(PopUp, iTween.Hash(
+										// 拡大率指定
+										"y", 1,
+										// 拡大時間指定
+										"time", 0.5f));
+				// ポップアップに文字書き込み
+				PopUp.GetComponent<MenuPopup>().PopupText.text = "ここに移動しますか？";
+			}
+			
+		});
+
+		// ポップアップ確認
+		this.UpdateAsObservable().Where(_ => PopUp.gameObject.transform.localScale.y == 1).Subscribe(_ =>
+		{
+			// 左
+			if (!PreLeftInput && ControllerManager.Instance.Left)
+			{
+				if (PopUp.GetComponent<MenuPopup>().NowSelect > 0)
+				{
+					AudioManager.Instance.PlaySE("cursor");
+					PopUp.GetComponent<MenuPopup>().NowSelect--;
+				}
+			}
+			// 右
+			if (!PreRightInput && ControllerManager.Instance.Right)
+			{
+				if (PopUp.GetComponent<MenuPopup>().NowSelect < 1)
+				{
+					AudioManager.Instance.PlaySE("cursor");
+					PopUp.GetComponent<MenuPopup>().NowSelect++;
+				}
+			}
+			// 選択確定
+			if (ControllerManager.Instance.Shot)
+			{
+				// OK
+				if(PopUp.GetComponent<MenuPopup>().NowSelect == 0)
+				{
+					AudioManager.Instance.PlaySE("OK");
+					savingparameter.beforeField = FromCode;
+					savingparameter.nowField = Movepoint[NowIndex].ForCode;
+					FadeManager.Instance.LoadLevel(Movepoint[NowIndex].StageFileName, 1.0f);
+				}
+				// キャンセル
+				else
+				{
+					AudioManager.Instance.PlaySE("cursor");
+					iTween.ScaleTo(PopUp, iTween.Hash(
+										// 拡大率指定
+										"y", 0,
+										// 拡大時間指定
+										"time", 0.5f));
+				}
+			}
+
+		});
+	}
+
+	/// <summary>
+	/// カメラ、場所名などを表示する
+	/// </summary>
+	/// <param name="index"></param>
+	private void SetMapData(int index)
+	{
+		NameJP.text = Movepoint[index].NameJP;
+		NameEN.text = Movepoint[index].NameEN;
+		MainCamera.transform.position = Movepoint[index].CameraPosition;
+		MainCamera.transform.rotation = Quaternion.Euler(Movepoint[index].CameraRotation);
+		MainCamera.fieldOfView = Movepoint[index].FieldOfView;
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		// ショットキー、左入力、右入力を受け付ける
-		// ショットキーを押す→ポップアップを出してここへの移動の最終確認をとる
-		// 左か右を押す→リストの隣の値へ
+		// 左端、右端についたらLeftArrow,RightArrowをそれぞれ消す
+		if(NowIndex == 0)
+		{
+			LeftArrow.SetActive(false);
+		}
+		else
+		{
+			LeftArrow.SetActive(true);
+		}
+		if(NowIndex == Movepoint.Count - 1)
+		{
+			RightArrow.SetActive(false);
+		}
+		else
+		{
+			RightArrow.SetActive(true);
+		}
 	}
 }
