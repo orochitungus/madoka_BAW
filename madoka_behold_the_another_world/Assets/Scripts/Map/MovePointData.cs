@@ -4,17 +4,22 @@ using UnityEngine;
 
 public static class MovePointData
 {
+	/// <summary>
+	/// 見滝原市全体マップからの行先
+	/// </summary>
 	public static MovePoint []MovepointMitakihara = new MovePoint[]
 	{
 		new MovePoint("見滝原市立病院","Mitakihara Hospital", new Vector3(1316.8f,162,740.3f), new Vector3(21.808f, 203.191f, 0), 0,9999,30,FROMCODEFORMAP.MITAKIHARAHOSPITAL,"MitakiharaHospitalBycicleshed",8),
-		new MovePoint("歩道橋", "Footbridge", new Vector3(1060,26,572), new Vector3(9.889001f,267.362f,0), 0, 9999, 30, FROMCODEFORMAP.FOOTBRIDGE,"",10),
+		new MovePoint("歩道橋", "Footbridge", new Vector3(1060,26,572), new Vector3(9.889001f,267.362f,0), 0, 9999, 30, FROMCODEFORMAP.FOOTBRIDGE,"FootBridgeArea",10),
 	};
+
+
 }
 
 public enum FROMCODEFORMAP
 {
-	MITAKIHARAHOSPITAL = 9,
-	FOOTBRIDGE = 11,
+	MITAKIHARAHOSPITAL = 1001,
+	FOOTBRIDGE = 1101,
 }
 
 public class MovePoint

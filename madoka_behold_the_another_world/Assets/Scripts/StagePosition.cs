@@ -61,7 +61,18 @@ public static class StagePosition
 			new Vector3[]{ new Vector3(3.787974f,0,0.1080822f), new Vector3(-2.787974f,0,0.1080822f), new Vector3(8.787974f,0,0.1080822f)},	// 1階から来た場合
 			new Vector3[]{ new Vector3(-49.40907f,-0.96f,-0.5917053f),new Vector3(-54.40907f,-0.96f,-0.5917053f),new Vector3(-44.40907f,-0.96f,-0.5917053f)},	// 全体マップから来た場合
 		},
-		// 9:
+		// 9:見滝原全体マップ（使用せず)
+		new Vector3[][]
+		{
+		},
+		// 10:歩道橋
+		new Vector3[][]
+		{
+			new Vector3[]{ new Vector3(-51.96f, 3.8f, 7.33f), new Vector3(-51.96f, 3.8f, 5.33f), new Vector3(-51.96f, 3.8f, 9.33f) }		// 全体マップから来た場合
+		},
+		// 11:見滝原駅前
+
+		// 12:
     };
 
     // 各ステージのキャラクターの初期配置角度
@@ -123,7 +134,16 @@ public static class StagePosition
 			new Vector3[]{new Vector3(0,90.0f,0), new Vector3(0,90.0f,0), new Vector3(0,90.0f,0)},	// 全体マップから来た場合
 		},
 		// 9:見滝原全体マップ
+		new Vector3[][]
+		{
 
+		},
+		// 10:歩道橋
+		new Vector3[][]
+		{
+			new Vector3[]{new Vector3(0,90,0), new Vector3(0, 90, 0), new Vector3(0, 90, 0) }	// 全体マップから来た場合
+		},
+		// 11:
     };
     // 各ステージのステージ名
     public static string[] m_StageName = new string[]
@@ -137,10 +157,12 @@ public static class StagePosition
 		"見滝原病院・150階",
 		"見滝原病院・1階",
 		"見滝原病院入口",
-		"見滝原病院・恭介の病室",
+		"見滝原全体マップ",
+		"歩道橋",
+		""
     };
 
-	// 戦闘ステージの場合の目標文言
+	// 目標文言
 	public static string[] Purpose = new string[]
 	{
 		"先に進め！",

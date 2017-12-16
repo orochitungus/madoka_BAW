@@ -28,8 +28,8 @@ public static class StageCode
 		// 9:見滝原全体マップ
 		new int[]{ },
 		// 10:歩道橋
-
-		// 11:商店街
+		new int[]{902},
+		// 11:見滝原駅前
 
 		// 12:路地裏
     };
@@ -57,8 +57,8 @@ public static class StageCode
 		// 9:見滝原全体マップ
 		"",
 		// 10:歩道橋
-
-		// 11:商店街
+		"arifuretahitokoma",
+		// 11:見滝原駅前
 
 		// 12:路地裏
     };
@@ -84,9 +84,9 @@ public static class StageCode
 		// 8:見滝原病院入口
 		new bool[]{false,true},
 		// 9:見滝原全体マップ
-		new bool[]{true}
+		new bool[]{true},
 		// 10:歩道橋
-
+		new bool[]{true}
 		// 11:商店街
 
 		// 12:路地裏

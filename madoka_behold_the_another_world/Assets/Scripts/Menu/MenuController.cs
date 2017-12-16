@@ -162,14 +162,14 @@ public class MenuController : MonoBehaviour
 	/// <summary>
 	/// ステータス画面のY座標
 	/// </summary>
-	private const float STATUSWINDOWYPOS = 190;
+	private const float STATUSWINDOWYPOS = 0;
 
 	/// <summary>
 	/// ステータス画面のX座標(移動時）
 	/// </summary>
     private const float STATUSWINDOWXPOS = 900;
 
-	private const float STATUSWINDOWXPOSOR = 340;
+	private const float STATUSWINDOWXPOSOR = 0;
 
 	/// <summary>
 	/// キャラクター選択画面の行の最大幅
@@ -249,15 +249,7 @@ public class MenuController : MonoBehaviour
 						case (int)Menumode.ITEM:
 							// 選択するとITEMへ移行
 							AudioManager.Instance.PlaySE("OK");
-							iTween.MoveTo(Root, iTween.Hash(
-								// 移動先指定
-								"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
-								// 移動時間指定
-								"time", 0.5f,
-								// 終了時Status呼び出し
-								"oncomplete", "InsertItem",
-								"oncompletetarget", gameObject
-							));
+							MovePanel(Root, "InsertItem");
 							ItemDraw();
 							// ITEMへ移行
 							Menucontrol = MenuControl.ITEM;
@@ -269,15 +261,7 @@ public class MenuController : MonoBehaviour
 							// 選択するとSYSTEMへ移行
 							AudioManager.Instance.PlaySE("OK");
 							Menucontrol = MenuControl.SYSTEM;
-							iTween.MoveTo(Root, iTween.Hash(
-								// 移動先指定
-								"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
-								// 移動時間指定
-								"time", 0.5f,
-								// 終了時Status呼び出し
-								"oncomplete", "InsertSystem",
-								"oncompletetarget", gameObject
-							));
+							MovePanel(Root, "InsertSystem");
 							break;
 						case (int)Menumode.PARTY:
 							// 選択するとPARTYへ移行
@@ -291,43 +275,19 @@ public class MenuController : MonoBehaviour
 							{
 								Menucontrol = MenuControl.PARTYUNSELECT;
 							}
-							iTween.MoveTo(Root, iTween.Hash(
-								// 移動先指定
-								"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
-								// 移動時間指定
-								"time", 0.5f,
-								// 終了時Party呼び出し
-								"oncomplete", "InsertParty",
-								"oncompletetarget", gameObject
-							));
+							MovePanel(Root, "InsertParty");
 							break;
 						case (int)Menumode.SAVE:
 							// 選択するとSAVEへ移行
 							AudioManager.Instance.PlaySE("OK");
 							Menucontrol = MenuControl.SAVE;
-							iTween.MoveTo(Root, iTween.Hash(
-								// 移動先指定
-								"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
-								// 移動時間指定
-								"time", 0.5f,
-								// 終了時Status呼び出し
-								"oncomplete", "InsertSaveLoad",
-								"oncompletetarget", gameObject
-							));
+							MovePanel(Root, "InsertSaveLoad");
 							break;
 						case (int)Menumode.LOAD:
 							// 選択するとLOADへ移行
 							AudioManager.Instance.PlaySE("OK");
 							Menucontrol = MenuControl.LOAD;
-							iTween.MoveTo(Root, iTween.Hash(
-								// 移動先指定
-								"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
-								// 移動時間指定
-								"time", 0.5f,
-								// 終了時Status呼び出し
-								"oncomplete", "InsertSaveLoad",
-								"oncompletetarget", gameObject
-							));
+							MovePanel(Root, "InsertSaveLoad");
 							break;
 						case 7:
 							// 選択するとタイトルへ戻る最終確認を出す
@@ -351,15 +311,7 @@ public class MenuController : MonoBehaviour
 				if (ControllerManager.Instance.Shot)
 				{
 					AudioManager.Instance.PlaySE("OK");
-					iTween.MoveTo(Root, iTween.Hash(
-						// 移動先指定
-						"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
-						// 移動時間指定
-						"time", 0.5f,
-						// 終了時Status呼び出し
-						"oncomplete", "InsertStatus",
-						"oncompletetarget", gameObject
-					));
+					MovePanel(Root, "InsertStatus");
 					// 選択したキャラのSTATUSを表示する
 					// 選択したキャラは誰？
 					int selectedCharacter = savingparameter.GetNowParty(CharSelect);
@@ -425,16 +377,7 @@ public class MenuController : MonoBehaviour
 				else if (ControllerManager.Instance.Jump)
 				{
 					AudioManager.Instance.PlaySE("OK");
-					iTween.MoveTo(Status, iTween.Hash(
-						// 移動先指定
-						"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
-						// 移動時間指定
-						"time", 0.5f,
-						// 終了時Root呼び出し
-						"oncomplete", "InsertRoot",
-						"oncompletetarget", gameObject
-					));
-
+					MovePanel(Status, "InsertRoot");
 					Menucontrol = MenuControl.STATUSCHARSELECT;
 				}
 			}
@@ -592,16 +535,8 @@ public class MenuController : MonoBehaviour
 				else if (ControllerManager.Instance.Jump)
 				{
 					AudioManager.Instance.PlaySE("OK");
-					iTween.MoveTo(ItemWindow, iTween.Hash(
-						// 移動先指定
-						"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
-						// 移動時間指定
-						"time", 0.5f,
-						// 終了時Root呼び出し
-						"oncomplete", "InsertRoot",
-						"oncompletetarget", gameObject
-					));
-
+					MovePanel(ItemWindow, "InsertRoot");
+					
 					Menucontrol = MenuControl.ROOT;
 				}
 			}
@@ -639,15 +574,8 @@ public class MenuController : MonoBehaviour
 				{
 					// 選択するとITEMへ移行
 					AudioManager.Instance.PlaySE("OK");
-					iTween.MoveTo(Root, iTween.Hash(
-						// 移動先指定
-						"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
-						// 移動時間指定
-						"time", 0.5f,
-						// 終了時Skill呼び出し
-						"oncomplete", "InsertSkill",
-						"oncompletetarget", gameObject
-					));
+					MovePanel(Root, "InsertSkill");
+					
 					// 選択したキャラは誰？
 					int selectedCharacter = savingparameter.GetNowParty(CharSelect);
 					// SKILL書き込み
@@ -676,15 +604,7 @@ public class MenuController : MonoBehaviour
 				if (ControllerManager.Instance.Jump)
 				{
 					AudioManager.Instance.PlaySE("OK");
-					iTween.MoveTo(SkillWindow, iTween.Hash(
-						// 移動先指定
-						"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
-						// 移動時間指定
-						"time", 0.5f,
-						// 終了時Root呼び出し
-						"oncomplete", "InsertRoot",
-						"oncompletetarget", gameObject
-					));
+					MovePanel(SkillWindow,"InsertRoot");
 					Menucontrol = MenuControl.SKILLCHARSELECT;
 				}
 			}
@@ -699,15 +619,7 @@ public class MenuController : MonoBehaviour
 				if (ControllerManager.Instance.Jump)
 				{
 					AudioManager.Instance.PlaySE("OK");
-					iTween.MoveTo(SystemWindow, iTween.Hash(
-						// 移動先指定
-						"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
-						// 移動時間指定
-						"time", 0.5f,
-						// 終了時Root呼び出し
-						"oncomplete", "InsertRoot",
-						"oncompletetarget", gameObject
-						));
+					MovePanel(SystemWindow, "InsertRoot");
 					Menucontrol = MenuControl.ROOT;
 				}
 
@@ -745,15 +657,7 @@ public class MenuController : MonoBehaviour
 				if (ControllerManager.Instance.Jump)
 				{
 					AudioManager.Instance.PlaySE("OK");
-					iTween.MoveTo(PartyWindow, iTween.Hash(
-						// 移動先指定
-						"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
-						// 移動時間指定
-						"time", 0.5f,
-						// 終了時Root呼び出し
-						"oncomplete", "InsertRoot",
-						"oncompletetarget", gameObject
-						));
+					MovePanel(PartyWindow, "InsertRoot");
 					Menucontrol = MenuControl.ROOT;
 				}
 				// 決定で一人目確定
@@ -820,15 +724,7 @@ public class MenuController : MonoBehaviour
 				if (ControllerManager.Instance.Jump)
 				{
 					AudioManager.Instance.PlaySE("OK");
-					iTween.MoveTo(PartyWindow, iTween.Hash(
-						// 移動先指定
-						"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
-						// 移動時間指定
-						"time", 0.5f,
-						// 終了時Root呼び出し
-						"oncomplete", "InsertRoot",
-						"oncompletetarget", gameObject
-						));
+					MovePanel(PartyWindow, "InsertRoot");
 					Menucontrol = MenuControl.ROOT;
 				}
 				// 説明文を表示
@@ -848,30 +744,14 @@ public class MenuController : MonoBehaviour
 					// ROOTのグラフィック書き換え
 					InsertRootCharacter();
 					AudioManager.Instance.PlaySE("OK");
-					iTween.MoveTo(PartyWindow, iTween.Hash(
-						// 移動先指定
-						"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
-						// 移動時間指定
-						"time", 0.5f,
-						// 終了時Root呼び出し
-						"oncomplete", "InsertRoot",
-						"oncompletetarget", gameObject
-						));
+					MovePanel(PartyWindow, "InsertRoot");
 					Menucontrol = MenuControl.ROOT;
 				}
 				// キャンセルでROOTへ移行
 				else if (ControllerManager.Instance.Jump)
 				{
 					AudioManager.Instance.PlaySE("OK");
-					iTween.MoveTo(PartyWindow, iTween.Hash(
-						// 移動先指定
-						"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
-						// 移動時間指定
-						"time", 0.5f,
-						// 終了時Root呼び出し
-						"oncomplete", "InsertRoot",
-						"oncompletetarget", gameObject
-						));
+					MovePanel(PartyWindow, "InsertRoot");
 					Menucontrol = MenuControl.ROOT;
 				}
 				// 説明文を表示
@@ -913,15 +793,7 @@ public class MenuController : MonoBehaviour
 				else if (ControllerManager.Instance.Jump)
 				{
 					AudioManager.Instance.PlaySE("OK");
-					iTween.MoveTo(SaveLoadWindow, iTween.Hash(
-						// 移動先指定
-						"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
-						// 移動時間指定
-						"time", 0.5f,
-						// 終了時Root呼び出し
-						"oncomplete", "InsertRoot",
-						"oncompletetarget", gameObject
-						));
+					MovePanel(SaveLoadWindow,"InsertRoot");
 					Menucontrol = MenuControl.ROOT;
 				}
 				// 説明文を表示
@@ -987,15 +859,7 @@ public class MenuController : MonoBehaviour
 				else if (ControllerManager.Instance.Jump)
 				{
 					AudioManager.Instance.PlaySE("OK");
-					iTween.MoveTo(SaveLoadWindow, iTween.Hash(
-						// 移動先指定
-						"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
-						// 移動時間指定
-						"time", 0.5f,
-						// 終了時Root呼び出し
-						"oncomplete", "InsertRoot",
-						"oncompletetarget", gameObject
-						));
+					MovePanel(SaveLoadWindow, "InsertRoot");
 					Menucontrol = MenuControl.ROOT;
 				}
 				// 説明文を表示
@@ -1265,6 +1129,20 @@ public class MenuController : MonoBehaviour
 		
     }
 
+	private void MovePanel(GameObject movetarget, string targetpanel)
+	{
+		iTween.MoveTo(movetarget, iTween.Hash(
+								// 移動先指定
+								"position", new Vector3(STATUSWINDOWXPOS, STATUSWINDOWYPOS, 0),
+								"islocal", true,
+								// 移動時間指定
+								"time", 0.5f,
+								// 終了時Status呼び出し
+								"oncomplete", targetpanel,
+								"oncompletetarget", gameObject
+							));
+	}
+
 	/// <summary>
 	/// SystemWindowをprivateにしてしまったのでアクセス用
 	/// </summary>
@@ -1295,9 +1173,11 @@ public class MenuController : MonoBehaviour
 		// モードをROOTにする
 		Menucontrol = MenuControl.ROOT;
 
+		// デバッグ用
+		savingparameter.SetNowParty(0, 1);
 
-       // MenubarのSTATUSを選択状態にする
-       for(int i=0; i<Menubar.Length; i++)
+		// MenubarのSTATUSを選択状態にする
+		for(int i=0; i<Menubar.Length; i++)
         { 
             if(i==0)
             {
@@ -1662,7 +1542,7 @@ public class MenuController : MonoBehaviour
 	/// </summary>
 	private void InsertStatus()
 	{
-		iTween.MoveTo(Status, new Vector3(STATUSWINDOWXPOSOR, STATUSWINDOWYPOS, 0), 0.5f);
+		iTween.MoveTo(Status, iTween.Hash("x", STATUSWINDOWXPOSOR, "islocal", true, "time", 0.5f));
 	}
 
 	/// <summary>
@@ -1670,7 +1550,7 @@ public class MenuController : MonoBehaviour
 	/// </summary>
 	private void InsertRoot()
 	{
-		iTween.MoveTo(Root, new Vector3(STATUSWINDOWXPOSOR, STATUSWINDOWYPOS, 0), 0.5f);
+		iTween.MoveTo(Root, iTween.Hash("x", STATUSWINDOWXPOSOR, "islocal", true, "time", 0.5f));
 	}
 
 	/// <summary>
@@ -1678,7 +1558,7 @@ public class MenuController : MonoBehaviour
 	/// </summary>
 	private void InsertItem()
 	{
-		iTween.MoveTo(ItemWindow, new Vector3(STATUSWINDOWXPOSOR, STATUSWINDOWYPOS, 0), 0.5f);
+		iTween.MoveTo(ItemWindow, iTween.Hash("x", STATUSWINDOWXPOSOR, "islocal", true, "time", 0.5f));
 	}
 
     /// <summary>
@@ -1686,7 +1566,7 @@ public class MenuController : MonoBehaviour
     /// </summary>
     private void InsertSkill()
     {
-        iTween.MoveTo(SkillWindow, new Vector3(STATUSWINDOWXPOSOR, STATUSWINDOWYPOS, 0), 0.5f);
+        iTween.MoveTo(SkillWindow, iTween.Hash("x", STATUSWINDOWXPOSOR, "islocal", true, "time", 0.5f));
     }
 
 	/// <summary>
@@ -1694,7 +1574,7 @@ public class MenuController : MonoBehaviour
 	/// </summary>
 	private void InsertSystem()
 	{
-		iTween.MoveTo(SystemWindow, new Vector3(STATUSWINDOWXPOSOR, STATUSWINDOWYPOS, 0), 0.5f);
+		iTween.MoveTo(SystemWindow, iTween.Hash("x", STATUSWINDOWXPOSOR, "islocal", true, "time", 0.5f));
 	}
 
 	/// <summary>
@@ -1703,7 +1583,7 @@ public class MenuController : MonoBehaviour
 	private void InsertParty()
 	{
 		PartyWindow.GetComponent<MenuPartyDraw>().Setup();
-		iTween.MoveTo(PartyWindow, new Vector3(STATUSWINDOWXPOSOR, STATUSWINDOWYPOS, 0), 0.5f);
+		iTween.MoveTo(PartyWindow, iTween.Hash("x", STATUSWINDOWXPOSOR, "islocal", true, "time", 0.5f));
 	}
 
 	/// <summary>
@@ -1715,7 +1595,7 @@ public class MenuController : MonoBehaviour
 		SaveLoadWindow.GetComponent<MenuSaveLoadDraw>().Nowselect = 0;
 		SaveLoadWindow.GetComponent<MenuSaveLoadDraw>().Nowpage = 0;
 		SaveLoadWindow.GetComponent<MenuSaveLoadDraw>().DrawCursor(0);
-		iTween.MoveTo(SaveLoadWindow, new Vector3(STATUSWINDOWXPOSOR, STATUSWINDOWYPOS, 0), 0.5f);
+		iTween.MoveTo(SaveLoadWindow, iTween.Hash("x", STATUSWINDOWXPOSOR, "islocal", true, "time", 0.5f));
 	}
 
 	/// <summary>

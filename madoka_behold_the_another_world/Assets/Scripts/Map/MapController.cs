@@ -119,7 +119,7 @@ public class MapController : MonoBehaviour
 			{
 				Movepoint.Add(MovePointData.MovepointMitakihara[i]);
 				// 現在位置の場合フラグを追加
-				if(savingparameter.nowField == (int)Movepoint[i].Fromcode)
+				if(savingparameter.beforeField == (int)Movepoint[i].Fromcode)
 				{
 					Movepoint[i].NowPosition = true;
 				}
