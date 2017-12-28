@@ -20,6 +20,8 @@ public class HomuraQuestControl : CharacterControlBaseQuest
 	private int FallID;
 	#endregion
 
+
+
 	// Use this for initialization
 	void Start () 
 	{

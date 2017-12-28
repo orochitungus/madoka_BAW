@@ -136,6 +136,24 @@ public class CharacterControlBaseQuest : MonoBehaviour
 	bool Hitcounterdone;
 	const int HitcounterBias = 20;
 
+	/// <summary>
+	/// 戦闘用インターフェース
+	/// </summary>
+	public BattleInterfaceController Battleinterfacecontroller;
+
+	private void Awake()
+	{
+		// 戦闘用インターフェースを取得する
+		Battleinterfacecontroller = GameObject.Find("BattleInterfaceCanvas").GetComponent<BattleInterfaceController>();
+		if (Battleinterfacecontroller == null)
+		{
+			Debug.LogError("Caution!! BattleInterfaceCanvas is Nothing!!");
+		}
+
+		// インフォメーション表示内容
+		Battleinterfacecontroller.InformationText.text = StagePosition.Purpose[savingparameter.story];
+	}
+
 	// 接地判定を行う。足元に5本(中心と前後左右)レイを落とし、そのいずれかが接触していれば接地。全部外れていれば落下
 	protected bool onGround()
 	{

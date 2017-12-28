@@ -314,10 +314,13 @@ public class Player_Camera_Controller : MonoBehaviour
 		// ロックオン対象が死んでいたら強制的にロックを解除する（CPUの哨戒モード時は除く）
 		if (target.IsRockon && CPUmode != AIControlBase.CPUMODE.OUTWARD_JOURNEY && CPUmode != AIControlBase.CPUMODE.RETURN_PATH)
 		{
-			var rockontarget = Enemy.GetComponentInChildren<CharacterControlBase>();
-			if (rockontarget != null && rockontarget.NowHitpoint < 1)
+			if (Enemy != null)
 			{
-				UnlockDone(target);
+				var rockontarget = Enemy.GetComponentInChildren<CharacterControlBase>();
+				if (rockontarget != null && rockontarget.NowHitpoint < 1)
+				{
+					UnlockDone(target);
+				}
 			}
 		}
 

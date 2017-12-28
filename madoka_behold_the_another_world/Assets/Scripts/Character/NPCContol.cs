@@ -35,11 +35,26 @@ public class NPCContol : MonoBehaviour
 	/// </summary>
 	public AdvUguiManager2 Advuguimanager2;
 
+	/// <summary>
+	/// ストーリーが進行すると消す場合の最低Story
+	/// </summary>
+	public int BrokenLow;
+
+	/// <summary>
+	/// ストーリーが進行すると消す場合の最大Story
+	/// </summary>
+	public int BrokenHigh;
 
 	// Use this for initialization
 	void Start () 
 	{
 		AnimatorUnit.Play(NormalAnimationName);
+
+		// 消す条件を満たしている場合消す
+		if(savingparameter.story >= BrokenLow && savingparameter.story <= BrokenHigh)
+		{
+			Destroy(gameObject);
+		}
 	}
 	
 	// Update is called once per frame

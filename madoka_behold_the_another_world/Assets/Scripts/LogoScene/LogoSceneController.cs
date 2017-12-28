@@ -67,6 +67,12 @@ public class LogoSceneController : MonoBehaviour
 	/// <returns></returns>
 	private IEnumerator AppearCompanyLogo()
 	{
+		// saveフォルダがない場合、PlayerPrefsのキーコンフィグを初期化する
+		if (!System.IO.Directory.Exists("save"))
+		{
+			PlayerPrefs.SetInt("TenKeySetup", 0);
+			PlayerPrefs.SetInt("RightStickSetup", 0);
+		}
 		// 一定時間後ロゴ出現        
 		yield return new WaitForSeconds(1.0f);
 		LogoAppear.SetTrigger("Start");
@@ -85,11 +91,15 @@ public class LogoSceneController : MonoBehaviour
 			PlayerPrefs.SetFloat("VoiceVolue", 1.0f);
 		}
 
-		//int x = PlayerPrefs.GetInt("TenKeySetup");
-		//int y = PlayerPrefs.GetInt("RightStickSetup");
+		int x = PlayerPrefs.GetInt("TenKeySetup");
+		int y = PlayerPrefs.GetInt("RightStickSetup");
+
+		Debug.Log("x:" + x);
+		Debug.Log("y:" + y);
+
 		// コントローラー設定をやっていたらタイトルへ、していなかったらコントローラー設定へ
 		// タイトルへ遷移
-		if (PlayerPrefs.GetInt("TenKeySetup") != 0 || PlayerPrefs.GetInt("RightStickSetup") != 0)
+		if (PlayerPrefs.GetInt("TenKeySetup") != 0 && PlayerPrefs.GetInt("RightStickSetup") != 0)
 		{
 			FadeManager.Instance.LoadLevel("title", 1.0f);
 		}

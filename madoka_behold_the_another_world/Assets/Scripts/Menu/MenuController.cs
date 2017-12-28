@@ -1173,9 +1173,6 @@ public class MenuController : MonoBehaviour
 		// モードをROOTにする
 		Menucontrol = MenuControl.ROOT;
 
-		// デバッグ用
-		savingparameter.SetNowParty(0, 1);
-
 		// MenubarのSTATUSを選択状態にする
 		for(int i=0; i<Menubar.Length; i++)
         { 

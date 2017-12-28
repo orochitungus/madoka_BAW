@@ -4995,8 +4995,8 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     protected virtual void Reversal()
 	{
-
-
+		// 無敵時間を解除する
+		StartCoroutine(InvincibleCut());
 	}
 
     /// <summary>
@@ -5004,6 +5004,13 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     protected virtual void ReversalComplete()
 	{
+		
+	}
+
+	
+	public IEnumerator InvincibleCut()
+	{
+		yield return new WaitForSeconds(1.0f);
 		// 復帰アニメが終わると、Idleにする
 		// ダウン値を0に戻す
 		NowDownRatio = 0.0f;
@@ -5011,14 +5018,6 @@ public class CharacterControlBase : MonoBehaviour
 		DownRebirthTime = 0;
 		// m_DownTimeを0にする
 		DownTime = 0;
-		// 無敵時間を解除する
-		StartCoroutine(InvincibleCut());
-	}
-
-	
-	public IEnumerator InvincibleCut()
-	{
-		yield return new WaitForSeconds(1.0f);
 		Invincible = false;
 	}
 
