@@ -114,26 +114,7 @@ public class DrawInformation : MonoBehaviour
         // それ以外の時はsavingparameter.storyに応じて内容を変更する
         else
         {
-            if (savingparameter.story == 0)
-            {
-                drawwords = "先へ進め！";
-            }
-            else if (savingparameter.story == 1)
-            {
-                drawwords = "謎の魔法少女を倒せ！";
-            }
-            else if (savingparameter.story == 2)
-            {
-                drawwords = "情報を集めるために病室の外へ出よう！";
-            }
-            else if (savingparameter.story == 3)
-            {
-                drawwords = "さやかと恭介を追いかけよう！";
-            }
-			else if(savingparameter.story == 4)
-			{
-				drawwords = "まどかを探すため、病院の外へ出よう！";
-			}
+			drawwords = ParameterManager.Instance.EntityInformation.sheets[0].list[savingparameter.story].text;
         }
         if ((m_timewaitodone && LevelUpManagement.m_characterName == 0) || (m_timewaitodone && FieldItemGetManagement.ItemKind > -2))
         {

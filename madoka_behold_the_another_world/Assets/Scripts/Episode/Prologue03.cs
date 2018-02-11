@@ -60,6 +60,14 @@ public class Prologue03 : MonoBehaviour
 			loadManager.name = "AudioManager";
 		}
 
+		// ParameterManagerがあるか判定
+		if (GameObject.Find("ParameterManager") == null)
+		{
+			// 無ければ作る
+			GameObject parameterManager = (GameObject)Instantiate(Resources.Load("ParameterManager"));
+			parameterManager.name = "ParameterManager";
+		}
+
 		// モーションを初期化する
 		HomuraAnimator.SetTrigger("lifted");
 		SconosciutoAnimator.SetTrigger("liftup");

@@ -207,9 +207,9 @@ public partial class DrawMenu
                     savingparameter.nowField = sd.nowField;
                     // 前にいた場所
                     savingparameter.beforeField = 9999;
-                    // 該当の場所へ遷移する
-					FadeManager.Instance.LoadLevel(SceneName.sceneName[savingparameter.nowField], 1.0f);
-                }
+					// 該当の場所へ遷移する
+					FadeManager.Instance.LoadLevel(ParameterManager.Instance.Mapscenename.sheets[0].list[savingparameter.nowField].SceneName, 1.0f);
+				}
                 break;
             case LoadState.SLIDEOUT:
                 // LOADの文字列

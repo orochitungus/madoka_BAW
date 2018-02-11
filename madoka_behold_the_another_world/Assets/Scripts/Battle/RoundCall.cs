@@ -81,6 +81,13 @@ public class RoundCall : MonoBehaviour
 			Pausecontroller = (GameObject)Instantiate(Resources.Load("PauseManager"));
 			Pausecontroller.name = "PauseManager";
 		}
+		// ParameterManagerがあるか判定
+		if (GameObject.Find("ParameterManager") == null)
+		{
+			// 無ければ作る
+			GameObject parameterManager = (GameObject)Instantiate(Resources.Load("ParameterManager"));
+			parameterManager.name = "ParameterManager";
+		}
 		RoundCallDone = true;
 
 		
@@ -117,9 +124,9 @@ public class RoundCall : MonoBehaviour
 	void Clearcondtion()
 	{
 		// クリア条件を表示
-		ClearCondition.text = "クリア条件：" + StagePosition.Purpose[savingparameter.nowField];
+		ClearCondition.text = "クリア条件：" + ParameterManager.Instance.EntityInformation.sheets[0].list[savingparameter.story].text;
 		// ショットキーを押されたら次へ
-		if(ControllerManager.Instance.Shot)
+		if (ControllerManager.Instance.Shot)
 		{
 			Roundcallstate = RoundCallState.READY;
 			Counter = MadokaDefine.ROUNDCALLCOUNT;
@@ -139,8 +146,14 @@ public class RoundCall : MonoBehaviour
 			}
 		}
 		// キャラを映すようにする
-		Vector3 charpos = StagePosition.m_InitializeCharacterPos[savingparameter.nowField][settingPosition][0];
-		Vector3 charrot = StagePosition.m_InitializeCharacterRot[savingparameter.nowField][settingPosition][0];
+		float xpos0 = ParameterManager.Instance.StagepositionrotData.sheets[savingparameter.nowField].list[settingPosition * 3].Xpos;
+		float ypos0 = ParameterManager.Instance.StagepositionrotData.sheets[savingparameter.nowField].list[settingPosition * 3].Ypos;
+		float zpos0 = ParameterManager.Instance.StagepositionrotData.sheets[savingparameter.nowField].list[settingPosition * 3].Zpos;
+		Vector3 charpos = new Vector3(xpos0, ypos0, zpos0);
+		float xrot0 = ParameterManager.Instance.StagepositionrotData.sheets[savingparameter.nowField].list[settingPosition * 3].Xrot;
+		float yrot0 = ParameterManager.Instance.StagepositionrotData.sheets[savingparameter.nowField].list[settingPosition * 3].Yrot;
+		float zrot0 = ParameterManager.Instance.StagepositionrotData.sheets[savingparameter.nowField].list[settingPosition * 3].Zrot;
+		Vector3 charrot = new Vector3(xrot0, yrot0, zrot0);
 		// 角度は180度反転する
 		float yrot = charrot.y - 180;
 		// 配置位置

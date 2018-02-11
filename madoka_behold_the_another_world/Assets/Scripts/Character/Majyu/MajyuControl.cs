@@ -267,7 +267,8 @@ public class MajyuControl : CharacterControlBase
 			// 装備アイテム個数
 			Battleinterfacecontroller.ItemNumber.text = savingparameter.GetItemNum(savingparameter.GetNowEquipItem()).ToString();
 			// インフォメーション表示内容
-			Battleinterfacecontroller.InformationText.text = StagePosition.Purpose[savingparameter.story];
+			Battleinterfacecontroller.InformationText.text = ParameterManager.Instance.EntityInformation.sheets[0].list[savingparameter.story].text;
+			
 			// 武装ゲージ
 			// 2,3,4,5番目は消す
 			Battleinterfacecontroller.Weapon2.gameObject.SetActive(false);

@@ -20,7 +20,7 @@ public class MapController : MonoBehaviour
 	/// <summary>
 	/// 移動可能領域
 	/// </summary>
-	List<MovePoint> Movepoint = new List<MovePoint>();
+	List<MitakiharaCity_MapData.Param> Movepoint = new List<MitakiharaCity_MapData.Param>();
 
 	/// <summary>
 	/// カメラ
@@ -64,6 +64,8 @@ public class MapController : MonoBehaviour
 
 	public GameObject LeftArrow;
 	public GameObject RightArrow;
+
+	public MitakiharaCity_MapData MapData;
 
 
 	void Awake()
@@ -111,15 +113,22 @@ public class MapController : MonoBehaviour
 			GameObject loadManager = (GameObject)Instantiate(Resources.Load("ControllerManager"));
 			loadManager.name = "ControllerManager";
 		}
+		// ParameterManagerがあるか判定
+		if (GameObject.Find("ParameterManager") == null)
+		{
+			// 無ければ作る
+			GameObject parameterManager = (GameObject)Instantiate(Resources.Load("ParameterManager"));
+			parameterManager.name = "ParameterManager";
+		}
 
 		// 現在移動可能な個所をリストアップしてリストにする
-		for(int i=0; i<MovePointData.MovepointMitakihara.Length; i++)
+		for (int i=0; i < MapData.sheets[0].list.Count; i++)
 		{
-			if(savingparameter.story >= MovePointData.MovepointMitakihara[i].LowXStory && savingparameter.story <= MovePointData.MovepointMitakihara[i].HighXStory)
+			if(savingparameter.story >= MapData.sheets[0].list[i].LowStory && savingparameter.story <= MapData.sheets[0].list[i].HighStory)
 			{
-				Movepoint.Add(MovePointData.MovepointMitakihara[i]);
+				Movepoint.Add(MapData.sheets[0].list[i]);
 				// 現在位置の場合フラグを追加
-				if(savingparameter.beforeField == (int)Movepoint[i].Fromcode)
+				if(savingparameter.beforeField == MapData.sheets[0].list[i].FromCode)
 				{
 					Movepoint[i].NowPosition = true;
 				}
@@ -144,7 +153,7 @@ public class MapController : MonoBehaviour
 		// BGMを変更する
 		AudioManager.Instance.PlayBGM(BGMName);
 		// Informationに書き込む
-		Information.text = StagePosition.Purpose[savingparameter.story];
+		Information.text = ParameterManager.Instance.EntityInformation.sheets[0].list[savingparameter.story].text;
 	}
 
 	// Use this for initialization
@@ -248,10 +257,10 @@ public class MapController : MonoBehaviour
 	/// <param name="index"></param>
 	private void SetMapData(int index)
 	{
-		NameJP.text = Movepoint[index].NameJP;
-		NameEN.text = Movepoint[index].NameEN;
-		MainCamera.transform.position = Movepoint[index].CameraPosition;
-		MainCamera.transform.rotation = Quaternion.Euler(Movepoint[index].CameraRotation);
+		NameJP.text = Movepoint[index].NAME_JP;
+		NameEN.text = Movepoint[index].NAME_EN;
+		MainCamera.transform.position = new Vector3(Movepoint[index].CameraPosX, Movepoint[index].CameraPosY, Movepoint[index].CameraPosZ);
+		MainCamera.transform.rotation = Quaternion.Euler(new Vector3(Movepoint[index].CameraRotX, Movepoint[index].CameraRotY,Movepoint[index].CameraRotZ));
 		MainCamera.fieldOfView = Movepoint[index].FieldOfView;
 	}
 	

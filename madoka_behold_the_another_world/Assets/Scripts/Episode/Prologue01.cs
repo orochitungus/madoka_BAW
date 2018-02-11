@@ -80,10 +80,16 @@ public class Prologue01 : MonoBehaviour
 			GameObject loadManager = (GameObject)Instantiate(Resources.Load("AudioManager"));
 			loadManager.name = "AudioManager";
 		}
+		// ParameterManagerがあるか判定
+		if (GameObject.Find("ParameterManager") == null)
+		{
+			// 無ければ作る
+			GameObject parameterManager = (GameObject)Instantiate(Resources.Load("ParameterManager"));
+			parameterManager.name = "ParameterManager";
+		}
 
-
-        // QBとほむらのモーションを初期化
-        HomuraAnimator.SetTrigger("neutral");
+		// QBとほむらのモーションを初期化
+		HomuraAnimator.SetTrigger("neutral");
 		KyubeyAnimator.SetTrigger("neutral");
 
 		

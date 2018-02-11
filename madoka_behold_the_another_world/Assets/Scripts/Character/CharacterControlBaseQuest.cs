@@ -151,7 +151,7 @@ public class CharacterControlBaseQuest : MonoBehaviour
 		}
 
 		// インフォメーション表示内容
-		Battleinterfacecontroller.InformationText.text = StagePosition.Purpose[savingparameter.story];
+		Battleinterfacecontroller.InformationText.text = ParameterManager.Instance.EntityInformation.sheets[0].list[savingparameter.story].text;
 	}
 
 	// 接地判定を行う。足元に5本(中心と前後左右)レイを落とし、そのいずれかが接触していれば接地。全部外れていれば落下

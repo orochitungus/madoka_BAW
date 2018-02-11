@@ -199,15 +199,22 @@ public partial class titlecamera_control : MonoBehaviour
             GameObject loadManager = (GameObject)Instantiate(Resources.Load("LoadManager"));
             loadManager.name = "LoadManager";
         }
-        // PauseManagerがあるか判定
-        //if (GameObject.Find("PauseManager") == null)
-        //{
-        //    // 無ければ作る
-        //    GameObject pauseManager = (GameObject)Instantiate(Resources.Load("PauseManager"));
-        //    pauseManager.name = "PauseManager";
-        //}
-        // BGM再生開始（ここに来るとこのBGMに切り替わるので、毎回通す）
-        AudioManager.Instance.PlayBGM("Snow");
+		// ParameterManagerがあるか判定
+		if (GameObject.Find("ParameterManager") == null)
+		{
+			// 無ければ作る
+			GameObject parameterManager = (GameObject)Instantiate(Resources.Load("ParameterManager"));
+			parameterManager.name = "ParameterManager";
+		}
+		// PauseManagerがあるか判定
+		//if (GameObject.Find("PauseManager") == null)
+		//{
+		//    // 無ければ作る
+		//    GameObject pauseManager = (GameObject)Instantiate(Resources.Load("PauseManager"));
+		//    pauseManager.name = "PauseManager";
+		//}
+		// BGM再生開始（ここに来るとこのBGMに切り替わるので、毎回通す）
+		AudioManager.Instance.PlayBGM("Snow");
 	}
 	
 	// Update is called once per frame
@@ -465,7 +472,7 @@ public partial class titlecamera_control : MonoBehaviour
                     // 前にいた場所
                     savingparameter.beforeField = 9999;
                     // 該当の場所へ遷移する
-                    FadeManager.Instance.LoadLevel(SceneName.sceneName[savingparameter.nowField], 1.0f);
+                    FadeManager.Instance.LoadLevel(ParameterManager.Instance.Mapscenename.sheets[0].list[savingparameter.nowField].SceneName, 1.0f);
                 }
             }
             // ページ送り

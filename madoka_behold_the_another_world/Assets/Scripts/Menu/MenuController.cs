@@ -199,8 +199,16 @@ public class MenuController : MonoBehaviour
             am.name = "AudioManager";   
         }
 
-        // 初期化
-        Initialize();
+		// ParameterManagerがあるか判定
+		if (GameObject.Find("ParameterManager") == null)
+		{
+			// 無ければ作る
+			GameObject parameterManager = (GameObject)Instantiate(Resources.Load("ParameterManager"));
+			parameterManager.name = "ParameterManager";
+		}
+
+		// 初期化
+		Initialize();
     }
 
 	// Use this for initialization
@@ -946,7 +954,7 @@ public class MenuController : MonoBehaviour
 						// 前にいた場所
 						savingparameter.beforeField = 9999;
 						// 該当の場所へ遷移する
-						FadeManager.Instance.LoadLevel(SceneName.sceneName[savingparameter.nowField], 1.0f);
+						FadeManager.Instance.LoadLevel(ParameterManager.Instance.Mapscenename.sheets[0].list[savingparameter.nowField].SceneName, 1.0f);
 					}
 				}
 				// 選択キャンセル

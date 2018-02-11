@@ -198,9 +198,9 @@ public partial class DrawMenu
                     DateTime dt = DateTime.Now;
                     drawfilename = drawfilename + dt.Year.ToString("D4") + "/" + dt.Month.ToString("D2") + "/" + dt.Day + "/" + dt.Hour.ToString("D2") + ":" + dt.Minute.ToString("D2");
                     // 現在の場所を取得
-                    drawfilename = drawfilename + " " + StagePosition.m_StageName[savingparameter.nowField];
-                    // 該当のセーブ名を書き換える
-                    m_date[m_nowpage * 10 + m_savecursorpos] = drawfilename;
+                    drawfilename = drawfilename + " " + ParameterManager.Instance.Mapscenename.sheets[0].list[savingparameter.nowField].NAME;
+					// 該当のセーブ名を書き換える
+					m_date[m_nowpage * 10 + m_savecursorpos] = drawfilename;
                     // ファイル名一覧を書き換える
                     System.Text.Encoding enc = System.Text.Encoding.GetEncoding("utf-8");
                     //書き込むファイルを開く

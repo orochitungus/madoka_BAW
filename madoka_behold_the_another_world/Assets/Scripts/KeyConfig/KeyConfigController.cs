@@ -317,6 +317,20 @@ public class KeyConfigController : MonoBehaviour
 			GameObject pauseManager = (GameObject)Instantiate(Resources.Load("PauseManager"));
 			pauseManager.name = "PauseManager";
 		}
+		// ParameterManagerがあるか判定
+		if (GameObject.Find("ParameterManager") == null)
+		{
+			// 無ければ作る
+			GameObject parameterManager = (GameObject)Instantiate(Resources.Load("ParameterManager"));
+			parameterManager.name = "ParameterManager";
+		}
+		// ParameterManagerがあるか判定
+		if (GameObject.Find("ParameterManager") == null)
+		{
+			// 無ければ作る
+			GameObject parameterManager = (GameObject)Instantiate(Resources.Load("ParameterManager"));
+			parameterManager.name = "ParameterManager";
+		}
 		// ControllerSettingのモーション登録
 		Standby = Animator.StringToHash("Base Layer.Standby");
 		OpenControllerSetting = Animator.StringToHash("Base Layer.OpenControllerSetting");

@@ -283,6 +283,13 @@ public class EventBase : MonoBehaviour
 			GameObject pauseManager = (GameObject)Instantiate(Resources.Load("PauseManager"));
 			pauseManager.name = "PauseManager";
 		}
+		// ParameterManagerがあるか判定
+		if(GameObject.Find("ParameterManager") == null)
+		{
+			// 無ければ作る
+			GameObject parameterManager = (GameObject)Instantiate(Resources.Load("ParameterManager"));
+			parameterManager.name = "ParameterManager";
+		}
 		//ここで黒テクスチャ作る
 		StartCoroutine(CreateBlackTexture());
     }

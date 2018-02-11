@@ -212,7 +212,7 @@ public class MenuSaveLoadDraw : MonoBehaviour
 		DateTime dt = DateTime.Now;
 		drawfilename = drawfilename + dt.Year.ToString("D4") + "/" + dt.Month.ToString("D2") + "/" + dt.Day + "/" + dt.Hour.ToString("D2") + ":" + dt.Minute.ToString("D2");
 		// 現在の場所を取得
-		drawfilename = drawfilename + " " + StagePosition.m_StageName[savingparameter.nowField];
+		drawfilename = drawfilename + " " + ParameterManager.Instance.Mapscenename.sheets[0].list[savingparameter.nowField].NAME;
 		// ファイル一覧を書き換える
 		Savedata[Nowpage * 10 + Nowselect] = drawfilename;
 		// ファイル名一覧を書き換える

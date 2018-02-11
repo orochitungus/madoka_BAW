@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class StageSetting : MonoBehaviour 
 {
@@ -128,13 +129,19 @@ public class StageSetting : MonoBehaviour
                 // それ以外の場合
                 else
                 {
-                    // 配置位置
-                    Vector3 SetPosPlayer = StagePosition.m_InitializeCharacterPos[savingparameter.nowField][SettingPosition][i];
-                    // 配置角度
-                    Vector3 SetRotPlayer = StagePosition.m_InitializeCharacterRot[savingparameter.nowField][SettingPosition][i];
-                    // キャラクターをロードする
-                    // クエストパート
-                    if (IsQuestStage)
+					// 配置位置
+					float xpos = ParameterManager.Instance.StagepositionrotData.sheets[savingparameter.nowField].list[SettingPosition * 3 + i].Xpos;
+					float ypos = ParameterManager.Instance.StagepositionrotData.sheets[savingparameter.nowField].list[SettingPosition * 3 + i].Ypos;
+					float zpos = ParameterManager.Instance.StagepositionrotData.sheets[savingparameter.nowField].list[SettingPosition * 3 + i].Zpos;
+					Vector3 SetPosPlayer = new Vector3(xpos, ypos, zpos);
+					// 配置角度
+					float xrot = ParameterManager.Instance.StagepositionrotData.sheets[savingparameter.nowField].list[SettingPosition * 3 + i].Xrot;
+					float yrot = ParameterManager.Instance.StagepositionrotData.sheets[savingparameter.nowField].list[SettingPosition * 3 + i].Yrot;
+					float zrot = ParameterManager.Instance.StagepositionrotData.sheets[savingparameter.nowField].list[SettingPosition * 3 + i].Zrot;
+					Vector3 SetRotPlayer = new Vector3(xrot, yrot, zrot);
+					// キャラクターをロードする
+					// クエストパート
+					if (IsQuestStage)
                     {
                         Instantiate(QuestCharacter[savingparameter.GetNowParty(i)], SetPosPlayer, Quaternion.Euler(SetRotPlayer));
                     }
@@ -224,6 +231,13 @@ public class StageSetting : MonoBehaviour
 			// 無ければ作る
 			GameObject loadManager = (GameObject)Instantiate(Resources.Load("ControllerManager"));
 			loadManager.name = "ControllerManager";
+		}
+		// ParameterManagerがあるか判定
+		if (GameObject.Find("ParameterManager") == null)
+		{
+			// 無ければ作る
+			GameObject parameterManager = (GameObject)Instantiate(Resources.Load("ParameterManager"));
+			parameterManager.name = "ParameterManager";
 		}
 	}
 
@@ -405,8 +419,12 @@ public class StageSetting : MonoBehaviour
 
             if (playerCamera != null)
             {
-                // 本体の向きを変える
-                Vector3 bodyRot = StagePosition.m_InitializeCharacterRot[savingparameter.nowField][SettingPosition][partynumber];
+				// 本体の向きを変える
+				// 配置角度
+				float xrot = ParameterManager.Instance.StagepositionrotData.sheets[savingparameter.nowField].list[SettingPosition * 3 + partynumber].Xrot;
+				float yrot = ParameterManager.Instance.StagepositionrotData.sheets[savingparameter.nowField].list[SettingPosition * 3 + partynumber].Yrot;
+				float zrot = ParameterManager.Instance.StagepositionrotData.sheets[savingparameter.nowField].list[SettingPosition * 3 + partynumber].Zrot;
+				Vector3 bodyRot = new Vector3(xrot, yrot, zrot);
                 playerCharacter.transform.rotation = Quaternion.Euler(bodyRot);
                 // カメラの向きを変える              
                 playerCamera.RotY += bodyRot.y;
@@ -425,9 +443,13 @@ public class StageSetting : MonoBehaviour
             Player_Camera_Controller playerCamera = PlayerCharacter.GetComponentInChildren<Player_Camera_Controller>();
             if (playerCamera != null)
             {
-                // 本体の向きを変える
-                Vector3 bodyRot = StagePosition.m_InitializeCharacterRot[savingparameter.nowField][SettingPosition][partynumber];
-                playerCharacter.transform.rotation = Quaternion.Euler(bodyRot);
+				// 本体の向きを変える
+				// 配置角度
+				float xrot = ParameterManager.Instance.StagepositionrotData.sheets[savingparameter.nowField].list[SettingPosition * 3 + partynumber].Xrot;
+				float yrot = ParameterManager.Instance.StagepositionrotData.sheets[savingparameter.nowField].list[SettingPosition * 3 + partynumber].Yrot;
+				float zrot = ParameterManager.Instance.StagepositionrotData.sheets[savingparameter.nowField].list[SettingPosition * 3 + partynumber].Zrot;
+				Vector3 bodyRot = new Vector3(xrot, yrot, zrot);
+				playerCharacter.transform.rotation = Quaternion.Euler(bodyRot);
                 // カメラの向きを変える              
                 playerCamera.RotY += bodyRot.y;
             }

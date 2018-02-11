@@ -94,6 +94,14 @@ public class Prologue07 : MonoBehaviour
 			loadManager.name = "AudioManager";
 		}
 
+		// ParameterManagerがあるか判定
+		if (GameObject.Find("ParameterManager") == null)
+		{
+			// 無ければ作る
+			GameObject parameterManager = (GameObject)Instantiate(Resources.Load("ParameterManager"));
+			parameterManager.name = "ParameterManager";
+		}
+
 		// 各キャラクターのモーション初期化
 		// ほむら
 		Homura.SetTrigger("neutral");
@@ -356,7 +364,10 @@ public class Prologue07 : MonoBehaviour
 		// フラグ変更
 		savingparameter.story = 5;
 
-		// タイトルに飛ばす
-		FadeManager.Instance.LoadLevel("title", 1.0f);
+		// 元の場所に飛ばす
+		// フィールドを歩道橋へ
+		savingparameter.nowField = 10;
+		savingparameter.beforeField = 902;
+		FadeManager.Instance.LoadLevel("FootBridgeArea", 1.0f);
 	}
 }

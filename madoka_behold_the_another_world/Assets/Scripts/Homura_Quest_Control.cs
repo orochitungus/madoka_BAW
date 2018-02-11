@@ -24,24 +24,24 @@ public class Homura_Quest_Control : CharacterControl_Base_Quest
         };
 
         // ジャンプ硬直
-        this.m_JumpWaitTime = 0.5f;
+        m_JumpWaitTime = 0.5f;
 
         //着地硬直
-        this.m_LandingWaitTime = 1.0f;
+        m_LandingWaitTime = 1.0f;
 
-        this.m_WalkSpeed = 1.0f;                                // 移動速度（歩行の場合）
-        this.m_RunSpeed = 15.0f;                                // 移動速度（走行の場合）
-        this.m_AirDashSpeed = 20.0f;                            // 移動速度（空中ダッシュの場合）
-        this.m_AirMoveSpeed = 7.0f;                             // 移動速度（空中慣性移動の場合）
-        this.m_RateofRise = 5.0f;                               // 上昇速度
+        m_WalkSpeed = 1.0f;                                // 移動速度（歩行の場合）
+        m_RunSpeed = 15.0f;                                // 移動速度（走行の場合）
+        m_AirDashSpeed = 20.0f;                            // 移動速度（空中ダッシュの場合）
+        m_AirMoveSpeed = 7.0f;                             // 移動速度（空中慣性移動の場合）
+        m_RateofRise = 5.0f;                               // 上昇速度
 
         // ブースト消費量
-        this.m_JumpUseBoost = 10;       // ジャンプ時
-        this.m_DashCancelUseBoost = 10;   // ブーストダッシュ時
-        this.m_BoostLess = 0.5f;        // ジャンプの上昇・BD時の1F当たりの消費量
+        m_JumpUseBoost = 10;       // ジャンプ時
+        m_DashCancelUseBoost = 10;   // ブーストダッシュ時
+        m_BoostLess = 0.5f;        // ジャンプの上昇・BD時の1F当たりの消費量
 
         // コライダの地面からの高さ
-        this.m_Collider_Height = 1.5f;
+        m_Collider_Height = 1.5f;
 
         FirstSetting();
 	}
