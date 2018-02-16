@@ -137,9 +137,9 @@ public class RoundCall : MonoBehaviour
 
 		// RoundCallCameraの位置と角度を決定
 		int settingPosition = 0;
-		for (int i = 0; i < StageCode.stagefromindex[savingparameter.nowField].Length; ++i)
+		for(int i=0; i<ParameterManager.Instance.StagecodeData.sheets[savingparameter.nowField].list.Count; ++i)
 		{
-			if (savingparameter.beforeField == StageCode.stagefromindex[savingparameter.nowField][i])
+			if(savingparameter.beforeField == ParameterManager.Instance.StagecodeData.sheets[savingparameter.nowField].list[i].StagefromIndex)
 			{
 				settingPosition = i;
 				break;

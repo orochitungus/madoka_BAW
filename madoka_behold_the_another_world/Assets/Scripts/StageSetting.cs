@@ -78,10 +78,10 @@ public class StageSetting : MonoBehaviour
 		}
         // 配置候補が複数ある場合があるので、何処に配置するか決める
         SettingPosition = 0;
-        for (int i = 0; i < StageCode.stagefromindex[savingparameter.nowField].Length; ++i)
-        {
-            if (savingparameter.beforeField == StageCode.stagefromindex[savingparameter.nowField][i])
-            {
+        for(int i=0; i<ParameterManager.Instance.StagecodeData.sheets[savingparameter.nowField].list.Count; ++i)
+		{
+            if(savingparameter.beforeField == ParameterManager.Instance.StagecodeData.sheets[savingparameter.nowField].list[i].StagefromIndex)
+			{
                 SettingPosition = i;
                 break;
             }
@@ -173,16 +173,16 @@ public class StageSetting : MonoBehaviour
             // BGM再生開始(0はないので鳴らさない）
             if (savingparameter.nowField > 0 && !StopBGM)
             {
-                AudioManager.Instance.PlayBGM(StageCode.stageBGM[savingparameter.nowField]);
+				AudioManager.Instance.PlayBGM(ParameterManager.Instance.StagecodeData.sheets[savingparameter.nowField].list[SettingPosition].BGM);
             }
         }
         // あった場合、変化フラグがあった場合かロードした場合のみ再生
         else
         {
-            if (StageCode.changebgm[savingparameter.nowField][SettingPosition] || savingparameter.beforeField == 9999)
-            {
-                AudioManager.Instance.PlayBGM(StageCode.stageBGM[savingparameter.nowField]);
-            }
+            if(ParameterManager.Instance.StagecodeData.sheets[savingparameter.nowField].list[SettingPosition].ChangeBGM || savingparameter.beforeField == 9999)
+			{
+				AudioManager.Instance.PlayBGM(ParameterManager.Instance.StagecodeData.sheets[savingparameter.nowField].list[SettingPosition].BGM);
+			}
         }
 		// CutinSystemがあるか判定(戦闘パートのみ)
 		if (GameObject.Find("CutinSystem") == null && !IsQuestStage)

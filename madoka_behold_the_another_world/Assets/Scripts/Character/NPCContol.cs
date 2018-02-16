@@ -8,12 +8,12 @@ using Utage;
 public class NPCContol : MonoBehaviour 
 {
 	/// <summary>
-	/// 会話時のアニメーションのトリガーの名前
+	/// 会話時のアニメーションの名前
 	/// </summary>
 	public string TalkAnimationName;
 
 	/// <summary>
-	/// 通常時のアニメーションのトリガーの名前
+	/// 通常時のアニメーションの名前
 	/// </summary>
 	public string NormalAnimationName;
 

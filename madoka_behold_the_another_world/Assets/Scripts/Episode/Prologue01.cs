@@ -101,6 +101,9 @@ public class Prologue01 : MonoBehaviour
         Camera1.transform.localPosition = new Vector3(-35, -103, -650);
         Camera1.fieldOfView = 60;
         Camera1.transform.localRotation = Quaternion.Euler(Vector3.zero);
+
+		// BGM再生開始
+		AudioManager.Instance.PlayBGM("Eternal");
     }
 
     // Use this for initialization
@@ -213,6 +216,8 @@ public class Prologue01 : MonoBehaviour
 		Camera1.transform.localPosition = new Vector3(-37.60001f, -105.7f, -621.8f);
 		Camera1.fieldOfView = 25;
 		Camera1.transform.localRotation = Quaternion.Euler(new Vector3(-10,0,0));
+		// BGM変更
+		AudioManager.Instance.PlayBGM("Black Widow");
 
 		// 魔獣出現のイベントが終わるまで少し待つ
 		yield return new WaitForSeconds(2.0f);

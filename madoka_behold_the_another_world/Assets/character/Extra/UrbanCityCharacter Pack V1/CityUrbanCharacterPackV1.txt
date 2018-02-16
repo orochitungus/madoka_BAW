@@ -1,0 +1,188 @@
+
+                                                   _CITY URBAN CHARACTER PACK_ 
+
+
+this pack contains 11 Animated Character:
+
+ Models Only Texture Atlas Format:
+1 Policeman -11 Animations-4 Texture Atlas/4 Normal Atlas Map png 
+1 Policeman Fat -11 Animations-4 Texture Atlas/4 Normal Atlas Map png
+1 Worker Man -13 Animations -3 Color Texture Atlas/3 Normal Atlas Map png
+1 Worker Man Fat -13 Animations -3 Color Texture Atlas/3 Normal Atlas Map png
+1 Man In Black -11 Animations -1 Color Texture Atlas/1 Normal Atlas Map png
+1 Citizen Man-8 Animations -4 Color Texture Atlas/4 Normal Atlas Map png
+1 Citizen Man Fat 8 Animations -4 Color Texture Atlas/4 Normal Atlas Map png
+1 Citizen boy 8 Animations -4 Color Texture Atlas/4 Normal Atlas Map png
+1 Citizen Woman 13 Animations -4 Color Texture Atlas/4 Normal Atlas Map png
+1 Citizen Woman Fat 13 Animations -4 Color Texture Atlas/4 Normal Atlas Map png
+1 Citizen Girl 12 Animations -4 Color Texture Atlas/4 Normal Atlas Map png
+4-texture atlas character
+1-Character Texture Atlas Color1 
+1-Character Texture Atlas Color2
+1-Character Texture Atlas Color3
+1-Character Texture Atlas Color4 
+
+4-Hair texture atlas and Normal for 4 color:
+
+1-Color Blonde
+1-Color Black
+1-Color silver
+1-Color Brown 
+
+
+POLICEMAN Fat and normal:
+
+attack  0-30
+death 0-40
+dialog 0-89
+extractgun 0-18
+hurt 0-24
+idle 0-179
+run 0-18
+shoot 0-9
+sitting dialog 0-199
+sitting idle 0-258
+walk 0-29
+
+WORKERMAN Normal and Fat:
+
+Death  0-40
+dialog 0-89
+dialogtoolbox 0-89
+hurt 0-24
+idle 0-179
+idletoolbox 0-179
+run 0-18
+sitting dialog 0-199
+sitting idle 0-258
+walk 0-29
+walktoolbox 0-29
+work 0-68
+runtoolbox 0-18
+
+MAN IN BLACK:
+
+Death  0-40
+dialog 0-89
+dialogvalise 0-89
+hurt 0-24
+idle 0-179
+idlevalise 0-179
+run 0-18
+sitting dialog 0-199
+sittingidle 0-258
+walk 0-29
+walkvalise 0-29
+
+WOMAN Fat and normal:
+
+Death  0-40
+dialog 0-89
+bagdialog 0-89
+hurt 0-24
+idle 0-179
+bagidle 0-179
+phoneidle 0-179
+run 0-18
+bugrun 0-18
+sittingdialog 0-182
+sitting idle 0-460
+walk 0-29
+bugwalk 0-29
+
+GIRL:
+
+Death  0-40
+dialog 0-89
+bagdialog 0-89
+hurt 0-24
+idle 0-179
+bagidle 0-179
+phoneidle 0-179
+run 0-18
+bugrun 0-18
+sittingdialog 0-182
+sitting idle 0-460
+walk 0-29
+bugwalk 0-29
+
+MAN fat and normal:
+
+Death  0-40
+dialog 0-89
+Hurt 0-24
+Idle 0-179
+Run 0-18
+Sitting Dialog 0-199
+Sitting Idle 0-258
+Walk 0-29
+
+BOY:
+
+Death  0-40
+dialog 0-89
+Hurt 0-24
+Idle 0-179
+Run 0-18
+Sitting Dialog 0-199
+Sitting Idle 0-258
+Walk 0-29
+
+
+
+
+
+
+Formats Models Only:
+fbx
+
+
+                                          ----       Unity3D Import   ------
+pack created unity 5
+ Version 5.4.1
+
+import package CITY URBAN CHARACTER PACK in the unity 5
+
+Prefab Models:
+All models are already ready for use in practical prefab already generated and ready for you you just place them in the scene.
+only sing
+ you can enable or disable ,items , hair ,accessories, weapons,by selecting them  the affected part in every single character,
+ or through the bone hierarchy, mesh of individual models.
+
+optimizations:
+
+1-Models Lowpoly saving on quantities of polygons
+2-Skeleton:
+Using a few bones but that guarantee a realistic movement necessary in order to ease the calculation.
+3-Animations
+Using short animations, big impact, Savings Calculation.
+4-TextureAtlas:
+Including homestyle considerable savings calculation.
+
+
+Ps important:
+it is possible that many models generally understood you present a notice in the console:
+ImportFBX Warnings:
+Can not import tangents and binormals, Because mesh.
+It frequently happens that Unity3D present this message because of particular exports and good to note that this does not mean that the model and compromise.
+proceed in this way:
+the item Model / Normals and Tangents.
+Normals:
+Calculate
+
+Smooting angle = 180
+
+Tangents
+Calculate Legacy
+
+Apply
+
+
+
+
+                                                
+
+
+                                         
+
+This package is created by ElkanSoft

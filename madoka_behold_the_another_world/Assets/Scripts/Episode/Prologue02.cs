@@ -164,7 +164,6 @@ public class Prologue02 : MonoBehaviour
 			"time", 1.0f
 		));
 		AudioManager.Instance.PlaySE("ashioto_jari");
-		AudioManager.Instance.PlayBGM("Fury");
 		yield return new WaitForSeconds(1.1f);
 
 		// シーン再生
@@ -201,6 +200,7 @@ public class Prologue02 : MonoBehaviour
 		Sconosciuto.transform.position = new Vector3(0, 0, 0);
 		SconosciutoWhiteCort.transform.localPosition = new Vector3(-24.2f, -107.87f, 360.65f);
 		AudioManager.Instance.PlaySE("87043__runnerpack__weapappear");
+		AudioManager.Instance.PlayBGM("Nemesis");
 
 		// シーン再生
 		engine.ResumeScenario();

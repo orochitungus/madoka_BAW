@@ -24,6 +24,11 @@ public class ParameterManager : SingletonMonoBehaviour<ParameterManager>
 	/// </summary>
 	public StagePositionRotData StagepositionrotData;
 
+	/// <summary>
+	/// 各ステージに移動したときにどこから来たか、及びBGMの変更情報
+	/// </summary>
+	public StageCodeData StagecodeData;
+
 	private void Awake()
 	{
 		if (this != Instance)

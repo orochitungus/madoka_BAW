@@ -86,7 +86,7 @@ public class Prologue04 : MonoBehaviour
 		Camera1.transform.localRotation = Quaternion.Euler(new Vector3(-1.021f, 302.491f, 1.603f));
 
 		// BGM再生開始
-		AudioManager.Instance.PlayBGM("kusabi");
+		AudioManager.Instance.PlayBGM("No Remorse");
 	}
 
 	// Use this for initialization

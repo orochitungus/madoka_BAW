@@ -7,10 +7,7 @@ using UniRx.Triggers;
 
 public class MapController : MonoBehaviour 
 {
-	/// <summary>
-	/// BGMの名前
-	/// </summary>
-	public string BGMName;
+	
 
 	/// <summary>
 	/// どこから来たかというフラグ
@@ -151,7 +148,7 @@ public class MapController : MonoBehaviour
 		}
 
 		// BGMを変更する
-		AudioManager.Instance.PlayBGM(BGMName);
+		AudioManager.Instance.PlayBGM("Life");
 		// Informationに書き込む
 		Information.text = ParameterManager.Instance.EntityInformation.sheets[0].list[savingparameter.story].text;
 	}

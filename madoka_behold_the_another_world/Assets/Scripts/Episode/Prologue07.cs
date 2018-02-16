@@ -121,7 +121,7 @@ public class Prologue07 : MonoBehaviour
 		Camera2.enabled = false;
 
 		// BGM変更
-		AudioManager.Instance.PlayBGM("The parting Day");
+		AudioManager.Instance.PlayBGM("Star Child");
 	}
 
 	// Use this for initialization

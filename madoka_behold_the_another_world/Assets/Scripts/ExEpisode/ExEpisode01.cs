@@ -68,7 +68,7 @@ public class ExEpisode01 : MonoBehaviour
 		Camera1.transform.localRotation = Quaternion.Euler(new Vector3(0, 90, 0));
 
 		// BGM再生開始
-		AudioManager.Instance.PlayBGM("Kaorimade_rintoshita");
+		AudioManager.Instance.PlayBGM("Blue Memory");
 	}
 
 	// Use this for initialization
