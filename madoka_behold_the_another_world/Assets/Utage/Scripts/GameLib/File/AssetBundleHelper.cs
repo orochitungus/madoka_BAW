@@ -97,7 +97,7 @@ namespace Utage
 				case AssetBundleTargetFlags.Windows:
 					return BuildTarget.StandaloneWindows64;
 				case AssetBundleTargetFlags.OSX:
-					return BuildTarget.StandaloneOSXUniversal;
+					return BuildTarget.StandaloneOSX;
 				default:
 					Debug.LogError("Not support " + flag.ToString() );
 					return 0;
@@ -121,7 +121,7 @@ namespace Utage
 
 				case BuildTarget.StandaloneOSXIntel:
 				case BuildTarget.StandaloneOSXIntel64:
-				case BuildTarget.StandaloneOSXUniversal:
+				case BuildTarget.StandaloneOSX:
 					return AssetBundleTargetFlags.OSX;
 
 				default:

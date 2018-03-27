@@ -37,7 +37,7 @@ public class HomuraQuestControl : CharacterControlBaseQuest
 		AirMoveSpeed = 7.0f;                             // 移動速度（空中慣性移動の場合）
 				
 		// コライダの地面からの高さ
-		ColliderHeight = 1.5f;
+		ColliderHeight = 0.785f;
 
 		IdleID = Animator.StringToHash("Base Layer.HomuraQuestIdle");
 		RunID = Animator.StringToHash("Base Layer.HomuraQuestRun");

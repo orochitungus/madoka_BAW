@@ -130,11 +130,34 @@ public class CharacterControlBaseQuest : MonoBehaviour
 	public bool Moveable;
 
 	/// <summary>
-	/// 接地判定関連
+	/// 段差を上るためのレイを飛ばす位置
 	/// </summary>
-	protected int Hitcounter;
-	bool Hitcounterdone;
-	const int HitcounterBias = 20;
+	public Transform StepRay;
+
+	/// <summary>
+	/// レイを飛ばす距離
+	/// </summary>
+	protected float StepDistance = 0.5f;
+
+	/// <summary>
+	/// 登れる段差
+	/// </summary>
+	protected float StepOffset = 0.3f;
+
+	/// <summary>
+	/// 登れる角度
+	/// </summary>
+	protected float SlopeLimit = 65f;
+
+	/// <summary>
+	/// 登れる段差の位置から飛ばすレイの距離
+	/// </summary>
+	protected float SlopeDistance = 1f;
+
+	/// <summary>
+	/// ヒットした情報を入れる場所
+	/// </summary>
+	private RaycastHit StepHit;
 
 	/// <summary>
 	/// 戦闘用インターフェース
@@ -418,9 +441,6 @@ public class CharacterControlBaseQuest : MonoBehaviour
 			Application.Quit();
 		}
 		LayOriginOffs = new Vector3(0.0f, ColliderHeight, 0.0f);
-		Laylength = collider.radius + collider.height;// / 2 + 1.5f;//0.2f;
-													  //this.m_layOriginOffs = new Vector3(0.0f, m_Collider_Height, 0.0f);
-													  //this.m_laylength = m_charactercontroller.radius + m_charactercontroller.height / 2 + 1.5f;
 		LayMask = 1 << 8;       // layMaskは無視するレイヤーを指定する。8のgroundレイヤー以外を無視する
 
 
@@ -442,12 +462,6 @@ public class CharacterControlBaseQuest : MonoBehaviour
 
 		// テンキー入力があったか否か
 		HasVHInput = false;
-		
-
-		// m_DownRebirthTime/waitの初期化とカウントを行う
-		// m_DamagedTime/waitの初期化とカウントを行う
-		// m_DownTime/waitの初期化とカウントを行う
-
 		
 		// ポーズコントローラー取得
 		Pausecontroller = GameObject.Find("PauseManager");
@@ -522,7 +536,7 @@ public class CharacterControlBaseQuest : MonoBehaviour
 		{
 			Vector3 velocity = MoveDirection * MoveSpeed;
 			//走行中 / 吹き飛び中 / ダウン中
-			if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == runid)
+			if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == runid && velocity.y <= 0)
 			{
 				velocity.y = MadokaDefine.FALLSPEED;      // ある程度下方向へのベクトルをかけておかないと、スロープ中に落ちる
 			}
@@ -531,6 +545,7 @@ public class CharacterControlBaseQuest : MonoBehaviour
 			{
 				velocity = Vector3.zero;
 			}
+
 			RigidBody.velocity = velocity;
 		}
 		// 時間停止を解除したら動き出す
@@ -544,7 +559,7 @@ public class CharacterControlBaseQuest : MonoBehaviour
 	protected void LandingDone(Animator animator)
 	{
 		// ずれた本体角度を戻す(Yはそのまま）
-		transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0));
+		transform.rotation = Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y, 0));
 		// 無効になっていたら重力を復活させる
 		GetComponent<Rigidbody>().useGravity = true;
 		animator.SetTrigger("Landing");
@@ -585,7 +600,32 @@ public class CharacterControlBaseQuest : MonoBehaviour
 			{
 				FootSteps();
 				UpdateRotation();
-				MoveDirection = transform.rotation * Vector3.forward;
+				// ステップ用のレイが地面に接触しているかどうか
+				if (Physics.Linecast(StepRay.position, StepRay.position + StepRay.forward * StepDistance, out StepHit, LayMask))
+				{
+					// 進行方向の地面の角度が指定以下だったら移動させる
+					if (Vector3.Angle(transform.up, StepHit.normal) <= SlopeLimit
+						|| Vector3.Angle(transform.up, StepHit.normal) > SlopeLimit)
+						 //&& !Physics.Linecast(transform.position + new Vector3(0, StepOffset, 0), transform.position + new Vector3(0, StepOffset, 0) + transform.forward * SlopeDistance, LayMask))
+					{
+						transform.Translate(0, StepOffset, 0);
+						MoveDirection = new Vector3(0f, ((Quaternion.FromToRotation(Vector3.up, StepHit.normal) * transform.forward)).y, 0f) + transform.forward;
+					}
+					// 進行方向の地面が超えられる高さだったら移動させる
+					else if(!Physics.Raycast(transform.position + new Vector3(0,StepOffset, 0), Vector3.forward, StepOffset, LayMask))
+					{
+						transform.Translate(0, StepOffset, 0);
+						MoveDirection = new Vector3(0f, ((Quaternion.FromToRotation(Vector3.up, StepHit.normal) * transform.forward)).y, 0f) + transform.forward;
+					}
+					else
+					{
+						MoveDirection = transform.rotation * Vector3.forward;
+					}
+				}
+				else
+				{
+					MoveDirection = transform.rotation * Vector3.forward;
+				}
 			}
 			// 入力が外れるとアイドル状態へ
 			else
@@ -593,6 +633,12 @@ public class CharacterControlBaseQuest : MonoBehaviour
 				animator.SetTrigger("Idle");
 				MoveDirection = Vector3.zero;
 			}
+		}
+		// 地面から離れるとアイドル状態へ
+		else
+		{
+			animator.SetTrigger("Idle");
+			MoveDirection = Vector3.zero;
 		}
 	}
 
@@ -690,16 +736,4 @@ public class CharacterControlBaseQuest : MonoBehaviour
 	}
 
 
-
-	// Use this for initialization
-	void Start () 
-	{
-		
-	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-		
-	}
 }

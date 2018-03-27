@@ -47,7 +47,7 @@ public class FieldItemController : MonoBehaviour
 	{
 		// 接触したキャラクターがCharacterControl_BaseかCharacterControl_Base_Questであり、プレイヤーの場合のみ処理開始
 		CharacterControlBase hitBattleCharacter = character.gameObject.GetComponent<CharacterControlBase>();
-		CharacterControl_Base_Quest hitQuestCharacter = character.gameObject.GetComponent<CharacterControl_Base_Quest>();
+		CharacterControlBaseQuest hitQuestCharacter = character.gameObject.GetComponent<CharacterControlBaseQuest>();
 
 		// プレイヤーであれば処理開始
 		if((hitBattleCharacter != null && hitBattleCharacter.IsPlayer == CharacterControlBase.CHARACTERCODE.PLAYER) || hitQuestCharacter != null)

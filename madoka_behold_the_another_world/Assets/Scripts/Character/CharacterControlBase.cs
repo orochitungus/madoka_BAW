@@ -975,7 +975,7 @@ public class CharacterControlBase : MonoBehaviour
             if (Physics.Raycast(layStartPos[i], -Vector3.up, Laylength + 1.5f, LayMask))
             {
                 hitcount++;
-            }          
+            }
         }
         // 1つでもヒットしたら接地とする
         if (hitcount > 0)
@@ -1014,7 +1014,7 @@ public class CharacterControlBase : MonoBehaviour
             // 錐揉みダウン時
             if (isSpindown)
             {
-                if (Physics.Raycast(layStartPos[i], -Vector3.up, this.Laylength - collider.radius, this.LayMask))
+                if (Physics.Raycast(layStartPos[i], -Vector3.up, Laylength - collider.radius, this.LayMask))
                 {
                     hitcount++;
                 }
@@ -1022,7 +1022,7 @@ public class CharacterControlBase : MonoBehaviour
             // 通常時
             else
             {
-                if (Physics.Raycast(layStartPos[i], -Vector3.up, this.Laylength + 1.5f, this.LayMask))
+                if (Physics.Raycast(layStartPos[i], -Vector3.up, Laylength + 1.5f, this.LayMask))
                 {
                     hitcount++;
                 }
@@ -1684,7 +1684,7 @@ public class CharacterControlBase : MonoBehaviour
 	/// <param name="jumpid">ジャンプのState番号</param>
 	protected virtual void JumpDone(Animator animator)
 	{
-		transform.Translate(new Vector3(0, 1, 0));  // 打ち上げる
+		transform.Translate(new Vector3(0, 0.3f, 0));  // 打ち上げる
 		animator.SetTrigger("Jump");
 		Boost = Boost - JumpUseBoost;
 	}
@@ -1724,7 +1724,7 @@ public class CharacterControlBase : MonoBehaviour
 
         var obj = (GameObject)Instantiate(Effect, setpos, transform.rotation);
         // 親子関係を再設定する
-        obj.transform.parent = this.transform;
+        obj.transform.parent = transform;
 		// 入力の方向ごとに切り分け
 		StepInput stepinput = StepInput.NONE;
 
@@ -1902,7 +1902,7 @@ public class CharacterControlBase : MonoBehaviour
             // 地上でキャンセルすると浮かないので浮かす
             if (IsGrounded)
             {
-                transform.Translate(new Vector3(0, 1, 0));
+                transform.Translate(new Vector3(0, 0.3f, 0));
             }
             CancelDashDone(AnimatorUnit);
         }
@@ -1919,7 +1919,7 @@ public class CharacterControlBase : MonoBehaviour
             // 地上でキャンセルすると浮かないので浮かす
             if (IsGrounded)
             {
-                transform.Translate(new Vector3(0, 1, 0));
+                transform.Translate(new Vector3(0, 0.3f, 0));
             }
             CancelDashDone(AnimatorUnit);
         }
@@ -1936,7 +1936,7 @@ public class CharacterControlBase : MonoBehaviour
             // 地上でキャンセルすると浮かないので浮かす
             if (IsGrounded)
             {
-                transform.Translate(new Vector3(0, 1, 0));
+                transform.Translate(new Vector3(0, 0.3f, 0));
             }
             CancelDashDone(AnimatorUnit);
         }
@@ -2817,9 +2817,7 @@ public class CharacterControlBase : MonoBehaviour
 			Application.Quit();
 		}
 		LayOriginOffs = new Vector3(0.0f, ColliderHeight, 0.0f);
-		Laylength = collider.radius + collider.height;// / 2 + 1.5f;//0.2f;
-													  //this.m_layOriginOffs = new Vector3(0.0f, m_Collider_Height, 0.0f);
-													  //this.m_laylength = m_charactercontroller.radius + m_charactercontroller.height / 2 + 1.5f;
+		Laylength = collider.radius + collider.height;
 		LayMask = 1 << 8;       // layMaskは無視するレイヤーを指定する。8のgroundレイヤー以外を無視する
 
 		
@@ -4123,7 +4121,7 @@ public class CharacterControlBase : MonoBehaviour
 	protected virtual void WrestleDone_DownEx(Animator animator, int skilltype, int wrestlehash)
 	{
 		// 追加入力フラグをカット
-		this.AddInput = false;
+		AddInput = false;
 		// ステートを変更		
 		int skillIndex = skilltype;
 		// 移動速度取得
@@ -4143,7 +4141,7 @@ public class CharacterControlBase : MonoBehaviour
 			MoveDirection = new Vector3(0, -1, 0);
 		}
 		// 本体角度が0の場合カメラの方向を移動方向とし、正規化して代入する
-		else if (this.transform.rotation.eulerAngles.y == 0)
+		else if (transform.rotation.eulerAngles.y == 0)
 		{
 			// 方向ベクトルを下向きにする            
 			MoveDirection = new Vector3(0, -1, 0);
@@ -4153,7 +4151,7 @@ public class CharacterControlBase : MonoBehaviour
 		{
 			Vector3 addrot = this.transform.eulerAngles;
 			addrot.y = addrot.y + 180;
-			this.transform.rotation = Quaternion.Euler(new Vector3(addrot.x, addrot.y, addrot.z));
+			transform.rotation = Quaternion.Euler(new Vector3(addrot.x, addrot.y, addrot.z));
 			// 方向ベクトルを下向きにする            
 			MoveDirection = new Vector3(0, -1, 0);
 		}

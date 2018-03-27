@@ -274,7 +274,7 @@ public class SconosciutoControl : CharacterControlBase
 		StepBackTime = 0.4f;
 
 		// コライダの地面からの高さ
-		ColliderHeight = 1.5f;
+		ColliderHeight = 0.8f;
 
 		// ロックオン距離
 		RockonRange = 100.0f;

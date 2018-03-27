@@ -64,6 +64,11 @@ public class MapController : MonoBehaviour
 
 	public MitakiharaCity_MapData MapData;
 
+	/// <summary>
+	/// 環境光のオブジェクト
+	/// </summary>
+	public GameObject DLight;
+
 
 	void Awake()
 	{
@@ -151,6 +156,35 @@ public class MapController : MonoBehaviour
 		AudioManager.Instance.PlayBGM("Life");
 		// Informationに書き込む
 		Information.text = ParameterManager.Instance.EntityInformation.sheets[0].list[savingparameter.story].text;
+
+		// 環境光を変更する
+		DirectionalLightSetting();
+	}
+
+	/// <summary>
+	/// 環境光を設定する
+	/// </summary>
+	public void DirectionalLightSetting()
+	{
+		int stageindex = savingparameter.nowField;
+		int targetindex = 0;
+		// 現在のストーリー進行度がStageSkyDataのどこにあるか判定する
+		for (int i = 0; i < ParameterManager.Instance.StageskyData.sheets[stageindex].list.Count; i++)
+		{
+			int minStory = ParameterManager.Instance.StageskyData.sheets[stageindex].list[i].MinStory;
+			int maxStory = ParameterManager.Instance.StageskyData.sheets[stageindex].list[i].MaxStory;
+			if (savingparameter.story >= minStory && savingparameter.story <= maxStory)
+			{
+				targetindex = i;
+				break;
+			}
+		}
+		// 環境光の角度を設定する
+		float xrot = ParameterManager.Instance.StageskyData.sheets[stageindex].list[targetindex].RotateX;
+		float yrot = ParameterManager.Instance.StageskyData.sheets[stageindex].list[targetindex].RotateY;
+		float zrot = ParameterManager.Instance.StageskyData.sheets[stageindex].list[targetindex].RotateZ;
+
+		DLight.transform.rotation = Quaternion.Euler(xrot, yrot, zrot);
 	}
 
 	// Use this for initialization

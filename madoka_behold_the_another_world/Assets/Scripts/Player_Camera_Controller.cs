@@ -12,16 +12,11 @@ public class Player_Camera_Controller : MonoBehaviour
     public GameObject Enemy;    // ロックオンするターゲット
     public float Distance;      // 映すオブジェクトまでの距離(非ロックオン時）
     public float Distance_mine; // ロックオン時の自機とカメラとの距離
-    public float SensitivityX;  // マウスの感度
-    public float SensitivityY;
     public float RotX;          // それぞれの軸の回転角度
     public float RotY;
     public float RotZ;
     public float height;        // カメラ高度
-    public float rockon_height; // ロックオン時カメラ高度
     public float gaze_offset;   // 注視点のオフセット量
-    public float m_enemy_offset_height;    // 敵高度のオフセット量
-    public bool m_DrawInterface;           // インターフェース描画の有無
 
     // ロックオンの有無
     public bool IsRockOn;
@@ -74,24 +69,19 @@ public class Player_Camera_Controller : MonoBehaviour
             }
             else
             {
-                Distance = 20.0f;
+                Distance = 40.0f;
             }
         });
-        Distance = 20.0f;
-        SensitivityX = 50.0f;
-        SensitivityY = 50.0f;
-        RotX = 0.0f;
-        RotY = 0.0f;
-        height = 4.0f;
-        gaze_offset = 5.5f;
-        rockon_height = 0.0f;
         // ロックオンの有無
         IsRockOn = false;
 		// 覚醒技演出中の有無
 		IsArousalAttack = false;
         IsRockonRange = false;
-        m_enemy_offset_height = 0.0f;
-        Distance_mine = 18.0f;
+		Distance_mine = 18.0f;
+		// カメラ高度
+		height = 0.1f;
+		// 注視点までのオフセット
+		gaze_offset = 5.5f;
 
 		var target = Player.GetComponentInChildren<CharacterControlBase>();    // 戦闘用キャラの場合
 
@@ -107,24 +97,20 @@ public class Player_Camera_Controller : MonoBehaviour
         {
             if (target.IsPlayer != CharacterControlBase.CHARACTERCODE.PLAYER)
             {
-                m_DrawInterface = false;
             }
             else
             {
                 // FPSを固定しておく
                 Application.targetFrameRate = 60;
-                // インターフェースを有効化しておく
-                m_DrawInterface = true;
             }
         }
         // クエストパート用キャラ
         else
         {
             Application.targetFrameRate = 60;
-            m_DrawInterface = false;
         }
 		// 視点を初期化
-		RotX = Mathf.Asin(height / Distance) * Mathf.Rad2Deg;
+		//RotX = Mathf.Asin(height / Distance) * Mathf.Rad2Deg;
 
 		// ロックオンカーソル制御用クラスにBattleInterfaceControllerを与える(PC戦闘用時のみ)
 		if (target != null && target.IsPlayer == CharacterControlBase.CHARACTERCODE.PLAYER)
@@ -486,8 +472,7 @@ public class Player_Camera_Controller : MonoBehaviour
         target.IsRockon = false;
         Enemy = null;
         RockOnTarget.Clear();
-		// カメラを戻す
-		RotX = Mathf.Asin(this.height / this.Distance) * Mathf.Rad2Deg;
+		
     }
 
     public void LateUpdate()
@@ -503,33 +488,36 @@ public class Player_Camera_Controller : MonoBehaviour
             //// デフォルトではマウス入力を取得する構造になっているため、Edit→ProjectSettings→InputでInputを作る          
             if (ControllerManager.Instance.AzimuthLeft)  // 左回転
             {
-                this.RotY -= 50.0f * Time.deltaTime;
+                RotY -= 50.0f * Time.deltaTime;
             }
             else if (ControllerManager.Instance.AzimuthRight)  // 右回転
             {
-                this.RotY += 50.0f * Time.deltaTime;
+                RotY += 50.0f * Time.deltaTime;
             }
 			// 縦回転
-			//Debug.Log(Input.GetAxisRaw("Vertical3"));
-			//if (Input.GetAxisRaw("Vertical3") > 0)
-			//{
-			//	// 下に傾いている
-			//	this.RotX -= 50.0f * Time.deltaTime;
-			//}
-			//else if(Input.GetAxisRaw("Vertical3") < 0)
-			//{
-			//	// 上に傾いている
-			//	this.RotX += 50.0f * Time.deltaTime;
-			//}
+			if (ControllerManager.Instance.ElevationAngleDown)
+			{
+				// 上に傾ける
+				height += 25.0f * Time.deltaTime;
+			}
+			else if(ControllerManager.Instance.ElevationAngleUpper)
+			{
+				// 下に傾ける
+				height -= 25.0f * Time.deltaTime;
+			}
 
-            // 視点は本体より上にするので角度だけを定義する. θ=Sin-1(高さ/斜辺）で出せる(Mathf.Asinはradian出力な点に注意)
-			//this.RotX = Mathf.Asin(this.height / this.Distance) * Mathf.Rad2Deg;
+            // 視点は本体より上にするので角度だけを定義する. θ=Tan-1(高さ/斜辺）で出せる(Mathf.Atanはradian出力な点に注意)
+			RotX = Mathf.Atan(height / Distance) * Mathf.Rad2Deg;
             // クォータニオンを計算(X,Y,Z軸の回転角度を指定してクォータニオン(3軸をまとめた回転軸みたいなもの)を作成する）
-            var q = Quaternion.Euler(this.RotX, this.RotY, 0.0f);   // Z軸方向を考慮していない(=敵ロックをする場合は互いに飛び回るのでZの計算が必須になるので後で追加が要る）
-            // 注視点を少し上にずらす
-            Vector3 target_pos = this.Player.transform.position;
-            target_pos.y = target_pos.y + this.gaze_offset;
-
+            var q = Quaternion.Euler(RotX, RotY, 0.0f);   // Z軸方向を考慮していない(=敵ロックをする場合は互いに飛び回るのでZの計算が必須になるので後で追加が要る）
+            
+            Vector3 target_pos = Player.transform.position;
+			// 注視点を少し前にずらす
+			target_pos.x += Distance / 2 * Mathf.Sin(Mathf.Deg2Rad * RotY);
+			target_pos.z += Distance / 2 * Mathf.Cos(Mathf.Deg2Rad * RotY);
+			// 注視点を少し上にずらす
+			target_pos.y += gaze_offset;
+			
 
             transform.position = target_pos - q * (Vector3.forward * Distance);
             // クォータニオンを角度へ

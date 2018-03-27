@@ -29,6 +29,11 @@ public class ParameterManager : SingletonMonoBehaviour<ParameterManager>
 	/// </summary>
 	public StageCodeData StagecodeData;
 
+	/// <summary>
+	/// 各ステージの環境光の角度情報
+	/// </summary>
+	public StageSkyData StageskyData;
+
 	private void Awake()
 	{
 		if (this != Instance)

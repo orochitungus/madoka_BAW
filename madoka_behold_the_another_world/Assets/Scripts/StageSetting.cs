@@ -4,18 +4,37 @@ using System.Linq;
 
 public class StageSetting : MonoBehaviour 
 {
-    // メンバー変数
-    //・SavingParameterの初期化の有無
-    public bool InitializeSavingParameter;
-    // BGMを止めたい場合これをONに
-    public bool StopBGM;      
-    // 現在のステージをテストステージにしたいならここをＯＮ
-    public bool IsTestStage;
-    // 現在のステージをクエストステージにしたいならここをON
-    public bool IsQuestStage;
- 
-    // キャラクターの初期配置場所のインデックス
-    private int SettingPosition;
+	// メンバー変数
+	/// <summary>
+	/// SavingParameterの初期化の有無
+	/// </summary>	
+	public bool InitializeSavingParameter;
+
+	/// <summary>
+	/// BGMを止めたい場合これをONに
+	/// </summary>	
+	public bool StopBGM;
+
+	/// <summary>
+	/// 現在のステージをテストステージにしたいならここをＯＮ
+	/// </summary>	
+	public bool IsTestStage;
+
+
+	/// <summary>
+	/// 現在のステージをクエストステージにしたいならここをON
+	/// </summary>	
+	public bool IsQuestStage;
+
+	/// <summary>
+	/// キャラクターの初期配置場所のインデックス
+	/// </summary>	
+	private int SettingPosition;
+
+	/// <summary>
+	/// 環境光のオブジェクト
+	/// </summary>
+	public GameObject DLight;
 
 	/// <summary>
 	/// 戦闘用インターフェース
@@ -63,10 +82,64 @@ public class StageSetting : MonoBehaviour
     }
     
     void Awake()
-    {		
-
-        // 最初のステージのみSavingParameterの初期化を行う（フラグはPublicでInspectorで外部から制御）
-        if (InitializeSavingParameter)
+    {
+		// CutinSystemがあるか判定(戦闘パートのみ)
+		if (GameObject.Find("CutinSystem") == null && !IsQuestStage)
+		{
+			// 無ければ作る
+			GameObject cutinSystem = (GameObject)Instantiate(Resources.Load("CutinSystem"));
+			cutinSystem.name = "CutinSystem";
+		}
+		// EventSystemがあるか判定
+		if (GameObject.Find("EventSystem") == null)
+		{
+			// 無ければ作る
+			GameObject eventSystem = (GameObject)Instantiate(Resources.Load("EventSystem"));
+			eventSystem.name = "EventSystem";
+		}
+		// FadeManagerがあるか判定
+		if (GameObject.Find("FadeManager") == null)
+		{
+			// 無ければ作る
+			GameObject fadeManager = (GameObject)Instantiate(Resources.Load("FadeManager"));
+			fadeManager.name = "FadeManager";
+		}
+		// TalkSystemがあるか判定（非戦闘シーン限定）
+		if (GameObject.Find("TalkSystem") == null && IsQuestStage)
+		{
+			GameObject talkSystem = (GameObject)Instantiate(Resources.Load("TalkSystem"));
+			talkSystem.name = "TalkSystem";
+		}
+		// LoadManagerがあるか判定
+		if (GameObject.Find("LoadManager") == null)
+		{
+			// 無ければ作る
+			GameObject loadManager = (GameObject)Instantiate(Resources.Load("LoadManager"));
+			loadManager.name = "LoadManager";
+		}
+		// PauseManagerがあるか判定
+		if (GameObject.Find("PauseManager") == null)
+		{
+			// 無ければ作る
+			GameObject pauseManager = (GameObject)Instantiate(Resources.Load("PauseManager"));
+			pauseManager.name = "PauseManager";
+		}
+		// ControllerManagerがあるか判定
+		if (GameObject.Find("ControllerManager") == null)
+		{
+			// 無ければ作る
+			GameObject loadManager = (GameObject)Instantiate(Resources.Load("ControllerManager"));
+			loadManager.name = "ControllerManager";
+		}
+		// ParameterManagerがあるか判定
+		if (GameObject.Find("ParameterManager") == null)
+		{
+			// 無ければ作る
+			GameObject parameterManager = (GameObject)Instantiate(Resources.Load("ParameterManager"));
+			parameterManager.name = "ParameterManager";
+		}
+		// 最初のステージのみSavingParameterの初期化を行う（フラグはPublicでInspectorで外部から制御）
+		if (InitializeSavingParameter)
         {
             savingparameter.savingparameter_Init();
         }
@@ -95,7 +168,7 @@ public class StageSetting : MonoBehaviour
 			numofLoadCharacter = 1;
 		}
 		else
-		{			
+		{
 
 		}
         for (int i = 0; i < numofLoadCharacter; i++)
@@ -184,61 +257,35 @@ public class StageSetting : MonoBehaviour
 				AudioManager.Instance.PlayBGM(ParameterManager.Instance.StagecodeData.sheets[savingparameter.nowField].list[SettingPosition].BGM);
 			}
         }
-		// CutinSystemがあるか判定(戦闘パートのみ)
-		if (GameObject.Find("CutinSystem") == null && !IsQuestStage)
+
+		// 環境光をストーリー進行状況に応じて変える
+		DirectionalLightSetting();
+	}
+
+	/// <summary>
+	/// 環境光を設定する
+	/// </summary>
+	public void DirectionalLightSetting()
+	{
+		int stageindex = savingparameter.nowField;
+		int targetindex = 0;
+		// 現在のストーリー進行度がStageSkyDataのどこにあるか判定する
+		for(int i=0; i<ParameterManager.Instance.StageskyData.sheets[stageindex].list.Count; i++)
 		{
-			// 無ければ作る
-			GameObject cutinSystem = (GameObject)Instantiate(Resources.Load("CutinSystem"));
-			cutinSystem.name = "CutinSystem";
+			int minStory = ParameterManager.Instance.StageskyData.sheets[stageindex].list[i].MinStory;
+			int maxStory = ParameterManager.Instance.StageskyData.sheets[stageindex].list[i].MaxStory;
+			if(savingparameter.story >= minStory && savingparameter.story <= maxStory)
+			{
+				targetindex = i;
+				break;
+			}
 		}
-		// EventSystemがあるか判定
-		if (GameObject.Find("EventSystem") == null)
-		{
-			// 無ければ作る
-			GameObject eventSystem = (GameObject)Instantiate(Resources.Load("EventSystem"));
-			eventSystem.name = "EventSystem";
-		}
-		// FadeManagerがあるか判定
-		if (GameObject.Find("FadeManager") == null)
-		{
-			// 無ければ作る
-			GameObject fadeManager = (GameObject)Instantiate(Resources.Load("FadeManager"));
-			fadeManager.name = "FadeManager";
-		}
-		// TalkSystemがあるか判定（非戦闘シーン限定）
-		if(GameObject.Find("TalkSystem") == null && IsQuestStage)
-		{
-			GameObject talkSystem = (GameObject)Instantiate(Resources.Load("TalkSystem"));
-			talkSystem.name = "TalkSystem";
-		}
-        // LoadManagerがあるか判定
-        if (GameObject.Find("LoadManager") == null)
-        {
-            // 無ければ作る
-            GameObject loadManager = (GameObject)Instantiate(Resources.Load("LoadManager"));
-            loadManager.name = "LoadManager";
-        }
-        // PauseManagerがあるか判定
-        if (GameObject.Find("PauseManager") == null)
-        {
-            // 無ければ作る
-            GameObject pauseManager = (GameObject)Instantiate(Resources.Load("PauseManager"));
-            pauseManager.name = "PauseManager";
-        }
-		// ControllerManagerがあるか判定
-		if (GameObject.Find("ControllerManager") == null)
-		{
-			// 無ければ作る
-			GameObject loadManager = (GameObject)Instantiate(Resources.Load("ControllerManager"));
-			loadManager.name = "ControllerManager";
-		}
-		// ParameterManagerがあるか判定
-		if (GameObject.Find("ParameterManager") == null)
-		{
-			// 無ければ作る
-			GameObject parameterManager = (GameObject)Instantiate(Resources.Load("ParameterManager"));
-			parameterManager.name = "ParameterManager";
-		}
+		// 環境光の角度を設定する
+		float xrot = ParameterManager.Instance.StageskyData.sheets[stageindex].list[targetindex].RotateX;
+		float yrot = ParameterManager.Instance.StageskyData.sheets[stageindex].list[targetindex].RotateY;
+		float zrot = ParameterManager.Instance.StageskyData.sheets[stageindex].list[targetindex].RotateZ;
+
+		DLight.transform.rotation = Quaternion.Euler(xrot, yrot, zrot);
 	}
 
 	/// <summary>
