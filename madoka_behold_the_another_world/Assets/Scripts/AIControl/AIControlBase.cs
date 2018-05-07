@@ -816,9 +816,9 @@ public class AIControlBase : MonoBehaviour
 		}
 
 		// 地上にいてダウンしていなくブーストゲージがあった場合、飛行させる（着地硬直中などは飛べない）
-		if (target.IsGrounded && target.AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash != target.DownHash 
-			&& target.AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash != target.ReversalHash
-			&& target.Boost > 0)
+		if (target.GetIsGrounded() && target.AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash != target.GetDownHash() 
+			&& target.AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash != target.GetReversalHash()
+			&& target.GetBoost() > 0)
 		{
 			keyoutput = KEY_OUTPUT.JUMP;
 			Cpumode = CPUMODE.NORMAL_RISE1;
@@ -885,7 +885,7 @@ public class AIControlBase : MonoBehaviour
         var target = ControlTarget.GetComponent<CharacterControlBase>();
 
         // 地上から離れて一定時間後ジャンプボタンを離す
-        if (Time.time > Totalrisetime + Risetime && !target.IsGrounded)
+        if (Time.time > Totalrisetime + Risetime && !target.GetIsGrounded())
         {
             keyoutput = KEY_OUTPUT.NONE;
             Cpumode = CPUMODE.NORMAL_RISE2;
@@ -896,7 +896,7 @@ public class AIControlBase : MonoBehaviour
 			keyoutput = KEY_OUTPUT.JUMPING;
 		}
         // 地上から離れずに一定時間いるとNORMALへ戻って仕切り直す
-        if (Time.time > Totalrisetime + Risetime && target.IsGrounded)
+        if (Time.time > Totalrisetime + Risetime && target.GetIsGrounded())
         {
             Cpumode = CPUMODE.NORMAL;
         }
@@ -957,7 +957,7 @@ public class AIControlBase : MonoBehaviour
             Cpumode = CPUMODE.NORMAL_RISE4;
         }
         // 地面にいる間は壁まで進む
-        else if (target.IsGrounded && !target.Gethitjumpover())
+        else if (target.GetIsGrounded() && !target.Gethitjumpover())
         {
             tenkeyoutput = TENKEY_OUTPUT.TOP;
             keyoutput = KEY_OUTPUT.NONE;
@@ -987,7 +987,7 @@ public class AIControlBase : MonoBehaviour
     {
         // 制御対象
         var target = ControlTarget.GetComponent<CharacterControlBase>();
-        if (target.IsGrounded)
+        if (target.GetIsGrounded())
         {
             Cpumode = CPUMODE.NORMAL_RISE3;   // 着陸したら次へ
         }
@@ -1041,7 +1041,7 @@ public class AIControlBase : MonoBehaviour
             return;
         }
         // なっていなくて着陸していればNORMALへ戻ってもう一度飛んでもらう
-        if (target.IsGrounded)
+        if (target.GetIsGrounded())
         {
             Cpumode = CPUMODE.NORMAL;
         }
@@ -1086,7 +1086,7 @@ public class AIControlBase : MonoBehaviour
 		}
 
         // 相手が格闘を振ってきた場合、横ステップして格闘を入れる
-        if(rockonTarget.IsWrestle)
+        if(rockonTarget.GetIsWrestle())
         {
             // 現在時刻の秒の値を取り、奇数なら左、偶数なら右に避ける
             DateTime dt = DateTime.Now;
@@ -1129,7 +1129,7 @@ public class AIControlBase : MonoBehaviour
         keyoutput = KEY_OUTPUT.WRESTLE;
         
         // 格闘を振り終わったらNORMALへ戻る
-        if (!target.IsWrestle)
+        if (!target.GetIsWrestle())
         {
             Cpumode = CPUMODE.NORMAL;
         }
@@ -1148,7 +1148,7 @@ public class AIControlBase : MonoBehaviour
         keyoutput = KEY_OUTPUT.WRESTLE;
         Cpumode = CPUMODE.DOGFIGHT_FRONT;
         // 格闘を振り終わったらNORMALへ戻る
-        if (!target.IsWrestle)
+        if (!target.GetIsWrestle())
         {
             Cpumode = CPUMODE.NORMAL;
         }
@@ -1167,7 +1167,7 @@ public class AIControlBase : MonoBehaviour
         keyoutput = KEY_OUTPUT.WRESTLE;
         Cpumode = CPUMODE.DOGFIGHT_LEFT;
         // 格闘を振り終わったらNORMALへ戻る
-        if (!target.IsWrestle)
+        if (!target.GetIsWrestle())
         {
             Cpumode = CPUMODE.NORMAL;
         }
@@ -1186,7 +1186,7 @@ public class AIControlBase : MonoBehaviour
         keyoutput = KEY_OUTPUT.WRESTLE;
         Cpumode = CPUMODE.DOGFIGHT_RIGHT;
         // 格闘を振り終わったらNORMALへ戻る
-        if (!target.IsWrestle)
+        if (!target.GetIsWrestle())
         {
             Cpumode = CPUMODE.NORMAL;
         }
@@ -1205,7 +1205,7 @@ public class AIControlBase : MonoBehaviour
         keyoutput = KEY_OUTPUT.EXWRESTLE;
         Cpumode = CPUMODE.DOGFIGHT_EX;
         // 格闘を振り終わったらNORMALへ戻る
-        if (!target.IsWrestle)
+        if (!target.GetIsWrestle())
         {
             Cpumode = CPUMODE.NORMAL;
         }
@@ -1221,7 +1221,7 @@ public class AIControlBase : MonoBehaviour
         // 制御対象
         var target = ControlTarget.GetComponent<CharacterControlBase>();
         // ブーストがある限り上昇
-        if (target.Boost > 0)
+        if (target.GetBoost() > 0)
         {
             tenkeyoutput = TENKEY_OUTPUT.TOP;
             keyoutput = KEY_OUTPUT.EXWRESTLE;
@@ -1245,7 +1245,7 @@ public class AIControlBase : MonoBehaviour
 		// 制御対象
 		var target = ControlTarget.GetComponent<CharacterControlBase>();
 		// 地上に落ちきるまで下降
-		if (!target.IsGrounded)
+		if (!target.GetIsGrounded())
 		{
 			tenkeyoutput = TENKEY_OUTPUT.UNDER;
 			keyoutput = KEY_OUTPUT.EXWRESTLE;
@@ -1273,7 +1273,7 @@ public class AIControlBase : MonoBehaviour
 		// 制御対象
 		var target = ControlTarget.GetComponent<CharacterControlBase>();
 		// ブーストがある限りガード
-		if (target.Boost > 0)
+		if (target.GetBoost() > 0)
 		{
 			tenkeyoutput = TENKEY_OUTPUT.UNDER;
 			keyoutput = KEY_OUTPUT.WRESTLE;
@@ -1351,7 +1351,7 @@ public class AIControlBase : MonoBehaviour
 
 		// ノーロック状態なら強制的にロックオンフラグ
 		var target = ControlTarget.GetComponentInChildren<CharacterControlBase>();
-		if (target.IsRockon == false)
+		if (target.GetIsRockon() == false)
 		{
 			keyoutput = KEY_OUTPUT.SEARCH;
 			return;

@@ -270,8 +270,6 @@ public class SconosciutoControl : CharacterControlBase
 		StepInitialVelocity = 100.0f;
 		// ステップ時の１F当たりの移動量
 		StepMove1F = 1.0f;
-		// ステップ終了時硬直時間
-		StepBackTime = 0.4f;
 
 		// コライダの地面からの高さ
 		ColliderHeight = 0.8f;
@@ -735,7 +733,7 @@ public class SconosciutoControl : CharacterControlBase
 		if (HasArousalAttackInput && IsArousal)
 		{
 			// アーマーをONにする
-			IsArmor = true;
+			SetIsArmor(true);
 
 			// モーションを覚醒技にする
 			ArousalAttackDone();
@@ -822,7 +820,7 @@ public class SconosciutoControl : CharacterControlBase
 		{
 			if (run)
 			{
-				if (IsRockon)
+				if (GetIsRockon())
 				{
 					// ①　transform.TransformDirection(Vector3.forward)でオブジェクトの正面の情報を得る
 					var forward = transform.TransformDirection(Vector3.forward);
@@ -957,7 +955,7 @@ public class SconosciutoControl : CharacterControlBase
 	public void ReturnToIdle()
 	{
 		// 矢や格闘判定も消しておく
-		IsArmor = false;
+		SetIsArmor(false);
 		DestroyArrow();
 		DestroyWrestle();
 		ReturnMotion(AnimatorUnit);
@@ -1029,7 +1027,7 @@ public class SconosciutoControl : CharacterControlBase
 		if (BulletNum[0] > 0)
 		{
 			// ロックオン時本体の方向を相手に向ける       
-			if (IsRockon)
+			if (GetIsRockon())
 			{
 				RotateToTarget();
 			}
@@ -1074,7 +1072,7 @@ public class SconosciutoControl : CharacterControlBase
 			arrow.ShotSpeed = Character_Spec.cs[(int)CharacterName][0].m_Movespeed;			
 				
 			// 矢の方向を決定する(本体と同じ方向に向けて打ち出す。ただしノーロックで本体の向きが0のときはベクトルが0になるので、このときだけはカメラの方向に飛ばす）
-			if (IsRockon && RunShotDone)
+			if (GetIsRockon() && RunShotDone)
 			{
 				// ロックオン対象の座標を取得
 				var target = GetComponentInChildren<Player_Camera_Controller>();
@@ -1094,7 +1092,7 @@ public class SconosciutoControl : CharacterControlBase
 				arrow.MoveDirection = Vector3.Normalize(normalizeRot);
 			}
 			// ロックオンしているとき
-			else if (IsRockon)
+			else if (GetIsRockon())
 			{
 				// ロックオン対象の座標を取得
 				var target = GetComponentInChildren<Player_Camera_Controller>();
@@ -1223,7 +1221,7 @@ public class SconosciutoControl : CharacterControlBase
 		if (BulletNum[1] > 0)
 		{
 			// ロックオン時本体の方向を相手に向ける       
-			if (IsRockon)
+			if (GetIsRockon())
 			{
 				RotateToTarget();
 			}
@@ -1264,7 +1262,7 @@ public class SconosciutoControl : CharacterControlBase
 			// 弾速設定
 			arrow.ShotSpeed = Character_Spec.cs[(int)CharacterName][1].m_Movespeed;
 			// ロックオンしているとき
-			if (IsRockon)
+			if (GetIsRockon())
 			{
 				// ロックオン対象の座標を取得
 				var target = GetComponentInChildren<Player_Camera_Controller>();
@@ -1360,7 +1358,7 @@ public class SconosciutoControl : CharacterControlBase
 		if (BulletNum[2] > 0)
 		{
 			// ロックオン時本体の方向を相手に向ける       
-			if (IsRockon)
+			if (GetIsRockon())
 			{
 				RotateToTarget();
 			}
@@ -1468,7 +1466,7 @@ public class SconosciutoControl : CharacterControlBase
 	protected override void LeftWrestle1(Animator animator)
 	{
 		base.LeftWrestle1(animator);
-		if (IsRockon)
+		if (GetIsRockon())
 		{
 			// MoveDirectionを再設定
 			// ロックオン且つ本体角度が0でない時、相手の方向を移動方向とする
@@ -1509,7 +1507,7 @@ public class SconosciutoControl : CharacterControlBase
 	protected override void RightWrestle1(Animator animator)
 	{
 		base.RightWrestle1(animator);
-		if (IsRockon)
+		if (GetIsRockon())
 		{
 			// MoveDirectionを再設定
 			// ロックオン且つ本体角度が0でない時、相手の方向を移動方向とする
@@ -1556,7 +1554,7 @@ public class SconosciutoControl : CharacterControlBase
         float movespeed = Character_Spec.cs[(int)CharacterName][skillindex].m_Movespeed;
         // 移動方向
         // ロックオン且つ本体角度が0でない時、相手の方向を移動方向とする
-        if (IsRockon && transform.rotation.eulerAngles.y != 0)
+        if (GetIsRockon() && transform.rotation.eulerAngles.y != 0)
         {
             // ロックオン対象を取得
             var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();

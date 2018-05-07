@@ -62,7 +62,7 @@ public class Laser : MonoBehaviour
             return;
 
         // ダウン中かダウン値MAXならダメージを与えない
-        if (target.DownTime > 0 || (target.DownRatioBias <= target.NowDownRatio))
+        if (target.GetDownTime() > 0 || (target.GetDownRatioBias() <= target.GetNowDownRatio()))
         {
             return;
         }
@@ -75,7 +75,7 @@ public class Laser : MonoBehaviour
         // ヒット時にダメージの種類をCharacterControl_Baseに与える
         // ダウン値を超えていたら吹き飛びへ移行
         // Blow属性の攻撃を与えた場合も吹き飛びへ移行
-        if (target.NowDownRatio >= target.DownRatioBias || this.m_Hittype == CharacterSkill.HitType.BLOW)
+        if (target.GetNowDownRatio() >= target.GetDownRatioBias() || this.m_Hittype == CharacterSkill.HitType.BLOW)
         {   // 吹き飛びの場合、相手に方向ベクトルを与える            
             // Y軸方向は少し上向き
             target.MoveDirection.y += 10;
@@ -94,7 +94,7 @@ public class Laser : MonoBehaviour
         else
         {
             // ただしアーマー時ならダウン値とダメージだけ加算する(Damageにしない）
-            if (!target.IsArmor)
+            if (!target.GetIsArmor())
             {
                 //target.m_AnimState[0] = CharacterControl_Base.AnimationState.DamageInit;
             }

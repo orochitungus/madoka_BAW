@@ -166,8 +166,6 @@ public class MajyuControl : CharacterControlBase
 		StepInitialVelocity = 100.0f;
 		// ステップ時の１F当たりの移動量
 		StepMove1F = 1.0f;
-		// ステップ終了時硬直時間
-		StepBackTime = 0.4f;
 
 		// コライダの地面からの高さ
 		ColliderHeight = 1.5f;
@@ -572,7 +570,7 @@ public class MajyuControl : CharacterControlBase
 		{
 			if (run)
 			{
-				if (IsRockon)
+				if (GetIsRockon())
 				{
 					// ①　transform.TransformDirection(Vector3.forward)でオブジェクトの正面の情報を得る
 					var forward = transform.TransformDirection(Vector3.forward);
@@ -741,7 +739,7 @@ public class MajyuControl : CharacterControlBase
 		float movespeed = Character_Spec.cs[(int)CharacterName][skillindex].m_Movespeed;
 		// 移動方向
 		// ロックオン且つ本体角度が0でない時、相手の方向を移動方向とする
-		if (IsRockon && this.transform.rotation.eulerAngles.y != 0)
+		if (GetIsRockon() && this.transform.rotation.eulerAngles.y != 0)
 		{
 			// ロックオン対象を取得
 			var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
@@ -945,7 +943,7 @@ public class MajyuControl : CharacterControlBase
 		if (BulletNum[(int)type] > 0 || type == ShotType.CHARGE_SHOT)
 		{
 			// ロックオン時本体の方向を相手に向ける       
-			if (IsRockon)
+			if (GetIsRockon())
 			{
 				RotateToTarget();
 			}
@@ -992,7 +990,7 @@ public class MajyuControl : CharacterControlBase
 			// メイン弾速設定
 			arrow.ShotSpeed = Character_Spec.cs[(int)CharacterName][0].m_Movespeed;
 			// 矢の方向を決定する(本体と同じ方向に向けて打ち出す。ただしノーロックで本体の向きが0のときはベクトルが0になるので、このときだけはカメラの方向に飛ばす）
-			if (IsRockon && RunShotDone)
+			if (GetIsRockon() && RunShotDone)
 			{
 				// ロックオン対象の座標を取得
 				var target = GetComponentInChildren<Player_Camera_Controller>();
@@ -1012,7 +1010,7 @@ public class MajyuControl : CharacterControlBase
 				arrow.MoveDirection = Vector3.Normalize(normalizeRot);
 			}
 			// ロックオンしているとき
-			else if (IsRockon)
+			else if (GetIsRockon())
 			{
 				// ロックオン対象の座標を取得
 				var target = GetComponentInChildren<Player_Camera_Controller>();

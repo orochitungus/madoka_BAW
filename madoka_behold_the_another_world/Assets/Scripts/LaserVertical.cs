@@ -168,7 +168,7 @@ public class LaserVertical : MonoBehaviour
 			return;
 
 		// ダウン中かダウン値MAXならダメージを与えない
-		if (target.Invincible)
+		if (target.GetInvincible())
 		{
 			return;
 		}
@@ -181,7 +181,7 @@ public class LaserVertical : MonoBehaviour
 		// ヒット時にダメージの種類をCharacterControl_Baseに与える
 		// ダウン値を超えていたら吹き飛びへ移行
 		// Blow属性の攻撃を与えた場合も吹き飛びへ移行
-		if (target.NowDownRatio >= target.DownRatioBias || this.m_Hittype == CharacterSkill.HitType.BLOW)
+		if (target.GetNowDownRatio() >= target.GetDownRatioBias() || this.m_Hittype == CharacterSkill.HitType.BLOW)
 		{   // 吹き飛びの場合、相手に方向ベクトルを与える            
 			// Y軸方向は少し上向き
 			target.MoveDirection.y += 10;
@@ -198,7 +198,7 @@ public class LaserVertical : MonoBehaviour
 		else
 		{
 			// ただしアーマー時ならダウン値とダメージだけ加算する(Damageにしない）
-			if (!target.IsArmor)
+			if (!target.GetIsArmor())
 			{
 				target.DamageInit(target.AnimatorUnit, 41, false, 43, 44);
 			}

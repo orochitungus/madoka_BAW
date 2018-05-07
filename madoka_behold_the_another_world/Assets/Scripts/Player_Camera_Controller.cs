@@ -130,8 +130,8 @@ public class Player_Camera_Controller : MonoBehaviour
 				Battleinterfacecontroller.RockOnCursorRed.transform.localPosition = rockoncursorpos;
 				Battleinterfacecontroller.RockOnCursorYellow.transform.localPosition = rockoncursorpos;
 				// ダウン値を超えているorダウンしているなら黄色ロック
-				if (Enemy.GetComponentInChildren<CharacterControlBase>().NowDownRatio >= Enemy.GetComponentInChildren<CharacterControlBase>().DownRatioBias 
-					|| Enemy.GetComponentInChildren<CharacterControlBase>().DownTime > 0)
+				if (Enemy.GetComponentInChildren<CharacterControlBase>().GetNowDownRatio() >= Enemy.GetComponentInChildren<CharacterControlBase>().GetDownRatioBias() 
+					|| Enemy.GetComponentInChildren<CharacterControlBase>().GetDownTime() > 0)
 				{
 					Battleinterfacecontroller.RockOnCursorGreen.gameObject.SetActive(false);
 					Battleinterfacecontroller.RockOnCursorRed.gameObject.SetActive(false);
@@ -154,7 +154,7 @@ public class Player_Camera_Controller : MonoBehaviour
 				// 敵HP情報を表示
 				Battleinterfacecontroller.EnemyHPGauge.SetActive(true);
 				string enemyName = Character_Spec.Name[(int)Enemy.GetComponent<CharacterControlBase>().CharacterName];
-				int nowHP = Enemy.GetComponent<CharacterControlBase>().NowHitpoint;
+				int nowHP = Enemy.GetComponent<CharacterControlBase>().GetNowHitpoint();
 				int maxHP = Enemy.GetComponent<CharacterControlBase>().GetMaxHitpoint(Enemy.GetComponent<CharacterControlBase>().Level);
 				bool istarget = Enemy.GetComponent<CharacterControlBase>().IsTarget;
 				Battleinterfacecontroller.EnemyHPGauge.GetComponent<EnemyHPGauge>().HPGaugeUpudate(nowHP, maxHP, enemyName, istarget);
@@ -190,7 +190,7 @@ public class Player_Camera_Controller : MonoBehaviour
 		}
 
         // 解除入力が行われた
-        if (target.IsRockon && target.HasSearchCancelInput)
+        if (target.GetIsRockon() && target.HasSearchCancelInput)
         {
             UnlockDone(target);
         }
@@ -198,7 +198,7 @@ public class Player_Camera_Controller : MonoBehaviour
         else if (target.GetSearchInput() || CPUKeyInput == AIControlBase.KEY_OUTPUT.SEARCH)
         {
             // ロックオンしていなかった
-            if (!target.IsRockon)
+            if (!target.GetIsRockon())
             {
                 // 自分がPC側か敵側か取得する
                 switch (target.IsPlayer)
@@ -227,7 +227,7 @@ public class Player_Camera_Controller : MonoBehaviour
 								}
 								Enemy = target.EndingPoint;
 								IsRockOn = true;
-								target.IsRockon = true;
+								target.SetIsRockon(true);
 								break;
 							// 起点へ向けて移動中
 							case AIControlBase.CPUMODE.RETURN_PATH:
@@ -238,7 +238,7 @@ public class Player_Camera_Controller : MonoBehaviour
 								}
 								Enemy = target.StartingPoint;
 								IsRockOn = true;
-								target.IsRockon = true;
+								target.SetIsRockon(true);
 								break;
 							default:
 								// 外れたら哨戒に戻る
@@ -246,7 +246,7 @@ public class Player_Camera_Controller : MonoBehaviour
 								{
 									CPUmode = AIControlBase.CPUMODE.OUTWARD_JOURNEY;
 									IsRockOn = false;
-									target.IsRockon = false;
+									target.SetIsRockon(false);
 								}
 								break;
 						}
@@ -298,12 +298,12 @@ public class Player_Camera_Controller : MonoBehaviour
         }
 
 		// ロックオン対象が死んでいたら強制的にロックを解除する（CPUの哨戒モード時は除く）
-		if (target.IsRockon && CPUmode != AIControlBase.CPUMODE.OUTWARD_JOURNEY && CPUmode != AIControlBase.CPUMODE.RETURN_PATH)
+		if (target.GetIsRockon() && CPUmode != AIControlBase.CPUMODE.OUTWARD_JOURNEY && CPUmode != AIControlBase.CPUMODE.RETURN_PATH)
 		{
 			if (Enemy != null)
 			{
 				var rockontarget = Enemy.GetComponentInChildren<CharacterControlBase>();
-				if (rockontarget != null && rockontarget.NowHitpoint < 1)
+				if (rockontarget != null && rockontarget.GetNowHitpoint() < 1)
 				{
 					UnlockDone(target);
 				}
@@ -336,7 +336,7 @@ public class Player_Camera_Controller : MonoBehaviour
         // 有効範囲内に敵が誰もいなければ、ロックオンを解除する
         if (RockOnTarget == null)
         {
-            target.IsRockon = false;
+            target.SetIsRockon(false);
             IsRockOn = false;
             return false;
         }
@@ -388,7 +388,7 @@ public class Player_Camera_Controller : MonoBehaviour
 		if(exitdown)
 		{
 			CharacterControlBase rockontarget = RockOnTarget[most_near].GetComponent<CharacterControlBase>();
-			if(rockontarget.NowDownRatio >= rockontarget.DownRatioBias)
+			if(rockontarget.GetNowDownRatio() >= rockontarget.GetDownRatioBias())
 			{
 				return false;
 			}
@@ -401,7 +401,7 @@ public class Player_Camera_Controller : MonoBehaviour
         // 対象のインデックスを保持する
         NowTarget = most_near;
         // PC側のロックオンフラグを立てる
-        target.IsRockon = true;
+        target.SetIsRockon(true);
         return true;
     }
 
@@ -459,7 +459,7 @@ public class Player_Camera_Controller : MonoBehaviour
 		// 対象のインデックスを保持する
 		NowTarget = nexttarget;
 		// PC側のロックオンフラグを立てる
-		target.IsRockon = true;
+		target.SetIsRockon(true);
 	}
 
     /// <summary>
@@ -469,7 +469,7 @@ public class Player_Camera_Controller : MonoBehaviour
     private void UnlockDone(CharacterControlBase target)
     {
         IsRockOn = false;
-        target.IsRockon = false;
+        target.SetIsRockon(false);
         Enemy = null;
         RockOnTarget.Clear();
 		

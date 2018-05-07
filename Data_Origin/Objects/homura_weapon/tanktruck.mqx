@@ -1,0 +1,220 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<MetasequoiaDocument>
+    <IncludedBy>tanktruck.mqo</IncludedBy>
+    <Plugin.BD1224DB.0000002C name="ボーン">
+        <XSFormat version="0.2" app="Metasequoia">
+            <XSConfig>
+                <XSFileConfig limitFPS="0" FPS="60.00" step="0" freeze="0" fastcalc="0" adjustwgt="0" debugdraw="0" mode="0" multitrack="0"/>
+                <XSPhysicsConfig enable="0"/>
+                <XSSceneConfig col_scn="8375551"/>
+                <XSBoneConfig col_def="6737049" col_sel="16757299" col_hot="16776960" col_cst="15040434" col_phy="8362444"/>
+            </XSConfig>
+            <XSAnimationContainer>
+                <XSAnimationSet name="tanktruck_idle" interpolate="21">
+                    <XSAnimation frame="0">
+                        <XSAnimationKey name=""/>
+                        <XSAnimationKey name=""/>
+                        <XSAnimationKey name=""/>
+                        <XSAnimationKey name=""/>
+                        <XSAnimationKey name=""/>
+                        <XSAnimationKey name=""/>
+                        <XSAnimationKey name=""/>
+                        <XSAnimationKey name=""/>
+                        <XSAnimationKey name=""/>
+                        <XSAnimationState name="" visible="-1" fvalue="0.000000"/>
+                        <XSAnimationState name="" visible="-1" fvalue="0.000000"/>
+                        <XSAnimationState name="" visible="-1" fvalue="0.000000"/>
+                        <XSAnimationState name="" visible="-1" fvalue="0.000000"/>
+                        <XSAnimationState name="" visible="-1" fvalue="0.000000"/>
+                        <XSAnimationState name="" visible="-1" fvalue="0.000000"/>
+                        <XSAnimationState name="" visible="-1" fvalue="0.000000"/>
+                        <XSAnimationState name="" visible="-1" fvalue="0.000000"/>
+                        <XSAnimationState name="" visible="-1" fvalue="0.000000"/>
+                        <XSAnimationState name="" visible="-1" fvalue="0.000000"/>
+                        <XSAnimationState name="" visible="-1" fvalue="0.000000"/>
+                        <XSAnimationState name="" visible="-1" fvalue="0.000000"/>
+                        <XSAnimationState name="" visible="-1" fvalue="0.000000"/>
+                        <XSAnimationState name="" visible="-1" fvalue="0.000000"/>
+                    </XSAnimation>
+                </XSAnimationSet>
+                <XSAnimationSet name="tanktruck_run" interpolate="21">
+                    <XSAnimation frame="0">
+                        <XSAnimationKey name="cabrear_L_"/>
+                        <XSAnimationKey name="white"/>
+                        <XSAnimationKey name="cabfront_R_"/>
+                        <XSAnimationKey name="cabfront_L_"/>
+                        <XSAnimationKey name="cabrear_R_"/>
+                        <XSAnimationKey name="trailerfront_L_"/>
+                        <XSAnimationKey name="trailerrear_L_"/>
+                        <XSAnimationKey name="trailerfront_R_"/>
+                        <XSAnimationKey name="trailerrear_R_"/>
+                        <XSAnimationState name="cab" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_rr" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_fl" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_rl" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_fr" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="cockpit" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="mirror" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="Chassis" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="cowl" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tunk" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_rl1" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_rl2" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_rr1" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_rr2" visible="1" fvalue="0.000000"/>
+                    </XSAnimation>
+                    <XSAnimation frame="15">
+                        <XSAnimationKey name="cabrear_L_">
+                            <q>0.707107 0.000000 0.000000 0.707107</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="white"/>
+                        <XSAnimationKey name="cabfront_R_">
+                            <q>0.707107 0.000000 0.000000 0.707107</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="cabfront_L_">
+                            <q>0.707083 -0.008220 -0.000007 0.707083</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="cabrear_R_">
+                            <q>0.707107 0.000000 0.000000 0.707107</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="trailerfront_L_">
+                            <q>0.707107 0.000000 0.000000 0.707107</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="trailerrear_L_">
+                            <q>0.707107 0.000000 0.000000 0.707107</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="trailerfront_R_">
+                            <q>0.707107 0.000000 0.000000 0.707107</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="trailerrear_R_">
+                            <q>0.707107 0.000000 0.000000 0.707107</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="cab" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_rr" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_fl" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_rl" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_fr" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="cockpit" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="mirror" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="Chassis" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="cowl" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tunk" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_rl1" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_rl2" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_rr1" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_rr2" visible="1" fvalue="0.000000"/>
+                    </XSAnimation>
+                    <XSAnimation frame="30">
+                        <XSAnimationKey name="cabrear_L_">
+                            <q>1.000000 0.000000 0.000000 -0.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="white"/>
+                        <XSAnimationKey name="cabfront_R_">
+                            <q>1.000000 0.000000 0.000000 -0.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="cabfront_L_">
+                            <q>1.000000 0.000000 0.000000 -0.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="cabrear_R_">
+                            <q>1.000000 0.000000 0.000000 -0.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="trailerfront_L_">
+                            <q>1.000000 0.000000 0.000000 -0.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="trailerrear_L_">
+                            <q>1.000000 0.000000 0.000000 -0.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="trailerfront_R_">
+                            <q>1.000000 0.000000 0.000000 -0.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="trailerrear_R_">
+                            <q>1.000000 0.000000 0.000000 -0.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="cab" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_rr" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_fl" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_rl" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_fr" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="cockpit" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="mirror" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="Chassis" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="cowl" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tunk" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_rl1" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_rl2" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_rr1" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_rr2" visible="1" fvalue="0.000000"/>
+                    </XSAnimation>
+                    <XSAnimation frame="45">
+                        <XSAnimationKey name="cabrear_L_">
+                            <q>-0.707107 0.000000 0.000000 0.707107</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="white"/>
+                        <XSAnimationKey name="cabfront_R_">
+                            <q>-0.707107 0.000000 0.000000 0.707107</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="cabfront_L_">
+                            <q>0.707107 0.000000 0.000000 -0.707107</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="cabrear_R_">
+                            <q>-0.707107 0.000000 0.000000 0.707107</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="trailerfront_L_">
+                            <q>-0.707107 0.000000 0.000000 0.707107</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="trailerrear_L_">
+                            <q>-0.707107 -0.000000 0.000000 0.707107</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="trailerfront_R_">
+                            <q>-0.707107 0.000000 0.000000 0.707107</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="trailerrear_R_">
+                            <q>-0.707107 0.000000 0.000000 0.707107</q>
+                        </XSAnimationKey>
+                        <XSAnimationState name="cab" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_rr" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_fl" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_rl" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_fr" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="cockpit" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="mirror" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="Chassis" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="cowl" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tunk" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_rl1" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_rl2" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_rr1" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_rr2" visible="1" fvalue="0.000000"/>
+                    </XSAnimation>
+                    <XSAnimation frame="60">
+                        <XSAnimationKey name="cabrear_L_"/>
+                        <XSAnimationKey name="white"/>
+                        <XSAnimationKey name="cabfront_R_"/>
+                        <XSAnimationKey name="cabfront_L_">
+                            <q>-0.000000 0.000000 -0.000000 -1.000000</q>
+                        </XSAnimationKey>
+                        <XSAnimationKey name="cabrear_R_"/>
+                        <XSAnimationKey name="trailerfront_L_"/>
+                        <XSAnimationKey name="trailerrear_L_"/>
+                        <XSAnimationKey name="trailerfront_R_"/>
+                        <XSAnimationKey name="trailerrear_R_"/>
+                        <XSAnimationState name="cab" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_rr" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_fl" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_rl" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_fr" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="cockpit" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="mirror" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="Chassis" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="cowl" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tunk" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_rl1" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_rl2" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_rr1" visible="1" fvalue="0.000000"/>
+                        <XSAnimationState name="tire_rr2" visible="1" fvalue="0.000000"/>
+                    </XSAnimation>
+                </XSAnimationSet>
+            </XSAnimationContainer>
+        </XSFormat>
+    </Plugin.BD1224DB.0000002C>
+</MetasequoiaDocument>

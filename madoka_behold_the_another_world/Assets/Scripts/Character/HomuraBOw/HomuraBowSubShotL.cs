@@ -73,11 +73,11 @@ public class HomuraBowSubShotL : Bullet
 				// 進行方向ベクトルを保持する
 				MoveDirection = InjectionObject.GetComponent<HomuraBowControl>().BulletMoveDirectionL;
 				// 攻撃力を保持する
-				OffemsivePower = InjectionObject.GetComponent<CharacterControlBase>().OffensivePowerOfBullet;
+				OffemsivePower = InjectionObject.GetComponent<CharacterControlBase>().GetOffensivePowerOfBullet();
 				// ダウン値を保持する
-				DownRatio = InjectionObject.GetComponent<CharacterControlBase>().DownratioPowerOfBullet;
+				DownRatio = InjectionObject.GetComponent<CharacterControlBase>().GetDownratioPowerOfBullet();
 				// 覚醒ゲージ増加量を保持する
-				ArousalRatio = InjectionObject.GetComponent<CharacterControlBase>().ArousalRatioOfBullet;
+				ArousalRatio = InjectionObject.GetComponent<CharacterControlBase>().GetArousalRatioOfBullet();
 
 				// 親のステートを発射完了へ切り替える
 				InjectionObject.GetComponent<CharacterControlBase>().Shotmode = CharacterControlBase.ShotMode.SHOTDONE;

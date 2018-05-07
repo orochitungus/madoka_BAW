@@ -124,7 +124,7 @@ public class Bazooka_Effect : MonoBehaviour
         }
                 
         // ダウン中かダウン値MAXならダメージを与えない
-        if (target.DownTime > 0 || (target.DownRatioBias <= target.NowDownRatio))
+        if (target.GetDownTime() > 0 || (target.GetDownRatioBias() <= target.GetNowDownRatio()))
         {
             // オブジェクトを自壊させる
             Destroy(gameObject);
@@ -149,7 +149,7 @@ public class Bazooka_Effect : MonoBehaviour
             // ダウン値を与える
             collision.gameObject.SendMessage("DownRateInc", m_downratio);
             // 接触した相手を動作させる
-            if (target.NowDownRatio >= target.DownRatioBias || this.m_Hittype == CharacterSkill.HitType.BLOW)
+            if (target.GetNowDownRatio() >= target.GetDownRatioBias() || this.m_Hittype == CharacterSkill.HitType.BLOW)
             {   // 吹き飛びの場合、相手に方向ベクトルを与える            
                 // Y軸方向は少し上向き
                 target.MoveDirection.y += 10;
@@ -164,7 +164,7 @@ public class Bazooka_Effect : MonoBehaviour
             else
             {
                 // TODO:ただしアーマー時ならダウン値とダメージだけ加算する(Damageにしない）
-                if (!target.IsArmor)
+                if (!target.GetIsArmor())
                 {
                     //target.m_AnimState[0] = CharacterControl_Base.AnimationState.DamageInit;
                 }

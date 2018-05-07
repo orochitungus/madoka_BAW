@@ -127,10 +127,6 @@ public class HomuraBowControl : CharacterControlBase
 	/// </summary>
 	private bool _LeftwingSet;
 
-	/// <summary>
-	/// ボーンの最大数
-	/// </summary>
-	private const int _MaxboneNum = 34;
 
 	/// <summary>
 	/// 覚醒技専用カメラ1個目
@@ -196,51 +192,51 @@ public class HomuraBowControl : CharacterControlBase
     /// <summary>
     /// 各種アニメのID.コメント内はAnimatorの管理用ID.武装系以外は全員共通にすること
     /// </summary>
-    public int IdleID;                  // 0
-    public int WalkID;                  // 1
-    public int JumpID;                  // 2
-    public int JumpingID;               // 3
-    public int FallID;                  // 4
-    public int LandingID;               // 5
-    public int RunID;                   // 6
-    public int AirDashID;               // 7
-    public int FrontStepID;             // 8
-    public int LeftStepID;              // 9
-    public int RightStepID;             // 10
-    public int BackStepID;              // 11
-    public int FrontStepBackID;         // 12
-    public int LeftStepBackID;          // 13
-    public int RightStepBackID;         // 14
-    public int BackStepBackID;          // 15
-    public int ShotID;                  // 16
-    public int RunShotID;               // 17
-    public int AirShotID;               // 18
-    public int ChargeShotID;            // 19
-    public int SubShotID;               // 20
-    public int EXShotID;                // 21
-    public int FollowThrowShotID;       // 22
-    public int FollowThrowRunShotID;    // 23
-    public int FollowThrowAirShotID;    // 24
-    public int FollowThrowChargeShotID; // 25
-    public int FollowThrowSubShotID;    // 26
-    public int FollowThrowEXShotID;     // 27
-    public int Wrestle1ID;              // 28
-    public int Wrestle2ID;              // 29
-    public int Wrestle3ID;              // 30
-    public int FrontWrestleID;          // 31
-    public int LeftWrestleID;           // 32
-    public int RightWrestleID;          // 33
-    public int BackWrestleID;           // 34
-    public int AirDashWrestleID;        // 35
-    public int EXWrestleID;             // 36
-    public int EXFrontWrestleID;        // 37
-    public int EXBackWrestleID;         // 38
-    public int ReversalID;              // 39
-    public int ArousalAttackID;         // 40
-    public int DamageID;                // 41
-    public int DownID;                  // 42
-    public int BlowID;                  // 43
-    public int SpinDownID;              // 44
+    private int IdleID;                  // 0
+    private int WalkID;                  // 1
+    private int JumpID;                  // 2
+    private int JumpingID;               // 3
+    private int FallID;                  // 4
+    private int LandingID;               // 5
+    private int RunID;                   // 6
+    private int AirDashID;               // 7
+    private int FrontStepID;             // 8
+    private int LeftStepID;              // 9
+    private int RightStepID;             // 10
+    private int BackStepID;              // 11
+    private int FrontStepBackID;         // 12
+    private int LeftStepBackID;          // 13
+    private int RightStepBackID;         // 14
+    private int BackStepBackID;          // 15
+    private int ShotID;                  // 16
+    private int RunShotID;               // 17
+    private int AirShotID;               // 18
+    private int ChargeShotID;            // 19
+    private int SubShotID;               // 20
+    private int EXShotID;                // 21
+    private int FollowThrowShotID;       // 22
+    private int FollowThrowRunShotID;    // 23
+    private int FollowThrowAirShotID;    // 24
+    private int FollowThrowChargeShotID; // 25
+    private int FollowThrowSubShotID;    // 26
+    private int FollowThrowEXShotID;     // 27
+    private int Wrestle1ID;              // 28
+    private int Wrestle2ID;              // 29
+    private int Wrestle3ID;              // 30
+    private int FrontWrestleID;          // 31
+    private int LeftWrestleID;           // 32
+    private int RightWrestleID;          // 33
+    private int BackWrestleID;           // 34
+    private int AirDashWrestleID;        // 35
+    private int EXWrestleID;             // 36
+    private int EXFrontWrestleID;        // 37
+    private int EXBackWrestleID;         // 38
+    private int ReversalID;              // 39
+    private int ArousalAttackID;         // 40
+    private int DamageID;                // 41
+    private int DownID;                  // 42
+    private int BlowID;                  // 43
+    private int SpinDownID;              // 44
 
     void Awake()
 	{
@@ -349,8 +345,6 @@ public class HomuraBowControl : CharacterControlBase
         StepInitialVelocity = 100.0f;
         // ステップ時の１F当たりの移動量
         StepMove1F = 1.0f;
-        // ステップ終了時硬直時間
-        StepBackTime = 0.4f;
 
         // コライダの地面からの高さ
         ColliderHeight = 0.8f;
@@ -505,7 +499,7 @@ public class HomuraBowControl : CharacterControlBase
             }
 
 			// チャージ射撃
-			Battleinterfacecontroller.Weapon3.NowChargeValue = (float)(ShotCharge)/(float)(ChargeMax);
+			Battleinterfacecontroller.Weapon3.NowChargeValue = ShotCharge / (float)(ChargeMax);
 
             // サブ射撃
             Battleinterfacecontroller.Weapon2.Kind.text = "Sub Shot";
@@ -793,7 +787,7 @@ public class HomuraBowControl : CharacterControlBase
         if (HasArousalAttackInput && IsArousal)
         {
             // アーマーをONにする
-            IsArmor = true;
+            SetIsArmor(true);
 
             // 覚醒前処理を未実行に変更
             Arousalattackstate = ArousalAttackState.INITIALIZE;
@@ -868,7 +862,7 @@ public class HomuraBowControl : CharacterControlBase
 		{
 			if (run)
 			{
-				if (IsRockon)
+				if (GetIsRockon())
 				{
 					// ①　transform.TransformDirection(Vector3.forward)でオブジェクトの正面の情報を得る
 					var forward = transform.TransformDirection(Vector3.forward);
@@ -1015,7 +1009,7 @@ public class HomuraBowControl : CharacterControlBase
 		// 覚醒技が発動失敗した場合カメラと視点とアーマーを戻す
 		ArousalAttackCamera1.enabled = false;
 		ArousalAttackWing.SetActive(false);
-		IsArmor = false;
+		SetIsArmor(false);
 
 		// 格闘の累積時間を初期化
 		Wrestletime = 0;
@@ -1090,7 +1084,7 @@ public class HomuraBowControl : CharacterControlBase
 		if (BulletNum[(int)type] > 0 || type == ShotType.CHARGE_SHOT)
 		{
 			// ロックオン時本体の方向を相手に向ける       
-			if (IsRockon)
+			if (GetIsRockon())
 			{
 				RotateToTarget();
 			}
@@ -1247,7 +1241,7 @@ public class HomuraBowControl : CharacterControlBase
 				}
 			}
 			// 矢の方向を決定する(本体と同じ方向に向けて打ち出す。ただしノーロックで本体の向きが0のときはベクトルが0になるので、このときだけはカメラの方向に飛ばす）
-			if (IsRockon && RunShotDone)
+			if (GetIsRockon() && RunShotDone)
 			{
 				// ロックオン対象の座標を取得
 				var target = GetComponentInChildren<Player_Camera_Controller>();
@@ -1267,7 +1261,7 @@ public class HomuraBowControl : CharacterControlBase
 				arrow.MoveDirection = Vector3.Normalize(normalizeRot);
 			}
 			// ロックオンしているとき
-			else if (IsRockon)
+			else if (GetIsRockon())
 			{
 				// ロックオン対象の座標を取得
 				var target = GetComponentInChildren<Player_Camera_Controller>();
@@ -1706,7 +1700,7 @@ public class HomuraBowControl : CharacterControlBase
 		float movespeed = Character_Spec.cs[(int)CharacterName][skillindex].m_Movespeed;
 		// 移動方向
 		// ロックオン且つ本体角度が0でない時、相手の方向を移動方向とする
-		if (IsRockon && this.transform.rotation.eulerAngles.y != 0)
+		if (GetIsRockon() && this.transform.rotation.eulerAngles.y != 0)
 		{
 			// ロックオン対象を取得
 			var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
@@ -1858,7 +1852,7 @@ public class HomuraBowControl : CharacterControlBase
 			case ArousalAttackState.FEATHERSET: // カメラを切り替えつつ前進させる
 				// 前方向に向けて歩き出す
 				// ロックオン時は強制的に相手の方向を向く
-				if (IsRockon)
+				if (GetIsRockon())
 				{
 					// 敵（ロックオン対象）の座標を取得
 					var targetspec = GetComponentInChildren<Player_Camera_Controller>();
@@ -1926,7 +1920,7 @@ public class HomuraBowControl : CharacterControlBase
 				break;
 			case ArousalAttackState.END:    // 覚醒ゲージが空になったので、Armorを戻してIdleへ移行
 				// アーマーフラグ解除
-				IsArmor = false;
+				SetIsArmor(false);
 				AnimatorUnit.SetTrigger("Idle");
 				break;
 		}

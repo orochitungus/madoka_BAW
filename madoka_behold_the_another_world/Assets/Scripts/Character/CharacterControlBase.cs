@@ -26,12 +26,12 @@ public class CharacterControlBase : MonoBehaviour
     /// <summary>
     /// 地面設置確認用のレイの発射位置(コライダの中心とオブジェクトの中心)
     /// </summary>
-    public Vector3 LayOriginOffs;
+    private Vector3 LayOriginOffs;
 
     /// <summary>
     /// レイの長さ
     /// </summary>
-    public float Laylength;
+    private float Laylength;
 
     /// <summary>
     /// ground属性をもったレイヤー（この場合8）
@@ -180,19 +180,19 @@ public class CharacterControlBase : MonoBehaviour
     /// <summary>
     /// ジャンプ時間
     /// </summary>
-    public float JumpWaitTime;
-    public float JumpTime;
+    protected float JumpWaitTime;
+    private float JumpTime;
 
     /// <summary>
     /// 着地硬直
     /// </summary>
-    public float LandingWaitTime;
-    public float LandingTime;
+    protected float LandingWaitTime;
+    protected float LandingTime;
 
     /// <summary>
     /// 攻撃行動硬直
     /// </summary>
-    public float AttackTime;
+    protected float AttackTime;
 
     // 移動用ステート
     /// <summary>
@@ -200,10 +200,6 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     public Vector3 MoveDirection;
 
-    /// <summary>
-    /// 射撃などの射出前における移動方向
-    /// </summary>
-    public Vector3 MoveDirection_OR;
 
     /// <summary>
     /// ダウンする時や吹き飛び属性の攻撃を食らった時の方向ベクトル
@@ -213,27 +209,27 @@ public class CharacterControlBase : MonoBehaviour
     /// <summary>
     /// 移動速度（歩行の場合）
     /// </summary>
-    public float WalkSpeed;
+    protected float WalkSpeed;
 
     /// <summary>
     /// 移動速度（走行の場合）
     /// </summary>         
-    public float RunSpeed;
+    protected float RunSpeed;
 
     /// <summary>
     /// 移動速度（空中ダッシュの場合）
     /// </summary>
-    public float AirDashSpeed;
+    protected float AirDashSpeed;
 
     /// <summary>
     /// 移動速度（空中慣性移動の場合）
     /// </summary>
-    public float AirMoveSpeed;
+    protected float AirMoveSpeed;
 
     /// <summary>
     /// 上昇速度
     /// </summary>         
-    public float RiseSpeed;
+    protected float RiseSpeed;
 
     /// <summary>
     /// ジャンプ時のブースト消費量
@@ -303,22 +299,40 @@ public class CharacterControlBase : MonoBehaviour
     /// <summary>
     /// ブースト量
     /// </summary>
-    public float Boost;
+    protected float Boost;
+
+	/// <summary>
+	/// ブースト量取得
+	/// </summary>
+	/// <returns></returns>
+	public float GetBoost()
+	{
+		return Boost;
+	}
 
     /// <summary>
     /// ブースト量初期値(Lv1の時の値）
     /// </summary>
-    public float Boost_OR;
+    protected float Boost_OR;
 
     /// <summary>
     /// ブースト量成長係数
     /// </summary>
-    public float BoostGrowth;
+    protected float BoostGrowth;
 
     /// <summary>
     /// 覚醒ゲージ量
     /// </summary>
-    public float Arousal;
+    protected float Arousal;
+
+	/// <summary>
+	/// 覚醒ゲージ取得
+	/// </summary>
+	/// <returns></returns>
+	public float GetArousal()
+	{
+		return Arousal;
+	}
 
     /// <summary>
     /// 覚醒ゲージ追加
@@ -332,12 +346,21 @@ public class CharacterControlBase : MonoBehaviour
     /// <summary>
     /// 覚醒ゲージ量初期値(LV1の時の値）
     /// </summary>
-    public float Arousal_OR;
+    protected float Arousal_OR;
+
+	/// <summary>
+	/// 覚醒ゲージ量初期値取得
+	/// </summary>
+	/// <returns></returns>
+	public float GetArousalOR()
+	{
+		return Arousal_OR;
+	}
 
     /// <summary>
     /// 覚醒ゲージ量成長係数
     /// </summary>
-    public float ArousalGrowth;
+    protected float ArousalGrowth;
 
     /// <summary>
     /// 覚醒状態であるか否か
@@ -347,75 +370,121 @@ public class CharacterControlBase : MonoBehaviour
     /// <summary>
     /// ブースト消費量（1Fあたり）
     /// </summary>
-    public float BoostLess;
+    protected float BoostLess;
 
     /// <summary>
     /// ステップ移動距離
     /// </summary>
-    public float StepMoveLength;
+    protected float StepMoveLength;
 
     /// <summary>
     /// ステップ初速（X/Z軸）
     /// </summary>
-    public float StepInitialVelocity;
+    protected float StepInitialVelocity;
 
     /// <summary>
     /// ステップ時の１F当たりの移動量
     /// </summary>
-    public float StepMove1F;
+    protected float StepMove1F;
 
     /// <summary>
     /// ステップ累積移動距離
     /// </summary>
-    public float SteppingLength;
+    private float SteppingLength;
 
     /// <summary>
     /// ステップ時の移動角度
     /// </summary>
-    public Quaternion StepRotation;
+    private Quaternion StepRotation;
 
-    /// <summary>
-    /// ステップ終了時の硬直時間
-    /// </summary>
-    public float StepBackTime;
 
     // 現在のダウン値
-    public float NowDownRatio;
+    private float NowDownRatio;
+
+	/// <summary>
+	/// 現在のダウン値を取得
+	/// </summary>
+	/// <returns></returns>
+	public float GetNowDownRatio()
+	{
+		return NowDownRatio;
+	}
 
     /// <summary>
     /// 現在のHP
     /// </summary>
-    public int NowHitpoint;
+    protected int NowHitpoint;
+
+	/// <summary>
+	/// 現在のHPを取得
+	/// </summary>
+	/// <returns></returns>
+	public int GetNowHitpoint()
+	{
+		return NowHitpoint;
+	}
 
     /// <summary>
     /// 現在のHPの表示値
     /// </summary>
-    public int DrawHitpoint;
+    private int DrawHitpoint;
+
+	/// <summary>
+	/// 現在のHPの表示値を取得
+	/// </summary>
+	/// <returns></returns>
+	public int GetDrawHitpoint()
+	{
+		return DrawHitpoint;
+	}
 
     /// <summary>
     /// HP初期値（Lv1のときの値）
     /// </summary>
-    public int NowHitpoint_OR;
+    protected int NowHitpoint_OR;
 
     /// <summary>
     /// HP成長係数
     /// </summary>
-    public int NowHitpointGrowth;
+    protected int NowHitpointGrowth;
 
     /// <summary>
     /// ダウン値の閾値（これを超えるとダウン状態へ移行.基本全員5でOK、一部のボスをそれ以上に）
     /// </summary>
-    public float DownRatioBias;
+    private float DownRatioBias;
 
-    /// <summary>
-    /// ダウン時の打ち上げ量
-    /// </summary>
-    public float LaunchOffset;
+	/// <summary>
+	/// ダウン値の閾値を取得
+	/// </summary>
+	/// <returns></returns>
+	public float GetDownRatioBias()
+	{
+		return DownRatioBias;
+	}
+
 
     /// <summary>
     /// ロックオン状態か否か
     /// </summary>
-    public bool IsRockon;
+    private bool IsRockon;
+
+	/// <summary>
+	/// ロックオン状態を取得
+	/// </summary>
+	/// <returns></returns>
+	public bool GetIsRockon()
+	{
+		return IsRockon;
+	}
+
+	/// <summary>
+	/// ロックオン状態をセット
+	/// </summary>
+	/// <param name="set"></param>
+	public void SetIsRockon(bool set)
+	{
+		IsRockon = set;
+	}
 
     /// <summary>
     /// 移動方向固定状態か否か
@@ -425,22 +494,54 @@ public class CharacterControlBase : MonoBehaviour
     /// <summary>
     /// アーマー状態か否か
     /// </summary>
-    public bool IsArmor;
+    private bool IsArmor;
+
+	/// <summary>
+	/// アーマー状態取得
+	/// </summary>
+	/// <returns></returns>
+	public bool GetIsArmor()
+	{
+		return IsArmor;
+	}
+
+	/// <summary>
+	/// アーマー状態セット
+	/// </summary>
+	/// <param name="value"></param>
+	public void SetIsArmor(bool value)
+	{
+		IsArmor = value;
+	}
 
     /// <summary>
     /// 地上にいるか否か
     /// </summary>
-    public bool IsGrounded;
+    protected bool IsGrounded;
 
-    /// <summary>
-    /// ステップしているか否か
-    /// </summary>
-    public bool IsStep;
+	/// <summary>
+	/// 地上にいるか否かを検出する
+	/// </summary>
+	/// <returns></returns>
+	public bool GetIsGrounded()
+	{
+		return IsGrounded;
+	}
+
 
     /// <summary>
     /// 格闘しているか否か
     /// </summary>
-    public bool IsWrestle;
+    private bool IsWrestle;
+
+	/// <summary>
+	/// 格闘しているか否かを検出する
+	/// </summary>
+	/// <returns></returns>
+	public bool GetIsWrestle()
+	{
+		return IsWrestle;
+	}
 
     // 入力関係
 
@@ -587,32 +688,41 @@ public class CharacterControlBase : MonoBehaviour
     /// <summary>
     /// 追撃可能時間(ダメージ硬直時間）
     /// </summary>
-    public float DamagedWaitTime;
+    private float DamagedWaitTime;
 
 	/// <summary>
 	/// 追撃可能累積時間
 	/// </summary>
-	public float DamagedTime;
+	private float DamagedTime;
 
 	/// <summary>
 	/// ダウン値復帰時間
 	/// </summary>
-	public float DownRebirthWaitTime;
+	private float DownRebirthWaitTime;
 	
 	/// <summary>
 	/// ダウン値累積時間
 	/// </summary>
-	public float DownRebirthTime;
+	private float DownRebirthTime;
 
 	/// <summary>
 	/// ダウン時間（ダウンしている時間）
 	/// </summary>
-	public float DownWaitTime;
+	private float DownWaitTime;
 
 	/// <summary>
 	/// ダウン累積時間
 	/// </summary>
-	public float DownTime;
+	private float DownTime;
+
+	/// <summary>
+	/// ダウン累積時間を取得
+	/// </summary>
+	/// <returns></returns>
+	public float GetDownTime()
+	{
+		return DownTime;
+	}
 
 	/// <summary>
 	/// 累積押し時間（射撃）をカウント
@@ -655,8 +765,16 @@ public class CharacterControlBase : MonoBehaviour
 	/// <summary>
 	/// チャージ最大値（固定。ここを超えたら発射）
 	/// </summary>
-	public int ChargeMax;
+	protected int ChargeMax;
 
+	/// <summary>
+	/// チャージ最大値を取得
+	/// </summary>
+	/// <returns></returns>
+	public int GetChargeMax()
+	{
+		return ChargeMax;
+	}
 
 	/// <summary>
 	/// モード状態（モードチェンジがないキャラは常時Normalのまま）
@@ -674,28 +792,55 @@ public class CharacterControlBase : MonoBehaviour
 	/// <summary>
 	/// コライダの地面からの高さ
 	/// </summary>
-	public float ColliderHeight;
+	protected float ColliderHeight;
 
 	/// <summary>
 	///  射出する弾の方向ベクトル(スプレッドのときはこれを基準にしてずらす）
 	/// </summary>
-	public Vector3 BulletMoveDirection;
+	protected Vector3 BulletMoveDirection;
 
+	public Vector3 GetBulletMoveDirection()
+	{
+		return BulletMoveDirection;
+	}
 	
 	/// <summary>
 	/// 射出する弾の攻撃力
 	/// </summary>
-	public int OffensivePowerOfBullet;
+	protected int OffensivePowerOfBullet;
 
+	/// <summary>
+	/// 射出する弾の攻撃力を取得
+	/// </summary>
+	/// <returns></returns>
+	public int GetOffensivePowerOfBullet()
+	{
+		return OffensivePowerOfBullet;
+	}
+	
 	/// <summary>
 	/// 射出する弾のダウン値
 	/// </summary>
-	public float DownratioPowerOfBullet;
+	protected float DownratioPowerOfBullet;
+
+	/// <summary>
+	/// 射出する弾のダウン値を
+	/// </summary>
+	/// <returns></returns>
+	public float GetDownratioPowerOfBullet()
+	{
+		return DownratioPowerOfBullet;
+	}
 
 	/// <summary>
 	/// 射出する弾の覚醒ゲージ増加量
 	/// </summary>
-	public float ArousalRatioOfBullet;
+	protected float ArousalRatioOfBullet;
+
+	public float GetArousalRatioOfBullet()
+	{
+		return ArousalRatioOfBullet;
+	}
 
     /// <summary>
     /// 通常射撃用弾丸の配置用フック(他の専用武器は派生先で用意）
@@ -794,7 +939,16 @@ public class CharacterControlBase : MonoBehaviour
 	/// <summary>
 	/// 無敵であるか否か（リバーサル等で使う）
 	/// </summary>
-	public bool Invincible;
+	private bool Invincible;
+
+	/// <summary>
+	/// 無敵であるか否かの判定
+	/// </summary>
+	/// <returns></returns>
+	public bool GetInvincible()
+	{
+		return Invincible;
+	}
 
     public Animator AnimatorUnit;
 
@@ -806,12 +960,30 @@ public class CharacterControlBase : MonoBehaviour
 	/// <summary>
 	/// ダウン時のAnimatorHash
 	/// </summary>
-	public int DownHash;
+	protected int DownHash;
+
+	/// <summary>
+	/// ダウン時のAnimationHashを取得
+	/// </summary>
+	/// <returns></returns>
+	public int GetDownHash()
+	{
+		return DownHash;
+	}
 
 	/// <summary>
 	/// リバーサル時のAnimatorHash
 	/// </summary>
-	public int ReversalHash;
+	protected int ReversalHash;
+
+	/// <summary>
+	/// リバーサル時のAnimationHashを返す
+	/// </summary>
+	/// <returns></returns>
+	public int GetReversalHash()
+	{
+		return ReversalHash;
+	}
 
 	// ステップ関係
 	/// <summary>
@@ -837,7 +1009,7 @@ public class CharacterControlBase : MonoBehaviour
 	/// <summary>
 	/// ガード状態であるか否か（各キャラのBackWrestleでこれをONにし、IdleかDamageで折る）
 	/// </summary>
-	public bool IsGuard;
+	private bool IsGuard;
 
 
     /// <summary>
@@ -1701,7 +1873,6 @@ public class CharacterControlBase : MonoBehaviour
 	{
 		// 固定があった場合解除
 		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-		IsStep = true;
         // エフェクトを生成
         UnityEngine.Object Effect;
         // 通常
@@ -1998,7 +2169,6 @@ public class CharacterControlBase : MonoBehaviour
             ControllerManager.Instance.RightBackStep || ControllerManager.Instance.RightStep || ControllerManager.Instance.RightFrontStep)
         {
             Vector2 stepinput = Vector2.zero;
-            IsStep = true;
             // 入力方向取得
             if(ControllerManager.Instance.FrontStep)
             {
@@ -2368,7 +2538,6 @@ public class CharacterControlBase : MonoBehaviour
         {
             // 判定オブジェクトを破棄する.一応くっついているものはすべて削除
             DestroyWrestle();
-			Debug.Log("02");
 			LandingDone(animator);
         }
     }
@@ -2416,7 +2585,6 @@ public class CharacterControlBase : MonoBehaviour
         {
 			// 固定があった場合解除
 			GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-            IsStep = false;
             IsWrestle = false;
             // 格闘判定削除
             DestroyWrestle();
@@ -2428,8 +2596,6 @@ public class CharacterControlBase : MonoBehaviour
             Boost = Boost - DashCancelUseBoost;
             animator.SetTrigger("AirDash");
             // 移動方向取得
-            //UpdateRotation();
-            //this.m_MoveDirection = transform.rotation * Vector3.forward;
             // 角度に応じてX、Zの方向を切り替える
             if (transform.rotation.eulerAngles.y >= 337.5f || transform.rotation.eulerAngles.y < 22.5f)
             {
@@ -2491,7 +2657,7 @@ public class CharacterControlBase : MonoBehaviour
     {
 		// 固定があった場合解除
 		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-		IsStep = false;
+
         IsWrestle = false;
         GetComponent<Rigidbody>().useGravity = true;
         animator.SetTrigger("Fall");
@@ -2634,7 +2800,7 @@ public class CharacterControlBase : MonoBehaviour
         // 案1：敵と重なるような状態になったら一時的に移動方向を固定する(角度が特異姿勢になるので、暴走する）
         // 案2：敵と重なるような状態になったらカメラを反転する
         // ガンダムは1と2の併用？2はやってないか。一定距離離れたら固定が解除されているだけっぽい→1で確定
-        if (this.IsRockon)
+        if (IsRockon)
         {
             // 敵（ロックオン対象）の座標を取得
             Player_Camera_Controller targetspec = GetComponentInChildren<Player_Camera_Controller>();
@@ -2649,7 +2815,7 @@ public class CharacterControlBase : MonoBehaviour
 
 
             // XとZの差が一定値以下で移動方向固定(空中移動時限定）
-            if (!this.IsGrounded)
+            if (!IsGrounded)
             {
                 if (Mathf.Abs(targetpos.x - myPos.x) < 10.0f && Mathf.Abs(targetpos.z - myPos.z) < 10.0f)
                 {
@@ -2890,9 +3056,6 @@ public class CharacterControlBase : MonoBehaviour
 
 		// ダウン時間を初期化する
 		DownTime = 0;
-
-		// ダウン時の打ち上げ量を初期化する
-		LaunchOffset = 10.0f;
 
 		// 死亡時の爆発フラグを初期化する
 		Explode = false;
@@ -3169,7 +3332,6 @@ public class CharacterControlBase : MonoBehaviour
         //m_nowDownRatioが0を超えていて、Damage_Initではなく（ダウン値加算前にリセットされる）m_DownRebirthTimeが規定時間を経過し、かつダウン値が閾値より小さければダウン値をリセットする
         if (NowDownRatio > 0 && animator.GetCurrentAnimatorStateInfo(0).fullPathHash != downid)
         {
-            //if ((Time.time > DownRebirthTime + DownRebirthWaitTime) && (NowDownRatio < DownRatioBias))
 			if ((Time.time > DownRebirthTime + DownRebirthWaitTime) && (NowDownRatio < DownRatioBias))
 			{
                 DownRebirthTime = 0;
@@ -3369,15 +3531,6 @@ public class CharacterControlBase : MonoBehaviour
         }
         animator.speed = speed;
     }
-
-    private const float ITEM_X = 30.0f;
-    private const float ITEM_Y = 5.0f;
-
-    private const float EQUIP_ITEM_X = 115.0f;
-    private const float EQUIP_ITEM_Y = 1.0f;
-
-    private const float ITEMNUM_X = 370.0f;
-    private const float ITEMNUM_Y = 5.0f;
 
     // ステップ時共通動作
     // 第1引数：ステップの内容
@@ -4002,7 +4155,7 @@ public class CharacterControlBase : MonoBehaviour
         // アニメーションの速度を調整する
         animator.speed = speed;
         // 移動速度を調整する
-        this.WrestlSpeed = movespeed;
+        WrestlSpeed = movespeed;
     }
 
     /// <summary>
@@ -4014,7 +4167,7 @@ public class CharacterControlBase : MonoBehaviour
     protected virtual void GuardDone(Animator animator, int skilltype)
     {
         //1．追加入力フラグをカット
-        this.AddInput = false;
+        AddInput = false;
         int skillIndex = skilltype;
         //2．ロックオンしている場合→自機をロックオン対象に向ける
         // ロックオン且つ本体角度が0でない時
@@ -4069,13 +4222,13 @@ public class CharacterControlBase : MonoBehaviour
 	protected virtual void WrestleDone_UpperEx(Animator animator, int skilltype)
 	{
 		// 追加入力フラグをカット
-		this.AddInput = false;
+		AddInput = false;
 		// ステートを変更		
 		int skillIndex = skilltype;
 		// 移動速度取得
 		float movespeed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Movespeed;
 		// ロックオン中なら移動方向をロックオン対象のほうへ固定する
-		if (IsRockon && this.transform.rotation.eulerAngles.y != 0)
+		if (IsRockon && transform.rotation.eulerAngles.y != 0)
 		{
 			// ロックオン対象を取得
 			var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
@@ -4089,7 +4242,7 @@ public class CharacterControlBase : MonoBehaviour
 			MoveDirection = new Vector3(0, 1, 0);
 		}
 		// 本体角度が0の場合カメラの方向を移動方向とし、正規化して代入する
-		else if (this.transform.rotation.eulerAngles.y == 0)
+		else if (transform.rotation.eulerAngles.y == 0)
 		{
 			// 方向ベクトルを上向きにする            
 			MoveDirection = new Vector3(0, 1, 0);
@@ -4097,7 +4250,7 @@ public class CharacterControlBase : MonoBehaviour
 		//   ロックオンしていない場合→本体を前方方向へ向ける（現在の自分の角度がカメラ側を向いているので、180度加算してひっくり返す）
 		else
 		{
-			Vector3 addrot = this.transform.eulerAngles;
+			Vector3 addrot = transform.eulerAngles;
 			addrot.y = addrot.y + 180;
 			// 方向ベクトルを上向きにする            
 			MoveDirection = new Vector3(0, 1, 0);
@@ -4127,7 +4280,7 @@ public class CharacterControlBase : MonoBehaviour
 		// 移動速度取得
 		float movespeed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Movespeed;
 		// ロックオン中なら移動方向をロックオン対象のほうへ固定する
-		if (IsRockon && this.transform.rotation.eulerAngles.y != 0)
+		if (IsRockon && transform.rotation.eulerAngles.y != 0)
 		{
 			// ロックオン対象を取得
 			var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
@@ -4149,7 +4302,7 @@ public class CharacterControlBase : MonoBehaviour
 		//   ロックオンしていない場合→本体を前方方向へ向ける（現在の自分の角度がカメラ側を向いているので、180度加算してひっくり返す）
 		else
 		{
-			Vector3 addrot = this.transform.eulerAngles;
+			Vector3 addrot = transform.eulerAngles;
 			addrot.y = addrot.y + 180;
 			transform.rotation = Quaternion.Euler(new Vector3(addrot.x, addrot.y, addrot.z));
 			// 方向ベクトルを下向きにする            
@@ -4177,7 +4330,7 @@ public class CharacterControlBase : MonoBehaviour
 		AddInput = false;
 		// 移動方向
 		// ロックオン且つ本体角度が0でない時、相手の方向を移動方向とする
-		if (IsRockon && this.transform.rotation.eulerAngles.y != 0)
+		if (IsRockon && transform.rotation.eulerAngles.y != 0)
 		{
 			// ロックオン対象を取得
 			var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
@@ -4193,7 +4346,7 @@ public class CharacterControlBase : MonoBehaviour
 			MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
 		}
 		// 本体角度が0の場合カメラの方向を移動方向とし、正規化して代入する
-		else if (this.transform.rotation.eulerAngles.y == 0)
+		else if (transform.rotation.eulerAngles.y == 0)
 		{
 			// ただしそのままだとカメラが下を向いているため、一旦その分は補正する
 			Quaternion rotateOR = MainCamera.transform.rotation;
@@ -4205,7 +4358,7 @@ public class CharacterControlBase : MonoBehaviour
 		// それ以外は本体の角度を移動方向にする
 		else
 		{
-			MoveDirection = Vector3.Normalize(this.transform.rotation * Vector3.forward);
+			MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
 		}
 		// アニメーション速度
 		float speed = Character_Spec.cs[(int)CharacterName][skillindex].m_Animspeed;
@@ -4733,7 +4886,6 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="blowinithash"></param>
     /// <param name="blowID"></param>
     /// <param name="spindownID"></param>
-
     public virtual void DamageInit(Animator animator, int damageID, bool isBlow,int blowID,int spindownID)
 	{
 		// ステップ累積時間を戻す
@@ -4948,12 +5100,12 @@ public class CharacterControlBase : MonoBehaviour
 		{
 			// downへ移行
             animator.SetTrigger("Down");
-			this.DownTime = Time.time;
+			DownTime = Time.time;
 			// 速度を0まで落とす（吹き飛び時のベクトルを消す）
-			this.MoveDirection = Vector3.zero;
+			MoveDirection = Vector3.zero;
 			// 回転を戻す
 			// rotationの固定を復活させ、0,0,0にする
-			this.GetComponent<Rigidbody>().rotation = Quaternion.Euler(Vector3.zero);
+			GetComponent<Rigidbody>().rotation = Quaternion.Euler(Vector3.zero);
 		}
 	}
 
@@ -4966,8 +5118,8 @@ public class CharacterControlBase : MonoBehaviour
     protected virtual void Down(Animator animator)
 	{
 		// rotationの固定を復活させ、0,0,0にする
-		this.GetComponent<Rigidbody>().rotation = Quaternion.Euler(Vector3.zero);
-		this.GetComponent<Rigidbody>().freezeRotation = true;
+		GetComponent<Rigidbody>().rotation = Quaternion.Euler(Vector3.zero);
+		GetComponent<Rigidbody>().freezeRotation = true;
 
 		// m_DownTimeが規定値を超えると、復帰アニメを再生する
 		if (Time.time > DownTime + DownWaitTime)
@@ -5688,20 +5840,7 @@ public class CharacterControlBase : MonoBehaviour
             _WalkTimer = _WalkTime;
         }
     }
-
-
-
-    // Use this for initialization
-    void Start ()
-    {
-		
-	}
 	
-	// Update is called once per frame
-	void Update ()
-    {
-		
-	}
 }
 
 

@@ -131,7 +131,7 @@ public class HomuraBowArousalAttack : MonoBehaviour
 		}
 
 		// ダウン中かダウン値MAXならダメージを与えない
-		if (target.Invincible)
+		if (target.GetInvincible())
 		{
 			// オブジェクトを自壊させる
 			Destroy(gameObject);
@@ -168,7 +168,7 @@ public class HomuraBowArousalAttack : MonoBehaviour
 		// ヒット時にダメージの種類をCharacterControl_Baseに与える
 		// ダウン値を超えていたら吹き飛びへ移行
 		// Blow属性の攻撃を与えた場合も吹き飛びへ移行
-		if (target.NowDownRatio >= target.DownRatioBias || this.Hittype == CharacterSkill.HitType.BLOW)
+		if (target.GetNowDownRatio() >= target.GetDownRatioBias() || this.Hittype == CharacterSkill.HitType.BLOW)
 		{
 			// 吹き飛びの場合、相手に方向ベクトルを与える            
 			// Y軸方向は少し上向き
@@ -184,7 +184,7 @@ public class HomuraBowArousalAttack : MonoBehaviour
 		else
 		{
 			// ただしアーマー時ならダウン値とダメージだけ加算する(Damageにしない）
-			if (!target.IsArmor)
+			if (!target.GetIsArmor())
 			{
 				target.DamageInit(target.AnimatorUnit, 41, true, 43, 44);
 			}

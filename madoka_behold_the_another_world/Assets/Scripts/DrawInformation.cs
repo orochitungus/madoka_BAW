@@ -67,7 +67,7 @@ public class DrawInformation : MonoBehaviour
         // 基本的にBoostなどと同じ方式で変更
         // その下に敵の名前
         // 非ロックオン時は書かない
-        if (target != null && target.IsRockon)
+        if (target != null && target.GetIsRockon())
         {
             DrawEnemyHPGauge(m_EnemyHP_Tex, new Vector2(210.0f, 35.0f));
         }
@@ -147,7 +147,7 @@ public class DrawInformation : MonoBehaviour
     	// 敵のステートを取得
         var Enemy = Camera.Enemy.GetComponentInChildren<CharacterControlBase>();
 	    // 敵のHPを取得
-        int Enemy_HP = Enemy.NowHitpoint;
+        int Enemy_HP = Enemy.GetNowHitpoint();
         
         // 下に余り分のHPを星として表示する
         // HPゲージの長さは650。HPの量：ゲージの長さ=m_maxHPValue:650として計算する

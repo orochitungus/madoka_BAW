@@ -65,7 +65,7 @@ namespace BehaviourTrees
 				{
 					keyoutput = KEY_OUTPUT.NONE;
 					// 地上にいるなら通常格闘開始
-					if(target.IsGrounded)
+					if(target.GetIsGrounded())
 					{
 						Cpumode = CPUMODE.DOGFIGHT_STANDBY;
 						return true;
@@ -88,7 +88,7 @@ namespace BehaviourTrees
 					}					
 				}
 				// そうでなければ空中におり、敵との間に遮蔽物がなければ射撃攻撃（現行、地上にいると射撃のループをしてしまう）
-				else if (!target.IsGrounded)
+				else if (!target.GetIsGrounded())
 				{
 					// 前面に向かってレイキャストする
 					RaycastHit hit;
@@ -137,7 +137,7 @@ namespace BehaviourTrees
 			var target = ControlTarget.GetComponent<MajyuControl>();
 			keyoutput = KEY_OUTPUT.NONE;
 			// 地上にいた場合（→再度飛行）
-			if (target.IsGrounded)
+			if (target.GetIsGrounded())
 			{
 				keyoutput = KEY_OUTPUT.JUMP;
 				Cpumode = CPUMODE.NORMAL_RISE1;
@@ -200,7 +200,7 @@ namespace BehaviourTrees
 			CharacterControlBase target = ControlTarget.GetComponent<CharacterControlBase>();
 
 			// 相手がダウンしていた場合(回復中含む)
-			if (rockonTarget != null && rockonTarget.NowDownRatio >= rockonTarget.DownRatioBias)
+			if (rockonTarget != null && rockonTarget.GetNowDownRatio() >= rockonTarget.GetDownRatioBias())
 			{
 				// ロックオン対象が二人以上いた場合、ロックを切り替える
 				// ロックオン対象が誰もいなかった場合、哨戒に戻す
@@ -225,7 +225,7 @@ namespace BehaviourTrees
 			var target = ControlTarget.GetComponent<MajyuControl>();
 			
 			// 地上から離れて一定時間後空中ダッシュさせる
-			if (Time.time > Totalrisetime + Risetime && !target.IsGrounded)
+			if (Time.time > Totalrisetime + Risetime && !target.GetIsGrounded())
 			{
 				keyoutput = KEY_OUTPUT.BOOSTDASH;
 				Cpumode = CPUMODE.BOOSTDASH;
@@ -236,7 +236,7 @@ namespace BehaviourTrees
 				keyoutput = KEY_OUTPUT.JUMPING;
 			}
 			// 地上から離れずに一定時間いるとNORMALへ戻って仕切り直す
-			if (Time.time > Totalrisetime + Risetime && target.IsGrounded)
+			if (Time.time > Totalrisetime + Risetime && target.GetIsGrounded())
 			{
 				Cpumode = CPUMODE.NORMAL;
 			}

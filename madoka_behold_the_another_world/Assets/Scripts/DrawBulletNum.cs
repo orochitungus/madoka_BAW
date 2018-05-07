@@ -68,7 +68,7 @@ public class DrawBulletNum : MonoBehaviour
                     if (m_ChargeExist)
                     {
                         // 最大値を取得
-                        int max = target.ChargeMax;
+                        int max = target.GetChargeMax();
                         // 現在のチャージ量を取得
                         int nowcharge = 0;
                         if (m_chargemode == ChargeMode.SHOT)
