@@ -96,8 +96,8 @@ namespace Utage
 					return BuildTarget.WebGL;
 				case AssetBundleTargetFlags.Windows:
 					return BuildTarget.StandaloneWindows64;
-				case AssetBundleTargetFlags.OSX:
-					return BuildTarget.StandaloneOSX;
+				//case AssetBundleTargetFlags.OSX:
+				//	return BuildTarget.StandaloneOSX;
 				default:
 					Debug.LogError("Not support " + flag.ToString() );
 					return 0;
@@ -121,7 +121,7 @@ namespace Utage
 
 				case BuildTarget.StandaloneOSXIntel:
 				case BuildTarget.StandaloneOSXIntel64:
-				case BuildTarget.StandaloneOSX:
+				//case BuildTarget.StandaloneOSX:
 					return AssetBundleTargetFlags.OSX;
 
 				default:

@@ -54,6 +54,7 @@ public static class Character_Spec
             new CharacterSkill(CharacterSkill.SkillType.EX_SHOT,            "癒しの光",                     50,5,1,1,0.0f, 5,CharacterSkill.HitType.RECOVERY,     1.0f,70.0f,CharacterSkill.ReloadType.IT_ALL_TOGETHER,10.0f),
             // 格闘
             // N格闘
+			//
             new CharacterSkill(CharacterSkill.SkillType.WRESTLE_1,          "マジカルスタッフ",             40,5,2.0f,1,CharacterSkill.HitType.BEND_BACKWARD,1.0f,12.0f,1.0f,10,2.0f),
             new CharacterSkill(CharacterSkill.SkillType.WRESTLE_2,          "マジカルスタッフ",             40,5,2.0f,1,CharacterSkill.HitType.BEND_BACKWARD,1.0f,0.0f,1.0f,10,2.0f),
             new CharacterSkill(CharacterSkill.SkillType.WRESTLE_3,          "マジカルスタッフ",             40,5,2.0f,1,CharacterSkill.HitType.BEND_BACKWARD,1.0f,0.0f,1.0f,10,2.0f),
