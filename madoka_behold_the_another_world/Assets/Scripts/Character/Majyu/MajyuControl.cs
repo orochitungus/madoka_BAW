@@ -18,34 +18,22 @@ public class MajyuControl : CharacterControlBase
     /// <summary>
 	/// メイン射撃撃ち終わり時間
 	/// </summary>
-	private float MainshotEndtime;
+	public float MainshotEndtime;
 
-	
 	/// <summary>
-	/// 種類（キャラごとに技数は異なるので別々に作らないとアウト
+	/// パラメーター読み取り用のインデックス
 	/// </summary>
-	public enum SkillType_Majyu
-    {
-        // 攻撃系
-        // 射撃属性
-        SHOT,                   // 通常射撃
-                                // 格闘属性は一応全部3段目まで作っておく(派生技に割り振るとかでもあり)
-        WRESTLE_1,              // N格1段目
-        WRESTLE_2,              // N格2段目
-        WRESTLE_3,              // N格3段目
-        BACK_WRESTLE,           // 後格闘（防御）
-        AIRDASH_WRESTLE,        // 空中ダッシュ格闘
-        EX_FRONT_WRESTLE_1,     // 前特殊格闘1段目
-        BACK_EX_WRESTLE,        // 後特殊格闘
-                                // なし(派生がないとき用）
-        NONE
-    }
+	private const int CharacterIndex = (int)Character_Spec.CHARACTER_NAME.ENEMY_MAJYU;
+
 
 	/// <summary>
 	/// 戦闘用インターフェース
 	/// </summary>
 	public BattleInterfaceController Battleinterfacecontroller;
 
+	/// <summary>
+	/// 各ステートのID(CPUControllで拾うのでprivateにしないこと）
+	/// </summary>
 	public int IdleID;                  // 0
 	public int WalkID;                  // 1
 	public int JumpID;                  // 2
@@ -141,40 +129,8 @@ public class MajyuControl : CharacterControlBase
 		// レベル・攻撃力レベル・防御力レベル・残弾数レベル・ブースト量レベル・覚醒ゲージレベルを初期化
 		SettingPleyerLevel();
 
-		// ジャンプ硬直
-		JumpWaitTime = 0.5f;
-
-		//着地硬直
-		LandingWaitTime = 1.0f;
-
-		WalkSpeed = 1.0f;                            // 移動速度（歩行の場合）
-		RunSpeed = 15.0f;                            // 移動速度（走行の場合）
-		AirDashSpeed = 40.0f;                        // 移動速度（空中ダッシュの場合）
-		AirMoveSpeed = 7.0f;                         // 移動速度（空中慣性移動の場合）
-		RiseSpeed = 2.0f;                            // 上昇速度
-
-		// ブースト消費量
-		JumpUseBoost = 10;       // ジャンプ時
-		DashCancelUseBoost = 10;   // ブーストダッシュ時
-		StepUseBoost = 10;         // ステップ時
-		BoostLess = 0.5f;        // ジャンプの上昇・BD時の1F当たりの消費量
-
-		// ステップ移動距離
-		StepMoveLength = 10.0f;
-
-		// ステップ初速（X/Z軸）
-		StepInitialVelocity = 100.0f;
-		// ステップ時の１F当たりの移動量
-		StepMove1F = 1.0f;
-
-		// コライダの地面からの高さ
-		ColliderHeight = 1.5f;
-
-		// ロックオン距離
-		RockonRange = 100.0f;
-
-		// ロックオン限界距離
-		RockonRangeLimit = 150.0f;
+		// 共通パラメーター初期化
+		InitializeCommonParameter(CharacterIndex);
 
 		// ショットのステート
 		Shotmode = ShotMode.NORMAL;
@@ -1149,26 +1105,5 @@ public class MajyuControl : CharacterControlBase
 		}
 	}
 
-	/// <summary>
-	/// 弾丸全回復処理
-	/// </summary>
-	public void FullReload()
-	{
-		// 弾丸を回復させる
-		for (int i = 0; i < Character_Spec.cs[(int)CharacterName].Length; i++)
-		{
-			// 使用の可否を初期化
-			WeaponUseAble[i] = true;
-			// 弾があるものは残弾数を初期化
-			if (Character_Spec.cs[(int)CharacterName][i].m_OriginalBulletNum > 0)
-			{
-				BulletNum[i] = Character_Spec.cs[(int)CharacterName][i].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][i].m_OriginalBulletNum;
-			}
-			// 硬直時間があるものは硬直時間を初期化
-			if (Character_Spec.cs[(int)CharacterName][i].m_WaitTime > 0)
-			{
-				BulletWaitTime[i] = Character_Spec.cs[(int)CharacterName][i].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][i].m_WaitTime;
-			}
-		}
-	}
+	
 }

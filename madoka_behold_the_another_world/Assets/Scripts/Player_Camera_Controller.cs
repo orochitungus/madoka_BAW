@@ -153,7 +153,7 @@ public class Player_Camera_Controller : MonoBehaviour
 				}
 				// 敵HP情報を表示
 				Battleinterfacecontroller.EnemyHPGauge.SetActive(true);
-				string enemyName = Character_Spec.Name[(int)Enemy.GetComponent<CharacterControlBase>().CharacterName];
+				string enemyName = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[(int)Enemy.GetComponent<CharacterControlBase>().CharacterName].NAME_JP;
 				int nowHP = Enemy.GetComponent<CharacterControlBase>().GetNowHitpoint();
 				int maxHP = Enemy.GetComponent<CharacterControlBase>().GetMaxHitpoint(Enemy.GetComponent<CharacterControlBase>().Level);
 				bool istarget = Enemy.GetComponent<CharacterControlBase>().IsTarget;

@@ -65,6 +65,7 @@ public class HomuraBowControl : CharacterControlBase
 	/// </summary>
 	private float ExshotEndtime;
 
+
 	/// <summary>
 	///  射出する弾の方向ベクトル(サブ射撃左）
 	/// </summary>
@@ -189,54 +190,59 @@ public class HomuraBowControl : CharacterControlBase
     /// </summary>
     public Sprite ExShotIcon;
 
-    /// <summary>
-    /// 各種アニメのID.コメント内はAnimatorの管理用ID.武装系以外は全員共通にすること
-    /// </summary>
-    private int IdleID;                  // 0
-    private int WalkID;                  // 1
-    private int JumpID;                  // 2
-    private int JumpingID;               // 3
-    private int FallID;                  // 4
-    private int LandingID;               // 5
-    private int RunID;                   // 6
-    private int AirDashID;               // 7
-    private int FrontStepID;             // 8
-    private int LeftStepID;              // 9
-    private int RightStepID;             // 10
-    private int BackStepID;              // 11
-    private int FrontStepBackID;         // 12
-    private int LeftStepBackID;          // 13
-    private int RightStepBackID;         // 14
-    private int BackStepBackID;          // 15
-    private int ShotID;                  // 16
-    private int RunShotID;               // 17
-    private int AirShotID;               // 18
-    private int ChargeShotID;            // 19
-    private int SubShotID;               // 20
-    private int EXShotID;                // 21
-    private int FollowThrowShotID;       // 22
-    private int FollowThrowRunShotID;    // 23
-    private int FollowThrowAirShotID;    // 24
-    private int FollowThrowChargeShotID; // 25
-    private int FollowThrowSubShotID;    // 26
-    private int FollowThrowEXShotID;     // 27
-    private int Wrestle1ID;              // 28
-    private int Wrestle2ID;              // 29
-    private int Wrestle3ID;              // 30
-    private int FrontWrestleID;          // 31
-    private int LeftWrestleID;           // 32
-    private int RightWrestleID;          // 33
-    private int BackWrestleID;           // 34
-    private int AirDashWrestleID;        // 35
-    private int EXWrestleID;             // 36
-    private int EXFrontWrestleID;        // 37
-    private int EXBackWrestleID;         // 38
-    private int ReversalID;              // 39
-    private int ArousalAttackID;         // 40
-    private int DamageID;                // 41
-    private int DownID;                  // 42
-    private int BlowID;                  // 43
-    private int SpinDownID;              // 44
+	/// <summary>
+	/// パラメーター読み取り用のインデックス
+	/// </summary>
+	private const int CharacterIndex = (int)Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B;
+
+	/// <summary>
+	/// 各種アニメのID.コメント内はAnimatorの管理用ID.武装系以外は全員共通にすること
+	/// </summary>
+	public int IdleID;                  // 0
+    public int WalkID;                  // 1
+    public int JumpID;                  // 2
+    public int JumpingID;               // 3
+    public int FallID;                  // 4
+    public int LandingID;               // 5
+    public int RunID;                   // 6
+    public int AirDashID;               // 7
+    public int FrontStepID;             // 8
+    public int LeftStepID;              // 9
+    public int RightStepID;             // 10
+    public int BackStepID;              // 11
+    public int FrontStepBackID;         // 12
+    public int LeftStepBackID;          // 13
+    public int RightStepBackID;         // 14
+    public int BackStepBackID;          // 15
+    public int ShotID;                  // 16
+    public int RunShotID;               // 17
+    public int AirShotID;               // 18
+    public int ChargeShotID;            // 19
+    public int SubShotID;               // 20
+    public int EXShotID;                // 21
+    public int FollowThrowShotID;       // 22
+    public int FollowThrowRunShotID;    // 23
+    public int FollowThrowAirShotID;    // 24
+    public int FollowThrowChargeShotID; // 25
+    public int FollowThrowSubShotID;    // 26
+    public int FollowThrowEXShotID;     // 27
+    public int Wrestle1ID;              // 28
+    public int Wrestle2ID;              // 29
+    public int Wrestle3ID;              // 30
+    public int FrontWrestleID;          // 31
+    public int LeftWrestleID;           // 32
+    public int RightWrestleID;          // 33
+    public int BackWrestleID;           // 34
+    public int AirDashWrestleID;        // 35
+    public int EXWrestleID;             // 36
+    public int EXFrontWrestleID;        // 37
+    public int EXBackWrestleID;         // 38
+    public int ReversalID;              // 39
+    public int ArousalAttackID;         // 40
+    public int DamageID;                // 41
+    public int DownID;                  // 42
+    public int BlowID;                  // 43
+    public int SpinDownID;              // 44
 
     void Awake()
 	{
@@ -318,45 +324,11 @@ public class HomuraBowControl : CharacterControlBase
         // レベル・攻撃力レベル・防御力レベル・残弾数レベル・ブースト量レベル・覚醒ゲージレベルを初期化
         SettingPleyerLevel();
 
-		
+		// 共通パラメーター初期化
+		InitializeCommonParameter(CharacterIndex);
 
-		// ジャンプ硬直
-		JumpWaitTime = 0.5f;
-
-        //着地硬直
-        LandingWaitTime = 1.0f;
-
-        WalkSpeed = 1.0f;                            // 移動速度（歩行の場合）
-        RunSpeed = 15.0f;                            // 移動速度（走行の場合）
-        AirDashSpeed = 40.0f;                        // 移動速度（空中ダッシュの場合）
-        AirMoveSpeed = 7.0f;                         // 移動速度（空中慣性移動の場合）
-        RiseSpeed = 2.0f;                            // 上昇速度
-
-        // ブースト消費量
-        JumpUseBoost = 10;       // ジャンプ時
-        DashCancelUseBoost = 10;   // ブーストダッシュ時
-        StepUseBoost = 10;         // ステップ時
-        BoostLess = 0.5f;        // ジャンプの上昇・BD時の1F当たりの消費量
-
-        // ステップ移動距離
-        StepMoveLength = 10.0f;
-
-        // ステップ初速（X/Z軸）
-        StepInitialVelocity = 100.0f;
-        // ステップ時の１F当たりの移動量
-        StepMove1F = 1.0f;
-
-        // コライダの地面からの高さ
-        ColliderHeight = 0.8f;
-
-        // ロックオン距離
-        RockonRange = 100.0f;
-
-        // ロックオン限界距離
-        RockonRangeLimit = 200.0f;
-
-        // ショットのステート
-        Shotmode = ShotMode.NORMAL;
+		// ショットのステート
+		Shotmode = ShotMode.NORMAL;
 
         // 弾のステート
         BulletMoveDirection = Vector3.zero;

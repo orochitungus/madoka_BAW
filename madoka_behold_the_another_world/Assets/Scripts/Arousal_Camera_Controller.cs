@@ -106,10 +106,15 @@ public class Arousal_Camera_Controller : MonoBehaviour
 		// 覚醒発動キャラの全武装をリロードする
 		switch (m_insp_Master.GetComponent<CharacterControlBase>().CharacterName)
 		{
+			// 銃ほむら
+
+			// スコノシュート
+			
 			// 弓ほむら
 			case Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B:
 				m_insp_Master.GetComponent<HomuraBowControl>().FullReload();
 				break;
+			
 		}
 	}
 

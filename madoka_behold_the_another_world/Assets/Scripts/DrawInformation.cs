@@ -90,7 +90,7 @@ public class DrawInformation : MonoBehaviour
                 AudioSource.PlayClipAtPoint(m_LevelupSE, transform.position);
                 StartCoroutine(TimeWait(20.0f));
             }
-            drawwords = Character_Spec.Name[LevelUpManagement.m_characterName] + "は、Level" + LevelUpManagement.m_nextlevel.ToString() + "にレベルアップ！";
+            drawwords = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[LevelUpManagement.m_characterName].NAME_JP + "は、Level" + LevelUpManagement.m_nextlevel.ToString() + "にレベルアップ！";
         }
 		// アイテムを入手した場合、そのアイテムを20秒間表示する
 		else if(FieldItemGetManagement.ItemKind > -2)
@@ -181,7 +181,7 @@ public class DrawInformation : MonoBehaviour
         }
         GUI.EndGroup();
         // 名前
-        string name = Character_Spec.Name[(int)Enemy.CharacterName];
+        string name = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[(int)Enemy.CharacterName].NAME_JP;
         GUI.Label(new Rect(pos.x, pos.y + 15.0f, 1500.0f, 100.0f), name, "Ename"); 
     }
 }

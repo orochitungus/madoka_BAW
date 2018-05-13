@@ -311,8 +311,8 @@ public class MenuStatus : MonoBehaviour
 		SelectedCharacter = selectedCharacter;
 
 		// 名前を書き換える
-		NameJp.text = Character_Spec.Name[selectedCharacter];
-		NameEn.text = Character_Spec.NameEn[selectedCharacter];
+		NameJp.text = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[selectedCharacter].NAME_JP;
+		NameEn.text = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[selectedCharacter].NAME_EN;
 
 		// レベルを書き換える
 		Level.text = "Level-" + savingparameter.GetNowLevel(selectedCharacter);

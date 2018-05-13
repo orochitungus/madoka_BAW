@@ -34,6 +34,11 @@ public class ParameterManager : SingletonMonoBehaviour<ParameterManager>
 	/// </summary>
 	public StageSkyData StageskyData;
 
+	/// <summary>
+	/// キャラクターの基本パラメータ
+	/// </summary>
+	public CharacterBasicSpec CharacterbasicSpec;
+
 	private void Awake()
 	{
 		if (this != Instance)

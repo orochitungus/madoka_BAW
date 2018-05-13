@@ -137,7 +137,7 @@ public class MenuPartyDraw : MonoBehaviour
 						// 現在レベルを表示
 						CharacterLevel.text = "Level-" +  savingparameter.GetNowLevel(characterindex).ToString("d2");
 						// 名前を表示
-						CharacterName.text = Character_Spec.Name[characterindex];
+						CharacterName.text = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[characterindex].NAME_JP;
 						// 現在HPを表示
 						CharacterNowHP.text = savingparameter.GetNowHP(characterindex).ToString("d4");
 						// 最大HPを表示
@@ -327,7 +327,7 @@ public class MenuPartyDraw : MonoBehaviour
 					break;
 			}
 			// 名前表示
-			FinalCharacterNames[i].text = Character_Spec.Name[SelectedParty[i]];
+			FinalCharacterNames[i].text = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[SelectedParty[i]].NAME_JP;
 			// レベル表示
 			FinalCharacterLevels[i].text = "Level-" + savingparameter.GetNowLevel(SelectedParty[i]).ToString("d2");
 			// HP表示

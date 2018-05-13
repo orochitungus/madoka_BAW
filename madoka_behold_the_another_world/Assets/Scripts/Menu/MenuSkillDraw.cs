@@ -174,8 +174,8 @@ public class MenuSkillDraw : MonoBehaviour
         }
 
         // 名前を書き換える
-        CharacterNameJP.text = Character_Spec.Name[selectedCharacter];
-        CharacterNameEN.text = Character_Spec.NameEn[selectedCharacter];
+        CharacterNameJP.text = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[selectedCharacter].NAME_JP;
+        CharacterNameEN.text = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[selectedCharacter].NAME_EN;
 
         // レベルを書き換える
         CharacterLevel.text = "Level-" + savingparameter.GetNowLevel(selectedCharacter);

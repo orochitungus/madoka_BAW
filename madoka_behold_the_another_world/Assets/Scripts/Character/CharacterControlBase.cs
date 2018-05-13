@@ -1066,41 +1066,26 @@ public class CharacterControlBase : MonoBehaviour
         }
 
         // HP初期値
-        NowHitpoint_OR = Character_Spec.HP_OR[(int)CharacterName];
+        NowHitpoint_OR = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[(int)CharacterName].HP_OR;
         // HP成長係数
-        NowHitpointGrowth = Character_Spec.HP_Grouth[(int)CharacterName];
+        NowHitpointGrowth = (int)ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[(int)CharacterName].HP_Growth;
 
 
         // ブースト量初期値(Lv1の時の値）
-        Boost_OR = Character_Spec.Boost_OR[(int)CharacterName];
+        Boost_OR = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[(int)CharacterName].Boost_OR;
         // ブースト量成長係数
-        BoostGrowth = Character_Spec.Boost_Growth[(int)CharacterName];
+        BoostGrowth = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[(int)CharacterName].Boost_Growth;
 
         // 覚醒ゲージ量初期値(LV1の時の値）
-        Arousal_OR = Character_Spec.Arousal_OR[(int)CharacterName];
+        Arousal_OR = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[(int)CharacterName].Arousal_OR;
         // 覚醒ゲージ量成長係数
-        ArousalGrowth = Character_Spec.Arousal_Growth[(int)CharacterName];
+        ArousalGrowth = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[(int)CharacterName].Arousal_Growth;
 
-        // 使用可能武器をセット（初期段階で使用不能にしておきたいものは、各キャラのStartでこの関数を呼んだ後に再定義）
-        for (int i = 0; i < Character_Spec.cs[(int)CharacterName].Length; i++)
-        {
-            // 使用の可否を初期化
-            WeaponUseAble[i] = true;
-            // 弾があるものは残弾数を初期化
-            if (Character_Spec.cs[(int)CharacterName][i].m_OriginalBulletNum > 0)
-            {
-                BulletNum[i] = Character_Spec.cs[(int)CharacterName][i].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][i].m_OriginalBulletNum;
-            }
-            // 硬直時間があるものは硬直時間を初期化
-            if (Character_Spec.cs[(int)CharacterName][i].m_WaitTime > 0)
-            {
-                BulletWaitTime[i] = Character_Spec.cs[(int)CharacterName][i].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][i].m_WaitTime;
-            }
-        }
-        // ダッシュキャンセル硬直時間
-        DashCancelTime = 0.2f;
-        // プレイヤーでない限りカメラを切っておく
-        var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
+		// 使用可能武器をセット（初期段階で使用不能にしておきたいものは、各キャラのStartでこの関数を呼んだ後に再定義）
+		ReloadAll();
+
+		// プレイヤーでない限りカメラを切っておく
+		var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
         if (IsPlayer != CHARACTERCODE.PLAYER)
         {
             target.GetComponent<Camera>().enabled = false;
@@ -1112,10 +1097,32 @@ public class CharacterControlBase : MonoBehaviour
 
     }
 
-    /// <summary>
-    /// 接地判定関連
-    /// </summary>
-    protected int Hitcounter;
+	/// <summary>
+	/// 使用可能武器をセット（初期段階で使用不能にしておきたいものは、各キャラのStartでこの関数を呼んだ後に再定義）
+	/// </summary>
+	protected void ReloadAll()
+	{
+		for (int i = 0; i < Character_Spec.cs[(int)CharacterName].Length; i++)
+		{
+			// 使用の可否を初期化
+			WeaponUseAble[i] = true;
+			// 弾があるものは残弾数を初期化
+			if (Character_Spec.cs[(int)CharacterName][i].m_OriginalBulletNum > 0)
+			{
+				BulletNum[i] = Character_Spec.cs[(int)CharacterName][i].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][i].m_OriginalBulletNum;
+			}
+			// 硬直時間があるものは硬直時間を初期化
+			if (Character_Spec.cs[(int)CharacterName][i].m_WaitTime > 0)
+			{
+				BulletWaitTime[i] = Character_Spec.cs[(int)CharacterName][i].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][i].m_WaitTime;
+			}
+		}
+	}
+
+	/// <summary>
+	/// 接地判定関連
+	/// </summary>
+	protected int Hitcounter;
     bool Hitcounterdone;
     const int HitcounterBias = 20;
 
@@ -2864,8 +2871,6 @@ public class CharacterControlBase : MonoBehaviour
                 finalRot = Quaternion.LookRotation(wForward);
             }
         }
-        //Debug.Log("Rotation:" + finalRot);
-        
         transform.rotation = finalRot;
         
     }
@@ -4801,7 +4806,7 @@ public class CharacterControlBase : MonoBehaviour
 		if (IsPlayer == CHARACTERCODE.ENEMY && NowHitpoint < 1)
 		{
 			// 与える経験値の総量
-			int addexp = Character_Spec.Exp[(int)CharacterName];
+			int addexp = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[(int)CharacterName].EXP;
 			if (savingparameter.GetNowHP(attackedcharacter) > 0)
 			{
 				savingparameter.AddExp(attackedcharacter, addexp);
@@ -5840,6 +5845,48 @@ public class CharacterControlBase : MonoBehaviour
             _WalkTimer = _WalkTime;
         }
     }
+
+	/// <summary>
+	/// 共通パラメーターを初期化する
+	/// </summary>
+	/// <param name="characterindex">誰であるか</param>
+	protected void InitializeCommonParameter(int characterindex)
+	{
+		// ジャンプ硬直
+		JumpWaitTime = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[characterindex].JumpWaitTime;
+
+		//着地硬直
+		LandingWaitTime = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[characterindex].LandingWaitTime;
+
+		WalkSpeed = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[characterindex].WalkSpeed;                      // 移動速度（歩行の場合）
+		RunSpeed = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[characterindex].RunSpeed;                        // 移動速度（走行の場合）
+		AirDashSpeed = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[characterindex].AirDashSpeed;                // 移動速度（空中ダッシュの場合）
+		AirMoveSpeed = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[characterindex].AirMoveSpeed;                // 移動速度（空中慣性移動の場合）
+		RiseSpeed = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[characterindex].RiseSpeed;                      // 上昇速度
+
+		// ブースト消費量
+		JumpUseBoost = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[characterindex].JumpUseBoost;                // ジャンプ時
+		DashCancelUseBoost = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[characterindex].DashCancelUseBoost;    // ブーストダッシュ時
+		StepUseBoost = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[characterindex].StepUseBoost;                // ステップ時
+		BoostLess = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[characterindex].BoostLess;                      // ジャンプの上昇・BD時の1F当たりの消費量
+
+		// ステップ移動距離
+		StepMoveLength = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[characterindex].StepMoveLength;
+
+		// ステップ初速（X/Z軸）
+		StepInitialVelocity = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[characterindex].StepInitalVelocity;
+		// ステップ時の１F当たりの移動量
+		StepMove1F = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[characterindex].StepMove1F;
+
+		// コライダの地面からの高さ
+		ColliderHeight = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[characterindex].ColliderHeight;
+
+		// ロックオン距離
+		RockonRange = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[characterindex].RockonRange;
+
+		// ロックオン限界距離
+		RockonRangeLimit = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[characterindex].RockonRangeLimit;
+	}
 	
 }
 

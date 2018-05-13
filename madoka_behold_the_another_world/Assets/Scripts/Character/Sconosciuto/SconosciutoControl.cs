@@ -61,44 +61,6 @@ public class SconosciutoControl : CharacterControlBase
 	private float ExshotEndtime;
 
 	/// <summary>
-	/// 攻撃の種類
-	/// </summary>
-	public enum Skilltype_Sconosciuto
-	{
-		SHOT,                   // 通常射撃
-		SUB_SHOT,               // サブ射撃
-		EX_SHOT,                // 特殊射撃
-								// 格闘属性は一応全部3段目まで作っておく(派生技に割り振るとかでもあり)
-		WRESTLE_1,              // N格1段目
-		WRESTLE_2,              // N格2段目
-		WRESTLE_3,              // N格3段目
-		FRONT_WRESTLE_1,        // 前格闘1段目
-		LEFT_WRESTLE_1,         // 左横格闘1段目
-		RIGHT_WRESTLE_1,        // 右横格闘1段目
-		BACK_WRESTLE,           // 後格闘（防御）
-		AIRDASH_WRESTLE,        // 空中ダッシュ格闘
-		EX_WRESTLE_1,           // 特殊格闘1段目
-		EX_FRONT_WRESTLE_1,     // 前特殊格闘1段目
-		BACK_EX_WRESTLE,        // 後特殊格闘
-		NONE                    // なし(派生がないとき用）
-	}
-
-	/// <summary>
-	/// 覚醒技基礎攻撃力
-	/// </summary>
-	private const int _BasisOffensive = 470;
-
-	/// <summary>
-	/// 覚醒技攻撃力成長係数
-	/// </summary>
-	private const int _GrowthcOffecientStr = 5;
-
-	/// <summary>
-	/// 覚醒技ダウン値
-	/// </summary>
-	private const int _DownratioArousal = 5;
-
-	/// <summary>
 	/// 覚醒技専用カメラ1個目
 	/// </summary>
 	public Camera ArousalAttackCamera1;
@@ -127,6 +89,11 @@ public class SconosciutoControl : CharacterControlBase
 	/// 特殊射撃のアイコン
 	/// </summary>
 	public Sprite ExShotIcon;
+
+	/// <summary>
+	/// パラメーター読み取り用のインデックス
+	/// </summary>
+	private const int CharacterIndex = (int)Character_Spec.CHARACTER_NAME.MEMBER_SCHONO;
 
 	/// <summary>
 	/// 各種アニメのID.コメント内はAnimatorの管理用ID.武装系以外は全員共通にすること
@@ -245,40 +212,8 @@ public class SconosciutoControl : CharacterControlBase
 		// レベル・攻撃力レベル・防御力レベル・残弾数レベル・ブースト量レベル・覚醒ゲージレベルを初期化
 		SettingPleyerLevel();
 
-		// ジャンプ硬直
-		JumpWaitTime = 0.5f;
-
-		//着地硬直
-		LandingWaitTime = 1.0f;
-
-		WalkSpeed = 1.0f;                            // 移動速度（歩行の場合）
-		RunSpeed = 15.0f;                            // 移動速度（走行の場合）
-		AirDashSpeed = 60.0f;                        // 移動速度（空中ダッシュの場合）
-		AirMoveSpeed = 10.0f;                        // 移動速度（空中慣性移動の場合）
-		RiseSpeed = 3.0f;                            // 上昇速度
-
-		// ブースト消費量
-		JumpUseBoost = 10;       // ジャンプ時
-		DashCancelUseBoost = 10;   // ブーストダッシュ時
-		StepUseBoost = 10;         // ステップ時
-		BoostLess = 0.5f;        // ジャンプの上昇・BD時の1F当たりの消費量
-
-		// ステップ移動距離
-		StepMoveLength = 10.0f;
-
-		// ステップ初速（X/Z軸）
-		StepInitialVelocity = 100.0f;
-		// ステップ時の１F当たりの移動量
-		StepMove1F = 1.0f;
-
-		// コライダの地面からの高さ
-		ColliderHeight = 0.8f;
-
-		// ロックオン距離
-		RockonRange = 100.0f;
-
-		// ロックオン限界距離
-		RockonRangeLimit = 200.0f;
+		// 共通パラメーター初期化
+		InitializeCommonParameter(CharacterIndex);
 
 		// ショットのステート
 		Shotmode = ShotMode.NORMAL;

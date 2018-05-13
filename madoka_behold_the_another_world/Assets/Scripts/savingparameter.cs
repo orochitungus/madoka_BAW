@@ -251,9 +251,9 @@ public static class savingparameter
     public static void SetMaxHP(int index, int HP)
     {
         // HP初期値
-        int NowHitpoint_OR = Character_Spec.HP_OR[index];
+        int NowHitpoint_OR = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[index].HP_OR;
         // HP成長係数
-        int NowHitpoint_Growth = Character_Spec.HP_Grouth[index];
+        int NowHitpoint_Growth = (int)ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[index].HP_Growth;
         nowMaxHP[index] = NowHitpoint_Growth * (nowlevel[index]-1) + NowHitpoint_OR;
     }
     // index[in]       :何番目か
@@ -261,9 +261,9 @@ public static class savingparameter
     public static int GetMaxHP(int index)
     {
         // HP初期値
-        int NowHitpoint_OR = Character_Spec.HP_OR[index];
+        int NowHitpoint_OR = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[index].HP_OR;
         // HP成長係数
-        int NowHitpoint_Growth = Character_Spec.HP_Grouth[index];
+        int NowHitpoint_Growth = (int)ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[index].HP_Growth;
         nowMaxHP[index] = NowHitpoint_Growth * (nowlevel[index] - 1) + NowHitpoint_OR;
         return nowMaxHP[index];
     }
@@ -275,7 +275,7 @@ public static class savingparameter
     public static void SetNowArousal(int index, float Ar)
     {
         // 最大覚醒ゲージ量
-        nowMaxArousal[index] = (float)(Character_Spec.Arousal_Growth[index] * (ArousalLevel[index] - 1) + Character_Spec.Arousal_OR[index]); 
+        nowMaxArousal[index] = (float)(ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[index].Arousal_Growth * (ArousalLevel[index] - 1) + ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[index].Arousal_OR); 
         if (nowMaxArousal[index] < Ar)
         {
             nowArousal[index] = nowMaxArousal[index];
@@ -303,7 +303,7 @@ public static class savingparameter
     {
         nowArousal[index] += add;
         // 最大覚醒ゲージ量を算出
-        nowMaxArousal[index] = (float)(Character_Spec.Arousal_Growth[index] * (ArousalLevel[index] - 1) + Character_Spec.Arousal_OR[index]); 
+        nowMaxArousal[index] = (float)(ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[index].Arousal_Growth * (ArousalLevel[index] - 1) + ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[index].Arousal_OR); 
         if (nowArousal[index] > nowMaxArousal[index])
         {
             nowArousal[index] = nowMaxArousal[index];
@@ -316,9 +316,9 @@ public static class savingparameter
     public static void SetMaxArousal(int index)
     {
         // 覚醒ゲージ初期値
-        int Arousal_OR = Character_Spec.Arousal_OR[index];
+        int Arousal_OR = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[index].Arousal_OR;
         // 覚醒ゲージ成長係数
-        int ArousalGrowth = Character_Spec.Arousal_Growth[index];
+        int ArousalGrowth = (int)ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[index].Arousal_Growth;
         nowMaxArousal[index] = ArousalGrowth * (ArousalLevel[index] - 1) + Arousal_OR;
     }
     // index[in]       :何番目か
@@ -326,9 +326,9 @@ public static class savingparameter
     public static float GetMaxArousal(int index)
     {
         // 覚醒ゲージ初期値
-        int Arousal_OR = Character_Spec.Arousal_OR[index];
+        int Arousal_OR = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[index].Arousal_OR;
         // 覚醒ゲージ成長係数
-        int ArousalGrowth = Character_Spec.Arousal_Growth[index];
+        int ArousalGrowth = (int)ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[index].Arousal_Growth;
         return ArousalGrowth * (ArousalLevel[index] - 1) + Arousal_OR;
     }
 
@@ -713,7 +713,7 @@ public static class savingparameter
             // 経験値初期化
             nowExp[i] = 0;
             // HP初期化
-            nowHP[i] = Character_Spec.HP_OR[i];
+            nowHP[i] = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[i].HP_OR;
             // SG汚染率初期化
             GemContimination[i] = 0.0f;
             // 覚醒ゲージ初期化

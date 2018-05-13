@@ -1299,8 +1299,8 @@ public class MenuController : MonoBehaviour
 					Characterstatusroot[i].CharacterFace.sprite = null;
 				}
 				// キャラの名前
-				Characterstatusroot[i].CharacterNameJP.text = Character_Spec.Name[savingparameter.GetNowParty(i)];
-				Characterstatusroot[i].CharacterNameEN.text = Character_Spec.NameEn[savingparameter.GetNowParty(i)];
+				Characterstatusroot[i].CharacterNameJP.text = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[savingparameter.GetNowParty(i)].NAME_JP;
+				Characterstatusroot[i].CharacterNameEN.text = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[savingparameter.GetNowParty(i)].NAME_EN;
 
 				// レベル
 				Characterstatusroot[i].CharacterLevel.text = "Level-" + savingparameter.GetNowLevel(savingparameter.GetNowParty(i)).ToString("d2");
