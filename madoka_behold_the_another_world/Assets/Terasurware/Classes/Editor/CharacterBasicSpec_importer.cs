@@ -53,7 +53,7 @@ public class CharacterBasicSpec_importer : AssetPostprocessor {
 					cell = row.GetCell(0); p.NAME_JP = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(1); p.NAME_EN = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(2); p.HP_OR = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(3); p.HP_Growth = (float)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(3); p.HP_Growth = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(4); p.Def_OR = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(5); p.Def_Growth = (float)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(6); p.Boost_OR = (int)(cell == null ? 0 : cell.NumericCellValue);
@@ -78,6 +78,7 @@ public class CharacterBasicSpec_importer : AssetPostprocessor {
 					cell = row.GetCell(25); p.RockonRange = (float)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(26); p.RockonRangeLimit = (float)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(27); p.EXP = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(28); p.DownDurationValue = (float)(cell == null ? 0 : cell.NumericCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

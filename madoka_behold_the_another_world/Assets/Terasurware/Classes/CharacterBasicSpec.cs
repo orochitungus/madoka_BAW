@@ -20,7 +20,7 @@ public class CharacterBasicSpec : ScriptableObject
 		public string NAME_JP;
 		public string NAME_EN;
 		public int HP_OR;
-		public float HP_Growth;
+		public int HP_Growth;
 		public int Def_OR;
 		public float Def_Growth;
 		public int Boost_OR;
@@ -45,6 +45,7 @@ public class CharacterBasicSpec : ScriptableObject
 		public float RockonRange;
 		public float RockonRangeLimit;
 		public int EXP;
+		public float DownDurationValue;
 	}
 }
 
