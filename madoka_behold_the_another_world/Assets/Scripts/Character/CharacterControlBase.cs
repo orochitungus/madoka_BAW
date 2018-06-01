@@ -1102,19 +1102,20 @@ public class CharacterControlBase : MonoBehaviour
 	/// </summary>
 	protected void ReloadAll()
 	{
-		for (int i = 0; i < Character_Spec.cs[(int)CharacterName].Length; i++)
+		for(int i=0; i<ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list.Count; i++)
 		{
 			// 使用の可否を初期化
 			WeaponUseAble[i] = true;
 			// 弾があるものは残弾数を初期化
-			if (Character_Spec.cs[(int)CharacterName][i].m_OriginalBulletNum > 0)
+			if(ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[i].OriginalBulletNum > 0)
 			{
-				BulletNum[i] = Character_Spec.cs[(int)CharacterName][i].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][i].m_OriginalBulletNum;
+				BulletNum[i] = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[i].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[i].OriginalBulletNum;
 			}
 			// 硬直時間があるものは硬直時間を初期化
-			if (Character_Spec.cs[(int)CharacterName][i].m_WaitTime > 0)
+			//if (Character_Spec.cs[(int)CharacterName][i].m_WaitTime > 0)
+			if(ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[i].WaitTime > 0)
 			{
-				BulletWaitTime[i] = Character_Spec.cs[(int)CharacterName][i].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][i].m_WaitTime;
+				BulletWaitTime[i] = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[i].WaitTime;
 			}
 		}
 	}
@@ -3987,11 +3988,11 @@ public class CharacterControlBase : MonoBehaviour
         // ステートを設定する
         // skilltypeのインデックス(格闘系はSkillType.Wrestle1+Xなので、Xにwrestletypeを代入）
         int skillIndex = skilltype;
-        // 移動速度
-        float movespeed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Movespeed;
-        // 移動方向
-        // ロックオン且つ本体角度が0でない時、相手の方向を移動方向とする
-        if (IsRockon && transform.rotation.eulerAngles.y != 0)
+		// 移動速度
+		float movespeed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillIndex].MoveSpeed;
+		// 移動方向
+		// ロックオン且つ本体角度が0でない時、相手の方向を移動方向とする
+		if (IsRockon && transform.rotation.eulerAngles.y != 0)
         {
             // ロックオン対象を取得
             var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
@@ -4021,11 +4022,11 @@ public class CharacterControlBase : MonoBehaviour
         {
             MoveDirection = Vector3.Normalize(this.transform.rotation * Vector3.forward);
 		}
-        // アニメーション速度
-        float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
+		// アニメーション速度
+		float speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillIndex].AnimSpeed;
 
-        // アニメーションを再生する
-        animator.SetTrigger(triggername);
+		// アニメーションを再生する
+		animator.SetTrigger(triggername);
                
         // アニメーションの速度を調整する
         animator.speed = speed;
@@ -4048,7 +4049,7 @@ public class CharacterControlBase : MonoBehaviour
         // skilltypeのインデックス(格闘系はSkillType.Wrestle1+Xなので、Xにwrestletypeを代入）
         int skillIndex = skilltype;
         // 移動速度
-        float movespeed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Movespeed;
+        float movespeed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillIndex].MoveSpeed;
         // 移動方向
         // ロックオン且つ本体角度が0でない時、相手の左側を移動方向とする（通常時のロックオン時左移動をさせつつ前進させる）
         if (IsRockon && this.transform.rotation.eulerAngles.y != 0)
@@ -4087,8 +4088,8 @@ public class CharacterControlBase : MonoBehaviour
             Quaternion addrot_Q = Quaternion.Euler(addrot);
             MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
 		}
-        // アニメーション速度
-        float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
+		// アニメーション速度
+		float speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillIndex].AnimSpeed;//Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
         // アニメーションを再生する
         animator.SetTrigger("LeftWrestle");
 
@@ -4112,8 +4113,8 @@ public class CharacterControlBase : MonoBehaviour
         // ステートを設定する
         // skilltypeのインデックス(格闘系はSkillType.Wrestle1+Xなので、Xにwrestletypeを代入）
         int skillIndex = skilltype;
-        // 移動速度
-        float movespeed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Movespeed;
+		// 移動速度
+		float movespeed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillIndex].MoveSpeed;
         // 移動方向
         // ロックオン且つ本体角度が0でない時、相手の左側を移動方向とする（通常時のロックオン時左移動をさせつつ前進させる）
         if (IsRockon && transform.rotation.eulerAngles.y != 0)
@@ -4152,10 +4153,10 @@ public class CharacterControlBase : MonoBehaviour
             Quaternion addrot_Q = Quaternion.Euler(addrot);
             MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
 		}
-        // アニメーション速度
-        float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
-        // アニメーションを再生する
-        animator.SetTrigger("RightWrestle");
+		// アニメーション速度
+		float speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillIndex].AnimSpeed;
+		// アニメーションを再生する
+		animator.SetTrigger("RightWrestle");
 
         // アニメーションの速度を調整する
         animator.speed = speed;
@@ -4208,10 +4209,10 @@ public class CharacterControlBase : MonoBehaviour
             Quaternion addrot_Q = Quaternion.Euler(addrot);
             MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
 		}
-        //3．アニメーション速度を設定する
-        float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
-        // アニメーションを再生する
-        animator.SetTrigger("BackWrestle");
+		//3．アニメーション速度を設定する
+		float speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillIndex].AnimSpeed;
+		// アニメーションを再生する
+		animator.SetTrigger("BackWrestle");
 
         // アニメーションの速度を調整する
         animator.speed = speed;
@@ -4231,7 +4232,7 @@ public class CharacterControlBase : MonoBehaviour
 		// ステートを変更		
 		int skillIndex = skilltype;
 		// 移動速度取得
-		float movespeed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Movespeed;
+		float movespeed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillIndex].MoveSpeed;
 		// ロックオン中なら移動方向をロックオン対象のほうへ固定する
 		if (IsRockon && transform.rotation.eulerAngles.y != 0)
 		{
@@ -4261,7 +4262,7 @@ public class CharacterControlBase : MonoBehaviour
 			MoveDirection = new Vector3(0, 1, 0);
 		}
 		// アニメーション速度を設定する
-		float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
+		float speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillIndex].AnimSpeed;
 		// アニメーションを変更する
         animator.SetTrigger("FrontEXWrestle");
 		// アニメーションの速度を調整する
@@ -4283,7 +4284,7 @@ public class CharacterControlBase : MonoBehaviour
 		// ステートを変更		
 		int skillIndex = skilltype;
 		// 移動速度取得
-		float movespeed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Movespeed;
+		float movespeed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[0].MoveSpeed;
 		// ロックオン中なら移動方向をロックオン対象のほうへ固定する
 		if (IsRockon && transform.rotation.eulerAngles.y != 0)
 		{
@@ -4314,7 +4315,7 @@ public class CharacterControlBase : MonoBehaviour
 			MoveDirection = new Vector3(0, -1, 0);
 		}
 		// アニメーション速度を設定する
-		float speed = Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
+		float speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillIndex].AnimSpeed;
 		// アニメーションを変更する
         animator.SetTrigger("BackEXWrestle");
 		// アニメーションの速度を調整する
@@ -4366,7 +4367,7 @@ public class CharacterControlBase : MonoBehaviour
 			MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
 		}
 		// アニメーション速度
-		float speed = Character_Spec.cs[(int)CharacterName][skillindex].m_Animspeed;
+		float speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillindex].AnimSpeed;
 
 		// アニメーションを再生する
 		Animator.SetTrigger("BDWrestle");
@@ -4538,13 +4539,65 @@ public class CharacterControlBase : MonoBehaviour
 
 		// 各ステートを計算する
 		// 攻撃力
-		int offensive = Character_Spec.cs[(int)CharacterName][skillIndex].m_OriginalStr + Character_Spec.cs[(int)CharacterName][skillIndex].m_GrowthCoefficientStr * (this.StrLevel - 1);
+		int offensive = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillIndex].OriginalStr + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillIndex].GrowthCoefficientStr * (StrLevel - 1);
 		// ダウン値
-		float downR = Character_Spec.cs[(int)CharacterName][skillIndex].m_DownPoint;
+		float downR = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillIndex].DownPoint;
 		// 覚醒ゲージ増加量
-		float arousal = Character_Spec.cs[(int)CharacterName][skillIndex].m_arousal + Character_Spec.cs[(int)CharacterName][skillIndex].m_GrowthCoefficientStr * (this.StrLevel - 1);
+		float arousal = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillIndex].Arousal + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillIndex].GrowthCoefficientStr * (this.StrLevel - 1);
 		// ヒットタイプ
-		CharacterSkill.HitType hittype = Character_Spec.cs[(int)CharacterName][skillIndex].m_Hittype;
+		CharacterSkill.HitType hittype = CharacterSkill.HitType.BEND_BACKWARD;
+		for (int i = 0; i< ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list.Count; i++)
+		{
+			switch (ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[i].HitType)
+			{
+				case "BEND_BACKWARD":   // のけぞる
+					hittype = CharacterSkill.HitType.BEND_BACKWARD;
+					break;
+				case "BLOW":            // 吹き飛ばす(ダウン)
+					hittype = CharacterSkill.HitType.BLOW;
+					break;
+				case "GUARD":           // 防御
+					hittype = CharacterSkill.HitType.GUARD;
+					break;
+				case "RECOVERY":        // 回復
+					hittype = CharacterSkill.HitType.RECOVERY;
+					break;
+				case "RESUSCITATION":   // 蘇生込回復
+					hittype = CharacterSkill.HitType.RESUSCITATION;
+					break;
+				case "CURE":            // ST異常含め回復
+					hittype = CharacterSkill.HitType.CURE;
+					break;
+				case "WEAPON_ZERO":     // 武装ゼロ
+					hittype = CharacterSkill.HitType.WEAPON_ZERO;
+					break;
+				case "ADD_ARMOR":       // アーマー付加
+					hittype = CharacterSkill.HitType.ADD_ARMOR;
+					break;
+				case "TIME_STOP":       // 時間停止
+					hittype = CharacterSkill.HitType.TIME_STOP;
+					break;
+				case "TIME_DELAY":      // 時間遅延
+					hittype = CharacterSkill.HitType.TIME_DELAY;
+					break;
+				case "RELOAD":          // マニュアルリロード
+					hittype = CharacterSkill.HitType.RELOAD;
+					break;
+				case "RESTRAINT":       // 拘束
+					hittype = CharacterSkill.HitType.RESTRAINT;
+					break;
+				case "MODE_CHANGE":     // モードチェンジ
+					hittype = CharacterSkill.HitType.MODE_CHANGE;
+					break;
+				case "AVATAR":          // 分身生成
+					hittype = CharacterSkill.HitType.AVATAR;
+					break;
+				case "BOOST_WATCH":     // ブーストゲージ看破
+					hittype = CharacterSkill.HitType.BOOST_WATCH;
+					break;
+			}
+
+		}
 		// 除外対象の名前
 		string exclusionname = ObjectName.CharacterFileName[(int)CharacterName];
 
@@ -4720,13 +4773,13 @@ public class CharacterControlBase : MonoBehaviour
 
 		// 各ステートを計算する
 		// 攻撃力
-		int offensive = Character_Spec.cs[(int)CharacterName][skillIndex].m_OriginalStr + Character_Spec.cs[(int)CharacterName][skillIndex].m_GrowthCoefficientStr * (this.StrLevel - 1);
+		int offensive = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillIndex].OriginalStr + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillIndex].GrowthCoefficientStr * (StrLevel - 1);
 		// ダウン値
-		float downR = Character_Spec.cs[(int)CharacterName][skillIndex].m_DownPoint;
+		float downR = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillIndex].DownPoint;
 		// 覚醒ゲージ増加量
-		float arousal = Character_Spec.cs[(int)CharacterName][skillIndex].m_arousal + Character_Spec.cs[(int)CharacterName][skillIndex].m_GrowthCoefficientStr * (this.StrLevel - 1);
+		float arousal = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillIndex].Arousal + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillIndex].GrowthCoefficientStr * (this.StrLevel - 1);
 		// ヒットタイプ
-		CharacterSkill.HitType hittype = Character_Spec.cs[(int)CharacterName][skillIndex].m_Hittype;
+		CharacterSkill.HitType hittype = ParameterManager.Instance.GetHitType((int)CharacterName,skillIndex);
 		// 除外対象の名前
 		string exclusionname = ObjectName.CharacterFileName[(int)CharacterName];
 

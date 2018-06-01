@@ -347,7 +347,7 @@ public class HomuraBowControl : CharacterControlBase
         FirstSetting(AnimatorUnit, 0);
 
 		// チャージショットチャージ時間
-		ChargeMax = (int)Character_Spec.cs[(int)CharacterName][(int)(int)ShotType.CHARGE_SHOT].m_reloadtime*60;
+		ChargeMax = (int)ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)ShotType.CHARGE_SHOT].ReloadTime * 60;
 
 		
 		this.UpdateAsObservable().Subscribe(_ =>
@@ -458,8 +458,9 @@ public class HomuraBowControl : CharacterControlBase
             Battleinterfacecontroller.Weapon3.Kind.text = "Shot";
             Battleinterfacecontroller.Weapon3.WeaponGraphic.sprite = ShotIcon;
             Battleinterfacecontroller.Weapon3.NowBulletNumber = BulletNum[(int)ShotType.NORMAL_SHOT];
-            Battleinterfacecontroller.Weapon3.MaxBulletNumber = Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_OriginalBulletNum;
-            Battleinterfacecontroller.Weapon3.UseChargeGauge = true;
+			Battleinterfacecontroller.Weapon3.MaxBulletNumber = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)ShotType.NORMAL_SHOT].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)ShotType.NORMAL_SHOT].OriginalBulletNum;
+
+			Battleinterfacecontroller.Weapon3.UseChargeGauge = true;
             // 1発でも使えれば使用可能
             if(BulletNum[(int)ShotType.NORMAL_SHOT] > 0)
             {
@@ -477,8 +478,8 @@ public class HomuraBowControl : CharacterControlBase
             Battleinterfacecontroller.Weapon2.Kind.text = "Sub Shot";
             Battleinterfacecontroller.Weapon2.WeaponGraphic.sprite = SubShotIcon;
             Battleinterfacecontroller.Weapon2.NowBulletNumber = BulletNum[(int)ShotType.SUB_SHOT];
-            Battleinterfacecontroller.Weapon2.MaxBulletNumber = Character_Spec.cs[(int)CharacterName][(int)ShotType.SUB_SHOT].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.SUB_SHOT].m_OriginalBulletNum;
-            Battleinterfacecontroller.Weapon2.UseChargeGauge = false;
+            Battleinterfacecontroller.Weapon2.MaxBulletNumber = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)ShotType.SUB_SHOT].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)ShotType.SUB_SHOT].OriginalBulletNum;
+			Battleinterfacecontroller.Weapon2.UseChargeGauge = false;
             // 1発でも使えれば使用可能(リロード時は0になる)
             if (BulletNum[(int)ShotType.SUB_SHOT] != 0)
             {
@@ -494,8 +495,8 @@ public class HomuraBowControl : CharacterControlBase
             Battleinterfacecontroller.Weapon1.Kind.text = "EX Shot";
             Battleinterfacecontroller.Weapon1.WeaponGraphic.sprite = ExShotIcon;
             Battleinterfacecontroller.Weapon1.NowBulletNumber = BulletNum[(int)ShotType.EX_SHOT];
-            Battleinterfacecontroller.Weapon1.MaxBulletNumber = Character_Spec.cs[(int)CharacterName][(int)ShotType.EX_SHOT].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.EX_SHOT].m_OriginalBulletNum;
-            Battleinterfacecontroller.Weapon1.UseChargeGauge = false;
+            Battleinterfacecontroller.Weapon1.MaxBulletNumber = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)ShotType.EX_SHOT].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)ShotType.EX_SHOT].OriginalBulletNum;
+			Battleinterfacecontroller.Weapon1.UseChargeGauge = false;
             // 1発でも使えれば使用可能
             if (BulletNum[(int)ShotType.EX_SHOT] > 0)
             {
@@ -525,14 +526,17 @@ public class HomuraBowControl : CharacterControlBase
             UpdateAnimation();
             // リロード実行           
             // メイン射撃
-            ReloadSystem.OneByOne(ref BulletNum[(int)ShotType.NORMAL_SHOT], Time.time, Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_OriginalBulletNum,
-                Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_reloadtime, ref MainshotEndtime);
-            // サブ射撃
-            ReloadSystem.AllTogether(ref BulletNum[(int)ShotType.SUB_SHOT], Time.time, Character_Spec.cs[(int)CharacterName][(int)ShotType.SUB_SHOT].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.SUB_SHOT].m_OriginalBulletNum,
-                Character_Spec.cs[(int)CharacterName][(int)ShotType.SUB_SHOT].m_reloadtime, ref SubshotEndtime);
-            // 特殊射撃
-            ReloadSystem.OneByOne(ref BulletNum[(int)ShotType.EX_SHOT], Time.time, Character_Spec.cs[(int)CharacterName][(int)ShotType.EX_SHOT].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.EX_SHOT].m_OriginalBulletNum,
-                Character_Spec.cs[(int)CharacterName][(int)ShotType.EX_SHOT].m_reloadtime, ref ExshotEndtime);
+            ReloadSystem.OneByOne(ref BulletNum[(int)ShotType.NORMAL_SHOT], Time.time, 
+				ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)ShotType.NORMAL_SHOT].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)ShotType.NORMAL_SHOT].OriginalBulletNum,
+				ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)ShotType.NORMAL_SHOT].ReloadTime, ref MainshotEndtime);
+			// サブ射撃
+			ReloadSystem.AllTogether(ref BulletNum[(int)ShotType.SUB_SHOT], Time.time,
+				ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)ShotType.SUB_SHOT].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)ShotType.SUB_SHOT].OriginalBulletNum,
+				ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)ShotType.SUB_SHOT].ReloadTime, ref SubshotEndtime);
+			// 特殊射撃
+			ReloadSystem.OneByOne(ref BulletNum[(int)ShotType.EX_SHOT], Time.time,
+				ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)ShotType.EX_SHOT].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)ShotType.EX_SHOT].OriginalBulletNum,
+				ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)ShotType.EX_SHOT].ReloadTime, ref ExshotEndtime);
         }       
 	}
 
@@ -1067,7 +1071,7 @@ public class HomuraBowControl : CharacterControlBase
 				BulletNum[(int)type]--;
 				// 撃ち終わった時間を設定する                
 				// メイン（弾数がMax-1のとき）
-				if (type == ShotType.NORMAL_SHOT && BulletNum[(int)type] == Character_Spec.cs[(int)CharacterName][(int)type].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)type].m_OriginalBulletNum - 1)
+				if (type == ShotType.NORMAL_SHOT && BulletNum[(int)type] == ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)type].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)type].OriginalBulletNum - 1)
 				{
 					MainshotEndtime = Time.time;
 				}
@@ -1077,7 +1081,7 @@ public class HomuraBowControl : CharacterControlBase
 					SubshotEndtime = Time.time;
 				}
 				// 特殊（弾数がMax-1のとき）
-				else if (type == ShotType.EX_SHOT && BulletNum[(int)type] == Character_Spec.cs[(int)CharacterName][(int)type].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)type].m_OriginalBulletNum - 1)
+				else if (type == ShotType.EX_SHOT && BulletNum[(int)type] == ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)type].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)type].OriginalBulletNum - 1)
 				{
 					ExshotEndtime = Time.time;
 				}
@@ -1184,32 +1188,32 @@ public class HomuraBowControl : CharacterControlBase
 			// チャージ射撃は若干速く
 			if (type == ShotType.CHARGE_SHOT)
 			{
-				arrow.ShotSpeed = Character_Spec.cs[(int)CharacterName][1].m_Movespeed;
+				arrow.ShotSpeed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[1].MoveSpeed;
 			}
 			else
 			{
 				// メイン弾速設定
 				if (arrow != null)
 				{
-					arrow.ShotSpeed = Character_Spec.cs[(int)CharacterName][0].m_Movespeed;
+					arrow.ShotSpeed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[0].MoveSpeed;
 				}
 				// サブ射撃の矢の弾速設定
 				if(subshotArrowCenter != null)
 				{
-					subshotArrowCenter.ShotSpeed = Character_Spec.cs[(int)CharacterName][2].m_Movespeed;
+					subshotArrowCenter.ShotSpeed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[2].MoveSpeed;
 				}
 				if (subshotArrowLeft != null)
 				{
-					subshotArrowLeft.ShotSpeed = Character_Spec.cs[(int)CharacterName][2].m_Movespeed;
+					subshotArrowLeft.ShotSpeed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[2].MoveSpeed;
 				}
 				if (subshotArrowRight != null)
 				{
-					subshotArrowRight.ShotSpeed = Character_Spec.cs[(int)CharacterName][2].m_Movespeed;
+					subshotArrowRight.ShotSpeed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[2].MoveSpeed;
 				}
 				// 特殊射撃の矢の弾速設定
 				if(exshotArrow != null)
 				{
-					exshotArrow.ShotSpeed = Character_Spec.cs[(int)CharacterName][3].m_Movespeed;
+					exshotArrow.ShotSpeed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[3].MoveSpeed;
 				}
 			}
 			// 矢の方向を決定する(本体と同じ方向に向けて打ち出す。ただしノーロックで本体の向きが0のときはベクトルが0になるので、このときだけはカメラの方向に飛ばす）
@@ -1221,7 +1225,7 @@ public class HomuraBowControl : CharacterControlBase
 				Vector3 targetpos = target.Enemy.transform.position;
 				// 補正値込みの胸部と本体の回転ベクトルを取得
 				// 本体
-				Quaternion mainrot = Quaternion.LookRotation(targetpos - this.transform.position);
+				Quaternion mainrot = Quaternion.LookRotation(targetpos - transform.position);
 				// 胸部
 				Vector3 normalizeRot_OR = BrestObject.transform.rotation.eulerAngles;
 				// 本体と胸部と矢の補正値分回転角度を合成
@@ -1431,17 +1435,17 @@ public class HomuraBowControl : CharacterControlBase
 			{
 				// 特殊射撃はShotSpecに入れるためSetOffensivePowerは使えない
 				// 覚醒ゲージ上昇量
-				exshotArrow.Shotspec.ArousalRatio = Character_Spec.cs[(int)CharacterName][3].m_arousal;
+				exshotArrow.Shotspec.ArousalRatio = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[3].Arousal;
 				// 射出したのは誰であるか
 				exshotArrow.Shotspec.CharacterIndex = (int)CharacterName;
 				// ダウン値
-				exshotArrow.Shotspec.DownRatio = Character_Spec.cs[(int)CharacterName][3].m_DownPoint;
+				exshotArrow.Shotspec.DownRatio = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[3].DownPoint;
 				// ヒット時の挙動
-				exshotArrow.Shotspec.Hittype = Character_Spec.cs[(int)CharacterName][3].m_Hittype;
+				exshotArrow.Shotspec.Hittype = ParameterManager.Instance.GetHitType((int)CharacterName,3);
 				// 射出したのは誰であるか（ゲームオブジェクト）
 				exshotArrow.Shotspec.ObjOR = this.gameObject;
 				// 攻撃力
-				exshotArrow.Shotspec.OffensivePower = Character_Spec.cs[(int)CharacterName][3].m_OriginalStr + Character_Spec.cs[(int)CharacterName][3].m_GrowthCoefficientStr * (this.StrLevel - 1);
+				exshotArrow.Shotspec.OffensivePower = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[3].OriginalStr + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[3].GrowthCoefficientStr * (StrLevel - 1);
 			}
 
 			Shotmode = ShotMode.SHOT;
@@ -1512,11 +1516,11 @@ public class HomuraBowControl : CharacterControlBase
 	private void SetOffensivePower(SkillType_Homura_B kind)
 	{
 		// 攻撃力を決定する(ここの2がスキルのインデックス。下も同様）
-		OffensivePowerOfBullet = Character_Spec.cs[(int)CharacterName][(int)kind].m_OriginalStr + Character_Spec.cs[(int)CharacterName][(int)kind].m_GrowthCoefficientStr * (this.StrLevel - 1);
+		OffensivePowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)kind].OriginalStr + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)kind].GrowthCoefficientStr * (StrLevel - 1);
 		// ダウン値を決定する
-		DownratioPowerOfBullet = Character_Spec.cs[(int)CharacterName][(int)kind].m_DownPoint;
+		DownratioPowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)kind].DownPoint;
 		// 覚醒ゲージ増加量を決定する
-		ArousalRatioOfBullet = Character_Spec.cs[(int)CharacterName][(int)kind].m_arousal;
+		ArousalRatioOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)kind].Arousal;
 	}
 
 	/// <summary>
@@ -1669,7 +1673,7 @@ public class HomuraBowControl : CharacterControlBase
 		// 追加入力フラグをカット
 		AddInput = false;
 		// 移動速度
-		float movespeed = Character_Spec.cs[(int)CharacterName][skillindex].m_Movespeed;
+		float movespeed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillindex].MoveSpeed;
 		// 移動方向
 		// ロックオン且つ本体角度が0でない時、相手の方向を移動方向とする
 		if (GetIsRockon() && this.transform.rotation.eulerAngles.y != 0)
@@ -1703,7 +1707,7 @@ public class HomuraBowControl : CharacterControlBase
 			MoveDirection = Vector3.Normalize(this.transform.rotation * Vector3.forward);
 		}
 		// アニメーション速度
-		float speed = Character_Spec.cs[(int)CharacterName][skillindex].m_Animspeed;
+		float speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillindex].AnimSpeed;
 
 		// アニメーションを再生する
 		animator.SetTrigger("EXWrestle");
@@ -1726,7 +1730,7 @@ public class HomuraBowControl : CharacterControlBase
         // 移動速度（上方向に垂直上昇する）
        
         // アニメーション速度
-        animator.speed = Character_Spec.cs[(int)CharacterName][skillindex].m_Animspeed;
+        animator.speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillindex].AnimSpeed;
 
         // アニメーションを再生する
         animator.SetTrigger("FrontEXWrestle");
@@ -1744,7 +1748,7 @@ public class HomuraBowControl : CharacterControlBase
         AddInput = false;
 
 		// アニメーション速度
-		animator.speed = Character_Spec.cs[(int)CharacterName][skillindex].m_Animspeed;
+		animator.speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillindex].AnimSpeed;
 
         // アニメーションを再生する
         animator.SetTrigger("BackEXWrestle");
@@ -1759,19 +1763,19 @@ public class HomuraBowControl : CharacterControlBase
 	public void FullReload()
 	{		
 		// 弾丸を回復させる
-		for (int i = 0; i < Character_Spec.cs[(int)CharacterName].Length; i++)
+		for (int i = 0; i < ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list.Count; i++)
 		{
 			// 使用の可否を初期化
 			WeaponUseAble[i] = true;
 			// 弾があるものは残弾数を初期化
-			if (Character_Spec.cs[(int)CharacterName][i].m_OriginalBulletNum > 0)
+			if (ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[i].OriginalBulletNum > 0)
 			{
-				BulletNum[i] = Character_Spec.cs[(int)CharacterName][i].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][i].m_OriginalBulletNum;
+				BulletNum[i] = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[i].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[i].OriginalBulletNum;
 			}
 			// 硬直時間があるものは硬直時間を初期化
-			if (Character_Spec.cs[(int)CharacterName][i].m_WaitTime > 0)
+			if (ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[i].WaitTime > 0)
 			{
-				BulletWaitTime[i] = Character_Spec.cs[(int)CharacterName][i].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][i].m_WaitTime;
+				BulletWaitTime[i] = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[i].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[i].WaitTime;
 			}
 		}
 	}

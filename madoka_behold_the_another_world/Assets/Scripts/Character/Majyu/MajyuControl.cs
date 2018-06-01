@@ -233,7 +233,7 @@ public class MajyuControl : CharacterControlBase
 			// 射撃
 			Battleinterfacecontroller.Weapon1.Kind.text = "Shot";
 			Battleinterfacecontroller.Weapon1.NowBulletNumber = BulletNum[(int)ShotType.NORMAL_SHOT];
-			Battleinterfacecontroller.Weapon1.MaxBulletNumber = Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_OriginalBulletNum;
+			Battleinterfacecontroller.Weapon1.MaxBulletNumber = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)ShotType.NORMAL_SHOT].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)ShotType.NORMAL_SHOT].OriginalBulletNum;
 			Battleinterfacecontroller.Weapon1.UseChargeGauge = false;
 
 			// 1発でも使えれば使用可能
@@ -262,8 +262,11 @@ public class MajyuControl : CharacterControlBase
 			UpdateAnimation();
 			// リロード実行           
 			// メイン射撃
-			ReloadSystem.OneByOne(ref BulletNum[(int)ShotType.NORMAL_SHOT], Time.time, Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_OriginalBulletNum,
-				Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_reloadtime, ref MainshotEndtime);
+			ReloadSystem.OneByOne(
+				ref BulletNum[(int)ShotType.NORMAL_SHOT], Time.time,
+				ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)ShotType.NORMAL_SHOT].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)ShotType.NORMAL_SHOT].OriginalBulletNum,
+				ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)ShotType.NORMAL_SHOT].ReloadTime,
+				ref MainshotEndtime);
 		}
 	}
 
@@ -657,7 +660,7 @@ public class MajyuControl : CharacterControlBase
 		// 移動速度（上方向に垂直上昇する）
 
 		// アニメーション速度
-		animator.speed = Character_Spec.cs[(int)CharacterName][skillindex].m_Animspeed;
+		animator.speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillindex].AnimSpeed;
 
 		// アニメーションを再生する
 		animator.SetTrigger("FrontExWrestle");
@@ -675,7 +678,7 @@ public class MajyuControl : CharacterControlBase
 		AddInput = false;
 
 		// アニメーション速度
-		animator.speed = Character_Spec.cs[(int)CharacterName][skillindex].m_Animspeed;
+		animator.speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillindex].AnimSpeed;
 
 		// アニメーションを再生する
 		animator.SetTrigger("BackExWrestle");
@@ -692,7 +695,7 @@ public class MajyuControl : CharacterControlBase
 		// 追加入力フラグをカット
 		AddInput = false;
 		// 移動速度
-		float movespeed = Character_Spec.cs[(int)CharacterName][skillindex].m_Movespeed;
+		float movespeed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillindex].MoveSpeed;
 		// 移動方向
 		// ロックオン且つ本体角度が0でない時、相手の方向を移動方向とする
 		if (GetIsRockon() && this.transform.rotation.eulerAngles.y != 0)
@@ -726,7 +729,7 @@ public class MajyuControl : CharacterControlBase
 			MoveDirection = Vector3.Normalize(this.transform.rotation * Vector3.forward);
 		}
 		// アニメーション速度
-		float speed = Character_Spec.cs[(int)CharacterName][skillindex].m_Animspeed;
+		float speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillindex].AnimSpeed;
 
 		// アニメーションを再生する
 		animator.SetTrigger("EXWrestle");
@@ -910,7 +913,7 @@ public class MajyuControl : CharacterControlBase
 				BulletNum[(int)type]--;
 				// 撃ち終わった時間を設定する                
 				// メイン（弾数がMax-1のとき）
-				if (type == ShotType.NORMAL_SHOT && BulletNum[(int)type] == Character_Spec.cs[(int)CharacterName][(int)type].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)type].m_OriginalBulletNum - 1)
+				if(type == ShotType.NORMAL_SHOT && BulletNum[(int)type] == ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)type].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)type].OriginalBulletNum - 1)
 				{
 					MainshotEndtime = Time.time;
 				}
@@ -944,7 +947,7 @@ public class MajyuControl : CharacterControlBase
 		if (arrow != null)
 		{
 			// メイン弾速設定
-			arrow.ShotSpeed = Character_Spec.cs[(int)CharacterName][0].m_Movespeed;
+			arrow.ShotSpeed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[0].MoveSpeed;
 			// 矢の方向を決定する(本体と同じ方向に向けて打ち出す。ただしノーロックで本体の向きが0のときはベクトルが0になるので、このときだけはカメラの方向に飛ばす）
 			if (GetIsRockon() && RunShotDone)
 			{
@@ -1022,9 +1025,9 @@ public class MajyuControl : CharacterControlBase
 			if (type == ShotType.NORMAL_SHOT)
 			{
 				// 攻撃力を決定する
-				OffensivePowerOfBullet = Character_Spec.cs[(int)CharacterName][0].m_OriginalStr + Character_Spec.cs[(int)CharacterName][0].m_GrowthCoefficientStr * (this.StrLevel - 1);
+				OffensivePowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[0].OriginalStr + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[0].GrowthCoefficientStr * (StrLevel - 1);
 				// ダウン値を決定する
-				DownratioPowerOfBullet = Character_Spec.cs[(int)CharacterName][0].m_DownPoint;
+				DownratioPowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[0].DownPoint;
 				// 覚醒ゲージ増加量を決定する（覚醒はさせないので0)
 				ArousalRatioOfBullet = 0;
 			}

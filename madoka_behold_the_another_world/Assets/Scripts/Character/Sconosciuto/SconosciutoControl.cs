@@ -331,7 +331,7 @@ public class SconosciutoControl : CharacterControlBase
 			Battleinterfacecontroller.Weapon3.Kind.text = "Shot";
 			Battleinterfacecontroller.Weapon3.WeaponGraphic.sprite = ShotIcon;
 			Battleinterfacecontroller.Weapon3.NowBulletNumber = BulletNum[(int)ShotType.NORMAL_SHOT];
-			Battleinterfacecontroller.Weapon3.MaxBulletNumber = Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_OriginalBulletNum;
+			Battleinterfacecontroller.Weapon3.MaxBulletNumber = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)ShotType.NORMAL_SHOT].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)ShotType.NORMAL_SHOT].OriginalBulletNum;
 			Battleinterfacecontroller.Weapon3.UseChargeGauge = false;
 			// 1発でも使えれば使用可能
 			if (BulletNum[(int)ShotType.NORMAL_SHOT] > 0)
@@ -347,7 +347,7 @@ public class SconosciutoControl : CharacterControlBase
 			Battleinterfacecontroller.Weapon2.Kind.text = "Sub Shot";
 			Battleinterfacecontroller.Weapon2.WeaponGraphic.sprite = SubShotIcon;
 			Battleinterfacecontroller.Weapon2.NowBulletNumber = BulletNum[1];
-			Battleinterfacecontroller.Weapon2.MaxBulletNumber = Character_Spec.cs[(int)CharacterName][1].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][1].m_OriginalBulletNum;
+			Battleinterfacecontroller.Weapon2.MaxBulletNumber = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[1].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[1].OriginalBulletNum;
 			Battleinterfacecontroller.Weapon2.UseChargeGauge = false;
 			// 1発でも使えれば使用可能(リロード時は0になる)
 			if (BulletNum[1] != 0)
@@ -363,7 +363,7 @@ public class SconosciutoControl : CharacterControlBase
 			Battleinterfacecontroller.Weapon1.Kind.text = "EX Shot";
 			Battleinterfacecontroller.Weapon1.WeaponGraphic.sprite = ExShotIcon;
 			Battleinterfacecontroller.Weapon1.NowBulletNumber = BulletNum[2];
-			Battleinterfacecontroller.Weapon1.MaxBulletNumber = Character_Spec.cs[(int)CharacterName][2].m_GrowthCoefficientBul * (this.BulLevel - 1) + Character_Spec.cs[(int)CharacterName][2].m_OriginalBulletNum;
+			Battleinterfacecontroller.Weapon1.MaxBulletNumber = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[2].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[2].OriginalBulletNum;
 			Battleinterfacecontroller.Weapon1.UseChargeGauge = false;
 			// 1発でも使えれば使用可能
 			if (BulletNum[2] > 0)
@@ -393,14 +393,14 @@ public class SconosciutoControl : CharacterControlBase
 			UpdateAnimation();
 			// リロード実行           
 			// メイン射撃
-			ReloadSystem.OneByOne(ref BulletNum[(int)ShotType.NORMAL_SHOT], Time.time, Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_OriginalBulletNum,
-				Character_Spec.cs[(int)CharacterName][(int)ShotType.NORMAL_SHOT].m_reloadtime, ref MainshotEndtime);
+			ReloadSystem.OneByOne(ref BulletNum[(int)ShotType.NORMAL_SHOT], Time.time, ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)ShotType.NORMAL_SHOT].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)ShotType.NORMAL_SHOT].OriginalBulletNum,
+				ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)ShotType.NORMAL_SHOT].ReloadTime, ref MainshotEndtime);
 			// サブ射撃
-			ReloadSystem.AllTogether(ref BulletNum[1], Time.time, Character_Spec.cs[(int)CharacterName][1].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][1].m_OriginalBulletNum,
-				Character_Spec.cs[(int)CharacterName][1].m_reloadtime, ref SubshotEndtime);
+			ReloadSystem.AllTogether(ref BulletNum[1], Time.time, ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[1].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[1].OriginalBulletNum,
+				ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[1].ReloadTime, ref SubshotEndtime);
 			// 特殊射撃
-			ReloadSystem.OneByOne(ref BulletNum[2], Time.time, Character_Spec.cs[(int)CharacterName][2].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][2].m_OriginalBulletNum,
-				Character_Spec.cs[(int)CharacterName][2].m_reloadtime, ref ExshotEndtime);
+			ReloadSystem.OneByOne(ref BulletNum[2], Time.time, ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[2].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[2].OriginalBulletNum,
+				ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[2].ReloadTime, ref ExshotEndtime);
 		}
 	}
 
@@ -728,11 +728,12 @@ public class SconosciutoControl : CharacterControlBase
                 // 判定に値をセットする
                 // インデックス
                 int characterName = (int)Character_Spec.CHARACTER_NAME.MEMBER_SCHONO;
+				// 
                 obj.gameObject.GetComponent<Wrestle_Core>().SetStatus(
-                    Character_Spec.cs[characterName][12].m_OriginalStr + Character_Spec.cs[characterName][12].m_GrowthCoefficientStr * (StrLevel - 1),    // offensive    [in]:攻撃力
-                    Character_Spec.cs[characterName][12].m_DownPoint,                                                                                       // downR        [in]:ダウン値
-                    Character_Spec.cs[characterName][12].m_arousal,                                                                                         // arousal      [in]:覚醒ゲージ増加量
-                    Character_Spec.cs[characterName][12].m_Hittype,                                                                                          // hittype      [in]:ヒットタイプ
+                    ParameterManager.Instance.Characterskilldata.sheets[characterName].list[12].OriginalStr + ParameterManager.Instance.Characterskilldata.sheets[characterName].list[12].GrowthCoefficientStr * (StrLevel - 1),    // offensive    [in]:攻撃力
+					ParameterManager.Instance.Characterskilldata.sheets[characterName].list[12].DownPoint,                                                                    // downR        [in]:ダウン値
+					ParameterManager.Instance.Characterskilldata.sheets[characterName].list[12].Arousal,                                                                                         // arousal      [in]:覚醒ゲージ増加量
+					ParameterManager.Instance.GetHitType(characterName, 12),                                                                                          // hittype      [in]:ヒットタイプ
                     ObjectName.CharacterFileName[(int)CharacterName]
                     );
             }
@@ -824,10 +825,10 @@ public class SconosciutoControl : CharacterControlBase
 				// インデックス
 				int characterName = (int)Character_Spec.CHARACTER_NAME.MEMBER_SCHONO;
 				obj.gameObject.GetComponent<Wrestle_Core>().SetStatus(
-					Character_Spec.cs[characterName][10].m_OriginalStr + Character_Spec.cs[characterName][10].m_GrowthCoefficientStr * (StrLevel - 1),    // offensive    [in]:攻撃力
-					Character_Spec.cs[characterName][10].m_DownPoint,                                                                                       // downR        [in]:ダウン値
-					Character_Spec.cs[characterName][10].m_arousal,                                                                                        // arousal      [in]:覚醒ゲージ増加量
-					Character_Spec.cs[characterName][10].m_Hittype,                                                                                         // hittype      [in]:ヒットタイプ
+					ParameterManager.Instance.Characterskilldata.sheets[characterName].list[10].OriginalStr + ParameterManager.Instance.Characterskilldata.sheets[characterName].list[10].GrowthCoefficientStr * (StrLevel - 1),    // offensive    [in]:攻撃力
+					ParameterManager.Instance.Characterskilldata.sheets[characterName].list[10].DownPoint,                                                                                       // downR        [in]:ダウン値
+					ParameterManager.Instance.Characterskilldata.sheets[characterName].list[10].Arousal,                                                                                        // arousal      [in]:覚醒ゲージ増加量
+					ParameterManager.Instance.GetHitType(characterName,10),                                                                                         // hittype      [in]:ヒットタイプ
 					ObjectName.CharacterFileName[(int)CharacterName]
 					);
 				
@@ -970,7 +971,7 @@ public class SconosciutoControl : CharacterControlBase
 			BulletNum[0]--;
 			// 撃ち終わった時間を設定する                
 			// メイン（弾数がMax-1のとき）
-			if (BulletNum[0] == Character_Spec.cs[(int)CharacterName][0].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][0].m_OriginalBulletNum - 1)
+			if (BulletNum[0] == ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[0].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[0].OriginalBulletNum - 1)
 			{
 				MainshotEndtime = Time.time;
 			}
@@ -1004,7 +1005,7 @@ public class SconosciutoControl : CharacterControlBase
 		{
 			// 矢のスクリプトの速度を設定する
 			// メイン弾速設定
-			arrow.ShotSpeed = Character_Spec.cs[(int)CharacterName][0].m_Movespeed;			
+			arrow.ShotSpeed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[0].MoveSpeed;
 				
 			// 矢の方向を決定する(本体と同じ方向に向けて打ち出す。ただしノーロックで本体の向きが0のときはベクトルが0になるので、このときだけはカメラの方向に飛ばす）
 			if (GetIsRockon() && RunShotDone)
@@ -1080,11 +1081,11 @@ public class SconosciutoControl : CharacterControlBase
 
 			// 攻撃力を代入する
 			// 攻撃力を決定する(ここの2がスキルのインデックス。下も同様）
-			OffensivePowerOfBullet = Character_Spec.cs[(int)CharacterName][0].m_OriginalStr + Character_Spec.cs[(int)CharacterName][0].m_GrowthCoefficientStr * (this.StrLevel - 1);
+			OffensivePowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[0].OriginalStr + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[0].GrowthCoefficientStr * (StrLevel - 1);
 			// ダウン値を決定する
-			DownratioPowerOfBullet = Character_Spec.cs[(int)CharacterName][0].m_DownPoint;
+			DownratioPowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[0].DownPoint;
 			// 覚醒ゲージ増加量を決定する
-			ArousalRatioOfBullet = Character_Spec.cs[(int)CharacterName][0].m_arousal;
+			ArousalRatioOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[0].Arousal;
 
 			Shotmode = ShotMode.SHOT;
 
@@ -1164,7 +1165,7 @@ public class SconosciutoControl : CharacterControlBase
 			BulletNum[1]--;
 			// 撃ち終わった時間を設定する                
 			// メイン（弾数がMax-1のとき）
-			if (BulletNum[1] == Character_Spec.cs[(int)CharacterName][1].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][1].m_OriginalBulletNum - 1)
+			if (BulletNum[1] == ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[1].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[1].OriginalBulletNum - 1)
 			{
 				SubshotEndtime = Time.time;
 			}
@@ -1195,7 +1196,7 @@ public class SconosciutoControl : CharacterControlBase
 		if (arrow != null)
 		{
 			// 弾速設定
-			arrow.ShotSpeed = Character_Spec.cs[(int)CharacterName][1].m_Movespeed;
+			arrow.ShotSpeed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[1].MoveSpeed;
 			// ロックオンしているとき
 			if (GetIsRockon())
 			{
@@ -1245,11 +1246,11 @@ public class SconosciutoControl : CharacterControlBase
 			}
 			// 攻撃力を代入する
 			// 攻撃力を決定する(ここの2がスキルのインデックス。下も同様）
-			OffensivePowerOfBullet = Character_Spec.cs[(int)CharacterName][1].m_OriginalStr + Character_Spec.cs[(int)CharacterName][1].m_GrowthCoefficientStr * (StrLevel - 1);
+			OffensivePowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[1].OriginalStr + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[1].GrowthCoefficientStr * (StrLevel - 1);
 			// ダウン値を決定する
-			DownratioPowerOfBullet = Character_Spec.cs[(int)CharacterName][1].m_DownPoint;
+			DownratioPowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[1].DownPoint;
 			// 覚醒ゲージ増加量を決定する
-			ArousalRatioOfBullet = Character_Spec.cs[(int)CharacterName][1].m_arousal;
+			ArousalRatioOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[1].Arousal;
 
 			Shotmode = ShotMode.SHOT;
 
@@ -1301,7 +1302,7 @@ public class SconosciutoControl : CharacterControlBase
 			BulletNum[2]--;
 			// 撃ち終わった時間を設定する                
 			// メイン（弾数がMax-1のとき）
-			if (BulletNum[2] == Character_Spec.cs[(int)CharacterName][2].m_GrowthCoefficientBul * (BulLevel - 1) + Character_Spec.cs[(int)CharacterName][2].m_OriginalBulletNum - 1)
+			if (BulletNum[2] == ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[2].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[2].OriginalBulletNum - 1)
 			{
 				SubshotEndtime = Time.time;
 			}
@@ -1486,7 +1487,7 @@ public class SconosciutoControl : CharacterControlBase
         // 追加入力フラグをカット
         AddInput = false;
         // 移動速度
-        float movespeed = Character_Spec.cs[(int)CharacterName][skillindex].m_Movespeed;
+        float movespeed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillindex].MoveSpeed;
         // 移動方向
         // ロックオン且つ本体角度が0でない時、相手の方向を移動方向とする
         if (GetIsRockon() && transform.rotation.eulerAngles.y != 0)
@@ -1520,7 +1521,7 @@ public class SconosciutoControl : CharacterControlBase
             MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
         }
         // アニメーション速度
-        float speed = Character_Spec.cs[(int)CharacterName][skillindex].m_Animspeed;
+        float speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillindex].AnimSpeed;
 
         // アニメーションを再生する
         animator.SetTrigger("EXWrestle");
@@ -1543,7 +1544,7 @@ public class SconosciutoControl : CharacterControlBase
         // 移動速度（上方向に垂直上昇する）
 
         // アニメーション速度
-        animator.speed = Character_Spec.cs[(int)CharacterName][skillindex].m_Animspeed;
+        animator.speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillindex].AnimSpeed;
 
         // アニメーションを再生する
         animator.SetTrigger("FrontEXWrestle");
@@ -1616,7 +1617,7 @@ public class SconosciutoControl : CharacterControlBase
         AddInput = false;
 
         // アニメーション速度
-        animator.speed = Character_Spec.cs[(int)CharacterName][skillindex].m_Animspeed;
+        animator.speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillindex].AnimSpeed;
 
         // アニメーションを再生する
         animator.SetTrigger("BackEXWrestle");

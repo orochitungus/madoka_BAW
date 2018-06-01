@@ -11,13 +11,17 @@ public class CharacterSkill
         // 攻撃系
         // 射撃属性
         SHOT,                   // 通常射撃
+		SHOT2,					// 派生による通常射撃
         CHARGE_SHOT,            // 射撃チャージ
         SUB_SHOT,               // サブ射撃
+		SUB_SHOT2,				// 派生によるサブ射撃
         EX_SHOT,                // 特殊射撃
         // 格闘属性は一応全部3段目まで作っておく(派生技に割り振るとかでもあり)
         WRESTLE_1,              // N格1段目
         WRESTLE_2,              // N格2段目
         WRESTLE_3,              // N格3段目
+		WRESTLE_4,				// N格4段目
+		WRESTLE_5,				// N格5段目
         CHARGE_WRESTLE,         // 格闘チャージ
         FRONT_WRESTLE_1,        // 前格闘1段目
         FRONT_WRESTLE_2,        // 前格闘2段目
@@ -78,6 +82,7 @@ public class CharacterSkill
         EX_RIGHT_WRESTLE_3_M2,     // 右横特殊格闘3段目
         BACK_EX_WRESTLE_M2,        // 後特殊格闘
         AROUSAL_ATTACK,         // 覚醒技
+
         // アビリティ系
         DISABLE_BLUNT_FOOT,         // 鈍足無効
         DISABLE_ROCKON_IMPOSSIBLE,  // ロックオン不可無効
@@ -86,9 +91,11 @@ public class CharacterSkill
         DISABLE_MENTAL_CONTAMINATION,// 精神汚染無効
         DISABLE_HALLUCINATION,      // 幻覚無効
         DISABLE_MENTALS,            // 精神系ST異常無効
-        // なし(派生がないとき用）
-        NONE
-    };
+
+		AROUSAL_EX_WRESTLE,			// 覚醒時特殊格闘
+		// なし(派生がないとき用）
+		NONE
+	};
 
     // ヒット効果
     public enum HitType
@@ -99,7 +106,16 @@ public class CharacterSkill
         RECOVERY,               // 回復
         RESUSCITATION,          // 蘇生込回復
         CURE,                   // ST異常含め回復
-    };
+		WEAPON_ZERO,			// 武装ゼロ
+		ADD_ARMOR,				// アーマー付加
+		TIME_STOP,				// 時間停止
+		TIME_DELAY,				// 時間遅延
+		RELOAD,					// マニュアルリロード
+		RESTRAINT,				// 拘束
+		MODE_CHANGE,			// モードチェンジ
+		AVATAR,					// 分身生成
+		BOOST_WATCH				// ブーストゲージ看破
+	};
 
     // リロードタイプ（射撃属性のみ）
     public enum ReloadType

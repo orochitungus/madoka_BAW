@@ -42,7 +42,7 @@ public class Laser2 : MonoBehaviour
     // 接触したゲームオブジェクト
     private GameObject m_HitTarget;
 
-    // ヒットタイプ(ダメージの種類.インスペクターで設定すること）
+    // ヒットタイプ(ダメージの種類）
     public CharacterSkill.HitType m_Hittype;
 
     // 被弾時にダウン値を超えた時の吹き飛び方向

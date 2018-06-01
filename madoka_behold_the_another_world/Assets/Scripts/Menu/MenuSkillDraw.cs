@@ -192,26 +192,29 @@ public class MenuSkillDraw : MonoBehaviour
 		NowPage = 0;
 
 		// 最大ページ数を定義(ラストページはファイナルマジックにする）
-		MaxPage = Character_Spec.cs[selectedCharacter].Length / SKILLSHOWNUMBER + 2;
+		MaxPage = ParameterManager.Instance.Characterskilldata.sheets[selectedCharacter].list.Count / SKILLSHOWNUMBER + 2;
 
 		// スキルを表示する
 		// ファイナルマジック除き15個以下
-		if (Character_Spec.cs[selectedCharacter].Length <= SKILLSHOWNUMBER)
+		if (ParameterManager.Instance.Characterskilldata.sheets[selectedCharacter].list.Count <= SKILLSHOWNUMBER)
 		{
-			for (int i = 0; i < Character_Spec.cs[selectedCharacter].Length; i++)
+			for (int i = 0; i < ParameterManager.Instance.Characterskilldata.sheets[selectedCharacter].list.Count; i++)
 			{
 				// スキル名
-				SkillName.text += Character_Spec.cs[selectedCharacter][i].m_SkillName + "\n";
+				SkillName.text += ParameterManager.Instance.Characterskilldata.sheets[selectedCharacter].list[i].SkillName + "\n";
 				// コマンド
 				// N格闘2段目/3段目
-				if(Character_Spec.cs[selectedCharacter][i].m_Skilltype == CharacterSkill.SkillType.WRESTLE_2 || Character_Spec.cs[selectedCharacter][i].m_Skilltype == CharacterSkill.SkillType.WRESTLE_3)
+				if(ParameterManager.Instance.Characterskilldata.sheets[selectedCharacter].list[i].SkillType == "WRESTLE_2" ||
+					ParameterManager.Instance.Characterskilldata.sheets[selectedCharacter].list[i].SkillType == "WRESTLE_3" ||
+					ParameterManager.Instance.Characterskilldata.sheets[selectedCharacter].list[i].SkillType == "WRESTLE_4" ||
+					ParameterManager.Instance.Characterskilldata.sheets[selectedCharacter].list[i].SkillType == "WRESTLE_5")
 				{
-					CommandDraw(Character_Spec.cs[selectedCharacter][i].m_Skilltype, "", Character_Spec.cs[selectedCharacter][i-1].m_SkillName);
+					CommandDraw(ParameterManager.Instance.Characterskilldata.sheets[selectedCharacter].list[i].SkillType, "", ParameterManager.Instance.Characterskilldata.sheets[selectedCharacter].list[i - 1].SkillType);
 				}
 				// それ以外
 				else
 				{
-					CommandDraw(Character_Spec.cs[selectedCharacter][i].m_Skilltype);
+					CommandDraw(ParameterManager.Instance.Characterskilldata.sheets[selectedCharacter].list[i].SkillType);
 				}
 			}
 		}
@@ -222,17 +225,20 @@ public class MenuSkillDraw : MonoBehaviour
 			for (int i = 0; i < SKILLSHOWNUMBER; i++)
 			{
 				// スキル名
-				SkillName.text += Character_Spec.cs[selectedCharacter][i].m_SkillName + "\n";
+				SkillName.text += ParameterManager.Instance.Characterskilldata.sheets[selectedCharacter].list[i].SkillName + "\n";
 				// コマンド
 				// N格闘2段目/3段目
-				if (Character_Spec.cs[selectedCharacter][i].m_Skilltype == CharacterSkill.SkillType.WRESTLE_2 || Character_Spec.cs[selectedCharacter][i].m_Skilltype == CharacterSkill.SkillType.WRESTLE_3)
+				if (ParameterManager.Instance.Characterskilldata.sheets[selectedCharacter].list[i].SkillType == "WRESTLE_2" ||
+					ParameterManager.Instance.Characterskilldata.sheets[selectedCharacter].list[i].SkillType == "WRESTLE_3" ||
+					ParameterManager.Instance.Characterskilldata.sheets[selectedCharacter].list[i].SkillType == "WRESTLE_4" ||
+					ParameterManager.Instance.Characterskilldata.sheets[selectedCharacter].list[i].SkillType == "WRESTLE_5")
 				{
-					CommandDraw(Character_Spec.cs[selectedCharacter][i].m_Skilltype, "", Character_Spec.cs[selectedCharacter][i - 1].m_SkillName);
+					CommandDraw(ParameterManager.Instance.Characterskilldata.sheets[selectedCharacter].list[i].SkillType, "", ParameterManager.Instance.Characterskilldata.sheets[selectedCharacter].list[i - 1].SkillType);
 				}
 				// それ以外
 				else
 				{
-					CommandDraw(Character_Spec.cs[selectedCharacter][i].m_Skilltype);
+					CommandDraw(ParameterManager.Instance.Characterskilldata.sheets[selectedCharacter].list[i].SkillType);
 				}
 			}
 		}
@@ -245,92 +251,98 @@ public class MenuSkillDraw : MonoBehaviour
 	/// <param name="skillType"></param>
 	/// <param name="modeName">モードチェンジがあるキャラの場合、モードの名前</param>
 	/// <param name="baseCommand">派生技の場合、元の技</param>
-	public void CommandDraw(CharacterSkill.SkillType skillType, string modeName = "", string baseCommand = "")
+	public void CommandDraw(string skillType, string modeName = "", string baseCommand = "")
 	{
 		switch (skillType)
 		{
-			case CharacterSkill.SkillType.SHOT:
+			case "SHOT":
 				SkillCommand.text += "射撃" + "\n";
 				break;
-			case CharacterSkill.SkillType.SHOT_M2:
+			case "SHOT_M2":
 				SkillCommand.text += modeName + "中に射撃" + "\n";
 				break;
-			case CharacterSkill.SkillType.SUB_SHOT:
+			case "SUB_SHOT":
 				SkillCommand.text += "サブ射撃(射撃+格闘)" + "\n";
 				break;
-			case CharacterSkill.SkillType.SUB_SHOT_M2:
+			case "SUB_SHOT_M2":
 				SkillCommand.text += modeName + "中にサブ射撃(射撃+格闘)" + "\n";
 				break;
-			case CharacterSkill.SkillType.EX_SHOT:
+			case "EX_SHOT":
 				SkillCommand.text += "特殊射撃(射撃+ジャンプ)" + "\n";
 				break;
-			case CharacterSkill.SkillType.EX_SHOT_M2:
+			case "EX_SHOT_M2":
 				SkillCommand.text += modeName + "中に特殊射撃(射撃+ジャンプ)" + "\n";
 				break;
-			case CharacterSkill.SkillType.WRESTLE_1:
+			case "WRESTLE_1":
 				SkillCommand.text += "格闘" + "\n";
 				break;
-			case CharacterSkill.SkillType.WRESTLE_1_M2:
+			case "WRESTLE_1_M2":
 				SkillCommand.text += modeName + "中に格闘" + "\n";
 				break;
-			case CharacterSkill.SkillType.WRESTLE_2:
+			case "WRESTLE_2":
 				SkillCommand.text += baseCommand + "中に格闘" + "\n";
 				break;
-			case CharacterSkill.SkillType.WRESTLE_2_M2:
+			case "WRESTLE_2_M2":
 				SkillCommand.text += baseCommand + "中に格闘" + "\n";
 				break;
-			case CharacterSkill.SkillType.WRESTLE_3:
+			case "WRESTLE_3":
 				SkillCommand.text += baseCommand + "中に格闘" + "\n";
 				break;
-			case CharacterSkill.SkillType.WRESTLE_3_M2:
+			case "WRESTLE_3_M2":
 				SkillCommand.text += baseCommand + "中に格闘" + "\n";
 				break;
-			case CharacterSkill.SkillType.FRONT_WRESTLE_1:
+			case "WRESTLE_4":
+				SkillCommand.text += baseCommand + "中に格闘" + "\n";
+				break;
+			case "WRESTLE_5":
+				SkillCommand.text += baseCommand + "中に格闘" + "\n";
+				break;
+			case "FRONT_WRESTLE_1":
 				SkillCommand.text += "↑+格闘" + "\n";
 				break;
-			case CharacterSkill.SkillType.FRONT_WRESTLE_1_M2:
+			case "FRONT_WRESTLE_1_M2":
 				SkillCommand.text += modeName + "中に↑+格闘" + "\n";
 				break;
-			case CharacterSkill.SkillType.LEFT_WRESTLE_1:
+			case "LEFT_WRESTLE_1":
 				SkillCommand.text += "←+格闘" + "\n";
 				break;
-			case CharacterSkill.SkillType.LEFT_WRESTLE_1_M2:
+			case "LEFT_WRESTLE_1_M2":
 				SkillCommand.text += modeName + "中に←+格闘" + "\n";
 				break;
-			case CharacterSkill.SkillType.RIGHT_WRESTLE_1:
+			case "RIGHT_WRESTLE_1":
 				SkillCommand.text += "→+格闘" + "\n";
 				break;
-			case CharacterSkill.SkillType.RIGHT_WRESTLE_1_M2:
+			case "RIGHT_WRESTLE_1_M2":
 				SkillCommand.text += modeName + "中に→+格闘" + "\n";
 				break;
-			case CharacterSkill.SkillType.BACK_WRESTLE:
+			case "BACK_WRESTLE":
 				SkillCommand.text += "↓+格闘" + "\n";
 				break;
-			case CharacterSkill.SkillType.BACK_WRESTLE_M2:
+			case "BACK_WRESTLE_M2":
 				SkillCommand.text += modeName + "中に↓+格闘" + "\n";
 				break;
-			case CharacterSkill.SkillType.EX_WRESTLE_1:
+			case "EX_WRESTLE_1":
 				SkillCommand.text += "格闘+ジャンプ" + "\n";
 				break;
-			case CharacterSkill.SkillType.EX_WRESTLE_1_M2:
+			case "EX_WRESTLE_1_M2":
 				SkillCommand.text += modeName + "中に格闘＋ジャンプ" + "\n";
 				break;
-			case CharacterSkill.SkillType.EX_FRONT_WRESTLE_1:
+			case "EX_FRONT_WRESTLE_1":
 				SkillCommand.text += "↑+格闘+ジャンプ" + "\n";
 				break;
-			case CharacterSkill.SkillType.EX_FRONT_WRESTLE_1_M2:
+			case "EX_FRONT_WRESTLE_1_M2":
 				SkillCommand.text += modeName + "中に↑+格闘+ジャンプ" + "\n";
 				break;
-			case CharacterSkill.SkillType.BACK_EX_WRESTLE:
+			case "BACK_EX_WRESTLE":
 				SkillCommand.text += "空中で↓+格闘+ジャンプ" + "\n";
 				break;
-			case CharacterSkill.SkillType.AIRDASH_WRESTLE:
+			case "AIRDASH_WRESTLE":
 				SkillCommand.text += "空中ダッシュ中に格闘" + "\n";
 				break;
-			case CharacterSkill.SkillType.CHARGE_SHOT:
+			case "CHARGE_SHOT":
 				SkillCommand.text += "射撃長押しして離す" + "\n";
 				break;
-			case CharacterSkill.SkillType.CHARGE_WRESTLE:
+			case "CHARGE_WRESTLE":
 				SkillCommand.text += "格闘長押しして離す" + "\n";
 				break;
 		}
@@ -348,22 +360,23 @@ public class MenuSkillDraw : MonoBehaviour
 		// 開始位置
 		int start = nowpage * SKILLSHOWNUMBER;
 		// 終了位置
-		int end = Character_Spec.cs[selectedCharacter].Length - start;
+		int end = ParameterManager.Instance.Characterskilldata.sheets[selectedCharacter].list.Count - start;
 		
 		for(int i=start; i<end; i++)
 		{
 			// スキル名
-			SkillName.text += Character_Spec.cs[selectedCharacter][i].m_SkillName + "\n";
+			SkillName.text += ParameterManager.Instance.Characterskilldata.sheets[selectedCharacter].list[i].SkillName + "\n";
 			// コマンド
 			// N格闘2段目/3段目
-			if (Character_Spec.cs[selectedCharacter][i].m_Skilltype == CharacterSkill.SkillType.WRESTLE_2 || Character_Spec.cs[selectedCharacter][i].m_Skilltype == CharacterSkill.SkillType.WRESTLE_3)
+			if(ParameterManager.Instance.Characterskilldata.sheets[selectedCharacter].list[i].SkillType == "WRESTLE_2" ||
+				ParameterManager.Instance.Characterskilldata.sheets[selectedCharacter].list[i].SkillType == "WRESTLE_3")
 			{
-				CommandDraw(Character_Spec.cs[selectedCharacter][i].m_Skilltype, "", Character_Spec.cs[selectedCharacter][i - 1].m_SkillName);
+				CommandDraw(ParameterManager.Instance.Characterskilldata.sheets[selectedCharacter].list[i].SkillType, "", ParameterManager.Instance.Characterskilldata.sheets[selectedCharacter].list[i-1].SkillName);
 			}
 			// それ以外
 			else
 			{
-				CommandDraw(Character_Spec.cs[selectedCharacter][i].m_Skilltype);
+				CommandDraw(ParameterManager.Instance.Characterskilldata.sheets[selectedCharacter].list[i].SkillType);
 			}
 		}
 

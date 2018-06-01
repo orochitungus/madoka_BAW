@@ -25,8 +25,8 @@ public class Scono_SubShot : Bullet
         Physics.IgnoreCollision(this.transform.GetComponent<Collider>(), InjectionObject.transform.GetComponent<Collider>());
         // 撃ったキャラが誰であるか保持
         InjectionCharacterIndex = (int)Character_Spec.CHARACTER_NAME.MEMBER_SCHONO;
-        // 被弾時の挙動を設定
-        Hittype = Character_Spec.cs[InjectionCharacterIndex][1].m_Hittype;
+		// 被弾時の挙動を設定
+		Hittype = ParameterManager.Instance.GetHitType(InjectionCharacterIndex, 1);
 	}
 	
 	// Update is called once per frame
