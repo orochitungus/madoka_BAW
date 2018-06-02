@@ -17,6 +17,10 @@ public class PlayerBG : MonoBehaviour
 	public Image BustupOriko;
 	public Image BustupUltiMadoka;
 	public Image BustupScono;
+	public Image BustupDevilHomura;
+	public Image BustupSayakaGodsibb;
+	public Image BustupNagisa;
+	public Image BustupMichel;
 
 	// Use this for initialization
 	void Start () 
@@ -71,6 +75,18 @@ public class PlayerBG : MonoBehaviour
 			case BustupSelect.ULTIMADOKA:
 				BustupUltiMadoka.gameObject.SetActive(true);
 				break;
+			case BustupSelect.DEVILHOMURA:
+				BustupDevilHomura.gameObject.SetActive(true);
+				break;
+			case BustupSelect.SAYAKA_GODSIBB:
+				BustupSayakaGodsibb.gameObject.SetActive(true);
+				break;
+			case BustupSelect.NAGISA:
+				BustupNagisa.gameObject.SetActive(true);
+				break;
+			case BustupSelect.MICHEL:
+				BustupMichel.gameObject.SetActive(true);
+				break;
 		}
 	}
 }
@@ -88,5 +104,9 @@ public enum BustupSelect
 	KIRIKA,
 	ORIKO,
 	ULTIMADOKA,
-	SCONO
+	SCONO,
+	DEVILHOMURA,
+	SAYAKA_GODSIBB,
+	NAGISA,
+	MICHEL
 }
