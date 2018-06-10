@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: bc52241816b821f43b75ae160bb13e35
 ModelImporter:
-  serializedVersion: 19
+  serializedVersion: 22
   fileIDToRecycleName:
     100000: body
     100002: Mesh
@@ -138,26 +138,124 @@ ModelImporter:
     7400018: title
     11100000: //RootNode
     13700000: body
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: black
+    second: {fileID: 2100000, guid: fc56d7a7f2870334eb6105f13be7f6c7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: face_sayaka
+    second: {fileID: 2100000, guid: bc453619b524b2a4c85faeec049007e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sayaka_backhair
+    second: {fileID: 2100000, guid: be61547dea28faa4eb487b49d8388fc0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sayaka_chalker
+    second: {fileID: 2100000, guid: bbc5e1642f4057440a215f52bc70cc98, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sayaka_fronthair
+    second: {fileID: 2100000, guid: be61547dea28faa4eb487b49d8388fc0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sayaka_hair
+    second: {fileID: 2100000, guid: d6fce4824162c454bb9df0f684528dd5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sayaka_momiage
+    second: {fileID: 2100000, guid: be61547dea28faa4eb487b49d8388fc0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sayaka_rega
+    second: {fileID: 2100000, guid: 372113566fed96c4595d81d1c76d2e00, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sayaka_shoes1
+    second: {fileID: 2100000, guid: 8767c3a202e9b5c45b3b643e8f7499ae, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sayaka_shoes2
+    second: {fileID: 2100000, guid: 276169267fef5db40b15a72ae67fc402, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sayaka_skirt
+    second: {fileID: 2100000, guid: d8ac709a894c1704f996c76479ac16ec, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sayaka_wear_blue
+    second: {fileID: 2100000, guid: c8f2f9e06415e7843ae890953ab40e54, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sayaka_wear_front
+    second: {fileID: 2100000, guid: c6bb1f80a112e6b418eeba98fbb32e5e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sayaka_wear_rear
+    second: {fileID: 2100000, guid: 2afac975d7a815e4b83bc89422cad211, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sayaka_wear_under
+    second: {fileID: 2100000, guid: cab4294d0edca0845a5aec153917858b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sayaka_wear_white
+    second: {fileID: 2100000, guid: 07ffe333db5d82e4f9274511d50bdd20, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: skin_sayaka
+    second: {fileID: 2100000, guid: 0c28fb7867f7f674b84aa6298a95793f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: soulgem
+    second: {fileID: 2100000, guid: c0ae949571776234d9d87459a482f56f, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleRotations: 1
+    resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
       name: idle
@@ -389,13 +487,18 @@ ModelImporter:
     globalScale: 0.01
     meshCompression: 0
     addColliders: 0
+    importVisibility: 0
     importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
@@ -405,9 +508,11 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 4
+    normalCalculationMode: 0
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
+    serializedVersion: 2
     human: []
     skeleton: []
     armTwist: 0.5
@@ -418,7 +523,10 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 1
   humanoidOversampling: 1

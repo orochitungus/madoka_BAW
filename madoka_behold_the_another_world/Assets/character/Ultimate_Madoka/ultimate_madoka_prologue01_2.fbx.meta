@@ -1,9 +1,7 @@
 fileFormatVersion: 2
 guid: d3d7bef1b4517e648bca3c2db590f382
-timeCreated: 1512286911
-licenseType: Free
 ModelImporter:
-  serializedVersion: 21
+  serializedVersion: 22
   fileIDToRecycleName:
     100000: arm_L_
     100002: arm_R_
@@ -187,10 +185,73 @@ ModelImporter:
     13700008: skirt
     13700010: tail
     13700012: wing
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: body_back
+    second: {fileID: 2100000, guid: a6fbd19c12290cf4eb560bb723aadeb4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: body_front
+    second: {fileID: 2100000, guid: 4628776aefe03e54d930b26635b23bba, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: eye0
+    second: {fileID: 2100000, guid: f91d8cfae98f8744185c20ed70306af2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: eye1
+    second: {fileID: 2100000, guid: 642e6c480f3a96c4eb44cc246939c4f4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: faceUV
+    second: {fileID: 2100000, guid: 3c95a1d52be6e434abc7e3e34d90a6ef, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hair
+    second: {fileID: 2100000, guid: b39e567eb643f544390b2bfb4087d010, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pink
+    second: {fileID: 2100000, guid: 6530323576b282a41aaf32b575a8e544, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: skin
+    second: {fileID: 2100000, guid: 7482de969379e73439dda7bf68f498ce, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: skirtparts
+    second: {fileID: 2100000, guid: f5a590c7d768e93448a234248fbbad13, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: universe
+    second: {fileID: 2100000, guid: b2b8541a98128344e803675937e45509, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: white
+    second: {fileID: 2100000, guid: c58f392f1d987434295c91f2d2414c76, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wing
+    second: {fileID: 2100000, guid: e56eb63418071a842a2b75a5191d05e8, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -203,6 +264,8 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -227,6 +290,8 @@ ModelImporter:
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88

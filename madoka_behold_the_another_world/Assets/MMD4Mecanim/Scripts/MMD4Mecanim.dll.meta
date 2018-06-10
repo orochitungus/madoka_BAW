@@ -1,7 +1,5 @@
 fileFormatVersion: 2
 guid: 237a2ace0fe23084c9cdd0d1311ed775
-timeCreated: 1467888323
-licenseType: Pro
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -56,6 +54,12 @@ PluginImporter:
         CPU: AnyCPU
   - first:
       '': WP8
+    second:
+      enabled: 0
+      settings:
+        CPU: AnyCPU
+  - first:
+      '': WiiU
     second:
       enabled: 0
       settings:

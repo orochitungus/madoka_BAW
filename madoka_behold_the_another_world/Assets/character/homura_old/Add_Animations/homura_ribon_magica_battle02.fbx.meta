@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: f27d0e8d1e444ef46b956c1742f69c28
 ModelImporter:
-  serializedVersion: 21
+  serializedVersion: 22
   fileIDToRecycleName:
     100000: arm_L_
     100002: arm_R_
@@ -159,10 +159,58 @@ ModelImporter:
     13700000: body
     13700002: homura_bow
     13700004: homura_bowstring
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: all_homura_final
+    second: {fileID: 2100000, guid: 8871d528e33a5c0419f2d234e6be8b15, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: black
+    second: {fileID: 2100000, guid: 22d3b922cbee21f40a733c58ea97393d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bow1
+    second: {fileID: 2100000, guid: 26ff79a371f0e1a408850215cb5844ae, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bow2
+    second: {fileID: 2100000, guid: ae2edca579241f444bc3fcf0fd56b3e8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bowstring
+    second: {fileID: 2100000, guid: 0ba8810190a6986449192999429f3f0c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: face_homura
+    second: {fileID: 2100000, guid: 33dbea0ee466acd469963a2a10ccc7cb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hair_homura
+    second: {fileID: 2100000, guid: 9057a5adfdb70ac4eb72df45035f668e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ribon_final
+    second: {fileID: 2100000, guid: c2d4159b3a780ca49ae262bfd1e38406, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: white
+    second: {fileID: 2100000, guid: 9c48c1ad116bdc74197651ddbe7556c6, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -175,6 +223,8 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -199,6 +249,8 @@ ModelImporter:
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88

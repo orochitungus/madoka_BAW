@@ -58,6 +58,12 @@ PluginImporter:
       settings:
         CPU: AnyCPU
   - first:
+      '': WiiU
+    second:
+      enabled: 1
+      settings:
+        CPU: AnyCPU
+  - first:
       '': Xbox360
     second:
       enabled: 1

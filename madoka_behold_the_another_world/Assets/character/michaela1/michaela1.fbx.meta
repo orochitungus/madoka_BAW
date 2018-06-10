@@ -1,7 +1,5 @@
 fileFormatVersion: 2
 guid: 1e3d673380b038341b606054cc986aef
-timeCreated: 1521040713
-licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -39,6 +37,7 @@ ModelImporter:
     7400002: michaela1_chant
     9500000: //RootNode
     13700000: body
+    2186277476908879412: ImportLogs
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -58,6 +57,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5

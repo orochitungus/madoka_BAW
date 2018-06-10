@@ -3695,14 +3695,14 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     protected virtual void DestroyArrow()
     {
-		// 弾があるなら消す(MainShotRootの下に何かあるなら全部消す）
-		// メイン射撃など
-		int ChildCount = MainShotRoot.transform.childCount;
-        for (int i = 0; i < ChildCount; i++)
-        {
-            Transform child = MainShotRoot.transform.GetChild(i);
-            Destroy(child.gameObject);
-        }
+		//// 弾があるなら消す(MainShotRootの下に何かあるなら全部消す）
+		//// メイン射撃など
+		//int ChildCount = MainShotRoot.transform.childCount;
+  //      for (int i = 0; i < ChildCount; i++)
+  //      {
+  //          Transform child = MainShotRoot.transform.GetChild(i);
+  //          Destroy(child.gameObject);
+  //      }
 	}
 
     /// <summary>

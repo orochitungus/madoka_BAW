@@ -1,9 +1,7 @@
 fileFormatVersion: 2
 guid: 3d8aa1c78976f664fbb29f4a40551ca1
-timeCreated: 1511625808
-licenseType: Free
 ModelImporter:
-  serializedVersion: 21
+  serializedVersion: 22
   fileIDToRecycleName:
     100000: evhall
     100002: fence
@@ -60,10 +58,73 @@ ModelImporter:
     4300016: fence_MeshPart2
     4300018: fence_MeshPart3
     9500000: //RootNode
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: coucrete
+    second: {fileID: 2100000, guid: c9a855926930f2145b56355081fa8682, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: evpanel
+    second: {fileID: 2100000, guid: 6e49cab46810774458bb44749a4264cc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor_ev
+    second: {fileID: 2100000, guid: f7e29c2550e7805458e1d79770eff510, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: flowerbed
+    second: {fileID: 2100000, guid: 325ebb6f660435841ba5f3b1cefe44e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: heliport
+    second: {fileID: 2100000, guid: 8c6763ba02c57d6418a6ebaf16580a64, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: outerwall1_1
+    second: {fileID: 2100000, guid: 31a400b1e7f648a4d83f1f1025594db8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rooftop
+    second: {fileID: 2100000, guid: 662c038e2b2318d429e880f780d3546b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: seat_black
+    second: {fileID: 2100000, guid: 55e7ad4881d4e9c45b093dc604aec737, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wall1
+    second: {fileID: 2100000, guid: 176f7da88ed5f3f4da5fdacd493ace63, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wall2
+    second: {fileID: 2100000, guid: af30130f5870c1d4397c96369cf117d3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wall3
+    second: {fileID: 2100000, guid: 29409a7b9fc046e43a19866a11d8d521, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wall_ev
+    second: {fileID: 2100000, guid: 59033a14af074f548af3280a300bef39, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -76,6 +137,8 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -100,6 +163,8 @@ ModelImporter:
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88

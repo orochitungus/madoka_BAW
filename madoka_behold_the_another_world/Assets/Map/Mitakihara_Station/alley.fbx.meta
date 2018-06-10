@@ -1,9 +1,7 @@
 fileFormatVersion: 2
 guid: b8ce1cc5f07139f4081fc9fa4cf40b2a
-timeCreated: 1517109299
-licenseType: Free
 ModelImporter:
-  serializedVersion: 21
+  serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
     100002: Ground
@@ -34,10 +32,123 @@ ModelImporter:
     4300004: wall_MeshPart2
     4300006: Ground
     4300008: step
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BRIS
+    second: {fileID: 2100000, guid: 74a4645fd938937468a6248b9d11d87f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Black
+    second: {fileID: 2100000, guid: 2b8cb70b0b8e6cc438aae1a6a450d58a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: airduct
+    second: {fileID: 2100000, guid: 25b96f5020a9d5b4895e7b61c7898299, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: alley1
+    second: {fileID: 2100000, guid: f56aeaf09cbb5234e87d2fdcdf740dca, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: alley2
+    second: {fileID: 2100000, guid: 4fdd82b45e6ea6c49bf7c3cd084f3366, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: asphalt
+    second: {fileID: 2100000, guid: 98bb50f9507ca454d83d84d082d94532, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bill2_2
+    second: {fileID: 2100000, guid: 87410ebb45911944caf45e3ff5fb5e68, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bill4_1
+    second: {fileID: 2100000, guid: 9f068777250893f4d9484e681d104e1f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bill4_2
+    second: {fileID: 2100000, guid: fffdf458b4d697e44be4ca52b326e941, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bill6
+    second: {fileID: 2100000, guid: e84cb64ff3d59db4cb6b7da1189ece0b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ceiling
+    second: {fileID: 2100000, guid: 0f2bfd9c3c0b50e4ab685abfa503abde, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor
+    second: {fileID: 2100000, guid: 0f2bfd9c3c0b50e4ab685abfa503abde, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ground
+    second: {fileID: 2100000, guid: 22c1d8f689ac03f40884daf4ebc031a5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: step1
+    second: {fileID: 2100000, guid: e9cb8849c1c4870428ce41f746d45026, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: streetlight
+    second: {fileID: 2100000, guid: db4c2988bf94c2549a80f02f0852b753, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wall1
+    second: {fileID: 2100000, guid: 9bf9bf49ebc7bd24e81e0ea8bce39e42, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wall2
+    second: {fileID: 2100000, guid: 31db740538e60bf458957cfe4066c319, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wall3
+    second: {fileID: 2100000, guid: 9bf9bf49ebc7bd24e81e0ea8bce39e42, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wall4
+    second: {fileID: 2100000, guid: 31db740538e60bf458957cfe4066c319, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wall5
+    second: {fileID: 2100000, guid: 31db740538e60bf458957cfe4066c319, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wall6
+    second: {fileID: 2100000, guid: 9bf9bf49ebc7bd24e81e0ea8bce39e42, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: window1
+    second: {fileID: 2100000, guid: a5bdb4ddbc350f34a80935650780524f, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -50,6 +161,8 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -74,6 +187,8 @@ ModelImporter:
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88

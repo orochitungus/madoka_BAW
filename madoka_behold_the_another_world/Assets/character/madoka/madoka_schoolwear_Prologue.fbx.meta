@@ -1,9 +1,7 @@
 fileFormatVersion: 2
 guid: 0e1218813268e53428d55c944e82db15
-timeCreated: 1512476591
-licenseType: Free
 ModelImporter:
-  serializedVersion: 21
+  serializedVersion: 22
   fileIDToRecycleName:
     100000: arm_L_
     100002: arm_R_
@@ -150,10 +148,103 @@ ModelImporter:
     13700000: body
     13700002: skirt
     13700004: tail
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blouse1
+    second: {fileID: 2100000, guid: 59091384376754940844c2a4c055c871, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blouse2
+    second: {fileID: 2100000, guid: 80d255e3d809ab541a33ff88e5032d70, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blouse3
+    second: {fileID: 2100000, guid: 655f36d0d86fa9e438482444197b7864, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blouse4
+    second: {fileID: 2100000, guid: 5842854bcdb2b564995b5a9c8b9a3800, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: collar
+    second: {fileID: 2100000, guid: d9f89c3527d97464f998d65cfe640089, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: eye0
+    second: {fileID: 2100000, guid: 58c4be82106b2564d9e15dd29a66fb9b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: eye1
+    second: {fileID: 2100000, guid: 4f7b5db74a26a2c4194248a32a43583d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: faceUV
+    second: {fileID: 2100000, guid: 218f4d9198cfc5a4faf6845fb13048b0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hair
+    second: {fileID: 2100000, guid: d4ec2827f67232e4aa5e0568fa86636e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: jacket1
+    second: {fileID: 2100000, guid: 20c42b8d9ef2d5d4ba0b74a386a9fb37, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: jacket2
+    second: {fileID: 2100000, guid: 2d2c164eb2559294fb3b14c8c2cbf469, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: jacket3
+    second: {fileID: 2100000, guid: 96df1fad1389f8d488f2ac10201c7225, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: jacket4
+    second: {fileID: 2100000, guid: 3910218f94a007246b7942117633f8f4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ribon
+    second: {fileID: 2100000, guid: 2a3f7ddbb54486a479b48f09c1bc631b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: shoes
+    second: {fileID: 2100000, guid: 895d41cacc114894e909e913225058dc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: skin
+    second: {fileID: 2100000, guid: 4bee9b3fede85164c8de7bf5d497f9ab, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: skirt
+    second: {fileID: 2100000, guid: 921a9d5f1451f394a97d5cad8e3fbd1a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: underwear
+    second: {fileID: 2100000, guid: b96c1f1ac78c75845b63605c4444d013, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -166,6 +257,8 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -414,6 +507,8 @@ ModelImporter:
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88

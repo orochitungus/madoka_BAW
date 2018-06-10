@@ -24,6 +24,11 @@ public class HomuraGunControl : CharacterControlBase
 	/// 前格闘撃ち終わり時間
 	/// </summary>
 	private float FrontWrestleEndTime;
+
+	/// <summary>
+	/// 特殊射撃撃ち終わり時間
+	/// </summary>
+	private float ExShotEndtime;
 	
 	/// <summary>
 	/// 戦闘用インターフェース
@@ -49,6 +54,10 @@ public class HomuraGunControl : CharacterControlBase
 	/// 前格闘のアイコン
 	/// </summary>
 	public Sprite FrontWrestleIcon;
+
+
+
+
 
 	/// <summary>
 	/// パラメーター読み取り用のインデックス
@@ -379,7 +388,33 @@ public class HomuraGunControl : CharacterControlBase
 	// Update is called once per frame
 	void Update () 
 	{
-		
+		// 共通アップデート処理(時間停止系の状態になると入力は禁止)
+		bool isspindown = false;
+		if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == SpinDownID)
+		{
+			isspindown = true;
+		}
+		if (Update_Core(isspindown, AnimatorUnit, DownID, AirDashID, AirShotID, JumpingID, FallID, IdleID, BlowID, RunID, FrontStepID, LeftStepID, RightStepID, BackStepID, DamageID))
+		{
+			UpdateAnimation();
+			// リロード実行           
+			// メイン射撃
+			ReloadSystem.OneByOne(ref BulletNum[(int)ShotType.NORMAL_SHOT], Time.time,
+				ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)ShotType.NORMAL_SHOT].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)ShotType.NORMAL_SHOT].OriginalBulletNum,
+				ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)ShotType.NORMAL_SHOT].ReloadTime, ref MainshotEndtime);
+			// サブ射撃
+			ReloadSystem.AllTogether(ref BulletNum[2], Time.time,
+				ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[2].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[2].OriginalBulletNum,
+				ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[2].ReloadTime, ref SubshotEndtime);
+			// 特殊射撃
+			ReloadSystem.AllTogether(ref BulletNum[6], Time.time,
+				ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[6].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[6].OriginalBulletNum,
+				ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[6].ReloadTime, ref ExShotEndtime);
+			// 前格闘
+			ReloadSystem.AllTogether(ref BulletNum[15], Time.time,
+				ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[15].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[15].OriginalBulletNum,
+				ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[15].ReloadTime, ref ExShotEndtime);
+		}
 	}
 
 	void LateUpdate()
@@ -389,6 +424,532 @@ public class HomuraGunControl : CharacterControlBase
 
 	void UpdateAnimation()
 	{
+		ShowAirDashEffect = false;
+		// 通常
+		if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == IdleID)
+		{
+			Animation_Idle(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == WalkID)
+		{
+			Animation_Walk(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == JumpID)
+		{
+			Animation_Jump(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == JumpingID)
+		{
+			Animation_Jumping(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FallID)
+		{
+			Animation_Fall(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LandingID)
+		{
+			Animation_Landing(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RunID)
+		{
+			Animation_Run(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == AirDashID)
+		{
+			ShowAirDashEffect = true;
+			Animation_AirDash(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontStepID)
+		{
+			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LeftStepID)
+		{
+			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RightStepID)
+		{
+			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BackStepID)
+		{
+			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontStepBackID)
+		{
+			Animation_StepBack(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LeftStepBackID)
+		{
+			Animation_StepBack(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RightStepBackID)
+		{
+			Animation_StepBack(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetAnimatorTransitionInfo(0).fullPathHash == BackStepBackID)
+		{
+			Animation_StepBack(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == ShotID)
+		{
+			Shot();
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RunShotID)
+		{
+			Shot();
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == AirShotID)
+		{
+			Shot();
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == ChargeShotID)
+		{
+			ChargeShot();
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == SubShotID)
+		{
+			SubShot();
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXShotID)
+		{
+			ExShot();
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowShotID)
+		{
+			Shot();
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowRunShotID)
+		{
+			Shot();
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowAirShotID)
+		{
+			Shot();
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowChargeShotID)
+		{
+			ChargeShot();
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowSubShotID)
+		{
+			SubShot();
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowEXShotID)
+		{
+			ExShot();
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle1ID)
+		{
+			Wrestle1(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle2ID)
+		{
+			Wrestle2(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle3ID)
+		{
+			Wrestle3(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontWrestleID)
+		{
+			FrontWrestle1(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LeftWrestleID)
+		{
+			LeftWrestle1(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RightWrestleID)
+		{
+			RightWrestle1(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BackWrestleID)
+		{
+			BackWrestle(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == AirDashWrestleID)
+		{
+			ShowAirDashEffect = true;
+			AirDashWrestle(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXWrestleID)
+		{
+			ExWrestle1();
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXFrontWrestleID)
+		{
+			FrontExWrestle1(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXBackWrestleID)
+		{
+			BackExWrestle(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == ReversalID)
+		{
+			Reversal();
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == ArousalAttackID)
+		{
+			ArousalAttack();
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == DamageID)
+		{
+			Damage(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == DownID)
+		{
+			Down(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BlowID)
+		{
+			Blow(AnimatorUnit);
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == SpinDownID)
+		{
+			SpinDown(AnimatorUnit);
+		}
 
+		if (ShowAirDashEffect)
+		{
+			AirDashEffect.SetActive(true);
+		}
+		else
+		{
+			AirDashEffect.SetActive(false);
+		}
 	}
+
+	/// <summary>
+	/// Jumpingへ移行する（JumpのAnimationの最終フレームで実行する）
+	/// </summary>
+	public void JumpingMigration()
+	{
+		AnimatorUnit.SetTrigger("Jumping");
+	}
+
+	/// <summary>
+	/// 攻撃行動全般(RunとAirDashは特殊なので使用しない）
+	/// </summary>
+	/// <param name="run"></param>
+	/// <param name="AirDash"></param>
+	public bool AttackDone(bool run = false, bool AirDash = false)
+	{
+		DestroyWrestle();
+		DestroyArrow();
+		// 覚醒中は覚醒技を発動
+		if (HasArousalAttackInput && IsArousal)
+		{
+			// アーマーをONにする
+			SetIsArmor(true);
+
+			// TODO:覚醒技処理
+
+			return true;
+		}
+		// サブ射撃でサブ射撃へ移行
+		else if (HasSubShotInput)
+		{
+			// 歩き撃ちはしないので、強制停止
+			if (run || AirDash)
+			{
+				// 強制停止実行
+				EmagencyStop(AnimatorUnit);
+			}
+			// サブ射撃実行
+			SubShotDone();
+			return true;
+		}
+		// 特殊射撃で特殊射撃へ移行
+		else if (HasExShotInput)
+		{
+			// 歩き撃ちはしないので、強制停止
+			if (run || AirDash)
+			{
+				// 強制停止実行
+				EmagencyStop(AnimatorUnit);
+			}
+			// 特殊射撃実行
+			EXShotDone();
+			return true;
+		}
+		// 特殊格闘で特殊格闘へ移行
+		else if (HasExWrestleInput)
+		{
+			// 前特殊格闘(ブーストがないと実行不可)
+			if (HasFrontInput && Boost > 0)
+			{
+				// 前特殊格闘実行
+				//FrontEXWrestleDone(AnimatorUnit, 13);
+			}
+			// 空中で後特殊格闘(ブーストがないと実行不可）
+			else if (HasBackInput && !IsGrounded && Boost > 0)
+			{
+				// 後特殊格闘実行
+				//BackEXWrestleDone(AnimatorUnit, 14);
+			}
+			// それ以外
+			else
+			{
+				// 特殊格闘実行
+				//EXWrestleDone(AnimatorUnit, 12);
+			}
+			return true;
+		}
+		// 射撃チャージでチャージ射撃へ移行
+		else if (HasShotChargeInput)
+		{
+			// 歩き撃ちはしないので、強制停止
+			if (run || AirDash)
+			{
+				// 強制停止実行
+				EmagencyStop(AnimatorUnit);
+			}
+			// チャージショット実行
+			ChagerShotDone();
+			return true;
+		}
+		// 格闘チャージでチャージ格闘へ移行
+		else if(HasWrestleChargeInput)
+		{
+			// 歩き撃ちはしないので、強制停止
+			if (run || AirDash)
+			{
+				// 強制停止実行
+				EmagencyStop(AnimatorUnit);
+			}
+			// TODO:チャージ格闘実行
+			return true;
+		}
+		// 射撃で射撃へ移行
+		else if (HasShotInput)
+		{
+			if (run)
+			{
+				if (GetIsRockon())
+				{
+					// ①　transform.TransformDirection(Vector3.forward)でオブジェクトの正面の情報を得る
+					var forward = transform.TransformDirection(Vector3.forward);
+					// ②　自分の場所から対象との距離を引く
+					// カメラからEnemyを求める
+					var target = MainCamera.transform.GetComponentInChildren<Player_Camera_Controller>();
+					var targetDirection = target.Enemy.transform.position - transform.position;
+					// ③　①と②の角度をVector3.Angleで取る　			
+					float angle = Vector3.Angle(forward, targetDirection);
+					// 角度60度以内なら上体回しで撃つ（歩き撃ち限定で上記の矢の方向ベクトルを加算する）
+					if (angle < 60)
+					{
+						// TODO:上体補正
+
+						RunShotDone = true;
+						// 走行射撃実行
+						ShotDone(true);
+					}
+					// それ以外なら強制的に停止して（立ち撃ちにして）撃つ
+					else
+					{
+						// 強制停止実行
+						EmagencyStop(AnimatorUnit);
+						// 射撃実行
+						ShotDone(false);
+					}
+				}
+				// 非ロック状態なら歩き撃ちフラグを立てる
+				else
+				{
+					RunShotDone = true;
+					// 射撃実行
+					ShotDone(true);
+				}
+			}
+			else
+			{
+				// 射撃実行
+				ShotDone(false);
+			}
+			return true;
+		}
+		// 格闘で格闘へ移行
+		else if (HasWrestleInput)
+		{
+			// 空中ダッシュ中で空中ダッシュ格闘へ移行
+			if (AirDash)
+			{
+				// 空中ダッシュ格闘実行
+				AirDashWrestleDone(AnimatorUnit, AirDashSpeed, 11);
+			}
+			// 前格闘で前格闘へ移行
+			else if (HasFrontInput)
+			{
+				// 前格闘実行（射撃扱いになる）
+				ChargeWrestleDone();
+			}
+			// 左格闘で左格闘へ移行
+			else if (HasLeftInput)
+			{
+				// 左格闘実行(Character_Spec.cs参照)
+				WrestleDone_GoAround_Left(AnimatorUnit, 8);
+			}
+			// 右格闘で右格闘へ移行
+			else if (HasRightInput)
+			{
+				// 右格闘実行(Character_Spec.cs参照)
+				WrestleDone_GoAround_Right(AnimatorUnit, 9);
+			}
+			// 後格闘で後格闘へ移行
+			else if (HasBackInput)
+			{
+				// 後格闘実行（ガード）(Character_Spec.cs参照)
+				GuardDone(AnimatorUnit, 10);
+			}
+			else
+			{
+				// それ以外ならN格闘実行(2段目と3段目の追加入力はWrestle1とWrestle2で行う
+				WrestleDone(AnimatorUnit, 4, "Wrestle1");
+			}
+			return true;
+		}
+		return false;
+	}
+
+	/// <summary>
+	/// 射撃の装填開始
+	/// </summary>
+	/// <param name="ruhshot">走行射撃であるか否か</param>
+	public void ShotDone(bool runshot)
+	{
+		// 歩行時は上半身のみにして走行（下半身のみ）と合成
+		if (runshot)
+		{
+			// アニメーション合成処理＆再生
+			AnimatorUnit.SetTrigger("RunShot");
+		}
+		// 立ち射撃か空中射撃
+		else
+		{
+			AnimatorUnit.SetTrigger("Shot");
+		}
+		// 装填状態へ移行
+		Shotmode = ShotMode.RELORD;
+	}
+
+	/// <summary>
+	/// チャージショットの装填開始
+	/// </summary>
+	public void ChagerShotDone()
+	{
+		AnimatorUnit.SetTrigger("ChargeShot");
+		// 位置固定を行う
+		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+	}
+
+	/// <summary>
+	/// チャージ格闘の装填開始
+	/// </summary>
+	public void ChargeWrestleDone()
+	{
+		AnimatorUnit.SetTrigger("ChargeWrestle");
+		// 位置固定を行う
+		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+	}
+
+	/// <summary>
+	/// サブ射撃の装填開始
+	/// </summary>
+	public void SubShotDone()
+	{
+		AnimatorUnit.SetTrigger("SubShot");
+		// 装填状態へ移行
+		Shotmode = ShotMode.RELORD;
+		// 位置固定を行う
+		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+	}
+
+	/// <summary>
+	/// 特殊射撃の装填開始
+	/// </summary>
+	public void EXShotDone()
+	{
+		AnimatorUnit.SetTrigger("EXShot");
+		// 装填状態へ移行
+		Shotmode = ShotMode.RELORD;
+		// 位置固定を行う
+		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+	}
+
+	/// <summary>
+	/// ニュートラル状態の処理
+	/// </summary>
+	/// <param name="animator"></param>
+	protected override void Animation_Idle(Animator animator)
+	{
+		// 攻撃したかフラグ
+		bool attack = false;
+
+		// 覚醒技が発動失敗した場合カメラと視点とアーマーを戻す
+		SetIsArmor(false);
+
+		// 格闘の累積時間を初期化
+		Wrestletime = 0;
+		// 地上にいるか？(落下開始時は一応禁止）
+		if (IsGrounded)
+		{
+			attack = AttackDone();
+		}
+		// キャンセルダッシュ受付
+		if ((HasDashCancelInput || HasAirDashInput) && Boost > 0)
+		{
+			// 地上でキャンセルすると浮かないので浮かす
+			if (IsGrounded)
+			{
+				transform.Translate(new Vector3(0, 1, 0));
+			}
+			CancelDashDone(AnimatorUnit);
+		}
+		// 攻撃した場合はステートが変更されるので、ここで終了
+		if (!attack)
+		{
+			base.Animation_Idle(animator);
+		}
+	}
+
+	protected override void Animation_Jumping(Animator animator)
+	{
+		base.Animation_Jumping(animator);
+		AttackDone();
+	}
+
+	protected override void Animation_Fall(Animator animator)
+	{
+		base.Animation_Fall(animator);
+		AttackDone();
+	}
+
+	protected override void Animation_Run(Animator animator)
+	{
+		base.Animation_Run(animator);
+		AttackDone(true, false);
+	}
+
+	protected override void Animation_AirDash(Animator animator)
+	{
+		base.Animation_AirDash(animator);
+		AttackDone(false, true);
+	}
+
+	protected override void Shot()
+	{
+		// キャンセルダッシュ受付
+		if ((HasDashCancelInput || HasAirDashInput) && Boost > 0)
+		{
+			// 地上でキャンセルすると浮かないので浮かす
+			if (IsGrounded)
+			{
+				transform.Translate(new Vector3(0, 1, 0));
+			}
+			CancelDashDone(AnimatorUnit);
+		}
+		base.Shot();
+	}
+
+
 }
