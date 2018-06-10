@@ -5522,11 +5522,10 @@ public class CharacterControlBase : MonoBehaviour
 		// 上昇中にオブジェクトに触れた場合は着地モーションへ移行(暴走防止のために、硬直中は判定禁止)
 		if (Time.time > this.JumpTime + this.JumpWaitTime)
         {
-    //        if (IsGrounded) // 優先順位はこっちを下にしておかないと上昇前に引っかかる
-    //        {
-				//Debug.Log("03");
-				//LandingDone(animator);
-    //        }
+            if (IsGrounded) // 優先順位はこっちを下にしておかないと上昇前に引っかかる
+            {
+				LandingDone(animator);
+			}
         }
     }
 		

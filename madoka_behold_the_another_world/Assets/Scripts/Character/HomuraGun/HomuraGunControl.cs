@@ -350,11 +350,11 @@ public class HomuraGunControl : CharacterControlBase
 				// 特殊射撃
 				Battleinterfacecontroller.Weapon2.Kind.text = "EX Shot";
 				Battleinterfacecontroller.Weapon2.WeaponGraphic.sprite = ExShotIcon;
-				Battleinterfacecontroller.Weapon2.NowBulletNumber = BulletNum[2];
-				Battleinterfacecontroller.Weapon2.MaxBulletNumber = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[6].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[6].OriginalBulletNum;
+				Battleinterfacecontroller.Weapon2.NowBulletNumber = BulletNum[5];
+				Battleinterfacecontroller.Weapon2.MaxBulletNumber = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[5].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[5].OriginalBulletNum;
 				Battleinterfacecontroller.Weapon2.UseChargeGauge = false;
 				// 初期最大値より大きければ使用可能
-				if (BulletNum[2] > ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[6].OriginalBulletNum)
+				if (BulletNum[5] >= ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[5].OriginalBulletNum)
 				{
 					Battleinterfacecontroller.Weapon2.Use = true;
 				}
@@ -949,6 +949,17 @@ public class HomuraGunControl : CharacterControlBase
 			CancelDashDone(AnimatorUnit);
 		}
 		base.Shot();
+	}
+
+	/// <summary>
+	/// Idle状態に戻す
+	/// </summary>
+	public void ReturnToIdle()
+	{
+		// 矢や格闘判定も消しておく
+		DestroyArrow();
+		DestroyWrestle();
+		ReturnMotion(AnimatorUnit);
 	}
 
 
