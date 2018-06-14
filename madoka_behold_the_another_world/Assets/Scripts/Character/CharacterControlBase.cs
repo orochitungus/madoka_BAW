@@ -1009,7 +1009,7 @@ public class CharacterControlBase : MonoBehaviour
 	/// <summary>
 	/// ガード状態であるか否か（各キャラのBackWrestleでこれをONにし、IdleかDamageで折る）
 	/// </summary>
-	private bool IsGuard;
+	protected bool IsGuard;
 
 
     /// <summary>
@@ -1865,7 +1865,7 @@ public class CharacterControlBase : MonoBehaviour
 	protected virtual void JumpDone(Animator animator)
 	{
 		transform.Translate(new Vector3(0, 0.3f, 0));  // 打ち上げる
-		animator.SetTrigger("Jump");
+		//animator.SetInteger("AnimIdx",animIndex);
 		Boost = Boost - JumpUseBoost;
 	}
 
@@ -1987,6 +1987,8 @@ public class CharacterControlBase : MonoBehaviour
                 
         _StepStartTime = Time.time;
     }
+
+	
 
 	public enum StepInput
 	{
@@ -3695,14 +3697,16 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     protected virtual void DestroyArrow()
     {
-		//// 弾があるなら消す(MainShotRootの下に何かあるなら全部消す）
-		//// メイン射撃など
-		//int ChildCount = MainShotRoot.transform.childCount;
-  //      for (int i = 0; i < ChildCount; i++)
-  //      {
-  //          Transform child = MainShotRoot.transform.GetChild(i);
-  //          Destroy(child.gameObject);
-  //      }
+		// 弾があるなら消す(MainShotRootの下に何かあるなら全部消す）
+		if (MainShotRoot != null)
+		{
+			int ChildCount = MainShotRoot.transform.childCount;
+			for (int i = 0; i < ChildCount; i++)
+			{
+				Transform child = MainShotRoot.transform.GetChild(i);
+				Destroy(child.gameObject);
+			}
+		}
 	}
 
     /// <summary>
@@ -5865,7 +5869,7 @@ public class CharacterControlBase : MonoBehaviour
 	private const float _WalkTime = 0.5f;
     private float _WalkTimer;
 
-    private void FootSteps()
+    protected void FootSteps()
     {
         if (_WalkTimer > 0)
         {
