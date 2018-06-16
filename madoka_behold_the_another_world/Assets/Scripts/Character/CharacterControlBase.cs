@@ -1862,10 +1862,10 @@ public class CharacterControlBase : MonoBehaviour
 	/// </summary>
 	/// <param name="animator"></param>
 	/// <param name="jumpid">ジャンプのState番号</param>
-	protected virtual void JumpDone(Animator animator, int animIndex)
+	protected virtual void JumpDone(Animator animator, int jumpIndex)
 	{
 		transform.Translate(new Vector3(0, 0.3f, 0));  // 打ち上げる
-		animator.SetInteger("AnimIdx",animIndex);
+		animator.SetInteger("AnimIdx",jumpIndex);
 		Boost = Boost - JumpUseBoost;
 	}
 
@@ -1878,7 +1878,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="animator">キャラクター本体のAnimator</param>
 	/// <param name="stepTargetIndex">ステップのインデックス</param>
     /// <param name="rainbow">虹エフェクトにするか否か（通常はfalse)</param>
-    protected virtual void StepDone(float Yforce, Vector2 inputVector, Animator animator, int stepTargetIndex, bool rainbow = false)
+    protected virtual void StepDone(float Yforce, Vector2 inputVector, Animator animator, int frontstepIndex,int leftstepIndex, int rightstepIndex, int backstepIndex, bool rainbow = false)
 	{
 		// 固定があった場合解除
 		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
@@ -1944,30 +1944,30 @@ public class CharacterControlBase : MonoBehaviour
 			// 前
 			if(stepinput == StepInput.FRONT)
 			{
-				animator.SetInteger("AnimIdx", stepTargetIndex);
+				animator.SetInteger("AnimIdx", frontstepIndex);
 			}
 			// 左
 			else if(stepinput == StepInput.LEFT)
 			{
-				animator.SetInteger("AnimIdx", stepTargetIndex);
+				animator.SetInteger("AnimIdx", leftstepIndex);
 				SideStep(180);
 			}
 			// 右
 			else if(stepinput == StepInput.RIGHT)
 			{
-				animator.SetInteger("AnimIdx", stepTargetIndex);
+				animator.SetInteger("AnimIdx", rightstepIndex);
 				SideStep(-180);
 			}
 			// 後
 			else if(stepinput == StepInput.BACK)
 			{
-				animator.SetInteger("AnimIdx", stepTargetIndex);
+				animator.SetInteger("AnimIdx", backstepIndex);
 			}
 		}
 		// 非ロック時は強制的に前ステップする
 		else
 		{
-			animator.SetInteger("AnimIdx", stepTargetIndex);
+			animator.SetInteger("AnimIdx", frontstepIndex);
 			MoveDirection = transform.rotation * Vector3.forward;
 		}
 
@@ -2007,7 +2007,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="idlehash">idle状態のハッシュコード</param>
     /// <param name="fallhash">fall状態のハッシュコード</param>
 	/// <param name="animIndex">Idle状態のアニメのインデックス</param>
-    protected virtual void EndStep(Animator animator, int idlehash,int fallhash,int animIndex)
+    protected virtual void EndStep(Animator animator, int idlehash,int fallhash,int animIndex, int fallIndex)
     {
         // 実行中で終了していなかった場合終了まで待つ（硬直扱い）   
         // 終了判定
@@ -2024,7 +2024,7 @@ public class CharacterControlBase : MonoBehaviour
             // 空中にいたら角度を戻して落下
             else
             {
-                FallDone(new Vector3(0, 0, 0),animator);
+                FallDone(new Vector3(0, 0, 0),animator, fallIndex);
             }
 			// ステップ累積時間を戻す
 			_StepStartTime = 0;
@@ -2059,7 +2059,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="animator">本体のAnimator</param>
     /// <param name="fallhash">fall時のハッシュコード</param>
 	/// <param name="animIndex">fallのインデックス</param>
-    protected virtual void ShotAirDash(Animator animator, int fallhash, int animIndex)
+    protected virtual void ShotAirDash(Animator animator, int fallhash, int animIndex, int landingIndex)
     {
         // ブースト切れ時にFallDone、DestroyWrestleを実行する
         if (Boost <= 0)
@@ -2070,15 +2070,14 @@ public class CharacterControlBase : MonoBehaviour
         // 着地時にLandingを実行する
         if (IsGrounded)
         {
-			Debug.Log("01");
-            LandingDone(animator);
+            LandingDone(animator,landingIndex);
         }
     }
 
     /// <summary>
     /// チャージ射撃処理
     /// </summary>
-    protected virtual void ChargeShot()
+    protected virtual void ChargeShot(int airdashIndex)
     {
         // キャンセルダッシュ受付
         if ((HasDashCancelInput || HasAirDashInput) && Boost > 0)
@@ -2088,14 +2087,14 @@ public class CharacterControlBase : MonoBehaviour
             {
                 transform.Translate(new Vector3(0, 0.3f, 0));
             }
-            CancelDashDone(AnimatorUnit);
+            CancelDashDone(AnimatorUnit,airdashIndex);
         }
     }
 
     /// <summary>
     /// サブ射撃処理
     /// </summary>
-    protected virtual void SubShot()
+    protected virtual void SubShot(int airdashIndex)
     {
         // キャンセルダッシュ受付
         if ((HasDashCancelInput || HasAirDashInput) && Boost > 0)
@@ -2105,14 +2104,14 @@ public class CharacterControlBase : MonoBehaviour
             {
                 transform.Translate(new Vector3(0, 0.3f, 0));
             }
-            CancelDashDone(AnimatorUnit);
+            CancelDashDone(AnimatorUnit,airdashIndex);
         }
     }
 
     /// <summary>
     /// 特殊射撃処理
     /// </summary>
-    protected virtual void ExShot()
+    protected virtual void ExShot(int airdashIndex)
     {
         // キャンセルダッシュ受付
         if ((HasDashCancelInput || HasAirDashInput) && Boost > 0)
@@ -2122,7 +2121,7 @@ public class CharacterControlBase : MonoBehaviour
             {
                 transform.Translate(new Vector3(0, 0.3f, 0));
             }
-            CancelDashDone(AnimatorUnit);
+            CancelDashDone(AnimatorUnit, airdashIndex);
         }
     }
 
@@ -2133,11 +2132,11 @@ public class CharacterControlBase : MonoBehaviour
     /// <summary>
     /// N格1段目
     /// </summary>    
-    protected virtual void Wrestle1(Animator animator, int frontStepIndex, int leftStepIndex, int rightStepIndex, int backStepIndex)
+    protected virtual void Wrestle1(Animator animator, int frontStepIndex, int leftStepIndex, int rightStepIndex, int backStepIndex, int airdashIndex)
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
-        StepCancel(animator, frontStepIndex, leftStepIndex,rightStepIndex, backStepIndex);
+        StepCancel(animator, frontStepIndex, leftStepIndex,rightStepIndex, backStepIndex, airdashIndex);
     }
 
     /// <summary>
@@ -2145,11 +2144,11 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="animator"></param>
     /// <param name="airdashhash"></param>
-    protected virtual void Wrestle2(Animator animator, int frontStepIndex, int leftStepIndex, int rightStepIndex, int backStepIndex)
+    protected virtual void Wrestle2(Animator animator, int frontStepIndex, int leftStepIndex, int rightStepIndex, int backStepIndex, int airdashIndex)
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
-        StepCancel(animator, frontStepIndex, leftStepIndex, rightStepIndex, backStepIndex);
+        StepCancel(animator, frontStepIndex, leftStepIndex, rightStepIndex, backStepIndex, airdashIndex);
     }
 
     /// <summary>
@@ -2157,17 +2156,17 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="animator"></param>
     /// <param name="airdashhash"></param>
-    protected virtual void Wrestle3(Animator animator, int frontStepIndex, int leftStepIndex, int rightStepIndex, int backStepIndex)
+    protected virtual void Wrestle3(Animator animator, int frontStepIndex, int leftStepIndex, int rightStepIndex, int backStepIndex, int airdashIndex)
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
-        StepCancel(animator, frontStepIndex, leftStepIndex, rightStepIndex, backStepIndex);
+        StepCancel(animator, frontStepIndex, leftStepIndex, rightStepIndex, backStepIndex, airdashIndex);
     }
 
     /// <summary>
     /// ステップキャンセル実行時の処理
     /// </summary>
-    protected virtual void StepCancel(Animator animator,int frontStepIndex,int leftStepIndex,int rightStepIndex,int backStepIndex)
+    protected virtual void StepCancel(Animator animator,int frontStepIndex,int leftstepIndex,int rightStepIndex,int backStepIndex,int airdashIndex)
     {
         // キャンセルダッシュ入力を受け取ったら、キャンセルして空中ダッシュする
         if ((HasDashCancelInput || HasAirDashInput) && Boost > 0)
@@ -2175,7 +2174,7 @@ public class CharacterControlBase : MonoBehaviour
             AddInput = false;
             // くっついている格闘判定を捨てる
             DestroyWrestle();
-            CancelDashDone(animator);
+            CancelDashDone(animator, airdashIndex);
         }
         // ステップ入力を受け取ったら、キャンセルしてステップする
         else if (ControllerManager.Instance.FrontStep || ControllerManager.Instance.LeftFrontStep || ControllerManager.Instance.LeftStep || ControllerManager.Instance.LeftBackStep || ControllerManager.Instance.BackStep ||
@@ -2189,49 +2188,49 @@ public class CharacterControlBase : MonoBehaviour
             {
                 stepinput.x = 0;
                 stepinput.y = 1;
-				StepDone(1, stepinput, animator, frontStepIndex, true);
+				StepDone(1, stepinput, animator, frontStepIndex,leftstepIndex, rightStepIndex, backStepIndex,true);
 			}
             else if(ControllerManager.Instance.LeftFrontStep)
             {
                 stepinput.x = -0.5f;
                 stepinput.y = 0.5f;
-				StepDone(1, stepinput, animator, frontStepIndex, true);
+				StepDone(1, stepinput, animator, frontStepIndex, leftstepIndex, rightStepIndex, backStepIndex, true);
 			}
             else if(ControllerManager.Instance.LeftStep)
             {
                 stepinput.x = -1.0f;
                 stepinput.y = 0.0f;
-				StepDone(1, stepinput, animator, leftStepIndex, true);
+				StepDone(1, stepinput, animator, frontStepIndex, leftstepIndex, rightStepIndex, backStepIndex, true);
 			}
             else if(ControllerManager.Instance.LeftBackStep)
             {
                 stepinput.x = -0.5f;
                 stepinput.y = -0.5f;
-				StepDone(1, stepinput, animator, backStepIndex, true);
+				StepDone(1, stepinput, animator,frontStepIndex, leftstepIndex, rightStepIndex, backStepIndex, true);
 			}
             else if(ControllerManager.Instance.BackStep)
             {
                 stepinput.x = 0;
                 stepinput.y = -1;
-				StepDone(1, stepinput, animator, backStepIndex, true);
+				StepDone(1, stepinput, animator, frontStepIndex, leftstepIndex, rightStepIndex, backStepIndex, true);
 			}
             else if(ControllerManager.Instance.RightBackStep)
             {
                 stepinput.x = 0.5f;
                 stepinput.y = -0.5f;
-				StepDone(1, stepinput, animator, backStepIndex, true);
+				StepDone(1, stepinput, animator, frontStepIndex, leftstepIndex, rightStepIndex, backStepIndex, true);
 			}
             else if(ControllerManager.Instance.RightStep)
             {
                 stepinput.x = 1.0f;
                 stepinput.y = 0.0f;
-				StepDone(1, stepinput, animator, rightStepIndex, true);
+				StepDone(1, stepinput, animator, frontStepIndex, leftstepIndex, rightStepIndex, backStepIndex, true);
 			}
             else if(ControllerManager.Instance.RightFrontStep)
             {
                 stepinput.x = 0.5f;
                 stepinput.y = 0.5f;
-				StepDone(1, stepinput, animator, frontStepIndex, true);
+				StepDone(1, stepinput, animator, frontStepIndex, leftstepIndex, rightStepIndex, backStepIndex, true);
 			}
 
 			
@@ -2250,11 +2249,11 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="animator"></param>
     /// <param name="airdashhash"></param>
-    protected virtual void FrontWrestle1(Animator animator, int frontStepIndex, int leftStepIndex, int rightStepIndex, int backStepIndex)
+    protected virtual void FrontWrestle1(Animator animator, int frontStepIndex, int leftStepIndex, int rightStepIndex, int backStepIndex,int airdashIndex)
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
-        StepCancel(animator, frontStepIndex, leftStepIndex, rightStepIndex, backStepIndex);
+        StepCancel(animator, frontStepIndex, leftStepIndex, rightStepIndex, backStepIndex, airdashIndex);
     }
 
     /// <summary>
@@ -2262,11 +2261,11 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="animator"></param>
     /// <param name="airdashhash"></param>
-    protected virtual void FrontWrestle2(Animator animator, int frontStepIndex, int leftStepIndex, int rightStepIndex, int backStepIndex)
+    protected virtual void FrontWrestle2(Animator animator, int frontStepIndex, int leftStepIndex, int rightStepIndex, int backStepIndex, int airdashIndex)
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
-        StepCancel(animator, frontStepIndex, leftStepIndex, rightStepIndex, backStepIndex);
+        StepCancel(animator, frontStepIndex, leftStepIndex, rightStepIndex, backStepIndex, airdashIndex);
     }
 
     /// <summary>
@@ -2274,11 +2273,11 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="animator"></param>
     /// <param name="airdashhash"></param>
-    protected virtual void FrontWrestle3(Animator animator, int frontStepIndex, int leftStepIndex, int rightStepIndex, int backStepIndex)
+    protected virtual void FrontWrestle3(Animator animator, int frontStepIndex, int leftStepIndex, int rightStepIndex, int backStepIndex, int airdashIndex)
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
-        StepCancel(animator, frontStepIndex, leftStepIndex, rightStepIndex, backStepIndex);
+        StepCancel(animator, frontStepIndex, leftStepIndex, rightStepIndex, backStepIndex, airdashIndex);
     }
 
     /// <summary>
@@ -2286,11 +2285,11 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="animator"></param>
     /// <param name="airdashhash"></param>
-    protected virtual void LeftWrestle1(Animator animator)
+    protected virtual void LeftWrestle1(Animator animator, int frontStepIndex, int leftStepIndex, int rightStepIndex, int backStepIndex,int airdashIndex)
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
-        StepCancel(animator);
+        StepCancel(animator, frontStepIndex, leftStepIndex, rightStepIndex, backStepIndex, airdashIndex);
     }
 
     /// <summary>
@@ -2298,11 +2297,11 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="animator"></param>
     /// <param name="airdashhash"></param>
-    protected virtual void LeftWrestle2(Animator animator)
+    protected virtual void LeftWrestle2(Animator animator, int frontStepIndex, int leftStepIndex, int rightStepIndex, int backStepIndex,int airdashIndex)
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
-        StepCancel(animator);
+        StepCancel(animator, frontStepIndex, leftStepIndex, rightStepIndex, backStepIndex, airdashIndex);
     }
 
     /// <summary>
@@ -2310,11 +2309,11 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="animator"></param>
     /// <param name="airdashhash"></param>
-    protected virtual void LeftWrestle3(Animator animator)
+    protected virtual void LeftWrestle3(Animator animator, int frontStepIndex, int leftStepIndex, int rightStepIndex, int backStepIndex, int airdashIndex)
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
-        StepCancel(animator);
+        StepCancel(animator, frontStepIndex, leftStepIndex, rightStepIndex, backStepIndex, airdashIndex);
     }
 
     /// <summary>
@@ -2322,11 +2321,11 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="animator"></param>
     /// <param name="airdashhash"></param>
-    protected virtual void RightWrestle1(Animator animator)
+    protected virtual void RightWrestle1(Animator animator, int frontStepIndex, int leftStepIndex, int rightStepIndex, int backStepIndex, int airdashIndex)
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
-        StepCancel(animator);
+        StepCancel(animator, frontStepIndex, leftStepIndex, rightStepIndex, backStepIndex, airdashIndex);
     }
 
     /// <summary>
@@ -2334,29 +2333,29 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="animator"></param>
     /// <param name="airdashhash"></param>
-    protected virtual void RightWrestle2(Animator animator)
+    protected virtual void RightWrestle2(Animator animator, int frontStepIndex, int leftStepIndex, int rightStepIndex, int backStepIndex,int airdashIndex)
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
-        StepCancel(animator);
+        StepCancel(animator, frontStepIndex, leftStepIndex, rightStepIndex, backStepIndex, airdashIndex);
     }
 
     /// <summary>
     /// 右横格闘3段目
     /// </summary>
     /// <param name="animator"></param>
-    protected virtual void RightWrestle3(Animator animator)
+    protected virtual void RightWrestle3(Animator animator, int frontStepIndex, int leftStepIndex, int rightStepIndex, int backStepIndex, int airdashIndex)
     {
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
-        StepCancel(animator);
+        StepCancel(animator, frontStepIndex, leftStepIndex, rightStepIndex, backStepIndex, airdashIndex);
     }
 
     /// <summary>
     /// 後格闘（防御）
     /// </summary>
     /// <param name="animator"></param>
-    protected virtual void BackWrestle(Animator animator)
+    protected virtual void BackWrestle(Animator animator, int frontStepIndex, int leftStepIndex, int rightStepIndex, int backStepIndex, int idleIndex)
     {
 		IsGuard = true;
         IsWrestle = true;
@@ -2365,8 +2364,8 @@ public class CharacterControlBase : MonoBehaviour
         //2．ブーストゲージが0になると、強制的にIdleに戻す
         if (Boost <= 0)
         {
-            animator.SetTrigger("Idle");
-            DestroyWrestle();
+			animator.SetInteger("AnimIdx", idleIndex);
+			DestroyWrestle();
 			// 格闘フラグを破棄
 			IsWrestle = false;
 		}
@@ -2376,7 +2375,7 @@ public class CharacterControlBase : MonoBehaviour
 			// ↓要素が抜けたらガード解除
 			if (!ControllerManager.Instance.Under && !ControllerManager.Instance.LeftUnder && !ControllerManager.Instance.RightUnder)
 			{
-				animator.SetTrigger("Idle");
+				animator.SetInteger("AnimIdx", idleIndex);
 				DestroyWrestle();
 				// 格闘フラグを破棄
 				IsWrestle = false;
@@ -2386,7 +2385,7 @@ public class CharacterControlBase : MonoBehaviour
 		{
 			if(!Cpucontroller.Under)
 			{
-				animator.SetTrigger("Idle");
+				animator.SetInteger("AnimIdx", idleIndex);
 				DestroyWrestle();
 				// 格闘フラグを破棄
 				IsWrestle = false;
@@ -2403,7 +2402,7 @@ public class CharacterControlBase : MonoBehaviour
     /// 空中ダッシュ格闘
     /// </summary>
     /// <param name="animator">本体のAnimator</param>
-    protected virtual void AirDashWrestle(Animator animator)
+    protected virtual void AirDashWrestle(Animator animator,int fallIndex)
     {
 		Vector3 RiseSpeed = new Vector3(MoveDirection.x, this.RiseSpeed, MoveDirection.z);
 		IsWrestle = true;
@@ -2416,8 +2415,7 @@ public class CharacterControlBase : MonoBehaviour
 		{
 			if (Boost <= 0 || ControllerManager.Instance.WrestleUp)
 			{
-				FallDone(RiseSpeed, animator);
-				animator.SetTrigger("Fall");
+				FallDone(RiseSpeed, animator,fallIndex);
 				DestroyWrestle();
 			}
 		}
@@ -2425,8 +2423,7 @@ public class CharacterControlBase : MonoBehaviour
 		{
 			if (Boost <= 0 || !Cpucontroller.Wrestle)
 			{
-				FallDone(RiseSpeed, animator);
-				animator.SetTrigger("Fall");
+				FallDone(RiseSpeed, animator,fallIndex);
 				DestroyWrestle();
 			}
 		}
@@ -2454,7 +2451,7 @@ public class CharacterControlBase : MonoBehaviour
     /// 前特殊格闘1段目（全員共通で上昇技）
     /// </summary>
     /// <param name="animator"></param>
-    protected virtual void FrontExWrestle1(Animator animator)
+    protected virtual void FrontExWrestle1(Animator animator,int fallIndex, int frontStepIndex, int leftStepIndex, int rightStepIndex, int backStepIndex, int airdashIndex)
     {
         IsWrestle = true;
         // 毎フレームブーストを消費する
@@ -2466,10 +2463,10 @@ public class CharacterControlBase : MonoBehaviour
         {
             // 判定オブジェクトを破棄する.一応くっついているものはすべて削除
             DestroyWrestle();
-            animator.SetTrigger("Fall");
-            DestroyWrestle();
+			animator.SetInteger("AnimIdx", fallIndex);
+			DestroyWrestle();
         }
-        StepCancel(animator);
+        StepCancel(animator, frontStepIndex, leftStepIndex, rightStepIndex, backStepIndex, airdashIndex);
     }
 
     /// <summary>
@@ -2540,7 +2537,7 @@ public class CharacterControlBase : MonoBehaviour
     /// 後特殊格闘（全員共通で下降技）
     /// </summary>
     /// <param name="animator"></param>
-    protected virtual void BackExWrestle(Animator animator)
+    protected virtual void BackExWrestle(Animator animator, int fallIndex, int landingIndex)
     {
         IsWrestle = true;
         // 毎フレームブーストを消費する
@@ -2548,18 +2545,17 @@ public class CharacterControlBase : MonoBehaviour
         // ブーストが0になったらFallにする
         if (Boost <= 0)
         {
-            // 判定オブジェクトを破棄する.一応くっついているものはすべて削除
-            DestroyWrestle();
-            animator.SetTrigger("Fall");
-            DestroyWrestle();
+			// 判定オブジェクトを破棄する.一応くっついているものはすべて削除
+			DestroyArrow();
+			DestroyWrestle();
         }
-        StepCancel(animator);
-        // 接地したらLandingにする
-        if (IsGrounded)
+		animator.SetInteger("AnimIdx", fallIndex);
+		// 接地したらLandingにする
+		if (IsGrounded)
         {
             // 判定オブジェクトを破棄する.一応くっついているものはすべて削除
             DestroyWrestle();
-			LandingDone(animator);
+			LandingDone(animator, landingIndex);
         }
     }
 
@@ -2581,7 +2577,7 @@ public class CharacterControlBase : MonoBehaviour
     /// 着地共通動作
     /// <param name="animator">本体のanimator</param>
     /// </summary>
-    protected void LandingDone(Animator animator)
+    protected void LandingDone(Animator animator, int landingIndex)
     {
         // 格闘判定削除
         DestroyWrestle();
@@ -2589,9 +2585,9 @@ public class CharacterControlBase : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0));
         // 無効になっていたら重力を復活させる
         GetComponent<Rigidbody>().useGravity = true;
-        animator.SetTrigger("Landing");
-        // 着地したので硬直を設定する
-        LandingTime = Time.time;
+		animator.SetInteger("AnimIdx", landingIndex);
+		// 着地したので硬直を設定する
+		LandingTime = Time.time;
     }
 
 
@@ -2599,7 +2595,7 @@ public class CharacterControlBase : MonoBehaviour
     /// 空中ダッシュ（キャンセルダッシュ）発動共通操作
     /// 弓ほむら・まどかのモーションキャンセルなどはこの前に行うこと
     /// </summary>
-    protected virtual void CancelDashDone(Animator animator)
+    protected virtual void CancelDashDone(Animator animator,int airDashInbdex)
     {
 		animator.speed = 1.0f;
 		if (Boost > 0)
@@ -2615,10 +2611,10 @@ public class CharacterControlBase : MonoBehaviour
             BrestObject.transform.rotation = Quaternion.Euler(0, 0, 0);
             Rotatehold = false;
             Boost = Boost - DashCancelUseBoost;
-            animator.SetTrigger("AirDash");
-            // 移動方向取得
-            // 角度に応じてX、Zの方向を切り替える
-            if (transform.rotation.eulerAngles.y >= 337.5f || transform.rotation.eulerAngles.y < 22.5f)
+			animator.SetInteger("AnimIdx", airDashInbdex);
+			// 移動方向取得
+			// 角度に応じてX、Zの方向を切り替える
+			if (transform.rotation.eulerAngles.y >= 337.5f || transform.rotation.eulerAngles.y < 22.5f)
             {
                 MoveDirection.x = 0.0f;
                 MoveDirection.z = 1.0f;
@@ -2674,15 +2670,15 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="RiseSpeed">落下速度</param>
     /// <param name="animator">本体のanimator</param>
-    protected void FallDone(Vector3 RiseSpeed,Animator animator)
+    protected void FallDone(Vector3 RiseSpeed,Animator animator,int fallIndex)
     {
 		// 固定があった場合解除
 		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 
         IsWrestle = false;
         GetComponent<Rigidbody>().useGravity = true;
-        animator.SetTrigger("Fall");
-        RiseSpeed = new Vector3(0, -this.RiseSpeed, 0);
+		animator.SetInteger("AnimIdx", fallIndex);
+		RiseSpeed = new Vector3(0, -this.RiseSpeed, 0);
     }
 
     /// <summary>
@@ -2960,7 +2956,7 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="animator"></param>
     /// <param name="landinghash"></param>
-    protected void LandingDone2(Animator animator,int landinghash)
+    protected void LandingDone2(Animator animator,int landingIndex)
     {
         // 地響き防止
         MoveDirection = transform.rotation * new Vector3(0, 0, 0);
@@ -2968,9 +2964,9 @@ public class CharacterControlBase : MonoBehaviour
 		// 硬直時間が終わるとIdleへ戻る。オバヒ着地とかやりたいならBoost0でLandingTimeの値を変えるとか
 		if (Time.time > LandingTime + LandingWaitTime)
         {
-            animator.SetTrigger("Landing");
-            // ブースト量を初期化する
-            Boost = GetMaxBoost(this.BoostLevel);
+			animator.SetInteger("AnimIdx", landingIndex);
+			// ブースト量を初期化する
+			Boost = GetMaxBoost(this.BoostLevel);
         }
     }
 
@@ -2978,8 +2974,8 @@ public class CharacterControlBase : MonoBehaviour
 	/// 初期化
 	/// </summary>
 	/// <param name="animator"></param>
-	/// <param name="idleID">アイドルモーションのID</param>
-	protected virtual void FirstSetting(Animator animator,int idleID)
+	/// <param name="idleIndex">アイドルモーションのID</param>
+	protected virtual void FirstSetting(Animator animator,int idleIndex)
 	{
 		// CharacterControllerを取得
 		//this.m_charactercontroller = GetComponent<CharacterController>();
@@ -3018,7 +3014,7 @@ public class CharacterControlBase : MonoBehaviour
 		BlowDirection = Vector3.zero;
 
 		// 初期アニメIdleを再生する
-        animator.SetTrigger("Idle");
+		animator.SetInteger("AnimIdx", idleIndex);
 
 		// ブースト量を初期化する
 		Boost = GetMaxBoost(this.BoostLevel);
@@ -3208,7 +3204,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="runid">走行時のID</param>
 	/// <param name="damageid">ダメージのID</param>
     /// <returns></returns>
-    protected bool Update_Core(bool isSpindown, Animator animator, int downid,int airdashid,int airshotid,int jumpingid, int fallid,int idleid,int blowid,int runid,int frontstepid,int leftstepid,int rightstepid,int backstepid,int damageid)
+    protected bool Update_Core(bool isSpindown, Animator animator, int downid,int airdashid,int airshotid,int jumpingid, int fallid,int idleid,int blowid,int runid,int frontstepid,int leftstepid,int rightstepid,int backstepid,int damageid, int leftstepBackIndex, int rightstepBackIndex, int reversalIndex)
     {
         // 接地判定
         IsGrounded = onGround2(isSpindown);
@@ -3326,7 +3322,7 @@ public class CharacterControlBase : MonoBehaviour
             else
             {
                 //float OR_GemCont = savingparameter.GetGemContimination(character);                
-                arousalStart(damageid, blowid);
+                arousalStart(damageid, blowid,reversalIndex);
             }
         }
 
@@ -3393,11 +3389,11 @@ public class CharacterControlBase : MonoBehaviour
 			{
 				if(animator.GetCurrentAnimatorStateInfo(0).fullPathHash == leftstepid)
 				{
-					animator.SetTrigger("LeftStepBack");
+					animator.SetInteger("AnimIdx", leftstepBackIndex);
 				}
 				else
 				{
-					animator.SetTrigger("RightStepBack");
+					animator.SetInteger("AnimIdx", rightstepBackIndex);
 				}
 			}
 			// MoveDirectionでは動かさない
@@ -3566,7 +3562,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="rightstepbackID">右ステップ戻りのID</param>
     /// <param name="backstephash">バックステップのハッシュID</param>
     /// <param name="backstepbackID">バックステップ戻りのID</param>
-    protected void StepMove(Animator animator, int frontstephash,int leftstephash, int rightstephash, int backstephash)
+    protected void StepMove(Animator animator, int frontstephash,int leftstephash, int rightstephash, int backstephash,int frontstepBackIndex,int leftstepBackIndex, int rightstepBackIndex,int backstepBackIndex)
     {
 		// ロック時は常時ロック相手の方向を見続ける
 		if(IsRockon)
@@ -3592,25 +3588,25 @@ public class CharacterControlBase : MonoBehaviour
         {
             if( animator.GetCurrentAnimatorStateInfo(0).fullPathHash == frontstephash)
             {
-                animator.SetTrigger("FrontStepBack");
-            }
+				animator.SetInteger("AnimIdx", frontstepBackIndex);
+			}
             else if(animator.GetCurrentAnimatorStateInfo(0).fullPathHash  == leftstephash)
             {
-                animator.SetTrigger("LeftStepBack");
-            }
+				animator.SetInteger("AnimIdx", leftstepBackIndex);
+			}
             else if(animator.GetCurrentAnimatorStateInfo(0).fullPathHash  == rightstephash)
             {
-                animator.SetTrigger("RightStepBack");
-            }
+				animator.SetInteger("AnimIdx", rightstepBackIndex);
+			}
             else if(animator.GetCurrentAnimatorStateInfo(0).fullPathHash  == backstephash)
             {
-                animator.SetTrigger("BackStepBack");
-            }
+				animator.SetInteger("AnimIdx", backstepBackIndex);
+			}
         }
     }
 
     // ステップ落下時のキャンセルダッシュ及び再ジャンプ受付
-    protected bool CancelCheck(Animator animator)
+    protected bool CancelCheck(Animator animator,int jumpIndex, int airdashIndex)
     {
         // ブーストが残っていればキャンセルダッシュは受け付ける（方向入力は受け付けない）
         if (Boost > 0)
@@ -3619,13 +3615,13 @@ public class CharacterControlBase : MonoBehaviour
             if (!HasVHInput && ControllerManager.Instance.Jump)
             {
                 // 上昇制御をAddForceにするとやりにくい（特に慣性ジャンプ）
-                JumpDone(animator);
+                JumpDone(animator, jumpIndex);
                 return true;
             }
             // ジャンプ再入力で向いている方向へ空中ダッシュ(上昇は押しっぱなし)            
             else if (ControllerManager.Instance.Jump)
             {
-                CancelDashDone(animator);
+                CancelDashDone(animator, airdashIndex);
                 return true;
             }
         }
@@ -3651,7 +3647,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <summary>
     /// 歩き撃ちのアニメーションを戻す
     /// </summary>
-    protected virtual void ReturnMotion(Animator animator)
+    protected virtual void ReturnMotion(Animator animator, int runIndex, int idleIndex, int fallIndex)
     {
 		animator.speed = 1.0f;
         // 歩き撃ちフラグを折る
@@ -3663,25 +3659,25 @@ public class CharacterControlBase : MonoBehaviour
         // 方向キー入力があった場合かつ地上にいた場合
         if (IsGrounded && HasVHInput)
         {
-            animator.SetTrigger("Run");
-        }
+			animator.SetInteger("AnimIdx", runIndex);
+		}
         // 方向キー入力がなくかつ地上にいた場合
         else if (IsGrounded)
-        {		
-			animator.SetTrigger("Idle");
-        }
+        {
+			animator.SetInteger("AnimIdx", idleIndex);
+		}
         // 空中にいた場合
         else
         {
-            animator.SetTrigger("Fall");
-        }        
+			animator.SetInteger("AnimIdx", fallIndex);
+		}        
     }
 
 
     /// <summary>
     /// 装填開始（通常射撃）
     /// </summary>
-    protected virtual void ShotDone(Animator animator,int runhash,int shotrunhash,int shotairdashhash,int airdashhash, int shothash)
+    protected virtual void ShotDone(Animator animator,int runhash,int shotrunhash,int shotairdashhash,int airdashhash, int shothash,int runshotIndex, int airshotIndex, int shotIndex)
     {
         // 一旦空中発射フラグを切る（この辺は他のキャラも考えるべきかもしれない。というかこれはcharacterControl_Baseにおいた方がいいかもしれない
         // 歩き撃ちができない場合もあるから基底にしてオーバーライドが妥当か？
@@ -3689,15 +3685,15 @@ public class CharacterControlBase : MonoBehaviour
         // 歩行時は上半身のみにして走行（下半身のみ）と合成(ブレンドツリーで合成し、上体を捻らせて銃口補正をかける)
         if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == runhash)
         {
-            animator.SetTrigger("RunShot");
-        }
+			animator.SetInteger("AnimIdx", runshotIndex);
+		}
         else if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == airdashhash)
         {
-            animator.SetTrigger("AirShot");
-        }
+			animator.SetInteger("AnimIdx", airshotIndex);
+		}
         else
         {
-            animator.SetTrigger("Shot");
+			animator.SetInteger("AnimIdx", shotIndex);
         }
 
         Shotmode = ShotMode.RELORD;        // 装填状態へ移行
@@ -3740,8 +3736,8 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="run">歩き射撃であるか否か</param>
     /// <param name="animator">制御対象のanimator</param>
-    /// <param name="idlehash">idleのハッシュID</param>
-    protected virtual void Moveshot(bool run, Animator animator, int idlehash)
+    /// <param name="idleIndex">idleのアニメーションID</param>
+    protected virtual void Moveshot(bool run, Animator animator, int idleIndex)
     {
         // ロックオン中かつshotmode=RELOADの時は全体を相手の方へ向ける
         if (IsRockon && Shotmode != ShotMode.NORMAL && Shotmode != ShotMode.SHOTDONE)
@@ -3768,8 +3764,8 @@ public class CharacterControlBase : MonoBehaviour
         {
             if (run)
             {
-                animator.SetTrigger("Idle");
-            }
+				animator.SetInteger("AnimIdx", idleIndex);
+			}
             MoveDirection = Vector3.zero;
 		}
     }
@@ -3901,11 +3897,11 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="animator"></param>
     /// <param name="idlehash"></param>
-    protected void EmagencyStop(Animator animator)
+    protected void EmagencyStop(Animator animator, int idleIndex)
     {
         MoveDirection = Vector3.zero;
-        animator.SetTrigger("Idle");
-    }
+		animator.SetInteger("AnimIdx", idleIndex);
+	}
 
     /// <summary>
     /// 全CharacterControllBase継承オブジェクトの配置位置を固定する
@@ -3945,7 +3941,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <summary>
     /// 覚醒開始処理
     /// </summary>
-    protected virtual void arousalStart(int damageid, int blowid)
+    protected virtual void arousalStart(int damageid, int blowid,int reversalID)
     {
         if (Pausecontroller == null)
         {
@@ -3956,7 +3952,7 @@ public class CharacterControlBase : MonoBehaviour
         // 覚醒関係以外の時間を止める
         pausecontroller2.ProcessButtonPress();
 		// 覚醒前処理
-		ArousalInitialize(damageid, blowid);
+		ArousalInitialize(damageid, blowid,reversalID);
 		// カットインカメラ有効化
 		// ArousalCameraを有効化
 		ArousalCamera.enabled = true;
@@ -3972,7 +3968,7 @@ public class CharacterControlBase : MonoBehaviour
 	}
 
     // 覚醒開始時の共通処理
-    protected virtual void ArousalInitialize(int damageid, int blowid)
+    protected virtual void ArousalInitialize(int damageid, int blowid, int reversalIndex)
     {            
         // ブースト全回復
         Boost = GetMaxBoost(BoostLevel);
@@ -3984,7 +3980,7 @@ public class CharacterControlBase : MonoBehaviour
 		// ダメージ時はリバーサルにする
 		if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == damageid || AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == blowid)
 		{
-			AnimatorUnit.SetTrigger("Reversal");
+			AnimatorUnit.SetInteger("AnimIdx", reversalIndex);
 		}
 		// インターフェースを一時的に消す
 		GameObject.Find("BattleInterfaceCanvas").GetComponent<BattleInterfaceController>().UnDrawInterface();
@@ -3995,8 +3991,8 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="animator">格闘攻撃の種類</param>
     /// <param name="skilltype">スキルのインデックス(キャラごとに異なる)</param>
-    /// <param name="triggername">使用する格闘のトリガーの名前</param>
-    protected virtual void WrestleDone(Animator animator, int skilltype,string triggername)
+    /// <param name="triggerIndexID">使用する格闘のトリガーのID</param>
+    protected virtual void WrestleDone(Animator animator, int skilltype,int triggerIndexID)
     {
         // 追加入力フラグをカット
         AddInput = false;
@@ -4041,7 +4037,7 @@ public class CharacterControlBase : MonoBehaviour
 		float speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillIndex].AnimSpeed;
 
 		// アニメーションを再生する
-		animator.SetTrigger(triggername);
+		animator.SetInteger("AnimIdx", triggerIndexID);
                
         // アニメーションの速度を調整する
         animator.speed = speed;
@@ -4049,14 +4045,14 @@ public class CharacterControlBase : MonoBehaviour
         WrestlSpeed = movespeed;
     }
 
-	
-    /// <summary>
-    /// 回り込み近接・左(相手の斜め前へ移動して回り込むタイプ）
-    /// </summary>
-    /// <param name="animator">格闘攻撃の種類</param>
-    /// <param name="skilltype">スキルのインデックス(キャラごとに異なる)</param>
-    /// <param name="wrestlehash">使用する格闘のハッシュID</param>
-    protected virtual void WrestleDone_GoAround_Left(Animator animator, int skilltype)
+
+	/// <summary>
+	/// 回り込み近接・左(相手の斜め前へ移動して回り込むタイプ）
+	/// </summary>
+	/// <param name="animator">格闘攻撃の種類</param>
+	/// <param name="skilltype">スキルのインデックス(キャラごとに異なる)</param>
+	/// <param name="wrestleIndexID">使用する格闘のID</param>
+	protected virtual void WrestleDone_GoAround_Left(Animator animator, int skilltype,int wrestleIndexID)
     {
         // 追加入力フラグをカット
         this.AddInput = false;
@@ -4104,10 +4100,9 @@ public class CharacterControlBase : MonoBehaviour
             MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
 		}
 		// アニメーション速度
-		float speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillIndex].AnimSpeed;//Character_Spec.cs[(int)CharacterName][skillIndex].m_Animspeed;
-        // アニメーションを再生する
-        animator.SetTrigger("LeftWrestle");
-
+		float speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillIndex].AnimSpeed;
+																														 // アニメーションを再生する
+		animator.SetInteger("AnimIdx", wrestleIndexID);
         // アニメーションの速度を調整する
         animator.speed = speed;
         // 移動速度を調整する
@@ -4115,13 +4110,13 @@ public class CharacterControlBase : MonoBehaviour
     }
 
 
-    /// <summary>
-    /// 回り込み近接・右(相手の斜め前へ移動して回り込むタイプ）
-    /// </summary>
-    /// <param name="animator">制御対象のanimator</param>
-    /// <param name="skilltype">スキルのインデックス/キャラごとに異なる</param>
-    /// <param name="wrestlehash">使用する格闘のハッシュID</param>
-    protected virtual void WrestleDone_GoAround_Right(Animator animator, int skilltype)
+	/// <summary>
+	/// 回り込み近接・右(相手の斜め前へ移動して回り込むタイプ）
+	/// </summary>
+	/// <param name="animator">制御対象のanimator</param>
+	/// <param name="skilltype">スキルのインデックス/キャラごとに異なる</param>
+	/// <param name="wrestleIndex">使用する格闘のインデックスD</param>
+	protected virtual void WrestleDone_GoAround_Right(Animator animator, int skilltype,int wrestleIndex)
     {
         // 追加入力フラグをカット
         AddInput = false;
@@ -4171,21 +4166,21 @@ public class CharacterControlBase : MonoBehaviour
 		// アニメーション速度
 		float speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillIndex].AnimSpeed;
 		// アニメーションを再生する
-		animator.SetTrigger("RightWrestle");
+		animator.SetInteger("AnimIdx", wrestleIndex);
 
-        // アニメーションの速度を調整する
-        animator.speed = speed;
+		// アニメーションの速度を調整する
+		animator.speed = speed;
         // 移動速度を調整する
         WrestlSpeed = movespeed;
     }
 
-    /// <summary>
-    /// 後格闘（防御）
-    /// </summary>
-    /// <param name="animator">制御対象のanimator</param>
-    /// <param name="skilltype">スキルのインデックス/キャラごとに異なる</param>
-    /// <param name="wrestlehash">使用する格闘のハッシュID</param>
-    protected virtual void GuardDone(Animator animator, int skilltype)
+	/// <summary>
+	/// 後格闘（防御）
+	/// </summary>
+	/// <param name="animator">制御対象のanimator</param>
+	/// <param name="skilltype">スキルのインデックス/キャラごとに異なる</param>
+	/// <param name="wrestleIndex">使用する格闘のインデックス</param>
+	protected virtual void GuardDone(Animator animator, int skilltype, int wrestleIndex)
     {
         //1．追加入力フラグをカット
         AddInput = false;
@@ -4227,10 +4222,10 @@ public class CharacterControlBase : MonoBehaviour
 		//3．アニメーション速度を設定する
 		float speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillIndex].AnimSpeed;
 		// アニメーションを再生する
-		animator.SetTrigger("BackWrestle");
+		animator.SetInteger("AnimIdx", wrestleIndex);
 
-        // アニメーションの速度を調整する
-        animator.speed = speed;
+		// アニメーションの速度を調整する
+		animator.speed = speed;
         //7．移動速度を0にする
         WrestlSpeed = 0;
     }
@@ -4240,7 +4235,7 @@ public class CharacterControlBase : MonoBehaviour
 	/// </summary>
 	/// <param name="animator">制御対象のanimator</param>
 	/// <param name="skilltype">スキルのインデックス/キャラごとに異なる</param>
-	protected virtual void WrestleDone_UpperEx(Animator animator, int skilltype)
+	protected virtual void WrestleDone_UpperEx(Animator animator, int skilltype, int wrestleIndex)
 	{
 		// 追加入力フラグをカット
 		AddInput = false;
@@ -4279,7 +4274,7 @@ public class CharacterControlBase : MonoBehaviour
 		// アニメーション速度を設定する
 		float speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillIndex].AnimSpeed;
 		// アニメーションを変更する
-        animator.SetTrigger("FrontEXWrestle");
+		animator.SetInteger("AnimIdx", wrestleIndex);
 		// アニメーションの速度を調整する
 		animator.speed = speed;
 		// 移動速度を上にする
@@ -4291,8 +4286,8 @@ public class CharacterControlBase : MonoBehaviour
 	/// </summary>
 	/// <param name="animator">制御対象のanimator</param>
 	/// <param name="skilltype">スキルのインデックス/キャラごとに異なる</param>
-	/// <param name="wrestlehash">使用する格闘のハッシュID</param>
-	protected virtual void WrestleDone_DownEx(Animator animator, int skilltype, int wrestlehash)
+	/// <param name="wrestleIndex">使用する格闘のインデックス</param>
+	protected virtual void WrestleDone_DownEx(Animator animator, int skilltype, int wrestleIndex)
 	{
 		// 追加入力フラグをカット
 		AddInput = false;
@@ -4332,7 +4327,7 @@ public class CharacterControlBase : MonoBehaviour
 		// アニメーション速度を設定する
 		float speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillIndex].AnimSpeed;
 		// アニメーションを変更する
-        animator.SetTrigger("BackEXWrestle");
+		animator.SetInteger("AnimIdx", wrestleIndex);
 		// アニメーションの速度を調整する
 		animator.speed = speed;
 		// 移動速度を設定する
@@ -4345,7 +4340,7 @@ public class CharacterControlBase : MonoBehaviour
 	/// <param name="Animator"></param>
 	/// <param name="WresltleSpeed">突進速度（一応空中ダッシュの速度と一致させる）</param>
 	/// <param name="skillindex"></param>
-	public virtual void AirDashWrestleDone(Animator Animator,float WresltleSpeed,int skillindex)
+	public virtual void AirDashWrestleDone(Animator Animator,float WresltleSpeed,int skillindex, int wrestleIndex)
 	{
 		// 追加入力フラグをカット
 		AddInput = false;
@@ -4385,7 +4380,7 @@ public class CharacterControlBase : MonoBehaviour
 		float speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillindex].AnimSpeed;
 
 		// アニメーションを再生する
-		Animator.SetTrigger("BDWrestle");
+		Animator.SetInteger("AnimIdx", wrestleIndex);
 
 		// アニメーションの速度を調整する
 		Animator.speed = speed;
@@ -4983,8 +4978,7 @@ public class CharacterControlBase : MonoBehaviour
 		// （継承先で本体にくっついていたオブジェクトをカット）
 		// （UpdateCoreで入力をポーズ以外すべて禁止）
 		// ダメージアニメーションを再生
-		
-        animator.SetTrigger("Damage");
+		animator.SetInteger("AnimIdx", damageID);
 
 		// 動作及び慣性をカット
 		MoveDirection = Vector3.zero;
@@ -5075,7 +5069,7 @@ public class CharacterControlBase : MonoBehaviour
 		if (NowDownRatio >= DownRatioBias)
 		{
 			// 錐揉みダウンアニメを再生する
-			animator.SetTrigger("Spindown");
+			animator.SetInteger("AnimIdx", spindownID);
 			// 無敵をONにする
 			Invincible = true;
 		}
@@ -5084,8 +5078,8 @@ public class CharacterControlBase : MonoBehaviour
 		{
 			// Rotateの固定を解除        
 			GetComponent<Rigidbody>().freezeRotation = false;
-            // ダウンアニメを再生する
-            animator.SetTrigger("Blow");
+			// ダウンアニメを再生する
+			animator.SetInteger("AnimIdx", blowID);
 		}
 		// 攻撃と同じベクトルを与える。ここの値はm_BlowDirectionに保存したものを使う
 		// TODO:Velocityで飛ばしてるのでMoveDirectionに変えてそれで飛ばす
@@ -5096,7 +5090,7 @@ public class CharacterControlBase : MonoBehaviour
     /// ダメージ(のけぞり）
     /// </summary>
     /// <param name="animator"></param>
-    public virtual void Damage(Animator animator)
+    public virtual void Damage(Animator animator,int idleIndex, int blowIndex)
 	{
 		// 移行後復活 
 		// ダメージ硬直終了
@@ -5109,8 +5103,8 @@ public class CharacterControlBase : MonoBehaviour
 			{
 				// Rotateの固定を解除        
 				RigidBody.freezeRotation = false;
-                // ダウンアニメを再生する
-                animator.SetTrigger("Blow");
+				// ダウンアニメを再生する
+				animator.SetInteger("AnimIdx", blowIndex);
 				// 重力を復活
 				GetComponent<Rigidbody>().useGravity = true;				
 			}
@@ -5119,7 +5113,7 @@ public class CharacterControlBase : MonoBehaviour
 			{
 				RigidBody.useGravity = true;
 				_StepStartTime = 0;
-                animator.SetTrigger("Idle");
+				animator.SetInteger("AnimIdx", idleIndex);
 			}
 		}
 	}
@@ -5128,7 +5122,7 @@ public class CharacterControlBase : MonoBehaviour
     /// 吹き飛び
     /// </summary>
     /// <param name="animator"></param>
-    protected virtual void Blow(Animator animator)
+    protected virtual void Blow(Animator animator, int downIndex, int reversalIndex)
 	{
 		// 接地までなにもせず、接地したらDownへ移行し、m_DownTimeを計算する
 		// ブースト入力があった場合、ダウン値がMAX未満でブーストゲージが一定量あれば、Reversalへ変更	
@@ -5140,7 +5134,7 @@ public class CharacterControlBase : MonoBehaviour
 		// 接地までなにもせず、接地したらDownへ移行し、m_DownTimeを計算する
 		if (IsGrounded)
 		{
-            animator.SetTrigger("Down");
+			animator.SetInteger("AnimIdx", downIndex);
 			// downへ移行
 			DownTime = Time.time;
 			// 速度を0まで落とす（吹き飛び時のベクトルを消す）
@@ -5156,7 +5150,7 @@ public class CharacterControlBase : MonoBehaviour
 			// ブースト量を減らす
 			Boost -= ReversalUseBoost;
 			// 復帰処理を行う
-			ReversalInit(animator);
+			ReversalInit(animator, reversalIndex);
 		}
 	}
 
@@ -5164,7 +5158,7 @@ public class CharacterControlBase : MonoBehaviour
     /// 錐揉みダウン
     /// </summary>
     /// <param name="animator"></param>
-    protected virtual void SpinDown(Animator animator)
+    protected virtual void SpinDown(Animator animator,int downIndex)
 	{
 		// 落下に入ったら落下速度を調整する
 		MoveDirection.y = MadokaDefine.FALLSPEED;
@@ -5172,7 +5166,7 @@ public class CharacterControlBase : MonoBehaviour
 		if (IsGrounded)
 		{
 			// downへ移行
-            animator.SetTrigger("Down");
+			animator.SetInteger("AnimIdx", downIndex);
 			DownTime = Time.time;
 			// 速度を0まで落とす（吹き飛び時のベクトルを消す）
 			MoveDirection = Vector3.zero;
@@ -5188,7 +5182,7 @@ public class CharacterControlBase : MonoBehaviour
     /// ダウン
     /// </summary>
     /// <param name="animator"></param>
-    protected virtual void Down(Animator animator)
+    protected virtual void Down(Animator animator, int reversalIndex)
 	{
 		// rotationの固定を復活させ、0,0,0にする
 		GetComponent<Rigidbody>().rotation = Quaternion.Euler(Vector3.zero);
@@ -5208,7 +5202,7 @@ public class CharacterControlBase : MonoBehaviour
 			// 生きていれば起き上がる
 			if (NowHitpoint > 1)
 			{
-				ReversalInit(animator);
+				ReversalInit(animator, reversalIndex);
 			}
 		}
 	}
@@ -5249,21 +5243,21 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="animator"></param>
     /// <param name="reversalhash"></param>
-    protected void ReversalInit(Animator animator)
+    protected void ReversalInit(Animator animator,int reversalIndex)
 	{
 		// rotationの固定を復活させ、0,0,0にする
 		GetComponent<Rigidbody>().rotation = Quaternion.Euler(Vector3.zero);
 		// 再固定する
 		GetComponent<Rigidbody>().freezeRotation = true;
 		// ステートを復帰にする
-		animator.SetTrigger("Reversal");
+		animator.SetInteger("AnimIdx", reversalIndex);
 	}
 		
 
     /// <summary>
     /// Idle時共通操作
     /// </summary>
-    protected virtual void Animation_Idle(Animator animator)
+    protected virtual void Animation_Idle(Animator animator,int downIndex, int runIndex, int airdashIndex, int jumpIndex, int frontstepIndex, int leftstepIndex, int rightstepIndex, int backstepIndex, int fallIndex)
     {
 		// ステップへの移行中だった場合何もしない(タイミングの問題でステップに切り替えてもステート変化が間に合わないことがある）
 		if (_StepStartTime != 0)
@@ -5280,8 +5274,8 @@ public class CharacterControlBase : MonoBehaviour
 		// 死んでいたらダウン
 		if (NowHitpoint < 1)
         {
-            animator.SetTrigger("Down");
-        }
+			animator.SetInteger("AnimIdx", downIndex);
+		}
         // くっついているエフェクトの親元を消す
         BrokenEffect();
         RigidBody.constraints = RigidbodyConstraints.FreezeRotation;
@@ -5306,53 +5300,53 @@ public class CharacterControlBase : MonoBehaviour
             // 方向キーで走行
             if (HasVHInput)
             {
-                animator.SetTrigger("Run");
-            }
+				animator.SetInteger("AnimIdx", runIndex);
+			}
 			// ジャンプ２回でキャンセルダッシュへ移行
 			if((HasDashCancelInput|| HasAirDashInput) && Boost > 0)
 			{
-				CancelDashDone(animator);
+				CancelDashDone(animator,airdashIndex);
 			}
             // ジャンプでジャンプへ移行(GetButtonDownで押しっぱなしにはならない。GetButtonで押しっぱなしに対応）
             else if (HasJumpInput && Boost > 0)
             {
                 // 上昇制御をAddForceにするとやりにくい（特に慣性ジャンプ）
-                JumpDone(animator);
+                JumpDone(animator,jumpIndex);
             }			
 			// ステップの場合ステップ(非CPU時)
 			if (IsPlayer == CHARACTERCODE.PLAYER)
             {
                 if (ControllerManager.Instance.FrontStep) 
                 {
-                    StepDone(1, new Vector2(0,1),animator);
+                    StepDone(1, new Vector2(0,1),animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
                 }
                 else if(ControllerManager.Instance.LeftFrontStep)
                 {
-                    StepDone(1, new Vector2(-1, 1), animator);
+                    StepDone(1, new Vector2(-1, 1), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
                 }
                 else if (ControllerManager.Instance.LeftStep)
                 {
-                    StepDone(1, new Vector2(-1, 0), animator);
+                    StepDone(1, new Vector2(-1, 0), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
                 }
                 else if (ControllerManager.Instance.LeftBackStep)
                 {
-                    StepDone(1, new Vector2(-1, -1), animator);
+                    StepDone(1, new Vector2(-1, -1), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
                 }
                 else if (ControllerManager.Instance.BackStep)
                 {
-                    StepDone(1, new Vector2(0, -1), animator);
+                    StepDone(1, new Vector2(0, -1), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
                 }
                 else if (ControllerManager.Instance.RightBackStep)
                 {
-                    StepDone(1, new Vector2(1, -1), animator);
+                    StepDone(1, new Vector2(1, -1), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
                 }
                 else if (ControllerManager.Instance.RightStep)
                 {
-                    StepDone(1, new Vector2(1, 0), animator);
+                    StepDone(1, new Vector2(1, 0), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
                 }
                 else if (ControllerManager.Instance.RightFrontStep)
                 {
-                    StepDone(1, new Vector2(1, 1), animator);
+                    StepDone(1, new Vector2(1, 1), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
                 }
             }
             else
@@ -5360,13 +5354,13 @@ public class CharacterControlBase : MonoBehaviour
                 // CPU時左ステップ
                 if (HasLeftStepInput)
                 {
-                    StepDone(1, new Vector2(-1, 0),animator);
+                    StepDone(1, new Vector2(-1, 0),animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
                     HasLeftStepInput = false;
                 }
                 // CPU時右ステップ
                 else if (HasRightStepInput)
                 {
-                    StepDone(1, new Vector2(1, 0),animator);
+                    StepDone(1, new Vector2(1, 0),animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
                     HasRightStepInput = false;
                 }
             }
@@ -5375,8 +5369,8 @@ public class CharacterControlBase : MonoBehaviour
         // いなければ落下
         else
         {
-            animator.SetTrigger("Fall");
-        }
+			animator.SetInteger("AnimIdx", fallIndex);
+		}
 
     }
 
@@ -5393,26 +5387,26 @@ public class CharacterControlBase : MonoBehaviour
     /// <summary>
     /// Jump時共通動作
     /// </summary>    
-    protected virtual void Animation_Jump(Animator animator)
+    protected virtual void Animation_Jump(Animator animator, int airdashIndex)
     {
         if ((HasDashCancelInput || HasAirDashInput) && Boost > 0)
 		{
             transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             JumpTime = 0;
-            CancelDashDone(animator );
+            CancelDashDone(animator, airdashIndex);
         }
         else
         {
             transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
             // ずれた本体角度を戻す(Yはそのまま）
-            transform.rotation = Quaternion.Euler(new Vector3(0, this.transform.rotation.eulerAngles.y, 0));
+            transform.rotation = Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y, 0));
             // ジャンプしたので硬直を設定する
             JumpTime = Time.time;
         }
     }
 
     // Jumping時共通動作
-    protected virtual void Animation_Jumping(Animator animator)
+    protected virtual void Animation_Jumping(Animator animator, int airdashIndex,int fallIndex, int frontstepIndex, int leftstepIndex, int rightstepIndex, int backstepIndex, int landingIndex)
     {
         Vector3 RiseSpeed = new Vector3(MoveDirection.x, this.RiseSpeed, MoveDirection.z);
         if (Time.time > JumpTime + JumpWaitTime)
@@ -5424,7 +5418,7 @@ public class CharacterControlBase : MonoBehaviour
 				// BD入力でBDへ移行
 				if ((HasDashCancelInput || HasAirDashInput) && Boost > 0)
 				{
-					CancelDashDone(animator);
+					CancelDashDone(animator, airdashIndex);
 					return;
 				}
 				// ボタンを押し続ける限り上昇
@@ -5435,12 +5429,12 @@ public class CharacterControlBase : MonoBehaviour
                 // 離したら落下
                 else if (!HasJumpingInput)
                 {
-                    FallDone(RiseSpeed,animator);
+                    FallDone(RiseSpeed,animator, fallIndex);
                 }
                 // ジャンプ再入力で向いている方向へ空中ダッシュ(上昇は押しっぱなし)
                 else if ((HasDashCancelInput || HasAirDashInput) && Boost > 0)
 				{
-                    CancelDashDone(animator);
+                    CancelDashDone(animator, airdashIndex);
                 }
 
                 // ステップの場合ステップ
@@ -5449,35 +5443,35 @@ public class CharacterControlBase : MonoBehaviour
                 {
                     if (ControllerManager.Instance.FrontStep)
                     {
-                        StepDone(1, new Vector2(0, 1), animator);
+                        StepDone(1, new Vector2(0, 1), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
                     }
                     else if (ControllerManager.Instance.LeftFrontStep)
                     {
-                        StepDone(1, new Vector2(-1, 1), animator);
+                        StepDone(1, new Vector2(-1, 1), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
                     }
                     else if (ControllerManager.Instance.LeftStep)
                     {
-                        StepDone(1, new Vector2(-1, 0), animator);
+                        StepDone(1, new Vector2(-1, 0), animator,frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
                     }
                     else if (ControllerManager.Instance.LeftBackStep)
                     {
-                        StepDone(1, new Vector2(-1, -1), animator);
+                        StepDone(1, new Vector2(-1, -1), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
                     }
                     else if (ControllerManager.Instance.BackStep)
                     {
-                        StepDone(1, new Vector2(0, -1), animator);
+                        StepDone(1, new Vector2(0, -1), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
                     }
                     else if (ControllerManager.Instance.RightBackStep)
                     {
-                        StepDone(1, new Vector2(1, -1), animator);
+                        StepDone(1, new Vector2(1, -1), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
                     }
                     else if (ControllerManager.Instance.RightStep)
                     {
-                        StepDone(1, new Vector2(1, 0), animator);
+                        StepDone(1, new Vector2(1, 0), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
                     }
                     else if (ControllerManager.Instance.RightFrontStep)
                     {
-                        StepDone(1, new Vector2(1, 1), animator);
+                        StepDone(1, new Vector2(1, 1), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
                     }
                     // レバー入力で慣性移動
                     else if (HasVHInput)
@@ -5491,13 +5485,13 @@ public class CharacterControlBase : MonoBehaviour
                     // CPU時左ステップ
                     if (HasLeftStepInput)
                     {
-                        StepDone(1, new Vector2(-1, 0), animator);
+                        StepDone(1, new Vector2(-1, 0), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
                         HasLeftStepInput = false;
                     }
                     // CPU時右ステップ
                     else if (HasRightStepInput)
                     {
-                        StepDone(1, new Vector2(1, 0), animator);
+                        StepDone(1, new Vector2(1, 0), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
                         HasRightStepInput = false;
                     }
                     // レバー入力で慣性移動
@@ -5514,7 +5508,7 @@ public class CharacterControlBase : MonoBehaviour
             // そして下降へ移行する
             else
             {
-                FallDone(RiseSpeed,animator);
+                FallDone(RiseSpeed,animator,fallIndex);
             }
 
         }
@@ -5528,18 +5522,17 @@ public class CharacterControlBase : MonoBehaviour
         // ボタンを離したら下降へ移行
         if (!HasJumpingInput)
         {
-            animator.SetTrigger("Fall");
-            RiseSpeed = new Vector3(0, -this.RiseSpeed, 0);
-        }
+			FallDone(RiseSpeed, animator, fallIndex);
+		}
 
         // 上昇算演
         MoveDirection = RiseSpeed;
 		// 上昇中にオブジェクトに触れた場合は着地モーションへ移行(暴走防止のために、硬直中は判定禁止)
-		if (Time.time > this.JumpTime + this.JumpWaitTime)
+		if (Time.time > JumpTime + JumpWaitTime)
         {
             if (IsGrounded) // 優先順位はこっちを下にしておかないと上昇前に引っかかる
             {
-				LandingDone(animator);
+				LandingDone(animator, landingIndex);
 			}
         }
     }
@@ -5549,7 +5542,7 @@ public class CharacterControlBase : MonoBehaviour
 	/// Run時共通動作
 	/// </summary>
 	/// <param name="animator"></param>
-    protected virtual void Animation_Run(Animator animator)
+    protected virtual void Animation_Run(Animator animator, int frontstepIndex, int leftstepIndex, int rightstepIndex, int backstepIndex, int idleIndex, int jumpIndex, int fallIndex)
     {
         RigidBody.constraints = RigidbodyConstraints.FreezeRotation;
 		// ずれた本体角度を戻す(Yはそのまま）
@@ -5573,49 +5566,49 @@ public class CharacterControlBase : MonoBehaviour
             // 前
             else if(ControllerManager.Instance.FrontStep)
             {
-                StepDone(1, new Vector2(0, 1), animator);
+                StepDone(1, new Vector2(0, 1), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
             }
             // 左前ステップ
             else if(ControllerManager.Instance.LeftFrontStep)
             {
-                StepDone(1, new Vector2(-1, 1), animator);
+                StepDone(1, new Vector2(-1, 1), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
             }
             // 左
             else if(ControllerManager.Instance.LeftStep)
             {
-                StepDone(1, new Vector2(-1, 0), animator);
+                StepDone(1, new Vector2(-1, 0), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
             }
             // 左後ステップ
             else if (ControllerManager.Instance.LeftBackStep)
             {
-                StepDone(1, new Vector2(-1, -1), animator);
+                StepDone(1, new Vector2(-1, -1), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
             }
             // 後ステップ
             else if (ControllerManager.Instance.BackStep)
             {
-                StepDone(1, new Vector2(0, -1), animator);
+                StepDone(1, new Vector2(0, -1), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
             }
             // 右後ステップ
             else if (ControllerManager.Instance.LeftBackStep)
             {
-                StepDone(1, new Vector2(1, -1), animator);
+                StepDone(1, new Vector2(1, -1), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
             }
             // 右
             else if (ControllerManager.Instance.RightStep)
             {
-                StepDone(1, new Vector2(-1, 0), animator);
+                StepDone(1, new Vector2(-1, 0), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
             }
             // 右前ステップ
             else if (ControllerManager.Instance.RightFrontStep)
             {
-                StepDone(1, new Vector2(-1, 0), animator);
+                StepDone(1, new Vector2(-1, 0), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
             }
             // 入力が外れるとアイドル状態へ（ガード中は除く）
             else
             {
 				if (!IsGuard)
 				{
-					animator.SetTrigger("Idle");
+					animator.SetInteger("AnimIdx", idleIndex);
 				}
             }
 
@@ -5623,20 +5616,20 @@ public class CharacterControlBase : MonoBehaviour
             if (HasJumpInput && Boost > 0)
             {
                 // 上昇制御をAddForceにするとやりにくい（特に慣性ジャンプ）
-                JumpDone(animator);
+                JumpDone(animator, jumpIndex);
             }
         }
         else
         {
-            animator.SetTrigger("Fall");
-        }
+			animator.SetInteger("AnimIdx", fallIndex);
+		}
     }
 
 	/// <summary>
 	/// Fall時共通動作
 	/// </summary>
 	/// <param name="animator"></param>
-	protected virtual void Animation_Fall(Animator animator)
+	protected virtual void Animation_Fall(Animator animator, int airdashIndex, int jumpIndex, int frontstepIndex, int leftstepIndex, int rightstepIndex, int backstepIndex,int landingIndex)
 	{
 		// ステップ累積時間を戻す
 		_StepStartTime = 0;
@@ -5659,13 +5652,13 @@ public class CharacterControlBase : MonoBehaviour
 		{
 			if ((HasDashCancelInput || HasAirDashInput) && Boost > 0)// ジャンプ再入力で向いている方向へ空中ダッシュ(上昇は押しっぱなし)           
 			{
-				CancelDashDone(animator);
+				CancelDashDone(animator, airdashIndex);
 				return;
 			}
 			// ジャンプボタンで再ジャンプ
 			else if (HasJumpInput)
 			{
-				JumpDone(animator);
+				JumpDone(animator, jumpIndex);
 				return;
 			}
 			// ステップの場合ステップ
@@ -5674,68 +5667,68 @@ public class CharacterControlBase : MonoBehaviour
 			{
 				// MoveDirectionを再生する
 				MoveDirection = MoveDirection_OR;
-				StepDone(1, new Vector2(0,1), animator);
+				StepDone(1, new Vector2(0,1), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
 				return;
 			}
 			// 左前
 			else if(ControllerManager.Instance.LeftFrontStep)
 			{
 				MoveDirection = MoveDirection_OR;
-				StepDone(1, new Vector2(-1, 1), animator);
+				StepDone(1, new Vector2(-1, 1), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
 				return;
 			}
 			// 左
 			else if(ControllerManager.Instance.LeftStep)
 			{
 				MoveDirection = MoveDirection_OR;
-				StepDone(1, new Vector2(-1, 0), animator);
+				StepDone(1, new Vector2(-1, 0), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
 				return;
 			}
 			// 左後
 			else if(ControllerManager.Instance.LeftBackStep)
 			{
 				MoveDirection = MoveDirection_OR;
-				StepDone(1, new Vector2(-1, -1), animator);
+				StepDone(1, new Vector2(-1, -1), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
 				return;
 			}
 			// 後
 			else if(ControllerManager.Instance.BackStep)
 			{
 				MoveDirection = MoveDirection_OR;
-				StepDone(1, new Vector2(0, -1), animator);
+				StepDone(1, new Vector2(0, -1), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
 				return;
 			}
 			// 右後
 			else if(ControllerManager.Instance.RightBackStep)
 			{
 				MoveDirection = MoveDirection_OR;
-				StepDone(1, new Vector2(1, -1), animator);
+				StepDone(1, new Vector2(1, -1), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
 				return;
 			}
 			// 右
 			else if(ControllerManager.Instance.Right)
 			{
 				MoveDirection = MoveDirection_OR;
-				StepDone(1, new Vector2(1, 0), animator);
+				StepDone(1, new Vector2(1, 0), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
 				return;
 			}
 			// 右前
 			else if(ControllerManager.Instance.RightFrontStep)
 			{
 				MoveDirection = MoveDirection_OR;
-				StepDone(1, new Vector2(1, 1), animator);
+				StepDone(1, new Vector2(1, 1), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
 				return;
 			}
 			// CPU時左ステップ
 			else if (HasLeftStepInput)
 			{
-				StepDone(1, new Vector2(-1, 0), animator);
+				StepDone(1, new Vector2(-1, 0), animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
 				HasLeftStepInput = false;
 			}
 			// CPU時右ステップ
 			else if (HasRightStepInput)
 			{
-				StepDone(1, new Vector2(1, 0),animator);
+				StepDone(1, new Vector2(1, 0),animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex);
 				HasRightStepInput = false;
 			}
 		}
@@ -5754,7 +5747,7 @@ public class CharacterControlBase : MonoBehaviour
 		{
 			MoveDirection = Vector3.zero;
 			Debug.Log("04");
-			LandingDone(animator);
+			LandingDone(animator, landingIndex);
 		}
 	}
 
@@ -5762,7 +5755,7 @@ public class CharacterControlBase : MonoBehaviour
 	/// 着地時に実行
 	/// </summary>
 	/// <param name="animator"></param>
-	protected virtual void Animation_Landing(Animator animator)
+	protected virtual void Animation_Landing(Animator animator,int idleIndex)
 	{
 		transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
 		// ずれた本体角度を戻す(Yはそのまま）
@@ -5775,7 +5768,7 @@ public class CharacterControlBase : MonoBehaviour
 		if (Time.time > LandingTime + LandingWaitTime)
 		{
 			_StepStartTime = 0;
-            animator.SetTrigger("Idle");
+			animator.SetInteger("AnimIdx", idleIndex);
 			// ブースト量を初期化する
 			Boost = GetMaxBoost(BoostLevel);
 		}
@@ -5785,7 +5778,7 @@ public class CharacterControlBase : MonoBehaviour
     /// ブーストダッシュ時に実行
     /// </summary>
     /// <param name="animator"></param>
-	protected virtual void Animation_AirDash(Animator animator)
+	protected virtual void Animation_AirDash(Animator animator, int fallIndex)
 	{
 		transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
 		// ずれた本体角度を戻す(Yはそのまま） 
@@ -5808,21 +5801,15 @@ public class CharacterControlBase : MonoBehaviour
             // ボタンを離すと下降
             else
             {
-                FallDone(RiseSpeed, animator);
+                FallDone(RiseSpeed, animator,fallIndex);
             }
         }
 		// ブースト0で下降へ移行&重力復活（慣性移動も不可）
 		else
 		{
-			FallDone(RiseSpeed,animator);
+			FallDone(RiseSpeed,animator,fallIndex);
 			MoveDirection = RiseSpeed;
 		}
-		// 着地で着地モーションへ
-		//if (IsGrounded)
-		//{
-		//	Debug.Log("05");
-		//	LandingDone(animator);
-		//}
 		// 常時ブースト消費
 		Boost = Boost - BoostLess;
 	}
@@ -5835,17 +5822,17 @@ public class CharacterControlBase : MonoBehaviour
 	/// <param name="leftstephash"></param>
 	/// <param name="rightstephash"></param>
 	/// <param name="backstephash"></param>
-	protected void Animation_StepDone(Animator animator,int frontstephash,int leftstephash,int rightstephash,int backstephash)
+	protected void Animation_StepDone(Animator animator,int frontstephash,int leftstephash,int rightstephash,int backstephash,int frontstepbackIndex, int leftstepbackIndex, int rightstepbackIndex, int backstepbackIndex, int jumpIndex, int airdashIndex)
 	{
-		StepMove(animator, frontstephash, leftstephash, rightstephash, backstephash);
-		CancelCheck(animator);
+		StepMove(animator, frontstephash, leftstephash, rightstephash, backstephash,frontstepbackIndex, leftstepbackIndex,rightstepbackIndex, backstepbackIndex);
+		CancelCheck(animator,jumpIndex, airdashIndex);
 	}
 
 	/// <summary>
 	/// ステップ終了アニメ実行時の処理
 	/// </summary>
 	/// <param name="animator"></param>
-	protected void Animation_StepBack(Animator animator)
+	protected void Animation_StepBack(Animator animator,int idleIndex)
 	{
 		// ロック中は相手の方向を見る
 		if(IsRockon)
@@ -5871,8 +5858,8 @@ public class CharacterControlBase : MonoBehaviour
 			MoveDirection = new Vector3(0, 0, 0);
 			// 累積時間を戻す
 			_StepStartTime = 0;
-            // アニメーションをIdleに戻す
-            animator.SetTrigger("Idle");
+			// アニメーションをIdleに戻す
+			animator.SetInteger("AnimIdx", idleIndex);
 		}	
 	}
 
