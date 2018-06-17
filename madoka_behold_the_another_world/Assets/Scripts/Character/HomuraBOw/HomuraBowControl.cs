@@ -266,51 +266,51 @@ public class HomuraBowControl : CharacterControlBase
 		}
 
         // ハッシュID取得
-        IdleID = Animator.StringToHash("Base Layer.HomuraBowIdle");
-        WalkID = Animator.StringToHash("Base Layer.HomuraBowWalk");
-        JumpID = Animator.StringToHash("Base Layer.HomuraBowJump");
-        JumpingID = Animator.StringToHash("Base Layer.HomuraBowJumping");
-        FallID = Animator.StringToHash("Base Layer.HomuraBowFall");
-        LandingID = Animator.StringToHash("Base Layer.HomuraBowLanding");
-        RunID = Animator.StringToHash("Base Layer.HomuraBowRun");
-        AirDashID = Animator.StringToHash("Base Layer.HomuraBowAirDash");
-        FrontStepID = Animator.StringToHash("Base Layer.HomuraBowFrontStep");
-        FrontStepBackID = Animator.StringToHash("Base Layer.HomurabowFrontStepBack");
-        LeftStepID = Animator.StringToHash("Base Layer.HomuraBowLeftStep");
-        LeftStepBackID = Animator.StringToHash("Base Layer.HomuraBowLeftStepBack");
-        RightStepID = Animator.StringToHash("Base Layer.HomuraBowRightStep");
-        RightStepBackID = Animator.StringToHash("Base Layer.HomuraBowRightStepBack");
-        BackStepID = Animator.StringToHash("Base Layer.HomuraBowBackStep");
-        BackStepBackID = Animator.StringToHash("Base Layer.HomuraBowBackStepBack");
-        ShotID = Animator.StringToHash("Base Layer.HomuraBowShot");
-        RunShotID = Animator.StringToHash("Base Layer.HomuraBowRunShot");
-        AirShotID = Animator.StringToHash("Base Layer.HomuraBowAirShot");
-        ChargeShotID = Animator.StringToHash("Base Layer.HomuraBowChargeShot");
-        SubShotID = Animator.StringToHash("Base Layer.HomuraBowSubShot");
-        EXShotID = Animator.StringToHash("Base Layer.HomuraBowEXShot");
-        FollowThrowShotID = Animator.StringToHash("Base Layer.HomuraBowShotForrowThrow");
-        FollowThrowRunShotID = Animator.StringToHash("Base Layer.HomuraBowRunShotForrowThrow");
-        FollowThrowAirShotID = Animator.StringToHash("Base Layer.HomuraBowAirShotForrowThrow");
-        FollowThrowChargeShotID = Animator.StringToHash("Base Layer.HowmuraBowChargeShotFollowThrow");
-        FollowThrowSubShotID = Animator.StringToHash("Base Layer.HomuraBowSubShotFollowThrow");
-        FollowThrowEXShotID = Animator.StringToHash("Base Layer.HomuraBowEXShotFollowThrow");
-        Wrestle1ID = Animator.StringToHash("Base Layer.HomuraBowWrestle1");
-        Wrestle2ID = Animator.StringToHash("Base Layer.HomuraBowWrestle2");
-        Wrestle3ID = Animator.StringToHash("Base Layer.HomuraBowWrestle3");
-        FrontWrestleID = Animator.StringToHash("Base Layer.HomuraBowFrontWrestle");
-        LeftWrestleID = Animator.StringToHash("Base Layer.HomuraBowLeftWrestle");
-        RightWrestleID = Animator.StringToHash("Base Layer.HomuraBowRightWrestle");
-        BackWrestleID = Animator.StringToHash("Base Layer.HomuraBowBackWrestle");
-        AirDashWrestleID = Animator.StringToHash("Base Layer.HomuraBowBDWrestle");
-        EXWrestleID = Animator.StringToHash("Base Layer.HomuraBowEXWrestle");
-        EXFrontWrestleID = Animator.StringToHash("Base Layer.HomuraBowFrontEXWrestle");
-        EXBackWrestleID = Animator.StringToHash("Base Layer.HomuraBowBackExWrestle");
-        ReversalID = Animator.StringToHash("Base Layer.HomuraBowReversal");
-        ArousalAttackID = Animator.StringToHash("Base Layer.HomuraBowArousalAttack");
-        DamageID = Animator.StringToHash("Base Layer.HomuraBowDamage");
-        DownID = Animator.StringToHash("Base Layer.HomurBowDown");
-        BlowID = Animator.StringToHash("Base Layer.HomuraBowBlow");
-        SpinDownID = Animator.StringToHash("Base Layer.HomuraBowSpindown");
+        IdleID = Animator.StringToHash("Base Layer.idle_homura_battle_ribon_copy");
+        WalkID = Animator.StringToHash("Base Layer.walk_homura_battle_ribon_copy");
+        JumpID = Animator.StringToHash("Base Layer.homura_bow_jump_copy");
+        JumpingID = Animator.StringToHash("Base Layer.jumping_homura_battle_ribon_copy");
+        FallID = Animator.StringToHash("Base Layer.homura_bow_fall_copy");
+        LandingID = Animator.StringToHash("Base Layer.homura_bow_landing_copy");
+        RunID = Animator.StringToHash("Base Layer.homura_bow_run_copy");
+        AirDashID = Animator.StringToHash("Base Layer.homura_bow_AirDash_copy");
+        FrontStepID = Animator.StringToHash("Base Layer.frontstep_homura_battle_ribon_copy");
+        FrontStepBackID = Animator.StringToHash("Base Layer.frontstep_back_homura_battle_ribon_copy");
+        LeftStepID = Animator.StringToHash("Base Layer.homura_bow_leftstep_copy");
+        LeftStepBackID = Animator.StringToHash("Base Layer.homura_bow_leftstep_back_copy");
+        RightStepID = Animator.StringToHash("Base Layer.homura_bow_rightstep_copy");
+        RightStepBackID = Animator.StringToHash("Base Layer.homura_bow_rightstep_back_copy");
+        BackStepID = Animator.StringToHash("Base Layer.backstep_homura_battle_ribon_copy");
+        BackStepBackID = Animator.StringToHash("Base Layer.backstep_back_homura_battle_ribon_copy");
+        ShotID = Animator.StringToHash("Base Layer.homura_bow_shot_copy");
+        RunShotID = Animator.StringToHash("Base Layer.RunShot");
+        AirShotID = Animator.StringToHash("Base Layer.AirShot");
+        ChargeShotID = Animator.StringToHash("Base Layer.homura_bow_chargeshot_copy");
+        SubShotID = Animator.StringToHash("Base Layer.homura_bow_subshot_copy");
+        EXShotID = Animator.StringToHash("Base Layer.homura_bow_exshot_copy");
+        FollowThrowShotID = Animator.StringToHash("Base Layer.homura_shot_followthrow_copy");
+        FollowThrowRunShotID = Animator.StringToHash("Base Layer.RunShotFollowThrow");
+        FollowThrowAirShotID = Animator.StringToHash("Base Layer.AirShotFollowThrow");
+        FollowThrowChargeShotID = Animator.StringToHash("Base Layer.homura_bow_chargeshot_followthrow_copy");
+        FollowThrowSubShotID = Animator.StringToHash("Base Layer.homura_bow_subshot_followthrow_copy");
+        FollowThrowEXShotID = Animator.StringToHash("Base Layer.homura_bow_exshot_followthrow_copy");
+        Wrestle1ID = Animator.StringToHash("Base Layer.Homura_Final_Battle_Wrestle1");
+        Wrestle2ID = Animator.StringToHash("Base Layer.Homura_Final_Battle_Wrestle2");
+        Wrestle3ID = Animator.StringToHash("Base Layer.Homura_Final_Battle_Wrestle3");
+        FrontWrestleID = Animator.StringToHash("Base Layer.front_wrestle_homura_battle_ribon_copy");
+        LeftWrestleID = Animator.StringToHash("Base Layer.left_wrestle_homura_battle_ribon_copy");
+        RightWrestleID = Animator.StringToHash("Base Layer.right_wrestle_homura_battle_ribon_copy");
+        BackWrestleID = Animator.StringToHash("Base Layer.back_wrestle_homura_battle_ribon_copy");
+        AirDashWrestleID = Animator.StringToHash("Base Layer.bd_wrestle_homura_battle_ribon_copy");
+        EXWrestleID = Animator.StringToHash("Base Layer.ex_wrestle_homura_battle_ribon_copy");
+        EXFrontWrestleID = Animator.StringToHash("Base Layer.frontex_wrestle_homura_battle_ribon_copy");
+        EXBackWrestleID = Animator.StringToHash("Base Layer.backex_wrestle_homura_battle_ribon_copy");
+        ReversalID = Animator.StringToHash("Base Layer.down_rebirth_homura_battle02_copy");
+        ArousalAttackID = Animator.StringToHash("Base Layer.ex_burst_homura_battle_ribon_copy");
+        DamageID = Animator.StringToHash("Base Layer.damage_homura_battle_ribon_copy");
+        DownID = Animator.StringToHash("Base Layer.down_homura_battle_ribon_copy");
+        BlowID = Animator.StringToHash("Base Layer.homura_bow_blow_copy");
+        SpinDownID = Animator.StringToHash("Base Layer.homura_bow_spin_down_copy");
 
 		// リバーサルとダウンのIDを取得
 		ReversalHash = ReversalID;
@@ -538,7 +538,7 @@ public class HomuraBowControl : CharacterControlBase
 		{
 			isspindown = true;
 		}
-		if(Update_Core(isspindown, AnimatorUnit, DownID, AirDashID,AirShotID,JumpingID,FallID,IdleID,BlowID,RunID,FrontStepID,LeftStepID,RightStepID,BackStepID,DamageID))
+		if(Update_Core(isspindown, AnimatorUnit, DownID, AirDashID,AirShotID,JumpingID,FallID,IdleID,BlowID,RunID,FrontStepID,LeftStepID,RightStepID,BackStepID,DamageID, (int)HomuraBowBattleDefine.Idx.backstep_back_homura_battle_ribon_copy,(int)HomuraBowBattleDefine.Idx.homura_bow_rightstep_back_copy, (int)HomuraBowBattleDefine.Idx.down_rebirth_homura_battle02_copy))
 		{
             UpdateAnimation();
             // リロード実行           
@@ -576,7 +576,7 @@ public class HomuraBowControl : CharacterControlBase
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == JumpID)
 		{
-			Animation_Jump(AnimatorUnit);
+			Animation_Jump(AnimatorUnit,(int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == JumpingID)
 		{
@@ -588,7 +588,7 @@ public class HomuraBowControl : CharacterControlBase
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LandingID)
 		{
-			Animation_Landing(AnimatorUnit);
+			Animation_Landing(AnimatorUnit,(int)HomuraBowBattleDefine.Idx.idle_homura_battle_ribon_copy);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RunID)
 		{
@@ -601,35 +601,35 @@ public class HomuraBowControl : CharacterControlBase
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontStepID)
 		{
-			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID);
+			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID,(int)HomuraBowBattleDefine.Idx.frontstep_back_homura_battle_ribon_copy,(int)HomuraBowBattleDefine.Idx.homura_bow_leftstep_back_copy,(int)HomuraBowBattleDefine.Idx.homura_bow_rightstep_back_copy, (int)HomuraBowBattleDefine.Idx.backstep_back_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_jump_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LeftStepID)
 		{
-			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID);
+			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID, (int)HomuraBowBattleDefine.Idx.frontstep_back_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_leftstep_back_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_rightstep_back_copy, (int)HomuraBowBattleDefine.Idx.backstep_back_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_jump_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RightStepID)
 		{
-			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID);
+			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID, (int)HomuraBowBattleDefine.Idx.frontstep_back_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_leftstep_back_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_rightstep_back_copy, (int)HomuraBowBattleDefine.Idx.backstep_back_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_jump_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BackStepID)
 		{
-			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID);
+			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID, (int)HomuraBowBattleDefine.Idx.frontstep_back_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_leftstep_back_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_rightstep_back_copy, (int)HomuraBowBattleDefine.Idx.backstep_back_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_jump_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontStepBackID)
 		{
-			Animation_StepBack(AnimatorUnit);
+			Animation_StepBack(AnimatorUnit, (int)HomuraBowBattleDefine.Idx.idle_homura_battle_ribon_copy);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LeftStepBackID)
 		{
-			Animation_StepBack(AnimatorUnit);
+			Animation_StepBack(AnimatorUnit, (int)HomuraBowBattleDefine.Idx.idle_homura_battle_ribon_copy);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RightStepBackID)
 		{
-			Animation_StepBack(AnimatorUnit);
+			Animation_StepBack(AnimatorUnit, (int)HomuraBowBattleDefine.Idx.idle_homura_battle_ribon_copy);
 		}
 		else if(AnimatorUnit.GetAnimatorTransitionInfo(0).fullPathHash == BackStepBackID)
 		{
-			Animation_StepBack(AnimatorUnit);
+			Animation_StepBack(AnimatorUnit, (int)HomuraBowBattleDefine.Idx.idle_homura_battle_ribon_copy);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == ShotID)
 		{
@@ -645,15 +645,15 @@ public class HomuraBowControl : CharacterControlBase
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == ChargeShotID)
 		{
-            ChargeShot();
+            ChargeShot((int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == SubShotID)
 		{
-            SubShot();
+            SubShot((int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
         }
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXShotID)
 		{
-			ExShot();
+			ExShot((int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowShotID)
 		{
@@ -669,15 +669,15 @@ public class HomuraBowControl : CharacterControlBase
         }
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowChargeShotID)
 		{
-            ChargeShot();
+            ChargeShot((int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
         }
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowSubShotID)
 		{
-            SubShot();
+            SubShot((int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
         }
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowEXShotID)
 		{
-			ExShot();
+			ExShot((int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle1ID)
 		{
@@ -689,23 +689,23 @@ public class HomuraBowControl : CharacterControlBase
         }
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle3ID)
 		{
-            Wrestle3(AnimatorUnit);
+            Wrestle3(AnimatorUnit,(int)HomuraBowBattleDefine.Idx.frontstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_leftstep_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_rightstep_copy, (int)HomuraBowBattleDefine.Idx.backstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
         }
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontWrestleID)
 		{
-			FrontWrestle1(AnimatorUnit);
+			FrontWrestle1(AnimatorUnit, (int)HomuraBowBattleDefine.Idx.frontstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_leftstep_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_rightstep_copy, (int)HomuraBowBattleDefine.Idx.backstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LeftWrestleID)
 		{
-			LeftWrestle1(AnimatorUnit);
+			LeftWrestle1(AnimatorUnit, (int)HomuraBowBattleDefine.Idx.frontstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_leftstep_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_rightstep_copy, (int)HomuraBowBattleDefine.Idx.backstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RightWrestleID)
 		{
-			RightWrestle1(AnimatorUnit);
+			RightWrestle1(AnimatorUnit, (int)HomuraBowBattleDefine.Idx.frontstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_leftstep_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_rightstep_copy, (int)HomuraBowBattleDefine.Idx.backstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BackWrestleID)
 		{
-			BackWrestle(AnimatorUnit);
+			BackWrestle(AnimatorUnit,(int)HomuraBowBattleDefine.Idx.frontstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_leftstep_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_rightstep_copy, (int)HomuraBowBattleDefine.Idx.backstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.idle_homura_battle_ribon_copy);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == AirDashWrestleID)
 		{
