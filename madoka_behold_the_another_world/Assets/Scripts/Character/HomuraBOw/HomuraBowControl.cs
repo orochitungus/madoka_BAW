@@ -722,7 +722,7 @@ public class HomuraBowControl : CharacterControlBase
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXBackWrestleID)
 		{
-			BackExWrestle(AnimatorUnit);
+			BackExWrestle(AnimatorUnit,(int)HomuraBowBattleDefine.Idx.homura_bow_fall_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_landing_copy);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == ReversalID)
 		{
@@ -738,7 +738,7 @@ public class HomuraBowControl : CharacterControlBase
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == DownID)
 		{
-			Down(AnimatorUnit);
+			Down(AnimatorUnit,(int)HomuraBowBattleDefine.Idx.down_rebirth_homura_battle02_copy);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BlowID)
 		{
@@ -764,7 +764,7 @@ public class HomuraBowControl : CharacterControlBase
 	/// </summary>
 	public void JumpingMigration()
 	{
-        AnimatorUnit.SetTrigger("Jumping");
+		AnimatorUnit.SetInteger("AnimIdx", (int)HomuraBowBattleDefine.Idx.jumping_homura_battle_ribon_copy);
 	}
 
 	/// <summary>
@@ -1632,7 +1632,7 @@ public class HomuraBowControl : CharacterControlBase
 	{
 		base.ExWrestle1();
 		Wrestletime += Time.deltaTime;
-		StepCancel(AnimatorUnit, (int));
+		StepCancel(AnimatorUnit, (int)HomuraBowBattleDefine.Idx.frontstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_leftstep_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_rightstep_copy, (int)HomuraBowBattleDefine.Idx.backstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
 	}
 
     /// <summary>
@@ -1662,13 +1662,13 @@ public class HomuraBowControl : CharacterControlBase
     /// 後特殊格闘
     /// </summary>
     /// <param name="animator"></param>
-    protected override void BackExWrestle(Animator animator)
+    protected override void BackExWrestle(Animator animator, int fallIndex, int landingIndex)
     {
-        base.BackExWrestle(animator);
+        base.BackExWrestle(animator,fallIndex, landingIndex);
         // レバー入力カットか特殊格闘入力カットで落下に移行する
         if (ControllerManager.Instance.UnderUp || ControllerManager.Instance.EXWrestleUp)
         {
-            FallDone(Vector3.zero, animator);
+            FallDone(Vector3.zero, animator,fallIndex);
         }
 		// 移動速度（上方向に垂直上昇する）
 		float movespeed = 100.0f;
@@ -1727,7 +1727,7 @@ public class HomuraBowControl : CharacterControlBase
 		float speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillindex].AnimSpeed;
 
 		// アニメーションを再生する
-		animator.SetTrigger("EXWrestle");
+		animator.SetInteger("AnimIdx", (int)HomuraBowBattleDefine.Idx.ex_wrestle_homura_battle_ribon_copy);
 
 		// アニメーションの速度を調整する
 		animator.speed = speed;
@@ -1750,8 +1750,7 @@ public class HomuraBowControl : CharacterControlBase
         animator.speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillindex].AnimSpeed;
 
         // アニメーションを再生する
-        animator.SetTrigger("FrontEXWrestle");
-        
+		animator.SetInteger("AnimIdx", (int)HomuraBowBattleDefine.Idx.frontex_wrestle_homura_battle_ribon_copy);
     }
 
     /// <summary>
@@ -1768,8 +1767,7 @@ public class HomuraBowControl : CharacterControlBase
 		animator.speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillindex].AnimSpeed;
 
         // アニメーションを再生する
-        animator.SetTrigger("BackEXWrestle");
-        
+		animator.SetInteger("AnimIdx", (int)HomuraBowBattleDefine.Idx.backex_wrestle_homura_battle_ribon_copy);
     }
 
 	
@@ -1880,7 +1878,7 @@ public class HomuraBowControl : CharacterControlBase
 					if (_WingboneCounter > 17)
 					{
 						ArousalAttackCamera2.enabled = false;
-						AnimatorUnit.SetTrigger("ArousalAttack");
+						AnimatorUnit.SetInteger("AnimIdx", (int)HomuraBowBattleDefine.Idx.ex_burst_homura_battle_ribon_copy);
 						Arousalattackstate = ArousalAttackState.ATTACK;
 						// 演出フラグを折る
 						ArousalAttackProduction = false;
@@ -1914,16 +1912,16 @@ public class HomuraBowControl : CharacterControlBase
 			case ArousalAttackState.END:    // 覚醒ゲージが空になったので、Armorを戻してIdleへ移行
 				// アーマーフラグ解除
 				SetIsArmor(false);
-				AnimatorUnit.SetTrigger("Idle");
+				AnimatorUnit.SetInteger("AnimIdx", (int)HomuraBowBattleDefine.Idx.idle_homura_battle_ribon_copy);
 				break;
 		}
 	}
 
-	protected override void Down(Animator animator)
+	protected override void Down(Animator animator, int reversalIndex)
 	{
 		// 死んだ時は羽を消しておく
 		ArousalAttackWing.SetActive(false);
-		base.Down(animator);
+		base.Down(animator,reversalIndex);
 	}
 
 }
