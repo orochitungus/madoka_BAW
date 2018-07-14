@@ -405,7 +405,7 @@ public class SconosciutoControl : CharacterControlBase
 		{
 			isspindown = true;
 		}
-		if (Update_Core(isspindown, AnimatorUnit, DownID, AirDashID, AirShotID, JumpingID, FallID, IdleID, BlowID, RunID, FrontStepID, LeftStepID, RightStepID, BackStepID, DamageID))
+		if (Update_Core(isspindown, AnimatorUnit, DownID, AirDashID, AirShotID, JumpingID, FallID, IdleID, BlowID, RunID, FrontStepID, LeftStepID, RightStepID, BackStepID, DamageID,(int)SconosciutoBattleDefine.Idx.Scono_leftstep_back_copy, (int)SconosciutoBattleDefine.Idx.Scono_rightstep_back_copy, (int)SconosciutoBattleDefine.Idx.Scono_rebirsal_copy))
 		{
 			UpdateAnimation();
 			// リロード実行           
@@ -426,7 +426,7 @@ public class SconosciutoControl : CharacterControlBase
 		ShowAirDashEffect = false;
 		if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == IdleID)
 		{
-			Animation_Idle(AnimatorUnit);
+			Animation_Idle(AnimatorUnit, (int)SconosciutoBattleDefine.Idx.Scono_Down_copy, (int)SconosciutoBattleDefine.Idx.Scono_run_copy, (int)SconosciutoBattleDefine.Idx.Scono_AirDash_copy, (int)SconosciutoBattleDefine.Idx.Scono_jump_copy, (int)SconosciutoBattleDefine.Idx.Scono_frontstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_leftstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_rightstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_backstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_fall_copy);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == WalkID)
 		{
@@ -434,68 +434,68 @@ public class SconosciutoControl : CharacterControlBase
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == JumpID)
 		{
-			Animation_Jump(AnimatorUnit);
+			Animation_Jump(AnimatorUnit,(int)SconosciutoBattleDefine.Idx.Scono_AirDash_copy);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == JumpingID)
 		{
-			Animation_Jumping(AnimatorUnit);
+			Animation_Jumping(AnimatorUnit, (int)SconosciutoBattleDefine.Idx.Scono_AirDash_copy, (int)SconosciutoBattleDefine.Idx.Scono_fall_copy, (int)SconosciutoBattleDefine.Idx.Scono_frontstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_leftstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_rightstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_backstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_landing_copy);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FallID)
 		{
-			Animation_Fall(AnimatorUnit);
+			Animation_Fall(AnimatorUnit, (int)SconosciutoBattleDefine.Idx.Scono_AirDash_copy, (int)SconosciutoBattleDefine.Idx.Scono_jump_copy, (int)SconosciutoBattleDefine.Idx.Scono_frontstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_leftstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_rightstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_backstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_landing_copy);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LandingID)
 		{
-			Animation_Landing(AnimatorUnit);
+			Animation_Landing(AnimatorUnit, (int)SconosciutoBattleDefine.Idx.Scono_neutral_copy);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RunID)
 		{
-			Animation_Run(AnimatorUnit);
+			Animation_Run(AnimatorUnit, (int)SconosciutoBattleDefine.Idx.Scono_frontstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_leftstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_rightstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_backstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_neutral_copy, (int)SconosciutoBattleDefine.Idx.Scono_jump_copy, (int)SconosciutoBattleDefine.Idx.Scono_fall_copy);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == AirDashID)
 		{
 			ShowAirDashEffect = true;
-			Animation_AirDash(AnimatorUnit);
+			Animation_AirDash(AnimatorUnit,(int)SconosciutoBattleDefine.Idx.Scono_fall_copy);
 		}
 		// 前ステップ
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontStepID)
 		{
-			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID);
+			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID,(int)SconosciutoBattleDefine.Idx.Scono_frontstep_back_copy, (int)SconosciutoBattleDefine.Idx.Scono_leftstep_back_copy, (int)SconosciutoBattleDefine.Idx.Scono_rightstep_back_copy, (int)SconosciutoBattleDefine.Idx.Scono_backstep_back_copy, (int)SconosciutoBattleDefine.Idx.Scono_jump_copy, (int)SconosciutoBattleDefine.Idx.Scono_AirDash_copy);
 		}
 		// 左ステップ
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LeftStepID)
 		{
-			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID);
+			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID, (int)SconosciutoBattleDefine.Idx.Scono_frontstep_back_copy, (int)SconosciutoBattleDefine.Idx.Scono_leftstep_back_copy, (int)SconosciutoBattleDefine.Idx.Scono_rightstep_back_copy, (int)SconosciutoBattleDefine.Idx.Scono_backstep_back_copy, (int)SconosciutoBattleDefine.Idx.Scono_jump_copy, (int)SconosciutoBattleDefine.Idx.Scono_AirDash_copy);
 		}
 		// 右ステップ
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RightStepID)
 		{
-			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID);
+			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID, (int)SconosciutoBattleDefine.Idx.Scono_frontstep_back_copy, (int)SconosciutoBattleDefine.Idx.Scono_leftstep_back_copy, (int)SconosciutoBattleDefine.Idx.Scono_rightstep_back_copy, (int)SconosciutoBattleDefine.Idx.Scono_backstep_back_copy, (int)SconosciutoBattleDefine.Idx.Scono_jump_copy, (int)SconosciutoBattleDefine.Idx.Scono_AirDash_copy);
 		}
 		// 後ステップ
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BackStepID)
 		{
-			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID);
+			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID, (int)SconosciutoBattleDefine.Idx.Scono_frontstep_back_copy, (int)SconosciutoBattleDefine.Idx.Scono_leftstep_back_copy, (int)SconosciutoBattleDefine.Idx.Scono_rightstep_back_copy, (int)SconosciutoBattleDefine.Idx.Scono_backstep_back_copy, (int)SconosciutoBattleDefine.Idx.Scono_jump_copy, (int)SconosciutoBattleDefine.Idx.Scono_AirDash_copy);
 		}
 		// 前ステップ終了
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontStepBackID)
 		{
-			Animation_StepBack(AnimatorUnit);
+			Animation_StepBack(AnimatorUnit,(int)SconosciutoBattleDefine.Idx.Scono_neutral_copy);
 		}
 		// 左ステップ終了
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LeftStepBackID)
 		{
-			Animation_StepBack(AnimatorUnit);
+			Animation_StepBack(AnimatorUnit, (int)SconosciutoBattleDefine.Idx.Scono_neutral_copy);
 		}
 		// 右ステップ終了
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RightStepBackID)
 		{
-			Animation_StepBack(AnimatorUnit);
+			Animation_StepBack(AnimatorUnit, (int)SconosciutoBattleDefine.Idx.Scono_neutral_copy);
 		}
 		// 後ステップ終了
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BackStepBackID)
 		{
-			Animation_StepBack(AnimatorUnit);
+			Animation_StepBack(AnimatorUnit, (int)SconosciutoBattleDefine.Idx.Scono_neutral_copy);
 		}
 		// リバーサル
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == ReversalID)
@@ -505,22 +505,22 @@ public class SconosciutoControl : CharacterControlBase
 		// ダメージ
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == DamageID)
 		{
-			Damage(AnimatorUnit);
+			Damage(AnimatorUnit, (int)SconosciutoBattleDefine.Idx.Scono_neutral_copy, (int)SconosciutoBattleDefine.Idx.Scono_Damage_copy);
 		}
 		// ダウン
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == DownID)
 		{
-			Down(AnimatorUnit);
+			Down(AnimatorUnit, (int)SconosciutoBattleDefine.Idx.Scono_rebirsal_copy);
 		}
 		// 吹き飛び
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BlowID)
 		{
-			Blow(AnimatorUnit);
+			Blow(AnimatorUnit, (int)SconosciutoBattleDefine.Idx.Scono_Down_copy, (int)SconosciutoBattleDefine.Idx.Scono_rebirsal_copy);
 		}
 		// きりもみダウン
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == SpinDownID)
 		{
-			SpinDown(AnimatorUnit);
+			SpinDown(AnimatorUnit, (int)SconosciutoBattleDefine.Idx.Scono_Down_copy);
 		}
 		// 射撃
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == ShotID)
@@ -554,43 +554,43 @@ public class SconosciutoControl : CharacterControlBase
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowSubShotID)
 		{
-			SubShot();
+			SubShot((int)SconosciutoBattleDefine.Idx.Scono_AirDash_copy);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowEXShotID)
 		{
-			ExShot();
+			ExShot((int)SconosciutoBattleDefine.Idx.Scono_AirDash_copy);
 		}
 		// 通常格闘
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle1ID)
 		{
-			Wrestle1(AnimatorUnit);
+			Wrestle1(AnimatorUnit,(int)SconosciutoBattleDefine.Idx.Scono_frontstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_leftstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_rightstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_backstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_AirDash_copy);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle2ID)
 		{
-			Wrestle2(AnimatorUnit);
+			Wrestle2(AnimatorUnit, (int)SconosciutoBattleDefine.Idx.Scono_frontstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_leftstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_rightstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_backstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_AirDash_copy);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle3ID)
 		{
-			Wrestle3(AnimatorUnit);
+			Wrestle3(AnimatorUnit, (int)SconosciutoBattleDefine.Idx.Scono_frontstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_leftstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_rightstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_backstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_AirDash_copy);
 		}
 		// 前格闘
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontWrestleID)
 		{
-			FrontWrestle1(AnimatorUnit);
+			FrontWrestle1(AnimatorUnit,(int)SconosciutoBattleDefine.Idx.Scono_frontstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_leftstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_rightstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_backstep_copy,(int)SconosciutoBattleDefine.Idx.Scono_AirDash_copy);
 		}
 		// 横格闘
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LeftWrestleID)
 		{
-			LeftWrestle1(AnimatorUnit);
+			LeftWrestle1(AnimatorUnit,(int)SconosciutoBattleDefine.Idx.Scono_frontstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_leftstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_rightstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_backstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_AirDash_copy);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RightWrestleID)
 		{
-			RightWrestle1(AnimatorUnit);
+			RightWrestle1(AnimatorUnit, (int)SconosciutoBattleDefine.Idx.Scono_frontstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_leftstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_rightstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_backstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_AirDash_copy);
 		}
 		// 後格闘（ガード）
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BackWrestleID)
 		{			
-			BackWrestle(AnimatorUnit);
+			BackWrestle(AnimatorUnit, (int)SconosciutoBattleDefine.Idx.Scono_frontstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_leftstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_rightstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_backstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_neutral_copy);
 		}
         else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXWrestleID)
         {
@@ -599,18 +599,18 @@ public class SconosciutoControl : CharacterControlBase
         // 前特殊格闘
         else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXFrontWrestleID)
         {
-            FrontExWrestle1(AnimatorUnit);
+            FrontExWrestle1(AnimatorUnit, (int)SconosciutoBattleDefine.Idx.Scono_fall_copy, (int)SconosciutoBattleDefine.Idx.Scono_frontstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_leftstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_rightstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_backstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_AirDash_copy);
         }
         // 後特殊格闘
         else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXBackWrestleID)
         {
-            BackExWrestle(AnimatorUnit);
+            BackExWrestle(AnimatorUnit, (int)SconosciutoBattleDefine.Idx.Scono_fall_copy, (int)SconosciutoBattleDefine.Idx.Scono_landing_copy);
         }
         // 空中ダッシュ格闘
         else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == AirDashWrestleID)
         {
             ShowAirDashEffect = true;
-            AirDashWrestle(AnimatorUnit);
+            AirDashWrestle(AnimatorUnit, (int)SconosciutoBattleDefine.Idx.Scono_fall_copy);
         }
 
         if (ShowAirDashEffect)
@@ -627,7 +627,7 @@ public class SconosciutoControl : CharacterControlBase
 	/// アイドル時のアニメーションを制御
 	/// </summary>
 	/// <param name="animator"></param>
-	protected override void Animation_Idle(Animator animator)
+	protected override void Animation_Idle(Animator animator, int downIndex, int runIndex, int airdashIndex, int jumpIndex, int frontstepIndex, int leftstepIndex, int rightstepIndex, int backstepIndex, int fallIndex)
 	{
 		// 攻撃したかフラグ
 		bool attack = false;
@@ -649,12 +649,12 @@ public class SconosciutoControl : CharacterControlBase
 			{
 				transform.Translate(new Vector3(0, 1, 0));
 			}
-			CancelDashDone(AnimatorUnit);
+			CancelDashDone(AnimatorUnit,airdashIndex);
 		}
 		// 攻撃した場合はステートが変更されるので、ここで終了
 		if (!attack)
 		{
-			base.Animation_Idle(animator);
+			base.Animation_Idle(animator,downIndex, runIndex, airdashIndex, jumpIndex, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex, fallIndex);
 		}
 	}
 
@@ -663,12 +663,12 @@ public class SconosciutoControl : CharacterControlBase
 	/// </summary>
 	public void JumpingMigration()
 	{
-		AnimatorUnit.SetTrigger("Jumping");
+		AnimatorUnit.SetInteger("AnimIdx", (int)SconosciutoBattleDefine.Idx.Scono_jumping_copy);
 	}
 
-	protected override void Animation_Run(Animator animator)
+	protected override void Animation_Run(Animator animator, int frontstepIndex, int leftstepIndex, int rightstepIndex, int backstepIndex, int idleIndex, int jumpIndex, int fallIndex)
 	{
-		base.Animation_Run(animator);
+		base.Animation_Run(animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex, idleIndex, jumpIndex, fallIndex);
 		AttackDone(true, false);
 	}
 
@@ -699,7 +699,7 @@ public class SconosciutoControl : CharacterControlBase
 			if (run || AirDash)
 			{
 				// 強制停止実行
-				EmagencyStop(AnimatorUnit);
+				EmagencyStop(AnimatorUnit, (int)SconosciutoBattleDefine.Idx.Scono_neutral_copy);
 			}
 			// サブ射撃実行
 			SubShotDone();
@@ -712,7 +712,7 @@ public class SconosciutoControl : CharacterControlBase
 			if (run || AirDash)
 			{
 				// 強制停止実行
-				EmagencyStop(AnimatorUnit);
+				EmagencyStop(AnimatorUnit, (int)SconosciutoBattleDefine.Idx.Scono_neutral_copy);
 			}
 			// 特殊射撃実行
 			ExShotDone();
@@ -796,7 +796,7 @@ public class SconosciutoControl : CharacterControlBase
 					else
 					{
 						// 強制停止実行
-						EmagencyStop(AnimatorUnit);
+						EmagencyStop(AnimatorUnit, (int)SconosciutoBattleDefine.Idx.Scono_neutral_copy);
 						// 射撃実行
 						ShotDone(false);
 					}
@@ -823,7 +823,7 @@ public class SconosciutoControl : CharacterControlBase
 			if (AirDash)
 			{
                 // 空中ダッシュ格闘実行
-                WrestleDone(AnimatorUnit, 10, "AirDashWrestle");
+                WrestleDone(AnimatorUnit, 10,(int)SconosciutoBattleDefine.Idx.Scono_bdwrestle_copy);
 				// こちらもループアニメなので、animに関数を貼る手段は使えないため判定をここで作る
 				// 判定の場所
 				Vector3 pos = WrestleRoot[10].transform.position;
@@ -854,51 +854,51 @@ public class SconosciutoControl : CharacterControlBase
 			else if (HasFrontInput)
 			{
 				// 前格闘実行(Character_Spec.cs参照)
-				WrestleDone(AnimatorUnit, 4, "FrontWrestle");
+				WrestleDone(AnimatorUnit, 6, (int)SconosciutoBattleDefine.Idx.Scono_frontwrestle_copy);
 			}
 			// 左格闘で左格闘へ移行
 			else if (HasLeftInput)
 			{
 				// 左格闘実行(Character_Spec.cs参照)
-				WrestleDone(AnimatorUnit, 7, "LeftWrestle");
+				WrestleDone(AnimatorUnit, 7, (int)SconosciutoBattleDefine.Idx.Scono_leftwrestle_copy);
 			}
 			// 右格闘で右格闘へ移行
 			else if (HasRightInput)
 			{
 				// 右格闘実行(Character_Spec.cs参照)
-				WrestleDone(AnimatorUnit, 8, "RightWrestle");
+				WrestleDone(AnimatorUnit, 8, (int)SconosciutoBattleDefine.Idx.Scono_rightwrestle_copy);
 			}
 			// 後格闘で後格闘へ移行
 			else if (HasBackInput)
 			{
 				// 後格闘実行（ガード）(Character_Spec.cs参照)
-				GuardDone(AnimatorUnit, 9);
+				GuardDone(AnimatorUnit, 9, (int)SconosciutoBattleDefine.Idx.Scono_backwrestle_copy);
 			}
 			else
 			{
 				// それ以外ならN格闘実行(2段目と3段目の追加入力はWrestle1とWrestle2で行う
-				WrestleDone(AnimatorUnit, 4, "Wrestle1");
+				WrestleDone(AnimatorUnit, 3, (int)SconosciutoBattleDefine.Idx.Scono_Wrestle1_copy);
 			}
 			return true;
 		}
 		return false;
 	}
 
-	protected override void Animation_Jumping(Animator animator)
+	protected override void Animation_Jumping(Animator animator, int airdashIndex, int fallIndex, int frontstepIndex, int leftstepIndex, int rightstepIndex, int backstepIndex, int landingIndex)
 	{
-		base.Animation_Jumping(animator);
+		base.Animation_Jumping(animator, airdashIndex, fallIndex, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex, landingIndex);
 		AttackDone();
 	}
 
-	protected override void Animation_Fall(Animator animator)
+	protected override void Animation_Fall(Animator animator, int airdashIndex, int jumpIndex, int frontstepIndex, int leftstepIndex, int rightstepIndex, int backstepIndex, int landingIndex)
 	{
-		base.Animation_Fall(animator);
+		base.Animation_Fall(animator, airdashIndex, jumpIndex, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex, landingIndex);
 		AttackDone();
 	}	
 
-	protected override void Animation_AirDash(Animator animator)
+	protected override void Animation_AirDash(Animator animator, int fallIndex)
 	{
-		base.Animation_AirDash(animator);
+		base.Animation_AirDash(animator,fallIndex);
 		AttackDone(false, true);
 	}
 
@@ -911,7 +911,7 @@ public class SconosciutoControl : CharacterControlBase
 		SetIsArmor(false);
 		DestroyArrow();
 		DestroyWrestle();
-		ReturnMotion(AnimatorUnit);
+		ReturnMotion(AnimatorUnit, (int)SconosciutoBattleDefine.Idx.Scono_run_copy, (int)SconosciutoBattleDefine.Idx.Scono_neutral_copy, (int)SconosciutoBattleDefine.Idx.Scono_fall_copy);
 	}
 
 	protected override void DestroyArrow()
@@ -943,13 +943,12 @@ public class SconosciutoControl : CharacterControlBase
 		if (runshot)
 		{
 			// アニメーション合成処理＆再生
-			AnimatorUnit.SetTrigger("RunShot");
-			Debug.Log("RunShotDone!!");
+			AnimatorUnit.SetInteger("AnimIdx", (int)SconosciutoBattleDefine.Idx.scono_RunShot);
 		}
 		// 立ち射撃か空中射撃
 		else
 		{
-			AnimatorUnit.SetTrigger("Shot");
+			AnimatorUnit.SetInteger("AnimIdx", (int)SconosciutoBattleDefine.Idx.Scono_normalshot_copy);
 		}
 		// 装填状態へ移行
 		Shotmode = ShotMode.RELORD;
@@ -966,7 +965,7 @@ public class SconosciutoControl : CharacterControlBase
 			{
 				transform.Translate(new Vector3(0, 1, 0));
 			}
-			CancelDashDone(AnimatorUnit);
+			CancelDashDone(AnimatorUnit, (int)SconosciutoBattleDefine.Idx.Scono_AirDash_copy);
 		}
 		base.Shot();
 	}
@@ -1128,12 +1127,12 @@ public class SconosciutoControl : CharacterControlBase
 		// 走行時
 		if (RunShotDone)
 		{
-			AnimatorUnit.SetTrigger("RunFollowThrow");
+			AnimatorUnit.SetInteger("AnimIdx", (int)SconosciutoBattleDefine.Idx.scono_RunShotFollowThrow);
 		}
 		// 通常時
 		else
 		{
-			AnimatorUnit.SetTrigger("ShotFollowThrow");
+			AnimatorUnit.SetInteger("AnimIdx", (int)SconosciutoBattleDefine.Idx.Scono_ShotFollowThrow_copy);
 		}
 		
 	}
@@ -1143,14 +1142,14 @@ public class SconosciutoControl : CharacterControlBase
 	/// </summary>
 	public void SubShotDone()
 	{
-		AnimatorUnit.SetTrigger("SubShot");
+		AnimatorUnit.SetInteger("AnimIdx", (int)SconosciutoBattleDefine.Idx.Scono_subshot_copy);
 		// 装填状態へ移行
 		Shotmode = ShotMode.RELORD;
 		// 位置固定を行う
 		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
 	}
 
-    protected override void SubShot()
+    protected override void SubShot(int airdashIndex)
     {
         // キャンセルダッシュ受付
         if ((HasDashCancelInput || HasAirDashInput) && Boost > 0)
@@ -1160,9 +1159,9 @@ public class SconosciutoControl : CharacterControlBase
             {
                 transform.Translate(new Vector3(0, 1, 0));
             }
-            CancelDashDone(AnimatorUnit);
+            CancelDashDone(AnimatorUnit,airdashIndex);
         }
-        base.SubShot();
+        base.SubShot(airdashIndex);
     }
 
     /// <summary>
@@ -1289,7 +1288,7 @@ public class SconosciutoControl : CharacterControlBase
 			Shotmode = ShotMode.SHOTDONE;
 		}
 		// フォロースルーへ移行する
-		AnimatorUnit.SetTrigger("SubShotFollowThrow");
+		AnimatorUnit.SetInteger("AnimIdx", (int)SconosciutoBattleDefine.Idx.Scnoo_SubShotFollowThrow_copy);
 	}
 
 	/// <summary>
@@ -1297,7 +1296,7 @@ public class SconosciutoControl : CharacterControlBase
 	/// </summary>
 	public void ExShotDone()
 	{
-		AnimatorUnit.SetTrigger("EXShot");
+		AnimatorUnit.SetInteger("AnimIdx", (int)SconosciutoBattleDefine.Idx.Scono_Exshot_copy);
 		// 位置固定を行う
 		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
 	}
@@ -1344,7 +1343,7 @@ public class SconosciutoControl : CharacterControlBase
 	public void FollowThrowEXShot()
 	{
 		DestroyArrow();
-		AnimatorUnit.SetTrigger("EXShotFollowThrow");
+		AnimatorUnit.SetInteger("AnimIdx", (int)SconosciutoBattleDefine.Idx.Scono_EXShotFollowThrow_copy);
 	}
 
 	/// <summary>
@@ -1353,9 +1352,9 @@ public class SconosciutoControl : CharacterControlBase
 	/// <param name="animator"></param>
 	/// <param name="airdashID"></param>
 	/// <param name="stepanimations"></param>
-	protected override void Wrestle1(Animator animator)
+	protected override void Wrestle1(Animator animator, int frontStepIndex, int leftStepIndex, int rightStepIndex, int backStepIndex, int airdashIndex)
 	{
-		base.Wrestle1(animator);
+		base.Wrestle1(animator,frontStepIndex, leftStepIndex,rightStepIndex,backStepIndex, airdashIndex);
 		// 追加入力受け取り
 		if (HasWrestleInput)
 		{
@@ -1369,9 +1368,9 @@ public class SconosciutoControl : CharacterControlBase
 	/// <param name="animator"></param>
 	/// <param name="airdashhash"></param>
 	/// <param name="stepanimations"></param>
-	protected override void Wrestle2(Animator animator)
+	protected override void Wrestle2(Animator animator, int frontStepIndex, int leftStepIndex, int rightStepIndex, int backStepIndex, int airdashIndex)
 	{
-		base.Wrestle2(animator);
+		base.Wrestle2(animator, (int)SconosciutoBattleDefine.Idx.Scono_frontstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_leftstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_rightstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_backstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_AirDash_copy);
 		// 追加入力受け取り
 		if (HasWrestleInput)
 		{
@@ -1397,12 +1396,12 @@ public class SconosciutoControl : CharacterControlBase
 			// N格闘２段目派生
 			if (nextmotion == 0)
 			{
-				WrestleDone(AnimatorUnit, 4, "Wrestle2");
+				WrestleDone(AnimatorUnit, 4, (int)SconosciutoBattleDefine.Idx.Scono_Wrestle2_copy);
 			}
 			// N格闘３段目派生
 			else if (nextmotion == 1)
 			{
-				WrestleDone(AnimatorUnit, 5, "Wrestle3");
+				WrestleDone(AnimatorUnit, 5, (int)SconosciutoBattleDefine.Idx.Scono_wrestle3_copy);
 			}
 		}
 		// なかったら戻す
@@ -1416,9 +1415,9 @@ public class SconosciutoControl : CharacterControlBase
 	/// 左格闘時の本体動作
 	/// </summary>
 	/// <param name="animator"></param>
-	protected override void LeftWrestle1(Animator animator)
+	protected override void LeftWrestle1(Animator animator, int frontStepIndex, int leftStepIndex, int rightStepIndex, int backStepIndex, int airdashIndex)
 	{
-		base.LeftWrestle1(animator);
+		base.LeftWrestle1(animator, frontStepIndex, leftStepIndex, rightStepIndex, backStepIndex, airdashIndex);
 		if (GetIsRockon())
 		{
 			// MoveDirectionを再設定
@@ -1457,9 +1456,9 @@ public class SconosciutoControl : CharacterControlBase
 	/// 右格闘時の本体動作
 	/// </summary>
 	/// <param name="animator"></param>
-	protected override void RightWrestle1(Animator animator)
+	protected override void RightWrestle1(Animator animator, int frontStepIndex, int leftStepIndex, int rightStepIndex, int backStepIndex, int airdashIndex)
 	{
-		base.RightWrestle1(animator);
+		base.RightWrestle1(animator, frontStepIndex, leftStepIndex, rightStepIndex, backStepIndex, airdashIndex);
 		if (GetIsRockon())
 		{
 			// MoveDirectionを再設定
@@ -1541,7 +1540,7 @@ public class SconosciutoControl : CharacterControlBase
         float speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillindex].AnimSpeed;
 
         // アニメーションを再生する
-        animator.SetTrigger("EXWrestle");
+		animator.SetInteger("AnimIdx", (int)SconosciutoBattleDefine.Idx.Scono_exwrestle_copy);
 
         // アニメーションの速度を調整する
         animator.speed = speed;
@@ -1564,8 +1563,7 @@ public class SconosciutoControl : CharacterControlBase
         animator.speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillindex].AnimSpeed;
 
         // アニメーションを再生する
-        animator.SetTrigger("FrontEXWrestle");
-
+		animator.SetInteger("AnimIdx", (int)SconosciutoBattleDefine.Idx.Scono_frontexwrestle_copy);
     }
 
     /// <summary>
@@ -1575,21 +1573,21 @@ public class SconosciutoControl : CharacterControlBase
     {
         base.ExWrestle1();
         Wrestletime += Time.deltaTime;
-        StepCancel(AnimatorUnit);
+        StepCancel(AnimatorUnit, (int)SconosciutoBattleDefine.Idx.Scono_frontstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_leftstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_rightstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_backstep_copy, (int)SconosciutoBattleDefine.Idx.Scono_AirDash_copy);
     }
 
     /// <summary>
     /// 前特殊格闘
     /// </summary>
     /// <param name="animator"></param>
-    protected override void FrontExWrestle1(Animator animator)
+    protected override void FrontExWrestle1(Animator animator, int fallIndex, int frontStepIndex, int leftStepIndex, int rightStepIndex, int backStepIndex, int airdashIndex)
     {
-        base.FrontExWrestle1(animator);
+        base.FrontExWrestle1(animator, fallIndex, frontStepIndex, leftStepIndex, rightStepIndex, backStepIndex, airdashIndex);
         Wrestletime += Time.deltaTime;
         // レバー入力カットか特殊格闘入力カットで落下に移行する
         if (ControllerManager.Instance.TopUp || ControllerManager.Instance.EXWrestleUp)
         {
-            FallDone(Vector3.zero, animator);
+            FallDone(Vector3.zero, animator, fallIndex);
         }
         // 移動速度（上方向に垂直上昇する）
         float movespeed = 100.0f;
@@ -1605,13 +1603,13 @@ public class SconosciutoControl : CharacterControlBase
     /// 後特殊格闘
     /// </summary>
     /// <param name="animator"></param>
-    protected override void BackExWrestle(Animator animator)
+    protected override void BackExWrestle(Animator animator, int fallIndex, int landingIndex)
     {
-        base.BackExWrestle(animator);
+        base.BackExWrestle(animator, fallIndex, landingIndex);
         // レバー入力カットか特殊格闘入力カットで落下に移行する
         if (ControllerManager.Instance.UnderUp || ControllerManager.Instance.EXWrestleUp)
         {
-            FallDone(Vector3.zero, animator);
+            FallDone(Vector3.zero, animator, fallIndex);
         }
         // 移動速度（上方向に垂直上昇する）
         float movespeed = 100.0f;
@@ -1637,8 +1635,7 @@ public class SconosciutoControl : CharacterControlBase
         animator.speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillindex].AnimSpeed;
 
         // アニメーションを再生する
-        animator.SetTrigger("BackEXWrestle");
-
+		animator.SetInteger("AnimIdx", (int)SconosciutoBattleDefine.Idx.Scono_backexwrestle_copy);
     }
 
 
@@ -1647,7 +1644,7 @@ public class SconosciutoControl : CharacterControlBase
 	/// </summary>
 	public void ArousalAttackDone()
 	{
-		AnimatorUnit.SetTrigger("ArousalAttack");
+		AnimatorUnit.SetInteger("AnimIdx", (int)SconosciutoBattleDefine.Idx.Scono_Arousal_copy);
 		ArousalCoreAnimator.SetTrigger("Wait");
 		// 位置固定を行う
 		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;

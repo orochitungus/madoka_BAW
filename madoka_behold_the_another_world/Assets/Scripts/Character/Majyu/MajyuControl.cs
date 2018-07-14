@@ -81,41 +81,41 @@ public class MajyuControl : CharacterControlBase
 			Debug.LogError("Caution!! BattleInterfaceCanvas is Nothing!!");
 		}
 		// ハッシュID取得
-		IdleID = Animator.StringToHash("Base Layer.MajyuIdle");		
-		WalkID = Animator.StringToHash("Base Layer.MajyuWalk");
-		JumpID = Animator.StringToHash("Base Layer.MajyuJump");		
-		JumpingID = Animator.StringToHash("Base Layer.MajyuJumping");
-		FallID = Animator.StringToHash("Base Layer.MajyuFall");
-		LandingID = Animator.StringToHash("Base Layer.MajyuLanding");
-		RunID = Animator.StringToHash("Base Layer.MajyuRun");
-		AirDashID = Animator.StringToHash("Base Layer.MajyuAirDash");
-		FrontStepID = Animator.StringToHash("Base Layer.MajyuFrontStep");
-		LeftStepID = Animator.StringToHash("Base Layer.MajyuLeftStep");
-		RightStepID = Animator.StringToHash("Base Layer.MajyuRightStep");
-		BackStepID = Animator.StringToHash("Base Layer.MajyuBackStep");
-		FrontStepBackID = Animator.StringToHash("Base Layer.MajyuFrontStepBack");
-		LeftStepBackID = Animator.StringToHash("Base Layer.MajyuLeftStepBack");
-		RightStepBackID = Animator.StringToHash("Base Layer.MajyuRightStepBack");
-		BackStepBackID = Animator.StringToHash("Base Layer.MajyuBackStepBack");
-		ShotID = Animator.StringToHash("Base Layer.MajyuShot");
-		RunShotID = Animator.StringToHash("Base Layer.MajyuRunShot");
-		AirShotID = Animator.StringToHash("Base Layer.MajyuAirShot");
-		FollowThrowShotID = Animator.StringToHash("Base Layer.MajyuFollowThrowShot");
-		FollowThrowRunShotID = Animator.StringToHash("Base Layer.MajyuFollowThrowRunShot");
-		FollowThrowAirShotID = Animator.StringToHash("Base Layer.MajyuFollowThrowAirShot");
-		Wrestle1ID = Animator.StringToHash("Base Layer.MajyuWrestle1");
-		Wrestle2ID = Animator.StringToHash("Base Layer.MajyuWrestle2");
-		Wrestle3ID = Animator.StringToHash("Base Layer.MajyuWrestle3");
-		BackWrestleID = Animator.StringToHash("Base Layer.MajyuBackWrestle");
-		AirDashWrestleID = Animator.StringToHash("Base Layer.MajyuAirDashWrestle");
-		ReversalID = Animator.StringToHash("Base Layer.MajyuReversal");
-		DamageID = Animator.StringToHash("Base Layer.MajyuDamage");
-		DownID = Animator.StringToHash("Base Layer.MajyuDown");
-		BlowID = Animator.StringToHash("Base Layer.MajyuBlow");
-		SpinDownID = Animator.StringToHash("Base Layer.MajyuSpinDown");
-		EXFrontWrestleID = Animator.StringToHash("Base Layer.MajyuFrontExWrestle");
-		EXBackWrestleID = Animator.StringToHash("Base Layer.MajyuBackExWrestle");
-		FrontWrestleID = Animator.StringToHash("Base Layer.MajyuFrontWrestle");
+		IdleID = Animator.StringToHash("Base Layer.majyu_b_idle_copy");		
+		WalkID = Animator.StringToHash("Base Layer.majyu_b_walk_copy");
+		JumpID = Animator.StringToHash("Base Layer.majyu_b_jump_copy");		
+		JumpingID = Animator.StringToHash("Base Layer.majyu_b_jamping_copy");
+		FallID = Animator.StringToHash("Base Layer.majyu_b_fall_copy");
+		LandingID = Animator.StringToHash("Base Layer.majyu_b_landing_copy");
+		RunID = Animator.StringToHash("Base Layer.majyu_b_run_copy");
+		AirDashID = Animator.StringToHash("Base Layer.majyu_b_air_dash_copy");
+		FrontStepID = Animator.StringToHash("Base Layer.majyu_b_frontstep_copy");
+		LeftStepID = Animator.StringToHash("Base Layer.majyu_b_leftstep_copy");
+		RightStepID = Animator.StringToHash("Base Layer.majyu_b_rightstep_copy");
+		BackStepID = Animator.StringToHash("Base Layer.majyu_b_backstep_copy");
+		FrontStepBackID = Animator.StringToHash("Base Layer.majyu_b_frontstep_back_copy");
+		LeftStepBackID = Animator.StringToHash("Base Layer.majyu_b_leftstep_back_copy");
+		RightStepBackID = Animator.StringToHash("Base Layer.majyu_b_rightstep_back_copy");
+		BackStepBackID = Animator.StringToHash("Base Layer.majyu_b_backstep_back_copy");
+		ShotID = Animator.StringToHash("Base Layer.majyu_b_shot_copy");
+		RunShotID = Animator.StringToHash("Base Layer.runshot");
+		AirShotID = Animator.StringToHash("Base Layer.airshot");
+		FollowThrowShotID = Animator.StringToHash("Base Layer.majyu_b_shot_followthrow_copy");
+		FollowThrowRunShotID = Animator.StringToHash("Base Layer.runshotfs");
+		FollowThrowAirShotID = Animator.StringToHash("Base Layer.airshotfs");
+		Wrestle1ID = Animator.StringToHash("Base Layer.majyu_b_normal_wrestle_1_copy");
+		Wrestle2ID = Animator.StringToHash("Base Layer.majyu_b_normal_wrestle_2_copy");
+		Wrestle3ID = Animator.StringToHash("Base Layer.majyu_b_normal_wrestle_3_copy");
+		BackWrestleID = Animator.StringToHash("Base Layer.majyu_b_back_wrestle_copy");
+		AirDashWrestleID = Animator.StringToHash("Base Layer.majyu_b_BD_wrestle_copy");
+		ReversalID = Animator.StringToHash("Base Layer.majyu_b_down_rebirth02_copy");
+		DamageID = Animator.StringToHash("Base Layer.majyu_b_damage02_copy");
+		DownID = Animator.StringToHash("Base Layer.majyu_b_down_copy");
+		BlowID = Animator.StringToHash("Base Layer.majyu_b_damage02_copy");
+		SpinDownID = Animator.StringToHash("Base Layer.majyu_spinDown_copy");
+		EXFrontWrestleID = Animator.StringToHash("Base Layer.majyu_b_front_ex_wrestle_copy");
+		EXBackWrestleID = Animator.StringToHash("Base Layer.majyu_b_back_ex_wrestle_copy");
+		FrontWrestleID = Animator.StringToHash("Base Layer.majyu_b_front_wrestle_copy");
 
 		// リバーサルとダウンのIDを取得
 		ReversalHash = ReversalID;
@@ -273,7 +273,7 @@ public class MajyuControl : CharacterControlBase
 		{
 			isspindown = true;
 		}
-		if (Update_Core(isspindown, AnimatorUnit, DownID, AirDashID, AirShotID, JumpingID, FallID, IdleID, BlowID, RunID, FrontStepID, LeftStepID, RightStepID, BackStepID, DamageID))
+		if (Update_Core(isspindown, AnimatorUnit, DownID, AirDashID, AirShotID, JumpingID, FallID, IdleID, BlowID, RunID, FrontStepID, LeftStepID, RightStepID, BackStepID, DamageID, (int)MajyuBattleDefine.Idx.majyu_b_leftstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_rightstep_back_copy, (int)MajyuBattleDefine.Idx.majyu_b_down_rebirth02_copy))
 		{
 			UpdateAnimation();
 			// リロード実行           
@@ -297,7 +297,7 @@ public class MajyuControl : CharacterControlBase
 		// 通常
 		if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == IdleID)
 		{
-			Animation_Idle(AnimatorUnit);
+			Animation_Idle(AnimatorUnit,(int)MajyuBattleDefine.Idx.majyu_b_down_copy, (int)MajyuBattleDefine.Idx.majyu_b_run_copy, (int)MajyuBattleDefine.Idx.majyu_b_air_dash_copy, (int)MajyuBattleDefine.Idx.majyu_b_jump_copy, (int)MajyuBattleDefine.Idx.majyu_b_frontstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_leftstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_rightstep_copy,(int)MajyuBattleDefine.Idx.majyu_b_backstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_fall_copy);
 		}
 		// 歩行
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == WalkID)
@@ -307,73 +307,73 @@ public class MajyuControl : CharacterControlBase
 		// ジャンプ
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == JumpID)
 		{
-			Animation_Jump(AnimatorUnit);
+			Animation_Jump(AnimatorUnit,(int)MajyuBattleDefine.Idx.majyu_b_air_dash_copy);
 		}
 		// 上昇
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == JumpingID)
 		{
-			Animation_Jumping(AnimatorUnit);
+			Animation_Jumping(AnimatorUnit, (int)MajyuBattleDefine.Idx.majyu_b_air_dash_copy, (int)MajyuBattleDefine.Idx.majyu_b_fall_copy, (int)MajyuBattleDefine.Idx.majyu_b_frontstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_leftstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_rightstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_backstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_landing_copy);
 		}
 		// 落下
 		else if(AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FallID)
 		{
-			Animation_Fall(AnimatorUnit);
+			Animation_Fall(AnimatorUnit, (int)MajyuBattleDefine.Idx.majyu_b_air_dash_copy, (int)MajyuBattleDefine.Idx.majyu_b_jump_copy, (int)MajyuBattleDefine.Idx.majyu_b_frontstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_leftstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_rightstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_backstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_landing_copy);
 		}
 		// 着地
 		else if(AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LandingID)
 		{
-			Animation_Landing(AnimatorUnit);
+			Animation_Landing(AnimatorUnit,(int)MajyuBattleDefine.Idx.majyu_b_idle_copy);
 		}
 		// 走行
 		else if(AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RunID)
 		{
-			Animation_Run(AnimatorUnit);
+			Animation_Run(AnimatorUnit,(int)MajyuBattleDefine.Idx.majyu_b_frontstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_leftstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_rightstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_backstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_idle_copy, (int)MajyuBattleDefine.Idx.majyu_b_jump_copy, (int)MajyuBattleDefine.Idx.majyu_b_fall_copy);
 		}
 		// 空中ダッシュ
 		else if(AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == AirDashID)
 		{
 			ShowAirDashEffect = true;
-			Animation_AirDash(AnimatorUnit);
+			Animation_AirDash(AnimatorUnit, (int)MajyuBattleDefine.Idx.majyu_b_fall_copy);
 		}
 		// 前ステップ
 		else if(AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontStepID)
 		{
-			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID);
+			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID,(int)MajyuBattleDefine.Idx.majyu_b_frontstep_back_copy, (int)MajyuBattleDefine.Idx.majyu_b_leftstep_back_copy,(int)MajyuBattleDefine.Idx.majyu_b_rightstep_back_copy,(int)MajyuBattleDefine.Idx.majyu_b_backstep_back_copy, (int)MajyuBattleDefine.Idx.majyu_b_jump_copy, (int)MajyuBattleDefine.Idx.majyu_b_air_dash_copy);
 		}
 		// 左ステップ
 		else if(AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LeftStepID)
 		{
-			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID);
+			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID,(int)MajyuBattleDefine.Idx.majyu_b_frontstep_back_copy, (int)MajyuBattleDefine.Idx.majyu_b_leftstep_back_copy, (int)MajyuBattleDefine.Idx.majyu_b_rightstep_back_copy, (int)MajyuBattleDefine.Idx.majyu_b_rightstep_back_copy, (int)MajyuBattleDefine.Idx.majyu_b_jump_copy, (int)MajyuBattleDefine.Idx.majyu_b_air_dash_copy);
 		}
 		// 右ステップ
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RightStepID)
 		{
-			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID);
+			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID, (int)MajyuBattleDefine.Idx.majyu_b_frontstep_back_copy, (int)MajyuBattleDefine.Idx.majyu_b_leftstep_back_copy, (int)MajyuBattleDefine.Idx.majyu_b_rightstep_back_copy, (int)MajyuBattleDefine.Idx.majyu_b_rightstep_back_copy, (int)MajyuBattleDefine.Idx.majyu_b_jump_copy, (int)MajyuBattleDefine.Idx.majyu_b_air_dash_copy);
 		}
 		// 後ステップ
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BackStepID)
 		{
-			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID);
+			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID, (int)MajyuBattleDefine.Idx.majyu_b_frontstep_back_copy, (int)MajyuBattleDefine.Idx.majyu_b_leftstep_back_copy, (int)MajyuBattleDefine.Idx.majyu_b_rightstep_back_copy, (int)MajyuBattleDefine.Idx.majyu_b_rightstep_back_copy, (int)MajyuBattleDefine.Idx.majyu_b_jump_copy, (int)MajyuBattleDefine.Idx.majyu_b_air_dash_copy);
 		}
 		// 前ステップ終了
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontStepBackID)
 		{
-			Animation_StepBack(AnimatorUnit);
+			Animation_StepBack(AnimatorUnit, (int)MajyuBattleDefine.Idx.majyu_b_idle_copy);
 		}
 		// 左ステップ終了
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LeftStepBackID)
 		{
-			Animation_StepBack(AnimatorUnit);
+			Animation_StepBack(AnimatorUnit, (int)MajyuBattleDefine.Idx.majyu_b_idle_copy);
 		}
 		// 右ステップ終了
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RightStepBackID)
 		{
-			Animation_StepBack(AnimatorUnit);
+			Animation_StepBack(AnimatorUnit, (int)MajyuBattleDefine.Idx.majyu_b_idle_copy);
 		}
 		// 後ステップ終了
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BackStepBackID)
 		{
-			Animation_StepBack(AnimatorUnit);
+			Animation_StepBack(AnimatorUnit, (int)MajyuBattleDefine.Idx.majyu_b_idle_copy);
 		}
 		// 射撃
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == ShotID)
@@ -408,43 +408,43 @@ public class MajyuControl : CharacterControlBase
 		// N格闘1段目
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle1ID)
 		{
-			Wrestle1(AnimatorUnit);
+			Wrestle1(AnimatorUnit,(int)MajyuBattleDefine.Idx.majyu_b_frontstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_leftstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_rightstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_backstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_air_dash_copy);
 		}
 		// N格闘2段目
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle2ID)
 		{
-			Wrestle2(AnimatorUnit);
+			Wrestle2(AnimatorUnit,(int)MajyuBattleDefine.Idx.majyu_b_frontstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_leftstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_rightstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_backstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_air_dash_copy);
 		}
 		// N格闘3段目
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle3ID)
 		{
-			Wrestle3(AnimatorUnit);
+			Wrestle3(AnimatorUnit, (int)MajyuBattleDefine.Idx.majyu_b_frontstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_leftstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_rightstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_backstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_air_dash_copy);
 		}
 		// 前格闘
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontWrestleID)
 		{
-			FrontWrestle1(AnimatorUnit);
+			FrontWrestle1(AnimatorUnit, (int)MajyuBattleDefine.Idx.majyu_b_frontstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_leftstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_rightstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_backstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_air_dash_copy);
 		}
 		// 後格闘（ガード）
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BackWrestleID)
 		{
-			BackWrestle(AnimatorUnit);
+			BackWrestle(AnimatorUnit, (int)MajyuBattleDefine.Idx.majyu_b_frontstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_leftstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_rightstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_backstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_idle_copy);
 		}
 		// 空中ダッシュ格闘
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == AirDashWrestleID)
 		{
 			ShowAirDashEffect = true;
-			AirDashWrestle(AnimatorUnit);
+			AirDashWrestle(AnimatorUnit,(int)MajyuBattleDefine.Idx.majyu_b_fall_copy);
 		}
 		// 前特殊格闘
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXFrontWrestleID)
 		{
-			FrontExWrestle1(AnimatorUnit);
+			FrontExWrestle1(AnimatorUnit, (int)MajyuBattleDefine.Idx.majyu_b_fall_copy, (int)MajyuBattleDefine.Idx.majyu_b_frontstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_leftstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_rightstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_backstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_air_dash_copy);
 		}
 		// 後特殊格闘
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXBackWrestleID)
 		{
-			BackExWrestle(AnimatorUnit);
+			BackExWrestle(AnimatorUnit, (int)MajyuBattleDefine.Idx.majyu_b_fall_copy, (int)MajyuBattleDefine.Idx.majyu_b_landing_copy);
 		}
 		// 起き上がり
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == ReversalID)
@@ -454,22 +454,22 @@ public class MajyuControl : CharacterControlBase
 		// ダメージ（のけぞり）
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == DamageID)
 		{
-			Damage(AnimatorUnit);
+			Damage(AnimatorUnit, (int)MajyuBattleDefine.Idx.majyu_b_idle_copy, (int)MajyuBattleDefine.Idx.majyu_b_damage02_copy);
 		}
 		// ダウン
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == DownID)
 		{
-			Down(AnimatorUnit);
+			Down(AnimatorUnit, (int)MajyuBattleDefine.Idx.majyu_b_down_rebirth02_copy);
 		}
 		// ダメージ（吹き飛び）
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BlowID)
 		{
-			Blow(AnimatorUnit);
+			Blow(AnimatorUnit, (int)MajyuBattleDefine.Idx.majyu_b_damage02_copy, (int)MajyuBattleDefine.Idx.majyu_b_down_rebirth02_copy);
 		}
 		// きりもみダウン
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == SpinDownID)
 		{
-			SpinDown(AnimatorUnit);
+			SpinDown(AnimatorUnit, (int)MajyuBattleDefine.Idx.majyu_spinDown_copy);
 		}
 
 		if (ShowAirDashEffect)
@@ -487,7 +487,7 @@ public class MajyuControl : CharacterControlBase
 	/// </summary>
 	public void JumpingMigration()
 	{
-		AnimatorUnit.SetTrigger("Jumping");
+		AnimatorUnit.SetInteger("AnimIdx", (int)MajyuBattleDefine.Idx.majyu_b_jamping_copy);
 	}
 
 
@@ -496,7 +496,7 @@ public class MajyuControl : CharacterControlBase
 	/// アイドル時のアニメーションを制御
 	/// </summary>
 	/// <param name="animator"></param>
-	protected override void Animation_Idle(Animator animator)
+	protected override void Animation_Idle(Animator animator, int downIndex, int runIndex, int airdashIndex, int jumpIndex, int frontstepIndex, int leftstepIndex, int rightstepIndex, int backstepIndex, int fallIndex)
 	{
 		// 攻撃したかフラグ
 		bool attack = false;
@@ -518,17 +518,14 @@ public class MajyuControl : CharacterControlBase
 			{
 				transform.Translate(new Vector3(0, 1, 0));
 			}
-			CancelDashDone(AnimatorUnit);
+			CancelDashDone(AnimatorUnit, (int)MajyuBattleDefine.Idx.majyu_b_air_dash_copy);
 		}
 		// 攻撃した場合はステートが変更されるので、ここで終了
 		if (!attack)
 		{
-			base.Animation_Idle(animator);
+			base.Animation_Idle(animator, (int)MajyuBattleDefine.Idx.majyu_b_down_copy, (int)MajyuBattleDefine.Idx.majyu_b_run_copy, (int)MajyuBattleDefine.Idx.majyu_b_air_dash_copy, (int)MajyuBattleDefine.Idx.majyu_b_jump_copy, (int)MajyuBattleDefine.Idx.majyu_b_frontstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_leftstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_rightstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_backstep_copy, (int)MajyuBattleDefine.Idx.majyu_b_fall_copy);
 		}
 	}
-
-	
-	
 
 	/// <summary>
 	/// 攻撃行動全般(RunとAirDashは特殊なので使用しない）
@@ -568,7 +565,7 @@ public class MajyuControl : CharacterControlBase
 					else
 					{
 						// 強制停止実行
-						EmagencyStop(AnimatorUnit);
+						EmagencyStop(AnimatorUnit, (int)MajyuBattleDefine.Idx.majyu_b_idle_copy);
 						// 射撃実行
 						ShotDone(false);
 					}
@@ -595,19 +592,19 @@ public class MajyuControl : CharacterControlBase
 			if (HasFrontInput && Boost > 0)
 			{
 				// 前特殊格闘実行
-				FrontEXWrestleDone(AnimatorUnit, 7);
+				FrontEXWrestleDone(AnimatorUnit, 5);
 			}
 			// 空中で後特殊格闘(ブーストがないと実行不可）
 			else if (HasBackInput && !IsGrounded && Boost > 0)
 			{
 				// 後特殊格闘実行
-				BackEXWrestleDone(AnimatorUnit, 8);
+				BackEXWrestleDone(AnimatorUnit, 6);
 			}
 			// それ以外
 			else
 			{
 				// 格闘実行
-				WrestleDone(AnimatorUnit, 1, "Wrestle1");
+				WrestleDone(AnimatorUnit, 1, (int)MajyuBattleDefine.Idx.majyu_b_normal_wrestle_1_copy);
 			}
 			return true;
 		}
@@ -618,24 +615,24 @@ public class MajyuControl : CharacterControlBase
 			if (AirDash)
 			{
 				// 空中ダッシュ格闘実行
-				AirDashWrestleDone(AnimatorUnit, AirDashSpeed, 5);
+				AirDashWrestleDone(AnimatorUnit, AirDashSpeed, 4, (int)MajyuBattleDefine.Idx.majyu_b_BD_wrestle_copy);
 			}
 			// 前格闘で前格闘へ移行
 			else if (HasFrontInput)
 			{
 				// 前格闘実行(Character_Spec.cs参照)
-				WrestleDone(AnimatorUnit, 4, "FrontWrestle");
+				WrestleDone(AnimatorUnit, 5, (int)MajyuBattleDefine.Idx.majyu_b_front_wrestle_copy);
 			}
 			// 後格闘で後格闘へ移行
 			else if (HasBackInput)
 			{
 				// 後格闘実行（ガード）(Character_Spec.cs参照)
-				GuardDone(AnimatorUnit, 5);
+				GuardDone(AnimatorUnit, 6, (int)MajyuBattleDefine.Idx.majyu_b_back_wrestle_copy);
 			}
 			else
 			{
 				// それ以外ならN格闘実行(2段目と3段目の追加入力はWrestle1とWrestle2で行う
-				WrestleDone(AnimatorUnit, 1, "Wrestle1");
+				WrestleDone(AnimatorUnit, 1, (int)MajyuBattleDefine.Idx.majyu_b_normal_wrestle_1_copy);
 			}
 			return true;
 		}
@@ -653,12 +650,12 @@ public class MajyuControl : CharacterControlBase
 		if (runshot)
 		{
 			// アニメーション合成処理＆再生
-			AnimatorUnit.SetTrigger("RunShot");
+			AnimatorUnit.SetInteger("AnimIdx", (int)MajyuBattleDefine.Idx.runshot);
 		}
 		// 立ち射撃か空中射撃
 		else
 		{
-			AnimatorUnit.SetTrigger("Shot");
+			AnimatorUnit.SetInteger("AnimIdx", (int)MajyuBattleDefine.Idx.airshot);
 		}
 		// 装填状態へ移行
 		Shotmode = ShotMode.RELORD;
@@ -679,7 +676,7 @@ public class MajyuControl : CharacterControlBase
 		animator.speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillindex].AnimSpeed;
 
 		// アニメーションを再生する
-		animator.SetTrigger("FrontExWrestle");
+		animator.SetInteger("AnimIdx", (int)MajyuBattleDefine.Idx.majyu_b_front_ex_wrestle_copy);
 
 	}
 
@@ -697,64 +694,11 @@ public class MajyuControl : CharacterControlBase
 		animator.speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillindex].AnimSpeed;
 
 		// アニメーションを再生する
-		animator.SetTrigger("BackExWrestle");
+		animator.SetInteger("AnimIdx", (int)MajyuBattleDefine.Idx.majyu_b_back_ex_wrestle_copy);
 
 	}
 
-	/// <summary>
-	/// 特殊格闘を実行する
-	/// </summary>
-	/// <param name="animator"></param>
-	/// <param name="skillindex"></param>
-	public void EXWrestleDone(Animator animator, int skillindex)
-	{
-		// 追加入力フラグをカット
-		AddInput = false;
-		// 移動速度
-		float movespeed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillindex].MoveSpeed;
-		// 移動方向
-		// ロックオン且つ本体角度が0でない時、相手の方向を移動方向とする
-		if (GetIsRockon() && this.transform.rotation.eulerAngles.y != 0)
-		{
-			// ロックオン対象を取得
-			var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
-			// ロックオン対象の座標
-			Vector3 targetpos = target.transform.position;
-			// 上記の座標は足元を向いているので、自分の高さに補正する
-			targetpos.y = transform.position.y;
-			// 自機の座標
-			Vector3 mypos = transform.position;
-			// 自機をロックオン対象に向ける
-			transform.rotation = Quaternion.LookRotation(mypos - targetpos);
-			// 方向ベクトルを向けた方向に合わせる            
-			MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
-		}
-		// 本体角度が0の場合カメラの方向を移動方向とし、正規化して代入する
-		else if (this.transform.rotation.eulerAngles.y == 0)
-		{
-			// ただしそのままだとカメラが下を向いているため、一旦その分は補正する
-			Quaternion rotateOR = MainCamera.transform.rotation;
-			Vector3 rotateOR_E = rotateOR.eulerAngles;
-			rotateOR_E.x = 0;
-			rotateOR = Quaternion.Euler(rotateOR_E);
-			MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
-		}
-		// それ以外は本体の角度を移動方向にする
-		else
-		{
-			MoveDirection = Vector3.Normalize(this.transform.rotation * Vector3.forward);
-		}
-		// アニメーション速度
-		float speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillindex].AnimSpeed;
-
-		// アニメーションを再生する
-		animator.SetTrigger("EXWrestle");
-
-		// アニメーションの速度を調整する
-		animator.speed = speed;
-		// 移動速度を調整する
-		WrestlSpeed = movespeed;
-	}
+	
 
 	/// <summary>
 	/// 上昇中モーション
@@ -763,9 +707,9 @@ public class MajyuControl : CharacterControlBase
 	/// <param name="fallID"></param>
 	/// <param name="airdashID"></param>
 	/// <param name="landinghashID"></param>
-	protected override void Animation_Jumping(Animator animator)
+	protected override void Animation_Jumping(Animator animator, int airdashIndex, int fallIndex, int frontstepIndex, int leftstepIndex, int rightstepIndex, int backstepIndex, int landingIndex)
 	{
-		base.Animation_Jumping(animator);
+		base.Animation_Jumping(animator, airdashIndex, fallIndex, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex, landingIndex);
 		AttackDone();
 	}
 
@@ -777,9 +721,9 @@ public class MajyuControl : CharacterControlBase
 	/// <param name="jumpID"></param>
 	/// <param name="stepanimations"></param>
 	/// <param name="landingID"></param>
-	protected override void Animation_Fall(Animator animator)
+	protected override void Animation_Fall(Animator animator, int airdashIndex, int jumpIndex, int frontstepIndex, int leftstepIndex, int rightstepIndex, int backstepIndex, int landingIndex)
 	{
-		base.Animation_Fall(animator);
+		base.Animation_Fall(animator, airdashIndex, jumpIndex, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex, landingIndex);
 		AttackDone();
 	}
 
@@ -790,9 +734,9 @@ public class MajyuControl : CharacterControlBase
 	/// <param name="fallhashID"></param>
 	/// <param name="idleID"></param>
 	/// <param name="jumpID"></param>
-	protected override void Animation_Run(Animator animator)
+	protected override void Animation_Run(Animator animator, int frontstepIndex, int leftstepIndex, int rightstepIndex, int backstepIndex, int idleIndex, int jumpIndex, int fallIndex)
 	{
-		base.Animation_Run(animator);
+		base.Animation_Run(animator, frontstepIndex, leftstepIndex, rightstepIndex, backstepIndex, idleIndex, jumpIndex, fallIndex);
 		AttackDone(true, false);
 	}
 
@@ -803,9 +747,9 @@ public class MajyuControl : CharacterControlBase
 	/// <param name="jumpID"></param>
 	/// <param name="fallID"></param>
 	/// <param name="landingID"></param>
-	protected override void Animation_AirDash(Animator animator)
+	protected override void Animation_AirDash(Animator animator, int fallIndex)
 	{
-		base.Animation_AirDash(animator);
+		base.Animation_AirDash(animator, fallIndex);
 		AttackDone(false, true);
 	}
 
@@ -822,7 +766,7 @@ public class MajyuControl : CharacterControlBase
 			{
 				transform.Translate(new Vector3(0, 1, 0));
 			}
-			CancelDashDone(AnimatorUnit);
+			CancelDashDone(AnimatorUnit, (int)MajyuBattleDefine.Idx.majyu_b_air_dash_copy);
 		}
 		base.Shot();
 	}
@@ -832,9 +776,9 @@ public class MajyuControl : CharacterControlBase
 	/// </summary>
 	/// <param name="animator"></param>
 	/// <param name="airdashID"></param>
-	protected override void Wrestle1(Animator animator)
+	protected override void Wrestle1(Animator animator, int frontStepIndex, int leftStepIndex, int rightStepIndex, int backStepIndex, int airdashIndex)
 	{
-		base.Wrestle1(animator);
+		base.Wrestle1(animator, frontStepIndex, leftStepIndex, rightStepIndex, backStepIndex, airdashIndex);
 		// 追加入力受け取り
 		if (HasWrestleInput)
 		{
@@ -847,9 +791,9 @@ public class MajyuControl : CharacterControlBase
 	/// </summary>
 	/// <param name="animator"></param>
 	/// <param name="airdashhash"></param>
-	protected override void Wrestle2(Animator animator)
+	protected override void Wrestle2(Animator animator,int frontStepIndex, int leftStepIndex, int rightStepIndex, int backStepIndex, int airdashIndex)
 	{
-		base.Wrestle2(animator);
+		base.Wrestle2(animator, frontStepIndex, leftStepIndex, rightStepIndex, backStepIndex, airdashIndex);
 		// 追加入力受け取り
 		if (HasWrestleInput)
 		{
@@ -863,14 +807,14 @@ public class MajyuControl : CharacterControlBase
 	/// <param name="animator"></param>
 	/// <param name="airdashhash"></param>
 	/// <param name="fallid"></param>
-	protected override void FrontExWrestle1(Animator animator)
+	protected override void FrontExWrestle1(Animator animator, int fallIndex, int frontStepIndex, int leftStepIndex, int rightStepIndex, int backStepIndex, int airdashIndex)
 	{
-		base.FrontExWrestle1(animator);
+		base.FrontExWrestle1(animator, fallIndex, frontStepIndex, leftStepIndex, rightStepIndex, backStepIndex, airdashIndex);
 		Wrestletime += Time.deltaTime;
 		// レバー入力カットか特殊格闘入力カットで落下に移行する
 		if (ControllerManager.Instance.TopUp || ControllerManager.Instance.EXWrestleUp)
 		{
-			FallDone(Vector3.zero, animator);
+			FallDone(Vector3.zero, animator, fallIndex);
 		}
 		// 移動速度（上方向に垂直上昇する）
 		float movespeed = 100.0f;
@@ -890,13 +834,13 @@ public class MajyuControl : CharacterControlBase
 	/// <param name="stepanimations"></param>
 	/// <param name="fallid"></param>
 	/// <param name="landingid"></param>
-	protected override void BackExWrestle(Animator animator)
+	protected override void BackExWrestle(Animator animator, int fallIndex, int landingIndex)
 	{
-		base.BackExWrestle(animator);
+		base.BackExWrestle(animator, fallIndex, landingIndex);
 		// レバー入力カットか特殊格闘入力カットで落下に移行する
 		if (ControllerManager.Instance.UnderUp || ControllerManager.Instance.EXWrestleUp)
 		{
-			FallDone(Vector3.zero, animator);
+			FallDone(Vector3.zero, animator, fallIndex);
 		}
 		// 移動速度（上方向に垂直上昇する）
 		float movespeed = 100.0f;
@@ -1072,12 +1016,12 @@ public class MajyuControl : CharacterControlBase
 			// 走行時
 			if (RunShotDone)
 			{
-				AnimatorUnit.SetTrigger("RunShotFollowThrow");
+				AnimatorUnit.SetInteger("AnimIdx", (int)MajyuBattleDefine.Idx.runshotfs);
 			}
 			// 通常時
 			else
 			{
-				AnimatorUnit.SetTrigger("FollowThrow");
+				AnimatorUnit.SetInteger("AnimIdx", (int)MajyuBattleDefine.Idx.majyu_b_shot_followthrow_copy);
 			}
 		}
 	}
@@ -1090,7 +1034,7 @@ public class MajyuControl : CharacterControlBase
 		// 矢や格闘判定も消しておく
 		DestroyArrow();
 		DestroyWrestle();
-		ReturnMotion(AnimatorUnit);
+		ReturnMotion(AnimatorUnit, (int)MajyuBattleDefine.Idx.majyu_b_run_copy, (int)MajyuBattleDefine.Idx.majyu_b_idle_copy, (int)MajyuBattleDefine.Idx.majyu_b_fall_copy);
 	}
 
 	/// <summary>
@@ -1109,12 +1053,12 @@ public class MajyuControl : CharacterControlBase
 			// N格闘２段目派生
 			if (nextmotion == WrestleType.WRESTLE_2)
 			{
-				WrestleDone(AnimatorUnit, 5, "Wrestle2");
+				WrestleDone(AnimatorUnit, 2, (int)MajyuBattleDefine.Idx.majyu_b_normal_wrestle_2_copy);
 			}
 			// N格闘３段目派生
 			else if (nextmotion == WrestleType.WRESTLE_3)
 			{
-				WrestleDone(AnimatorUnit, 6, "Wrestle3");
+				WrestleDone(AnimatorUnit, 3, (int)MajyuBattleDefine.Idx.majyu_b_normal_wrestle_3_copy);
 			}
 		}
 		// なかったら戻す

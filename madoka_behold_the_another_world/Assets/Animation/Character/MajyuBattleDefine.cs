@@ -32,6 +32,8 @@
 		,majyu_b_front_ex_wrestle_copy = 29
 		,majyu_b_back_ex_wrestle_copy = 30
 		,majyu_b_back_wrestle_copy = 31
-		,SIZE = 32
+		,majyu_b_leftstep_back_copy = 32
+		, majyu_b_BD_wrestle_copy = 33
+		, SIZE = 34
 	}
 }

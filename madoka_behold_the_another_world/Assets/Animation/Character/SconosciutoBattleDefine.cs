@@ -43,7 +43,9 @@
 		,Scono_wrestle3_copy = 40
 		,Scono_Wrestle2_copy = 41
 		,scono_RunShotFollowThrow = 42
-		, Scono_fall_copy = 43
-		, SIZE = 44
+		,Scono_fall_copy = 43
+		,Scono_ShotFollowThrow_copy = 44
+		,Scono_Exshot_copy = 45
+		,SIZE = 46
 	}
 }

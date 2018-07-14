@@ -49,6 +49,7 @@
 		,homuragun_wrestle1_copy = 46
 		,homuragun_wrestle2_copy = 47
 		,homuragun_wrestle3_copy = 48
-		,SIZE = 49
+		,homuragun_runshotfs = 49
+		,SIZE = 50
 	}
 }
