@@ -624,7 +624,7 @@ public class HomuraGunControl : CharacterControlBase
 	/// </summary>
 	public void JumpingMigration()
 	{
-		AnimatorUnit.SetInteger("AnimIdx", (int)HomuraGunBattleDefine.Idx.homuragun_jumping_copy);
+		AnimatorUnit.Play("jumping");
 	}
 
 	/// <summary>
@@ -775,7 +775,7 @@ public class HomuraGunControl : CharacterControlBase
 			if (AirDash)
 			{
 				// 空中ダッシュ格闘実行
-				AirDashWrestleDone(AnimatorUnit, AirDashSpeed, 13, (int)HomuraGunBattleDefine.Idx.homuragun_bdwrestle_copy);
+				AirDashWrestleDone(AnimatorUnit, AirDashSpeed, 13, "bdwrestle");
 			}
 			// 前格闘で前格闘へ移行
 			else if (HasFrontInput)
@@ -786,25 +786,24 @@ public class HomuraGunControl : CharacterControlBase
 			// 左格闘で左格闘へ移行
 			else if (HasLeftInput)
 			{
-				// 左格闘実行(Character_Spec.cs参照)
-				WrestleDone_GoAround_Left(AnimatorUnit, 10, (int)HomuraGunBattleDefine.Idx.homuragun_sidewrestle_copy);
+				// 左格闘実行（射撃扱いになる）
 			}
 			// 右格闘で右格闘へ移行
 			else if (HasRightInput)
 			{
-				// 右格闘実行(Character_Spec.cs参照)
-				WrestleDone_GoAround_Right(AnimatorUnit, 11, (int)HomuraGunBattleDefine.Idx.homuragun_sidewrestle_copy);
+				// 右格闘実行(射撃扱いになる)
+				
 			}
 			// 後格闘で後格闘へ移行
 			else if (HasBackInput)
 			{
 				// 後格闘実行（ガード）(Character_Spec.cs参照)
-				GuardDone(AnimatorUnit, 12, (int)HomuraGunBattleDefine.Idx.homuragun_backwrestle_copy);
+				GuardDone(AnimatorUnit, 12, "backwrestle");
 			}
 			else
 			{
 				// それ以外ならN格闘実行(2段目と3段目の追加入力はWrestle1とWrestle2で行う
-				WrestleDone(AnimatorUnit, 6, (int)HomuraGunBattleDefine.Idx.homuragun_wrestle1_copy);
+				WrestleDone(AnimatorUnit, 6, "wrestle1");
 			}
 			return true;
 		}
@@ -821,12 +820,12 @@ public class HomuraGunControl : CharacterControlBase
 		if (runshot)
 		{
 			// アニメーション合成処理＆再生
-			AnimatorUnit.SetInteger("AnimIdx", (int)HomuraGunBattleDefine.Idx.homuragun_run_underonly_copy);
+			AnimatorUnit.Play("runshot");
 		}
 		// 立ち射撃か空中射撃
 		else
 		{
-			AnimatorUnit.SetInteger("AnimIdx", (int)HomuraGunBattleDefine.Idx.homuragun_normalshot_copy);
+			AnimatorUnit.Play("shot");
 		}
 		// 装填状態へ移行
 		Shotmode = ShotMode.RELORD;
@@ -837,7 +836,7 @@ public class HomuraGunControl : CharacterControlBase
 	/// </summary>
 	public void ChagerShotDone()
 	{
-		AnimatorUnit.SetInteger("AnimIdx", (int)HomuraGunBattleDefine.Idx.homuragun_chargeshot_copy);
+		AnimatorUnit.Play("chargeshot");
 		// 位置固定を行う
 		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
 	}
@@ -847,7 +846,7 @@ public class HomuraGunControl : CharacterControlBase
 	/// </summary>
 	public void ChargeWrestleDone()
 	{
-		AnimatorUnit.SetInteger("AnimIdx", (int)HomuraGunBattleDefine.Idx.homuragun_chargewrestle_copy);
+		AnimatorUnit.Play("chargewrestle");
 		// 位置固定を行う
 		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
 	}
@@ -857,7 +856,7 @@ public class HomuraGunControl : CharacterControlBase
 	/// </summary>
 	public void SubShotDone()
 	{
-		AnimatorUnit.SetInteger("AnimIdx", (int)HomuraGunBattleDefine.Idx.homuragun_subshot_copy);
+		AnimatorUnit.Play("subshot");
 		// 装填状態へ移行
 		Shotmode = ShotMode.RELORD;
 		// 位置固定を行う
@@ -869,7 +868,7 @@ public class HomuraGunControl : CharacterControlBase
 	/// </summary>
 	public void EXShotDone()
 	{
-		AnimatorUnit.SetInteger("AnimIdx", (int)HomuraGunBattleDefine.Idx.homuragun_exshot_copy);
+		AnimatorUnit.Play("exshot");
 		// 装填状態へ移行
 		Shotmode = ShotMode.RELORD;
 		// 位置固定を行う

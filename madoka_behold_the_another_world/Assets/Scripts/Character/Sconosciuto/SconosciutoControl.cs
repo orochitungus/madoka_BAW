@@ -663,7 +663,7 @@ public class SconosciutoControl : CharacterControlBase
 	/// </summary>
 	public void JumpingMigration()
 	{
-		AnimatorUnit.SetInteger("AnimIdx", (int)SconosciutoBattleDefine.Idx.Scono_jumping_copy);
+		AnimatorUnit.Play("jumping");
 	}
 
 	protected override void Animation_Run(Animator animator, int frontstepIndex, int leftstepIndex, int rightstepIndex, int backstepIndex, int idleIndex, int jumpIndex, int fallIndex)
@@ -823,7 +823,7 @@ public class SconosciutoControl : CharacterControlBase
 			if (AirDash)
 			{
                 // 空中ダッシュ格闘実行
-                WrestleDone(AnimatorUnit, 10,(int)SconosciutoBattleDefine.Idx.Scono_bdwrestle_copy);
+                WrestleDone(AnimatorUnit, 10,"bdwrestle");
 				// こちらもループアニメなので、animに関数を貼る手段は使えないため判定をここで作る
 				// 判定の場所
 				Vector3 pos = WrestleRoot[10].transform.position;
@@ -854,30 +854,30 @@ public class SconosciutoControl : CharacterControlBase
 			else if (HasFrontInput)
 			{
 				// 前格闘実行(Character_Spec.cs参照)
-				WrestleDone(AnimatorUnit, 6, (int)SconosciutoBattleDefine.Idx.Scono_frontwrestle_copy);
+				WrestleDone(AnimatorUnit, 6, "frontwrestle");
 			}
 			// 左格闘で左格闘へ移行
 			else if (HasLeftInput)
 			{
 				// 左格闘実行(Character_Spec.cs参照)
-				WrestleDone(AnimatorUnit, 7, (int)SconosciutoBattleDefine.Idx.Scono_leftwrestle_copy);
+				WrestleDone(AnimatorUnit, 7, "leftwrestle");
 			}
 			// 右格闘で右格闘へ移行
 			else if (HasRightInput)
 			{
 				// 右格闘実行(Character_Spec.cs参照)
-				WrestleDone(AnimatorUnit, 8, (int)SconosciutoBattleDefine.Idx.Scono_rightwrestle_copy);
+				WrestleDone(AnimatorUnit, 8, "rightwrestle");
 			}
 			// 後格闘で後格闘へ移行
 			else if (HasBackInput)
 			{
 				// 後格闘実行（ガード）(Character_Spec.cs参照)
-				GuardDone(AnimatorUnit, 9, (int)SconosciutoBattleDefine.Idx.Scono_backwrestle_copy);
+				GuardDone(AnimatorUnit, 9, "backwreslte");
 			}
 			else
 			{
 				// それ以外ならN格闘実行(2段目と3段目の追加入力はWrestle1とWrestle2で行う
-				WrestleDone(AnimatorUnit, 3, (int)SconosciutoBattleDefine.Idx.Scono_Wrestle1_copy);
+				WrestleDone(AnimatorUnit, 3, "wrestle1");
 			}
 			return true;
 		}
@@ -943,12 +943,12 @@ public class SconosciutoControl : CharacterControlBase
 		if (runshot)
 		{
 			// アニメーション合成処理＆再生
-			AnimatorUnit.SetInteger("AnimIdx", (int)SconosciutoBattleDefine.Idx.scono_RunShot);
+			AnimatorUnit.Play("runshotft");
 		}
 		// 立ち射撃か空中射撃
 		else
 		{
-			AnimatorUnit.SetInteger("AnimIdx", (int)SconosciutoBattleDefine.Idx.Scono_normalshot_copy);
+			AnimatorUnit.Play("shotft");
 		}
 		// 装填状態へ移行
 		Shotmode = ShotMode.RELORD;
@@ -1127,12 +1127,12 @@ public class SconosciutoControl : CharacterControlBase
 		// 走行時
 		if (RunShotDone)
 		{
-			AnimatorUnit.SetInteger("AnimIdx", (int)SconosciutoBattleDefine.Idx.scono_RunShotFollowThrow);
+			AnimatorUnit.Play("runshotft");
 		}
 		// 通常時
 		else
 		{
-			AnimatorUnit.SetInteger("AnimIdx", (int)SconosciutoBattleDefine.Idx.Scono_ShotFollowThrow_copy);
+			AnimatorUnit.Play("shotft");
 		}
 		
 	}
@@ -1142,7 +1142,7 @@ public class SconosciutoControl : CharacterControlBase
 	/// </summary>
 	public void SubShotDone()
 	{
-		AnimatorUnit.SetInteger("AnimIdx", (int)SconosciutoBattleDefine.Idx.Scono_subshot_copy);
+		AnimatorUnit.Play("subshot");
 		// 装填状態へ移行
 		Shotmode = ShotMode.RELORD;
 		// 位置固定を行う
@@ -1288,7 +1288,7 @@ public class SconosciutoControl : CharacterControlBase
 			Shotmode = ShotMode.SHOTDONE;
 		}
 		// フォロースルーへ移行する
-		AnimatorUnit.SetInteger("AnimIdx", (int)SconosciutoBattleDefine.Idx.Scnoo_SubShotFollowThrow_copy);
+		AnimatorUnit.Play("subshotft");
 	}
 
 	/// <summary>
@@ -1296,7 +1296,7 @@ public class SconosciutoControl : CharacterControlBase
 	/// </summary>
 	public void ExShotDone()
 	{
-		AnimatorUnit.SetInteger("AnimIdx", (int)SconosciutoBattleDefine.Idx.Scono_Exshot_copy);
+		AnimatorUnit.Play("exshot");
 		// 位置固定を行う
 		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
 	}
@@ -1343,7 +1343,7 @@ public class SconosciutoControl : CharacterControlBase
 	public void FollowThrowEXShot()
 	{
 		DestroyArrow();
-		AnimatorUnit.SetInteger("AnimIdx", (int)SconosciutoBattleDefine.Idx.Scono_EXShotFollowThrow_copy);
+		AnimatorUnit.Play("exshotft");
 	}
 
 	/// <summary>
@@ -1396,12 +1396,12 @@ public class SconosciutoControl : CharacterControlBase
 			// N格闘２段目派生
 			if (nextmotion == 0)
 			{
-				WrestleDone(AnimatorUnit, 4, (int)SconosciutoBattleDefine.Idx.Scono_Wrestle2_copy);
+				WrestleDone(AnimatorUnit, 4, "wrestle2");
 			}
 			// N格闘３段目派生
 			else if (nextmotion == 1)
 			{
-				WrestleDone(AnimatorUnit, 5, (int)SconosciutoBattleDefine.Idx.Scono_wrestle3_copy);
+				WrestleDone(AnimatorUnit, 5, "wrestle3");
 			}
 		}
 		// なかったら戻す
@@ -1539,8 +1539,8 @@ public class SconosciutoControl : CharacterControlBase
         // アニメーション速度
         float speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillindex].AnimSpeed;
 
-        // アニメーションを再生する
-		animator.SetInteger("AnimIdx", (int)SconosciutoBattleDefine.Idx.Scono_exwrestle_copy);
+		// アニメーションを再生する
+		animator.Play("exwrestle");
 
         // アニメーションの速度を調整する
         animator.speed = speed;
@@ -1562,8 +1562,8 @@ public class SconosciutoControl : CharacterControlBase
         // アニメーション速度
         animator.speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillindex].AnimSpeed;
 
-        // アニメーションを再生する
-		animator.SetInteger("AnimIdx", (int)SconosciutoBattleDefine.Idx.Scono_frontexwrestle_copy);
+		// アニメーションを再生する
+		animator.Play("frontexwrestle");
     }
 
     /// <summary>
@@ -1634,8 +1634,8 @@ public class SconosciutoControl : CharacterControlBase
         // アニメーション速度
         animator.speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillindex].AnimSpeed;
 
-        // アニメーションを再生する
-		animator.SetInteger("AnimIdx", (int)SconosciutoBattleDefine.Idx.Scono_backexwrestle_copy);
+		// アニメーションを再生する
+		animator.Play("backexwrestle");
     }
 
 
@@ -1644,7 +1644,7 @@ public class SconosciutoControl : CharacterControlBase
 	/// </summary>
 	public void ArousalAttackDone()
 	{
-		AnimatorUnit.SetInteger("AnimIdx", (int)SconosciutoBattleDefine.Idx.Scono_Arousal_copy);
+		AnimatorUnit.Play("finalmagic");
 		ArousalCoreAnimator.SetTrigger("Wait");
 		// 位置固定を行う
 		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;

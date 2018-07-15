@@ -487,7 +487,7 @@ public class MajyuControl : CharacterControlBase
 	/// </summary>
 	public void JumpingMigration()
 	{
-		AnimatorUnit.SetInteger("AnimIdx", (int)MajyuBattleDefine.Idx.majyu_b_jamping_copy);
+		AnimatorUnit.Play("jumping");
 	}
 
 
@@ -604,7 +604,7 @@ public class MajyuControl : CharacterControlBase
 			else
 			{
 				// 格闘実行
-				WrestleDone(AnimatorUnit, 1, (int)MajyuBattleDefine.Idx.majyu_b_normal_wrestle_1_copy);
+				WrestleDone(AnimatorUnit, 1, "wrestle1");
 			}
 			return true;
 		}
@@ -615,24 +615,24 @@ public class MajyuControl : CharacterControlBase
 			if (AirDash)
 			{
 				// 空中ダッシュ格闘実行
-				AirDashWrestleDone(AnimatorUnit, AirDashSpeed, 4, (int)MajyuBattleDefine.Idx.majyu_b_BD_wrestle_copy);
+				AirDashWrestleDone(AnimatorUnit, AirDashSpeed, 4, "bdwrestle");
 			}
 			// 前格闘で前格闘へ移行
 			else if (HasFrontInput)
 			{
 				// 前格闘実行(Character_Spec.cs参照)
-				WrestleDone(AnimatorUnit, 5, (int)MajyuBattleDefine.Idx.majyu_b_front_wrestle_copy);
+				WrestleDone(AnimatorUnit, 5, "frontwrestle");
 			}
 			// 後格闘で後格闘へ移行
 			else if (HasBackInput)
 			{
 				// 後格闘実行（ガード）(Character_Spec.cs参照)
-				GuardDone(AnimatorUnit, 6, (int)MajyuBattleDefine.Idx.majyu_b_back_wrestle_copy);
+				GuardDone(AnimatorUnit, 6, "");
 			}
 			else
 			{
 				// それ以外ならN格闘実行(2段目と3段目の追加入力はWrestle1とWrestle2で行う
-				WrestleDone(AnimatorUnit, 1, (int)MajyuBattleDefine.Idx.majyu_b_normal_wrestle_1_copy);
+				WrestleDone(AnimatorUnit, 1, "wrestle1");
 			}
 			return true;
 		}
@@ -650,12 +650,12 @@ public class MajyuControl : CharacterControlBase
 		if (runshot)
 		{
 			// アニメーション合成処理＆再生
-			AnimatorUnit.SetInteger("AnimIdx", (int)MajyuBattleDefine.Idx.runshot);
+			AnimatorUnit.Play("runshot");
 		}
 		// 立ち射撃か空中射撃
 		else
 		{
-			AnimatorUnit.SetInteger("AnimIdx", (int)MajyuBattleDefine.Idx.airshot);
+			AnimatorUnit.Play("airshot");
 		}
 		// 装填状態へ移行
 		Shotmode = ShotMode.RELORD;
@@ -676,7 +676,7 @@ public class MajyuControl : CharacterControlBase
 		animator.speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillindex].AnimSpeed;
 
 		// アニメーションを再生する
-		animator.SetInteger("AnimIdx", (int)MajyuBattleDefine.Idx.majyu_b_front_ex_wrestle_copy);
+		animator.Play("frontexwrestle");
 
 	}
 
@@ -694,7 +694,7 @@ public class MajyuControl : CharacterControlBase
 		animator.speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillindex].AnimSpeed;
 
 		// アニメーションを再生する
-		animator.SetInteger("AnimIdx", (int)MajyuBattleDefine.Idx.majyu_b_back_ex_wrestle_copy);
+		animator.Play("backexwrestle");
 
 	}
 
@@ -1016,12 +1016,12 @@ public class MajyuControl : CharacterControlBase
 			// 走行時
 			if (RunShotDone)
 			{
-				AnimatorUnit.SetInteger("AnimIdx", (int)MajyuBattleDefine.Idx.runshotfs);
+				AnimatorUnit.Play("runshotft");
 			}
 			// 通常時
 			else
 			{
-				AnimatorUnit.SetInteger("AnimIdx", (int)MajyuBattleDefine.Idx.majyu_b_shot_followthrow_copy);
+				AnimatorUnit.Play("shotft");
 			}
 		}
 	}
@@ -1053,12 +1053,12 @@ public class MajyuControl : CharacterControlBase
 			// N格闘２段目派生
 			if (nextmotion == WrestleType.WRESTLE_2)
 			{
-				WrestleDone(AnimatorUnit, 2, (int)MajyuBattleDefine.Idx.majyu_b_normal_wrestle_2_copy);
+				WrestleDone(AnimatorUnit, 2, "wrestle2");
 			}
 			// N格闘３段目派生
 			else if (nextmotion == WrestleType.WRESTLE_3)
 			{
-				WrestleDone(AnimatorUnit, 3, (int)MajyuBattleDefine.Idx.majyu_b_normal_wrestle_3_copy);
+				WrestleDone(AnimatorUnit, 3, "wrestle3");
 			}
 		}
 		// なかったら戻す
