@@ -173,9 +173,11 @@ public class Bullet : MonoBehaviour
 	/// ボム着弾時のエフェクト
 	/// </summary>
 	public GameObject BombEffect;
- 
-    // Updateでの共通処理（継承用）
-    protected void UpdateCore()
+
+	/// <summary>
+	/// Updateでの共通処理（通常）
+	/// </summary>	
+	protected void UpdateCore()
     {
 		float shotspeed = 0.0f;
         // 飛行開始
@@ -282,6 +284,57 @@ public class Bullet : MonoBehaviour
         BrokenMySelf();
         TimeNow++;
     }
+
+
+	/// <summary>
+	/// Updateでの共通処理（バルカンなどの高速連射タイプ）
+	/// </summary>
+	protected void UpdateCoreBullcan()
+	{
+		float shotspeed = 0.0f;
+		// 飛行開始
+		// キリカの時間遅延を受けているとき、1/4に
+		if (Timestopmode == CharacterControlBase.TimeStopMode.TIME_DELAY)
+		{
+			shotspeed = DelayShotspeed;
+		}
+		// ほむらの時間停止を受けているときなど、0に
+		else if (Timestopmode == CharacterControlBase.TimeStopMode.TIME_STOP || Timestopmode == CharacterControlBase.TimeStopMode.PAUSE || Timestopmode == CharacterControlBase.TimeStopMode.AROUSAL)
+		{
+			return;
+		}
+		// 通常
+		else
+		{
+			shotspeed = ShotSpeed;
+		}
+		// カメラから親と対象を拾う
+		// (ほむの下にカメラがいるので、GetComponentChildlenで拾える）
+		//var target = m_Obj_OR.GetComponentInChildren<Player_Camera_Controller>();
+		// 敵の場合、弾丸があっても親が死んでいる可能性もあるので、その場合は強制抜け
+		if (InjectionObject == null)
+		{
+			BrokenMySelf();
+			return;
+		}
+		var target = InjectionObject.transform.GetComponentInChildren<Player_Camera_Controller>();
+		// 親オブジェクトを拾う
+		InjectionObject = target.Player;
+		// ターゲットオブジェクトを拾う
+		TargetObject = target.Enemy;
+		// 親オブジェクトから切り離されたときかつ非独立状態なら、親が保持している方向ベクトルを拾う
+		// 非独立状態の判定をしないと、射出後も親に合わせて動いてしまう
+		// 親オブジェクトを拾う
+		if (transform.parent != null && !IsIndependence)
+		{
+			if (InjectionObject != null)
+			{
+				// 装填されたら即座に切り離す
+
+			}
+		}
+	}
+
 
     // 規定フレーム間誘導する（弾丸）
     protected void InductionBullet(float shotspeed)
