@@ -18,9 +18,9 @@ public class CharacterBasicSpec_importer : AssetPostprocessor {
 			if (!filePath.Equals (asset))
 				continue;
 				
-			Entity_Sheet1 data = (Entity_Sheet1)AssetDatabase.LoadAssetAtPath (exportPath, typeof(Entity_Sheet1));
+			CharacterBasicSpec data = (CharacterBasicSpec)AssetDatabase.LoadAssetAtPath (exportPath, typeof(CharacterBasicSpec));
 			if (data == null) {
-				data = ScriptableObject.CreateInstance<Entity_Sheet1> ();
+				data = ScriptableObject.CreateInstance<CharacterBasicSpec> ();
 				AssetDatabase.CreateAsset ((ScriptableObject)data, exportPath);
 				data.hideFlags = HideFlags.NotEditable;
 			}
@@ -41,44 +41,44 @@ public class CharacterBasicSpec_importer : AssetPostprocessor {
 						continue;
 					}
 
-					Entity_Sheet1.Sheet s = new Entity_Sheet1.Sheet ();
+					CharacterBasicSpec.Sheet s = new CharacterBasicSpec.Sheet ();
 					s.name = sheetName;
 				
 					for (int i=1; i<= sheet.LastRowNum; i++) {
 						IRow row = sheet.GetRow (i);
 						ICell cell = null;
 						
-						Entity_Sheet1.Param p = new Entity_Sheet1.Param ();
+						CharacterBasicSpec.Param p = new CharacterBasicSpec.Param ();
 						
 					cell = row.GetCell(0); p.NAME_JP = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(1); p.NAME_EN = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(2); p.HP_OR = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(3); p.HP_Growth = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(4); p.Def_OR = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(5); p.Def_Growth = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(5); p.Def_Growth = (float)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(6); p.Boost_OR = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(7); p.Boost_Growth = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(8); p.Arousal_OR = (cell == null ? 0.0 : cell.NumericCellValue);
-					cell = row.GetCell(9); p.Arousal_Growth = (cell == null ? 0.0 : cell.NumericCellValue);
-					cell = row.GetCell(10); p.JumpWaitTime = (cell == null ? 0.0 : cell.NumericCellValue);
-					cell = row.GetCell(11); p.LandingWaitTime = (cell == null ? 0.0 : cell.NumericCellValue);
-					cell = row.GetCell(12); p.WalkSpeed = (cell == null ? 0.0 : cell.NumericCellValue);
-					cell = row.GetCell(13); p.RunSpeed = (cell == null ? 0.0 : cell.NumericCellValue);
-					cell = row.GetCell(14); p.AirDashSpeed = (cell == null ? 0.0 : cell.NumericCellValue);
-					cell = row.GetCell(15); p.AirMoveSpeed = (cell == null ? 0.0 : cell.NumericCellValue);
-					cell = row.GetCell(16); p.RiseSpeed = (cell == null ? 0.0 : cell.NumericCellValue);
-					cell = row.GetCell(17); p.JumpUseBoost = (cell == null ? 0.0 : cell.NumericCellValue);
-					cell = row.GetCell(18); p.DashCancelUseBoost = (cell == null ? 0.0 : cell.NumericCellValue);
-					cell = row.GetCell(19); p.StepUseBoost = (cell == null ? 0.0 : cell.NumericCellValue);
-					cell = row.GetCell(20); p.BoostLess = (cell == null ? 0.0 : cell.NumericCellValue);
-					cell = row.GetCell(21); p.StepMoveLength = (cell == null ? 0.0 : cell.NumericCellValue);
-					cell = row.GetCell(22); p.StepInitalVelocity = (cell == null ? 0.0 : cell.NumericCellValue);
-					cell = row.GetCell(23); p.StepMove1F = (cell == null ? 0.0 : cell.NumericCellValue);
-					cell = row.GetCell(24); p.ColliderHeight = (cell == null ? 0.0 : cell.NumericCellValue);
-					cell = row.GetCell(25); p.RockonRange = (cell == null ? 0.0 : cell.NumericCellValue);
-					cell = row.GetCell(26); p.RockonRangeLimit = (cell == null ? 0.0 : cell.NumericCellValue);
-					cell = row.GetCell(27); p.EXP = (cell == null ? 0.0 : cell.NumericCellValue);
-					cell = row.GetCell(28); p.DownDurationValue = (cell == null ? 0.0 : cell.NumericCellValue);
+					cell = row.GetCell(7); p.Boost_Growth = (float)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(8); p.Arousal_OR = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(9); p.Arousal_Growth = (float)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(10); p.JumpWaitTime = (float)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(11); p.LandingWaitTime = (float)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(12); p.WalkSpeed = (float)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(13); p.RunSpeed = (float)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(14); p.AirDashSpeed = (float)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(15); p.AirMoveSpeed = (float)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(16); p.RiseSpeed = (float)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(17); p.JumpUseBoost = (float)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(18); p.DashCancelUseBoost = (float)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(19); p.StepUseBoost = (float)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(20); p.BoostLess = (float)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(21); p.StepMoveLength = (float)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(22); p.StepInitalVelocity = (float)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(23); p.StepMove1F = (float)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(24); p.ColliderHeight = (float)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(25); p.RockonRange = (float)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(26); p.RockonRangeLimit = (float)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(27); p.EXP = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(28); p.DownDurationValue = (float)(cell == null ? 0 : cell.NumericCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

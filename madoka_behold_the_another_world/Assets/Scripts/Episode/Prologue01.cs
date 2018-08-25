@@ -216,8 +216,7 @@ public class Prologue01 : MonoBehaviour
 		Camera1.transform.localPosition = new Vector3(-37.60001f, -105.7f, -621.8f);
 		Camera1.fieldOfView = 25;
 		Camera1.transform.localRotation = Quaternion.Euler(new Vector3(-10,0,0));
-		// BGM変更
-		AudioManager.Instance.PlayBGM("Black Widow");
+		
 
 		// 魔獣出現のイベントが終わるまで少し待つ
 		yield return new WaitForSeconds(2.0f);
@@ -258,6 +257,11 @@ public class Prologue01 : MonoBehaviour
 		{
 			yield return 0;
 		}
+		// ゲームのパラメーターを初期化する
+		savingparameter.savingparameter_Init();
+
+		// BGM変更
+		AudioManager.Instance.PlayBGM("Black Widow");
 
 		FadeManager.Instance.LoadLevel("BrokenMitakihara", 1.0f);
 	}

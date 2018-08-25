@@ -134,7 +134,7 @@ public class LoadFileSelect : MonoBehaviour
 						savingparameter.SetNowParty(i, sd.nowparty[i]);
 					}
 					// キャラクター関連
-					for (int i = 0; i < (int)Character_Spec.CHARACTER_NAME.CHARACTER_ALL_NUM; ++i)
+					for (int i = 0; i < (int)Character_Spec.PlayerAllNum; ++i)
 					{
 						// 各キャラのレベル
 						savingparameter.SetNowLevel(i, sd.nowlevel[i]);

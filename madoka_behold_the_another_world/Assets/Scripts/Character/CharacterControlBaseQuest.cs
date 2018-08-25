@@ -164,6 +164,10 @@ public class CharacterControlBaseQuest : MonoBehaviour
 	/// </summary>
 	public BattleInterfaceController Battleinterfacecontroller;
 
+	// TimeWait起動判定
+	private bool Timewaitodone;
+
+
 	private void Awake()
 	{
 		// 戦闘用インターフェースを取得する
@@ -536,12 +540,12 @@ public class CharacterControlBaseQuest : MonoBehaviour
 		{
 			Vector3 velocity = MoveDirection * MoveSpeed;
 			//走行中 / 吹き飛び中 / ダウン中
-			if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == runid && velocity.y <= 0)
+			if (animator.GetCurrentAnimatorStateInfo(0).IsName("run") && velocity.y <= 0)
 			{
 				velocity.y = MadokaDefine.FALLSPEED;      // ある程度下方向へのベクトルをかけておかないと、スロープ中に落ちる
 			}
 			// アイドル時は下方向ベクトル止める
-			else if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == idleid)
+			else if (animator.GetCurrentAnimatorStateInfo(0).IsName("idle"))
 			{
 				velocity = Vector3.zero;
 			}
@@ -562,7 +566,7 @@ public class CharacterControlBaseQuest : MonoBehaviour
 		transform.rotation = Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y, 0));
 		// 無効になっていたら重力を復活させる
 		GetComponent<Rigidbody>().useGravity = true;
-		animator.SetTrigger("Landing");
+		animator.Play("landing");
 		// 着地したので硬直を設定する
 		LandingTime = Time.time;
 	}
@@ -577,7 +581,7 @@ public class CharacterControlBaseQuest : MonoBehaviour
 			// 方向キーで走行
 			if (HasVHInput)
 			{
-				animator.SetTrigger("Run");
+				animator.Play("run");
 			}
 		}
 	}
@@ -630,14 +634,14 @@ public class CharacterControlBaseQuest : MonoBehaviour
 			// 入力が外れるとアイドル状態へ
 			else
 			{
-				animator.SetTrigger("Idle");
+				animator.Play("idle");
 				MoveDirection = Vector3.zero;
 			}
 		}
 		// 地面から離れるとアイドル状態へ
 		else
 		{
-			animator.SetTrigger("Idle");
+			animator.Play("idle");
 			MoveDirection = Vector3.zero;
 		}
 	}

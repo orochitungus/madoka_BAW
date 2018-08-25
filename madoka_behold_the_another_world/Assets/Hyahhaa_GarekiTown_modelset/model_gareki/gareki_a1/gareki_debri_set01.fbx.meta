@@ -1,0 +1,227 @@
+fileFormatVersion: 2
+guid: 416675f8f8390074e8ac77be3260a760
+timeCreated: 1481691582
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: bar1
+    100002: bar2
+    100004: debfloor01
+    100006: debfloor02
+    100008: debfloor03
+    100010: debwakk01
+    100012: debwall02
+    100014: debwall03
+    100016: debwall04
+    100018: debwall05
+    100020: debwall06
+    100022: debwall07
+    100024: debwall08
+    100026: debwall09
+    100028: debwall10
+    100030: gareki01
+    100032: gareki02
+    100034: gareki03
+    100036: gareki04
+    100038: gareki05
+    100040: gareki06
+    100042: //RootNode
+    100044: qpipe1
+    100046: qpipe2
+    100048: rail1
+    100050: rail2
+    400000: bar1
+    400002: bar2
+    400004: debfloor01
+    400006: debfloor02
+    400008: debfloor03
+    400010: debwakk01
+    400012: debwall02
+    400014: debwall03
+    400016: debwall04
+    400018: debwall05
+    400020: debwall06
+    400022: debwall07
+    400024: debwall08
+    400026: debwall09
+    400028: debwall10
+    400030: gareki01
+    400032: gareki02
+    400034: gareki03
+    400036: gareki04
+    400038: gareki05
+    400040: gareki06
+    400042: //RootNode
+    400044: qpipe1
+    400046: qpipe2
+    400048: rail1
+    400050: rail2
+    2300000: bar1
+    2300002: bar2
+    2300004: debfloor01
+    2300006: debfloor02
+    2300008: debfloor03
+    2300010: debwakk01
+    2300012: debwall02
+    2300014: debwall03
+    2300016: debwall04
+    2300018: debwall05
+    2300020: debwall06
+    2300022: debwall07
+    2300024: debwall08
+    2300026: debwall09
+    2300028: debwall10
+    2300030: gareki01
+    2300032: gareki02
+    2300034: gareki03
+    2300036: gareki04
+    2300038: gareki05
+    2300040: gareki06
+    2300042: qpipe1
+    2300044: qpipe2
+    2300046: rail1
+    2300048: rail2
+    3300000: bar1
+    3300002: bar2
+    3300004: debfloor01
+    3300006: debfloor02
+    3300008: debfloor03
+    3300010: debwakk01
+    3300012: debwall02
+    3300014: debwall03
+    3300016: debwall04
+    3300018: debwall05
+    3300020: debwall06
+    3300022: debwall07
+    3300024: debwall08
+    3300026: debwall09
+    3300028: debwall10
+    3300030: gareki01
+    3300032: gareki02
+    3300034: gareki03
+    3300036: gareki04
+    3300038: gareki05
+    3300040: gareki06
+    3300042: qpipe1
+    3300044: qpipe2
+    3300046: rail1
+    3300048: rail2
+    4300000: rail1
+    4300002: rail2
+    4300004: qpipe1
+    4300006: qpipe2
+    4300008: bar1
+    4300010: bar2
+    4300012: gareki01
+    4300014: gareki02
+    4300016: gareki03
+    4300018: gareki04
+    4300020: gareki05
+    4300022: gareki06
+    4300024: debwakk01
+    4300026: debwall02
+    4300028: debwall03
+    4300030: debwall04
+    4300032: debwall05
+    4300034: debwall06
+    4300036: debwall07
+    4300038: debwall08
+    4300040: debwall09
+    4300042: debwall10
+    4300044: debfloor01
+    4300046: debfloor02
+    4300048: debfloor03
+    6400000: bar1
+    6400002: bar2
+    6400004: debfloor01
+    6400006: debfloor02
+    6400008: debfloor03
+    6400010: debwakk01
+    6400012: debwall02
+    6400014: debwall03
+    6400016: debwall04
+    6400018: debwall05
+    6400020: debwall06
+    6400022: debwall07
+    6400024: debwall08
+    6400026: debwall09
+    6400028: debwall10
+    6400030: gareki01
+    6400032: gareki02
+    6400034: gareki03
+    6400036: gareki04
+    6400038: gareki05
+    6400040: gareki06
+    6400042: qpipe1
+    6400044: qpipe2
+    6400046: rail1
+    6400048: rail2
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 2
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 10
+    meshCompression: 0
+    addColliders: 1
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -27,6 +27,7 @@ public static class Character_Spec
 		MEMBER_NAGISA,		// 百江なぎさ
 		MEMBER_SAYAKA_GODSIBB,	// 円環のさやか
 		MEMBER_MICHEL,		// ミッチェル
+
 		ENEMY_MICHAELA1,	// ミヒャエラ（ムンク)
 		ENEMY_MICHAELA2,    // ミヒャエラ（人間）
 		ENEMY_IZABEL,		// イザベル（芸術家の魔女）
@@ -36,5 +37,5 @@ public static class Character_Spec
     };
 
 
-	
+	public const int PlayerAllNum = 17;	
 }

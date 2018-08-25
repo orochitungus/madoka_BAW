@@ -270,8 +270,8 @@ public class Bullet : MonoBehaviour
             // ガード姿勢を取らせる(自分の弾は除く)
             if (hittarget != null && InjectionCharacterIndex != (int)hittarget2.CharacterName)
             {
-                // 相手がNOMOVEの時にはガードは取らせない
-                if (hittarget.Cpumode != AIControlBase.CPUMODE.NOMOVE)
+                // 相手がNONEかNOMOVEの時にはガードは取らせない
+                if (hittarget.Cpumode != AIControlBase.CPUMODE.NOMOVE && hittarget.Cpumode != AIControlBase.CPUMODE.NONE)
                 {
                     hittarget.Cpumode = AIControlBase.CPUMODE.GUARD;
                 }

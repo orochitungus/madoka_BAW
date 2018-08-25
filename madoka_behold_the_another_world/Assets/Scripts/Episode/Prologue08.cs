@@ -245,6 +245,6 @@ public class Prologue08 : MonoBehaviour
 		// フィールドを芸術家の魔女の結界１へ
 		//savingparameter.nowField = 10;
 		//savingparameter.beforeField = 902;
-		//FadeManager.Instance.LoadLevel("FootBridgeArea", 1.0f);
+		FadeManager.Instance.LoadLevel("title", 1.0f);
 	}
 }

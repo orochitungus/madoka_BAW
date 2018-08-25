@@ -167,7 +167,7 @@ public class BattleInterfaceController : MonoBehaviour
 	/// <summary>
 	/// アイテム表示部ルート
 	/// </summary>
-	public GameObject Item;
+	public GameObject ItemTab;
 
 	/// <summary>
 	/// レベル表示部ルート
@@ -209,8 +209,11 @@ public class BattleInterfaceController : MonoBehaviour
 	/// </summary>
 	public GameObject GameOver;
 
-    // Use this for initialization
-    void Start ()
+	// TimeWait起動判定
+	private bool Timewaitdone;
+
+	// Use this for initialization
+	void Start ()
     {
         // 開始時ポーズ背景非表示
         PauseBG.gameObject.SetActive(false);
@@ -218,7 +221,12 @@ public class BattleInterfaceController : MonoBehaviour
         // ポーズコントローラー取得
         Pausecontroller = GameObject.Find("PauseManager");
 
-        this.UpdateAsObservable().Subscribe(_ => 
+		// レベルアップフラグを折っておく
+		LevelUpManagement.m_characterName = 0;
+		// アイテム入手フラグを折っておく
+		FieldItemGetManagement.ItemKind = -2;
+
+		this.UpdateAsObservable().Subscribe(_ => 
         {
             // 覚醒ゲージ表示
             ArousalGauge.fillAmount = NowArousal / MaxArousal;
@@ -305,7 +313,67 @@ public class BattleInterfaceController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-	
+		InformationText.text = DrawInformationWords();
+	}
+
+	// インフォメーションバー文字列決定
+	public string DrawInformationWords()
+	{
+		string drawwords = "";
+		// キャラがレベルアップした場合、そのキャラのレベルアップを20秒間表示する
+		if (LevelUpManagement.m_characterName != 0)
+		{
+			if (!Timewaitdone)
+			{
+				Timewaitdone = true;
+				// レベルアップ音を鳴らす
+				AudioManager.Instance.PlaySE("ta_ta_winchai01");
+				StartCoroutine(TimeWait(20.0f));
+			}
+			drawwords = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[LevelUpManagement.m_characterName].NAME_JP + "は、Level" + LevelUpManagement.m_nextlevel.ToString() + "にレベルアップ！";
+		}
+		// アイテムを入手した場合、そのアイテムを20秒間表示する
+		else if (FieldItemGetManagement.ItemKind > -2)
+		{
+			if (!Timewaitdone)
+			{
+				Timewaitdone = true;
+				StartCoroutine(TimeWait(20.0f));
+			}
+			// 金以外
+			if (FieldItemGetManagement.ItemKind > -1)
+			{
+				drawwords = Item.itemspec[FieldItemGetManagement.ItemKind].Name() + "を" + FieldItemGetManagement.ItemNum + "個入手！";
+			}
+			// 金
+			else
+			{
+				drawwords = FieldItemGetManagement.ItemNum + "円入手！";
+			}
+		}
+		// それ以外の時はsavingparameter.storyに応じて内容を変更する
+		else
+		{
+			drawwords = ParameterManager.Instance.EntityInformation.sheets[0].list[savingparameter.story].text;
+		}
+		if ((Timewaitdone && LevelUpManagement.m_characterName == 0) || (Timewaitdone && FieldItemGetManagement.ItemKind > -2))
+		{
+			StopCoroutine("TimeWait");
+			Timewaitdone = false;
+		}
+
+
+		return drawwords;
+	}
+
+	// レベルアップ表示などの時間カウント
+	public IEnumerator TimeWait(float time)
+	{
+		yield return new WaitForSeconds(time);
+		LevelUpManagement.m_characterName = 0;
+		LevelUpManagement.m_nextlevel = 0;
+		FieldItemGetManagement.ItemKind = -2;
+		FieldItemGetManagement.ItemNum = 0;
 	}
 
 	/// <summary>
@@ -322,7 +390,7 @@ public class BattleInterfaceController : MonoBehaviour
 		Arousal.SetActive(false);
 		Boost.SetActive(false);
 		Information.SetActive(false);
-		Item.SetActive(false);
+		ItemTab.SetActive(false);
 		LevelBG.SetActive(false);
 	}
 
@@ -343,7 +411,7 @@ public class BattleInterfaceController : MonoBehaviour
 		Arousal.SetActive(true);
 		Boost.SetActive(true);
 		Information.SetActive(true);
-		Item.SetActive(true);
+		ItemTab.SetActive(true);
 		LevelBG.SetActive(true);
 	}
 }

@@ -816,8 +816,8 @@ public class AIControlBase : MonoBehaviour
 		}
 
 		// 地上にいてダウンしていなくブーストゲージがあった場合、飛行させる（着地硬直中などは飛べない）
-		if (target.GetIsGrounded() && target.AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash != target.GetDownHash() 
-			&& target.AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash != target.GetReversalHash()
+		if (target.GetIsGrounded() && !target.AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("down") 
+			&& !target.AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("reversal")
 			&& target.GetBoost() > 0)
 		{
 			keyoutput = KEY_OUTPUT.JUMP;

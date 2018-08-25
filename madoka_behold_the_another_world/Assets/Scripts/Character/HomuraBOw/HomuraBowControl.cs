@@ -353,7 +353,7 @@ public class HomuraBowControl : CharacterControlBase
 		this.UpdateAsObservable().Subscribe(_ =>
 		{
             // N格３段目時のみカメラ変更
-            if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle3ID)
+            if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("wrestle3"))
 			{
 				WrestleCamera.enabled = true;
 			}
@@ -362,7 +362,7 @@ public class HomuraBowControl : CharacterControlBase
 				WrestleCamera.enabled = false;
 			}
             // 覚醒技発動中のみカメラ変更
-            if(AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == ArousalAttackID)
+            if(AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("magicburst"))
             {
                 MainCamera.GetComponent<Player_Camera_Controller>().Maincameramode = MainCameraMode.HOMURABOWAROUSAL;
             }
@@ -466,7 +466,7 @@ public class HomuraBowControl : CharacterControlBase
             // 装備アイテム個数
             Battleinterfacecontroller.ItemNumber.text = savingparameter.GetItemNum(savingparameter.GetNowEquipItem()).ToString();
 			// インフォメーション表示内容
-			Battleinterfacecontroller.InformationText.text = ParameterManager.Instance.EntityInformation.sheets[0].list[savingparameter.story].text;
+			//Battleinterfacecontroller.InformationText.text = ParameterManager.Instance.EntityInformation.sheets[0].list[savingparameter.story].text;
 			// 武装ゲージ(マミとさやかにモードチェンジに伴う武装ゲージ変化があるのでこっちに入れる）
 			// 4番目と5番目は消す
 			Battleinterfacecontroller.Weapon4.gameObject.SetActive(false);
@@ -534,13 +534,13 @@ public class HomuraBowControl : CharacterControlBase
 	{
 		// 共通アップデート処理(時間停止系の状態になると入力は禁止)
 		bool isspindown = false;
-		if(AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == SpinDownID)
+		if(AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("spindown"))
 		{
 			isspindown = true;
 		}
 		if(Update_Core(isspindown, AnimatorUnit, DownID, AirDashID,AirShotID,JumpingID,FallID,IdleID,BlowID,RunID,FrontStepID,LeftStepID,RightStepID,BackStepID,DamageID, (int)HomuraBowBattleDefine.Idx.backstep_back_homura_battle_ribon_copy,(int)HomuraBowBattleDefine.Idx.homura_bow_rightstep_back_copy, (int)HomuraBowBattleDefine.Idx.down_rebirth_homura_battle02_copy))
 		{
-            UpdateAnimation();
+            
             // リロード実行           
             // メイン射撃
             ReloadSystem.OneByOne(ref BulletNum[(int)ShotType.NORMAL_SHOT], Time.time, 
@@ -559,192 +559,206 @@ public class HomuraBowControl : CharacterControlBase
 
 	void LateUpdate()
 	{
-		
+		UpdateAnimation();
 	}
 
 	void UpdateAnimation()
 	{
 		ShowAirDashEffect = false;		
 		// 通常
-		if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == IdleID)
+		if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("idle"))
 		{
 			Animation_Idle(AnimatorUnit, (int)HomuraBowBattleDefine.Idx.down_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_run_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_jump_copy, (int)HomuraBowBattleDefine.Idx.frontstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_leftstep_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_rightstep_copy, (int)HomuraBowBattleDefine.Idx.backstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_fall_copy);
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == WalkID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("walk"))
 		{
 			Animation_Walk(AnimatorUnit);
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == JumpID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("jump"))
 		{
 			Animation_Jump(AnimatorUnit,(int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == JumpingID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("jumping"))
 		{
 			Animation_Jumping(AnimatorUnit,(int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_fall_copy, (int)HomuraBowBattleDefine.Idx.frontstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_leftstep_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_rightstep_copy, (int)HomuraBowBattleDefine.Idx.backstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_landing_copy);
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FallID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("fall"))
 		{
 			Animation_Fall(AnimatorUnit, (int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_jump_copy, (int)HomuraBowBattleDefine.Idx.frontstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_leftstep_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_rightstep_copy, (int)HomuraBowBattleDefine.Idx.backstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_landing_copy);
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LandingID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("landing"))
 		{
 			Animation_Landing(AnimatorUnit,(int)HomuraBowBattleDefine.Idx.idle_homura_battle_ribon_copy);
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RunID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("run"))
 		{
             Animation_Run(AnimatorUnit, (int)HomuraBowBattleDefine.Idx.frontstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_leftstep_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_rightstep_copy, (int)HomuraBowBattleDefine.Idx.backstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.idle_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_jump_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_fall_copy);
         }
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == AirDashID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("airdash"))
 		{
 			ShowAirDashEffect = true;
             Animation_AirDash(AnimatorUnit, (int)HomuraBowBattleDefine.Idx.homura_bow_fall_copy);
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontStepID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("frontstep"))
 		{
 			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID,(int)HomuraBowBattleDefine.Idx.frontstep_back_homura_battle_ribon_copy,(int)HomuraBowBattleDefine.Idx.homura_bow_leftstep_back_copy,(int)HomuraBowBattleDefine.Idx.homura_bow_rightstep_back_copy, (int)HomuraBowBattleDefine.Idx.backstep_back_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_jump_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LeftStepID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("leftstep"))
 		{
 			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID, (int)HomuraBowBattleDefine.Idx.frontstep_back_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_leftstep_back_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_rightstep_back_copy, (int)HomuraBowBattleDefine.Idx.backstep_back_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_jump_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RightStepID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("rightstep"))
 		{
 			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID, (int)HomuraBowBattleDefine.Idx.frontstep_back_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_leftstep_back_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_rightstep_back_copy, (int)HomuraBowBattleDefine.Idx.backstep_back_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_jump_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BackStepID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("backstep"))
 		{
 			Animation_StepDone(AnimatorUnit, FrontStepID, LeftStepID, RightStepID, BackStepID, (int)HomuraBowBattleDefine.Idx.frontstep_back_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_leftstep_back_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_rightstep_back_copy, (int)HomuraBowBattleDefine.Idx.backstep_back_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_jump_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontStepBackID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("frontstepback"))
 		{
 			Animation_StepBack(AnimatorUnit, (int)HomuraBowBattleDefine.Idx.idle_homura_battle_ribon_copy);
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LeftStepBackID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("leftstepback"))
 		{
 			Animation_StepBack(AnimatorUnit, (int)HomuraBowBattleDefine.Idx.idle_homura_battle_ribon_copy);
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RightStepBackID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("rightstepback"))
 		{
 			Animation_StepBack(AnimatorUnit, (int)HomuraBowBattleDefine.Idx.idle_homura_battle_ribon_copy);
 		}
-		else if(AnimatorUnit.GetAnimatorTransitionInfo(0).fullPathHash == BackStepBackID)
+		else if(AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("backstepback"))
 		{
 			Animation_StepBack(AnimatorUnit, (int)HomuraBowBattleDefine.Idx.idle_homura_battle_ribon_copy);
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == ShotID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("shot"))
 		{
 			Shot();
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RunShotID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("runshot"))
 		{
             Shot();
-        }
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == AirShotID)
+			// 足音はPC時のみ
+			if (IsPlayer == CHARACTERCODE.PLAYER)
+			{
+				FootSteps();
+			}
+			UpdateRotation();
+			MoveDirection = transform.rotation * Vector3.forward;
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("airshot"))
 		{
 			Shot();
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == ChargeShotID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("chargeshot"))
 		{
             ChargeShot((int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == SubShotID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("subsbot"))
 		{
             SubShot((int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
         }
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXShotID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("exshot"))
 		{
 			ExShot((int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowShotID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("shotft"))
 		{
             Shot();
         }
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowRunShotID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("runshotft"))
+		{
+            Shot();
+			// 足音はPC時のみ
+			if (IsPlayer == CHARACTERCODE.PLAYER)
+			{
+				FootSteps();
+			}
+			UpdateRotation();
+			MoveDirection = transform.rotation * Vector3.forward;
+		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("airshotft"))
 		{
             Shot();
         }
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowAirShotID)
-		{
-            Shot();
-        }
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowChargeShotID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("chargeshotft"))
 		{
             ChargeShot((int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
         }
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowSubShotID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("subshotft"))
 		{
             SubShot((int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
         }
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FollowThrowEXShotID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("exshotft"))
 		{
 			ExShot((int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle1ID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("wrestle1"))
 		{
             Wrestle1(AnimatorUnit,(int)HomuraBowBattleDefine.Idx.frontstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_leftstep_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_rightstep_copy, (int)HomuraBowBattleDefine.Idx.backstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle2ID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("wrestle2"))
 		{
             Wrestle2(AnimatorUnit,(int)HomuraBowBattleDefine.Idx.frontstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_leftstep_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_rightstep_copy, (int)HomuraBowBattleDefine.Idx.backstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
         }
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == Wrestle3ID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("wrestle3"))
 		{
             Wrestle3(AnimatorUnit,(int)HomuraBowBattleDefine.Idx.frontstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_leftstep_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_rightstep_copy, (int)HomuraBowBattleDefine.Idx.backstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
         }
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == FrontWrestleID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("frontwrestle"))
 		{
 			FrontWrestle1(AnimatorUnit, (int)HomuraBowBattleDefine.Idx.frontstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_leftstep_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_rightstep_copy, (int)HomuraBowBattleDefine.Idx.backstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == LeftWrestleID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("leftwrestle"))
 		{
 			LeftWrestle1(AnimatorUnit, (int)HomuraBowBattleDefine.Idx.frontstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_leftstep_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_rightstep_copy, (int)HomuraBowBattleDefine.Idx.backstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RightWrestleID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("rightwrestle"))
 		{
 			RightWrestle1(AnimatorUnit, (int)HomuraBowBattleDefine.Idx.frontstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_leftstep_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_rightstep_copy, (int)HomuraBowBattleDefine.Idx.backstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BackWrestleID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("backwrestle"))
 		{
 			BackWrestle(AnimatorUnit,(int)HomuraBowBattleDefine.Idx.frontstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_leftstep_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_rightstep_copy, (int)HomuraBowBattleDefine.Idx.backstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.idle_homura_battle_ribon_copy);
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == AirDashWrestleID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("bdwrestle"))
 		{
 			ShowAirDashEffect = true;
 			AirDashWrestle(AnimatorUnit,(int)HomuraBowBattleDefine.Idx.homura_bow_fall_copy);
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXWrestleID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("exwrestle"))
 		{
 			ExWrestle1();
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXFrontWrestleID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("frontexwrestle"))
 		{
             FrontExWrestle1(AnimatorUnit, (int)HomuraBowBattleDefine.Idx.homura_bow_fall_copy, (int)HomuraBowBattleDefine.Idx.frontstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_leftstep_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_rightstep_copy, (int)HomuraBowBattleDefine.Idx.backstep_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_AirDash_copy);
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == EXBackWrestleID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("backexwrestle"))
 		{
 			BackExWrestle(AnimatorUnit,(int)HomuraBowBattleDefine.Idx.homura_bow_fall_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_landing_copy);
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == ReversalID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("reversal"))
 		{
 			Reversal();
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == ArousalAttackID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("finalmagic"))
 		{
 			ArousalAttack();
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == DamageID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("damage"))
 		{
 			Damage(AnimatorUnit,(int)HomuraBowBattleDefine.Idx.idle_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_blow_copy);
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == DownID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("down"))
 		{
 			Down(AnimatorUnit,(int)HomuraBowBattleDefine.Idx.down_rebirth_homura_battle02_copy);
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == BlowID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("blow"))
 		{
 			Blow(AnimatorUnit,(int)HomuraBowBattleDefine.Idx.down_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.down_rebirth_homura_battle02_copy);
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == SpinDownID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("spindown"))
 		{
 			SpinDown(AnimatorUnit,(int)HomuraBowBattleDefine.Idx.down_homura_battle_ribon_copy);
 		}
@@ -951,6 +965,7 @@ public class HomuraBowControl : CharacterControlBase
 		if(runshot)
 		{
 			// アニメーション合成処理＆再生
+			AnimatorUnit.Play("runshot", 1);
 			AnimatorUnit.Play("runshot");
         }
 		// 立ち射撃か空中射撃
@@ -1081,7 +1096,7 @@ public class HomuraBowControl : CharacterControlBase
 			{
 				RotateToTarget();
 			}
-			// 弾を消費する（サブ射撃なら1、特殊射撃なら2）
+			// 弾を消費する
 			// チャージ射撃除く
 			if (type != ShotType.CHARGE_SHOT)
 			{
@@ -1491,7 +1506,7 @@ public class HomuraBowControl : CharacterControlBase
 			// 走行時
 			if (RunShotDone)
 			{
-				AnimatorUnit.Play("runshotft");
+				AnimatorUnit.Play("runshotft",1);
 			}
 			// 通常時
 			else
@@ -1514,6 +1529,7 @@ public class HomuraBowControl : CharacterControlBase
 	/// </summary>
 	public void ChargeShotFollowThrow()
 	{
+		DestroyArrow();
 		AnimatorUnit.Play("chargeshotft");
 	}
 	
@@ -1522,10 +1538,14 @@ public class HomuraBowControl : CharacterControlBase
 	/// </summary>
 	public void ReturnToIdle()
 	{
+		// 合成していた場合元に戻す
+		AnimatorUnit.Play("None", 1);
 		// 矢や格闘判定も消しておく
 		DestroyArrow();
-		DestroyWrestle();
+		DestroyWrestle();		
         ReturnMotion(AnimatorUnit, (int)HomuraBowBattleDefine.Idx.homura_bow_run_copy, (int)HomuraBowBattleDefine.Idx.idle_homura_battle_ribon_copy, (int)HomuraBowBattleDefine.Idx.homura_bow_fall_copy);
+		// 重力を戻す
+		GetComponent<Rigidbody>().useGravity = true;
 	}
 
 	// 射撃攻撃の攻撃力とダウン値を決定する（特殊射撃除く）

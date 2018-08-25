@@ -1156,30 +1156,28 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 		if (k.GetValue(i).ToString().IndexOf("Arrow") < 0 && k.GetValue(i).ToString().IndexOf("Mouse") < 0 && k.GetValue(i).ToString().IndexOf("Joystick") < 0)
 		{
 			// 射撃取得
-			if (k.GetValue(i).ToString() == shotcode_keyboard)
+			if (k.GetValue(i).ToString().Equals(shotcode_keyboard, StringComparison.OrdinalIgnoreCase))
 			{
 				Shot = true;
                 ShotKeyboad = true;
 				ShotUp = false;
 			}
-			Debug.Log(k.GetValue(i).ToString() + jump_keyboard);
-			
 			// 格闘取得
-			if (k.GetValue(i).ToString() == wrestlecode_keyboard)
+			if (k.GetValue(i).ToString().Equals(wrestlecode_keyboard, StringComparison.OrdinalIgnoreCase))
 			{
 				Wrestle = true;
                 WrestleKeyboard = true;
 				WrestleUp = false;
 			}
 			// ジャンプ取得
-			if (k.GetValue(i).ToString() == jump_keyboard)
+			if (k.GetValue(i).ToString().Equals(jump_keyboard, StringComparison.OrdinalIgnoreCase))
 			{
 				Jump = true;
                 JumpKeyboard = true;
 				JumpUp = false;
 			}
 			// サーチ取得
-			if (k.GetValue(i).ToString() == search_keyboard)
+			if (k.GetValue(i).ToString().Equals(search_keyboard, StringComparison.OrdinalIgnoreCase))
 			{
 				Search = true;
                 SearchKeyboard = true;
@@ -1188,7 +1186,7 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 				//StartCoroutine(SearchButtonStopper());
 			}
 			// メニュー取得
-			if (k.GetValue(i).ToString() == menu_keyboard)
+			if (k.GetValue(i).ToString().Equals(menu_keyboard, StringComparison.OrdinalIgnoreCase))
 			{
 				Menu = true;
                 MenuKeyboard = true;
@@ -1196,14 +1194,14 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 				StartCoroutine(MenuButtonStopper());
 			}
 			// コマンド取得
-			if (k.GetValue(i).ToString() == command_keyboard)
+			if (k.GetValue(i).ToString().Equals(command_keyboard, StringComparison.OrdinalIgnoreCase))
 			{
 				Command = true;
                 CommandKeyboard = true;
 				CommandUp = false;
 			}
 			// アイテム取得
-			if (k.GetValue(i).ToString() == item_keyboard)
+			if (k.GetValue(i).ToString().Equals(item_keyboard, StringComparison.OrdinalIgnoreCase))
 			{
 				Item = true;
                 ItemKeyboard = true;
@@ -1211,49 +1209,49 @@ public class ControllerManager : SingletonMonoBehaviour<ControllerManager>
 				//StartCoroutine(ItemButtonStopper());
 			}
 			// サブ射撃取得
-			if (k.GetValue(i).ToString() == subshot_keyboard)
+			if (k.GetValue(i).ToString().Equals(subshot_keyboard, StringComparison.OrdinalIgnoreCase))
 			{
 				SubShot = true;
                 SubShotKeyboard = true;
 				SubShotUp = false;
 			}
 			// 特殊射撃取得
-			if (k.GetValue(i).ToString() == exshot_keyboard)
+			if (k.GetValue(i).ToString().Equals(exshot_keyboard, StringComparison.OrdinalIgnoreCase))
 			{
 				EXShot = true;
                 EXShotKeyboard = true;
 				EXShotUp = false;
 			}
 			// 特殊格闘取得
-			if (k.GetValue(i).ToString() == exwrestle_keyboard)
+			if (k.GetValue(i).ToString().Equals(exwrestle_keyboard, StringComparison.OrdinalIgnoreCase))
 			{
 				EXWrestle = true;
                 EXWrestleKeyboard = true;
 				EXWrestleUp = false;
 			}
 			// 視点変更上取得
-			if (k.GetValue(i).ToString() == viewchangeupper_keyboard)
+			if (k.GetValue(i).ToString().Equals(viewchangeupper_keyboard, StringComparison.OrdinalIgnoreCase))
 			{
 				ElevationAngleUpper = true;
                 ElevationAngleUpperKeyboard = true;
 				ElevationAngleUpperUp = false;
 			}
 			// 視点変更下取得
-			if (k.GetValue(i).ToString() == viewchangedown_keyboard)
+			if (k.GetValue(i).ToString().Equals(viewchangedown_keyboard, StringComparison.OrdinalIgnoreCase))
 			{
 				ElevationAngleDown = true;
                 ElevationAngleDownKeyboard = true;
 				ElevationAngleDownUp = false;
 			}
 			// 視点変更左取得
-			if (k.GetValue(i).ToString() == viewchangeleft_keyboard)
+			if (k.GetValue(i).ToString().Equals(viewchangeleft_keyboard, StringComparison.OrdinalIgnoreCase))
 			{
 				AzimuthLeft = true;
                 AzimuthLeftKeyboard = true;
 				AzimuthLeftUp = false;
 			}
 			// 視点変更右取得
-			if (k.GetValue(i).ToString() == viewchangeright_keyboard)
+			if (k.GetValue(i).ToString().Equals(viewchangeright_keyboard,StringComparison.OrdinalIgnoreCase))
 			{
 				AzimuthRight = true;
                 AzimuthRightKeyboard = true;

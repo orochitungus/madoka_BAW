@@ -438,6 +438,11 @@ public class CharacterControlBase : MonoBehaviour
     private float DownRatioBias;
 
 	/// <summary>
+	/// 左右ステップでの移動先
+	/// </summary>
+	protected Vector3 StepTarget;
+
+	/// <summary>
 	/// ダウン値の閾値を取得
 	/// </summary>
 	/// <returns></returns>
@@ -2276,7 +2281,12 @@ public class CharacterControlBase : MonoBehaviour
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
         StepCancel(animator, frontStepIndex, leftStepIndex, rightStepIndex, backStepIndex, airdashIndex);
-    }
+		// 強制的にロック対象の方を向く
+		if (IsRockon)
+		{
+			RotateToTarget();
+		}
+	}
 
     /// <summary>
     /// 左横格闘2段目
@@ -2312,7 +2322,12 @@ public class CharacterControlBase : MonoBehaviour
         IsWrestle = true;
         Wrestletime += Time.deltaTime;
         StepCancel(animator, frontStepIndex, leftStepIndex, rightStepIndex, backStepIndex, airdashIndex);
-    }
+		// 強制的にロック対象の方を向く
+		if (IsRockon)
+		{
+			RotateToTarget();
+		}
+	}
 
     /// <summary>
     /// 右横格闘2段目
@@ -3114,9 +3129,7 @@ public class CharacterControlBase : MonoBehaviour
 		// m_DownRebirthTime/waitの初期化を行う(ダウン値がリセットされるまでの時間）
 		DownRebirthTime = 0;
 		DownRebirthWaitTime = 3.0f;
-		// m_DamagedTime/waitの初期化とカウントを行う(ダメージによる硬直時間）
-		DamagedTime = 0;
-		DamagedWaitTime = 1.0f;
+				
 		// m_DownTimeの初期化とカウントを行う(ダウン時の累積時間）
 		DownTime = 0;
 		DownWaitTime = 3.0f;
@@ -3308,7 +3321,6 @@ public class CharacterControlBase : MonoBehaviour
             }
             else
             {
-                //float OR_GemCont = savingparameter.GetGemContimination(character);                
                 arousalStart(damageid, blowid,reversalIndex);
             }
         }
@@ -3332,7 +3344,7 @@ public class CharacterControlBase : MonoBehaviour
 
 
         //m_nowDownRatioが0を超えていて、Damage_Initではなく（ダウン値加算前にリセットされる）m_DownRebirthTimeが規定時間を経過し、かつダウン値が閾値より小さければダウン値をリセットする
-        if (NowDownRatio > 0 && animator.GetCurrentAnimatorStateInfo(0).fullPathHash != downid)
+        if (NowDownRatio > 0 && !animator.GetCurrentAnimatorStateInfo(0).IsName("down"))
         {
 			if ((Time.time > DownRebirthTime + DownRebirthWaitTime) && (NowDownRatio < DownRatioBias))
 			{
@@ -3349,7 +3361,7 @@ public class CharacterControlBase : MonoBehaviour
         // 走行速度を変更する、アニメーションステートが Run だった場合 RunSpeed を使う。
         var MoveSpeed = RunSpeed;
         // 空中ダッシュ時/空中ダッシュ射撃時
-        if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == airdashid || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == airshotid)
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("airdashid") || animator.GetCurrentAnimatorStateInfo(0).IsName("airdash"))
         {
             // rigidbodyにくっついている慣性が邪魔なので消す（勝手に落下開始する）
             GetComponent<Rigidbody>().velocity = Vector3.zero;
@@ -3357,24 +3369,24 @@ public class CharacterControlBase : MonoBehaviour
             MoveSpeed = AirDashSpeed;
         }
         // 空中慣性移動時
-        else if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == jumpingid || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == fallid)
+        else if (animator.GetCurrentAnimatorStateInfo(0).IsName("jump") || animator.GetCurrentAnimatorStateInfo(0).IsName("fall"))
         {
             MoveSpeed = AirMoveSpeed;
         }
         // 前後ステップ時
-        else if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == frontstepid || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == backstepid)
+        else if (animator.GetCurrentAnimatorStateInfo(0).IsName("frontstep") || animator.GetCurrentAnimatorStateInfo(0).IsName("backstep"))
         {
             GetComponent<Rigidbody>().useGravity = false;  // 重力無効
             MoveSpeed = StepInitialVelocity;
             MoveDirection.y = 0;         // Y移動無効 
 		}
 		// 左右ステップ時
-		else if(animator.GetCurrentAnimatorStateInfo(0).fullPathHash == leftstepid || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == rightstepid)
+		else if(animator.GetCurrentAnimatorStateInfo(0).IsName("leftstep") || animator.GetCurrentAnimatorStateInfo(0).IsName("rightstep"))
 		{
 			// 一定距離動いていたら強制的にステップを終了させる
-			if(Vector3.Distance(transform.position, StepStartPos) > 10)
+			if(Vector3.Distance(transform.position, StepStartPos) > StepMoveLength)
 			{
-				if(animator.GetCurrentAnimatorStateInfo(0).fullPathHash == leftstepid)
+				if(animator.GetCurrentAnimatorStateInfo(0).IsName("leftstep"))
 				{
 					animator.Play("leftstepback");
 				}
@@ -3383,21 +3395,12 @@ public class CharacterControlBase : MonoBehaviour
 					animator.Play("rightstepback");
 				}
 			}
-			// MoveDirectionでは動かさない
-			MoveDirection = Vector3.zero;
-			var now = transform.position - StepFocus;
-			var rotateAmount = StepDegree * 0.01f;//	StepInitialVelocity;
-			StepDegree -= rotateAmount;
-
-			if(Mathf.Abs(StepDegree) < 0.5f)
-			{
-				rotateAmount = StepDegree;
-				StepDegree = 0;
-			}
-			var rot = Quaternion.AngleAxis(rotateAmount, Vector3.up) * now;
-			// 座標と回転の設定
-			transform.position = StepFocus + rot;
-			transform.rotation = Quaternion.LookRotation(-now, Vector3.up);
+			WrapAround();
+		}
+		// 左格闘／右格闘(回り込みタイプ）
+		else if(animator.GetCurrentAnimatorStateInfo(0).IsName("leftwrestle") || animator.GetCurrentAnimatorStateInfo(0).IsName("rightwrestle"))
+		{
+			WrapAround();
 		}
         // 格闘時(ガード含む）
         else if (IsWrestle)
@@ -3423,16 +3426,16 @@ public class CharacterControlBase : MonoBehaviour
         {			
 			Vector3 velocity = MoveDirection * MoveSpeed;			
             // 走行中/吹き飛び中/ダウン中
-            if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == runid || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == blowid || animator.GetCurrentAnimatorStateInfo(0).fullPathHash == downid)
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("run")|| animator.GetCurrentAnimatorStateInfo(0).IsName("blow") || animator.GetCurrentAnimatorStateInfo(0).IsName("down"))
             {
                 velocity.y = MadokaDefine.FALLSPEED;      // ある程度下方向へのベクトルをかけておかないと、スロープ中に落ちる
             }
 			// アイドル時は下方向ベクトル止める
-			else if(animator.GetCurrentAnimatorStateInfo(0).fullPathHash == idleid)
+			else if(animator.GetCurrentAnimatorStateInfo(0).IsName("idle"))
 			{
 				velocity.y = 0;
 			}
-            RigidBody.velocity = velocity;			
+            RigidBody.velocity = velocity;
 		}
         // HP表示を増減させる(回復は一瞬で、被ダメージは徐々に減る）
         if (NowHitpoint < DrawHitpoint)
@@ -3449,6 +3452,27 @@ public class CharacterControlBase : MonoBehaviour
     }
 
 	/// <summary>
+	/// 回り込み動作
+	/// </summary>
+	private void WrapAround()
+	{
+		MoveDirection = Vector3.zero;
+		var now = transform.position - StepFocus;
+		var rotateAmount = StepDegree * 0.01f;//	StepInitialVelocity;
+		StepDegree -= rotateAmount;
+
+		if (Mathf.Abs(StepDegree) < 0.5f)
+		{
+			rotateAmount = StepDegree;
+			StepDegree = 0;
+		}
+		var rot = Quaternion.AngleAxis(rotateAmount, Vector3.up) * now;
+		// 座標と回転の設定
+		transform.position = StepFocus + rot;
+		transform.rotation = Quaternion.LookRotation(-now, Vector3.up);
+	}
+
+	/// <summary>
 	/// サイドステップ実行
 	/// </summary>
 	/// <param name="deg">角度</param>
@@ -3459,9 +3483,9 @@ public class CharacterControlBase : MonoBehaviour
 		var enemy = MainCamera.GetComponentInChildren<Player_Camera_Controller>().Enemy;
 		StepFocus = enemy.transform.position;
 		// A→B
-		//var now = transform.position - StepFocus;
+		var now = transform.position - StepFocus;
 		// A→B'
-		//StepTarget = Quaternion.AngleAxis(deg, Vector3.up) * now;
+		StepTarget = Quaternion.AngleAxis(deg, Vector3.up) * now;
 		StepDegree = deg;
 
 	}
@@ -3573,19 +3597,19 @@ public class CharacterControlBase : MonoBehaviour
         // 地面オブジェクトに触れた場合は着地モーションへ移行(暴走防止のために、上昇中は判定禁止.時間で判定しないと、引っかかったときに無限ループする)
         if (SteppingLength > StepMoveLength)
         {
-            if( animator.GetCurrentAnimatorStateInfo(0).fullPathHash == frontstephash)
+            if( animator.GetCurrentAnimatorStateInfo(0).IsName("frontstep"))
             {
 				animator.Play("frontstepback");
 			}
-            else if(animator.GetCurrentAnimatorStateInfo(0).fullPathHash  == leftstephash)
+            else if(animator.GetCurrentAnimatorStateInfo(0).IsName("leftstep"))
             {
 				animator.Play("leftstepback");
 			}
-            else if(animator.GetCurrentAnimatorStateInfo(0).fullPathHash  == rightstephash)
+            else if(animator.GetCurrentAnimatorStateInfo(0).IsName("rightstep"))
             {
 				animator.Play("rightstepback");
 			}
-            else if(animator.GetCurrentAnimatorStateInfo(0).fullPathHash  == backstephash)
+            else if(animator.GetCurrentAnimatorStateInfo(0).IsName("backstep"))
             {
 				animator.Play("backstepback");
 			}
@@ -3670,11 +3694,11 @@ public class CharacterControlBase : MonoBehaviour
         // 歩き撃ちができない場合もあるから基底にしてオーバーライドが妥当か？
 
         // 歩行時は上半身のみにして走行（下半身のみ）と合成(ブレンドツリーで合成し、上体を捻らせて銃口補正をかける)
-        if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == runhash)
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("run"))
         {
 			animator.Play("runshot");
 		}
-        else if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == airdashhash)
+        else if (animator.GetCurrentAnimatorStateInfo(0).IsName("airdash"))
         {
 			animator.Play("airshot");
 		}
@@ -3959,13 +3983,12 @@ public class CharacterControlBase : MonoBehaviour
     {            
         // ブースト全回復
         Boost = GetMaxBoost(BoostLevel);
-        // 覚醒モード移行
-        IsArousal = true;
+        
         // エフェクト出現（エフェクトはCharacerControl_Baseのpublicに入れておく）
         ArousalEffect.SetActive(true);
       
 		// ダメージ時はリバーサルにする
-		if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == damageid || AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == blowid)
+		if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("damage") || AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("blow"))
 		{
 			AnimatorUnit.Play("reversal");
 		}
@@ -4002,7 +4025,7 @@ public class CharacterControlBase : MonoBehaviour
             Vector3 mypos = transform.position;
             // 自機をロックオン対象に向ける
             transform.rotation = Quaternion.LookRotation(mypos - targetpos);
-            // 方向ベクトルを向けた方向に合わせる            
+            // 方向ベクトルを向けた方向に合わせる
             MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
 		}
         // 本体角度が0の場合カメラの方向を移動方向とし、正規化して代入する
@@ -4052,31 +4075,12 @@ public class CharacterControlBase : MonoBehaviour
         // ロックオン且つ本体角度が0でない時、相手の左側を移動方向とする（通常時のロックオン時左移動をさせつつ前進させる）
         if (IsRockon && this.transform.rotation.eulerAngles.y != 0)
         {
-            // ロックオン対象を取得
-            var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
-            // ロックオン対象の座標
-            Vector3 targetpos = target.transform.position;
-            // 自機の座標
-            Vector3 mypos = transform.position;
-            // 自機をロックオン対象に向ける
-            transform.rotation = Quaternion.LookRotation(mypos - targetpos);
-            // 自機をロックオン対象の左側に向ける(上記の角度から45度ずらす）
-            Vector3 addrot = new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y - 10, transform.rotation.eulerAngles.z);
-            // クォータニオンに変換
-            Quaternion addrot_Q = Quaternion.Euler(addrot);
-            // 方向ベクトルを向けた方向に合わせる            
-            MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
+			SideStep(180);
 		}
         // 本体角度が0の場合カメラの方向に45度足した値をを移動方向とし、正規化して代入する
         else if (this.transform.rotation.eulerAngles.y == 0)
         {
-            // ただしそのままだとカメラが下を向いているため、一旦その分は補正する
-            Quaternion rotateOR = MainCamera.transform.rotation;
-            Vector3 rotateOR_E = rotateOR.eulerAngles;
-            rotateOR_E.x = 0;
-            rotateOR_E.y = rotateOR.eulerAngles.y - 10;
-            rotateOR = Quaternion.Euler(rotateOR_E);
-            MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+			SideStep(180);
 		}
         // それ以外は本体の角度+45度を移動方向にする
         else
@@ -4116,31 +4120,12 @@ public class CharacterControlBase : MonoBehaviour
         // ロックオン且つ本体角度が0でない時、相手の左側を移動方向とする（通常時のロックオン時左移動をさせつつ前進させる）
         if (IsRockon && transform.rotation.eulerAngles.y != 0)
         {
-            // ロックオン対象を取得
-            var target = MainCamera.GetComponentInChildren<Player_Camera_Controller>();
-            // ロックオン対象の座標
-            Vector3 targetpos = target.transform.position;
-            // 自機の座標
-            Vector3 mypos = transform.position;
-            // 自機をロックオン対象に向ける
-            transform.rotation = Quaternion.LookRotation(mypos - targetpos);
-            // 自機をロックオン対象の左側に向ける(上記の角度から45度ずらす）
-            Vector3 addrot = new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + 10, transform.rotation.eulerAngles.z);
-            // クォータニオンに変換
-            Quaternion addrot_Q = Quaternion.Euler(addrot);
-            // 方向ベクトルを向けた方向に合わせる            
-            MoveDirection = Vector3.Normalize(addrot_Q * Vector3.forward);
+			SideStep(-180);
 		}
         // 本体角度が0の場合カメラの方向に45度足した値をを移動方向とし、正規化して代入する
         else if (transform.rotation.eulerAngles.y == 0)
         {
-            // ただしそのままだとカメラが下を向いているため、一旦その分は補正する
-            Quaternion rotateOR = MainCamera.transform.rotation;
-            Vector3 rotateOR_E = rotateOR.eulerAngles;
-            rotateOR_E.x = 0;
-            rotateOR_E.y = rotateOR.eulerAngles.y + 10;
-            rotateOR = Quaternion.Euler(rotateOR_E);
-            MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+			SideStep(-180);
 		}
         // それ以外は本体の角度+45度を移動方向にする
         else
@@ -4795,7 +4780,7 @@ public class CharacterControlBase : MonoBehaviour
 		// 判定を生成し・フックと一致させる  
 		Vector3 pos = WrestleRoot[(int)WrestleType.BACK_WRESTLE].transform.position;
 		Quaternion rot = WrestleRoot[(int)WrestleType.BACK_WRESTLE].transform.rotation;
-		var obj = (GameObject)Instantiate(WrestleObject[(int)WrestleType.BACK_WRESTLE], pos, rot);
+		GameObject obj = Instantiate(WrestleObject[(int)WrestleType.BACK_WRESTLE], pos, rot);
 		// 親子関係を再設定する(=判定をフックの子にする）
 		if (obj.transform.parent == null)
 		{
@@ -5025,8 +5010,7 @@ public class CharacterControlBase : MonoBehaviour
 		animator.speed = 1.0f;
 		// 重力をカット
 		GetComponent<Rigidbody>().useGravity = false;
-		// ダメージ硬直の計算開始
-		DamagedTime = Time.time;
+		
 		// ガードフラグを折る
 		IsGuard = false;
     }
@@ -5079,30 +5063,8 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="animator"></param>
     public virtual void Damage(Animator animator,int idleIndex, int blowIndex)
 	{
-		// 移行後復活 
-		// ダメージ硬直終了
-		if (Time.time > DamagedTime + DamagedWaitTime)
-		{
-			// 固定があった場合解除
-			GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-			// 空中にいた→ダウンアニメを再生する→Blowへ移行（飛ばされない）
-			if (!IsGrounded)
-			{
-				// Rotateの固定を解除        
-				RigidBody.freezeRotation = false;
-				// ダウンアニメを再生する
-				animator.Play("blow");
-				// 重力を復活
-				GetComponent<Rigidbody>().useGravity = true;				
-			}
-			// 地上にいた→Idleへ移行し、Rotateをすべて0にして固定する
-			else
-			{
-				RigidBody.useGravity = true;
-				_StepStartTime = 0;
-				animator.Play("idle");
-			}
-		}
+		// 戻らないことがあるのでReturnToIdleをDamageで実行して戻す
+		
 	}
 
     /// <summary>
@@ -5287,7 +5249,7 @@ public class CharacterControlBase : MonoBehaviour
             // 方向キーで走行
             if (HasVHInput)
             {
-				animator.Play("run", 0, 0);
+				animator.Play("run");
 			}
 			// ジャンプ２回でキャンセルダッシュへ移行
 			if((HasDashCancelInput|| HasAirDashInput) && Boost > 0)

@@ -167,10 +167,10 @@ namespace BehaviourTrees
 						return true;
 					}					
 					// 射撃のフォロースルーに入ったら再度空中ダッシュさせる
-					else if (targetState.AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == targetState.FollowThrowAirShotID
-					 || targetState.AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == targetState.FollowThrowShotID
-					 || targetState.AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == targetState.FollowThrowSubShotID
-					 || targetState.AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == targetState.FollowThrowEXShotID)
+					else if (targetState.AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("airshotft")
+					 || targetState.AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("shotft")
+					 || targetState.AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("subshotft")
+					 || targetState.AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("exshotft"))
 					{
 						Cpumode = CPUMODE.BOOSTDASH;
 						keyoutput = KEY_OUTPUT.BOOSTDASH;
@@ -223,7 +223,7 @@ namespace BehaviourTrees
 				}
 			}
 			// 射撃のフォロースルーに入ったら再度空中ダッシュさせる
-			else if (target.AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == target.FollowThrowShotID || target.AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == target.FollowThrowAirShotID)
+			else if (target.AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("shotft")|| target.AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("airshotft"))
 			{
 				tenkeyoutput = TENKEY_OUTPUT.TOP;
 				keyoutput = KEY_OUTPUT.BOOSTDASH;

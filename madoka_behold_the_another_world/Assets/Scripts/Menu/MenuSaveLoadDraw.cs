@@ -155,7 +155,7 @@ public class MenuSaveLoadDraw : MonoBehaviour
 			sd.nowparty[i] = savingparameter.GetNowParty(i);
 		}
 		// キャラクター関連
-		for (int i = 0; i < (int)Character_Spec.CHARACTER_NAME.CHARACTER_ALL_NUM; ++i)
+		for (int i = 0; i < (int)Character_Spec.PlayerAllNum; ++i)
 		{
 			// 各キャラのレベル
 			sd.nowlevel[i] = savingparameter.GetNowLevel(i);

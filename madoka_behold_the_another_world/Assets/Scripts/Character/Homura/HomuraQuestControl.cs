@@ -59,17 +59,17 @@ public class HomuraQuestControl : CharacterControlBaseQuest
 	void UpdateAnimation()
 	{
 		// 通常
-		if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == IdleID)
+		if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("idle"))
 		{
 			Animation_Idle(AnimatorUnit);
 		}
 		// 走行
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == RunID)
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("run"))
 		{
 			Animation_Run(AnimatorUnit);
 		}
 		// ジャンプ
-		else if(AnimatorUnit.GetCurrentAnimatorStateInfo(0).fullPathHash == JumpID)
+		else if(AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("jump"))
 		{
 			
 		}

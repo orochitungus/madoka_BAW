@@ -103,13 +103,18 @@ public class Arousal_Camera_Controller : MonoBehaviour
         m_CutinCameraAnimation.Rewind();
 		// アニメーションを止める
 		m_CutinCameraAnimation.Stop();
+		// 対象をマジックバーストさせる。このタイミングでマジックバーストさせないとカットイン終了と同時にマジックバーストしてしまう
+		m_insp_Master.GetComponent<CharacterControlBase>().IsArousal = true;
 		// 覚醒発動キャラの全武装をリロードする
 		switch (m_insp_Master.GetComponent<CharacterControlBase>().CharacterName)
 		{
 			// 銃ほむら
-
+			case Character_Spec.CHARACTER_NAME.MEMBER_HOMURA:
+				break;
 			// スコノシュート
-			
+			case Character_Spec.CHARACTER_NAME.MEMBER_SCHONO:
+				
+				break;
 			// 弓ほむら
 			case Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B:
 				m_insp_Master.GetComponent<HomuraBowControl>().FullReload();

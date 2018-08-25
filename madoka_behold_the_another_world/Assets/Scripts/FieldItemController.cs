@@ -21,9 +21,7 @@ public class FieldItemController : MonoBehaviour
 	/// </summary>
 	public int ItemBoxNumber;
 
-	// アイテム入手時のSE
-	public AudioClip ItemSE;
-
+	
 	// Use this for initialization
 	void Start () 
 	{
@@ -53,7 +51,7 @@ public class FieldItemController : MonoBehaviour
 		if((hitBattleCharacter != null && hitBattleCharacter.IsPlayer == CharacterControlBase.CHARACTERCODE.PLAYER) || hitQuestCharacter != null)
 		{
 			// アイテム入手音を鳴らす
-			AudioSource.PlayClipAtPoint(ItemSE, transform.position);
+			AudioManager.Instance.PlaySE("quiz_right_001_001");
 			// savingparameterに指定したアイテムを増やすか金を増やす
 			savingparameter.SetItemNum(ItemKind,savingparameter.GetItemNum(ItemKind) + ItemNum);
 			// インフォメーションボードに入手したアイテムを表示するようにFieldItemGetManagementの値を書き換える
