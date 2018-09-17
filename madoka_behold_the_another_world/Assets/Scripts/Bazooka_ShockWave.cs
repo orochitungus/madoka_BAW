@@ -38,7 +38,16 @@ public class Bazooka_ShockWave : MonoBehaviour
     {
         m_damage = damage;
     }
-   
+
+	/// <summary>
+	/// 対ブースト攻撃力
+	/// </summary>
+	private int AntiBoostDamage;
+	public void SetAntiBoostDamage(int damage)
+	{
+		AntiBoostDamage = damage;
+	}
+
     // 生成したBazooka_Effectが与える覚醒ゲージ
     private float m_arousal;
     public void SetArousal(float arousal)

@@ -770,8 +770,9 @@ public class SconosciutoControl : CharacterControlBase
 					ParameterManager.Instance.Characterskilldata.sheets[characterName].list[12].DownPoint,                                                                    // downR        [in]:ダウン値
 					ParameterManager.Instance.Characterskilldata.sheets[characterName].list[12].Arousal,                                                                                         // arousal      [in]:覚醒ゲージ増加量
 					ParameterManager.Instance.GetHitType(characterName, 12),                                                                                          // hittype      [in]:ヒットタイプ
-                    ObjectName.CharacterFileName[(int)CharacterName]
-                    );
+                    ObjectName.CharacterFileName[(int)CharacterName],
+					ParameterManager.Instance.Characterskilldata.sheets[characterName].list[12].AntiBoostStr
+					);
             }
             // 空中で後特殊格闘(ブーストがないと実行不可）
             else if (HasBackInput && !IsGrounded && Boost > 0)
@@ -865,7 +866,8 @@ public class SconosciutoControl : CharacterControlBase
 					ParameterManager.Instance.Characterskilldata.sheets[characterName].list[10].DownPoint,                                                                                       // downR        [in]:ダウン値
 					ParameterManager.Instance.Characterskilldata.sheets[characterName].list[10].Arousal,                                                                                        // arousal      [in]:覚醒ゲージ増加量
 					ParameterManager.Instance.GetHitType(characterName,10),                                                                                         // hittype      [in]:ヒットタイプ
-					ObjectName.CharacterFileName[(int)CharacterName]
+					ObjectName.CharacterFileName[(int)CharacterName],
+					ParameterManager.Instance.Characterskilldata.sheets[characterName].list[10].AntiBoostStr
 					);
 				
 			}
@@ -1126,6 +1128,8 @@ public class SconosciutoControl : CharacterControlBase
 			DownratioPowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[0].DownPoint;
 			// 覚醒ゲージ増加量を決定する
 			ArousalRatioOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[0].Arousal;
+			// 対ブースト攻撃力を決定する
+			AntiBoostOffensivePowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[0].AntiBoostStr;
 
 			Shotmode = ShotMode.SHOT;
 
@@ -1292,6 +1296,8 @@ public class SconosciutoControl : CharacterControlBase
 			DownratioPowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[1].DownPoint;
 			// 覚醒ゲージ増加量を決定する
 			ArousalRatioOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[1].Arousal;
+			// 対ブースト攻撃力を決定する
+			AntiBoostOffensivePowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[1].AntiBoostStr;
 
 			Shotmode = ShotMode.SHOT;
 

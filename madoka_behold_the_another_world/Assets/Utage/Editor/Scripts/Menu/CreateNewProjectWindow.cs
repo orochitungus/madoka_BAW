@@ -592,7 +592,7 @@ namespace Utage
 			//プレハブインスタンスはいったん削除して、クローンプレハブからインスタンスを作って置き換える
 			foreach (GameObject go in prefabInstanceList)
 			{
-				GameObject prefabAsset = PrefabUtility.GetPrefabParent(go) as GameObject;
+				GameObject prefabAsset = PrefabUtility.GetCorrespondingObjectFromSource(go) as GameObject;
 				Object clonePrefabAsset;
 				if (cloneAssetPair.TryGetValue(prefabAsset, out clonePrefabAsset))
 				{

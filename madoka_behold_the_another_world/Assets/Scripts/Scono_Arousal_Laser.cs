@@ -22,6 +22,8 @@ public class Scono_Arousal_Laser : Laser2
         m_DownRatio = 0.2f;
         // 覚醒ゲージ増加量を決定
         m_ArousalRatio = 0;
+		// 対ブースト攻撃力を決定
+		AntiBoostOffensivePower = 310;
     }
 
     
@@ -44,6 +46,8 @@ public class Scono_Arousal_Laser : Laser2
             scono_Arousal_ShockWave.SetDownratio(m_DownRatio);
             // 覚醒ゲージ増加量を決定する
             scono_Arousal_ShockWave.SetArousal(0.0f);
+			// 対ブースト攻撃力を決定
+			scono_Arousal_ShockWave.SetAntiBoostDamage(310);
         }
     }
 }

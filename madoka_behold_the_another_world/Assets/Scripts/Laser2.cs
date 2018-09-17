@@ -30,6 +30,11 @@ public class Laser2 : MonoBehaviour
     // 攻撃力
     public int m_OffemsivePower;
 
+	/// <summary>
+	/// 対ブースト攻撃力
+	/// </summary>
+	public int AntiBoostOffensivePower;
+
     // ダウン値
     public float m_DownRatio;
 
@@ -40,7 +45,7 @@ public class Laser2 : MonoBehaviour
     public AudioClip m_Insp_HitSE;
 
     // 接触したゲームオブジェクト
-    private GameObject m_HitTarget;
+    private GameObject HitTarget;
 
     // ヒットタイプ(ダメージの種類）
     public CharacterSkill.HitType m_Hittype;
@@ -153,20 +158,31 @@ public class Laser2 : MonoBehaviour
         // 接触対象がCharacterControlBaseを持っているか否か判定する
         var target = collision.gameObject.GetComponent<CharacterControlBase>();
         // 接触対象を取得する
-        m_HitTarget = collision.gameObject;
+        HitTarget = collision.gameObject;
 
         // 持っていなかったら強制抜け
         if (target == null)
             return;
 
-        // ダウン中かダウン値MAXならダメージを与えない
-        if (target.GetInvincible())
+		// 相手がガード中だった場合相手のブーストを削り、0になったらガードブレイクさせる(ガードされずに当たったらブーストは減らない）
+		if (target != null && target.AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("backwrestle"))
+		{
+			// 親元のオブジェクトを受け取る
+			var rootObject = collision.gameObject.transform.root.GetComponent<CharacterControlBase>();
+			if (rootObject != null)
+			{
+				rootObject.DamageBoost(AntiBoostOffensivePower);
+				return;
+			}
+		}
+
+		// ダウン中かダウン値MAXならダメージを与えない
+		if (target.GetInvincible())
         {
             return;
         }
         else
         {
-            Debug.Log("Hit");
             HitDamage(player, enemy, collision);
         }
         // のけぞりか吹き飛ばしを行う
@@ -254,9 +270,9 @@ public class Laser2 : MonoBehaviour
             }
         }
         // 防御側が覚醒中の場合
-        if (m_HitTarget != null)
+        if (HitTarget != null)
         {
-            bool target = m_HitTarget.GetComponent<CharacterControlBase>().IsArousal;
+            bool target = HitTarget.GetComponent<CharacterControlBase>().IsArousal;
             if (target)
             {
                 m_OffemsivePower = (int)(m_OffemsivePower * MadokaDefine.AROUSAL_DEFFENSIVE_UPPER);

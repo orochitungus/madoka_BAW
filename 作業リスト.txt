@@ -11,7 +11,7 @@ Animator‚ÌƒtƒŒ[ƒ€‚ÍLateUpDate‚ÅØ‚è‘Ö‚í‚é‚Ì‚ÅA“¯ˆêƒtƒŒ[ƒ€‚Å‚ÍØ‚è‘Ö‚í‚è‚ðŽæ‚ê
 GetCurrentAnimatorStateInfo‚É0“ü‚ê‚ÄŒÄ‚Ño‚·¨Œ»Ý‚ÌƒXƒe[ƒg‚ðGetName‚Æ‚©‚Å¡‚ÌƒXƒe[ƒg‚ðŽæ‚ê‚é
 ƒAƒjƒ[ƒ^[‚ÌØ‚è‘Ö‚¦‚ÍƒuƒŒƒ“ƒh‚³‚ê‚Ä‚¢‚é‚Æ•ÏX‚ÍƒuƒŒƒ“ƒh‚ªI‚í‚é‚Ü‚ÅŽæ‚ê‚È‚¢
 
-‚¦‚Ó‚¥‚­‚µ‚ ‚È‚éƒp[ƒeƒBƒNƒ‹ƒGƒfƒBƒ^‚ª‚ ‚éiUnity‚É‚à“ü‚éj
+Effekseer‚È‚éƒp[ƒeƒBƒNƒ‹ƒGƒfƒBƒ^‚ª‚ ‚éiUnity‚É‚à“ü‚éj
 
 1ƒV[ƒ“‚É‚SGˆÈã“ü‚ê‚é‚Æƒrƒ‹ƒhƒGƒ‰[‚É‚È‚é
 
@@ -19,76 +19,95 @@ GetCurrentAnimatorStateInfo‚É0“ü‚ê‚ÄŒÄ‚Ño‚·¨Œ»Ý‚ÌƒXƒe[ƒg‚ðGetName‚Æ‚©‚Å¡‚Ìƒ
 Audio Clip‚Ìˆ³k—¦’´‘åŽ–¨ˆ³kÝ’è(LoadType)‚ðCompressed In Memory‚É‚µ‚Ä‚¨‚­‚×‚«iŒø‰Ê‰¹j
 						¨ˆ³kÝ’è(LoadType)‚ðStreaming‚É‚µ‚Ä‚¨‚­‚×‚«i‰¹ºEBGM)
 
-
-ƒK[ƒh‚·‚é‚Æƒu[ƒXƒgƒQ[ƒW‚ªˆê‹C‚ÉŒ¸‚é‚æ‚¤‚É‚·‚éiƒK[ƒhƒuƒŒƒCƒN‚³‚¹‚È‚¢‚Æ‹T‚Ý‚½‚¢‚É‚È‚Á‚Ä‚µ‚Ü‚¤j(ƒƒCƒ“‚R”­‚­‚ç‚¢‚ÅŒ¸‚é‚æ‚¤‚É‚·‚éj
-
-e‚Ù‚Þ‚ç‚ðì‚éi‚W‚WŽ®‘ÎŠÍ—U“±’e‚Í•Ê‚Ìfbx‚É‚µ‚Ä‚¨‚­j	¨8/31
-	Šî–{“®ì‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é
-		ƒ_ƒ[ƒW
-		ƒ_ƒEƒ“
-		ƒŠƒo[ƒTƒ‹
-		†‚Ýƒ_ƒEƒ“
-	ŽËŒ‚CS‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é
-		Eshotmode‚Ì•ÏX‚ªŠÔ‚É‡‚í‚È‚¢‚½‚ßA‰½”­‚©ƒtƒbƒN‚ÉŽc‚Á‚½‚Ü‚Ü‚É‚È‚é
-		E“Á’èƒtƒŒ[ƒ€‚Å’eŠÛ‚ð”­ŽË‚·‚é‚æ‚¤‚É‚·‚é.’eŠÛ‚Íshotmode‚É‚©‚©‚í‚è‚È‚­A¶¬‚³‚ê‚½‚ç‘¦À‚ÉŽËo‚³‚ê‚é‚æ‚¤‚É‚·‚éB
-		E’eŠÛ‚ÌƒXƒe[ƒg‚Í¶¬Žž‚ÉU‚ç‚ê‚é‚æ‚¤‚É‚·‚é
-	ƒTƒuŽËŒ‚‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é
-	ƒTƒuŽËŒ‚ŽËŒ‚”h¶‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é
-	NŠi“¬‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é
-	ŽèžÖ’e‚ðì‚é
-	Ši“¬CS‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é
-	‰¡Ši“¬E‘OŠi“¬‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é
-	ŒãŠi“¬‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é
-	BDŠi“¬‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é
-	“ÁŽêŽËŒ‚iŽžŠÔ’âŽ~j‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é
-	ã“ÁŽêŠi“¬‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é
-	‰º“ÁŽêŠi“¬‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é
-	ŠoÁ‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é
-	ŠoÁ‹Z‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é
-
 ‹|‚Ù‚Þ‚ç‚ÌƒCƒxƒ“ƒg‰æ‘œ‚ðV‚µ‚¢‚à‚Ì‚É·‚µ‘Ö‚¦‚é
 
 ‚Ù‚Þ‚ç‚ÌƒCƒxƒ“ƒg‰æ‘œ‚ðV‚µ‚¢‚à‚Ì‚É·‚µ‘Ö‚¦‚é
 
 ƒXƒRƒmƒVƒ…[ƒg‚Ìfbx‚ðV‚µ‚¢‚à‚Ì‚É·‚µ‘Ö‚¦‚é
 
-Œ|p‰Æ‚Ì–‚—‚ÌŽg‚¢–‚‚P‚ðì‚éiƒ€ƒ“ƒN/MICHAELA-1j		¨7/7
+
+Œ|p‰Æ‚Ì–‚—‚ÌŽg‚¢–‚‚P‚ðì‚éiƒ€ƒ“ƒN/MICHAELA-1j		¨9/23
 	Šî–{“®ì‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é
-	ŽËŒ‚‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é
-	Žvlƒ‹[ƒ`ƒ“‚ðì‚é
+		Šî–{											¨9/16
+		‘–s											¨9/16
+		ƒWƒƒƒ“ƒv										¨9/16
+		ã¸
+		‰º~											¨9/16
+		‹ó’†ƒ_ƒbƒVƒ…									¨9/17
+		‘OƒXƒeƒbƒv										¨9/17
+		¶ƒXƒeƒbƒv										¨9/17
+		‰EƒXƒeƒbƒv										¨9/17
+		ŒãƒXƒeƒbƒv										¨9/17
+		ƒ_ƒ[ƒW										¨9/18
+		‚«”ò‚Ñ
+		ƒ_ƒEƒ“											¨9/19
+		ƒŠƒo[ƒTƒ‹										¨9/20
+		†‚Ýƒ_ƒEƒ“									¨9/21
+	ŽËŒ‚‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é								¨9/22
+	Žvlƒ‹[ƒ`ƒ“‚ðì‚é									¨9/23
 
 
-Œ|p‰Æ‚Ì–‚—‚ÌŽg‚¢–‚‚Q‚ðì‚éilŠÔ/MICHAELA-2j			¨7/18
+Œ|p‰Æ‚Ì–‚—‚ÌŽg‚¢–‚‚Q‚ðì‚éilŠÔ/MICHAELA-2j			¨10/7
+	ƒ‚ƒfƒŠƒ“ƒO‚ðs‚¤									¨9/24-9/30
+	‹ZÝ’è												¨9/30
 	Šî–{“®ì‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é
-	ŽËŒ‚‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é
-	Ši“¬‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é
-	“ÁŽêŠi“¬‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é
-	BDŠi“¬‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é
-	Žvlƒ‹[ƒ`ƒ“‚ðì‚é
+		Šî–{											¨10/1
+		‘–s											¨10/2
+		ƒWƒƒƒ“ƒv										¨10/3
+		‰º~											¨10/4
+		‹ó’†ƒ_ƒbƒVƒ…									¨10/5
+		‘OƒXƒeƒbƒv										¨10/6
+		¶ƒXƒeƒbƒv										¨10/6
+		‰EƒXƒeƒbƒv										¨10/6
+		ŒãƒXƒeƒbƒv										¨10/6
+		ƒ_ƒ[ƒW										¨10/6
+		‚«”ò‚Ñ
+		ƒ_ƒEƒ“											¨10/6
+		ƒŠƒo[ƒTƒ‹										¨10/6
+		†‚Ýƒ_ƒEƒ“									¨10/6
+	ŽËŒ‚‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é								¨10/7
+	Ši“¬‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é								¨10/7
+	“ÁŽêŠi“¬‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é							¨10/7
+	BDŠi“¬‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é							¨10/7
+	Žvlƒ‹[ƒ`ƒ“‚ðì‚é									¨10/7
 
-Œ|p‰Æ‚Ì–‚—‚ðì‚éiIZABELj							¨7/29
+Œ|p‰Æ‚Ì–‚—‚ðì‚éiIZABELj							¨10/20
+	ƒ‚ƒfƒŠƒ“ƒO‚ðs‚¤									¨10/8
 	Šî–{“®ì‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é
-	ŽËŒ‚‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é
-	ƒTƒuŽËŒ‚‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é
-	Ši“¬‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é
-	“ÁŽêŽËŒ‚‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é
-	Žvlƒ‹[ƒ`ƒ“‚ðì‚é
+		Šî–{											¨10/9
+		‘–s											¨10/10
+		ƒWƒƒƒ“ƒv										¨10/11
+		‰º~											¨10/12
+		‹ó’†ƒ_ƒbƒVƒ…									¨10/13
+		‘OƒXƒeƒbƒv										¨10/13
+		¶ƒXƒeƒbƒv										¨10/13
+		‰EƒXƒeƒbƒv										¨10/13
+		ŒãƒXƒeƒbƒv										¨10/13
+		ƒ_ƒ[ƒW										¨10/14
+		ƒ_ƒEƒ“											¨10/14
+		ƒŠƒo[ƒTƒ‹										¨10/14
+		†‚Ýƒ_ƒEƒ“									¨10/14
+	ŽËŒ‚‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é								¨10/15
+	ƒTƒuŽËŒ‚‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é							¨10/16
+	Ši“¬‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é								¨10/17
+	“ÁŽêŽËŒ‚‚ð‚Å‚«‚é‚æ‚¤‚É‚·‚é							¨10/18
+	Žvlƒ‹[ƒ`ƒ“‚ðì‚é									¨10/20
 	
 
 
-Œ|p‰Æ‚Ì–‚—‚ÌŒ‹ŠE‚P‚ðì‚é								¨/
+Œ|p‰Æ‚Ì–‚—‚ÌŒ‹ŠE‚P‚ðì‚é								¨10/27
 
-Œ|p‰Æ‚Ì–‚—‚ÌŒ‹ŠE‚Q‚ðì‚é								¨/
+Œ|p‰Æ‚Ì–‚—‚ÌŒ‹ŠE‚Q‚ðì‚é								¨11/4
 
-Œ|p‰Æ‚Ì–‚—‚ÌŒ‹ŠE‚R‚ðì‚é								¨/
+Œ|p‰Æ‚Ì–‚—‚ÌŒ‹ŠE‚R‚ðì‚é								¨11/11
 
-Œ|p‰Æ‚Ì–‚—‚ÌŒ‹ŠE‚SiŒˆíêj‚ðì‚é					¨/
+Œ|p‰Æ‚Ì–‚—‚ÌŒ‹ŠE‚SiŒˆíêj‚ðì‚é					¨11/18
 
-‰Ô”¨‚ðì‚é												¨/
+‰Ô”¨‚ðì‚é												¨11/24
 
-ƒNƒŠƒAŒãƒCƒxƒ“ƒg‚ðì‚é									¨
+ƒNƒŠƒAŒãƒCƒxƒ“ƒg‚ðì‚é									¨11/25
 
-ƒCƒxƒ“ƒg‚ðÚ‘±‚·‚é										¨
+ƒCƒxƒ“ƒg‚ðÚ‘±‚·‚é										¨12/1
 
 
 Ž­–Ú‰Æ“à•”‚ðì‚é										¨
@@ -104,9 +123,13 @@ Audio Clip‚Ìˆ³k—¦’´‘åŽ–¨ˆ³kÝ’è(LoadType)‚ðCompressed In Memory‚É‚µ‚Ä‚¨‚­‚×‚«
 
 ’ÊŠw˜H‚ðì‚é											¨
 
-m”ü‚ðì‚é
+m”ü‚ðì‚é												¨
+
+˜aŽq‚ðì‚é												¨
 
 ‹³Žº‚ðì‚é												¨ˆË—Š
+
+
 
 ˜L‰º‚ðì‚é												¨ˆË—Š
 

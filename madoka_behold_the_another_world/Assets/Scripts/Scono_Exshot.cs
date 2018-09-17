@@ -21,7 +21,10 @@ public class Scono_Exshot : Laser2
 		m_DownRatio = ParameterManager.Instance.Characterskilldata.sheets[m_CharacterIndex].list[2].DownPoint;
         // 覚醒ゲージ増加量を決定
         m_ArousalRatio = ParameterManager.Instance.Characterskilldata.sheets[m_CharacterIndex].list[2].Arousal;
-    }
+		// 対ブースト攻撃力を決定
+		AntiBoostOffensivePower = ParameterManager.Instance.Characterskilldata.sheets[m_CharacterIndex].list[2].AntiBoostStr;
+
+	}
 
     // ビームを消去する
     public void DestroyBeam()

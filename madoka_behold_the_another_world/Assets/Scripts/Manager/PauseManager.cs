@@ -18,6 +18,11 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>
 	/// </summary>
 	public PauseControllerInputDetector RoundCallPauseController;
 
+	/// <summary>
+	/// ほむらの時間停止によるポーズを制御
+	/// </summary>
+	public PauseControllerInputDetector AnyPauseController;
+
     void Awake()
     {
         if (this != Instance)

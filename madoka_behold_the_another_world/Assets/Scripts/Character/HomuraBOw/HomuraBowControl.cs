@@ -1558,6 +1558,8 @@ public class HomuraBowControl : CharacterControlBase
 		DownratioPowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)kind].DownPoint;
 		// 覚醒ゲージ増加量を決定する
 		ArousalRatioOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)kind].Arousal;
+		// 対ブースト攻撃力を決定する
+		AntiBoostOffensivePowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)kind].AntiBoostStr;
 	}
 
 	/// <summary>
@@ -1792,28 +1794,7 @@ public class HomuraBowControl : CharacterControlBase
 
 	
 
-	/// <summary>
-	/// 弾丸全回復処理
-	/// </summary>
-	public void FullReload()
-	{		
-		// 弾丸を回復させる
-		for (int i = 0; i < ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list.Count; i++)
-		{
-			// 使用の可否を初期化
-			WeaponUseAble[i] = true;
-			// 弾があるものは残弾数を初期化
-			if (ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[i].OriginalBulletNum > 0)
-			{
-				BulletNum[i] = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[i].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[i].OriginalBulletNum;
-			}
-			// 硬直時間があるものは硬直時間を初期化
-			if (ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[i].WaitTime > 0)
-			{
-				BulletWaitTime[i] = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[i].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[i].WaitTime;
-			}
-		}
-	}
+	
 
 	/// <summary>
 	/// 覚醒技中のステート定義
@@ -1856,7 +1837,7 @@ public class HomuraBowControl : CharacterControlBase
 				// 覚醒技演出フラグをONにする
 				ArousalAttackProduction = true;
 				// 火力設定
-				int offensive = 300 + StrLevel * 30;
+				int offensive = 300 + StrLevel * 5;
 				// 威力を初期化する
 				ArousalAttackObject.SetStatus(offensive, 5, CharacterSkill.HitType.BEND_BACKWARD);
 				break;

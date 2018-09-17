@@ -721,7 +721,7 @@ public static class savingparameter
             // 覚醒ゲージ初期化
             nowArousal[i] = 0.0f;
 			// 覚醒ゲージMAX
-			//nowArousal[i] = 170.0f;
+			nowArousal[i] = 170.0f;
         }
 
         nowField = 1;

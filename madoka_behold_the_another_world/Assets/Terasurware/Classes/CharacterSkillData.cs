@@ -21,6 +21,7 @@ public class CharacterSkillData : ScriptableObject
 		public string HitType;
 		public string SkillName;
 		public int OriginalStr;
+		public int AntiBoostStr;
 		public int GrowthCoefficientStr;
 		public int OriginalBulletNum;
 		public int GrowthCoefficientBul;

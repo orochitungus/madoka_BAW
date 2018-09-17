@@ -14,8 +14,10 @@ public class Wrestle_Core : MonoBehaviour
     // 攻撃力
     protected int OffemsivePower;
 
-    // ダウン値
-    protected float DownRatio;
+	protected int AntiBoostOffensivePower;
+
+	// ダウン値
+	protected float DownRatio;
 
     // 覚醒ゲージ増加量
     protected float ArousalRatio;
@@ -77,7 +79,7 @@ public class Wrestle_Core : MonoBehaviour
 	/// <param name="exclusionname">除外対象の名前</param>
 	/// <param name="launch">打ち上げ量</param>
 	/// <param name="force">打ち上げ時に加える力</param>
-	public virtual void SetStatus(int offensive, float downR, float arousal, CharacterSkill.HitType hittype,string exclusionname, float launch = 10.0f, float force = 5.0f)
+	public virtual void SetStatus(int offensive, float downR, float arousal, CharacterSkill.HitType hittype,string exclusionname, int antiBoostOffensivePower, float launch = 10.0f, float force = 5.0f)
     {
         // 親のオブジェクトを拾う
         Obj_OR = transform.root.GetComponentInChildren<CharacterControlBase>().gameObject;
@@ -91,6 +93,7 @@ public class Wrestle_Core : MonoBehaviour
         LaunchOffset = launch;
         Launchforce = force;
 		Exclusion = exclusionname;
+		AntiBoostOffensivePower = antiBoostOffensivePower;
     }
 	
 	// Update is called once per frame
@@ -99,7 +102,7 @@ public class Wrestle_Core : MonoBehaviour
 	   
 	}
     // ヒット処理
-    // 当たったらその相手にダメージを与える.破壊は親元で行う
+    // 当たったらその相手にダメージを与える
     public void OnCollisionEnter(Collision collision)
     {
 		// 除外対象がある場合、除外対象に当たったら何もしない
@@ -107,23 +110,27 @@ public class Wrestle_Core : MonoBehaviour
 		{
 			if(collision.gameObject.name == Exclusion)
 			{
+				Destroy(gameObject);
 				return;
 			}
 		}
 		// 地面に当たった場合は何もしない
 		if(collision.gameObject.layer == LayerMask.NameToLayer("ground"))
 		{
+			Destroy(gameObject);
 			return;
 		}
 		// 除外対象が設定されていないものは使わない
         if(Exclusion == "")
         {
-            return;
+			Destroy(gameObject);
+			return;
         }
 
 		// シールド時は何もしない
 		if(IsShield)
 		{
+			Destroy(gameObject);
 			return;
 		}
         string player;
@@ -134,13 +141,14 @@ public class Wrestle_Core : MonoBehaviour
 			AudioManager.Instance.PlaySE(InspHitSE.name);
 		}
 		// 着弾した位置にヒットエフェクトを置く           
-		GameObject hiteffect = (GameObject)Instantiate(HitEffect, transform.position, transform.rotation);
-		Instantiate(hiteffect, transform.position, transform.rotation);
+		GameObject hiteffect = Instantiate(HitEffect, transform.position, transform.rotation);
+
 
         // ガードされた場合は強制抜け（ガードオブジェクトはCharacterContorol_Baseを継承しない）
         if (Obj_OR == null)
         {
-            return;
+			Destroy(gameObject);
+			return;
         }
 
         // 親オブジェクトを拾う
@@ -165,11 +173,24 @@ public class Wrestle_Core : MonoBehaviour
         // targetがCharacterControl_Baseクラスでなければ強制抜け
         if (target == null)
         {
-            return;
+			Destroy(gameObject);
+			return;
         }
 
-        // ダウン中かダウン値MAXならダメージを与えない
-        if (target.GetInvincible())
+		// 相手のブーストを削り、0になったらガードブレイクさせる(ガードされずに当たったらブーストは減らない）
+		if (HitTarget.tag == "shield")
+		{
+			// 親元のオブジェクトを受け取る
+			var rootObject = collision.gameObject.transform.root.GetComponent<CharacterControlBase>();
+			if (rootObject != null)
+			{
+				rootObject.DamageBoost(AntiBoostOffensivePower);
+				return;
+			}
+		}
+
+		// ダウン中かダウン値MAXならダメージを与えない
+		if (target.GetInvincible())
         {
             // オブジェクトを自壊させる
             Destroy(gameObject);
@@ -242,7 +263,7 @@ public class Wrestle_Core : MonoBehaviour
             // ただしアーマー時ならダウン値とダメージだけ加算する(Damageにしない）
             if (!target.GetIsArmor())
             {
-				target.DamageInit(target.AnimatorUnit, 41, true, 43, 44);
+				target.DamageInit(target.AnimatorUnit, 41, false, 43, 44);
 			}
             // アーマーなら以降の処理が関係ないのでオブジェクトを自壊させてサヨウナラ           
         }

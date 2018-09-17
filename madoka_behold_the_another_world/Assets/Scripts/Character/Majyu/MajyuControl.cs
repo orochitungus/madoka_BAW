@@ -991,6 +991,8 @@ public class MajyuControl : CharacterControlBase
 				DownratioPowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[0].DownPoint;
 				// 覚醒ゲージ増加量を決定する（覚醒はさせないので0)
 				ArousalRatioOfBullet = 0;
+				// 対ブースト攻撃力を決定する
+				AntiBoostOffensivePowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[0].AntiBoostStr;
 			}
 			Shotmode = ShotMode.SHOT;
 			// 固定状態を解除

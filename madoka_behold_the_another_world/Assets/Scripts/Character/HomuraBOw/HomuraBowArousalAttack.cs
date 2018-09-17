@@ -186,7 +186,7 @@ public class HomuraBowArousalAttack : MonoBehaviour
 			// ただしアーマー時ならダウン値とダメージだけ加算する(Damageにしない）
 			if (!target.GetIsArmor())
 			{
-				target.DamageInit(target.AnimatorUnit, 41, true, 43, 44);
+				target.DamageInit(target.AnimatorUnit, 41, false, 43, 44);
 			}
 			// アーマーなら以降の処理が関係ないのでオブジェクトを自壊させてサヨウナラ           
 		}		

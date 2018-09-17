@@ -133,7 +133,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <summary>
     /// ポーズコントローラー
     /// </summary>
-    private GameObject Pausecontroller;
+    protected GameObject Pausecontroller;
 
 	
     // 時間停止時の処理    
@@ -351,10 +351,16 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     public bool IsArousal;
 
-    /// <summary>
-    /// ブースト消費量（1Fあたり）
-    /// </summary>
-    protected float BoostLess;
+	/// <summary>
+	/// ファイナルマジックの残弾
+	/// </summary>
+	protected int FinalMagicBullet;
+
+
+	/// <summary>
+	/// ブースト消費量（1Fあたり）
+	/// </summary>
+	protected float BoostLess;
 
     /// <summary>
     /// ステップ移動距離
@@ -806,7 +812,17 @@ public class CharacterControlBase : MonoBehaviour
 	{
 		return OffensivePowerOfBullet;
 	}
-	
+
+	/// <summary>
+	/// 対ブースト攻撃力
+	/// </summary>
+	protected int AntiBoostOffensivePowerOfBullet;
+
+	public int GetAntiBoostOffensivePowerOfBullet()
+	{
+		return AntiBoostOffensivePowerOfBullet;
+	}
+
 	/// <summary>
 	/// 射出する弾のダウン値
 	/// </summary>
@@ -1454,7 +1470,7 @@ public class CharacterControlBase : MonoBehaviour
 			}
 		}
         // MAX状態で離されるとチャージ量を0にしてtrue
-        if (WrestleCharge >= ChargeMax && (!ControllerManager.Instance.Wrestle))
+        if (WrestleCharge >= ChargeMax && (!ControllerManager.Instance.Wrestling))
         {
             WrestleCharge = 0;
             compleate = true;
@@ -2359,7 +2375,6 @@ public class CharacterControlBase : MonoBehaviour
     protected virtual void BackWrestle(Animator animator, int frontStepIndex, int leftStepIndex, int rightStepIndex, int backStepIndex, int idleIndex)
     {
 		IsGuard = true;
-        IsWrestle = true;
         //1．ブーストゲージを減衰させる
         Boost -= Time.deltaTime * 5.0f;
         //2．ブーストゲージが0になると、強制的にIdleに戻す
@@ -2465,7 +2480,6 @@ public class CharacterControlBase : MonoBehaviour
             // 判定オブジェクトを破棄する.一応くっついているものはすべて削除
             DestroyWrestle();
 			animator.Play("fall");
-			DestroyWrestle();
         }
         StepCancel(animator, frontStepIndex, leftStepIndex, rightStepIndex, backStepIndex, airdashIndex);
     }
@@ -2597,7 +2611,7 @@ public class CharacterControlBase : MonoBehaviour
     /// 空中ダッシュ（キャンセルダッシュ）発動共通操作
     /// 弓ほむら・まどかのモーションキャンセルなどはこの前に行うこと
     /// </summary>
-    protected virtual void CancelDashDone(Animator animator,int airDashInbdex)
+    protected virtual void CancelDashDone(Animator animator,int airDashInbdex = 0)
     {
 		animator.speed = 1.0f;
 		if (Boost > 0)
@@ -4001,7 +4015,7 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     /// <param name="animator">格闘攻撃の種類</param>
     /// <param name="skilltype">スキルのインデックス(キャラごとに異なる)</param>
-    /// <param name="triggerIndexID">使用する格闘のトリガーのID</param>
+    /// <param name="triggerIndexID">使用する格闘のAnimator上の名前</param>
     protected virtual void WrestleDone(Animator animator, int skilltype,string triggerIndex)
     {
         // 追加入力フラグをカット
@@ -4528,6 +4542,10 @@ public class CharacterControlBase : MonoBehaviour
 		float arousal = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillIndex].Arousal + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillIndex].GrowthCoefficientStr * (this.StrLevel - 1);
 		// ヒットタイプ
 		CharacterSkill.HitType hittype = CharacterSkill.HitType.BEND_BACKWARD;
+		// 対ブースト攻撃力
+		int antibooststr = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillIndex].AntiBoostStr;
+
+
 		for (int i = 0; i< ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list.Count; i++)
 		{
 			switch (ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[i].HitType)
@@ -4588,7 +4606,7 @@ public class CharacterControlBase : MonoBehaviour
 		// 格闘時に加算する力（固定）
 
 		// 判定のセッティングを行う
-		wrestleCollision.SetStatus(offensive, downR, arousal, hittype, exclusionname);	
+		wrestleCollision.SetStatus(offensive, downR, arousal, hittype, exclusionname,antibooststr);	
 	}
 
 
@@ -4648,6 +4666,20 @@ public class CharacterControlBase : MonoBehaviour
 			case Character_Spec.CHARACTER_NAME.MEMBER_MAMI:
 				break;
 			case Character_Spec.CHARACTER_NAME.MEMBER_HOMURA:
+				{
+					if (index == 0)         // N格闘
+						skillIndex = 6;
+					else if (index == 1)    // N格闘
+						skillIndex = 7;
+					else if (index == 2)    // N格闘
+						skillIndex = 8;
+					else if (index == 3)	// 空中ダッシュ格闘
+						skillIndex = 13;
+					else if (index == 4)    // 前特殊格闘
+						skillIndex = 15;
+					else if (index == 5)    // 後特殊格闘
+						skillIndex = 16;
+				}
 				break;
 			case Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B:
 				{
@@ -4764,13 +4796,15 @@ public class CharacterControlBase : MonoBehaviour
 		CharacterSkill.HitType hittype = ParameterManager.Instance.GetHitType((int)CharacterName,skillIndex);
 		// 除外対象の名前
 		string exclusionname = ObjectName.CharacterFileName[(int)CharacterName];
+		// ブースト攻撃力
+		int antibooststr = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillIndex].AntiBoostStr;
 
 		// 打ち上げ量（とりあえず固定）
 
 		// 格闘時に加算する力（固定）
 
 		// 判定のセッティングを行う
-		wrestleCollision.SetStatus(offensive, downR, arousal, hittype, exclusionname);
+		wrestleCollision.SetStatus(offensive, downR, arousal, hittype, exclusionname, antibooststr);
 	}
        
 
@@ -4874,10 +4908,23 @@ public class CharacterControlBase : MonoBehaviour
 			int charactername = (int)this.CharacterName;
 			savingparameter.SetNowHP(charactername, NowHitpoint);
 		}
-
-		
 	}
-		
+	
+	/// <summary>
+	/// damage分ブーストを減少させる
+	/// </summary>
+	/// <param name="damage"></param>
+	public void DamageBoost(int damage)
+	{
+		// ブーストを減少させる
+		Boost -= damage;
+		// ブーストが0以下になった場合は強制的にダメージモーション
+		if(Boost <=0)
+		{
+			Boost = 0;
+			AnimatorUnit.Play("damage");
+		}
+	}
 
 	/// <summary>
 	/// 被弾側の覚醒ゲージを増加させる。SendMessageで弾丸などから呼ばれる
@@ -5144,14 +5191,19 @@ public class CharacterControlBase : MonoBehaviour
 			if (IsPlayer == CHARACTERCODE.PLAYER || IsPlayer == CHARACTERCODE.PLAYER_ALLY)
 			{
 				if (NowHitpoint < 1)
-				{
+				{					
 					return;
 				}
 			}
 			// 生きていれば起き上がる
-			if (NowHitpoint > 1)
+			if (NowHitpoint > 0)
 			{
 				ReversalInit(animator, reversalIndex);
+			}
+			// 死んでいれば消滅(敵）
+			else if(IsPlayer == CHARACTERCODE.ENEMY && NowHitpoint < 1)
+			{
+				Destroy(gameObject);
 			}
 		}
 	}
@@ -5161,8 +5213,7 @@ public class CharacterControlBase : MonoBehaviour
     /// </summary>
     protected virtual void Reversal()
 	{
-		// 無敵時間を解除する
-		StartCoroutine(InvincibleCut());
+		
 	}
 
     /// <summary>
@@ -5200,6 +5251,8 @@ public class CharacterControlBase : MonoBehaviour
 		GetComponent<Rigidbody>().freezeRotation = true;
 		// ステートを復帰にする
 		animator.Play("reversal");
+		// 一定時間後無敵時間を解除する
+		StartCoroutine(InvincibleCut());
 	}
 		
 
@@ -5889,7 +5942,33 @@ public class CharacterControlBase : MonoBehaviour
 		// ロックオン限界距離
 		RockonRangeLimit = ParameterManager.Instance.CharacterbasicSpec.sheets[0].list[characterindex].RockonRangeLimit;
 	}
-	
+
+	/// <summary>
+	/// 弾丸全回復処理
+	/// </summary>
+	public void FullReload()
+	{
+		// 弾丸を回復させる
+		for (int i = 0; i < ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list.Count; i++)
+		{
+			// 使用の可否を初期化
+			WeaponUseAble[i] = true;
+			// 弾があるものは残弾数を初期化
+			if (ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[i].OriginalBulletNum > 0)
+			{
+				BulletNum[i] = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[i].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[i].OriginalBulletNum;
+			}
+			// 硬直時間があるものは硬直時間を初期化
+			if (ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[i].WaitTime > 0)
+			{
+				BulletWaitTime[i] = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[i].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[i].WaitTime;
+			}
+		}
+
+		// ファイナルマジックの残弾を１にする
+		FinalMagicBullet = 1;
+	}
+
 }
 
 

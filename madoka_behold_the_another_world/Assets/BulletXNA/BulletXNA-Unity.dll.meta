@@ -52,6 +52,12 @@ PluginImporter:
       settings:
         CPU: AnyCPU
   - first:
+      '': Tizen
+    second:
+      enabled: 1
+      settings:
+        CPU: AnyCPU
+  - first:
       '': WP8
     second:
       enabled: 1

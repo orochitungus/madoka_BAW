@@ -78,6 +78,8 @@ public class HomuraBowSubShotR : Bullet
 				DownRatio = InjectionObject.GetComponent<CharacterControlBase>().GetDownratioPowerOfBullet();
 				// 覚醒ゲージ増加量を保持する
 				ArousalRatio = InjectionObject.GetComponent<CharacterControlBase>().GetArousalRatioOfBullet();
+				// 対ブースト攻撃力を保持する
+				AntiBoostOffensivePower = InjectionObject.GetComponent<CharacterControlBase>().GetAntiBoostOffensivePowerOfBullet();
 
 				// 親のステートを発射完了へ切り替える
 				InjectionObject.GetComponent<CharacterControlBase>().Shotmode = CharacterControlBase.ShotMode.SHOTDONE;

@@ -110,10 +110,11 @@ public class Arousal_Camera_Controller : MonoBehaviour
 		{
 			// 銃ほむら
 			case Character_Spec.CHARACTER_NAME.MEMBER_HOMURA:
+				m_insp_Master.GetComponent<HomuraGunControl>().FullReload();
 				break;
 			// スコノシュート
 			case Character_Spec.CHARACTER_NAME.MEMBER_SCHONO:
-				
+				m_insp_Master.GetComponent<SconosciutoControl>().FullReload();
 				break;
 			// 弓ほむら
 			case Character_Spec.CHARACTER_NAME.MEMBER_HOMURA_B:

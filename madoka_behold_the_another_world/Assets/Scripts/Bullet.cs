@@ -31,6 +31,7 @@ public class Bullet : MonoBehaviour
         LASER,			// レーザー（相殺なし）
 		FUNNEL_LASER,	// ファンネル（レーザーを撃ち出す）
 		FUNNEL_SWORD,	// ファンネル（本体が特攻する）
+		TANKTRUCK,		// タンクローリー（地面以外に接触すると爆発する）
     };
     public BulletType Bullettype;
 
@@ -67,6 +68,11 @@ public class Bullet : MonoBehaviour
     /// 攻撃力
     /// </summary>
     public int OffemsivePower;
+
+	/// <summary>
+	/// 対ブースト攻撃力
+	/// </summary>
+	public int AntiBoostOffensivePower;
 
     /// <summary>
     /// ダウン値
@@ -175,25 +181,47 @@ public class Bullet : MonoBehaviour
 	public GameObject BombEffect;
 
 	/// <summary>
+	/// TANKTRUCKの場合の衝撃波の位置
+	/// </summary>
+	public GameObject[] ShockWaveRoot;
+
+
+	/// <summary>
+	/// 現在時間が止まっているかを取得する
+	/// </summary>
+	/// <returns></returns>
+	public bool GetTimeStop()
+	{
+		// AnyTimeStopControllerを拾う
+		GameObject atsc = GameObject.Find("AnyTimeStopController");
+		if(atsc.GetComponent<PauseControllerInputDetector>().pauseController.activatePause)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	/// <summary>
 	/// Updateでの共通処理（通常）
 	/// </summary>	
 	protected void UpdateCore()
     {
 		float shotspeed = 0.0f;
-        // 飛行開始
-        // キリカの時間遅延を受けているとき、1/4に
-        if (Timestopmode == CharacterControlBase.TimeStopMode.TIME_DELAY)
-        {
-			shotspeed = DelayShotspeed;
+		
+		// 飛行開始
+		// 時間停止
+		if(GetTimeStop())
+		{
+			// ポジションを固定する
+			GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+			
 		}
-        // ほむらの時間停止を受けているときなど、0に
-        else if (Timestopmode == CharacterControlBase.TimeStopMode.TIME_STOP || Timestopmode == CharacterControlBase.TimeStopMode.PAUSE || Timestopmode == CharacterControlBase.TimeStopMode.AROUSAL)
-        {
-            return;
-        }
 		// 通常
 		else
 		{
+			// ポジション固定を解除する
+			GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 			shotspeed = ShotSpeed;
 		}
 
@@ -229,9 +257,11 @@ public class Bullet : MonoBehaviour
                 DownRatio = InjectionObject.GetComponent<CharacterControlBase>().GetDownratioPowerOfBullet();
                 // 覚醒ゲージ増加量を保持する
                 ArousalRatio = InjectionObject.GetComponent<CharacterControlBase>().GetArousalRatioOfBullet();
+				// 対ブースト攻撃力を決定する
+				AntiBoostOffensivePower = InjectionObject.GetComponent<CharacterControlBase>().GetAntiBoostOffensivePowerOfBullet();
 
-                // 親のステートを発射完了へ切り替える
-                InjectionObject.GetComponent<CharacterControlBase>().Shotmode = CharacterControlBase.ShotMode.SHOTDONE;
+				// 親のステートを発射完了へ切り替える
+				InjectionObject.GetComponent<CharacterControlBase>().Shotmode = CharacterControlBase.ShotMode.SHOTDONE;
                 // 切り離し
                 transform.parent = null;
                 // 独立フラグを立てる
@@ -289,25 +319,25 @@ public class Bullet : MonoBehaviour
 	/// <summary>
 	/// Updateでの共通処理（バルカンなどの高速連射タイプ）
 	/// </summary>
-	protected void UpdateCoreBullcan()
+	protected void UpdateCoreBalkan()
 	{
 		float shotspeed = 0.0f;
 		// 飛行開始
-		// キリカの時間遅延を受けているとき、1/4に
-		if (Timestopmode == CharacterControlBase.TimeStopMode.TIME_DELAY)
+		// 時間停止
+		if (GetTimeStop())
 		{
-			shotspeed = DelayShotspeed;
-		}
-		// ほむらの時間停止を受けているときなど、0に
-		else if (Timestopmode == CharacterControlBase.TimeStopMode.TIME_STOP || Timestopmode == CharacterControlBase.TimeStopMode.PAUSE || Timestopmode == CharacterControlBase.TimeStopMode.AROUSAL)
-		{
-			return;
+			// ポジションを固定する
+			GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+
 		}
 		// 通常
 		else
 		{
+			// ポジション固定を解除する
+			GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 			shotspeed = ShotSpeed;
 		}
+
 		// カメラから親と対象を拾う
 		// (ほむの下にカメラがいるので、GetComponentChildlenで拾える）
 		//var target = m_Obj_OR.GetComponentInChildren<Player_Camera_Controller>();
@@ -330,9 +360,68 @@ public class Bullet : MonoBehaviour
 			if (InjectionObject != null)
 			{
 				// 装填されたら即座に切り離す
+				// その時の座標を保持する
+				GetComponent<Rigidbody>().position = InjectionObject.GetComponent<CharacterControlBase>().MainShotRoot.GetComponent<Rigidbody>().position;
+				// 進行方向ベクトルを保持する
+				MoveDirection = InjectionObject.GetComponent<CharacterControlBase>().GetBulletMoveDirection();
+				// 攻撃力を保持する
+				OffemsivePower = InjectionObject.GetComponent<CharacterControlBase>().GetOffensivePowerOfBullet();
+				// ダウン値を保持する
+				DownRatio = InjectionObject.GetComponent<CharacterControlBase>().GetDownratioPowerOfBullet();
+				// 覚醒ゲージ増加量を保持する
+				ArousalRatio = InjectionObject.GetComponent<CharacterControlBase>().GetArousalRatioOfBullet();
+				// 対ブースト攻撃力を決定する
+				AntiBoostOffensivePower = InjectionObject.GetComponent<CharacterControlBase>().GetAntiBoostOffensivePowerOfBullet();
 
+				// 切り離し
+				transform.parent = null;
+				// 独立フラグを立てる
+				IsIndependence = true;
+				// IsKinematicを折る
+				transform.GetComponent<Rigidbody>().isKinematic = false;
+				
+				Vector3 Correction_Rot = new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+				transform.rotation = Quaternion.Euler(Correction_Rot);
+				// 誘導がないなら進行方向は固定
+				if (TargetObject == null)
+				{
+					InductionCounter = InductionBias + 1; // 下でカウンターが閾値を超えたら固定されるので
+				}
+				
 			}
 		}
+		// 規定フレーム間誘導する(ファンネル射出中）
+		if ((Bullettype == BulletType.FUNNEL_LASER || Bullettype == BulletType.FUNNEL_SWORD) && Funnnelstate == FunnelState.Injcection)
+		{
+			InductionFunnel(shotspeed);
+		}
+		// 規定フレーム間誘導する
+		else
+		{
+			InductionBullet(shotspeed);
+		}
+		// レイキャストで接触したオブジェクト
+		RaycastHit hit;
+
+		// 進行方向に対してレイキャストする
+		if (Physics.Raycast(transform.position, Vector3.forward, out hit, 300.0f))
+		{
+			var hittarget = hit.collider.gameObject.GetComponent<AIControlBase>();
+			var hittarget2 = hit.collider.gameObject.GetComponent<CharacterControlBase>();
+			// ガード姿勢を取らせる(自分の弾は除く)
+			if (hittarget != null && InjectionCharacterIndex != (int)hittarget2.CharacterName)
+			{
+				// 相手がNONEかNOMOVEの時にはガードは取らせない
+				if (hittarget.Cpumode != AIControlBase.CPUMODE.NOMOVE && hittarget.Cpumode != AIControlBase.CPUMODE.NONE)
+				{
+					hittarget.Cpumode = AIControlBase.CPUMODE.GUARD;
+				}
+			}
+		}
+
+
+		BrokenMySelf();
+		TimeNow++;
 	}
 
 
@@ -489,9 +578,21 @@ public class Bullet : MonoBehaviour
             player = "Enemy";
             enemy = "Player";
         }
-        // 接触対象を取得
-        var target = collision.gameObject.GetComponent<CharacterControlBase>();
+		// 接触対象を取得
+		CharacterControlBase target = collision.gameObject.GetComponent<CharacterControlBase>();
         HitTarget = collision.gameObject;
+
+		// タンクローリーでヒット対象が地面だった場合はなにもしない（自壊もさせない）
+		if (HitTarget.layer == LayerMask.NameToLayer("ground"))
+		{
+			return;
+		}
+
+		// ほむらのミサイルなどの発射台は除外
+		if(HitTarget.tag == "catapult")
+		{
+			return;
+		}
 
 		// ビーム属性同士の弾丸が干渉したときは自壊させない
 		var hittargetBullet = collision.gameObject.GetComponent<Bullet>();
@@ -526,15 +627,25 @@ public class Bullet : MonoBehaviour
             return;
         }
 
-		// 当てた側の覚醒ゲージを増やす
+		// 相手のブーストを削り、0になったらガードブレイクさせる(ガードされずに当たったらブーストは減らない）
+		if(HitTarget.tag == "shield")
+		{
+			// 親元のオブジェクトを受け取る
+			var rootObject = collision.gameObject.transform.root.GetComponent<CharacterControlBase>();
+			if(rootObject != null)
+			{
+				rootObject.DamageBoost(AntiBoostOffensivePower);
+				return;
+			}
+		}
+
 
 
         // BEAM・BULLETの場合
         if (Bullettype == BulletType.BEAM || Bullettype == BulletType.BULLET)
         {
 			// 着弾音を鳴らす
-			//AudioSource.PlayClipAtPoint(HitSE, transform.position);
-			AudioManager.Instance.PlaySE("sen_ge_panchi10");
+			AudioManager.Instance.PlaySE(HitSE.name);
 			// 着弾した位置にヒットエフェクトを置く            
 			Instantiate(HitEffect, transform.position, transform.rotation);
 
@@ -592,62 +703,91 @@ public class Bullet : MonoBehaviour
 			// オブジェクトを自壊させる
 			Destroy(gameObject);
 		}
-        // BAZOOKAの場合
-        else if (Bullettype == BulletType.BAZOOKA)
+        // BAZOOKA/TANKTRUCKの場合
+        else if (Bullettype == BulletType.BAZOOKA || Bullettype == BulletType.TANKTRUCK)
         {
-            // 爆発エフェクトを生成する(Bazooka_ShockWaveプレハブ作成)
-            // このオブジェクトの子としてBazooka_ShockWaveを作成する
-            var bazooka_shockwave = (GameObject)Instantiate(BazookaShockWave, transform.position, transform.rotation);
-            bazooka_shockwave.transform.parent = this.transform;
-            // ダメージとダウン値を設定
-            var shockwave_state = bazooka_shockwave.GetComponentInChildren<Bazooka_ShockWave>();
-            // ダメージ
-            // 敵に触れた場合
-            if (collision.gameObject.tag == enemy)
-            {
-                // 覚醒補正
-                DamageCorrection();
-                shockwave_state.SetDamage(OffemsivePower);
-                shockwave_state.SetCharacter(InjectionCharacterIndex);
-            }
-            // 味方に触れた場合
-            else if (collision.gameObject.tag == player)
-            {
-                // 覚醒補正
-                DamageCorrection();
-                shockwave_state.SetDamage((int)(OffemsivePower/MadokaDefine.FRENDLYFIRE_RATIO));
-                shockwave_state.SetCharacter(InjectionCharacterIndex);
-            }
-            // ダウン値
-            shockwave_state.SetDownratio(DownRatio);
-            // 覚醒ゲージ増加（覚醒時除く）
-            if (InjectionObject.GetComponent<CharacterControlBase>().IsArousal == false)
-            {
-                // 攻撃を当てた側が味方側の場合
-                if (InjectionObject.GetComponent<CharacterControlBase>().IsPlayer != CharacterControlBase.CHARACTERCODE.ENEMY)
-                {
-                    savingparameter.AddArousal(InjectionCharacterIndex, ArousalRatio);
-					InjectionObject.GetComponent<CharacterControlBase>().AddArousal(ArousalRatio);
-                }
-                // 攻撃を当てた側が敵側の場合
-                else
-                {
-                    InjectionObject.GetComponent<CharacterControlBase>().AddArousal(ArousalRatio);
-                }
-            }
-            // 攻撃を当てた相手の覚醒ゲージを増加
-            shockwave_state.SetArousal(ArousalRatio);
-            // オブジェクトの自壊に巻き込まれないように切り離す
-            shockwave_state.transform.parent = null;
+			// 着弾音を鳴らす
+			AudioManager.Instance.PlaySE(HitSE.name);
 
-            // オブジェクトを自壊させる
-            Destroy(gameObject); 
+			// 衝撃波を生成する
+			if (Bullettype == BulletType.BAZOOKA)
+			{
+				CreateShockWave(collision, target, player, enemy);
+			}
+			else
+			{
+				CreateShockWaveTankTruck(collision, target, player, enemy);
+			}
+
+
+			// 覚醒ゲージ増加（覚醒時除く）
+			if (InjectionObject.GetComponent<CharacterControlBase>().IsArousal == false)
+			{
+				// 攻撃を当てた側が味方側の場合
+				if (InjectionObject.GetComponent<CharacterControlBase>().IsPlayer != CharacterControlBase.CHARACTERCODE.ENEMY)
+				{
+					savingparameter.AddArousal(InjectionCharacterIndex, ArousalRatio);
+					InjectionObject.GetComponent<CharacterControlBase>().AddArousal(ArousalRatio);
+				}
+				// 攻撃を当てた側が敵側の場合
+				else
+				{
+					InjectionObject.GetComponent<CharacterControlBase>().AddArousal(ArousalRatio);
+				}
+			}
+
+			// targetがCharacterControl_Baseクラスでなければ「自壊させて」強制抜け
+			if (target == null)
+			{
+				// オブジェクトを自壊させる
+				Destroy(gameObject);
+				return;
+			}
+
+			// ダウン中かダウン値MAXかリバーサルならダメージを与えない
+			if (target.GetInvincible())
+			{
+				// オブジェクトを自壊させる
+				Destroy(gameObject);
+				return;
+			}
+			// そうでないならダメージとダウン値加算と覚醒ゲージ増加を確定
+			else
+			{
+				HitDamage(player, enemy, collision);
+			}
+			// ヒット時にダメージの種類をCharacterControlBaseに与える
+			// ダウン値を超えていたら吹き飛びへ移行
+			// Blow属性の攻撃を与えた場合も吹き飛びへ移行
+			if (target.GetNowDownRatio() >= target.GetDownRatioBias() || this.Hittype == CharacterSkill.HitType.BLOW)
+			{   // 吹き飛びの場合、相手に方向ベクトルを与える            
+				// Y軸方向は少し上向き
+				target.MoveDirection.y += 10;
+				target.BlowDirection = MoveDirection;
+				// 吹き飛びの場合、攻撃を当てた相手を浮かす（MadokaDefine.LAUNCHOFFSET)            
+				target.GetComponent<Rigidbody>().position = target.GetComponent<Rigidbody>().position + new Vector3(0, MadokaDefine.LAUNCHOFFSET, 0);
+				target.GetComponent<Rigidbody>().AddForce(this.MoveDirection.x * MadokaDefine.LAUNCHOFFSET, this.MoveDirection.y * MadokaDefine.LAUNCHOFFSET, this.MoveDirection.z * MadokaDefine.LAUNCHOFFSET);
+				target.DamageInit(target.AnimatorUnit, 41, true, 43, 44);
+			}
+			// それ以外はのけぞりへ
+			else
+			{
+				// ただしアーマー時ならダウン値とダメージだけ加算する(Damageにしない）
+				if (!target.GetIsArmor())
+				{
+					target.DamageInit(target.AnimatorUnit, 41, false, 43, 44);
+				}
+				// アーマーなら以降の処理が関係ないのでオブジェクトを自壊させてサヨウナラ                
+			}
+
+			// オブジェクトを自壊させる
+			Destroy(gameObject); 
         }
         // BOMBの場合
         else if (Bullettype == BulletType.BOMB)
         {
-			AudioManager.Instance.PlaySE("sen_ge_panchi10");
-			
+			AudioManager.Instance.PlaySE(HitSE.name);
+
 			// アニメが起動していなかった場合、アニメを起動する
 			if (!StartedBombAnimation)
             {
@@ -777,4 +917,74 @@ public class Bullet : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
+	/// <summary>
+	/// BAZOOKAの場合衝撃波を生成する
+	/// </summary>
+	public void CreateShockWave(Collision collision, CharacterControlBase target, string player, string enemy)
+	{
+		// 爆発エフェクトを生成する(Bazooka_ShockWaveプレハブ作成)
+		GameObject bazooka_shockwave = Instantiate(BazookaShockWave, transform.position, transform.rotation);
+		// ダメージとダウン値を設定
+		Bazooka_ShockWave shockwave_state = bazooka_shockwave.GetComponentInChildren<Bazooka_ShockWave>();
+		// ダメージ
+		// 敵に触れた場合
+		if (collision.gameObject.tag == enemy)
+		{
+			// 覚醒補正
+			DamageCorrection();
+			shockwave_state.SetDamage(OffemsivePower);
+			shockwave_state.SetCharacter(InjectionCharacterIndex);
+		}
+		// 味方に触れた場合
+		else if (collision.gameObject.tag == player)
+		{
+			// 覚醒補正
+			DamageCorrection();
+			shockwave_state.SetDamage((int)(OffemsivePower / MadokaDefine.FRENDLYFIRE_RATIO));
+			shockwave_state.SetCharacter(InjectionCharacterIndex);
+		}
+		// ダウン値
+		shockwave_state.SetDownratio(DownRatio);
+		// 攻撃を当てた相手の覚醒ゲージを増加
+		shockwave_state.SetArousal(ArousalRatio);
+	}
+
+	/// <summary>
+	/// TankTruckの場合衝撃波を生成する
+	/// </summary>
+	/// <param name="collision"></param>
+	/// <param name="target"></param>
+	/// <param name="player"></param>
+	/// <param name="enemy"></param>
+	public void CreateShockWaveTankTruck(Collision collision, CharacterControlBase target, string player, string enemy)
+	{
+		foreach(GameObject x in ShockWaveRoot)
+		{
+			GameObject bazooka_shockwave = Instantiate(BazookaShockWave, x.transform.position, x.transform.rotation);
+			// ダメージとダウン値を設定
+			Bazooka_ShockWave shockwave_state = bazooka_shockwave.GetComponentInChildren<Bazooka_ShockWave>();
+			// ダメージ
+			// 敵に触れた場合
+			if (collision.gameObject.tag == enemy)
+			{
+				// 覚醒補正
+				DamageCorrection();
+				shockwave_state.SetDamage(OffemsivePower);
+				shockwave_state.SetCharacter(InjectionCharacterIndex);
+			}
+			// 味方に触れた場合
+			else if (collision.gameObject.tag == player)
+			{
+				// 覚醒補正
+				DamageCorrection();
+				shockwave_state.SetDamage((int)(OffemsivePower / MadokaDefine.FRENDLYFIRE_RATIO));
+				shockwave_state.SetCharacter(InjectionCharacterIndex);
+			}
+			// ダウン値
+			shockwave_state.SetDownratio(DownRatio);
+			// 攻撃を当てた相手の覚醒ゲージを増加
+			shockwave_state.SetArousal(ArousalRatio);
+		}
+	}
 }

@@ -1,0 +1,151 @@
+fileFormatVersion: 2
+guid: c72b9dc76c931724f96197727f2a5f10
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: cab
+    100002: cockpit
+    100004: mirror
+    100006: Outrigger
+    100008: sdef:pedestal
+    100010: tire_fl
+    100012: tire_fr
+    100014: tire_rl
+    100016: tire_rl1
+    100018: tire_rr
+    100020: tire_rr2
+    100022: //RootNode
+    400000: cab
+    400002: cockpit
+    400004: mirror
+    400006: Outrigger
+    400008: sdef:pedestal
+    400010: tire_fl
+    400012: tire_fr
+    400014: tire_rl
+    400016: tire_rl1
+    400018: tire_rr
+    400020: tire_rr2
+    400022: //RootNode
+    2100000: metal
+    2100002: wheel
+    2100004: black
+    2100006: type88_3
+    2100008: type88_2
+    2100010: type88_1
+    2300000: cab
+    2300002: cockpit
+    2300004: mirror
+    2300006: Outrigger
+    2300008: sdef:pedestal
+    2300010: tire_fl
+    2300012: tire_fr
+    2300014: tire_rl
+    2300016: tire_rl1
+    2300018: tire_rr
+    2300020: tire_rr2
+    3300000: cab
+    3300002: cockpit
+    3300004: mirror
+    3300006: Outrigger
+    3300008: sdef:pedestal
+    3300010: tire_fl
+    3300012: tire_fr
+    3300014: tire_rl
+    3300016: tire_rl1
+    3300018: tire_rr
+    3300020: tire_rr2
+    4300000: cab
+    4300002: tire_rr
+    4300004: tire_fl
+    4300006: tire_rl
+    4300008: tire_fr
+    4300010: tire_rl1
+    4300012: tire_rr2
+    4300014: cockpit
+    4300016: mirror
+    4300018: Outrigger
+    4300020: sdef:pedestal
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -21,6 +21,8 @@ public class HomuraBowChargeShot : Laser2
 		m_DownRatio = ParameterManager.Instance.Characterskilldata.sheets[m_CharacterIndex].list[1].DownPoint;
 		// 覚醒ゲージ増加量を決定
 		m_ArousalRatio = ParameterManager.Instance.Characterskilldata.sheets[m_CharacterIndex].list[1].Arousal;
+		// 対ブースト攻撃力を決定
+		AntiBoostOffensivePower = ParameterManager.Instance.Characterskilldata.sheets[m_CharacterIndex].list[1].AntiBoostStr;
 	}
 
 	

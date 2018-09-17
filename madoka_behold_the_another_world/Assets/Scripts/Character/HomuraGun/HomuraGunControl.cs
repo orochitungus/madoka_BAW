@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UniRx;
 using UniRx.Triggers;
+using UnityStandardAssets.ImageEffects;
 
 /// <summary>
 /// キャラクター「暁美 ほむら（銃）を制御するためのスクリプト
@@ -29,7 +30,12 @@ public class HomuraGunControl : CharacterControlBase
 	/// 特殊射撃撃ち終わり時間
 	/// </summary>
 	private float ExShotEndtime;
-	
+
+	/// <summary>
+	/// サブ射撃の派生をするか否かの処理
+	/// </summary>
+	private bool SubshotDerive;
+
 	/// <summary>
 	/// 戦闘用インターフェース
 	/// </summary>
@@ -76,6 +82,11 @@ public class HomuraGunControl : CharacterControlBase
 	public GameObject SubShotDeriveBullet;
 
 	/// <summary>
+	/// 横格闘用の弾丸
+	/// </summary>
+	public GameObject SideWrestleBullet;
+
+	/// <summary>
 	/// 前格闘の弾丸
 	/// </summary>
 	public GameObject FrontWrestleBullet;
@@ -90,6 +101,67 @@ public class HomuraGunControl : CharacterControlBase
 	/// </summary>
 	public GameObject ChargeShotRoot;
 
+	/// <summary>
+	/// サブ射撃のフック（この場所にサブ射撃の弾丸が生成される）
+	/// </summary>
+	public GameObject SubshotRoot;
+
+	/// <summary>
+	/// サブ射撃派生用のフック（この場所にサブ射撃派生の弾丸が生成される）
+	/// </summary>
+	public GameObject SubshotDeriveRoot;
+
+	/// <summary>
+	/// サブ射撃派生の弾丸の残弾
+	/// </summary>
+	private int SubShotDeriveBulletNum;
+
+	/// <summary>
+	/// Ｎ格闘2・3段目専用カメラ
+	/// </summary>
+	public Camera WrestleCamera;
+
+	/// <summary>
+	/// 横格闘用のフック
+	/// </summary>
+	public GameObject SideWrestleRoot;
+
+	/// <summary>
+	/// 前格闘用のフック
+	/// </summary>
+	public GameObject FrontWrestleRoot;
+
+	/// <summary>
+	/// メインカメラのグレースケール
+	/// </summary>
+	public Grayscale2 GrayScale2;
+
+	/// <summary>
+	/// 時間停止のカウンターを使うか否か
+	/// </summary>
+	private bool EnableEXShotCounter;
+
+	/// <summary>
+	/// ファイナルマジック時のカメラ
+	/// </summary>
+	public Camera FMCamera;
+
+	/// <summary>
+	/// ファイナルマジックのミサイルのフック
+	/// </summary>
+	public GameObject FinalMagicRoot;
+
+	/// <summary>
+	/// ファイナルマジックのミサイル
+	/// </summary>
+	public GameObject FinalMagicMissile;
+
+	/// <summary>
+	/// 射撃及び射撃CS時のマズルフラッシュ
+	/// </summary>
+	public GameObject MuzzleFlash;
+
+	
 	/// <summary>
 	/// 各種アニメのID.コメント内はAnimatorの管理用ID.武装系以外は全員共通にすること
 	/// </summary>
@@ -235,7 +307,31 @@ public class HomuraGunControl : CharacterControlBase
 		// チャージショットチャージ時間
 		ChargeMax = (int)ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[(int)ShotType.CHARGE_SHOT].ReloadTime * 60;
 
+		// カメラのグレースケールをカット
+		GrayScale2.enabled = false;
+
 		// カメラ制御
+		this.UpdateAsObservable().Subscribe(_ =>
+		{
+			// N格２・３段目時・特殊射撃発動時カメラ変更
+			if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("wrestle2") || AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("wrestle3") || AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("exshot"))
+			{
+				WrestleCamera.enabled = true;
+			}
+			else
+			{
+				WrestleCamera.enabled = false;
+			}
+			// 覚醒技発動中のみカメラ変更
+			if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("finalmagic"))
+			{
+				FMCamera.enabled = true;
+			}
+			else
+			{
+				FMCamera.enabled = false;
+			}
+		});
 
 		// インターフェース制御
 		this.UpdateAsObservable().Where(_ => IsPlayer == CHARACTERCODE.PLAYER).Subscribe(_ =>
@@ -359,7 +455,7 @@ public class HomuraGunControl : CharacterControlBase
 				// サブ射撃
 				Battleinterfacecontroller.Weapon3.Kind.text = "Sub Shot";
 				Battleinterfacecontroller.Weapon3.WeaponGraphic.sprite = SubShotIcon;
-				Battleinterfacecontroller.Weapon3.NowBulletNumber = BulletNum[1];
+				Battleinterfacecontroller.Weapon3.NowBulletNumber = BulletNum[2];
 				Battleinterfacecontroller.Weapon3.MaxBulletNumber = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[2].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[2].OriginalBulletNum;
 				// チャージ格闘ゲージ
 				Battleinterfacecontroller.Weapon3.UseChargeGauge = true;
@@ -372,6 +468,8 @@ public class HomuraGunControl : CharacterControlBase
 				{
 					Battleinterfacecontroller.Weapon3.Use = false;
 				}
+				// チャージ格闘
+				Battleinterfacecontroller.Weapon3.NowChargeValue = WrestleCharge / (float)(ChargeMax);
 
 				// 特殊射撃
 				Battleinterfacecontroller.Weapon2.Kind.text = "EX Shot";
@@ -392,11 +490,11 @@ public class HomuraGunControl : CharacterControlBase
 				// 前格闘
 				Battleinterfacecontroller.Weapon1.Kind.text = "Front Wrestle";
 				Battleinterfacecontroller.Weapon1.WeaponGraphic.sprite = FrontWrestleIcon;
-				Battleinterfacecontroller.Weapon1.NowBulletNumber = BulletNum[3];
-				Battleinterfacecontroller.Weapon1.MaxBulletNumber = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[15].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[15].OriginalBulletNum;
+				Battleinterfacecontroller.Weapon1.NowBulletNumber = BulletNum[14];
+				Battleinterfacecontroller.Weapon1.MaxBulletNumber = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[14].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[14].OriginalBulletNum;
 				Battleinterfacecontroller.Weapon1.UseChargeGauge = false;
 				// 1発でも使えれば使用可能（リロード時は0になる）
-				if (BulletNum[3] != 0)
+				if (BulletNum[14] != 0)
 				{
 					Battleinterfacecontroller.Weapon1.Use = true;
 				}
@@ -431,15 +529,35 @@ public class HomuraGunControl : CharacterControlBase
 				ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[2].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[2].OriginalBulletNum,
 				ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[2].ReloadTime, ref SubshotEndtime);
 			// 特殊射撃
-			ReloadSystem.AllTogether(ref BulletNum[5], Time.time,
+			ReloadSystem.OneByOne(ref BulletNum[5], Time.time,
 				ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[5].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[5].OriginalBulletNum,
 				ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[5].ReloadTime, ref ExShotEndtime);
 			// 前格闘
 			ReloadSystem.AllTogether(ref BulletNum[14], Time.time,
 				ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[14].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[14].OriginalBulletNum,
-				ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[14].ReloadTime, ref ExShotEndtime);
+				ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[14].ReloadTime, ref FrontWrestleEndTime);
+		}
+
+		// 時間停止時、時間停止のカウンターを減少させる
+		if(EnableEXShotCounter)
+		{
+			BulletNum[5]--;
+			if(BulletNum[5] <= 0)
+			{
+				BulletNum[5] = 0;
+				// 時間停止解除
+				EnableEXShotCounter = false;
+				ExShotEndtime = Time.time;
+				GrayScale2.enabled = false;
+				// ポーズコントローラーのインスタンスを取得
+				PauseControllerInputDetector pausecontroller2 = Pausecontroller.GetComponent<PauseManager>().AnyPauseController;
+				// 時間停止解除を行う
+				pausecontroller2.ProcessButtonPress();
+			}
 		}
 	}
+
+
 
 	void LateUpdate()
 	{
@@ -505,7 +623,7 @@ public class HomuraGunControl : CharacterControlBase
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("leftstepback"))
 		{
-			Animation_StepBack(AnimatorUnit,(int)HomuraGunBattleDefine.Idx.homuragun_idle_copy);
+			Animation_StepBack(AnimatorUnit, (int)HomuraGunBattleDefine.Idx.homuragun_idle_copy);
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("rightstepback"))
 		{
@@ -557,7 +675,7 @@ public class HomuraGunControl : CharacterControlBase
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("subshotft"))
 		{
-			SubShot((int)HomuraGunBattleDefine.Idx.homuragun_airdash_copy);
+			SubShotFollowThrow();
 		}
 		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("exshotfth"))
 		{
@@ -579,11 +697,11 @@ public class HomuraGunControl : CharacterControlBase
 		{
 			FrontWrestle1(AnimatorUnit, (int)HomuraGunBattleDefine.Idx.homuragun_frontstep_copy, (int)HomuraGunBattleDefine.Idx.homuragun_leftstep_copy, (int)HomuraGunBattleDefine.Idx.homuragun_rightstep_copy, (int)HomuraGunBattleDefine.Idx.homuragun_backstep_copy, (int)HomuraGunBattleDefine.Idx.homuragun_airdash_copy);
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("leftwrestle"))
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("sidewrestle"))
 		{
 			LeftWrestle1(AnimatorUnit, (int)HomuraGunBattleDefine.Idx.homuragun_frontstep_copy, (int)HomuraGunBattleDefine.Idx.homuragun_leftstep_copy, (int)HomuraGunBattleDefine.Idx.homuragun_rightstep_copy, (int)HomuraGunBattleDefine.Idx.homuragun_backstep_copy, (int)HomuraGunBattleDefine.Idx.homuragun_airdash_copy);
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("rightwrestle"))
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("sidewrestleft"))
 		{
 			RightWrestle1(AnimatorUnit, (int)HomuraGunBattleDefine.Idx.homuragun_frontstep_copy, (int)HomuraGunBattleDefine.Idx.homuragun_leftstep_copy, (int)HomuraGunBattleDefine.Idx.homuragun_rightstep_copy, (int)HomuraGunBattleDefine.Idx.homuragun_backstep_copy, (int)HomuraGunBattleDefine.Idx.homuragun_airdash_copy);
 		}
@@ -591,7 +709,7 @@ public class HomuraGunControl : CharacterControlBase
 		{
 			BackWrestle(AnimatorUnit, (int)HomuraGunBattleDefine.Idx.homuragun_frontstep_copy, (int)HomuraGunBattleDefine.Idx.homuragun_leftstep_copy, (int)HomuraGunBattleDefine.Idx.homuragun_rightstep_copy, (int)HomuraGunBattleDefine.Idx.homuragun_backstep_copy, (int)HomuraGunBattleDefine.Idx.homuragun_idle_copy);
 		}
-		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("airdashwrestle"))
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("bdwrestle"))
 		{
 			ShowAirDashEffect = true;
 			AirDashWrestle(AnimatorUnit, (int)HomuraGunBattleDefine.Idx.homuragun_fall_copy);
@@ -632,6 +750,19 @@ public class HomuraGunControl : CharacterControlBase
 		{
 			SpinDown(AnimatorUnit, (int)HomuraGunBattleDefine.Idx.homuragun_down_copy);
 		}
+		else if (AnimatorUnit.GetCurrentAnimatorStateInfo(0).IsName("finalmagic"))
+		{
+			// キャンセルダッシュ受付
+			if ((HasDashCancelInput || HasAirDashInput) && Boost > 0)
+			{
+				// 地上でキャンセルすると浮かないので浮かす
+				if (IsGrounded)
+				{
+					transform.Translate(new Vector3(0, 1, 0));
+				}
+				CancelDashDone(AnimatorUnit);
+			}
+		}
 
 		if (ShowAirDashEffect)
 		{
@@ -661,13 +792,12 @@ public class HomuraGunControl : CharacterControlBase
 		DestroyWrestle();
 		DestroyArrow();
 		// 覚醒中は覚醒技を発動
-		if (HasArousalAttackInput && IsArousal)
+		if (HasArousalAttackInput && IsArousal && FinalMagicBullet > 0)
 		{
 			// アーマーをONにする
 			SetIsArmor(true);
-
-			// TODO:覚醒技処理
-
+			// ファイナルマジックを発動する
+			FinalMagicDone();
 			return true;
 		}
 		// サブ射撃でサブ射撃へ移行
@@ -703,13 +833,13 @@ public class HomuraGunControl : CharacterControlBase
 			if (HasFrontInput && Boost > 0)
 			{
 				// 前特殊格闘実行
-				//FrontEXWrestleDone(AnimatorUnit, 13);
+				FrontEXWrestleDone(AnimatorUnit, 15);
 			}
 			// 空中で後特殊格闘(ブーストがないと実行不可）
 			else if (HasBackInput && !IsGrounded && Boost > 0)
 			{
 				// 後特殊格闘実行
-				//BackEXWrestleDone(AnimatorUnit, 14);
+				BackEXWrestleDone(AnimatorUnit, 16);
 			}
 			// それ以外
 			else
@@ -742,7 +872,8 @@ public class HomuraGunControl : CharacterControlBase
 				// 強制停止実行
 				EmagencyStop(AnimatorUnit, (int)HomuraGunBattleDefine.Idx.homuragun_idle_copy);
 			}
-			// TODO:チャージ格闘実行
+			// チャージ格闘実行
+			ChargeWrestleDone();
 			return true;
 		}
 		// 射撃で射撃へ移行
@@ -806,18 +937,19 @@ public class HomuraGunControl : CharacterControlBase
 			else if (HasFrontInput)
 			{
 				// 前格闘実行（射撃扱いになる）
-				ChargeWrestleDone();
+				FrontWrestleDone();
 			}
 			// 左格闘で左格闘へ移行
 			else if (HasLeftInput)
 			{
 				// 左格闘実行（射撃扱いになる）
+				SideWrestleDone();
 			}
 			// 右格闘で右格闘へ移行
 			else if (HasRightInput)
 			{
 				// 右格闘実行(射撃扱いになる)
-				
+				SideWrestleDone();
 			}
 			// 後格闘で後格闘へ移行
 			else if (HasBackInput)
@@ -909,6 +1041,13 @@ public class HomuraGunControl : CharacterControlBase
 		Shotmode = ShotMode.RELORD;
 		// 位置固定を行う
 		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+		// 派生フラグを折る
+		SubshotDerive = false;
+		// サブ射撃の弾丸があった場合のみ派生をリロードする
+		if(BulletNum[2] > 0)
+		{
+			SubShotDeriveBulletNum = 1;
+		}
 	}
 
 	/// <summary>
@@ -917,8 +1056,23 @@ public class HomuraGunControl : CharacterControlBase
 	public void EXShotDone()
 	{
 		AnimatorUnit.Play("exshot");
-		// 装填状態へ移行
-		Shotmode = ShotMode.RELORD;
+		// 位置固定を行う
+		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+	}
+
+	/// <summary>
+	/// 横格闘を開始する
+	/// </summary>
+	public void SideWrestleDone()
+	{
+		AnimatorUnit.Play("sidewrestle");
+		// 位置固定を行う
+		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+	}
+
+	public void FrontWrestleDone()
+	{
+		AnimatorUnit.Play("frontwrestle");
 		// 位置固定を行う
 		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
 	}
@@ -996,6 +1150,38 @@ public class HomuraGunControl : CharacterControlBase
 			CancelDashDone(AnimatorUnit, (int)HomuraGunBattleDefine.Idx.homuragun_airdash_copy);
 		}
 		base.Shot();
+	}
+
+	protected override void SubShot(int airdashIndex)
+	{
+		// 射撃ボタンの入力があった場合派生フラグを立てる
+		if(HasShotInput && BulletNum[2] > 0)
+		{
+			SubshotDerive = true;
+		}
+		base.SubShot(airdashIndex);
+	}
+
+	private void SubShotFollowThrow()
+	{
+		// 射撃ボタンの入力があったか派生フラグが立っていた場合、派生に移行する
+		if(HasShotInput || SubshotDerive)
+		{
+			if (SubShotDeriveBulletNum > 0)
+			{
+				AnimatorUnit.Play("subshotderive");
+			}
+		}
+		// キャンセルを受け付ける
+		if ((HasDashCancelInput || HasAirDashInput) && Boost > 0)
+		{
+			// 地上でキャンセルすると浮かないので浮かす
+			if (IsGrounded)
+			{
+				transform.Translate(new Vector3(0, 0.3f, 0));
+			}
+			CancelDashDone(AnimatorUnit);
+		}
 	}
 
 	/// <summary>
@@ -1124,7 +1310,6 @@ public class HomuraGunControl : CharacterControlBase
 			}
 			// 弾丸の向きを合わせる
 			arrow.transform.rotation = transform.rotation;
-			Debug.Log(arrow.transform.rotation.eulerAngles);
 
 			// 矢の移動ベクトルを代入する
 			// 通常射撃
@@ -1141,6 +1326,8 @@ public class HomuraGunControl : CharacterControlBase
 			DownratioPowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[0].DownPoint;
 			// 覚醒ゲージ増加量を決定する
 			ArousalRatioOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[0].Arousal;
+			// 対ブースト攻撃力を決定する
+			AntiBoostOffensivePowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[0].AntiBoostStr;
 
 			Shotmode = ShotMode.SHOT;
 
@@ -1153,6 +1340,9 @@ public class HomuraGunControl : CharacterControlBase
 			AttackTime = Time.time;
 			// 射出音を再生する
 			AudioManager.Instance.PlaySE("gunshot");
+
+			// マズルフラッシュを生成する
+			MuzzleFlashDone(MainShotRoot);
 		}
 		// 弾がないときはとりあえずフラグだけは立てておく
 		else
@@ -1175,6 +1365,18 @@ public class HomuraGunControl : CharacterControlBase
 			AnimatorUnit.Play("shotft");
 		}
 
+	}
+
+	/// <summary>
+	/// マズルフラッシュを発生させる
+	/// </summary>
+	private void MuzzleFlashDone(GameObject root)
+	{
+		// 弾丸の出現ポジションをフックと一致させる
+		Vector3 pos = root.transform.position;
+		Quaternion rot = Quaternion.Euler(root.transform.rotation.eulerAngles.x, 180, root.transform.rotation.eulerAngles.z);
+		// 弾丸を出現させる			
+		GameObject obj = Instantiate(MuzzleFlash, pos, rot);
 	}
 
 	/// <summary>
@@ -1203,23 +1405,149 @@ public class HomuraGunControl : CharacterControlBase
 			// 弾丸の親子関係を付けておく
 			obj.transform.GetComponent<Rigidbody>().isKinematic = true;
 		}
+
+		// チャージ射撃の弾丸にステートを入れる
+		HomuraGunChargeShot arrow = obj.GetComponent<HomuraGunChargeShot>();
+
+		// メイン弾速設定
+		arrow.ShotSpeed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[1].MoveSpeed;
+
+		// 弾丸の方向を決定する(本体と同じ方向に向けて打ち出す。ただしノーロックで本体の向きが0のときはベクトルが0になるので、このときだけはカメラの方向に飛ばす）
+		if (GetIsRockon() && RunShotDone)
+		{
+			// ロックオン対象の座標を取得
+			var target = GetComponentInChildren<Player_Camera_Controller>();
+			// 対象の座標を取得
+			Vector3 targetpos = target.Enemy.transform.position;
+			// 補正値込みの胸部と本体の回転ベクトルを取得
+			// 本体
+			Quaternion mainrot = Quaternion.LookRotation(targetpos - this.transform.position);
+			// 胸部
+			Vector3 normalizeRot_OR = BrestObject.transform.rotation.eulerAngles;
+			// 本体と胸部と矢の補正値分回転角度を合成
+			Vector3 addrot = mainrot.eulerAngles;
+			Quaternion qua = Quaternion.Euler(addrot);
+			// forwardをかけて本体と胸部の和を進行方向ベクトルへ変換                
+			Vector3 normalizeRot = (qua) * Vector3.forward;
+			// 移動ベクトルを確定する
+			arrow.MoveDirection = Vector3.Normalize(normalizeRot);
+		}
+		// ロックオンしているとき
+		else if (GetIsRockon())
+		{
+			// ロックオン対象の座標を取得
+			var target = GetComponentInChildren<Player_Camera_Controller>();
+			// 対象の座標を取得
+			Vector3 targetpos = target.Enemy.transform.position;
+			// 本体の回転角度を拾う
+			Quaternion mainrot = Quaternion.LookRotation(targetpos - this.transform.position);
+			// 正規化して代入する
+			Vector3 normalizeRot = mainrot * Vector3.forward;
+
+			// チャージ射撃の弾丸
+			arrow.MoveDirection = Vector3.Normalize(normalizeRot);
+		}
+		// ロックオンしていないとき
+		else
+		{
+			// 本体角度が0の場合カメラの方向を射出角とし、正規化して代入する
+			if (transform.rotation.eulerAngles == Vector3.zero)
+			{
+				// ただしそのままだとカメラが下を向いているため、一旦その分は補正する
+				Quaternion rotateOR = MainCamera.transform.rotation;
+				Vector3 rotateOR_E = rotateOR.eulerAngles;
+				rotateOR_E.x = 0;
+				rotateOR = Quaternion.Euler(rotateOR_E);
+
+				// チャージ射撃の弾丸
+				if (arrow != null)
+				{
+					arrow.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+				}
+			}
+			// それ以外は本体の角度を射出角にする
+			else
+			{
+				// チャージ射撃の弾丸
+				arrow.MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
+			}
+		}
+		// 弾丸の向きを合わせる
+		arrow.transform.rotation = transform.rotation;
+
+		// 矢の移動ベクトルを代入する
+		BulletMoveDirection = arrow.MoveDirection;
+
+		// 攻撃力を代入する
+		// 攻撃力を決定する(ここの2がスキルのインデックス。下も同様）
+		OffensivePowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[1].OriginalStr + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[1].GrowthCoefficientStr * (StrLevel - 1);
+		// ダウン値を決定する
+		DownratioPowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[1].DownPoint;
+		// 覚醒ゲージ増加量を決定する
+		ArousalRatioOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[1].Arousal;
+		// 対ブースト攻撃力を決定する
+		AntiBoostOffensivePowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[1].AntiBoostStr;
+
+		// 射出音再生
+		AudioManager.Instance.PlaySE("gunshot");
+
+		// マズルフラッシュを再生
+		MuzzleFlashDone(ChargeShotRoot);
 	}
 
 	/// <summary>
-	/// チャージ射撃射出（アニメーションの射出フレームにインポートする）
+	/// サブ射撃の弾丸を装填する
 	/// </summary>
-	public void ChargeShotShooting()
+	public void ShootloadSubshot()
 	{
-		// チャージ射撃の弾丸（通常射撃の弾丸と共通）
-		var arrow = GetComponentInChildren<HomuraGunNormalShot>();
+		// 弾があるとき限定
+		if (BulletNum[2] > 0)
+		{
+			// ロックオン時本体の方向を相手に向ける       
+			if (GetIsRockon())
+			{
+				RotateToTarget();
+			}
+			// 弾を消費する
+			BulletNum[2]--;
+
+			// 弾丸の出現ポジションをフックと一致させる
+			Vector3 pos = MainShotRoot.transform.position;
+			Quaternion rot = Quaternion.Euler(SubshotRoot.transform.rotation.eulerAngles.x, SubshotRoot.transform.rotation.eulerAngles.y, SubshotRoot.transform.rotation.eulerAngles.z);
+			// 弾丸を出現させる			
+			GameObject obj = Instantiate(SubShotBullet, pos, rot);
+
+			// 親子関係を再設定する(=弾丸をフックの子にする）
+			if (obj.transform.parent == null)
+			{
+				obj.transform.parent = SubshotRoot.transform;
+				// 弾丸の親子関係を付けておく
+				obj.transform.GetComponent<Rigidbody>().isKinematic = true;
+			}
+
+			// 残段数が0の場合リロード開始
+			if(BulletNum[2] == 0)
+			{
+				SubshotEndtime = Time.time;
+			}
+		}
+	}
+
+	/// <summary>
+	/// サブ射撃の弾丸を発射する
+	/// </summary>
+	public void ShootSubShot()
+	{
+		// サブ射撃の弾丸
+		var arrow = GetComponentInChildren<HomuraGunSubShot>();
 
 		if (arrow != null)
 		{
-			// 弾丸のスクリプトの速度を設定する
+			// 矢のスクリプトの速度を設定する
 			// メイン弾速設定
-			arrow.ShotSpeed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[1].MoveSpeed;
+			arrow.ShotSpeed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[2].MoveSpeed;
 
-			// 弾丸の方向を決定する(本体と同じ方向に向けて打ち出す。ただしノーロックで本体の向きが0のときはベクトルが0になるので、このときだけはカメラの方向に飛ばす）
+			// 矢の方向を決定する(本体と同じ方向に向けて打ち出す。ただしノーロックで本体の向きが0のときはベクトルが0になるので、このときだけはカメラの方向に飛ばす）
 			if (GetIsRockon() && RunShotDone)
 			{
 				// ロックオン対象の座標を取得
@@ -1251,7 +1579,7 @@ public class HomuraGunControl : CharacterControlBase
 				// 正規化して代入する
 				Vector3 normalizeRot = mainrot * Vector3.forward;
 
-				// チャージ射撃の弾丸
+				
 				arrow.MoveDirection = Vector3.Normalize(normalizeRot);
 			}
 			// ロックオンしていないとき
@@ -1266,7 +1594,6 @@ public class HomuraGunControl : CharacterControlBase
 					rotateOR_E.x = 0;
 					rotateOR = Quaternion.Euler(rotateOR_E);
 
-					// チャージ射撃の弾丸
 					if (arrow != null)
 					{
 						arrow.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
@@ -1275,13 +1602,11 @@ public class HomuraGunControl : CharacterControlBase
 				// それ以外は本体の角度を射出角にする
 				else
 				{
-					// チャージ射撃の弾丸
 					arrow.MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
 				}
 			}
 			// 弾丸の向きを合わせる
 			arrow.transform.rotation = transform.rotation;
-			Debug.Log(arrow.transform.rotation.eulerAngles);
 
 			// 矢の移動ベクトルを代入する
 			// 通常射撃
@@ -1293,11 +1618,13 @@ public class HomuraGunControl : CharacterControlBase
 
 			// 攻撃力を代入する
 			// 攻撃力を決定する(ここの2がスキルのインデックス。下も同様）
-			OffensivePowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[1].OriginalStr + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[1].GrowthCoefficientStr * (StrLevel - 1);
+			OffensivePowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[2].OriginalStr + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[2].GrowthCoefficientStr * (StrLevel - 1);
 			// ダウン値を決定する
-			DownratioPowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[1].DownPoint;
+			DownratioPowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[2].DownPoint;
 			// 覚醒ゲージ増加量を決定する
-			ArousalRatioOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[1].Arousal;
+			ArousalRatioOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[2].Arousal;
+			// 対ブースト攻撃力を決定する
+			AntiBoostOffensivePowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[2].AntiBoostStr;
 
 			Shotmode = ShotMode.SHOT;
 
@@ -1308,10 +1635,1005 @@ public class HomuraGunControl : CharacterControlBase
 
 			// 硬直時間を設定
 			AttackTime = Time.time;
-
-			// 射出音再生
-			AudioManager.Instance.PlaySE("gunshot");
+			// 射出音を再生する
+			AudioManager.Instance.PlaySE("shot_bazooka");
+		}
+		// 弾がないときはとりあえずフラグだけは立てておく
+		else
+		{
+			// 硬直時間を設定
+			AttackTime = Time.time;
+			Shotmode = ShotMode.SHOTDONE;
 		}
 
+		// フォロースルーへ移行する
+		AnimatorUnit.Play("subshotft");
+	}
+
+	/// <summary>
+	/// サブ射撃派生の弾丸を装填する
+	/// </summary>
+	public void ShootLoadSubShotDerive()
+	{
+		// 弾丸を消費する
+		SubShotDeriveBulletNum = 0;
+		// ロックオン時本体の方向を相手に向ける       
+		if (GetIsRockon())
+		{
+			RotateToTarget();
+		}
+		// 弾丸の出現ポジションをフックと一致させる
+		Vector3 pos = SubshotDeriveRoot.transform.position;
+		Quaternion rot = Quaternion.Euler(SubshotDeriveRoot.transform.rotation.eulerAngles.x, SubshotDeriveRoot.transform.rotation.eulerAngles.y, SubshotDeriveRoot.transform.rotation.eulerAngles.z);
+		// 弾丸を出現させる			
+		GameObject obj = Instantiate(SubShotDeriveBullet, pos, rot);
+
+		// 親子関係を再設定する(=弾丸をフックの子にする）
+		if (obj.transform.parent == null)
+		{
+			obj.transform.parent = SubshotRoot.transform;
+			// 弾丸の親子関係を付けておく
+			obj.transform.GetComponent<Rigidbody>().isKinematic = true;
+		}
+	}
+	
+	/// <summary>
+	/// サブ射撃派生の弾丸を発射する
+	/// </summary>
+	public void ShootSubShotDerive()
+	{
+		// サブ射撃の弾丸
+		var arrow = GetComponentInChildren<HomuraGunSubShotDerive>();
+
+		if (arrow != null)
+		{
+			// 矢のスクリプトの速度を設定する
+			// メイン弾速設定
+			arrow.ShotSpeed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[3].MoveSpeed;
+
+			// 矢の方向を決定する(本体と同じ方向に向けて打ち出す。ただしノーロックで本体の向きが0のときはベクトルが0になるので、このときだけはカメラの方向に飛ばす）
+			if (GetIsRockon() && RunShotDone)
+			{
+				// ロックオン対象の座標を取得
+				var target = GetComponentInChildren<Player_Camera_Controller>();
+				// 対象の座標を取得
+				Vector3 targetpos = target.Enemy.transform.position;
+				// 補正値込みの胸部と本体の回転ベクトルを取得
+				// 本体
+				Quaternion mainrot = Quaternion.LookRotation(targetpos - this.transform.position);
+				// 胸部
+				Vector3 normalizeRot_OR = BrestObject.transform.rotation.eulerAngles;
+				// 本体と胸部と矢の補正値分回転角度を合成
+				Vector3 addrot = mainrot.eulerAngles;
+				Quaternion qua = Quaternion.Euler(addrot);
+				// forwardをかけて本体と胸部の和を進行方向ベクトルへ変換                
+				Vector3 normalizeRot = (qua) * Vector3.forward;
+				// 移動ベクトルを確定する
+				arrow.MoveDirection = Vector3.Normalize(normalizeRot);
+			}
+			// ロックオンしているとき
+			else if (GetIsRockon())
+			{
+				// ロックオン対象の座標を取得
+				var target = GetComponentInChildren<Player_Camera_Controller>();
+				// 対象の座標を取得
+				Vector3 targetpos = target.Enemy.transform.position;
+				// 本体の回転角度を拾う
+				Quaternion mainrot = Quaternion.LookRotation(targetpos - this.transform.position);
+				// 正規化して代入する
+				Vector3 normalizeRot = mainrot * Vector3.forward;
+
+
+				arrow.MoveDirection = Vector3.Normalize(normalizeRot);
+			}
+			// ロックオンしていないとき
+			else
+			{
+				// 本体角度が0の場合カメラの方向を射出角とし、正規化して代入する
+				if (transform.rotation.eulerAngles == Vector3.zero)
+				{
+					// ただしそのままだとカメラが下を向いているため、一旦その分は補正する
+					Quaternion rotateOR = MainCamera.transform.rotation;
+					Vector3 rotateOR_E = rotateOR.eulerAngles;
+					rotateOR_E.x = 0;
+					rotateOR = Quaternion.Euler(rotateOR_E);
+
+					if (arrow != null)
+					{
+						arrow.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+					}
+				}
+				// それ以外は本体の角度を射出角にする
+				else
+				{
+					arrow.MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
+				}
+			}
+			// 弾丸の向きを合わせる
+			arrow.transform.rotation = transform.rotation;
+
+			// 矢の移動ベクトルを代入する
+			// 通常射撃
+			if (arrow != null)
+			{
+				BulletMoveDirection = arrow.MoveDirection;
+			}
+
+
+			// 攻撃力を代入する
+			// 攻撃力を決定する(ここの2がスキルのインデックス。下も同様）
+			OffensivePowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[3].OriginalStr + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[3].GrowthCoefficientStr * (StrLevel - 1);
+			// ダウン値を決定する
+			DownratioPowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[3].DownPoint;
+			// 覚醒ゲージ増加量を決定する
+			ArousalRatioOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[3].Arousal;
+			// 対ブースト攻撃力を決定する
+			AntiBoostOffensivePowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[3].AntiBoostStr;
+
+			Shotmode = ShotMode.SHOT;
+
+			// 固定状態を解除
+			// ずれた本体角度を戻す(Yはそのまま）
+			transform.rotation = Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y, 0));
+			transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+
+			// 硬直時間を設定
+			AttackTime = Time.time;
+			// 射出音を再生する
+			AudioManager.Instance.PlaySE("shot_bazooka");
+		}
+		// 弾がないときはとりあえずフラグだけは立てておく
+		else
+		{
+			// 硬直時間を設定
+			AttackTime = Time.time;
+			Shotmode = ShotMode.SHOTDONE;
+		}
+
+		// フォロースルーへ移行する
+		AnimatorUnit.Play("subshotderiveft");
+	}
+
+	/// <summary>
+	/// 格闘攻撃終了後、派生を行う
+	/// </summary>
+	/// <param name="nextmotion"></param>
+	public void WrestleFinish(int nextmotion)
+	{
+		// 判定オブジェクトを全て破棄
+		DestroyWrestle();
+		// 格闘の累積時間を初期化
+		Wrestletime = 0;
+		// 派生入力があった場合は派生する
+		if (AddInput)
+		{
+			// N格闘２段目派生
+			if (nextmotion == 0)
+			{
+				WrestleDone(AnimatorUnit, 7, "wrestle2");
+			}
+			// N格闘３段目派生
+			else if (nextmotion == 1)
+			{
+				WrestleDone(AnimatorUnit, 8, "wrestle3");
+			}
+		}
+		// なかったら戻す
+		else
+		{
+			ReturnToIdle();
+		}
+	}
+
+	/// <summary>
+	/// N格闘1段目実行時、キャンセルや派生の入力を受け取る
+	/// </summary>
+	/// <param name="animator"></param>
+	/// <param name="frontStepIndex"></param>
+	/// <param name="leftStepIndex"></param>
+	/// <param name="rightStepIndex"></param>
+	/// <param name="backStepIndex"></param>
+	/// <param name="airdashIndex"></param>
+	protected override void Wrestle1(Animator animator, int frontStepIndex, int leftStepIndex, int rightStepIndex, int backStepIndex, int airdashIndex)
+	{
+		base.Wrestle1(animator, frontStepIndex, leftStepIndex, rightStepIndex, backStepIndex, airdashIndex);
+		// 追加入力受け取り
+		if (HasWrestleInput)
+		{
+			AddInput = true;
+		}
+	}
+
+	/// <summary>
+	/// N格闘2段目実行時、キャンセルや派生の入力を受け取る
+	/// </summary>
+	/// <param name="animator"></param>
+	/// <param name="frontStepIndex"></param>
+	/// <param name="leftStepIndex"></param>
+	/// <param name="rightStepIndex"></param>
+	/// <param name="backStepIndex"></param>
+	/// <param name="airdashIndex"></param>
+	protected override void Wrestle2(Animator animator, int frontStepIndex, int leftStepIndex, int rightStepIndex, int backStepIndex, int airdashIndex)
+	{
+		base.Wrestle2(animator, frontStepIndex, leftStepIndex, rightStepIndex, backStepIndex, airdashIndex);
+		// 追加入力受け取り
+		if (HasWrestleInput)
+		{
+			AddInput = true;
+		}
+	}
+
+	/// <summary>
+	/// 横格闘・格闘CS時、手榴弾を取り出す
+	/// </summary>
+	public void SideWrestleLoad()
+	{
+		// ロックオン時本体の方向を相手に向ける       
+		if (GetIsRockon())
+		{
+			RotateToTarget();
+		}
+		// 弾丸の出現ポジションをフックと一致させる
+		Vector3 pos = SideWrestleRoot.transform.position;
+		Quaternion rot = Quaternion.Euler(SideWrestleRoot.transform.rotation.eulerAngles.x, SideWrestleRoot.transform.rotation.eulerAngles.y, SideWrestleRoot.transform.rotation.eulerAngles.z);
+		// 弾丸を出現させる			
+		GameObject obj = Instantiate(SideWrestleBullet, pos, rot);
+
+		// 親子関係を再設定する(=弾丸をフックの子にする）
+		if (obj.transform.parent == null)
+		{
+			obj.transform.parent = SubshotRoot.transform;
+			// 弾丸の親子関係を付けておく
+			obj.transform.GetComponent<Rigidbody>().isKinematic = true;
+		}
+	}
+
+	/// <summary>
+	/// 横格闘時、手榴弾を発射する
+	/// </summary>
+	public void SideWrestleShoot()
+	{
+		// 横格闘の弾丸
+		var arrow = GetComponentInChildren<HomuraGunSideWrestle>();
+
+		if (arrow != null)
+		{
+			// 矢のスクリプトの速度を設定する
+			// メイン弾速設定
+			arrow.ShotSpeed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[10].MoveSpeed;
+
+			// 矢の方向を決定する(本体と同じ方向に向けて打ち出す。ただしノーロックで本体の向きが0のときはベクトルが0になるので、このときだけはカメラの方向に飛ばす）
+			if (GetIsRockon() && RunShotDone)
+			{
+				// ロックオン対象の座標を取得
+				var target = GetComponentInChildren<Player_Camera_Controller>();
+				// 対象の座標を取得
+				Vector3 targetpos = target.Enemy.transform.position;
+				// 補正値込みの胸部と本体の回転ベクトルを取得
+				// 本体
+				Quaternion mainrot = Quaternion.LookRotation(targetpos - this.transform.position);
+				// 胸部
+				Vector3 normalizeRot_OR = BrestObject.transform.rotation.eulerAngles;
+				// 本体と胸部と矢の補正値分回転角度を合成
+				Vector3 addrot = mainrot.eulerAngles;
+				Quaternion qua = Quaternion.Euler(addrot);
+				// forwardをかけて本体と胸部の和を進行方向ベクトルへ変換                
+				Vector3 normalizeRot = (qua) * Vector3.forward;
+				// 移動ベクトルを確定する
+				arrow.MoveDirection = Vector3.Normalize(normalizeRot);
+			}
+			// ロックオンしているとき
+			else if (GetIsRockon())
+			{
+				// ロックオン対象の座標を取得
+				var target = GetComponentInChildren<Player_Camera_Controller>();
+				// 対象の座標を取得
+				Vector3 targetpos = target.Enemy.transform.position;
+				// 本体の回転角度を拾う
+				Quaternion mainrot = Quaternion.LookRotation(targetpos - this.transform.position);
+				// 正規化して代入する
+				Vector3 normalizeRot = mainrot * Vector3.forward;
+
+
+				arrow.MoveDirection = Vector3.Normalize(normalizeRot);
+			}
+			// ロックオンしていないとき
+			else
+			{
+				// 本体角度が0の場合カメラの方向を射出角とし、正規化して代入する
+				if (transform.rotation.eulerAngles == Vector3.zero)
+				{
+					// ただしそのままだとカメラが下を向いているため、一旦その分は補正する
+					Quaternion rotateOR = MainCamera.transform.rotation;
+					Vector3 rotateOR_E = rotateOR.eulerAngles;
+					rotateOR_E.x = 0;
+					rotateOR = Quaternion.Euler(rotateOR_E);
+
+					if (arrow != null)
+					{
+						arrow.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+					}
+				}
+				// それ以外は本体の角度を射出角にする
+				else
+				{
+					arrow.MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
+				}
+			}
+			// 弾丸の向きを合わせる
+			arrow.transform.rotation = transform.rotation;
+
+			// 矢の移動ベクトルを代入する
+			// 通常射撃
+			if (arrow != null)
+			{
+				BulletMoveDirection = arrow.MoveDirection;
+			}
+
+
+			// 攻撃力を代入する
+			// 攻撃力を決定する(ここの2がスキルのインデックス。下も同様）
+			OffensivePowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[10].OriginalStr + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[10].GrowthCoefficientStr * (StrLevel - 1);
+			// ダウン値を決定する
+			DownratioPowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[10].DownPoint;
+			// 覚醒ゲージ増加量を決定する
+			ArousalRatioOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[10].Arousal;
+			// 対ブースト攻撃力を決定する
+			AntiBoostOffensivePowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[10].AntiBoostStr;
+
+			Shotmode = ShotMode.SHOT;
+
+			// 固定状態を解除
+			// ずれた本体角度を戻す(Yはそのまま）
+			transform.rotation = Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y, 0));
+			transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+
+			// 硬直時間を設定
+			AttackTime = Time.time;
+			// 射出音を再生する
+			AudioManager.Instance.PlaySE("other_trash_001_001");
+		}
+		// 弾がないときはとりあえずフラグだけは立てておく
+		else
+		{
+			// 硬直時間を設定
+			AttackTime = Time.time;
+			Shotmode = ShotMode.SHOTDONE;
+		}
+
+		// フォロースルーへ移行する
+		AnimatorUnit.Play("sidewrestleft");
+	}
+
+	/// <summary>
+	/// チャージ格闘時、手榴弾を発射する
+	/// </summary>
+	public void ChargeWrestleShoot()
+	{
+		// チャージ格闘の弾丸(横格闘と共通）
+		var arrow = GetComponentInChildren<HomuraGunSideWrestle>();
+
+		if (arrow != null)
+		{
+			// 矢のスクリプトの速度を設定する
+			// メイン弾速設定
+			arrow.ShotSpeed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[4].MoveSpeed;
+
+			// 矢の方向を決定する(本体と同じ方向に向けて打ち出す。ただしノーロックで本体の向きが0のときはベクトルが0になるので、このときだけはカメラの方向に飛ばす）
+			if (GetIsRockon() && RunShotDone)
+			{
+				// ロックオン対象の座標を取得
+				var target = GetComponentInChildren<Player_Camera_Controller>();
+				// 対象の座標を取得
+				Vector3 targetpos = target.Enemy.transform.position;
+				// 補正値込みの胸部と本体の回転ベクトルを取得
+				// 本体
+				Quaternion mainrot = Quaternion.LookRotation(targetpos - this.transform.position);
+				// 胸部
+				Vector3 normalizeRot_OR = BrestObject.transform.rotation.eulerAngles;
+				// 本体と胸部と矢の補正値分回転角度を合成
+				Vector3 addrot = mainrot.eulerAngles;
+				Quaternion qua = Quaternion.Euler(addrot);
+				// forwardをかけて本体と胸部の和を進行方向ベクトルへ変換                
+				Vector3 normalizeRot = (qua) * Vector3.forward;
+				// 移動ベクトルを確定する
+				arrow.MoveDirection = Vector3.Normalize(normalizeRot);
+			}
+			// ロックオンしているとき
+			else if (GetIsRockon())
+			{
+				// ロックオン対象の座標を取得
+				var target = GetComponentInChildren<Player_Camera_Controller>();
+				// 対象の座標を取得
+				Vector3 targetpos = target.Enemy.transform.position;
+				// 本体の回転角度を拾う
+				Quaternion mainrot = Quaternion.LookRotation(targetpos - this.transform.position);
+				// 正規化して代入する
+				Vector3 normalizeRot = mainrot * Vector3.forward;
+
+
+				arrow.MoveDirection = Vector3.Normalize(normalizeRot);
+			}
+			// ロックオンしていないとき
+			else
+			{
+				// 本体角度が0の場合カメラの方向を射出角とし、正規化して代入する
+				if (transform.rotation.eulerAngles == Vector3.zero)
+				{
+					// ただしそのままだとカメラが下を向いているため、一旦その分は補正する
+					Quaternion rotateOR = MainCamera.transform.rotation;
+					Vector3 rotateOR_E = rotateOR.eulerAngles;
+					rotateOR_E.x = 0;
+					rotateOR = Quaternion.Euler(rotateOR_E);
+
+					if (arrow != null)
+					{
+						arrow.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+					}
+				}
+				// それ以外は本体の角度を射出角にする
+				else
+				{
+					arrow.MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
+				}
+			}
+			// 弾丸の向きを合わせる
+			arrow.transform.rotation = transform.rotation;
+
+			// 矢の移動ベクトルを代入する
+			// 通常射撃
+			if (arrow != null)
+			{
+				BulletMoveDirection = arrow.MoveDirection;
+			}
+
+
+			// 攻撃力を代入する
+			// 攻撃力を決定する(ここの2がスキルのインデックス。下も同様）
+			OffensivePowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[4].OriginalStr + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[4].GrowthCoefficientStr * (StrLevel - 1);
+			// ダウン値を決定する
+			DownratioPowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[4].DownPoint;
+			// 覚醒ゲージ増加量を決定する
+			ArousalRatioOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[4].Arousal;
+			// 対ブースト攻撃力を決定する
+			AntiBoostOffensivePowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[4].AntiBoostStr;
+
+			Shotmode = ShotMode.SHOT;
+
+			// 固定状態を解除
+			// ずれた本体角度を戻す(Yはそのまま）
+			transform.rotation = Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y, 0));
+			transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+
+			// 硬直時間を設定
+			AttackTime = Time.time;
+			// 射出音を再生する
+			AudioManager.Instance.PlaySE("other_trash_001_001");
+		}
+		// 弾がないときはとりあえずフラグだけは立てておく
+		else
+		{
+			// 硬直時間を設定
+			AttackTime = Time.time;
+			Shotmode = ShotMode.SHOTDONE;
+		}
+	}
+
+
+	/// <summary>
+	/// 前格闘時、タンクローリーを取り出す
+	/// </summary>
+	public void FrontWrestleLoad()
+	{
+		// 弾があるとき限定
+		if (BulletNum[14] > 0)
+		{
+			// ロックオン時本体の方向を相手に向ける       
+			if (GetIsRockon())
+			{
+				RotateToTarget();
+			}
+			// 弾を消費する
+			BulletNum[14]--;
+
+			// 弾丸の出現ポジションをフックと一致させる
+			Vector3 pos = FrontWrestleRoot.transform.position;
+			Quaternion rot = Quaternion.Euler(FrontWrestleRoot.transform.rotation.eulerAngles.x, FrontWrestleRoot.transform.rotation.eulerAngles.y, FrontWrestleRoot.transform.rotation.eulerAngles.z);
+			// 弾丸を出現させる			
+			GameObject obj = Instantiate(FrontWrestleBullet, pos, rot);
+
+			// 親子関係を再設定する(=弾丸をフックの子にする）
+			if (obj.transform.parent == null)
+			{
+				obj.transform.parent = FrontWrestleRoot.transform;
+				// 弾丸の親子関係を付けておく
+				obj.transform.GetComponent<Rigidbody>().isKinematic = true;
+			}
+
+			// 残段数が0の場合リロード開始
+			if (BulletNum[14] == 0)
+			{
+				FrontWrestleEndTime = Time.time;
+			}
+		}
+	}
+
+	/// <summary>
+	/// 前格闘の弾丸を発射する
+	/// </summary>
+	public void FrontWrestleShoot()
+	{
+		// 前格闘の弾丸
+		var arrow = GetComponentInChildren<HomuraGunFrontWrestle>();
+
+		if (arrow != null)
+		{
+			// 矢のスクリプトの速度を設定する
+			// メイン弾速設定
+			arrow.ShotSpeed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[14].MoveSpeed;
+
+			// 矢の方向を決定する(本体と同じ方向に向けて打ち出す。ただしノーロックで本体の向きが0のときはベクトルが0になるので、このときだけはカメラの方向に飛ばす）
+			if (GetIsRockon() && RunShotDone)
+			{
+				// ロックオン対象の座標を取得
+				var target = GetComponentInChildren<Player_Camera_Controller>();
+				// 対象の座標を取得
+				Vector3 targetpos = target.Enemy.transform.position;
+				// 補正値込みの胸部と本体の回転ベクトルを取得
+				// 本体
+				Quaternion mainrot = Quaternion.LookRotation(targetpos - this.transform.position);
+				// 胸部
+				Vector3 normalizeRot_OR = BrestObject.transform.rotation.eulerAngles;
+				// 本体と胸部と矢の補正値分回転角度を合成
+				Vector3 addrot = mainrot.eulerAngles;
+				Quaternion qua = Quaternion.Euler(addrot);
+				// forwardをかけて本体と胸部の和を進行方向ベクトルへ変換                
+				Vector3 normalizeRot = (qua) * Vector3.forward;
+				// 移動ベクトルを確定する
+				arrow.MoveDirection = Vector3.Normalize(normalizeRot);
+			}
+			// ロックオンしているとき
+			else if (GetIsRockon())
+			{
+				// ロックオン対象の座標を取得
+				var target = GetComponentInChildren<Player_Camera_Controller>();
+				// 対象の座標を取得
+				Vector3 targetpos = target.Enemy.transform.position;
+				// 本体の回転角度を拾う
+				Quaternion mainrot = Quaternion.LookRotation(targetpos - this.transform.position);
+				// 正規化して代入する
+				Vector3 normalizeRot = mainrot * Vector3.forward;
+
+
+				arrow.MoveDirection = Vector3.Normalize(normalizeRot);
+			}
+			// ロックオンしていないとき
+			else
+			{
+				// 本体角度が0の場合カメラの方向を射出角とし、正規化して代入する
+				if (transform.rotation.eulerAngles == Vector3.zero)
+				{
+					// ただしそのままだとカメラが下を向いているため、一旦その分は補正する
+					Quaternion rotateOR = MainCamera.transform.rotation;
+					Vector3 rotateOR_E = rotateOR.eulerAngles;
+					rotateOR_E.x = 0;
+					rotateOR = Quaternion.Euler(rotateOR_E);
+
+					if (arrow != null)
+					{
+						arrow.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+					}
+				}
+				// それ以外は本体の角度を射出角にする
+				else
+				{
+					arrow.MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
+				}
+			}
+			// 弾丸の向きを合わせる
+			arrow.transform.rotation = transform.rotation;
+
+			// 矢の移動ベクトルを代入する
+			// 通常射撃
+			if (arrow != null)
+			{
+				BulletMoveDirection = arrow.MoveDirection;
+			}
+
+
+			// 攻撃力を代入する
+			// 攻撃力を決定する(ここの2がスキルのインデックス。下も同様）
+			OffensivePowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[14].OriginalStr + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[14].GrowthCoefficientStr * (StrLevel - 1);
+			// ダウン値を決定する
+			DownratioPowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[14].DownPoint;
+			// 覚醒ゲージ増加量を決定する
+			ArousalRatioOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[14].Arousal;
+			// 対ブースト攻撃力を決定する
+			AntiBoostOffensivePowerOfBullet = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[14].AntiBoostStr;
+
+			Shotmode = ShotMode.SHOT;
+
+			// 固定状態を解除
+			// ずれた本体角度を戻す(Yはそのまま）
+			transform.rotation = Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y, 0));
+			transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+
+			// 硬直時間を設定
+			AttackTime = Time.time;
+			// 射出音を再生する
+			AudioManager.Instance.PlaySE("truckStart");
+		}
+		// 弾がないときはとりあえずフラグだけは立てておく
+		else
+		{
+			// 硬直時間を設定
+			AttackTime = Time.time;
+			Shotmode = ShotMode.SHOTDONE;
+		}
+
+		// フォロースルーへ移行する
+		AnimatorUnit.Play("frontwrestleft");
+	}
+
+	/// <summary>
+	/// 時間停止開始
+	/// </summary>
+	public void TimeStopDone()
+	{
+		// フルチャージしていないと発動不可
+		if(BulletNum[5] < ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[5].GrowthCoefficientBul * (BulLevel - 1) + ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[5].OriginalBulletNum)
+		{
+			AnimatorUnit.Play("idle");
+			return;
+		}
+		AudioManager.Instance.PlaySE("reload");
+
+		// 時間停止実行
+		// ポーズコントローラーのインスタンスを取得
+		PauseControllerInputDetector pausecontroller2 = Pausecontroller.GetComponent<PauseManager>().AnyPauseController;
+		// 自分以外の時間を止める
+		pausecontroller2.ProcessButtonPress();
+
+		// 画面を灰色にする
+		GrayScale2.enabled = true;
+
+		// カウンタを減少開始する
+		EnableEXShotCounter = true;
+	}
+
+	/// <summary>
+	/// 前特殊格闘を実行する
+	/// </summary>
+	/// <param name="animator"></param>
+	/// <param name="skillindex"></param>
+	public void FrontEXWrestleDone(Animator animator, int skillindex)
+	{
+		// 追加入力フラグをカット
+		AddInput = false;
+		// 移動速度（上方向に垂直上昇する）
+
+		// アニメーション速度
+		animator.speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillindex].AnimSpeed;
+
+		// アニメーションを再生する
+		animator.Play("frontexwrestle");
+	}
+
+	/// <summary>
+	/// 前特殊格闘
+	/// </summary>
+	/// <param name="animator"></param>
+	protected override void FrontExWrestle1(Animator animator, int fallIndex, int frontStepIndex, int leftStepIndex, int rightStepIndex, int backStepIndex, int airdashIndex)
+	{
+		base.FrontExWrestle1(animator, fallIndex, frontStepIndex, leftStepIndex, rightStepIndex, backStepIndex, airdashIndex);
+		Wrestletime += Time.deltaTime;
+		// レバー入力カットか特殊格闘入力カットで落下に移行する
+		if (ControllerManager.Instance.TopUp || ControllerManager.Instance.EXWrestleUp)
+		{
+			FallDone(Vector3.zero, animator, fallIndex);
+		}
+		// 移動速度（上方向に垂直上昇する）
+		float movespeed = 100.0f;
+
+		// 移動方向（移動目的のため、とりあえず垂直上昇させる）
+		MoveDirection = Vector3.Normalize(new Vector3(0, 1, 0));
+
+		// 移動速度を調整する
+		WrestlSpeed = movespeed;
+	}
+
+	/// <summary>
+	/// 後特殊格闘を実行する
+	/// </summary>
+	/// <param name="animator"></param>
+	/// <param name="skillindex"></param>
+	public void BackEXWrestleDone(Animator animator, int skillindex)
+	{
+		// 追加入力フラグをカット
+		AddInput = false;
+
+		// アニメーション速度
+		animator.speed = ParameterManager.Instance.Characterskilldata.sheets[(int)CharacterName].list[skillindex].AnimSpeed;
+
+		// アニメーションを再生する
+		animator.Play("backexwrestle");
+	}
+
+	/// <summary>
+	/// 後特殊格闘
+	/// </summary>
+	/// <param name="animator"></param>
+	protected override void BackExWrestle(Animator animator, int fallIndex, int landingIndex)
+	{
+		base.BackExWrestle(animator, fallIndex, landingIndex);
+		// レバー入力カットか特殊格闘入力カットで落下に移行する
+		if (ControllerManager.Instance.UnderUp || ControllerManager.Instance.EXWrestleUp)
+		{
+			FallDone(Vector3.zero, animator, fallIndex);
+		}
+		// 移動速度（上方向に垂直上昇する）
+		float movespeed = 100.0f;
+
+		// 移動方向（移動目的のため、とりあえず垂直下降させる）
+		MoveDirection = Vector3.Normalize(new Vector3(0, -1, 0));
+
+		// 移動速度を調整する
+		WrestlSpeed = movespeed;
+	}
+
+	/// <summary>
+	/// ファイナルマジック開始
+	/// </summary>
+	private void FinalMagicDone()
+	{
+		// 位置固定を行う
+		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+		AnimatorUnit.Play("finalmagic");
+	}
+
+	/// <summary>
+	/// ミサイルを装填する
+	/// </summary>
+	public void FinalMagicReload()
+	{
+		// ロックオン時本体の方向を相手に向ける       
+		if (GetIsRockon())
+		{
+			RotateToTarget();
+		}
+
+		// 弾丸の出現ポジションをフックと一致させる
+		Vector3 pos = FinalMagicRoot.transform.position;
+		Quaternion rot = Quaternion.Euler(FinalMagicRoot.transform.rotation.eulerAngles.x, FinalMagicRoot.transform.rotation.eulerAngles.y, FinalMagicRoot.transform.rotation.eulerAngles.z);
+		// 弾丸を出現させる			
+		GameObject obj = Instantiate(FinalMagicMissile, pos, rot);
+
+		// 親子関係を再設定する(=弾丸をフックの子にする）
+		if (obj.transform.parent == null)
+		{
+			obj.transform.parent = FinalMagicRoot.transform;
+			// 弾丸の親子関係を付けておく
+			obj.transform.GetComponent<Rigidbody>().isKinematic = true;
+		}
+
+		// ファイナルマジックの残弾を0にする
+		FinalMagicBullet = 0;
+	}
+
+	/// <summary>
+	/// ミサイルを発射する
+	/// </summary>
+	public void FinalMagicShoot()
+	{
+		// ミサイルのコンポーネント
+		var arrow = GetComponentInChildren<HomuraGunFinalMagic>();
+
+		if (arrow != null)
+		{
+			// 矢のスクリプトの速度を設定する
+			// 弾速設定
+			arrow.ShotSpeed = 85;
+
+			// 矢の方向を決定する(本体と同じ方向に向けて打ち出す。ただしノーロックで本体の向きが0のときはベクトルが0になるので、このときだけはカメラの方向に飛ばす）
+			if (GetIsRockon() && RunShotDone)
+			{
+				// ロックオン対象の座標を取得
+				var target = GetComponentInChildren<Player_Camera_Controller>();
+				// 対象の座標を取得
+				Vector3 targetpos = target.Enemy.transform.position;
+				// 補正値込みの胸部と本体の回転ベクトルを取得
+				// 本体
+				Quaternion mainrot = Quaternion.LookRotation(targetpos - this.transform.position);
+				// 胸部
+				Vector3 normalizeRot_OR = BrestObject.transform.rotation.eulerAngles;
+				// 本体と胸部と矢の補正値分回転角度を合成
+				Vector3 addrot = mainrot.eulerAngles;
+				Quaternion qua = Quaternion.Euler(addrot);
+				// forwardをかけて本体と胸部の和を進行方向ベクトルへ変換                
+				Vector3 normalizeRot = (qua) * Vector3.forward;
+				// 移動ベクトルを確定する
+				arrow.MoveDirection = Vector3.Normalize(normalizeRot);
+			}
+			// ロックオンしているとき
+			else if (GetIsRockon())
+			{
+				// ロックオン対象の座標を取得
+				var target = GetComponentInChildren<Player_Camera_Controller>();
+				// 対象の座標を取得
+				Vector3 targetpos = target.Enemy.transform.position;
+				// 本体の回転角度を拾う
+				Quaternion mainrot = Quaternion.LookRotation(targetpos - this.transform.position);
+				// 正規化して代入する
+				Vector3 normalizeRot = mainrot * Vector3.forward;
+
+
+				arrow.MoveDirection = Vector3.Normalize(normalizeRot);
+			}
+			// ロックオンしていないとき
+			else
+			{
+				// 本体角度が0の場合カメラの方向を射出角とし、正規化して代入する
+				if (transform.rotation.eulerAngles == Vector3.zero)
+				{
+					// ただしそのままだとカメラが下を向いているため、一旦その分は補正する
+					Quaternion rotateOR = MainCamera.transform.rotation;
+					Vector3 rotateOR_E = rotateOR.eulerAngles;
+					rotateOR_E.x = 0;
+					rotateOR = Quaternion.Euler(rotateOR_E);
+
+					if (arrow != null)
+					{
+						arrow.MoveDirection = Vector3.Normalize(rotateOR * Vector3.forward);
+					}
+				}
+				// それ以外は本体の角度を射出角にする
+				else
+				{
+					arrow.MoveDirection = Vector3.Normalize(transform.rotation * Vector3.forward);
+				}
+			}
+			// 弾丸の向きを合わせる
+			arrow.transform.rotation = transform.rotation;
+
+			// 矢の移動ベクトルを代入する
+			// 通常射撃
+			if (arrow != null)
+			{
+				BulletMoveDirection = arrow.MoveDirection;
+			}
+
+
+			// 攻撃力を代入する
+			// 攻撃力を決定する(ここの2がスキルのインデックス。下も同様）
+			OffensivePowerOfBullet = 300 + StrLevel * 5;
+			// ダウン値を決定する
+			DownratioPowerOfBullet = 1;
+			// 覚醒ゲージ増加量を決定する
+			ArousalRatioOfBullet = 0;
+			// 対ブースト攻撃力を決定する
+			AntiBoostOffensivePowerOfBullet = 300;
+			
+
+			// 固定状態を解除
+			// ずれた本体角度を戻す(Yはそのまま）
+			transform.rotation = Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y, 0));
+			transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+
+			Shotmode = ShotMode.SHOT;
+
+			// 硬直時間を設定
+			AttackTime = Time.time;
+			// 射出音を再生する
+			AudioManager.Instance.PlaySE("booster");
+		}
+		// 弾がないときはとりあえずフラグだけは立てておく
+		else
+		{
+			// 硬直時間を設定
+			AttackTime = Time.time;
+			Shotmode = ShotMode.SHOTDONE;
+		}
+	}
+
+	/// <summary>
+	/// キャンセルダッシュしたとき不要なオブジェクトを破棄する機能を追加
+	/// </summary>
+	/// <param name="animator"></param>
+	/// <param name="airDashInbdex"></param>
+	protected override void CancelDashDone(Animator animator, int airDashInbdex = 0)
+	{
+		BrokenBullets();
+		base.CancelDashDone(animator, airDashInbdex);
+	}
+
+	/// <summary>
+	/// ダメージを受けた時不要なオブジェクトを破棄する機能を追加
+	/// </summary>
+	/// <param name="animator"></param>
+	/// <param name="damageID"></param>
+	/// <param name="isBlow"></param>
+	/// <param name="blowID"></param>
+	/// <param name="spindownID"></param>
+	public override void DamageInit(Animator animator, int damageID, bool isBlow, int blowID, int spindownID)
+	{
+		BrokenBullets();
+		base.DamageInit(animator, damageID, isBlow, blowID, spindownID);
+	}
+
+	/// <summary>
+	/// キャンセルダッシュ・ダメージ時不要なオブジェクトを破棄する
+	/// </summary>
+	private void BrokenBullets()
+	{
+		// メイン射撃破棄
+		if(MainShotRoot != null && MainShotRoot.GetComponentInChildren<HomuraGunNormalShot>() != null)
+		{
+			var bullet = MainShotRoot.GetComponentInChildren<HomuraGunNormalShot>();
+
+			if(bullet != null)
+			{
+				Destroy(bullet.gameObject);
+			}
+		}
+
+		// サブ射撃破棄
+		if(SubshotRoot != null && SubshotRoot.GetComponentInChildren<HomuraGunSubShot>() != null)
+		{
+			var bullet = SubshotRoot.GetComponentInChildren<HomuraGunSubShot>();
+			if(bullet != null)
+			{
+				Destroy(bullet.gameObject);
+			}
+		}
+
+		// サブ射撃射撃派生破棄
+		if(SubshotDeriveRoot != null && SubshotDeriveRoot.GetComponentInChildren<HomuraGunSubShotDerive>() != null)
+		{
+			var bullet = SubshotDeriveRoot.GetComponentInChildren<HomuraGunSubShotDerive>();
+			if(bullet != null)
+			{
+				Destroy(bullet.gameObject);
+			}
+		}
+
+		// 射撃CS破棄
+		if(ChargeShotRoot != null && ChargeShotRoot.GetComponentInChildren<HomuraGunChargeShot>() != null)
+		{
+			var bullet = ChargeShotRoot.GetComponentInChildren<HomuraGunChargeShot>();
+			if (bullet != null)
+			{
+				Destroy(bullet.gameObject);
+			}
+		}
+
+		// 横格闘/格闘CS破棄
+		if(SideWrestleRoot != null && SideWrestleRoot.GetComponentInChildren<HomuraGunSideWrestle>() != null)
+		{
+			var bullet = SideWrestleRoot.GetComponentInChildren<HomuraGunSideWrestle>();
+			if (bullet != null)
+			{
+				Destroy(bullet.gameObject);
+			}
+		}
+
+		// 前格闘破棄
+		if(FrontWrestleRoot != null && FrontWrestleRoot.GetComponentInChildren<HomuraGunFrontWrestle>() != null)
+		{
+			var bullet = FrontWrestleRoot.GetComponentInChildren<HomuraGunFrontWrestle>();
+			if (bullet != null)
+			{
+				Destroy(bullet.gameObject);
+			}
+		}
+
+		// ファイナルマジック破棄
+		if(FinalMagicRoot != null && FinalMagicRoot.GetComponentInChildren<HomuraGunFinalMagic>() != null)
+		{
+			var bullet = FinalMagicRoot.GetComponentInChildren<HomuraGunFinalMagic>();
+			if (bullet != null)
+			{
+				Destroy(bullet.gameObject);
+			}
+		}
 	}
 }

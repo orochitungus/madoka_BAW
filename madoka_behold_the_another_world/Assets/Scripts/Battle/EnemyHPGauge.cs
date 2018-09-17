@@ -127,13 +127,9 @@ public class EnemyHPGauge : MonoBehaviour
 
 	public void GaugeGontroller(int maxHP, int nowHP, int overmaxhp, int starcount)
 	{
-		if (maxHP <= overmaxhp)
-		{
-			int max = maxHP - overmaxhp - 1000;
-			GaugeBG.fillAmount = (float)max / 1000;
-		}
-		int now = nowHP - overmaxhp - 1000;
+		int now = nowHP - overmaxhp + 1000;
 		Gauge.fillAmount = (float)now / 1000;
+		
 		for (int i = 0; i<OverHPGauge.Length; i++)
 		{
 			if (i < starcount)
