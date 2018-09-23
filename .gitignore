@@ -63,3 +63,4 @@ sysinfo.txt
 # Do not use AutoChangeCRLF for Windows
 autoCRLF = false
 madoka_behold_the_another_world/Assets/MMD4Mecanim/Editor/PMX2FBX/mecab.dll
+madoka_behold_the_another_world/.vs/madoka_behold_the_another_world/v15/Server/sqlite3/db.lock
