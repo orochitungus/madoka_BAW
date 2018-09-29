@@ -2991,7 +2991,7 @@ public class CharacterControlBase : MonoBehaviour
 	/// </summary>
 	/// <param name="animator"></param>
 	/// <param name="idleIndex">アイドルモーションのID</param>
-	protected virtual void FirstSetting(Animator animator,int idleIndex)
+	protected virtual void FirstSetting(Animator animator,int idleIndex = 0)
 	{
 		// CharacterControllerを取得
 		//this.m_charactercontroller = GetComponent<CharacterController>();
@@ -3218,7 +3218,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <param name="runid">走行時のID</param>
 	/// <param name="damageid">ダメージのID</param>
     /// <returns></returns>
-    protected bool Update_Core(bool isSpindown, Animator animator, int downid,int airdashid,int airshotid,int jumpingid, int fallid,int idleid,int blowid,int runid,int frontstepid,int leftstepid,int rightstepid,int backstepid,int damageid, int leftstepBackIndex, int rightstepBackIndex, int reversalIndex)
+    protected bool Update_Core(bool isSpindown, Animator animator, int downid = 0,int airdashid = 0,int airshotid = 0,int jumpingid = 0, int fallid = 0,int idleid = 0,int blowid = 0,int runid = 0,int frontstepid = 0,int leftstepid = 0,int rightstepid = 0,int backstepid = 0,int damageid = 0, int leftstepBackIndex = 0, int rightstepBackIndex = 0, int reversalIndex = 0)
     {
         // 接地判定
         IsGrounded = onGround2(isSpindown);
@@ -5259,7 +5259,7 @@ public class CharacterControlBase : MonoBehaviour
     /// <summary>
     /// Idle時共通操作
     /// </summary>
-    protected virtual void Animation_Idle(Animator animator,int downIndex, int runIndex, int airdashIndex, int jumpIndex, int frontstepIndex, int leftstepIndex, int rightstepIndex, int backstepIndex, int fallIndex)
+    protected virtual void Animation_Idle(Animator animator,int downIndex = 0, int runIndex = 0, int airdashIndex = 0, int jumpIndex = 0, int frontstepIndex = 0, int leftstepIndex = 0, int rightstepIndex = 0, int backstepIndex = 0, int fallIndex = 0)
     {
 		// ステップへの移行中だった場合何もしない(タイミングの問題でステップに切り替えてもステート変化が間に合わないことがある）
 		if (_StepStartTime != 0)
